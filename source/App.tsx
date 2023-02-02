@@ -25,6 +25,7 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
+console.log(process.env);
 
 
 function App(): JSX.Element {
