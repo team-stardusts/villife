@@ -3,6 +3,19 @@ apply plugin: "com.facebook.react"
 
 import com.android.build.OutputFile
 
+// The code block below was added by Seongbin Hong.
+
+project.ext.envConfigFiles = [
+    developdebug: "src/data/env/.env.develop",
+    developrelease: "src/data/env/.env.develop",
+    stagedebug: "src/data/env/.env.stage",
+    stagerelease: "src/data/env/.env.stage",
+    productdebug: "src/data/env/.env",
+    productrelease: "src/data/env/.env",
+    anothercustombuild: "src/data/env/.env"
+]
+// =================================================
+
 /**
  * This is the configuration block to customize your React Native Android app.
  * By default you don't need to apply any configuration, just uncomment the lines you need.
@@ -102,6 +115,23 @@ android {
         versionName "1.0"
     }
 
+    // The code block below was added by Seongbin Hong.
+    /*
+    flavorDimensions "version"
+    productFlavors {
+        develop {
+            dimension "version"
+        }
+        stage {
+            dimension "version"
+        }
+        product {
+            dimension "version"
+        }
+    }
+    */
+    // ================================================
+
     splits {
         abi {
             reset()
@@ -151,6 +181,9 @@ android {
 dependencies {
     // The version of react-native is set by the React Native Gradle Plugin
     implementation("com.facebook.react:react-android")
+    // The code block below was added by Seongbin Hong.
+    implementation project(':react-native-config')
+    // ================================================
 
     implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.0.0")
 
@@ -168,3 +201,7 @@ dependencies {
 }
 
 apply from: file("../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesAppBuildGradle(project)
+
+// The code block below was added by Seongbin Hong.
+apply from: project(':react-native-config').projectDir.getPath() + "/dotenv.gradle"
+// =================================================
