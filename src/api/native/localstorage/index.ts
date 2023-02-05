@@ -16,7 +16,7 @@ class LocalStorage implements ILocalStorage{
         try {
             const strVal: string = JSON.stringify(value);
             
-            await this.Storage.setItem(key, value);
+            await this.Storage.setItem(key, strVal);
         } 
         catch (e: any) {
             didSucceed = false;
