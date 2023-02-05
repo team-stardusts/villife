@@ -1,5 +1,5 @@
 import { Text, View } from "react-native";
-import useScreenMessage from "../../../hooks/screen_message";
+import useScreenMessage from "../../../hooks/internal/multilingual/hooks";
 
 
 export default function LoginScreen() {

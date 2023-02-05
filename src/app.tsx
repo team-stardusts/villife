@@ -7,7 +7,7 @@
 
 import React from 'react';
 //import Config from 'react-native-config';
-import { store } from './ducks/store';
+import { store } from './hooks/ducks/store';
 import { Provider } from 'react-redux';
 import ScreenRouter from './components/screen_router';
 

@@ -6,7 +6,7 @@ export const LANGUAGES: ScreenMessages.LANGUAGES = {
     EN: "english",
 }
 
-class ScreenMessage implements ScreenMessages.IMessages{
+class MultilingualMessage implements ScreenMessages.IMessages{
     readonly language: ScreenMessages.Languages;
     readonly messages: ScreenMessages.IMessagesByLanguage;
 
@@ -22,4 +22,4 @@ class ScreenMessage implements ScreenMessages.IMessages{
     }
 }
 
-export default ScreenMessage;
+export default MultilingualMessage;

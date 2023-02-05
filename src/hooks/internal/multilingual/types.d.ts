@@ -6,7 +6,6 @@ declare export namespace ScreenMessages {
 
     type Languages = LANGUAGES.KR | LANGUAGES.EN;
 
-    
     interface LANGUAGES {
         KR: "korean",
         EN: "english",
