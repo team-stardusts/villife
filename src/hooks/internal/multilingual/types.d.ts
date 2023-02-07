@@ -1,35 +1,38 @@
 declare export namespace ScreenMessages {
     interface IMessages {
         readonly language: Languages;
-        readonly messages: IMessagesByLanguage;
+        readonly messages: MessagesByLanguage;
     }
 
     type Languages = LANGUAGES.KR | LANGUAGES.EN;
 
-    interface LANGUAGES {
+    type LANGUAGES = {
         KR: "korean",
         EN: "english",
     };
 
-    interface IMessagesByLanguage {
-        readonly mainSM: MainScreensMessages;
-        readonly authSM: AuthScreensMessages;
-        readonly splashSM: SplashScreensMessages;
-    }
-    
-    interface MainScreensMessages {
-        home: {
+    type MessagesByLanguage = {
+        main: {
+            home: {
+                pageName: string;
+            },
+        },
+        auth: {
+            login: {
+                pageName: string;
+                request_login: {
+                    line_1: string;
+                    line_2: string;
+                }
+                title_of_id_input: string;
+                title_of_password_input: string;
+                title_of_login_btn: string;
+                join: string;
+                reset_password: string;
+            }
+        },
+        splash: {
             pageName: string;
         }
-    }
-    
-    interface AuthScreensMessages {
-        login: {
-            pageName: string;
-        }
-    }
-    
-    interface SplashScreensMessages {
-        pageName: string;
     }
 }

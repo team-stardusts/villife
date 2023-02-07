@@ -1,5 +1,5 @@
 import type { RootState } from '../../../../hooks/ducks/store';
-import { useAppSelector, useAppDispatch } from '../../../../hooks/ducks';
+import { useAppSelector, useAppDispatch } from '../../../../hooks/ducks/hooks';
 import { counterSlice } from '../../../../hooks/ducks/counter';
 import { Button, Text, View } from 'react-native';
 

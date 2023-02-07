@@ -1,4 +1,4 @@
-import LocalStorage from "../../api/native/localstorage";
+import LocalStorage from ".";
 
 export default function useLocalStorage(encryption: boolean): LocalStorage {
     return new LocalStorage(encryption);

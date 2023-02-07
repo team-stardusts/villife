@@ -1,4 +1,4 @@
-import Provider from "./abstract";
+import Provider from "../abstract";
 
 
 class LoginManager extends Provider{

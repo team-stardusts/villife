@@ -1,5 +1,5 @@
 import { ScreenMessages } from "./types";
-import Korean from "./languages/korean";
+import korean from "../../../data/languages/kr.json"
 
 export const LANGUAGES: ScreenMessages.LANGUAGES = {
     KR: "korean",
@@ -8,16 +8,16 @@ export const LANGUAGES: ScreenMessages.LANGUAGES = {
 
 class MultilingualMessage implements ScreenMessages.IMessages{
     readonly language: ScreenMessages.Languages;
-    readonly messages: ScreenMessages.IMessagesByLanguage;
+    readonly messages: ScreenMessages.MessagesByLanguage;
 
     constructor(language: ScreenMessages.Languages) {
         this.language = language;
         
         switch (language) {
             case LANGUAGES.KR:
-                this.messages = new Korean;
+                this.messages = korean;
             default:
-                this.messages = new Korean;
+                this.messages = korean;
         }
     }
 }
