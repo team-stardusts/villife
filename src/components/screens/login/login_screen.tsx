@@ -1,4 +1,5 @@
 import { SafeAreaView, Text, TextInput, View } from "react-native";
+import BasicTextInput from "../../atoms/textinput/basic_textinput";
 import useScreenMessage from "../../../hooks/internal/multilingual/hooks";
 
 
@@ -19,13 +20,13 @@ export default function LoginScreen() {
                 <Text>
                     {Messages.messages.auth.login.title_of_id_input}
                 </Text>
-                <TextInput />
+                <BasicTextInput onChangeText={(n, e) => console.log(n, e)}/>
             </View>
             <View>
                 <Text>
                     {Messages.messages.auth.login.title_of_password_input}
                 </Text>
-                <TextInput />
+                <BasicTextInput name="password"/>
             </View>
             <View>
                 <Text>

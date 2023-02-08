@@ -1,21 +1,12 @@
-interface ITheme {
-    colors: {
-        pallet: any;
+import ThemeTypes from "./types";
 
-    };
-    css: {
-
-    };
+export class LightTheme implements ThemeTypes.ITheme {
 }
 
-export class LightTheme {//implements ITheme{
+export class DarkTheme implements ThemeTypes.ITheme{
 }
 
-export class DarkTheme {//implements ITheme{
+export default class AppThemes implements ThemeTypes.IThemes {
+    readonly LightTheme = new LightTheme;
+    readonly DarkTheme = new DarkTheme;
 }
-
-class AppThemes {
-    
-}
-
-export default AppThemes
