@@ -6,7 +6,7 @@
     "android:develop:debug": "react-native run-android --variant=developdebug",
     "android:develop": "react-native run-android --variant=developrelease",
     "android:debug": "react-native run-android --variant=productdebug",
-    "android": "react-native run-android --variant=productrelease",
+    "android": "npx react-native run-android --variant=productrelease",
     "ios": "react-native run-ios",
     "lint": "eslint .",
     "start": "react-native start",

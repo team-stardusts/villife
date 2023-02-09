@@ -1,6 +1,6 @@
 import AppThemes from ".";
 import { UseAppThemeReturnType } from "./types";
-import { useColorScheme } from "react-native/types";
+import { useColorScheme } from "react-native";
 
 
 export default function useAppTheme(): UseAppThemeReturnType {
