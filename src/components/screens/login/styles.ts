@@ -2,6 +2,9 @@ import { StyleSheet } from "react-native";
 import useAppTheme from "../../../hooks/internal/themes/hooks";
 import useSystemInfo from "../../../hooks/internal/systeminfo/hooks";
 
+const Theme = useAppTheme();
+
+console.log(Theme.colors)
 
 const GreetingSection = StyleSheet.create({
     box: {
