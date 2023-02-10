@@ -1,4 +1,5 @@
 declare namespace ThemeTypes {
+    type test = "normal" | "italic" | undefined
     interface ITheme {
         colors: {
             pallet: any;
@@ -15,10 +16,9 @@ declare namespace ThemeTypes {
             }
         };
         css: {
-            fontFamily: {
+            font: {
                 universial: {
                     fontFamily: string;
-                    fontStyle: string;
                 }
         }
         };

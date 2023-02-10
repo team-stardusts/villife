@@ -17,10 +17,9 @@ export class LightTheme implements ThemeTypes.ITheme {
         }
     };
     readonly css = {
-        fontFamily: {
+        font: {
             universial: {
-                fontFamily: "Pretendard",
-                fontStyle: "normal",
+                fontFamily: "pretendard",
             }
         }
     }
@@ -30,6 +29,6 @@ export class LightTheme implements ThemeTypes.ITheme {
 //}
 
 export default class AppThemes implements ThemeTypes.IThemes {
-    readonly LightTheme = new LightTheme;
-    readonly DarkTheme = new LightTheme;
+    readonly LightTheme = new LightTheme();
+    readonly DarkTheme = new LightTheme();
 }
