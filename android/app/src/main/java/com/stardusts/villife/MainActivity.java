@@ -1,4 +1,4 @@
-package com.villife;
+package com.stardusts.villife;
 
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;

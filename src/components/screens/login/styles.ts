@@ -58,8 +58,10 @@ export default function useLoginScreenStyles(): LoginScreenTypes.LoginScreenStyl
         input: {
             backgroundColor: "white",
             height: SystemInfo.window.width * 0.08,
-            borderColor: Theme.colors.colorFamily.lightgrey,
-            borderWidth: SystemInfo.window.width * 0.002,
+            borderRadius: SystemInfo.window.width * 0.02,
+            margin: 0,
+            paddingVertical: SystemInfo.window.width * 0.01,
+            paddingHorizontal: SystemInfo.window.width * 0.02,
         },
         btnWrapper: {
             flex: 4,

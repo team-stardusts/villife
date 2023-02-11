@@ -9,6 +9,8 @@ import { testState } from "../../../hooks/states/atoms/test";
 import { useEffect, useState } from "react";
 import useSystemInfo from "../../../hooks/internal/systeminfo/hooks";
 import SocialLoginIcon from "../../block/icon/login_icon";
+import useAppTheme from "../../../hooks/internal/themes/hooks";
+import useKakaoLogin from "./kakaotest";
 
 
 type UserAuth = {
@@ -16,15 +18,42 @@ type UserAuth = {
     password: string | null,
 }
 
+type InputResponsibleStype = {
+    borderColor: string;
+    borderWidth: number;
+}
 
 export default function LoginScreen() {
-    const iconSize: number = useSystemInfo().window.width * 0.135;
+    // ==================================================================
+    // TEST
+    const Kakao = useKakaoLogin()
+    // ==================================================================
     const Messages = useScreenMessage("korean");
+    const Theme = useAppTheme();
+    const SystemInfo = useSystemInfo();
     const styles: LoginScreenTypes.LoginScreenStylesType = useLoginScreenStyles();
+    const iconDiameter: number = useSystemInfo().window.width * 0.135;
+    
+    const inputSelectedStyle: InputResponsibleStype = {
+        borderColor: Theme.colors.colorFamily.blue,
+        borderWidth: SystemInfo.window.width * 0.004,
+    }
+
+    const inputUnselectedStyle: InputResponsibleStype = {
+        borderColor: Theme.colors.colorFamily.lightgrey,
+        borderWidth: SystemInfo.window.width * 0.002,
+    }
+
+    const [idInputResponsibleStyle, setIdResponsableStyle] = 
+        useState<InputResponsibleStype>(inputUnselectedStyle)
+
+    const [pwInputResponsibleStyle, setPwResponsableStyle] = 
+        useState<InputResponsibleStype>(inputUnselectedStyle)
+    
     const [auth, setAuth] = useState<UserAuth>({
-        id: null,
-        password: null
-    })
+            id: null,
+            password: null
+        })
 
 
     return (
@@ -46,14 +75,17 @@ export default function LoginScreen() {
                             {Messages.messages.auth.login.title_of_id_input}
                         </Text>
                         <UniversalTextInput 
-                            style={
-                                styles.LoginInputSection.input
-                            }
+                            style={{
+                                ...styles.LoginInputSection.input,
+                                ...idInputResponsibleStyle,
+                            }}
                             name="id"
                             onChangeText={(name, text) => {
                                 if (name === "id")
                                 setAuth({...auth, [name]: text})
                             }}
+                            onFocus={() => setIdResponsableStyle(inputSelectedStyle)}
+                            onBlur={() => setIdResponsableStyle(inputUnselectedStyle)}
                             />
                     </View>
                     <View style={styles.LoginInputSection.inputWrapper}>
@@ -61,14 +93,17 @@ export default function LoginScreen() {
                             {Messages.messages.auth.login.title_of_password_input}
                         </Text>
                         <UniversalTextInput
-                            style={
-                                styles.LoginInputSection.input
-                            }
+                            style={{
+                                ...styles.LoginInputSection.input,
+                                ...pwInputResponsibleStyle,
+                            }}
                             name="password"
                             onChangeText={(name, text) => {
                                 if (name === "password")
                                 setAuth({...auth, [name]: text})
                             }}
+                            onFocus={() => setPwResponsableStyle(inputSelectedStyle)}
+                            onBlur={() => setPwResponsableStyle(inputUnselectedStyle)}
                             />
                     </View>
                     <View style={styles.LoginInputSection.btnWrapper}>
@@ -95,18 +130,16 @@ export default function LoginScreen() {
             </View>
             <View style={styles.SocialLoginSection.topLevelBox}>
                 <View style={styles.SocialLoginSection.iconsWrapper}>
-                    <SocialLoginIcon    
+                    <SocialLoginIcon
                         providerName="kakao"
-                        width={iconSize} 
-                        height={iconSize}/>
+                        diameter={iconDiameter}
+                        />
                     <SocialLoginIcon 
                         providerName="naver"
-                        width={iconSize} 
-                        height={iconSize}/>
+                        diameter={iconDiameter}/>
                     <SocialLoginIcon 
                         providerName="google"
-                        width={iconSize} 
-                        height={iconSize}/>
+                        diameter={iconDiameter}/>
                 </View>
             </View>
         </SafeAreaView>

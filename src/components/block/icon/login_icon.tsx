@@ -1,14 +1,18 @@
+import { useState } from "react";
+import { Pressable, View } from "react-native";
 import { Svg, Rect, Defs, Pattern, Use, Image } from "react-native-svg";
+import useKakaoLogin from "../../screens/login/kakaotest";
 import { SocialLoginIconProps, LoginIconReturnType, LoginIconProps } from "./types";
 
 
 function GoogleLoginIcon(props: LoginIconProps): LoginIconReturnType {
-    const { width, height } = props;
-    const radius = (width + height)/4
+    const { diameter } = props;
+    const radius = diameter / 2
     
     return (
-        <Svg width={width} height={height} viewBox={`0 0 ${width.toString()} ${height.toString()}`} fill="none">
-            <Rect width={width} height={height} rx={radius} fill="url(#pattern0)"/>
+        <Svg 
+            width={diameter} height={diameter} viewBox={`0 0 ${diameter.toString()} ${diameter.toString()}`} fill="none">
+            <Rect width={diameter} height={diameter} rx={radius} fill="url(#pattern0)"/>
             <Defs>
                 <Pattern id="pattern0" patternContentUnits="objectBoundingBox" width="1" height="1">
                     <Use xlinkHref="#image0_163_749" transform="scale(0.0125)"/>
@@ -20,12 +24,12 @@ function GoogleLoginIcon(props: LoginIconProps): LoginIconReturnType {
 }
 
 function KakaoLoginIcon(props: LoginIconProps): LoginIconReturnType {
-    const { width, height } = props;
-    const radius = (width + height)/4
+    const { diameter } = props;
+    const radius = diameter / 2
     
     return (
-        <Svg width={width} height={height} viewBox={`0 0 ${width.toString()} ${height.toString()}`} fill="none">
-            <Rect width={width} height={height} rx={radius} fill="url(#pattern0)"/>
+        <Svg width={diameter} height={diameter} viewBox={`0 0 ${diameter.toString()} ${diameter.toString()}`} fill="none">
+            <Rect width={diameter} height={diameter} rx={radius} fill="url(#pattern0)"/>
             <Defs>
                 <Pattern id="pattern0" patternContentUnits="objectBoundingBox" width="1" height="1">
                     <Use xlinkHref="#image0_163_747" transform="scale(0.0111111)"/>
@@ -37,11 +41,11 @@ function KakaoLoginIcon(props: LoginIconProps): LoginIconReturnType {
 }
 
 function NaverLoginIcon(props: LoginIconProps): LoginIconReturnType {
-    const { width, height } = props;
+    const { diameter } = props;
     
     return (
-        <Svg width={width} height={height} viewBox={`0 0 ${width.toString()} ${height.toString()}`} fill="none">
-            <Rect width={width} height={height}fill="url(#pattern0)"/>
+        <Svg width={diameter} height={diameter} viewBox={`0 0 ${diameter.toString()} ${diameter.toString()}`} fill="none">
+            <Rect width={diameter} height={diameter}fill="url(#pattern0)"/>
             <Defs>
                 <Pattern id="pattern0" patternContentUnits="objectBoundingBox" width="1" height="1">
                     <Use xlinkHref="#image0_163_744" transform="scale(0.0047619)"/>
@@ -52,15 +56,66 @@ function NaverLoginIcon(props: LoginIconProps): LoginIconReturnType {
     )
 }
 
+interface PressableIconProps {
+    diameter: number,
+    children: React.ReactNode;
+}
+
+
+function PressableIcon(props: PressableIconProps): JSX.Element {
+    const { diameter } = props;
+    const radius = diameter / 2;
+    const pressedOpacity: number = 0.2;
+    const unpressedOpacity: number = 0;
+    const [opacity, setOpacity] = useState(unpressedOpacity)
+    const kakao = useKakaoLogin()
+    return (
+        <Pressable
+            onPress={() => kakao.signInWithKakao()}
+            onPressIn={() => setOpacity(pressedOpacity)}
+            onPressOut={() => setOpacity(unpressedOpacity)}
+        >
+            {props.children}
+            <View style={{
+                position : "absolute", 
+                top:0, 
+                bottom:0, 
+                left:0, 
+                right:0, 
+                width: diameter, 
+                height: diameter, 
+                backgroundColor: "grey", 
+                borderRadius: radius,
+                opacity: opacity,
+                zIndex: 1,
+                }} 
+                />
+        </Pressable>
+    )
+}
+
 export default function SocialLoginIcon(props: SocialLoginIconProps): LoginIconReturnType {
-    const { providerName, width, height } = props; 
+    const { providerName, diameter } = props;
+
 
     switch(providerName){
         case "kakao":
-            return <KakaoLoginIcon width={width} height={height} />;
+            return (
+                <PressableIcon diameter={diameter}>
+                    <KakaoLoginIcon diameter={diameter} />
+                </PressableIcon>
+            )
         case "naver":
-            return <NaverLoginIcon width={width} height={height} />;
+            return (
+                <PressableIcon diameter={diameter}>
+                    <NaverLoginIcon diameter={diameter} />
+                </PressableIcon>
+            )
         default:
-            return <GoogleLoginIcon width={width} height={height} />;
+            return (
+                <PressableIcon diameter={diameter}>
+                    <GoogleLoginIcon diameter={diameter} />
+                </PressableIcon>
+            )
     }
 }
