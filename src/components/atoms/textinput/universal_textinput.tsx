@@ -1,16 +1,16 @@
 import { NativeSyntheticEvent, TextInput, TextInputChangeEventData } from "react-native";
-import { BasicTextInputProps } from "./types";
+import { UniversalTextInputProps } from "./types";
 
 
-export default function BasicTextInput(props: BasicTextInputProps) {
+export default function UniversalTextInput(props: UniversalTextInputProps) {
     
-    const handleOnChange = (e: NativeSyntheticEvent<TextInputChangeEventData>) => {        
+    const onChange = (e: NativeSyntheticEvent<TextInputChangeEventData>) => {        
         if (props.onChange) {
             props.onChange(props.name, e);
         }
     }
 
-    const handleOnChangeText = (text: string) => {        
+    const onChangeText = (text: string) => {        
         if (props.onChangeText) {
             props.onChangeText(props.name, text);
         }
@@ -19,8 +19,8 @@ export default function BasicTextInput(props: BasicTextInputProps) {
     return (
         <TextInput 
             {...props} 
-            onChange={handleOnChange}
-            onChangeText={handleOnChangeText}
+            onChange={onChange}
+            onChangeText={onChangeText}
             />
     )
 }

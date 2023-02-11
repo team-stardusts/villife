@@ -25,6 +25,32 @@ export class LightTheme implements ThemeTypes.ITheme {
     }
 }
 
+/*
+export class DarkTheme implements ThemeTypes.ITheme {
+    readonly colors = {
+        pallet: undefined,
+        colorFamily: {
+            black: "#000000",
+            blue: "orange",
+            darkgrey: "#3B3C3D",
+            green: "#ACEC22",
+            grey: "#7C7C7C",
+            lightblue: "#539CF1",
+            lightgrey: "#D9D9D9",
+            red: "#EC2222",
+            white: "#FFFFFF",
+        }
+    };
+    readonly css = {
+        font: {
+            universial: {
+                fontFamily: "pretendard",
+            }
+        }
+    }
+}
+*/
+
 //export class DarkTheme implements ThemeTypes.ITheme{
 //}
 

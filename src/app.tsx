@@ -7,17 +7,15 @@
 
 import React from 'react';
 //import Config from 'react-native-config';
-import { store } from './hooks/ducks/store';
-import { Provider } from 'react-redux';
 import ScreenRouter from './components/screen_router';
+import { RecoilRoot } from 'recoil';
+
 
 
 export default function App(): JSX.Element {
-  //const isDarkMode = useColorScheme() === 'dark';
-
   return (
-    <Provider store={store}>
-      <ScreenRouter />
-    </Provider>
+      <RecoilRoot>
+        <ScreenRouter />
+      </RecoilRoot>
   );
 }

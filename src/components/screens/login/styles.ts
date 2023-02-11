@@ -11,6 +11,7 @@ export default function useLoginScreenStyles(): LoginScreenTypes.LoginScreenStyl
         topLevelBox: {
             flex: 1,
             flexDirection: "column",
+            backgroundColor: Theme.colors.colorFamily.white,
         },
     })
     
@@ -20,11 +21,10 @@ export default function useLoginScreenStyles(): LoginScreenTypes.LoginScreenStyl
             display: "flex",
             alignItems: 'center',
             justifyContent: 'center',
-            backgroundColor: Theme.colors.colorFamily.white,
         },
         textWrapper: {
             textAlign: "left",
-            paddingTop: SystemInfo.window.width * 0.1,
+            paddingTop: SystemInfo.window.width * 0.2,
         },
         text: {
             //fontFamily: Theme.css.font.universial.fontFamily,
@@ -37,39 +37,58 @@ export default function useLoginScreenStyles(): LoginScreenTypes.LoginScreenStyl
     const LoginInputSection = StyleSheet.create({
         topLevelBox: {
             flex: 3,
-            backgroundColor: Theme.colors.colorFamily.white
         },
         attrWrapper: {
             //display: "flex",
             flex: 1,
-            paddingVertical: SystemInfo.window.width * 0.08,
-            paddingHorizontal: SystemInfo.window.width * 0.05,
+            paddingTop: SystemInfo.window.width * 0.07,
+            paddingHorizontal: SystemInfo.window.width * 0.06,
         },
         inputWrapper: {
-            flex: 7,
-        },
-        btnWrapper: {
-            flex: 3,
+            flex: 6,
+            paddingBottom: SystemInfo.window.width * 0.02,
         },
         inputIdentifier: {
             //fontFamily: Theme.css.font.universial.fontFamily,
             color: Theme.colors.colorFamily.black,
             fontSize: SystemInfo.window.width * 0.05,
             fontWeight: "bold",
-            paddingBottom: SystemInfo.window.width * 0.02,
+            paddingBottom: SystemInfo.window.width * 0.01,
         },
         input: {
             backgroundColor: "white",
             height: SystemInfo.window.width * 0.08,
             borderColor: Theme.colors.colorFamily.lightgrey,
             borderWidth: SystemInfo.window.width * 0.002,
+        },
+        btnWrapper: {
+            flex: 4,
+        },
+        btn: {
+            flex: 1,
+            borderRadius: SystemInfo.window.width * 0.02,
+        },
+        btnTitle: {
+            color: Theme.colors.colorFamily.white,
+            fontSize: SystemInfo.window.width * 0.04,
+            fontWeight: "700",
         }
     })
 
     const JoinLinkSection = StyleSheet.create({
         topLevelBox: {
             flex: 1,
-            backgroundColor: "orange"
+        },
+        textWrapper: {
+            paddingTop: SystemInfo.window.width * 0.07,
+            paddingHorizontal: SystemInfo.window.width * 0.28,
+            flexDirection: "row",
+            alignItems: "flex-start",
+            justifyContent: "space-around"
+        },
+        text: {
+            fontSize: SystemInfo.window.width * 0.035,
+            fontWeight: "800",
         }
     })
 
