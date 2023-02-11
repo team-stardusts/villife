@@ -1,12 +1,14 @@
 import { Button, Pressable, SafeAreaView, Text, View } from "react-native";
 import UniversalTextInput from "../../atoms/textinput/universal_textinput";
+import UniversalButton from "../../atoms/button/universial_button";
 import useScreenMessage from "../../../hooks/internal/multilingual/hooks";
 import LoginScreenTypes from "./types";
 import useLoginScreenStyles from "./styles";
 import { useRecoilState } from "recoil";
 import { testState } from "../../../hooks/states/atoms/test";
 import { useEffect, useState } from "react";
-import UniversalButton from "../../atoms/button/universial_button";
+import useSystemInfo from "../../../hooks/internal/systeminfo/hooks";
+import SocialLoginIcon from "../../block/icon/login_icon";
 
 
 type UserAuth = {
@@ -16,6 +18,7 @@ type UserAuth = {
 
 
 export default function LoginScreen() {
+    const iconSize: number = useSystemInfo().window.width * 0.135;
     const Messages = useScreenMessage("korean");
     const styles: LoginScreenTypes.LoginScreenStylesType = useLoginScreenStyles();
     const [auth, setAuth] = useState<UserAuth>({
@@ -91,10 +94,19 @@ export default function LoginScreen() {
                 </View>
             </View>
             <View style={styles.SocialLoginSection.topLevelBox}>
-                <View>
-                    <Text>Kakao</Text>
-                    <Text>Kakao</Text>
-                    <Text>Kakao</Text>
+                <View style={styles.SocialLoginSection.iconsWrapper}>
+                    <SocialLoginIcon    
+                        providerName="kakao"
+                        width={iconSize} 
+                        height={iconSize}/>
+                    <SocialLoginIcon 
+                        providerName="naver"
+                        width={iconSize} 
+                        height={iconSize}/>
+                    <SocialLoginIcon 
+                        providerName="google"
+                        width={iconSize} 
+                        height={iconSize}/>
                 </View>
             </View>
         </SafeAreaView>

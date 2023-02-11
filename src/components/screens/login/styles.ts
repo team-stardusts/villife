@@ -95,8 +95,14 @@ export default function useLoginScreenStyles(): LoginScreenTypes.LoginScreenStyl
     const SocialLoginSection = StyleSheet.create({
         topLevelBox: {
             flex: 4,
-            backgroundColor: "grey"
-        }
+            alignItems: "center",
+        },
+        iconsWrapper: {
+            paddingTop: SystemInfo.window.width * 0.05,
+            flexDirection: "row",
+            justifyContent: "space-around",
+            width: "50%"
+        },
     })
     
     return {
