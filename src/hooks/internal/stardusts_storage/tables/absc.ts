@@ -1,6 +1,6 @@
 import LocalStorage from "../../../native/localstorage";
 import { ITable } from "../types"
-import { LoginData } from "./types";
+import { LoginDataType } from "./types";
 
 abstract class ATable implements ITable {
     readonly key: string = "";

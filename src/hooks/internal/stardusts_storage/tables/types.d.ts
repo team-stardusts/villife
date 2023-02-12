@@ -2,12 +2,15 @@ import ATable from "./absc";
 
 
 export interface ILoginTable extends ATable{
-    get(): Promise<LoginData | null>;
-    set(data: LoginData): Promise<boolean>;
+    get(): Promise<LoginDataType | null>;
+    set(data: LoginDataType): Promise<boolean>;
     remove(): Promise<void>;
 }
 
-export type LoginData = {
-    id: string;
-    token: string;
+export type LoginDataType = {
+    userId: string;
+    accessToken: string;
+    accessTokenExpiresAt: Date;
+    refreshToken: string;
+    refreshTokenExpiresAt: Date;
 }

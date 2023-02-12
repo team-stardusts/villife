@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native/types";
+import { LoginDataType } from "../../../hooks/internal/stardusts_storage/tables/types";
 
 declare namespace LoginScreenTypes {
     type LoginScreenStylesType = {
@@ -8,6 +9,9 @@ declare namespace LoginScreenTypes {
         JoinLinkSection: ReturnType<typeof StyleSheet.create>;
         SocialLoginSection: ReturnType<typeof StyleSheet.create>;
     };
+    interface LoginScreenProps {
+        onLogin(): LoginDataType;
+    }
 }
 
 export default LoginScreenTypes;

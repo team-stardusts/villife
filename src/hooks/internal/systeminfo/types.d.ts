@@ -1,8 +1,9 @@
-import { ScaledSize } from "react-native/types";
+import { ScaledSize, Platform } from "react-native/types";
 
 declare namespace System {
     interface SystemInfo {
         readonly window: ScaledSize;
+        readonly platform: Platform;
     };
 }
 

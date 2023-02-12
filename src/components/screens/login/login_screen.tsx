@@ -11,6 +11,7 @@ import useSystemInfo from "../../../hooks/internal/systeminfo/hooks";
 import SocialLoginIcon from "../../block/icon/login_icon";
 import useAppTheme from "../../../hooks/internal/themes/hooks";
 import useLoginService from "../../../hooks/service/stardusts/hooks";
+import { LoginDataType } from "../../../hooks/internal/stardusts_storage/tables/types";
 
 
 type UserAuth = {
@@ -23,7 +24,7 @@ type InputResponsibleStype = {
     borderWidth: number;
 }
 
-export default function LoginScreen() {
+export default function LoginScreen(props: LoginScreenTypes.LoginScreenProps) {
     const LoginManager = useLoginService();
     const Messages = useScreenMessage();
     const Theme = useAppTheme();
@@ -52,6 +53,17 @@ export default function LoginScreen() {
             password: null
         })
 
+    const [loginData, setLoginData] = useState<LoginDataType | null>(null)
+
+    const handleSetLoginData = async(loginData: Promise<LoginDataType | null>) => {
+        loginData.then((res) => {
+            setLoginData(res);
+        })
+    }
+
+    useEffect(() => {
+        console.log(loginData);
+    }, [loginData])
 
     return (
         <SafeAreaView style={styles.Page.topLevelBox}>
@@ -108,6 +120,7 @@ export default function LoginScreen() {
                             title={Messages.messages.auth.login.title_of_login_btn}
                             titleStyle={styles.LoginInputSection.btnTitle}
                             style={styles.LoginInputSection.btn}
+                            onPress={() => LoginManager.stardusts.login()}
                         />
                     </View>
                 </View>
@@ -130,14 +143,18 @@ export default function LoginScreen() {
                     <SocialLoginIcon
                         providerName="kakao"
                         diameter={iconDiameter}
-                        onPress={() => LoginManager.kakao.login()}
+                        onPress={() => handleSetLoginData(LoginManager.kakao.login())}
                         />
                     <SocialLoginIcon 
                         providerName="naver"
-                        diameter={iconDiameter}/>
+                        diameter={iconDiameter}
+                        onPress={() => LoginManager.naver.login()}
+                        />
                     <SocialLoginIcon 
                         providerName="google"
-                        diameter={iconDiameter}/>
+                        diameter={iconDiameter}
+                        onPress={() => LoginManager.naver.logout()}
+                        />
                 </View>
             </View>
         </SafeAreaView>

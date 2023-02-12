@@ -6,7 +6,4 @@ class StardustsStorage implements IStardustsStorage {
     login = new LoginTable();
 }
 
-
-export default function useStardustsStorage(): StardustsStorage {
-    return new StardustsStorage();
-}
+export default StardustsStorage;
