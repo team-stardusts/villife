@@ -1,10 +1,17 @@
-declare export interface LoginIconProps {
+export interface LoginIconProps {
     diameter: number;
 }
 
-declare export interface SocialLoginIconProps extends LoginIconProps {
+export interface SocialLoginIconProps extends LoginIconProps {
     providerName: "kakao" | "naver" | "google";
-    onPress?(): void;
+    onPress?: null | ((event: GestureResponderEvent) => void) | undefined;
 }
 
-declare export type LoginIconReturnType = JSX.Element;
+export type LoginIconReturnType = JSX.Element;
+
+export interface PressableIconProps {
+    diameter: number,
+    children: React.ReactNode;
+    onPress?: null | ((event: GestureResponderEvent) => void) | undefined;
+}
+

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Pressable, View } from "react-native";
 import { Svg, Rect, Defs, Pattern, Use, Image } from "react-native-svg";
 import useKakaoLogin from "../../screens/login/kakaotest";
-import { SocialLoginIconProps, LoginIconReturnType, LoginIconProps } from "./types";
+import { SocialLoginIconProps, LoginIconReturnType, LoginIconProps, PressableIconProps } from "./types";
 
 
 function GoogleLoginIcon(props: LoginIconProps): LoginIconReturnType {
@@ -56,10 +56,6 @@ function NaverLoginIcon(props: LoginIconProps): LoginIconReturnType {
     )
 }
 
-interface PressableIconProps {
-    diameter: number,
-    children: React.ReactNode;
-}
 
 
 function PressableIcon(props: PressableIconProps): JSX.Element {
@@ -68,10 +64,10 @@ function PressableIcon(props: PressableIconProps): JSX.Element {
     const pressedOpacity: number = 0.2;
     const unpressedOpacity: number = 0;
     const [opacity, setOpacity] = useState(unpressedOpacity)
-    const kakao = useKakaoLogin()
+
     return (
         <Pressable
-            onPress={() => kakao.signInWithKakao()}
+            onPress={props.onPress}
             onPressIn={() => setOpacity(pressedOpacity)}
             onPressOut={() => setOpacity(unpressedOpacity)}
         >
@@ -101,19 +97,19 @@ export default function SocialLoginIcon(props: SocialLoginIconProps): LoginIconR
     switch(providerName){
         case "kakao":
             return (
-                <PressableIcon diameter={diameter}>
+                <PressableIcon diameter={diameter} onPress={props.onPress}>
                     <KakaoLoginIcon diameter={diameter} />
                 </PressableIcon>
             )
         case "naver":
             return (
-                <PressableIcon diameter={diameter}>
+                <PressableIcon diameter={diameter} onPress={props.onPress}>
                     <NaverLoginIcon diameter={diameter} />
                 </PressableIcon>
             )
         default:
             return (
-                <PressableIcon diameter={diameter}>
+                <PressableIcon diameter={diameter} onPress={props.onPress}>
                     <GoogleLoginIcon diameter={diameter} />
                 </PressableIcon>
             )

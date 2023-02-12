@@ -28,8 +28,6 @@ class LocalStorage implements ILocalStorage{
     }
 
     public async getItem(key: string): Promise<any | null> {
-        let didSucceed: boolean = true;
-
         try {
             const value: string|null = await this.Storage.getItem(key);
             
@@ -39,7 +37,6 @@ class LocalStorage implements ILocalStorage{
                 return data;
             }
         } catch (e: any) {
-            didSucceed = false;
             console.error("getItem Error", e.message);
         }
 
@@ -67,4 +64,4 @@ class LocalStorage implements ILocalStorage{
     }
 }
 
-export default LocalStorage
+export default LocalStorage;

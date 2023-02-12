@@ -10,7 +10,7 @@ import { useEffect, useState } from "react";
 import useSystemInfo from "../../../hooks/internal/systeminfo/hooks";
 import SocialLoginIcon from "../../block/icon/login_icon";
 import useAppTheme from "../../../hooks/internal/themes/hooks";
-import useKakaoLogin from "./kakaotest";
+import useLoginService from "../../../hooks/service/stardusts/hooks";
 
 
 type UserAuth = {
@@ -24,11 +24,8 @@ type InputResponsibleStype = {
 }
 
 export default function LoginScreen() {
-    // ==================================================================
-    // TEST
-    const Kakao = useKakaoLogin()
-    // ==================================================================
-    const Messages = useScreenMessage("korean");
+    const LoginManager = useLoginService();
+    const Messages = useScreenMessage();
     const Theme = useAppTheme();
     const SystemInfo = useSystemInfo();
     const styles: LoginScreenTypes.LoginScreenStylesType = useLoginScreenStyles();
@@ -133,6 +130,7 @@ export default function LoginScreen() {
                     <SocialLoginIcon
                         providerName="kakao"
                         diameter={iconDiameter}
+                        onPress={() => LoginManager.kakao.login()}
                         />
                     <SocialLoginIcon 
                         providerName="naver"
