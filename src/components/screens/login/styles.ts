@@ -46,7 +46,7 @@ export default function useLoginScreenStyles(): LoginScreenTypes.LoginScreenStyl
         },
         inputWrapper: {
             flex: 6,
-            paddingBottom: SystemInfo.window.width * 0.02,
+            marginBottom: SystemInfo.window.width * 0.02,
         },
         inputIdentifier: {
             //fontFamily: Theme.css.font.universial.fontFamily,
@@ -54,6 +54,7 @@ export default function useLoginScreenStyles(): LoginScreenTypes.LoginScreenStyl
             fontSize: SystemInfo.window.width * 0.05,
             fontWeight: "bold",
             paddingBottom: SystemInfo.window.width * 0.01,
+            
         },
         input: {
             backgroundColor: "white",

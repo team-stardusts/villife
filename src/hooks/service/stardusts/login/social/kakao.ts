@@ -16,13 +16,14 @@ class KakaoLoginManager extends ALoginManager implements IKakaoLoginManager{
         try {
             const token: KakaoOAuthToken = await kakaoLogin();
             const {
-                accessToken, 
+                accessToken,
                 accessTokenExpiresAt, 
                 refreshToken, 
                 refreshTokenExpiresAt
                 } = token;
             
             return {
+                host: "kakao",
                 userId: "TEMP",
                 accessToken,
                 accessTokenExpiresAt,
@@ -43,8 +44,7 @@ class KakaoLoginManager extends ALoginManager implements IKakaoLoginManager{
     }
     public async getKakaoProfile(): Promise<void> {
         const profile: KakaoProfile = await getProfile();
-    
-        console.log(JSON.stringify(profile));
+        console.log(profile);
       };
 }
 

@@ -1,4 +1,4 @@
-import ILoginManager from "./types";
+import { ILoginManager } from "./types";
 
 abstract class ALoginManager implements ILoginManager {
     abstract login(): Promise<any>;
