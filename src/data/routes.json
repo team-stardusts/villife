@@ -1,0 +1,25 @@
+{
+    "main" : {
+        "DEFAULT": "main",
+        "HOME": "home"
+    },
+    "auth" : {
+        "DEFAULT": "auth",
+        "login": {
+            "DEFAULT": "login",
+            "KAKAO": "login_by_kakao",
+            "NAVER": "login_by_naver"
+        },
+        "join": {
+            "DEFAULT": "join",
+            "KAKAO": "join_by_kakao",
+            "NAVER": "join_by_naver"
+        }, 
+        "finding": {
+            "DEFAULT": "find_password",
+            "ID": "find_id",
+            "PASSWORD": "find_password"
+        }
+    },
+    "SPLASH" : "splash"
+}

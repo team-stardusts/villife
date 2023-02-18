@@ -1,0 +1,25 @@
+{
+    "main": {
+        "home": {
+            "pageName": "home"
+        }
+    },
+    "auth": {
+        "login": {
+            "pageName": "login",
+            "request_login": {
+                "line_1": "빌라이프 서비스 이용을 위해",
+                "line_2": "로그인 해주세요."
+            },
+            "title_of_id_input": "아이디",
+            "title_of_password_input": "비밀번호",
+            "title_of_login_btn": "로그인",
+            "title_of_naver_social_login_btn": "네이버 로그인",
+            "join": "회원가입",
+            "reset_password": "비밀번호 재설정"
+        }
+    },
+    "splash": {
+        "pageName": "splash"
+    }
+}
