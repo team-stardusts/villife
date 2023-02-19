@@ -6,7 +6,7 @@ import {
     logout,
     unlink,
   } from '@react-native-seoul/kakao-login';
-import { LoginDataType } from '../../../../internal/stardusts_storage/tables/types';
+import { LoginDataType } from '../../../internal/stardusts_storage/tables/types';
 import ALoginManager from '../absc';
 import { IKakaoLoginManager } from '../types';
 

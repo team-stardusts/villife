@@ -1,17 +1,17 @@
 import { Button, Pressable, SafeAreaView, Text, View } from "react-native";
-import UniversalTextInput from "../../atoms/textinput/universal_textinput";
-import UniversalButton from "../../atoms/button/universial_button";
-import useScreenMessage from "../../../hooks/internal/multilingual/hooks";
+import UniversalTextInput from "../../../atoms/textinput/universal_textinput";
+import UniversalButton from "../../../atoms/button/universial_button";
+import useScreenMessage from "../../../../hooks/internal/multilingual/hooks";
 import LoginScreenTypes from "./types";
 import useLoginScreenStyles from "./styles";
 import { useRecoilState } from "recoil";
-import { testState } from "../../../hooks/states/atoms/test";
+import { testState } from "../../../../hooks/states/atoms/test";
 import { useEffect, useState } from "react";
-import useSystemInfo from "../../../hooks/internal/systeminfo/hooks";
-import SocialLoginIcon from "../../block/icon/login_icon";
-import useAppTheme from "../../../hooks/internal/themes/hooks";
-import useLoginService from "../../../hooks/service/stardusts/hooks";
-import { LoginDataType } from "../../../hooks/internal/stardusts_storage/tables/types";
+import useSystemInfo from "../../../../hooks/internal/systeminfo/hooks";
+import SocialLoginIcon from "../../../block/icon/login_icon";
+import useAppTheme from "../../../../hooks/internal/themes/hooks";
+import useLoginService from "../../../../hooks/service/hooks";
+import { LoginDataType } from "../../../../hooks/internal/stardusts_storage/tables/types";
 
 
 type UserAuth = {
@@ -25,7 +25,7 @@ type InputResponsibleStype = {
 }
 
 
-export default function LoginScreen(props: LoginScreenTypes.LoginScreenProps) {
+export default function LoginScreen({navigation}: LoginScreenTypes.LoginScreenProps) {
     const LoginManager = useLoginService();
     const Messages = useScreenMessage();
     const Theme = useAppTheme();
@@ -124,7 +124,9 @@ export default function LoginScreen(props: LoginScreenTypes.LoginScreenProps) {
                             title={Messages.messages.auth.login.title_of_login_btn}
                             titleStyle={styles.LoginInputSection.btnTitle}
                             style={styles.LoginInputSection.btn}
-                            onPress={() => LoginManager.stardusts.login()}
+                            onPress={() => LoginManager.naver.logout()}
+                            //onPress={() => LoginManager.stardusts.login()}
+                            disabled={false}
                         />
                     </View>
                     <Pressable 
@@ -152,15 +154,48 @@ export default function LoginScreen(props: LoginScreenTypes.LoginScreenProps) {
             </View>
             <View style={styles.JoinLinkSection.topLevelBox}>
                 <View style={styles.JoinLinkSection.textWrapper}>
-                    <Text style={styles.JoinLinkSection.text}>
-                        {Messages.messages.auth.login.join}
-                    </Text>
-                    <Text style={styles.JoinLinkSection.text}>
+                    <Pressable
+                        children={({pressed}: any) => (
+                            <Text style={[
+                                {
+                                    color: pressed 
+                                        ? Theme.colors.colorFamily.blue
+                                        : Theme.colors.colorFamily.black,
+                                    fontSize: pressed
+                                        ? SystemInfo.window.width * 0.036
+                                        : SystemInfo.window.width * 0.035
+                                }, 
+                                styles.JoinLinkSection.text
+                                ]}
+                                onPress={() => navigation.navigate("join")}
+                                >
+                                {Messages.messages.auth.login.join}
+                            </Text>
+                        )}
+                    />
+                    <Text style={[
+                        {fontSize: SystemInfo.window.width * 0.035},
+                        styles.JoinLinkSection.text
+                        ]}>
                         |
                     </Text>
-                    <Text style={styles.JoinLinkSection.text}>
-                        {Messages.messages.auth.login.reset_password}
-                    </Text>
+                    <Pressable
+                        children={({pressed}: any) => (
+                            <Text style={[
+                                {
+                                    color: pressed 
+                                        ? Theme.colors.colorFamily.blue
+                                        : Theme.colors.colorFamily.black,
+                                    fontSize: pressed
+                                        ? SystemInfo.window.width * 0.036
+                                        : SystemInfo.window.width * 0.035
+                                }, 
+                                styles.JoinLinkSection.text
+                                ]}>
+                                {Messages.messages.auth.login.reset_password}
+                            </Text>
+                        )}
+                    />
                 </View>
             </View>
             {

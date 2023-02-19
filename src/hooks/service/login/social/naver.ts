@@ -1,10 +1,11 @@
 import { NaverLogin } from '@react-native-seoul/naver-login';
+import axios, {AxiosError} from 'axios';
 //import NaverLogin, {
 //    GetProfileResponse,
 //} from '@react-native-seoul/naver-login';
-import { LoginDataType } from '../../../../internal/stardusts_storage/tables/types';
-import SystemInfo from '../../../../internal/systeminfo';
-import useSystemInfo from '../../../../internal/systeminfo/hooks';
+import { LoginDataType } from '../../../internal/stardusts_storage/tables/types';
+import SystemInfo from '../../../internal/systeminfo';
+import useSystemInfo from '../../../internal/systeminfo/hooks';
 import ALoginManager from '../absc';
 import { INaverLoginManager } from '../types';
 
@@ -33,13 +34,31 @@ class NaverLoginManager extends ALoginManager implements INaverLoginManager{
         try {
             
             const params = this.systemInfo.platform.OS === "ios" ? iosParams : androidParams;
-            
-            NaverLogin.login(params, (err, token) => console.log(err, token))
-            //console.log("success: ", successResponse);
-            //console.log("failure: ", failureResponse);
+            const naverLoginResult: any = await new Promise((resolve, reject) => {
+                NaverLogin.login(params, (err, token) => {
+                    if (err) {
+                        reject(err);
+                        return;
+                    }
+                    resolve(token);
+                    return; 
+                })
+            })
+
+            const data = {access_token: naverLoginResult.accessToken}
+            console.log(data);
+
+            //axios.get("http://192.168.0.36:8080/auth/test", {responseType: 'json'})
+            //.then((res) => console.log(res))
+            //.catch((err) => console.log(err))
+            await axios.post(
+                "http://192.168.0.36:8080/auth/social-login/naver", 
+                data, 
+                )
+            .then((res) => console.log(res.data.access_token))
+            .catch((err: any) => console.log(err.response?.data))
         } 
         catch (e) {
-            console.log(e);
             return null;
         }
     }
@@ -49,7 +68,6 @@ class NaverLoginManager extends ALoginManager implements INaverLoginManager{
         
     }
     public async refresh(): Promise<any> {
-        
     }
 }
 

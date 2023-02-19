@@ -7,6 +7,7 @@ import { UniversalButtonProps } from "./types";
 export default function UniversalButton(props: UniversalButtonProps): JSX.Element {
     const Theme = useAppTheme();
     const [isPressd, setIsPressed] = useState<boolean>(false);
+    const disabledColor: string = props.disabledColor || Theme.colors.colorFamily.lightblue;
     const pressedColor: string = props.pressedBgColor || Theme.colors.colorFamily.lightblue;
     const unpressedColor: string = props.bgColor || Theme.colors.colorFamily.blue;
     const titleStyle: object = props.titleStyle || {
@@ -24,14 +25,18 @@ export default function UniversalButton(props: UniversalButtonProps): JSX.Elemen
     return (
         <Pressable 
             style={{
-                ...style, 
+                ...style,
                 alignItems: "center",
                 justifyContent: "center",
-                backgroundColor: isPressd ? pressedColor : unpressedColor
+                backgroundColor: 
+                    props.disabled
+                    ? disabledColor
+                    : isPressd ? pressedColor : unpressedColor
             }}
             onPress={onPress}
             onPressIn={() => setIsPressed(true)}
             onPressOut={() => setIsPressed(false)}
+            disabled={props.disabled}
             >
             <Text style={titleStyle}>{props.title}</Text>
         </Pressable>

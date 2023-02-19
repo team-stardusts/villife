@@ -1,3 +1,3 @@
-import type LoginManager from "./login";
+import type LoginManager from "../login";
 
 export type UseLoginServiceReturnType = LoginManager;

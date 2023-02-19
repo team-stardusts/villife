@@ -10,7 +10,8 @@ declare namespace LoginScreenTypes {
         //SocialLoginSection: ReturnType<typeof StyleSheet.create>;
     };
     interface LoginScreenProps {
-        onLogin?(): LoginDataType;
+        //onLogin?(): LoginDataType;
+        navigation: any;
     }
 }
 

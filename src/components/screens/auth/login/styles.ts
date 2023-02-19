@@ -1,7 +1,7 @@
 import { StyleSheet } from "react-native";
 import LoginScreenTypes from "./types";
-import useAppTheme from "../../../hooks/internal/themes/hooks";
-import useSystemInfo from "../../../hooks/internal/systeminfo/hooks";
+import useAppTheme from "../../../../hooks/internal/themes/hooks";
+import useSystemInfo from "../../../../hooks/internal/systeminfo/hooks";
 
 export default function useLoginScreenStyles(): LoginScreenTypes.LoginScreenStylesType {
     const Theme = useAppTheme();
@@ -71,6 +71,11 @@ export default function useLoginScreenStyles(): LoginScreenTypes.LoginScreenStyl
             flex: 1,
             borderRadius: SystemInfo.window.width * 0.02,
         },
+        btnDisabled: {
+            flex: 1,
+            borderRadius: SystemInfo.window.width * 0.02,
+            backgroundColor: "grey"
+        },
         btnTitle: {
             color: Theme.colors.colorFamily.white,
             fontSize: SystemInfo.window.width * 0.04,
@@ -118,7 +123,6 @@ export default function useLoginScreenStyles(): LoginScreenTypes.LoginScreenStyl
             justifyContent: "space-around"
         },
         text: {
-            fontSize: SystemInfo.window.width * 0.035,
             fontWeight: "800",
         }
     })
