@@ -27,6 +27,7 @@ declare export namespace ScreenMessages {
                 title_of_id_input: string;
                 title_of_password_input: string;
                 title_of_login_btn: string;
+                title_of_naver_social_login_btn: string;
                 join: string;
                 reset_password: string;
             }

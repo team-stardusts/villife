@@ -1,0 +1,226 @@
+import { Button, Pressable, SafeAreaView, Text, View } from "react-native";
+import UniversalTextInput from "../../../atoms/textinput/universal_textinput";
+import UniversalButton from "../../../atoms/button/universial_button";
+import useScreenMessage from "../../../../hooks/internal/multilingual/hooks";
+import LoginScreenTypes from "./types";
+import useLoginScreenStyles from "./styles";
+import { useRecoilState } from "recoil";
+import { testState } from "../../../../hooks/states/atoms/test";
+import { useEffect, useState } from "react";
+import useSystemInfo from "../../../../hooks/internal/systeminfo/hooks";
+import SocialLoginIcon from "../../../block/icon/login_icon";
+import useAppTheme from "../../../../hooks/internal/themes/hooks";
+import useLoginService from "../../../../hooks/service/hooks";
+import { LoginDataType } from "../../../../hooks/internal/stardusts_storage/tables/types";
+
+
+type UserAuth = {
+    id: string | null,
+    password: string | null,
+}
+
+type InputResponsibleStype = {
+    borderColor: string;
+    borderWidth: number;
+}
+
+
+export default function LoginScreen({navigation}: LoginScreenTypes.LoginScreenProps) {
+    const LoginManager = useLoginService();
+    const Messages = useScreenMessage();
+    const Theme = useAppTheme();
+    const SystemInfo = useSystemInfo();
+    const styles: LoginScreenTypes.LoginScreenStylesType = useLoginScreenStyles();
+    const iconDiameter: number = useSystemInfo().window.width * 0.12;
+    
+    const inputSelectedStyle: InputResponsibleStype = {
+        borderColor: Theme.colors.colorFamily.blue,
+        borderWidth: SystemInfo.window.width * 0.004,
+    }
+
+    const inputUnselectedStyle: InputResponsibleStype = {
+        borderColor: Theme.colors.colorFamily.lightgrey,
+        borderWidth: SystemInfo.window.width * 0.002,
+    }
+
+    const [idInputResponsibleStyle, setIdResponsableStyle] = 
+        useState<InputResponsibleStype>(inputUnselectedStyle)
+
+    const [pwInputResponsibleStyle, setPwResponsableStyle] = 
+        useState<InputResponsibleStype>(inputUnselectedStyle)
+    
+    const [isSocialLoginButtonPressed, setIsSocialLoginButtonPressed]
+        = useState<boolean>(false)
+
+    const [auth, setAuth] = useState<UserAuth>({
+            id: null,
+            password: null
+        })
+
+    const [loginData, setLoginData] = useState<LoginDataType | null>(null)
+
+    const handleSetLoginData = async(loginData: Promise<LoginDataType | null>) => {
+        loginData.then((res) => {
+            setLoginData(res);
+        })
+    }
+
+    useEffect(() => {
+        console.log(loginData);
+    }, [loginData])
+
+    return (
+        <SafeAreaView style={styles.Page.topLevelBox}>
+            <View style={styles.GreetingSection.topLevelBox}>
+                <View style={styles.GreetingSection.textWrapper}>
+                    <Text style={styles.GreetingSection.text}>
+                        {Messages.messages.auth.login.request_login.line_1}
+                    </Text>
+                    <Text style={styles.GreetingSection.text}>
+                        {Messages.messages.auth.login.request_login.line_2}
+                    </Text>
+                </View>
+            </View>
+            <View style={styles.LoginInputSection.topLevelBox}>
+                <View style={styles.LoginInputSection.attrWrapper}>
+                    <View style={styles.LoginInputSection.inputWrapper}>
+                        <Text style={styles.LoginInputSection.inputIdentifier}>
+                            {Messages.messages.auth.login.title_of_id_input}
+                        </Text>
+                        <UniversalTextInput 
+                            style={{
+                                ...styles.LoginInputSection.input,
+                                ...idInputResponsibleStyle,
+                            }}
+                            name="id"
+                            onChangeText={(name, text) => {
+                                if (name === "id")
+                                setAuth({...auth, [name]: text})
+                            }}
+                            onFocus={() => setIdResponsableStyle(inputSelectedStyle)}
+                            onBlur={() => setIdResponsableStyle(inputUnselectedStyle)}
+                            />
+                    </View>
+                    <View style={styles.LoginInputSection.inputWrapper}>
+                        <Text style={styles.LoginInputSection.inputIdentifier}>
+                            {Messages.messages.auth.login.title_of_password_input}
+                        </Text>
+                        <UniversalTextInput
+                            style={{
+                                ...styles.LoginInputSection.input,
+                                ...pwInputResponsibleStyle,
+                            }}
+                            name="password"
+                            onChangeText={(name, text) => {
+                                if (name === "password")
+                                setAuth({...auth, [name]: text})
+                            }}
+                            onFocus={() => setPwResponsableStyle(inputSelectedStyle)}
+                            onBlur={() => setPwResponsableStyle(inputUnselectedStyle)}
+                            />
+                    </View>
+                    <View style={styles.LoginInputSection.btnWrapper}>
+                        <UniversalButton 
+                            title={Messages.messages.auth.login.title_of_login_btn}
+                            titleStyle={styles.LoginInputSection.btnTitle}
+                            style={styles.LoginInputSection.btn}
+                            onPress={() => LoginManager.naver.logout()}
+                            //onPress={() => LoginManager.stardusts.login()}
+                            disabled={false}
+                        />
+                    </View>
+                    <Pressable 
+                        style={styles.LoginInputSection.socialLoginBtn}
+                        onPress={() => LoginManager.naver.login()}
+                        onPressIn={() => setIsSocialLoginButtonPressed(true)}
+                        onPressOut={() => setIsSocialLoginButtonPressed(false)}
+                        >
+                        <View style={styles.LoginInputSection.socialLoginBtnIconWrapper}>
+                            <SocialLoginIcon 
+                                providerName="naver"
+                                diameter={iconDiameter}
+                                />
+                        </View>
+                        <Text style={styles.LoginInputSection.socialLoginBtnTitle}>
+                            {Messages.messages.auth.login.title_of_naver_social_login_btn}
+                        </Text>
+                        <View style={
+                            isSocialLoginButtonPressed
+                            ? styles.LoginInputSection.socialLoginPressedIn
+                            : {}
+                        } />
+                    </Pressable>
+                </View>
+            </View>
+            <View style={styles.JoinLinkSection.topLevelBox}>
+                <View style={styles.JoinLinkSection.textWrapper}>
+                    <Pressable
+                        children={({pressed}: any) => (
+                            <Text style={[
+                                {
+                                    color: pressed 
+                                        ? Theme.colors.colorFamily.blue
+                                        : Theme.colors.colorFamily.black,
+                                    fontSize: pressed
+                                        ? SystemInfo.window.width * 0.036
+                                        : SystemInfo.window.width * 0.035
+                                }, 
+                                styles.JoinLinkSection.text
+                                ]}
+                                onPress={() => navigation.navigate("join")}
+                                >
+                                {Messages.messages.auth.login.join}
+                            </Text>
+                        )}
+                    />
+                    <Text style={[
+                        {fontSize: SystemInfo.window.width * 0.035},
+                        styles.JoinLinkSection.text
+                        ]}>
+                        |
+                    </Text>
+                    <Pressable
+                        children={({pressed}: any) => (
+                            <Text style={[
+                                {
+                                    color: pressed 
+                                        ? Theme.colors.colorFamily.blue
+                                        : Theme.colors.colorFamily.black,
+                                    fontSize: pressed
+                                        ? SystemInfo.window.width * 0.036
+                                        : SystemInfo.window.width * 0.035
+                                }, 
+                                styles.JoinLinkSection.text
+                                ]}>
+                                {Messages.messages.auth.login.reset_password}
+                            </Text>
+                        )}
+                    />
+                </View>
+            </View>
+            {
+                /*
+                    <View style={styles.SocialLoginSection.topLevelBox}>
+                        <View style={styles.SocialLoginSection.iconsWrapper}>
+                            <SocialLoginIcon 
+                                providerName="naver"
+                                diameter={iconDiameter}
+                                onPress={() => LoginManager.naver.login()}
+                                />
+                            <SocialLoginIcon
+                                providerName="kakao"
+                                diameter={iconDiameter}
+                                onPress={() => handleSetLoginData(LoginManager.kakao.login())}
+                                />
+                            <SocialLoginIcon 
+                                providerName="google"
+                                diameter={iconDiameter}
+                                onPress={() => LoginManager.kakao.getKakaoProfile()}
+                                />
+                        </View>
+                    </View>
+                */
+            }
+        </SafeAreaView>
+    );
+}

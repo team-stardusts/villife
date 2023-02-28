@@ -1,21 +1,7 @@
 apply plugin: "com.android.application"
 apply plugin: "com.facebook.react"
-apply plugin: "com.google.gms.google-services" // added by junwoo relate to firebase
 
 import com.android.build.OutputFile
-
-// The code block below was added by Seongbin Hong.
-
-project.ext.envConfigFiles = [
-    developdebug: "src/data/env/.env.develop",
-    developrelease: "src/data/env/.env.develop",
-    stagedebug: "src/data/env/.env.stage",
-    stagerelease: "src/data/env/.env.stage",
-    productdebug: "src/data/env/.env",
-    productrelease: "src/data/env/.env",
-    anothercustombuild: "src/data/env/.env"
-]
-// =================================================
 
 /**
  * This is the configuration block to customize your React Native Android app.
@@ -26,9 +12,9 @@ react {
     //   The root of your project, i.e. where "package.json" lives. Default is '..'
     // root = file("../")
     //   The folder where the react-native NPM package is. Default is ../node_modules/react-native
-    // reactNativeDir = file("../node-modules/react-native")
+    // reactNativeDir = file("../node_modules/react-native")
     //   The folder where the react-native Codegen package is. Default is ../node_modules/react-native-codegen
-    // codegenDir = file("../node-modules/react-native-codegen")
+    // codegenDir = file("../node_modules/react-native-codegen")
     //   The cli.js file which is the React Native CLI entrypoint. Default is ../node_modules/react-native/cli.js
     // cliFile = file("../node_modules/react-native/cli.js")
 
@@ -115,29 +101,14 @@ android {
         versionCode 1
         versionName "1.0"
     }
+
+    // Added for Naver login.
     lintOptions {
         checkReleaseBuilds false
         // Or, if you prefer, you can continue to check for errors in release builds,
         // but continue the build even when errors are found:
         abortOnError false
     }
-
-    // The code block below was added by Seongbin Hong.
-    /*
-    flavorDimensions "version"
-    productFlavors {
-        develop {
-            dimension "version"
-        }
-        stage {
-            dimension "version"
-        }
-        product {
-            dimension "version"
-        }
-    }
-    */
-    // ================================================
 
     splits {
         abi {
@@ -188,9 +159,6 @@ android {
 dependencies {
     // The version of react-native is set by the React Native Gradle Plugin
     implementation("com.facebook.react:react-android")
-    // The code block below was added by Seongbin Hong.
-    implementation project(':react-native-config')
-    // ================================================
 
     implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.0.0")
 
@@ -212,7 +180,3 @@ dependencies {
 }
 
 apply from: file("../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesAppBuildGradle(project)
-
-// The code block below was added by Seongbin Hong.
-apply from: project(':react-native-config').projectDir.getPath() + "/dotenv.gradle"
-// =================================================

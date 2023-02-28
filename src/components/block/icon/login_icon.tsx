@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Pressable, View } from "react-native";
 import { Svg, Rect, Defs, Pattern, Use, Image } from "react-native-svg";
-import useKakaoLogin from "../../screens/login/kakaotest";
 import { SocialLoginIconProps, LoginIconReturnType, LoginIconProps, PressableIconProps } from "./types";
 
 
@@ -68,12 +67,12 @@ function PressableIcon(props: PressableIconProps): JSX.Element {
     return (
         <Pressable
             onPress={props.onPress}
-            onPressIn={() => setOpacity(pressedOpacity)}
-            onPressOut={() => setOpacity(unpressedOpacity)}
+            onPressIn={() => props.onPress ? setOpacity(pressedOpacity) : undefined}
+            onPressOut={() => props.onPress ? setOpacity(unpressedOpacity) : undefined}
         >
             {props.children}
             <View style={{
-                position : "absolute", 
+                position : "absolute",
                 top:0, 
                 bottom:0, 
                 left:0, 

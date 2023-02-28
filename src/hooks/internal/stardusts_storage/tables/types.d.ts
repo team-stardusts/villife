@@ -7,7 +7,10 @@ export interface ILoginTable extends ATable{
     remove(): Promise<void>;
 }
 
+export type HostType = "stardusts" | "kakao" | "naver" | "google";
+
 export type LoginDataType = {
+    host: HostType;
     userId: string;
     accessToken: string;
     accessTokenExpiresAt: Date;

@@ -14,6 +14,7 @@
             "title_of_id_input": "아이디",
             "title_of_password_input": "비밀번호",
             "title_of_login_btn": "로그인",
+            "title_of_naver_social_login_btn": "네이버 로그인",
             "join": "회원가입",
             "reset_password": "비밀번호 재설정"
         }
