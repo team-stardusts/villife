@@ -1,5 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
+
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -21,26 +22,16 @@
             <category android:name="android.intent.category.LAUNCHER" />
         </intent-filter>
       </activity>
-      <activity 
-        android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"
-        android:exported="true">
-        <intent-filter>
-            <action android:name="android.intent.action.VIEW" />
-            <category android:name="android.intent.category.DEFAULT" />
-            <category android:name="android.intent.category.BROWSABLE" />
-            
-            <!-- Redirect URI: "kakao${NATIVE_APP_KEY}://oauth" -->
-            <data android:host="oauth"
-                    android:scheme="kakaob52c71954818765209d33d209e0fbccb" />
-        </intent-filter>
-      </activity>
-      <activity
-        android:name="com.nhn.android.naverlogin.ui.OAuthLoginActivity"
-        android:screenOrientation="portrait"
-        android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-      <activity
-        android:name="com.nhn.android.naverlogin.ui.OAuthLoginInAppBrowserActivity"
-        android:label="OAuth2.0 In-app"
-        android:screenOrientation="portrait" />
+
+    <service
+            android:name=".pushnoti.CloudMessagingService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+    </service>
+
+
+
     </application>
 </manifest>

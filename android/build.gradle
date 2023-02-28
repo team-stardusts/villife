@@ -22,11 +22,13 @@ buildscript {
         classpath("com.facebook.react:react-native-gradle-plugin")
         // For Kakao social login.
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion")
+        classpath 'com.google.gms:google-services:4.3.15' // added by junwoo relate with firebase
     }
 }
 
 subprojects {
     repositories {
+        google()  // added by junwoo relate with firebase
         mavenCentral()
         maven { 
             url 'http://devrepo.kakao.com:8088/nexus/content/groups/public/' 

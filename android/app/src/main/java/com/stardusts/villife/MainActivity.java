@@ -1,10 +1,23 @@
 package com.stardusts.villife;
 
+import static android.content.ContentValues.TAG;
+
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;
 import com.facebook.react.defaults.DefaultNewArchitectureEntryPoint;
 import com.facebook.react.defaults.DefaultReactActivityDelegate;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.messaging.FirebaseMessaging;
+import com.stardusts.villife.pushnoti.CloudMessagingService;
+import com.stardusts.villife.pushnoti.PushPermissionRequester;
+
+import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
 
 public class MainActivity extends ReactActivity {
 
@@ -14,6 +27,8 @@ public class MainActivity extends ReactActivity {
    */
   @Override
   protected String getMainComponentName() {
+
+
     return "villife";
   }
 
@@ -36,7 +51,15 @@ public class MainActivity extends ReactActivity {
   // The code block below was added by Seongbin Hong.
   @Override
   protected void onCreate(Bundle savedInstanceState) {
+
     super.onCreate(null);
+    Log.d(VilllifeLog.DEBUG_TAG , "Main Activity Created");
+    PushPermissionRequester pushPermissionRequester = new PushPermissionRequester(this);
+    pushPermissionRequester.askNotificationPermission();
+    new CloudMessagingService().getPresentToken();
+
   }
   // ================================================
+
+
 }
