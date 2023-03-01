@@ -9,7 +9,6 @@ import React from 'react';
 //import Config from 'react-native-config';
 import ScreenRouter from './components/screen_router';
 import { RecoilRoot } from 'recoil';
-import { Text, View } from 'react-native';
 
 
 
