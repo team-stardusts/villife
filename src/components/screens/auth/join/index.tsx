@@ -1,17 +1,17 @@
 import axios from "axios";
 import { SafeAreaView, Text, View } from "react-native";
+import StardustsRestAPI from "../../../../hooks/external/rests/stardusts";
 import UniversalButton from "../../../atoms/button/universial_button";
 
 export default function JoinScreen({navigation}: any) {
+    const server = new StardustsRestAPI();
     const handleJoin = async() => {
-        await axios.post("http://192.168.0.36:8080/auth/signup/naver", {
-            access_token: "AAAAOYacxcfdGm7Qq_e39ZcAm9w0GvR_6AsK5P2PlcHcWE0ynxH9w88wAvbQEbuACPUMBcuSiBYRvAVYIu9ZZ_73ThA",
-            id: "xkseh5424",
+        const result = await server.socialJoin("naver", {
+            id: "dnsi37",
             password: "testpassword1!",
-            phone_number: "010-8845-7517"
-        })
-        .then((res) => console.log(res.data))
-        .catch((err: any) => console.log(err.response?.data))
+            access_token: "AAAANvJAi3gLF2h5RO4jWj6kNmi2li930TLhzkyLN9H_j-227mHcH3REuuRvxLQ3zg3tzclSNmKToJa_oVJ0jz3rRb0",
+            phone_number: "010-5502-7723",
+        });
     }
 
     return (
@@ -22,7 +22,7 @@ export default function JoinScreen({navigation}: any) {
                 </Text>
             </View>
             <View>
-                <UniversalButton 
+                <UniversalButton
                     title="NaverJoinTest" 
                     titleStyle={{fontSize: 20}}
                     onPress={() => handleJoin()}

@@ -1,7 +1,9 @@
 import axios, { AxiosInstance, AxiosRequestConfig } from "axios";
 import routes from "./routes";
 import { RoutesType } from "./routes/types";
-import IStardustsRestAPI, { SocialLoginCompanyType, SocialLoginReturnType, StardustsResultType } from "./types";
+import IStardustsRestAPI, { SocialJoinParamsType, SocialJoinResultType, SocialLoginCompanyType, SocialLoginResultType, StardustsResultType } from "./types";
+
+
 class StardustsRestAPI implements IStardustsRestAPI {
     requester: AxiosInstance = axios.create({
         baseURL: "http://192.168.0.36:8080",
@@ -9,9 +11,10 @@ class StardustsRestAPI implements IStardustsRestAPI {
 
     routes: RoutesType = routes;
 
-    public async request<T>(config: AxiosRequestConfig): Promise<StardustsResultType<T>> {
+    public async request<T>(config: AxiosRequestConfig): StardustsResultType<T> {
+        console.log(config)
         return await this.requester(config)
-            .then((res) => { 
+            .then((res) => {
                 return {
                     isSuccess: true,
                     data: res.data,
@@ -26,10 +29,9 @@ class StardustsRestAPI implements IStardustsRestAPI {
     }
 
     public async login(id: string, password: string): Promise<any> {
-        
     }
 
-    public async socialLogin(category: SocialLoginCompanyType, access_token: string) {
+    public async socialLogin(category: SocialLoginCompanyType, access_token: string): StardustsResultType<SocialLoginResultType> {
         let route: string;
 
         switch(category) {
@@ -40,7 +42,8 @@ class StardustsRestAPI implements IStardustsRestAPI {
                 route = this.routes.naverSocialLogin;
         };
 
-        return await this.request<SocialLoginReturnType>({
+        return await this.request<SocialLoginResultType>({
+            method: "post",
             url: route,
             data: { access_token }
         });
@@ -48,6 +51,24 @@ class StardustsRestAPI implements IStardustsRestAPI {
 
     public async join(): Promise<any> {
         
+    }
+
+    public async socialJoin(category: SocialLoginCompanyType, params: SocialJoinParamsType): StardustsResultType<SocialJoinResultType> {
+        let route: string;
+
+        switch(category) {
+            case "naver":
+                route = this.routes.naverSocialJoin;
+            default:
+                // Social login 추가 시 여기에 Route 추가
+                route = this.routes.naverSocialJoin;
+        };
+
+        return await this.request<SocialJoinResultType>({
+            method: "post",
+            url: route,
+            data: params,
+        });
     }
 }
 

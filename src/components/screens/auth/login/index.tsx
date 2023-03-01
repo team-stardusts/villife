@@ -13,7 +13,9 @@ import useAppTheme from "../../../../hooks/internal/themes/hooks";
 import useLoginService from "../../../../hooks/service/hooks";
 import { LoginDataType } from "../../../../hooks/internal/stardusts_storage/tables/types";
 import { SocialLoginCompanyType as SocialLoginHostType, StardustsResultType } from "../../../../hooks/external/rests/stardusts/types";
+import Config from "react-native-config";
 
+console.log(Config)
 
 type UserAuth = {
     id: string | null,
@@ -69,6 +71,7 @@ export default function LoginScreen({navigation}: LoginScreenTypes.LoginScreenPr
     const handleLogin = async(host: SocialLoginHostType) => {
         const { isSuccess, data } = await LoginManager[host].login();
 
+        console.log(isSuccess, data)
         if (isSuccess) {
             console.log(data)
         }
