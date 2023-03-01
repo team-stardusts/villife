@@ -1,6 +1,6 @@
 
 import { Button, Text, View, SafeAreaView } from 'react-native';
-import HomeScreen from './home/home_screen';
+import HomeScreen from './home';
 
 export default function MainScreen() {
 

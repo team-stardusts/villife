@@ -1,6 +1,6 @@
-import LoginManager from "./login";
+import LoginManagers from "./login";
 import { UseLoginServiceReturnType } from "./types";
 
 export default function useLoginService(): UseLoginServiceReturnType {
-    return new LoginManager();
+    return new LoginManagers();
 }

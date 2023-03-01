@@ -1,5 +1,54 @@
-class StardustsRestAPI {
+import axios, { AxiosInstance, AxiosRequestConfig } from "axios";
+import routes from "./routes";
+import { RoutesType } from "./routes/types";
+import IStardustsRestAPI, { SocialLoginCompanyType, SocialLoginReturnType, StardustsResultType } from "./types";
+class StardustsRestAPI implements IStardustsRestAPI {
+    requester: AxiosInstance = axios.create({
+        baseURL: "http://192.168.0.36:8080",
+    });
 
+    routes: RoutesType = routes;
+
+    public async request<T>(config: AxiosRequestConfig): Promise<StardustsResultType<T>> {
+        return await this.requester(config)
+            .then((res) => { 
+                return {
+                    isSuccess: true,
+                    data: res.data,
+                }
+            })
+            .catch((err) => { 
+                return {
+                    isSuccess: false,
+                    data: err.response?.data,
+                }
+            });
+    }
+
+    public async login(id: string, password: string): Promise<any> {
+        
+    }
+
+    public async socialLogin(category: SocialLoginCompanyType, access_token: string) {
+        let route: string;
+
+        switch(category) {
+            case "naver":
+                route = this.routes.naverSocialLogin;
+            default:
+                // Social login 추가 시 여기에 Route 추가
+                route = this.routes.naverSocialLogin;
+        };
+
+        return await this.request<SocialLoginReturnType>({
+            url: route,
+            data: { access_token }
+        });
+    }
+
+    public async join(): Promise<any> {
+        
+    }
 }
 
 export default StardustsRestAPI;

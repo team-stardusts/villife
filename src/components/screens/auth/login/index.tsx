@@ -12,6 +12,7 @@ import SocialLoginIcon from "../../../block/icon/login_icon";
 import useAppTheme from "../../../../hooks/internal/themes/hooks";
 import useLoginService from "../../../../hooks/service/hooks";
 import { LoginDataType } from "../../../../hooks/internal/stardusts_storage/tables/types";
+import { SocialLoginCompanyType as SocialLoginHostType, StardustsResultType } from "../../../../hooks/external/rests/stardusts/types";
 
 
 type UserAuth = {
@@ -63,6 +64,17 @@ export default function LoginScreen({navigation}: LoginScreenTypes.LoginScreenPr
         loginData.then((res) => {
             setLoginData(res);
         })
+    }
+
+    const handleLogin = async(host: SocialLoginHostType) => {
+        const { isSuccess, data } = await LoginManager[host].login();
+
+        if (isSuccess) {
+            console.log(data)
+        }
+        else {
+            /// Modal 필요함
+        }
     }
 
     useEffect(() => {
@@ -129,9 +141,9 @@ export default function LoginScreen({navigation}: LoginScreenTypes.LoginScreenPr
                             disabled={false}
                         />
                     </View>
-                    <Pressable 
+                    <Pressable
                         style={styles.LoginInputSection.socialLoginBtn}
-                        onPress={() => LoginManager.naver.login()}
+                        onPress={() => handleLogin("naver")}
                         onPressIn={() => setIsSocialLoginButtonPressed(true)}
                         onPressOut={() => setIsSocialLoginButtonPressed(false)}
                         >
