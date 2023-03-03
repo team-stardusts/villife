@@ -6,7 +6,7 @@ export default interface IStardustsRestAPI {
     request<T>(config: AxiosRequestConfig): StardustsResultType<T>;
     login(id: string, password: string): StardustsResultType<any>;
     socialLogin(category: SocialLoginCompanyType, access_token: string): 
-        StardustsResultType<SocialLoginResultType>;
+        StardustsResultType<CustomSocialLoginResultType>;
     join(): StardustsResultType<any>;
     socialJoin(category: SocialLoginCompanyType, params: SocialJoinParamsType): StardustsResultType<SocialJoinResultType>;
 }
@@ -17,7 +17,14 @@ export type SocialLoginCompanyType = "naver";
 export type SocialLoginResultType = {
     access_token: string;
     refresh_token: string;
-} | "cannot find user";
+} | "cannot find user" | undefined;
+
+export type CustomSocialLoginResultType = {
+    social: {
+        access_token: string;
+    };
+    stardusts: SocialLoginResultType;
+}
 
 export type StardustsResultType<T> = Promise<{
     isSuccess: boolean;

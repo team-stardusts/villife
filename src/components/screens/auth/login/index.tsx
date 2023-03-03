@@ -14,8 +14,8 @@ import useLoginService from "../../../../hooks/service/hooks";
 import { LoginDataType } from "../../../../hooks/internal/stardusts_storage/tables/types";
 import { SocialLoginCompanyType as SocialLoginHostType, StardustsResultType } from "../../../../hooks/external/rests/stardusts/types";
 import Config from "react-native-config";
+import AppRoutes from '../../../../data/routes.json';
 
-console.log(Config)
 
 type UserAuth = {
     id: string | null,
@@ -71,12 +71,18 @@ export default function LoginScreen({navigation}: LoginScreenTypes.LoginScreenPr
     const handleLogin = async(host: SocialLoginHostType) => {
         const { isSuccess, data } = await LoginManager[host].login();
 
-        console.log(isSuccess, data)
         if (isSuccess) {
-            console.log(data)
+            // Navigate to home screen.
         }
-        else {
-            /// Modal 필요함
+        else if (!isSuccess) {
+            // Modal & Navigate to join screen.
+            navigation.navigate(
+                AppRoutes.auth.join.DEFAULT,
+                {
+                    host: host,
+                    access_token: data.social.access_token,
+                }
+            );
         }
     }
 
@@ -182,7 +188,13 @@ export default function LoginScreen({navigation}: LoginScreenTypes.LoginScreenPr
                                 }, 
                                 styles.JoinLinkSection.text
                                 ]}
-                                onPress={() => navigation.navigate("join")}
+                                onPress={() => navigation.navigate(
+                                    AppRoutes.auth.join.DEFAULT,
+                                    {
+                                        host: "stardusts",
+                                        access_token: null,
+                                    }
+                                    )}
                                 >
                                 {Messages.messages.auth.login.join}
                             </Text>

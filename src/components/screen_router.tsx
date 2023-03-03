@@ -3,9 +3,10 @@ import { useEffect, useState } from 'react';
 import { enableScreens } from 'react-native-screens';
 import useStardustsStorage from '../hooks/internal/stardusts_storage/hooks';
 import StardustsStorage from '../hooks/internal/stardusts_storage';
-import AuthNavigator from './block/navigators/auth_navigator';
-import MainNavigator from './block/navigators/main_navigator';
-import SplashNavigator from './block/navigators/splash_navigator';
+import AuthNavigator from './block/navigators/auth';
+import MainNavigator from './block/navigators/main';
+import SplashNavigator from './block/navigators/splash';
+import { LoginDataType } from '../hooks/internal/stardusts_storage/tables/types';
 
 enableScreens(true);
 
@@ -15,9 +16,11 @@ export default function ScreenRouter() {
 
     useEffect(() => {
         const bootstrap = async () => {
-            const logindata = await storage.login.get();
+            const logindata: LoginDataType | null = await storage.login.get();
+
+            logindata ?? setIsLoading(false);
             
-            setTimeout(() => logindata ?? setIsLoading(false), 1000);
+            //setTimeout(() => logindata ?? setIsLoading(false), 1000);
         }
         bootstrap();
     }, [])

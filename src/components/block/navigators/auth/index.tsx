@@ -1,9 +1,10 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import LoginScreen from '../../screens/auth/login';
-import AppRoutes from '../../../data/routes.json';
-import JoinScreen from '../../screens/auth/join';
+import LoginScreen from '../../../screens/auth/login';
+import AppRoutes from '../../../../data/routes.json';
+import JoinScreen from '../../../screens/auth/join';
+import { AuthStackParamList } from './types';
 
-const Stack = createNativeStackNavigator()
+const Stack = createNativeStackNavigator<AuthStackParamList>()
 
 export default function AuthNavigator(): JSX.Element {
     return (

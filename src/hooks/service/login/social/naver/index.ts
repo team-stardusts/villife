@@ -1,6 +1,6 @@
 import { NaverLogin } from '@react-native-seoul/naver-login';
 import axios, {AxiosError} from 'axios';
-import { SocialLoginResultType, StardustsResultType } from '../../../../external/rests/stardusts/types';
+import { CustomSocialLoginResultType, StardustsResultType } from '../../../../external/rests/stardusts/types';
 //import NaverLogin, {
 //    GetProfileResponse,
 //} from '@react-native-seoul/naver-login';
@@ -19,7 +19,7 @@ const SERVISE_URL_SHEME = "com.stardusts.villife";
 class NaverLoginManager extends ALoginManager {
     systemInfo: SystemInfo = useSystemInfo();
 
-    public async login(): Promise<StardustsResultType<SocialLoginResultType>> {
+    public async login(): Promise<StardustsResultType<CustomSocialLoginResultType>> {
         const iosParams = {
             kServiceAppName: APP_NAME,
             kConsumerKey: CONSUMER_KEY,
@@ -44,7 +44,7 @@ class NaverLoginManager extends ALoginManager {
                 return; 
             })
         })
-        
+
         return await this.server.socialLogin("naver", naverLoginResult.accessToken);
     }
 

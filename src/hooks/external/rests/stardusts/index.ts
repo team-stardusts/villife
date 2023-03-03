@@ -1,7 +1,7 @@
 import axios, { AxiosInstance, AxiosRequestConfig } from "axios";
 import routes from "./routes";
 import { RoutesType } from "./routes/types";
-import IStardustsRestAPI, { SocialJoinParamsType, SocialJoinResultType, SocialLoginCompanyType, SocialLoginResultType, StardustsResultType } from "./types";
+import IStardustsRestAPI, { CustomSocialLoginResultType, SocialJoinParamsType, SocialJoinResultType, SocialLoginCompanyType, SocialLoginResultType, StardustsResultType } from "./types";
 
 
 class StardustsRestAPI implements IStardustsRestAPI {
@@ -12,7 +12,6 @@ class StardustsRestAPI implements IStardustsRestAPI {
     routes: RoutesType = routes;
 
     public async request<T>(config: AxiosRequestConfig): StardustsResultType<T> {
-        console.log(config)
         return await this.requester(config)
             .then((res) => {
                 return {
@@ -31,7 +30,7 @@ class StardustsRestAPI implements IStardustsRestAPI {
     public async login(id: string, password: string): Promise<any> {
     }
 
-    public async socialLogin(category: SocialLoginCompanyType, access_token: string): StardustsResultType<SocialLoginResultType> {
+    public async socialLogin(category: SocialLoginCompanyType, access_token: string): StardustsResultType<CustomSocialLoginResultType> {
         let route: string;
 
         switch(category) {
@@ -42,11 +41,22 @@ class StardustsRestAPI implements IStardustsRestAPI {
                 route = this.routes.naverSocialLogin;
         };
 
-        return await this.request<SocialLoginResultType>({
+        const result = await this.request<SocialLoginResultType>({
             method: "post",
             url: route,
             data: { access_token }
         });
+        
+        const data = Object.assign({
+            social: {access_token},
+        }, {
+            stardusts: result.data,
+        })
+        
+        return {
+            isSuccess: result.isSuccess,
+            data: data,
+        }
     }
 
     public async join(): Promise<any> {
