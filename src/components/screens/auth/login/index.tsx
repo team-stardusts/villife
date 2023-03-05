@@ -8,13 +8,13 @@ import { useRecoilState } from "recoil";
 import { testState } from "../../../../hooks/states/atoms/test";
 import { useEffect, useState } from "react";
 import useSystemInfo from "../../../../hooks/systeminfo/hooks";
-import SocialLoginIcon from "../../../block/icon/login_icon";
+import SocialLoginIcon from "../../../block/icon/login";
 import useAppTheme from "../../../../hooks/themes/hooks";
 import useLoginService from "../../../../hooks/services/hooks";
 import { LoginDataType } from "../../../../hooks/storage/tables/types";
 import { SocialLoginCompanyType as SocialLoginHostType, StardustsResultType } from "../../../../libs/rest_apis/stardusts/types";
 import Config from "react-native-config";
-import AppRoutes from '../../../../data/routes.json';
+//import AppRoutes from '../../../../data/routes.json';
 
 
 type UserAuth = {
@@ -77,7 +77,7 @@ export default function LoginScreen({navigation}: LoginScreenTypes.LoginScreenPr
         else if (!isSuccess) {
             // Modal & Navigate to join screen.
             navigation.navigate(
-                AppRoutes.auth.join.DEFAULT,
+                "create_account",
                 {
                     host: host,
                     access_token: data.social.access_token,
@@ -138,6 +138,7 @@ export default function LoginScreen({navigation}: LoginScreenTypes.LoginScreenPr
                             }}
                             onFocus={() => setPwResponsableStyle(inputSelectedStyle)}
                             onBlur={() => setPwResponsableStyle(inputUnselectedStyle)}
+                            secureTextEntry
                             />
                     </View>
                     <View style={styles.LoginInputSection.btnWrapper}>
@@ -189,7 +190,7 @@ export default function LoginScreen({navigation}: LoginScreenTypes.LoginScreenPr
                                 styles.JoinLinkSection.text
                                 ]}
                                 onPress={() => navigation.navigate(
-                                    AppRoutes.auth.join.DEFAULT,
+                                    "create_account",
                                     {
                                         host: "stardusts",
                                         access_token: null,

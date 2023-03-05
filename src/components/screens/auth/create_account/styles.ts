@@ -1,26 +1,27 @@
 import { StyleSheet } from "react-native";
 import useSystemInfo from "../../../../hooks/systeminfo/hooks";
 import useAppTheme from "../../../../hooks/themes/hooks";
-import { JoinScreenStylesType } from "./types";
+import { CreateAccountScreenStylesType } from "./types";
 
-export default function useJoinScreenStyles(): JoinScreenStylesType {
+export default function useCreateAccountScreenStyles(): CreateAccountScreenStylesType {
     const Theme = useAppTheme();
     const SystemInfo = useSystemInfo();
 
-    const Page = StyleSheet.create({
+    const Screen = StyleSheet.create({
         topLevelBox: {
             flex: 1,
             flexDirection: "column",
             backgroundColor: Theme.colors.colorFamily.white,
         },
-        contentsWrapper: {
+        screenWrapper: {
             flex: 1,
             paddingHorizontal: SystemInfo.window.width * 0.06,
         }
     });
-    const PageTitleSection = StyleSheet.create({
+
+    const TitleSection = StyleSheet.create({
         topLevelBox: {
-            flex: 1,
+            flex: 2,
             display: "flex",
             alignItems: "flex-start",
             justifyContent: "center",
@@ -29,16 +30,26 @@ export default function useJoinScreenStyles(): JoinScreenStylesType {
             textAlign: "left",
             paddingTop: SystemInfo.window.width * 0.04,
         },
-        text: {
+        title: {
             color: Theme.colors.colorFamily.blue,
             fontWeight: "bold",
             fontSize: SystemInfo.window.width * 0.07,
+        },
+        subtitle: {
+            color: Theme.colors.colorFamily.black,
+            fontSize: SystemInfo.window.width * 0.03,
         }
     });
 
-    const JoinInputSection = StyleSheet.create({
+    const ContentsSection = StyleSheet.create({
         topLevelBox: {
-            flex: 3,
+            flex: 8,
+        },
+    });
+
+    const AccountInputSection = StyleSheet.create({
+        topLevelBox: {
+            flex: 5,
         },
         attrWrapper: {
             //display: "flex",
@@ -86,14 +97,15 @@ export default function useJoinScreenStyles(): JoinScreenStylesType {
 
     const BlankSection = StyleSheet.create({
         topLevelBox: {
-            flex: 4,
+            flex: 5,
         }
     });
 
     return {
-        Page, 
-        PageTitleSection,
-        JoinInputSection,
+        Screen, 
+        TitleSection,
+        ContentsSection,
+        AccountInputSection,
         BlankSection,
     }
 }

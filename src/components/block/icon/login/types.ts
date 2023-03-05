@@ -1,3 +1,5 @@
+import { GestureResponderEvent } from "react-native/types";
+
 export interface LoginIconProps {
     diameter: number;
 }

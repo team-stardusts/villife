@@ -1,12 +1,12 @@
 {
     "main": {
         "home": {
-            "pageName": "home"
+            "page_name": "home"
         }
     },
     "auth": {
         "login": {
-            "pageName": "login",
+            "page_name": "login",
             "request_login": {
                 "line_1": "빌라이프 서비스 이용을 위해",
                 "line_2": "로그인 해주세요."
@@ -19,16 +19,26 @@
             "reset_password": "비밀번호 재설정"
         },
         "join": {
-            "pageName": "join",
+            "page_name": "join",
             "join": "빌라이프 가입",
             "identification": "본인인증",
             "title_of_name_input": "이름",
             "title_of_birth_input": "생년월일",
             "title_of_select_carrier_input": "통신사(선택)",
             "title_of_send_btn": "인증번호 전송"
+        },
+        "create_account": {
+            "page_name": "create_account",
+            "title": "ID & 비밀번호 설정하기",
+            "subtitle_1": "로그인할 때 사용할 비밀번호를 입력해주세요.",
+            "subtitle_2": "비밀번호는 영문, 숫자, 특수문자 포함 8자리 이상으로 설정해주세요.",
+            "name_input_title": "ID",
+            "password_input_title": "비밀번호",
+            "confirm_password_input_title": "비밀번호 확인",
+            "next_btn_title": "다음"
         }
     },
     "splash": {
-        "pageName": "splash"
+        "page_name": "splash"
     }
 }

@@ -1,6 +1,6 @@
-import LocalStorage from "../../../libs/localstorage";
-import ATable from "./absc";
-import { ILoginTable, LoginDataType } from "./types"
+import LocalStorage from "../../../../libs/localstorage";
+import ATable from "../absc";
+import { ILoginTable, LoginDataType } from "../types"
 
 class LoginTable extends ATable implements ILoginTable{
     readonly key: string = "login";

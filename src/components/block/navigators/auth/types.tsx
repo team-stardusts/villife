@@ -5,7 +5,7 @@ export type AuthStackParamList = {
     login: {
         
     }
-    join: {
+    create_account: {
         host: LoginHosts;
         access_token: string | null;
     }
