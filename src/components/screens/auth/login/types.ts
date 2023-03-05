@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native/types";
-import { LoginDataType } from "../../../../hooks/internal/stardusts_storage/tables/types";
+import { LoginDataType } from "../../../../hooks/storage/tables/types";
 
 declare namespace LoginScreenTypes {
     type LoginScreenStylesType = {

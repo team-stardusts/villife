@@ -7,6 +7,9 @@ import IStardustsRestAPI, { CustomSocialLoginResultType, SocialJoinParamsType, S
 class StardustsRestAPI implements IStardustsRestAPI {
     requester: AxiosInstance = axios.create({
         baseURL: "http://192.168.0.36:8080",
+        timeout: 1000,
+        timeoutErrorMessage: "The request timed out.\
+            Check the Stardusts server."
     });
 
     routes: RoutesType = routes;
@@ -19,7 +22,7 @@ class StardustsRestAPI implements IStardustsRestAPI {
                     data: res.data,
                 }
             })
-            .catch((err) => { 
+            .catch((err) => {
                 return {
                     isSuccess: false,
                     data: err.response?.data,
@@ -30,9 +33,9 @@ class StardustsRestAPI implements IStardustsRestAPI {
     public async login(id: string, password: string): Promise<any> {
     }
 
-    public async socialLogin(category: SocialLoginCompanyType, access_token: string): StardustsResultType<CustomSocialLoginResultType> {
+    public async socialLogin(category: SocialLoginCompanyType, accessToken: string): StardustsResultType<CustomSocialLoginResultType> {
         let route: string;
-
+        
         switch(category) {
             case "naver":
                 route = this.routes.naverSocialLogin;
@@ -40,15 +43,15 @@ class StardustsRestAPI implements IStardustsRestAPI {
                 // Social login 추가 시 여기에 Route 추가
                 route = this.routes.naverSocialLogin;
         };
-
+        
         const result = await this.request<SocialLoginResultType>({
             method: "post",
             url: route,
-            data: { access_token }
+            data: { access_token: accessToken }
         });
         
         const data = Object.assign({
-            social: {access_token},
+            social: { access_token: accessToken },
         }, {
             stardusts: result.data,
         })

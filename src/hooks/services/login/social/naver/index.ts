@@ -1,12 +1,12 @@
 import { NaverLogin } from '@react-native-seoul/naver-login';
 import axios, {AxiosError} from 'axios';
-import { CustomSocialLoginResultType, StardustsResultType } from '../../../../external/rests/stardusts/types';
+import { CustomSocialLoginResultType, StardustsResultType } from '../../../../../libs/rest_apis/stardusts/types';
 //import NaverLogin, {
 //    GetProfileResponse,
 //} from '@react-native-seoul/naver-login';
-import { LoginDataType } from '../../../../internal/stardusts_storage/tables/types';
-import SystemInfo from '../../../../internal/systeminfo';
-import useSystemInfo from '../../../../internal/systeminfo/hooks';
+import { LoginDataType } from '../../../../storage/tables/types';
+import SystemInfo from '../../../../systeminfo';
+import useSystemInfo from '../../../../systeminfo/hooks';
 import ALoginManager from '../../absc';
 //import { INaverLoginManager } from '../types';
 
@@ -44,7 +44,7 @@ class NaverLoginManager extends ALoginManager {
                 return; 
             })
         })
-
+        // NaverLogin 실패 상황 예외 처리 필요
         return await this.server.socialLogin("naver", naverLoginResult.accessToken);
     }
 

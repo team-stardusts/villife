@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { GestureResponderEvent, Pressable, Text } from "react-native";
-import useAppTheme from "../../../hooks/internal/themes/hooks";
+import useAppTheme from "../../../hooks/themes/hooks";
 import { UniversalButtonProps } from "./types";
 
 

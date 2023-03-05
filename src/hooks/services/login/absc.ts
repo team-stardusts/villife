@@ -1,4 +1,4 @@
-import StardustsRestAPI from "../../external/rests/stardusts";
+import StardustsRestAPI from "../../../libs/rest_apis/stardusts";
 import { ILoginable } from "./types";
 
 abstract class ALoginManager implements ILoginable {

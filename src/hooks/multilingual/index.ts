@@ -1,5 +1,5 @@
 import { ScreenMessages } from "./types";
-import korean from "../../../data/languages/kr.json"
+import korean from "../../data/languages/kr.json"
 
 export const LANGUAGES: ScreenMessages.LANGUAGES = {
     KR: "korean",

@@ -1,18 +1,18 @@
 import { Button, Pressable, SafeAreaView, Text, View } from "react-native";
 import UniversalTextInput from "../../../atoms/textinput/universal_textinput";
 import UniversalButton from "../../../atoms/button/universial_button";
-import useScreenMessage from "../../../../hooks/internal/multilingual/hooks";
+import useScreenMessage from "../../../../hooks/multilingual/hooks";
 import LoginScreenTypes from "./types";
 import useLoginScreenStyles from "./styles";
 import { useRecoilState } from "recoil";
 import { testState } from "../../../../hooks/states/atoms/test";
 import { useEffect, useState } from "react";
-import useSystemInfo from "../../../../hooks/internal/systeminfo/hooks";
+import useSystemInfo from "../../../../hooks/systeminfo/hooks";
 import SocialLoginIcon from "../../../block/icon/login_icon";
-import useAppTheme from "../../../../hooks/internal/themes/hooks";
-import useLoginService from "../../../../hooks/service/hooks";
-import { LoginDataType } from "../../../../hooks/internal/stardusts_storage/tables/types";
-import { SocialLoginCompanyType as SocialLoginHostType, StardustsResultType } from "../../../../hooks/external/rests/stardusts/types";
+import useAppTheme from "../../../../hooks/themes/hooks";
+import useLoginService from "../../../../hooks/services/hooks";
+import { LoginDataType } from "../../../../hooks/storage/tables/types";
+import { SocialLoginCompanyType as SocialLoginHostType, StardustsResultType } from "../../../../libs/rest_apis/stardusts/types";
 import Config from "react-native-config";
 import AppRoutes from '../../../../data/routes.json';
 
@@ -70,7 +70,7 @@ export default function LoginScreen({navigation}: LoginScreenTypes.LoginScreenPr
 
     const handleLogin = async(host: SocialLoginHostType) => {
         const { isSuccess, data } = await LoginManager[host].login();
-
+        
         if (isSuccess) {
             // Navigate to home screen.
         }
@@ -108,7 +108,7 @@ export default function LoginScreen({navigation}: LoginScreenTypes.LoginScreenPr
                         <Text style={styles.LoginInputSection.inputIdentifier}>
                             {Messages.messages.auth.login.title_of_id_input}
                         </Text>
-                        <UniversalTextInput 
+                        <UniversalTextInput
                             style={{
                                 ...styles.LoginInputSection.input,
                                 ...idInputResponsibleStyle,
@@ -141,7 +141,7 @@ export default function LoginScreen({navigation}: LoginScreenTypes.LoginScreenPr
                             />
                     </View>
                     <View style={styles.LoginInputSection.btnWrapper}>
-                        <UniversalButton 
+                        <UniversalButton
                             title={Messages.messages.auth.login.title_of_login_btn}
                             titleStyle={styles.LoginInputSection.btnTitle}
                             style={styles.LoginInputSection.btn}

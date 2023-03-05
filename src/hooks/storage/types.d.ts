@@ -1,4 +1,4 @@
-import type LocalStorage from "../../native/localstorage";
+import type LocalStorage from "../../libs/localstorage";
 import type LoginTable from "./tables/login";
 
 

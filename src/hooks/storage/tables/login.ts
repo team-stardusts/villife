@@ -1,4 +1,4 @@
-import LocalStorage from "../../../native/localstorage";
+import LocalStorage from "../../../libs/localstorage";
 import ATable from "./absc";
 import { ILoginTable, LoginDataType } from "./types"
 

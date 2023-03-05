@@ -5,7 +5,7 @@ export default interface IStardustsRestAPI {
     requester: AxiosInstance;
     request<T>(config: AxiosRequestConfig): StardustsResultType<T>;
     login(id: string, password: string): StardustsResultType<any>;
-    socialLogin(category: SocialLoginCompanyType, access_token: string): 
+    socialLogin(category: SocialLoginCompanyType, accessToken: string): 
         StardustsResultType<CustomSocialLoginResultType>;
     join(): StardustsResultType<any>;
     socialJoin(category: SocialLoginCompanyType, params: SocialJoinParamsType): StardustsResultType<SocialJoinResultType>;

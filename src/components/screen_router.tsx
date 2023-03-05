@@ -1,12 +1,12 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { useEffect, useState } from 'react';
 import { enableScreens } from 'react-native-screens';
-import useStardustsStorage from '../hooks/internal/stardusts_storage/hooks';
-import StardustsStorage from '../hooks/internal/stardusts_storage';
+import useStardustsStorage from '../hooks/storage/hooks';
+import StardustsStorage from '../hooks/storage';
 import AuthNavigator from './block/navigators/auth';
 import MainNavigator from './block/navigators/main';
 import SplashNavigator from './block/navigators/splash';
-import { LoginDataType } from '../hooks/internal/stardusts_storage/tables/types';
+import { LoginDataType } from '../hooks/storage/tables/types';
 
 enableScreens(true);
 
