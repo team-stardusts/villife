@@ -1,7 +1,7 @@
 import axios, { AxiosInstance, AxiosRequestConfig } from "axios";
 import routes from "./routes";
 import { RoutesType } from "./routes/types";
-import IStardustsRestAPI, { CustomSocialLoginResultType, SocialJoinParamsType, SocialJoinResultType, SocialLoginCompanyType, SocialLoginResultType, StardustsResultType } from "./types";
+import IStardustsRestAPI, { CustomSocialLoginResultType, SocialJoinParamsType, SocialJoinResultType, SocialLoginHostType, SocialLoginResultType, StardustsResultType } from "./types";
 
 
 class StardustsRestAPI implements IStardustsRestAPI {
@@ -33,7 +33,7 @@ class StardustsRestAPI implements IStardustsRestAPI {
     public async login(id: string, password: string): Promise<any> {
     }
 
-    public async socialLogin(category: SocialLoginCompanyType, accessToken: string): StardustsResultType<CustomSocialLoginResultType> {
+    public async socialLogin(category: SocialLoginHostType, accessToken: string): StardustsResultType<CustomSocialLoginResultType> {
         let route: string;
         
         switch(category) {
@@ -66,7 +66,7 @@ class StardustsRestAPI implements IStardustsRestAPI {
         
     }
 
-    public async socialJoin(category: SocialLoginCompanyType, params: SocialJoinParamsType): StardustsResultType<SocialJoinResultType> {
+    public async socialJoin(category: SocialLoginHostType, params: SocialJoinParamsType): StardustsResultType<SocialJoinResultType> {
         let route: string;
 
         switch(category) {

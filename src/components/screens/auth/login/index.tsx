@@ -1,18 +1,18 @@
-import { Button, Pressable, SafeAreaView, Text, View } from "react-native";
-import UniversalTextInput from "../../../atoms/textinput/universal_textinput";
-import UniversalButton from "../../../atoms/button/universial_button";
+import { Pressable, SafeAreaView, Text, View } from "react-native";
 import useScreenMessage from "../../../../hooks/multilingual/hooks";
 import LoginScreenTypes from "./types";
 import useLoginScreenStyles from "./styles";
+import UniversalTextInput from "../../../blocks/universial/textinput";
+import UniversialButton from "../../../blocks/universial/button";
 import { useRecoilState } from "recoil";
 import { testState } from "../../../../hooks/states/atoms/test";
 import { useEffect, useState } from "react";
 import useSystemInfo from "../../../../hooks/systeminfo/hooks";
-import SocialLoginIcon from "../../../block/icon/login";
+import SocialLoginIcon from "../../../blocks/icon/login";
 import useAppTheme from "../../../../hooks/themes/hooks";
 import useLoginService from "../../../../hooks/services/hooks";
 import { LoginDataType } from "../../../../hooks/storage/tables/types";
-import { SocialLoginCompanyType as SocialLoginHostType, StardustsResultType } from "../../../../libs/rest_apis/stardusts/types";
+import { SocialLoginHostType, StardustsResultType } from "../../../../libs/rest_apis/stardusts/types";
 import Config from "react-native-config";
 //import AppRoutes from '../../../../data/routes.json';
 
@@ -20,11 +20,6 @@ import Config from "react-native-config";
 type UserAuth = {
     id: string | null,
     password: string | null,
-}
-
-type InputResponsibleStype = {
-    borderColor: string;
-    borderWidth: number;
 }
 
 
@@ -35,22 +30,6 @@ export default function LoginScreen({navigation}: LoginScreenTypes.LoginScreenPr
     const SystemInfo = useSystemInfo();
     const styles: LoginScreenTypes.LoginScreenStylesType = useLoginScreenStyles();
     const iconDiameter: number = useSystemInfo().window.width * 0.12;
-    
-    const inputSelectedStyle: InputResponsibleStype = {
-        borderColor: Theme.colors.colorFamily.blue,
-        borderWidth: SystemInfo.window.width * 0.004,
-    }
-
-    const inputUnselectedStyle: InputResponsibleStype = {
-        borderColor: Theme.colors.colorFamily.lightgrey,
-        borderWidth: SystemInfo.window.width * 0.002,
-    }
-
-    const [idInputResponsibleStyle, setIdResponsableStyle] = 
-        useState<InputResponsibleStype>(inputUnselectedStyle)
-
-    const [pwInputResponsibleStyle, setPwResponsableStyle] = 
-        useState<InputResponsibleStype>(inputUnselectedStyle)
     
     const [isSocialLoginButtonPressed, setIsSocialLoginButtonPressed]
         = useState<boolean>(false)
@@ -109,17 +88,11 @@ export default function LoginScreen({navigation}: LoginScreenTypes.LoginScreenPr
                             {Messages.messages.auth.login.title_of_id_input}
                         </Text>
                         <UniversalTextInput
-                            style={{
-                                ...styles.LoginInputSection.input,
-                                ...idInputResponsibleStyle,
-                            }}
                             name="id"
-                            onChangeText={(name, text) => {
+                            onChangeText={(text, name) => {
                                 if (name === "id")
                                 setAuth({...auth, [name]: text})
                             }}
-                            onFocus={() => setIdResponsableStyle(inputSelectedStyle)}
-                            onBlur={() => setIdResponsableStyle(inputUnselectedStyle)}
                             />
                     </View>
                     <View style={styles.LoginInputSection.inputWrapper}>
@@ -127,25 +100,18 @@ export default function LoginScreen({navigation}: LoginScreenTypes.LoginScreenPr
                             {Messages.messages.auth.login.title_of_password_input}
                         </Text>
                         <UniversalTextInput
-                            style={{
-                                ...styles.LoginInputSection.input,
-                                ...pwInputResponsibleStyle,
-                            }}
                             name="password"
-                            onChangeText={(name, text) => {
+                            onChangeText={(text, name) => {
                                 if (name === "password")
                                 setAuth({...auth, [name]: text})
                             }}
-                            onFocus={() => setPwResponsableStyle(inputSelectedStyle)}
-                            onBlur={() => setPwResponsableStyle(inputUnselectedStyle)}
                             secureTextEntry
                             />
                     </View>
                     <View style={styles.LoginInputSection.btnWrapper}>
-                        <UniversalButton
+                        <UniversialButton
                             title={Messages.messages.auth.login.title_of_login_btn}
                             titleStyle={styles.LoginInputSection.btnTitle}
-                            style={styles.LoginInputSection.btn}
                             onPress={() => LoginManager.naver.logout()}
                             //onPress={() => LoginManager.stardusts.login()}
                             disabled={false}

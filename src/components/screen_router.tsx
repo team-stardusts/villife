@@ -3,9 +3,9 @@ import { useEffect, useState } from 'react';
 import { enableScreens } from 'react-native-screens';
 import useStardustsStorage from '../hooks/storage/hooks';
 import StardustsStorage from '../hooks/storage';
-import AuthNavigator from './block/navigators/auth';
-import MainNavigator from './block/navigators/main';
-import SplashNavigator from './block/navigators/splash';
+import AuthNavigator from './navigators/auth';
+import MainNavigator from './navigators/main';
+import SplashNavigator from './navigators/splash';
 import { LoginDataType } from '../hooks/storage/tables/types';
 
 enableScreens(true);

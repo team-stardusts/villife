@@ -5,14 +5,14 @@ export default interface IStardustsRestAPI {
     requester: AxiosInstance;
     request<T>(config: AxiosRequestConfig): StardustsResultType<T>;
     login(id: string, password: string): StardustsResultType<any>;
-    socialLogin(category: SocialLoginCompanyType, accessToken: string): 
+    socialLogin(category: SocialLoginHostType, accessToken: string): 
         StardustsResultType<CustomSocialLoginResultType>;
     join(): StardustsResultType<any>;
-    socialJoin(category: SocialLoginCompanyType, params: SocialJoinParamsType): StardustsResultType<SocialJoinResultType>;
+    socialJoin(category: SocialLoginHostType, params: SocialJoinParamsType): StardustsResultType<SocialJoinResultType>;
 }
 
 
-export type SocialLoginCompanyType = "naver";
+export type SocialLoginHostType = "naver";
 
 export type SocialLoginResultType = {
     access_token: string;

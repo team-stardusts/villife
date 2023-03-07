@@ -1,5 +1,5 @@
-import AppRoutes from "../../../../data/routes.json"
-import { LoginHosts } from "../../../../hooks/services/types"
+import AppRoutes from "../../../data/routes.json"
+import { LoginHosts } from "../../../hooks/services/types"
 
 export type AuthStackParamList = {
     login: {

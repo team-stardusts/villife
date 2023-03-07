@@ -1,6 +1,6 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import AppRoutes from '../../../../data/routes.json';
-import SplashScreen from '../../../screens/splash/splash_screen';
+import AppRoutes from '../../../data/routes.json';
+import SplashScreen from '../../screens/splash/splash_screen';
 
 const Stack = createNativeStackNavigator()
 

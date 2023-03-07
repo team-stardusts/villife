@@ -5,9 +5,9 @@ import StardustsRestAPI from "../../../../libs/rest_apis/stardusts";
 import useScreenMessage from "../../../../hooks/multilingual/hooks";
 import useSystemInfo from "../../../../hooks/systeminfo/hooks";
 import useAppTheme from "../../../../hooks/themes/hooks";
-import UniversalButton from "../../../atoms/button/universial_button";
-import UniversalTextInput from "../../../atoms/textinput/universal_textinput";
-import { AuthStackParamList } from "../../../block/navigators/auth/types";
+import UniversialButton from "../../../blocks/universial/button";
+import UniversalTextInput from "../../../blocks/universial/textinput";
+import { AuthStackParamList } from "../../../navigators/auth/types";
 import useCreateAccountScreenStyles from "./styles";
 
 type JoinScreenProps = NativeStackScreenProps<AuthStackParamList, "create_account">
@@ -36,25 +36,6 @@ export default function CreateAccountScreen({navigation, route}: JoinScreenProps
         password: null,
         confirm_password: null,
     })
-
-    const inputSelectedStyle: InputResponsibleStype = {
-        borderColor: Theme.colors.colorFamily.blue,
-        borderWidth: SystemInfo.window.width * 0.004,
-    }
-
-    const inputUnselectedStyle: InputResponsibleStype = {
-        borderColor: Theme.colors.colorFamily.lightgrey,
-        borderWidth: SystemInfo.window.width * 0.002,
-    }
-
-    const [idInputResponsibleStyle, setIdResponsableStyle] = 
-        useState<InputResponsibleStype>(inputUnselectedStyle)
-    
-    const [pwInputResponsibleStyle, setPwResponsableStyle] = 
-        useState<InputResponsibleStype>(inputUnselectedStyle)
-
-    const [birthInputResponsibleStyle, setBirthResponsableStyle] = 
-        useState<InputResponsibleStype>(inputUnselectedStyle)
 
     const handleJoin = async() => {
         const result = await server.socialJoin("naver", {
@@ -92,18 +73,12 @@ export default function CreateAccountScreen({navigation, route}: JoinScreenProps
                                 <Text style={styles.AccountInputSection.inputIdentifier}>
                                     {Messages.messages.auth.create_account.name_input_title}
                                 </Text>
-                                <UniversalTextInput 
-                                    style={[
-                                        styles.AccountInputSection.input,
-                                        idInputResponsibleStyle,
-                                    ]}
+                                <UniversalTextInput
                                     name="id"
-                                    onChangeText={(name, text) =>{
+                                    onChangeText={(text, name) =>{
                                         if (name === "id")
                                         setAccount({...account, [name]: text})
                                     }}
-                                    onFocus={() => setIdResponsableStyle(inputSelectedStyle)}
-                                    onBlur={() => setIdResponsableStyle(inputUnselectedStyle)}
                                     />
                             </View>
                             <View style={styles.AccountInputSection.inputWrapper}>
@@ -111,17 +86,11 @@ export default function CreateAccountScreen({navigation, route}: JoinScreenProps
                                     {Messages.messages.auth.create_account.password_input_title}
                                 </Text>
                                 <UniversalTextInput 
-                                    style={[
-                                        styles.AccountInputSection.input,
-                                        pwInputResponsibleStyle,
-                                    ]}
                                     name="password"
-                                    onChangeText={(name, text) =>{
+                                    onChangeText={(text, name) =>{
                                         if (name === "password")
                                         setAccount({...account, [name]: text})
                                     }}
-                                    onFocus={() => setPwResponsableStyle(inputSelectedStyle)}
-                                    onBlur={() => setPwResponsableStyle(inputUnselectedStyle)}
                                     secureTextEntry
                                     />
                             </View>
@@ -129,18 +98,12 @@ export default function CreateAccountScreen({navigation, route}: JoinScreenProps
                                 <Text style={styles.AccountInputSection.inputIdentifier}>
                                     {Messages.messages.auth.create_account.confirm_password_input_title}
                                 </Text>
-                                <UniversalTextInput 
-                                    style={[
-                                        styles.AccountInputSection.input,
-                                        birthInputResponsibleStyle,
-                                    ]}
+                                <UniversalTextInput
                                     name="confirm_password"
-                                    onChangeText={(name, text) =>{
+                                    onChangeText={(text, name) =>{
                                         if (name === "confirm_password")
                                         setAccount({...account, [name]: text})
                                     }}
-                                    onFocus={() => setBirthResponsableStyle(inputSelectedStyle)}
-                                    onBlur={() => setBirthResponsableStyle(inputUnselectedStyle)}
                                     secureTextEntry
                                     />
                             </View>
@@ -155,10 +118,9 @@ export default function CreateAccountScreen({navigation, route}: JoinScreenProps
                                 :<></>
                             }
                             <View style={styles.AccountInputSection.btnWrapper}>
-                                <UniversalButton
+                                <UniversialButton
                                     title={Messages.messages.auth.join.title_of_send_btn}
                                     titleStyle={styles.AccountInputSection.btnTitle}
-                                    style={styles.AccountInputSection.btn}
                                     onPress={() => {}}
                                     disabled={false}
                                 />

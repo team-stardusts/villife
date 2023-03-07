@@ -67,21 +67,9 @@ export default function useCreateAccountScreenStyles(): CreateAccountScreenStyle
             fontWeight: "bold",
             paddingBottom: SystemInfo.window.width * 0.01,
         },
-        input: {
-            backgroundColor: "white",
-            height: SystemInfo.window.width * 0.08,
-            borderRadius: SystemInfo.window.width * 0.02,
-            margin: 0,
-            paddingVertical: SystemInfo.window.width * 0.01,
-            paddingHorizontal: SystemInfo.window.width * 0.02,
-        },
         btnWrapper: {
             flex: 3,
             marginBottom: SystemInfo.window.width * 0.02,
-        },
-        btn: {
-            flex: 1,
-            borderRadius: SystemInfo.window.width * 0.02,
         },
         btnDisabled: {
             flex: 1,
