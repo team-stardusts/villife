@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { GestureResponderEvent, Text } from "react-native";
 import Button from "../../../atoms/button";
 import useUniversialButtonStyles from "./styles";
@@ -9,6 +9,7 @@ export default function UniversialButton(props: UniversialButtonProps): JSX.Elem
     const [isPressing, setIsPressing] = useState<boolean>(false);
     const {
         buttonColor,
+        borderRadius,
         pressedButtonColor,
         disabledButtonColor,
         disabled,
@@ -16,14 +17,15 @@ export default function UniversialButton(props: UniversialButtonProps): JSX.Elem
 
     const Style = useUniversialButtonStyles({
         buttonColor,
+        borderRadius,
         pressedButtonColor,
         disabledButtonColor,
         isPressing,
         disabled,
+
     })
 
     const titleStyle: any = props.titleStyle || undefined;
-    const style: any = props.style || undefined;
     
     const onPressIn = (e: GestureResponderEvent) => {
         setIsPressing(true);
@@ -40,12 +42,10 @@ export default function UniversialButton(props: UniversialButtonProps): JSX.Elem
             props.onPressOut(e);
         }
     }
-    useEffect(() => {
 
-    }, [Style])
     return (
         <Button
-            style={[Style.view, style]}
+            style={Style.view}
             titleStyle={[titleStyle, Style.text]}
             onPressIn={onPressIn}
             onPressOut={onPressOut}

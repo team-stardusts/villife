@@ -14,8 +14,9 @@ export default function useUniversialButtonStyles(
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
-            borderRadius: SystemInfo.window.width * 0.02,
+            borderRadius: props.borderRadius ?? SystemInfo.window.width * 0.02,
             flex: 1,
+            width: "100%",
             borderColor: props.disabled 
                         ? props.disabledButtonColor ?? Theme.colors.colorFamily.lightblue
                         : props.isPressing 

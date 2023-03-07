@@ -49,6 +49,7 @@ export default function LoginScreen({navigation}: LoginScreenTypes.LoginScreenPr
 
     const handleLogin = async(host: SocialLoginHostType) => {
         const { isSuccess, data } = await LoginManager[host].login();
+        // LoginManager.naver.login();
         
         if (isSuccess) {
             // Navigate to home screen.

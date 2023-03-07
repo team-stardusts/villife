@@ -14,13 +14,11 @@ export default function AuthScreenBottonButton(
     return (
         <View style={Styles.topLevelBox}>
             <UniversialButton
-                style={
-                    Styles.btn
-                }
                 title={props.title}
                 buttonColor={Theme.colors.colorFamily.blue}
                 pressedButtonColor={Theme.colors.colorFamily.lightblue}
                 disabledButtonColor={Theme.colors.colorFamily.lightgrey}
+                borderRadius={0}
                 disabled={props.disabled}
             />
         </View>

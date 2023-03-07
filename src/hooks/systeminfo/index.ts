@@ -3,7 +3,7 @@ import System from "./types";
 
 class SystemInfo implements System.SystemInfo {
     readonly window: ScaledSize;
-    readonly platform: Platform;
+    readonly platform: Platform; // ios or android
     constructor(window: ScaledSize) {
         this.window = window;
         this.platform = Platform;

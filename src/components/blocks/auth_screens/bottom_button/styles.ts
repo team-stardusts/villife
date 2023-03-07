@@ -18,14 +18,5 @@ export default function useAuthScreenBottomButtonStyles(): UseAuthScreenBottonBu
             width: "100%",
             height: SystemInfo.window.height * 0.08,
         },
-        btn: {
-            flex: 1,
-            width: "100%",
-            fontWeight: "bold",
-            backgroundColor: "red",
-            //fontSize: SystemInfo.window.width * 0.07,
-            alignItems: "center",
-            justifyContent: "center",
-        },
     });
 }

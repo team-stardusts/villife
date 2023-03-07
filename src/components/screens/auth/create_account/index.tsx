@@ -142,7 +142,7 @@ export default function CreateAccountScreen({navigation, route}: JoinScreenProps
                     </View>
                 </View>
             </View>
-            <AuthScreenBottonButton title="test"/>
+            <AuthScreenBottonButton title="확인"/>
         </SafeAreaView>
     )
 }

@@ -5,13 +5,15 @@ export default interface UniversalButtonProps extends ButtonProps {
     buttonColor?: string;
     pressedButtonColor?: string;
     disabledButtonColor?: string;
+    borderRadius?: number;
 }
 
 export type UseUniversialButtonStylesProps = {
+    isPressing: boolean;
     buttonColor?: string;
     pressedButtonColor?: string;
     disabledButtonColor?: string;
-    isPressing: boolean;
+    borderRadius?: number;
     disabled?: boolean | null;
 }
 
