@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { GestureResponderEvent, Text } from "react-native";
 import Button from "../../../atoms/button";
 import useUniversialButtonStyles from "./styles";
@@ -22,8 +22,8 @@ export default function UniversialButton(props: UniversialButtonProps): JSX.Elem
         disabled,
     })
 
-    const titleStyle: object = props.titleStyle || {};
-    const style: object = props.style || {};
+    const titleStyle: any = props.titleStyle || undefined;
+    const style: any = props.style || undefined;
     
     const onPressIn = (e: GestureResponderEvent) => {
         setIsPressing(true);
@@ -40,10 +40,12 @@ export default function UniversialButton(props: UniversialButtonProps): JSX.Elem
             props.onPressOut(e);
         }
     }
+    useEffect(() => {
 
+    }, [Style])
     return (
         <Button
-            style={[style, Style.view]}
+            style={[Style.view, style]}
             titleStyle={[titleStyle, Style.text]}
             onPressIn={onPressIn}
             onPressOut={onPressOut}

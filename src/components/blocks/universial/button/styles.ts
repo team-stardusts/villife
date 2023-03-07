@@ -8,7 +8,7 @@ export default function useUniversialButtonStyles(
     props: UseUniversialButtonStylesProps): UseUniversialButtonStylesPropsReturnType {
     const Theme = useAppTheme();
     const SystemInfo = useSystemInfo();
-
+    
     return StyleSheet.create({
         view: {
             display: "flex",

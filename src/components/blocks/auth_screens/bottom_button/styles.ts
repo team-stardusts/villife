@@ -1,0 +1,31 @@
+import { StyleSheet } from "react-native";
+import useSystemInfo from "../../../../hooks/systeminfo/hooks";
+import useAppTheme from "../../../../hooks/themes/hooks";
+import { UseAuthScreenBottonButtonStylesType } from "./types"
+
+
+export default function useAuthScreenBottomButtonStyles(): UseAuthScreenBottonButtonStylesType {
+    const Theme = useAppTheme();
+    const SystemInfo = useSystemInfo();
+
+    return StyleSheet.create({
+        topLevelBox: {
+            position: "absolute",
+            bottom: 0,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            width: "100%",
+            height: SystemInfo.window.height * 0.08,
+        },
+        btn: {
+            flex: 1,
+            width: "100%",
+            fontWeight: "bold",
+            backgroundColor: "red",
+            //fontSize: SystemInfo.window.width * 0.07,
+            alignItems: "center",
+            justifyContent: "center",
+        },
+    });
+}

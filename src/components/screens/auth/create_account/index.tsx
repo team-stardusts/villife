@@ -9,6 +9,8 @@ import UniversialButton from "../../../blocks/universial/button";
 import UniversalTextInput from "../../../blocks/universial/textinput";
 import { AuthStackParamList } from "../../../navigators/auth/types";
 import useCreateAccountScreenStyles from "./styles";
+import AuthScreenTitleView from "../../../blocks/auth_screens/title_view";
+import AuthScreenBottonButton from "../../../blocks/auth_screens/bottom_button";
 
 type JoinScreenProps = NativeStackScreenProps<AuthStackParamList, "create_account">
 
@@ -53,6 +55,14 @@ export default function CreateAccountScreen({navigation, route}: JoinScreenProps
     return (
         <SafeAreaView style={styles.Screen.topLevelBox}>
             <View style={styles.Screen.screenWrapper}>
+                <AuthScreenTitleView
+                    title={Messages.messages.auth.create_account.title}
+                    subtitles={[
+                        Messages.messages.auth.create_account.subtitle_1,
+                        Messages.messages.auth.create_account.subtitle_2,  
+                    ]}
+                />
+                {/*
                 <View style={styles.TitleSection.topLevelBox}>
                     <View style={styles.TitleSection.textWrapper}>
                         <Text style={styles.TitleSection.title}>
@@ -66,6 +76,7 @@ export default function CreateAccountScreen({navigation, route}: JoinScreenProps
                         </Text>
                     </View>
                 </View>
+                */}
                 <View style={styles.ContentsSection.topLevelBox}>
                     <View style={styles.AccountInputSection.topLevelBox}>
                         <View style={styles.AccountInputSection.attrWrapper}>
@@ -131,6 +142,7 @@ export default function CreateAccountScreen({navigation, route}: JoinScreenProps
                     </View>
                 </View>
             </View>
+            <AuthScreenBottonButton title="test"/>
         </SafeAreaView>
     )
 }
