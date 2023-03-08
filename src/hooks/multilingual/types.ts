@@ -42,8 +42,11 @@ export type MessagesByLanguage = {
             subtitle_1: string,
             subtitle_2: string,
             name_input_title: string,
+            name_input_placeholder: string,
             password_input_title: string,
+            password_input_placeholder: string,
             confirm_password_input_title: string,
+            confirm_password_input_placeholder: string,
             next_btn_title: string;
         }
     },

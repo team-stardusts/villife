@@ -33,8 +33,11 @@
             "subtitle_1": "로그인할 때 사용할 비밀번호를 입력해주세요.",
             "subtitle_2": "비밀번호는 영문, 숫자, 특수문자 포함 8자리 이상으로 설정해주세요.",
             "name_input_title": "ID",
+            "name_input_placeholder": "사용할 ID를 입력해주세요.",
             "password_input_title": "비밀번호",
+            "password_input_placeholder": "영문, 숫자, 특문문자 조합으로 입력해주세요.",
             "confirm_password_input_title": "비밀번호 확인",
+            "confirm_password_input_placeholder": "비밀번호를 한번 더 입력해주세요.",
             "next_btn_title": "다음"
         }
     },

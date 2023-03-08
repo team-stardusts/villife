@@ -11,8 +11,8 @@ import { AuthStackParamList } from "../../../navigators/auth/types";
 import useCreateAccountScreenStyles from "./styles";
 import AuthScreenTitleView from "../../../blocks/auth_screens/title_view";
 import AuthScreenBottonButton from "../../../blocks/auth_screens/bottom_button";
+import CreateAccountScreenProps from "./types";
 
-type JoinScreenProps = NativeStackScreenProps<AuthStackParamList, "create_account">
 
 type AccountType = {
     id: string | null,
@@ -20,12 +20,7 @@ type AccountType = {
     confirm_password: string | null,
 }
 
-type InputResponsibleStype = {
-    borderColor: string;
-    borderWidth: number;
-}
-
-export default function CreateAccountScreen({navigation, route}: JoinScreenProps) {
+export default function CreateAccountScreen({navigation, route}: CreateAccountScreenProps) {
     const { host, access_token } = route.params;
     const Theme = useAppTheme();
     const SystemInfo = useSystemInfo();
@@ -90,6 +85,7 @@ export default function CreateAccountScreen({navigation, route}: JoinScreenProps
                                         if (name === "id")
                                         setAccount({...account, [name]: text})
                                     }}
+                                    placeholder={Messages.messages.auth.create_account.name_input_placeholder}
                                     />
                             </View>
                             <View style={styles.AccountInputSection.inputWrapper}>
@@ -102,6 +98,7 @@ export default function CreateAccountScreen({navigation, route}: JoinScreenProps
                                         if (name === "password")
                                         setAccount({...account, [name]: text})
                                     }}
+                                    placeholder={Messages.messages.auth.create_account.password_input_placeholder}
                                     secureTextEntry
                                     />
                             </View>
@@ -115,34 +112,40 @@ export default function CreateAccountScreen({navigation, route}: JoinScreenProps
                                         if (name === "confirm_password")
                                         setAccount({...account, [name]: text})
                                     }}
+                                    placeholder={Messages.messages.auth.create_account.confirm_password_input_placeholder}
                                     secureTextEntry
                                     />
                             </View>
                             {
                                 host === "stardusts"
-                                ? <View>
-                                    <Text>
-                                        {Messages.messages.auth.join.title_of_select_carrier_input}
-                                    </Text>
-                                    <UniversalTextInput />
-                                </View>
-                                :<></>
+                                ? <>
+                                    <View>
+                                        <Text>
+                                            {Messages.messages.auth.join.title_of_select_carrier_input}
+                                        </Text>
+                                        <UniversalTextInput />
+                                    </View>
+                                    <View style={styles.AccountInputSection.btnWrapper}>
+                                        <UniversialButton
+                                            title={Messages.messages.auth.join.title_of_send_btn}
+                                            titleStyle={styles.AccountInputSection.btnTitle}
+                                            onPress={() => {}}
+                                            disabled={false}
+                                        />
+                                    </View>
+                                </>
+                                : <></>
                             }
-                            <View style={styles.AccountInputSection.btnWrapper}>
-                                <UniversialButton
-                                    title={Messages.messages.auth.join.title_of_send_btn}
-                                    titleStyle={styles.AccountInputSection.btnTitle}
-                                    onPress={() => {}}
-                                    disabled={false}
-                                />
-                            </View>
                         </View>
                     </View>
                     <View style={styles.BlankSection.topLevelBox}>
                     </View>
                 </View>
             </View>
-            <AuthScreenBottonButton title="확인"/>
+            <AuthScreenBottonButton 
+                title={Messages.messages.auth.create_account.next_btn_title}
+                onPress={() => navigation.navigate("set_building", {})}
+                />
         </SafeAreaView>
     )
 }

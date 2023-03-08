@@ -4,9 +4,12 @@ import { LoginHosts } from "../../../hooks/services/types"
 export type AuthStackParamList = {
     login: {
         
-    }
+    };
     create_account: {
         host: LoginHosts;
         access_token: string | null;
-    }
+    };
+    set_building: {
+        
+    };
 }

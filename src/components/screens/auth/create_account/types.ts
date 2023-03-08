@@ -1,4 +1,10 @@
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import type { StyleSheet } from "react-native/types";
+import { AuthStackParamList } from "../../../navigators/auth/types";
+
+type CreateAccountScreenProps = NativeStackScreenProps<AuthStackParamList, "create_account">;
+
+export default CreateAccountScreenProps;
 
 export type CreateAccountScreenStylesType = {
     Screen: ReturnType<typeof StyleSheet.create>;

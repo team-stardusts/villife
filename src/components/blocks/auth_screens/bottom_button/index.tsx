@@ -15,6 +15,7 @@ export default function AuthScreenBottonButton(
         <View style={Styles.topLevelBox}>
             <UniversialButton
                 title={props.title}
+                onPress={props.onPress}
                 buttonColor={Theme.colors.colorFamily.blue}
                 pressedButtonColor={Theme.colors.colorFamily.lightblue}
                 disabledButtonColor={Theme.colors.colorFamily.lightgrey}
