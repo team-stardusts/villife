@@ -1,9 +1,9 @@
 import { StyleSheet } from "react-native";
 import useSystemInfo from "../../../../hooks/systeminfo/hooks";
 import useAppTheme from "../../../../hooks/themes/hooks";
-import { CreateAccountScreenStylesType } from "./types";
+import { SetBuildingScreenStylesType } from "./types";
 
-export default function useCreateAccountScreenStyles(): CreateAccountScreenStylesType {
+export default function useSetBuildingScreenStyles(): SetBuildingScreenStylesType {
     const Theme = useAppTheme();
     const SystemInfo = useSystemInfo();
 
@@ -22,38 +22,25 @@ export default function useCreateAccountScreenStyles(): CreateAccountScreenStyle
         },
     });
 
-    const TitleSection = StyleSheet.create({
-        /*
-        topLevelBox: {
-            flex: 2,
-            display: "flex",
-            alignItems: "flex-start",
-            justifyContent: "center",
-        },
-        textWrapper: {
-            textAlign: "left",
-            paddingTop: SystemInfo.window.width * 0.04,
-        },
-        title: {
-            color: Theme.colors.colorFamily.blue,
-            fontWeight: "bold",
-            fontSize: SystemInfo.window.width * 0.07,
-        },
-        subtitle: {
-            color: Theme.colors.colorFamily.black,
-            fontSize: SystemInfo.window.width * 0.03,
-        }
-        */
-    });
-
     const InputsSection = StyleSheet.create({
         topLevelBox: {
-            flex: 5,
+            flex: 6,
         },
         attrWrapper: {
             //display: "flex",
             flex: 1,
             paddingTop: SystemInfo.window.width * 0.07,
+        },
+        inputWrapper: {
+            flex: 4,
+            marginBottom: SystemInfo.window.width * 0.02,
+        },
+        inputIdentifier: {
+            //fontFamily: Theme.css.font.universial.fontFamily,
+            color: Theme.colors.colorFamily.blue,
+            fontSize: SystemInfo.window.width * 0.05,
+            fontWeight: "bold",
+            paddingBottom: SystemInfo.window.width * 0.01,
         },
         btnWrapper: {
             flex: 3,
@@ -73,13 +60,12 @@ export default function useCreateAccountScreenStyles(): CreateAccountScreenStyle
 
     const BlankSection = StyleSheet.create({
         topLevelBox: {
-            flex: 5,
+            flex: 4,
         }
     });
 
     return {
         Screen, 
-        //TitleSection,
         InputsSection,
         BlankSection,
     }

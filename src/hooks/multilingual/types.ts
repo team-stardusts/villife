@@ -37,16 +37,30 @@ export type MessagesByLanguage = {
             title_of_send_btn: string;
         },
         create_account: {
-            page_name: string,
-            title: string,
-            subtitle_1: string,
-            subtitle_2: string,
-            name_input_title: string,
-            name_input_placeholder: string,
-            password_input_title: string,
-            password_input_placeholder: string,
-            confirm_password_input_title: string,
-            confirm_password_input_placeholder: string,
+            page_name: string;
+            title: string;
+            subtitle_1: string;
+            subtitle_2: string;
+            name_input_title: string;
+            name_input_placeholder: string;
+            password_input_title: string;
+            password_input_placeholder: string;
+            confirm_password_input_title: string;
+            confirm_password_input_placeholder: string;
+            next_btn_title: string;
+        },
+        set_building: {
+            page_name: string;
+            title: string;
+            subtitle: string;
+            adress_input_title: string;
+            adress_input_placeholder: string;
+            room_number_input_title: string;
+            room_number_input_placeholder: string;
+            car_number_input_title: string;
+            car_number_input_placeholder: string;
+            nickname_input_title:string;
+            nickname_input_placeholder: string;
             next_btn_title: string;
         }
     },
