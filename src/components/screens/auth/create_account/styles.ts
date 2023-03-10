@@ -49,6 +49,13 @@ export default function useCreateAccountScreenStyles(): CreateAccountScreenStyle
     const InputsSection = StyleSheet.create({
         topLevelBox: {
             flex: 5,
+            alignItems: "center",
+            justifyContent: "flex-start",
+            paddingTop: SystemInfo.window.height * 0.04,
+        },
+        inputsWrapper: {
+            height: "80%",
+            width: "100%",
         },
         attrWrapper: {
             //display: "flex",
@@ -73,7 +80,7 @@ export default function useCreateAccountScreenStyles(): CreateAccountScreenStyle
 
     const BlankSection = StyleSheet.create({
         topLevelBox: {
-            flex: 5,
+            flex: 2,
         }
     });
 

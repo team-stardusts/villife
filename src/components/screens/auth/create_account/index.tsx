@@ -72,53 +72,55 @@ export default function CreateAccountScreen({navigation, route}: CreateAccountSc
                 */}
                 <View style={Styles.Screen.contentsWrapper}>
                     <View style={Styles.InputsSection.topLevelBox}>
-                        <View style={Styles.InputsSection.attrWrapper}>
-                            <AuthScreenCommonInput
-                                name="id"
-                                title={Messages.messages.auth.create_account.name_input_title}
-                                onChangeText={(text, name) =>{
-                                    if (name === "id")
-                                    setAccount({...account, [name]: text})
-                                }}
-                                placeholder={Messages.messages.auth.create_account.name_input_placeholder}
-                                />
-                            <AuthScreenCommonInput 
-                                name="password"
-                                title={Messages.messages.auth.create_account.password_input_title}
-                                onChangeText={(text, name) =>{
-                                    if (name === "password")
-                                    setAccount({...account, [name]: text})
-                                }}
-                                placeholder={Messages.messages.auth.create_account.password_input_placeholder}
-                                secureTextEntry
-                                />
-                            <AuthScreenCommonInput
-                                name="confirm_password"
-                                title={Messages.messages.auth.create_account.confirm_password_input_title}
-                                onChangeText={(text, name) =>{
-                                    if (name === "confirm_password")
-                                    setAccount({...account, [name]: text})
-                                }}
-                                placeholder={Messages.messages.auth.create_account.confirm_password_input_placeholder}
-                                secureTextEntry
-                                />
-                            {
-                                host === "stardusts"
-                                ? <>
-                                    <AuthScreenCommonInput 
-                                        title={Messages.messages.auth.join.title_of_select_carrier_input}
-                                        />
-                                    <View style={Styles.InputsSection.btnWrapper}>
-                                        <UniversialButton
-                                            title={Messages.messages.auth.join.title_of_send_btn}
-                                            titleStyle={Styles.InputsSection.btnTitle}
-                                            onPress={() => {}}
-                                            disabled={false}
-                                        />
-                                    </View>
-                                </>
-                                : <></>
-                            }
+                        <View style={Styles.InputsSection.inputsWrapper}>
+                            <View style={Styles.InputsSection.attrWrapper}>
+                                <AuthScreenCommonInput
+                                    name="id"
+                                    title={Messages.messages.auth.create_account.name_input_title}
+                                    onChangeText={(text, name) =>{
+                                        if (name === "id")
+                                        setAccount({...account, [name]: text})
+                                    }}
+                                    placeholder={Messages.messages.auth.create_account.name_input_placeholder}
+                                    />
+                                <AuthScreenCommonInput 
+                                    name="password"
+                                    title={Messages.messages.auth.create_account.password_input_title}
+                                    onChangeText={(text, name) =>{
+                                        if (name === "password")
+                                        setAccount({...account, [name]: text})
+                                    }}
+                                    placeholder={Messages.messages.auth.create_account.password_input_placeholder}
+                                    secureTextEntry
+                                    />
+                                <AuthScreenCommonInput
+                                    name="confirm_password"
+                                    title={Messages.messages.auth.create_account.confirm_password_input_title}
+                                    onChangeText={(text, name) =>{
+                                        if (name === "confirm_password")
+                                        setAccount({...account, [name]: text})
+                                    }}
+                                    placeholder={Messages.messages.auth.create_account.confirm_password_input_placeholder}
+                                    secureTextEntry
+                                    />
+                                {
+                                    host === "stardusts"
+                                    ? <>
+                                        <AuthScreenCommonInput 
+                                            title={Messages.messages.auth.join.title_of_select_carrier_input}
+                                            />
+                                        <View style={Styles.InputsSection.btnWrapper}>
+                                            <UniversialButton
+                                                title={Messages.messages.auth.join.title_of_send_btn}
+                                                titleStyle={Styles.InputsSection.btnTitle}
+                                                onPress={() => {}}
+                                                disabled={false}
+                                            />
+                                        </View>
+                                    </>
+                                    : <></>
+                                }
+                            </View>
                         </View>
                     </View>
                     <View style={Styles.BlankSection.topLevelBox}>

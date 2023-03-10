@@ -46,11 +46,6 @@ export default function useSetBuildingScreenStyles(): SetBuildingScreenStylesTyp
             flex: 3,
             marginBottom: SystemInfo.window.width * 0.02,
         },
-        btnDisabled: {
-            flex: 1,
-            borderRadius: SystemInfo.window.width * 0.02,
-            backgroundColor: "grey"
-        },
         btnTitle: {
             color: Theme.colors.colorFamily.white,
             fontSize: SystemInfo.window.width * 0.04,
@@ -60,7 +55,7 @@ export default function useSetBuildingScreenStyles(): SetBuildingScreenStylesTyp
 
     const BlankSection = StyleSheet.create({
         topLevelBox: {
-            flex: 4,
+            flex: 2,
         }
     });
 
