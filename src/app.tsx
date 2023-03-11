@@ -11,7 +11,6 @@ import ScreenRouter from './components/screen_router';
 import { RecoilRoot } from 'recoil';
 
 
-
 export default function App(): JSX.Element {
   return (
     <RecoilRoot>

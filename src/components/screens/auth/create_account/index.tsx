@@ -25,7 +25,7 @@ export default function CreateAccountScreen({navigation, route}: CreateAccountSc
     const Messages = useScreenMessage();
     const Styles = useCreateAccountScreenStyles();
     const server = new StardustsRestAPI();
-
+    
     const [account, setAccount] = useState<AccountType>({
         id: null,
         password: null,
