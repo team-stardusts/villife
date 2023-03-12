@@ -7,42 +7,26 @@ export default function useLoginScreenStyles(): LoginScreenTypes.LoginScreenStyl
     const Theme = useAppTheme();
     const SystemInfo = useSystemInfo();
 
-    const Page = StyleSheet.create({
+    const Screen = StyleSheet.create({
         topLevelBox: {
             flex: 1,
             flexDirection: "column",
             backgroundColor: Theme.colors.colorFamily.white,
         },
-    })
-    
-    const GreetingSection = StyleSheet.create({
-        topLevelBox: {
-            flex: 2,
-            display: "flex",
-            alignItems: 'center',
-            justifyContent: 'center',
-        },
-        textWrapper: {
-            textAlign: "left",
-            paddingTop: SystemInfo.window.width * 0.2,
-        },
-        text: {
-            //fontFamily: Theme.css.font.universial.fontFamily,
-            color: Theme.colors.colorFamily.blue,
-            fontSize: SystemInfo.window.width * 0.07,
-            fontWeight: "bold",
+        contentsBox: {
+            flex: 1,
+            paddingHorizontal: SystemInfo.window.width * 0.06,
         }
     })
-
+    
     const LoginInputSection = StyleSheet.create({
         topLevelBox: {
-            flex: 4,
+            flex: 3.5,
         },
         attrWrapper: {
             //display: "flex",
             flex: 1,
             paddingTop: SystemInfo.window.width * 0.07,
-            paddingHorizontal: SystemInfo.window.width * 0.06,
         },
         inputWrapper: {
             flex: 4,
@@ -104,7 +88,7 @@ export default function useLoginScreenStyles(): LoginScreenTypes.LoginScreenStyl
 
     const JoinLinkSection = StyleSheet.create({
         topLevelBox: {
-            flex: 5,
+            flex: 3.5,
         },
         textWrapper: {
             paddingTop: SystemInfo.window.width * 0.07,
@@ -119,6 +103,25 @@ export default function useLoginScreenStyles(): LoginScreenTypes.LoginScreenStyl
     })
 
     /*
+    const GreetingSection = StyleSheet.create({
+        topLevelBox: {
+            flex: 2,
+            display: "flex",
+            alignItems: 'center',
+            justifyContent: 'center',
+        },
+        textWrapper: {
+            textAlign: "left",
+            paddingTop: SystemInfo.window.width * 0.2,
+        },
+        text: {
+            //fontFamily: Theme.css.font.universial.fontFamily,
+            color: Theme.colors.colorFamily.blue,
+            fontSize: SystemInfo.window.width * 0.07,
+            fontWeight: "bold",
+        }
+    })
+
     const SocialLoginSection = StyleSheet.create({
         topLevelBox: {
             flex: 4,
@@ -134,8 +137,7 @@ export default function useLoginScreenStyles(): LoginScreenTypes.LoginScreenStyl
     */
     
     return {
-        Page,
-        GreetingSection,
+        Screen,
         LoginInputSection,
         JoinLinkSection,
         //SocialLoginSection,

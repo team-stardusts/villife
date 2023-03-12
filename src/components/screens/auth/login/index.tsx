@@ -14,6 +14,7 @@ import useLoginService from "../../../../hooks/services/hooks";
 import { LoginDataType } from "../../../../hooks/storage/tables/types";
 import { SocialLoginHostType, VillifeResultType } from "../../../../libs/rest_apis/villife/types";
 import Config from "react-native-config";
+import AuthScreenTitleView from "../../../blocks/auth_screens/title_view";
 //import AppRoutes from '../../../../data/routes.json';
 
 
@@ -71,7 +72,9 @@ export default function LoginScreen({navigation}: LoginScreenTypes.LoginScreenPr
     }, [loginData])
 
     return (
-        <SafeAreaView style={styles.Page.topLevelBox}>
+        <SafeAreaView style={styles.Screen.topLevelBox}>
+            <View style={styles.Screen.contentsBox}>
+            {/*
             <View style={styles.GreetingSection.topLevelBox}>
                 <View style={styles.GreetingSection.textWrapper}>
                     <Text style={styles.GreetingSection.text}>
@@ -82,6 +85,10 @@ export default function LoginScreen({navigation}: LoginScreenTypes.LoginScreenPr
                     </Text>
                 </View>
             </View>
+            */}
+            <AuthScreenTitleView title={
+                `${Messages.messages.auth.login.request_login.line_1}\n${Messages.messages.auth.login.request_login.line_2}`
+            }/>
             <View style={styles.LoginInputSection.topLevelBox}>
                 <View style={styles.LoginInputSection.attrWrapper}>
                     <View style={styles.LoginInputSection.inputWrapper}>
@@ -216,6 +223,7 @@ export default function LoginScreen({navigation}: LoginScreenTypes.LoginScreenPr
                     </View>
                 */
             }
+            </View>
         </SafeAreaView>
     );
 }
