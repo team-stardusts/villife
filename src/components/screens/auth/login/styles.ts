@@ -92,7 +92,7 @@ export default function useLoginScreenStyles(): LoginScreenTypes.LoginScreenStyl
         },
         textWrapper: {
             paddingTop: SystemInfo.window.width * 0.07,
-            paddingHorizontal: SystemInfo.window.width * 0.28,
+            paddingHorizontal: SystemInfo.window.width * 0.22,
             flexDirection: "row",
             alignItems: "flex-start",
             justifyContent: "space-around"

@@ -17,7 +17,7 @@ type UserDataType = {
 
 export default function SetBuildingScreen({navigation, route}: SetBuildingScreenProps) {
     const Messages = useScreenMessage();
-    const Styles = useSetBuildingScreenStyles();
+    const styles = useSetBuildingScreenStyles();
     const [userData, setUserData] = useState<UserDataType>({
         address: null,
         room_number: null,
@@ -52,15 +52,15 @@ export default function SetBuildingScreen({navigation, route}: SetBuildingScreen
     }, [isDone])
 
     return (
-        <SafeAreaView style={Styles.Screen.topLevelBox}>
-            <View style={Styles.Screen.screenWrapper}>
+        <SafeAreaView style={styles.Screen.topLevelBox}>
+            <View style={styles.Screen.screenWrapper}>
                 <AuthScreenTitleView
                     title={Messages.messages.auth.set_building.title}
                     subtitles={[Messages.messages.auth.set_building.subtitle]}
                     />
-                <View style={Styles.Screen.contentsWrapper}>
-                    <View style={Styles.InputsSection.topLevelBox}>
-                        <View style={Styles.InputsSection.attrWrapper}>
+                <View style={styles.Screen.contentsWrapper}>
+                    <View style={styles.InputsSection.topLevelBox}>
+                        <View style={styles.InputsSection.attrWrapper}>
                             <AuthScreenCommonInput 
                                 title={Messages.messages.auth.set_building.adress_input_title}
                                 placeholder={Messages.messages.auth.set_building.adress_input_placeholder}
@@ -99,7 +99,7 @@ export default function SetBuildingScreen({navigation, route}: SetBuildingScreen
                                 />
                         </View>
                     </View>
-                    <View style={Styles.BlankSection.topLevelBox}>
+                    <View style={styles.BlankSection.topLevelBox}>
                     </View>
                 </View>
             </View>

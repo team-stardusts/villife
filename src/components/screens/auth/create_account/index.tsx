@@ -24,7 +24,7 @@ export default function CreateAccountScreen({navigation, route}: CreateAccountSc
     const Theme = useAppTheme();
     const SystemInfo = useSystemInfo();
     const Messages = useScreenMessage();
-    const Styles = useCreateAccountScreenStyles();
+    const styles = useCreateAccountScreenStyles();
     const Server = new Villife();
     const Validator = new StringValidator();
     
@@ -70,8 +70,8 @@ export default function CreateAccountScreen({navigation, route}: CreateAccountSc
     }, [account])
 
     return (
-        <SafeAreaView style={Styles.Screen.topLevelBox}>
-            <View style={Styles.Screen.screenWrapper}>
+        <SafeAreaView style={styles.Screen.topLevelBox}>
+            <View style={styles.Screen.screenWrapper}>
                 <AuthScreenTitleView
                     title={Messages.messages.auth.create_account.title}
                     subtitles={[
@@ -79,10 +79,10 @@ export default function CreateAccountScreen({navigation, route}: CreateAccountSc
                         Messages.messages.auth.create_account.subtitle_2,  
                     ]}
                 />
-                <View style={Styles.Screen.contentsWrapper}>
-                    <View style={Styles.InputsSection.topLevelBox}>
-                        <View style={Styles.InputsSection.inputsWrapper}>
-                            <View style={Styles.InputsSection.attrWrapper}>
+                <View style={styles.Screen.contentsWrapper}>
+                    <View style={styles.InputsSection.topLevelBox}>
+                        <View style={styles.InputsSection.inputsWrapper}>
+                            <View style={styles.InputsSection.attrWrapper}>
                                 <AuthScreenCommonInput
                                     name="id"
                                     title={Messages.messages.auth.create_account.name_input_title}
@@ -109,6 +109,16 @@ export default function CreateAccountScreen({navigation, route}: CreateAccountSc
                                         if (name === "confirm_password")
                                         setAccount({...account, [name]: text})
                                     }}
+                                    highlightColor={
+                                        account.password === account.confirm_password
+                                        ? undefined
+                                        : "red"
+                                    }
+                                    lowlightColor={
+                                        account.password === account.confirm_password
+                                        ? undefined
+                                        : "red"
+                                    }
                                     placeholder={Messages.messages.auth.create_account.confirm_password_input_placeholder}
                                     secureTextEntry
                                     />
@@ -118,10 +128,10 @@ export default function CreateAccountScreen({navigation, route}: CreateAccountSc
                                         <AuthScreenCommonInput 
                                             title={Messages.messages.auth.join.title_of_select_carrier_input}
                                             />
-                                        <View style={Styles.InputsSection.btnWrapper}>
+                                        <View style={styles.InputsSection.btnWrapper}>
                                             <UniversialButton
                                                 title={Messages.messages.auth.join.title_of_send_btn}
-                                                titleStyle={Styles.InputsSection.btnTitle}
+                                                titleStyle={styles.InputsSection.btnTitle}
                                                 onPress={() => {}}
                                                 disabled={false}
                                             />
@@ -132,7 +142,7 @@ export default function CreateAccountScreen({navigation, route}: CreateAccountSc
                             </View>
                         </View>
                     </View>
-                    <View style={Styles.BlankSection.topLevelBox}>
+                    <View style={styles.BlankSection.topLevelBox}>
                     </View>
                 </View>
             </View>
