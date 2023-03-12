@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { SafeAreaView, Text, View } from "react-native";
-import StardustsRestAPI from "../../../../libs/rest_apis/stardusts";
+import Villife from "../../../../libs/rest_apis/villife";
 import useScreenMessage from "../../../../hooks/multilingual/hooks";
 import useSystemInfo from "../../../../hooks/systeminfo/hooks";
 import useAppTheme from "../../../../hooks/themes/hooks";
@@ -10,6 +10,7 @@ import AuthScreenTitleView from "../../../blocks/auth_screens/title_view";
 import AuthScreenBottonButton from "../../../blocks/auth_screens/bottom_button";
 import CreateAccountScreenProps from "./types";
 import AuthScreenCommonInput from "../../../blocks/auth_screens/input";
+import StringValidator from "../../../../libs/string_validator";
 
 
 type AccountType = {
@@ -24,7 +25,8 @@ export default function CreateAccountScreen({navigation, route}: CreateAccountSc
     const SystemInfo = useSystemInfo();
     const Messages = useScreenMessage();
     const Styles = useCreateAccountScreenStyles();
-    const server = new StardustsRestAPI();
+    const Server = new Villife();
+    const Validator = new StringValidator();
     
     const [account, setAccount] = useState<AccountType>({
         id: null,
@@ -32,8 +34,10 @@ export default function CreateAccountScreen({navigation, route}: CreateAccountSc
         confirm_password: null,
     })
 
+    const [isDone, setIsDone] = useState<boolean>(false)
+
     const handleJoin = async() => {
-        const result = await server.socialJoin("naver", {
+        const result = await Server.socialJoin("naver", {
             id: "dnsi37",
             password: "testpassword1!",
             access_token: "AAAANvJAi3gLF2h5RO4jWj6kNmi2li930TLhzkyLN9H_j-227mHcH3REuuRvxLQ3zg3tzclSNmKToJa_oVJ0jz3rRb0",
@@ -41,8 +45,28 @@ export default function CreateAccountScreen({navigation, route}: CreateAccountSc
         });
     }
 
+    const validateAccount = (): void => {
+        const { id, password, confirm_password } = account;
+
+        // 입력 값이 하나라도 null 일 경우 pass.
+        if (!(id && password && confirm_password)) {
+            setIsDone(false);
+            return;
+        }
+
+        if (
+            (Validator.isID(id) && Validator.isPassword(password))
+            && password === confirm_password
+            ) {
+            setIsDone(true);
+        }
+        else {
+            setIsDone(false);
+        }
+    }
+
     useEffect(() => {
-        console.log(account);
+        validateAccount();
     }, [account])
 
     return (
@@ -55,21 +79,6 @@ export default function CreateAccountScreen({navigation, route}: CreateAccountSc
                         Messages.messages.auth.create_account.subtitle_2,  
                     ]}
                 />
-                {/*
-                <View style={styles.TitleSection.topLevelBox}>
-                    <View style={styles.TitleSection.textWrapper}>
-                        <Text style={styles.TitleSection.title}>
-                            {Messages.messages.auth.create_account.title}
-                        </Text>
-                        <Text style={styles.TitleSection.subtitle}>
-                            {Messages.messages.auth.create_account.subtitle_1}
-                        </Text>
-                        <Text style={styles.TitleSection.subtitle}>
-                            {Messages.messages.auth.create_account.subtitle_2}
-                        </Text>
-                    </View>
-                </View>
-                */}
                 <View style={Styles.Screen.contentsWrapper}>
                     <View style={Styles.InputsSection.topLevelBox}>
                         <View style={Styles.InputsSection.inputsWrapper}>
@@ -129,7 +138,8 @@ export default function CreateAccountScreen({navigation, route}: CreateAccountSc
             </View>
             <AuthScreenBottonButton 
                 title={Messages.messages.auth.create_account.next_btn_title}
-                onPress={() => navigation.navigate("set_building", {})}
+                onPress={() => navigation.navigate("set_building", {id: account.id ?? "", password: account.password ?? ""})}
+                disabled={!isDone}
                 />
         </SafeAreaView>
     )

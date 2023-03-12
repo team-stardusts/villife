@@ -12,7 +12,7 @@ import SocialLoginIcon from "../../../blocks/icon/login";
 import useAppTheme from "../../../../hooks/themes/hooks";
 import useLoginService from "../../../../hooks/services/hooks";
 import { LoginDataType } from "../../../../hooks/storage/tables/types";
-import { SocialLoginHostType, StardustsResultType } from "../../../../libs/rest_apis/stardusts/types";
+import { SocialLoginHostType, VillifeResultType } from "../../../../libs/rest_apis/villife/types";
 import Config from "react-native-config";
 //import AppRoutes from '../../../../data/routes.json';
 

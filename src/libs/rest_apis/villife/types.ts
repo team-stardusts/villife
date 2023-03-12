@@ -1,14 +1,14 @@
-import { AxiosInstance, AxiosRequestConfig } from "axios";
+import { AxiosRequestConfig } from "axios";
+import { Requestable } from "../types";
 
 
-export default interface IStardustsRestAPI {
-    requester: AxiosInstance;
-    request<T>(config: AxiosRequestConfig): StardustsResultType<T>;
-    login(id: string, password: string): StardustsResultType<any>;
+export default interface IVillifeRESTAPI extends Requestable {
+    request<T>(config: AxiosRequestConfig): VillifeResultType<T>;
+    login(id: string, password: string): VillifeResultType<any>;
     socialLogin(category: SocialLoginHostType, accessToken: string): 
-        StardustsResultType<CustomSocialLoginResultType>;
-    join(): StardustsResultType<any>;
-    socialJoin(category: SocialLoginHostType, params: SocialJoinParamsType): StardustsResultType<SocialJoinResultType>;
+        VillifeResultType<CustomSocialLoginResultType>;
+    join(): VillifeResultType<any>;
+    socialJoin(category: SocialLoginHostType, params: SocialJoinParamsType): VillifeResultType<SocialJoinResultType>;
 }
 
 
@@ -26,7 +26,7 @@ export type CustomSocialLoginResultType = {
     stardusts: SocialLoginResultType;
 }
 
-export type StardustsResultType<T> = Promise<{
+export type VillifeResultType<T> = Promise<{
     isSuccess: boolean;
     data: T
 }>;

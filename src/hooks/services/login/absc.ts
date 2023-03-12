@@ -1,8 +1,8 @@
-import StardustsRestAPI from "../../../libs/rest_apis/stardusts";
+import Villife from "../../../libs/rest_apis/villife";
 import { ILoginable } from "./types";
 
 abstract class ALoginManager implements ILoginable {
-    server: StardustsRestAPI = new StardustsRestAPI();
+    server: Villife = new Villife();
 
     abstract login(): Promise<any>;
     abstract logout(): Promise<any>;

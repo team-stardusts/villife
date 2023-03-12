@@ -1,10 +1,10 @@
 import axios, { AxiosInstance, AxiosRequestConfig } from "axios";
 import routes from "./routes";
 import { RoutesType } from "./routes/types";
-import IStardustsRestAPI, { CustomSocialLoginResultType, SocialJoinParamsType, SocialJoinResultType, SocialLoginHostType, SocialLoginResultType, StardustsResultType } from "./types";
+import IVillifeRESTAPI, { CustomSocialLoginResultType, SocialJoinParamsType, SocialJoinResultType, SocialLoginHostType, SocialLoginResultType, VillifeResultType } from "./types";
 
 
-class StardustsRestAPI implements IStardustsRestAPI {
+class Villife implements IVillifeRESTAPI {
     requester: AxiosInstance = axios.create({
         baseURL: "http://192.168.0.36:8080",
         timeout: 1000,
@@ -14,7 +14,7 @@ class StardustsRestAPI implements IStardustsRestAPI {
 
     routes: RoutesType = routes;
 
-    public async request<T>(config: AxiosRequestConfig): StardustsResultType<T> {
+    public async request<T>(config: AxiosRequestConfig): VillifeResultType<T> {
         return await this.requester(config)
             .then((res) => {
                 return {
@@ -33,7 +33,7 @@ class StardustsRestAPI implements IStardustsRestAPI {
     public async login(id: string, password: string): Promise<any> {
     }
 
-    public async socialLogin(category: SocialLoginHostType, accessToken: string): StardustsResultType<CustomSocialLoginResultType> {
+    public async socialLogin(category: SocialLoginHostType, accessToken: string): VillifeResultType<CustomSocialLoginResultType> {
         let route: string;
         
         switch(category) {
@@ -66,7 +66,7 @@ class StardustsRestAPI implements IStardustsRestAPI {
         
     }
 
-    public async socialJoin(category: SocialLoginHostType, params: SocialJoinParamsType): StardustsResultType<SocialJoinResultType> {
+    public async socialJoin(category: SocialLoginHostType, params: SocialJoinParamsType): VillifeResultType<SocialJoinResultType> {
         let route: string;
 
         switch(category) {
@@ -85,4 +85,4 @@ class StardustsRestAPI implements IStardustsRestAPI {
     }
 }
 
-export default StardustsRestAPI;
+export default Villife;

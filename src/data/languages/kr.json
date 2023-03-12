@@ -52,7 +52,8 @@
             "car_number_input_placeholder": "차량번호를 입력해주세요.",
             "nickname_input_title": "닉네임",
             "nickname_input_placeholder": "닉네임을 입력해주세요.",
-            "next_btn_title": "다음"
+            "next_btn_title": "다음",
+            "next_btn_title_when_change_next": "다음에 변경하기"
         }
     },
     "splash": {

@@ -10,6 +10,7 @@ export type AuthStackParamList = {
         access_token: string | null;
     };
     set_building: {
-        
+        id: string;
+        password: string;
     };
 }

@@ -62,6 +62,7 @@ export type MessagesByLanguage = {
             nickname_input_title:string;
             nickname_input_placeholder: string;
             next_btn_title: string;
+            next_btn_title_when_change_next: string;
         }
     },
     splash: {
