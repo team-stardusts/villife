@@ -1,6 +1,13 @@
+import BuildingManager from "./building";
 import LoginManagers from "./login";
-import { UseLoginServiceReturnType } from "./types";
+import { UseBuildingManagerReturnType, UseLoginServiceReturnType } from "./types";
 
-export default function useLoginService(): UseLoginServiceReturnType {
+
+export function useLoginService(): UseLoginServiceReturnType {
     return new LoginManagers();
+}
+
+
+export function useBuildingManager(): UseBuildingManagerReturnType {
+    return new BuildingManager();
 }

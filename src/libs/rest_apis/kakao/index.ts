@@ -1,11 +1,12 @@
 import axios, { AxiosInstance, AxiosRequestConfig } from "axios";
-import ARestApi from "../absc";
-import { ResponesType } from "../types";
+import AREST from "../absc";
+import { Respones } from "../types";
 import routes from "./routes";
 import { RoutesType } from "./routes/types";
-import IKakaoRestAPI, {KakaoRespones as KR} from "./types";
+import IKakaoRestAPI from "./types";
+import KakaoLocal from "./types.local";
 
-class Kakao extends ARestApi implements IKakaoRestAPI{
+class Kakao extends AREST implements IKakaoRestAPI{
     readonly requester: AxiosInstance = axios.create({
         baseURL: "https://dapi.kakao.com/v2",
         headers: {
@@ -18,10 +19,10 @@ class Kakao extends ARestApi implements IKakaoRestAPI{
 
     readonly routes: RoutesType = routes;
     
-    public async searchAddress(address: string): ResponesType<KR.Local.SearchAddressReturns> {
+    public async searchAddress(address: string): Respones<KakaoLocal.SearchAddress> {
         let route = this.routes.local.search.address;
 
-        return await this.request<any, KR.Local.SearchAddressReturns>({
+        return await this.request<any, KakaoLocal.SearchAddress>({
             method: "get",
             url: route,
             params: {

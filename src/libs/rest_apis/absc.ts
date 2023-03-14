@@ -1,7 +1,7 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 import { Requestable, Responsable } from "./types";
 
-abstract class ARestApi implements Requestable {
+abstract class AREST implements Requestable {
     requester = axios.create({});
     routes: any;
 
@@ -9,7 +9,7 @@ abstract class ARestApi implements Requestable {
         return (200 <= status_code && status_code <= 299) ? true : false
     }
 
-    public async request<T, U>(config: AxiosRequestConfig<T>): Promise<Responsable<U>> {
+    public async request<T=any, U=any>(config: AxiosRequestConfig<T>): Promise<Responsable<U>> {
         const result: AxiosResponse<U, any> = await this.requester(config)
             .then((res => {
                 return res;
@@ -25,4 +25,4 @@ abstract class ARestApi implements Requestable {
     }
 }
 
-export default ARestApi;
+export default AREST;

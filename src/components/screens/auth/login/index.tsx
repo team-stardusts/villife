@@ -10,7 +10,7 @@ import { useEffect, useState } from "react";
 import useSystemInfo from "../../../../hooks/systeminfo/hooks";
 import SocialLoginIcon from "../../../blocks/icon/login";
 import useAppTheme from "../../../../hooks/themes/hooks";
-import useLoginService from "../../../../hooks/services/hooks";
+import { useLoginService } from "../../../../hooks/services/hooks";
 import { LoginDataType } from "../../../../hooks/storage/tables/types";
 import { SocialLoginHostType, VillifeResultType } from "../../../../libs/rest_apis/villife/types";
 import Config from "react-native-config";

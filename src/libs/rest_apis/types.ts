@@ -12,3 +12,5 @@ export interface Responsable<T> {
     isSuccessful: boolean;
     data: T;
 }
+
+export type Respones<T> = Promise<Responsable<T>>;
