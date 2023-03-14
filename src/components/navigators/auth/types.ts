@@ -13,4 +13,7 @@ export type AuthStackParamList = {
         id: string;
         password: string;
     };
+    search_address: {
+        
+    }
 }

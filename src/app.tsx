@@ -13,8 +13,10 @@ import Kakao from './libs/rest_apis/kakao';
 
 
 export default function App(): JSX.Element {
-  //const kakao = new Kakao();
-  //console.log(kakao.searchAddress("구천동 30"))
+  const kakao = new Kakao();
+  kakao.searchAddress("구천동 24")
+    .then((res) => console.log(res.data));
+
 
   return (
     <RecoilRoot>
