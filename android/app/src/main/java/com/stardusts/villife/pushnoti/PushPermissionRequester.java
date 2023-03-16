@@ -44,16 +44,14 @@ public class PushPermissionRequester {
             if (ContextCompat.checkSelfPermission(mMainActivity, Manifest.permission.POST_NOTIFICATIONS) ==
                     PackageManager.PERMISSION_GRANTED) {
                 // FCM SDK (and your app) can post notifications.
-                Log.d(VilllifeLog.DEBUG_TAG , "1");
             } else if (shouldShowRequestPermissionRationale(mMainActivity,Manifest.permission.POST_NOTIFICATIONS)) {
                 // TODO: display an educational UI explaining to the user the features that will be enabled
                 //       by them granting the POST_NOTIFICATION permission. This UI should provide the user
                 //       "OK" and "No thanks" buttons. If the user selects "OK," directly request the permission.
                 //       If the user selects "No thanks," allow the user to continue without notifications.
-                Log.d(VilllifeLog.DEBUG_TAG , "2");
+
             } else {
                 // Directly ask for the permission
-                Log.d(VilllifeLog.DEBUG_TAG , "3");
                 requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS);
             }
         }
