@@ -67,5 +67,12 @@ export type MessagesByLanguage = {
     },
     splash: {
         page_name: string;
+    },
+    reusable: {
+        search_address: {
+            page_name: string;
+            title: string;
+            input_placeholder: string;
+        }
     }
 }

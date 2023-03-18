@@ -58,5 +58,12 @@
     },
     "splash": {
         "page_name": "splash"
+    },
+    "reusable": {
+        "search_address": {
+            "page_name": "search_address",
+            "title": "주소 검색",
+            "input_placeholder": "예) 판교역로 235, 삼평동 681"
+        }
     }
 }

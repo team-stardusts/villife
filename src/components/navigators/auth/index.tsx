@@ -3,7 +3,7 @@ import LoginScreen from '../../screens/auth/login';
 import CreateAccountScreen from '../../screens/auth/create_account';
 import { AuthStackParamList } from './types';
 import SetBuildingScreen from '../../screens/auth/set_building';
-import AddressSearchScreen from '../../screens/reusable/address';
+import SearchAddressScreen from '../../screens/reusable/search_address';
 
 const Stack = createNativeStackNavigator<AuthStackParamList>()
 
@@ -16,7 +16,7 @@ export default function AuthNavigator(): JSX.Element {
                 <Stack.Screen name={"set_building"} component={SetBuildingScreen} />
             </Stack.Group>
             <Stack.Group screenOptions={{ presentation: 'modal' }}>
-                <Stack.Screen name={"search_address"} component={AddressSearchScreen} />
+                <Stack.Screen name={"search_address"} component={SearchAddressScreen} />
             </Stack.Group>
         </Stack.Navigator>
     );
