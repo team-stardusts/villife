@@ -1,10 +1,12 @@
 import axios, { AxiosInstance, AxiosRequestConfig } from "axios";
+import AREST from "../absc";
 import routes from "./routes";
 import { RoutesType } from "./routes/types";
-import IVillifeRESTAPI, { CustomSocialLoginResultType, SocialJoinParamsType, SocialJoinResultType, SocialLoginHostType, SocialLoginResultType, VillifeResultType } from "./types";
+import IVillifeRESTAPI, { CustomSocialLoginResultType, SocialJoinParamsType, SocialJoinResultType, SocialLoginHostType, SocialLoginResultType } from "./types";
+import { Response } from "../types";
 
 
-class Villife implements IVillifeRESTAPI {
+class Villife extends AREST implements IVillifeRESTAPI {
     requester: AxiosInstance = axios.create({
         baseURL: "http://192.168.0.36:8080",
         timeout: 1000,
@@ -14,26 +16,11 @@ class Villife implements IVillifeRESTAPI {
 
     routes: RoutesType = routes;
 
-    public async request<T>(config: AxiosRequestConfig): VillifeResultType<T> {
-        return await this.requester(config)
-            .then((res) => {
-                return {
-                    isSuccess: true,
-                    data: res.data,
-                }
-            })
-            .catch((err) => {
-                return {
-                    isSuccess: false,
-                    data: err.response?.data,
-                }
-            });
-    }
 
     public async login(id: string, password: string): Promise<any> {
     }
 
-    public async socialLogin(category: SocialLoginHostType, accessToken: string): VillifeResultType<CustomSocialLoginResultType> {
+    public async socialLogin(category: SocialLoginHostType, accessToken: string): Response<CustomSocialLoginResultType> {
         let route: string;
         
         switch(category) {
@@ -44,7 +31,7 @@ class Villife implements IVillifeRESTAPI {
                 route = this.routes.naverSocialLogin;
         };
         
-        const result = await this.request<SocialLoginResultType>({
+        const result = await this.request<any, SocialLoginResultType>({
             method: "post",
             url: route,
             data: { access_token: accessToken }
@@ -57,7 +44,7 @@ class Villife implements IVillifeRESTAPI {
         })
         
         return {
-            isSuccess: result.isSuccess,
+            isSuccessful: result.isSuccessful,
             data: data,
         }
     }
@@ -66,7 +53,7 @@ class Villife implements IVillifeRESTAPI {
         
     }
 
-    public async socialJoin(category: SocialLoginHostType, params: SocialJoinParamsType): VillifeResultType<SocialJoinResultType> {
+    public async socialJoin(category: SocialLoginHostType, params: SocialJoinParamsType): Response<SocialJoinResultType> {
         let route: string;
 
         switch(category) {
@@ -77,7 +64,7 @@ class Villife implements IVillifeRESTAPI {
                 route = this.routes.naverSocialJoin;
         };
 
-        return await this.request<SocialJoinResultType>({
+        return await this.request<any, SocialJoinResultType>({
             method: "post",
             url: route,
             data: params,

@@ -1,9 +1,9 @@
 import LocalStorage from "../../../../libs/localstorage";
 import ATable from "../absc";
-import { ILoginTable, LoginDataType } from "../types"
+import ILoginTable, { LoginDataType, LoginTableKey } from "./types"
 
 class LoginTable extends ATable implements ILoginTable{
-    readonly key: string = "login";
+    readonly key: LoginTableKey = "login";
 
     public async get(): Promise<LoginDataType | null> {
         return await this.storage.getItem(this.key);

@@ -1,6 +1,6 @@
 import axios, { AxiosInstance, AxiosRequestConfig } from "axios";
 import AREST from "../absc";
-import { Respones } from "../types";
+import { Response } from "../types";
 import routes from "./routes";
 import { RoutesType } from "./routes/types";
 import IKakaoRestAPI from "./types";
@@ -19,7 +19,7 @@ class Kakao extends AREST implements IKakaoRestAPI{
 
     readonly routes: RoutesType = routes;
     
-    public async searchAddress(params: KakaoLocal.SearchAddressParams): Respones<KakaoLocal.SearchAddress> {
+    public async searchAddress(params: KakaoLocal.SearchAddressParams): Response<KakaoLocal.SearchAddress> {
         let route = this.routes.local.search.address;
 
         return await this.request<any, KakaoLocal.SearchAddress>({

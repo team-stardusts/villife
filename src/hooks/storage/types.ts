@@ -6,7 +6,8 @@ export default interface IStardustsStorage {
     login: LoginTable;
 }
 
-export interface ITable {
-    private key: string;
+export interface Storable {
+    readonly key: string;
+    
     storage: LocalStorage;
 }

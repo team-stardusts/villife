@@ -1,6 +1,6 @@
 import Kakao from "../../../libs/rest_apis/kakao";
 import KakaoLocal from "../../../libs/rest_apis/kakao/types.local";
-import { Respones, Responsable } from "../../../libs/rest_apis/types";
+import { Response, Responsable } from "../../../libs/rest_apis/types";
 import Villife from "../../../libs/rest_apis/villife";
 import IBuildingManager from "./types";
 

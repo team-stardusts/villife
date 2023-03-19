@@ -57,10 +57,6 @@ export type MessagesByLanguage = {
             adress_input_placeholder: string;
             room_number_input_title: string;
             room_number_input_placeholder: string;
-            car_number_input_title: string;
-            car_number_input_placeholder: string;
-            nickname_input_title:string;
-            nickname_input_placeholder: string;
             next_btn_title: string;
             next_btn_title_when_change_next: string;
         }

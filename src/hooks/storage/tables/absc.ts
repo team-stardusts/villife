@@ -1,8 +1,8 @@
 import LocalStorage from "../../../libs/localstorage";
-import { ITable } from "../types"
+import { Storable } from "../types"
 import { LoginDataType } from "./types";
 
-abstract class ATable implements ITable {
+abstract class ATable implements Storable {
     readonly key: string = "";
     storage: LocalStorage = new LocalStorage(true); // EncriptStorage
 

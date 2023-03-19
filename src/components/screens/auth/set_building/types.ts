@@ -12,11 +12,3 @@ export type SetBuildingScreenStylesType = {
     BlankSection: ReturnType<typeof StyleSheet.create>;
     //SocialLoginSection: ReturnType<typeof StyleSheet.create>;
 };
-
-export type SelectedAddress = {
-    roadAddress: string;
-    jibunAddress: string;
-    buildingCode: number;
-    buildingName: string;
-    zonecode: number;
-}

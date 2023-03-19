@@ -4,9 +4,7 @@ import { StyleSheet } from "react-native";
 import { AuthStackParamList } from "../../../navigators/auth/types";
 
 type ParamList = {
-    search_address: {
-        onGoBack(data: OnCompleteParams): void;
-    }
+    search_address: {},
 }
 
 type SearchAddressScreenProps = NativeStackScreenProps<ParamList, "search_address">;

@@ -24,7 +24,7 @@ export default function useSetBuildingScreenStyles(): SetBuildingScreenStylesTyp
 
     const InputsSection = StyleSheet.create({
         topLevelBox: {
-            flex: 6,
+            flex: 3,
         },
         attrWrapper: {
             //display: "flex",
@@ -55,7 +55,7 @@ export default function useSetBuildingScreenStyles(): SetBuildingScreenStylesTyp
 
     const BlankSection = StyleSheet.create({
         topLevelBox: {
-            flex: 2,
+            flex: 5,
         }
     });
 

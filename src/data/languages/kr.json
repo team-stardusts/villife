@@ -38,7 +38,7 @@
             "password_input_placeholder": "영문, 숫자, 특문문자 조합으로 입력해주세요.",
             "confirm_password_input_title": "비밀번호 확인",
             "confirm_password_input_placeholder": "비밀번호를 한번 더 입력해주세요.",
-            "next_btn_title": "다음"
+            "next_btn_title": "회원가입"
         },
         "set_building": {
             "page_name": "set_building",
@@ -48,10 +48,6 @@
             "adress_input_placeholder": "빌라명을 검색해주세요.",
             "room_number_input_title": "호수",
             "room_number_input_placeholder": "호수를 입력해주세요.",
-            "car_number_input_title": "차량번호",
-            "car_number_input_placeholder": "차량번호를 입력해주세요.",
-            "nickname_input_title": "닉네임",
-            "nickname_input_placeholder": "닉네임을 입력해주세요.",
             "next_btn_title": "다음",
             "next_btn_title_when_change_next": "다음에 변경하기"
         }

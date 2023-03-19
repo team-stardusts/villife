@@ -11,8 +11,8 @@ import useSystemInfo from "../../../../hooks/systeminfo/hooks";
 import SocialLoginIcon from "../../../blocks/icon/login";
 import useAppTheme from "../../../../hooks/themes/hooks";
 import { useLoginService } from "../../../../hooks/services/hooks";
-import { LoginDataType } from "../../../../hooks/storage/tables/types";
-import { SocialLoginHostType, VillifeResultType } from "../../../../libs/rest_apis/villife/types";
+import { LoginDataType } from "../../../../hooks/storage/tables/login/types";
+import { SocialLoginHostType } from "../../../../libs/rest_apis/villife/types";
 import Config from "react-native-config";
 import AuthScreenTitleView from "../../../blocks/auth_screens/title_view";
 //import AppRoutes from '../../../../data/routes.json';
@@ -49,13 +49,14 @@ export default function LoginScreen({navigation}: LoginScreenTypes.LoginScreenPr
     }
 
     const handleLogin = async(host: SocialLoginHostType) => {
-        const { isSuccess, data } = await LoginManager[host].login();
+        const { isSuccessful, data } = await LoginManager[host].login();
         // LoginManager.naver.login();
         
-        if (isSuccess) {
+        if (isSuccessful) {
             // Navigate to home screen.
+            console.log(data);
         }
-        else if (!isSuccess) {
+        else if (!isSuccessful) {
             // Modal & Navigate to join screen.
             navigation.navigate(
                 "create_account",

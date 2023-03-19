@@ -15,6 +15,6 @@ export type AuthStackParamList = {
         password: string;
     };
     search_address: {
-        onGoBack(data: OnCompleteParams): void;
+        //onGoBack(data: OnCompleteParams): void;
     }
 }

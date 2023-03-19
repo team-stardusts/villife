@@ -1,10 +1,10 @@
 import { NaverLogin } from '@react-native-seoul/naver-login';
-import axios, {AxiosError} from 'axios';
-import { CustomSocialLoginResultType, VillifeResultType } from '../../../../../libs/rest_apis/villife/types';
+import { CustomSocialLoginResultType } from '../../../../../libs/rest_apis/villife/types';
+import { Response } from '../../../../../libs/rest_apis/types';
 //import NaverLogin, {
 //    GetProfileResponse,
 //} from '@react-native-seoul/naver-login';
-import { LoginDataType } from '../../../../storage/tables/types';
+
 import SystemInfo from '../../../../systeminfo';
 import useSystemInfo from '../../../../systeminfo/hooks';
 import ALoginManager from '../../absc';
@@ -20,7 +20,7 @@ const SERVISE_URL_SHEME = "com.stardusts.villife";
 class NaverLoginManager extends ALoginManager implements INaverLoginManager{
     systemInfo: SystemInfo = useSystemInfo();
 
-    public async login(): Promise<VillifeResultType<CustomSocialLoginResultType>> {
+    public async login(): Response<CustomSocialLoginResultType> {
         const iosParams = {
             kServiceAppName: APP_NAME,
             kConsumerKey: CONSUMER_KEY,

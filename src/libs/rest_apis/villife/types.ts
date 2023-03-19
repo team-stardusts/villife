@@ -1,14 +1,13 @@
 import { AxiosRequestConfig } from "axios";
-import { Requestable } from "../types";
+import { Requestable, Response } from "../types";
 
 
 export default interface IVillifeRESTAPI extends Requestable {
-    request<T>(config: AxiosRequestConfig): VillifeResultType<T>;
-    login(id: string, password: string): VillifeResultType<any>;
+    login(id: string, password: string): Response<any>;
     socialLogin(category: SocialLoginHostType, accessToken: string): 
-        VillifeResultType<CustomSocialLoginResultType>;
-    join(): VillifeResultType<any>;
-    socialJoin(category: SocialLoginHostType, params: SocialJoinParamsType): VillifeResultType<SocialJoinResultType>;
+        Response<CustomSocialLoginResultType>;
+    join(): Response<any>;
+    socialJoin(category: SocialLoginHostType, params: SocialJoinParamsType): Response<SocialJoinResultType>;
 }
 
 
@@ -16,6 +15,7 @@ export type SocialLoginHostType = "naver";
 
 export type SocialLoginResultType = {
     access_token: string;
+    expire_at: number;
     refresh_token: string;
 } | "cannot find user" | undefined;
 
@@ -25,11 +25,6 @@ export type CustomSocialLoginResultType = {
     };
     stardusts: SocialLoginResultType;
 }
-
-export type VillifeResultType<T> = Promise<{
-    isSuccess: boolean;
-    data: T
-}>;
 
 export type SocialJoinResultType = 
     "sign up has been done successfully" 

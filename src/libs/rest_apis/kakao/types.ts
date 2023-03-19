@@ -1,8 +1,8 @@
-import { Requestable, Respones } from "../types";
+import { Requestable, Response } from "../types";
 import KakaoLocal from "./types.local";
 
 export default interface IKakoREST extends Requestable {
-    searchAddress(params: KakaoLocal.SearchAddressParams): Respones<KakaoLocal.SearchAddress>;
+    searchAddress(params: KakaoLocal.SearchAddressParams): Response<KakaoLocal.SearchAddress>;
 }
 
 export interface PaginationMeta {

@@ -42,9 +42,9 @@ export default function CreateAccountScreen({navigation, route}: CreateAccountSc
         const {id, password} = account;
 
         if (id && password && access_token) {
-            //const result = await LoginManager[host].join(id, password, access_token);
-            //console.log(result.isSuccess);
-            //console.log(result.data);
+            const result = await LoginManager[host].join(id, password, access_token);
+            console.log(result.isSuccess);
+            console.log(result.data);
 
             navigation.navigate("set_building", {id, password})
         }

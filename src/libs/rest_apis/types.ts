@@ -13,4 +13,4 @@ export interface Responsable<T> {
     data: T;
 }
 
-export type Respones<T> = Promise<Responsable<T>>;
+export type Response<T> = Promise<Responsable<T>>;
