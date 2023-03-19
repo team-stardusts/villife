@@ -1,3 +1,4 @@
+import { OnCompleteParams } from "@actbase/react-daum-postcode/lib/types";
 import AppRoutes from "../../../data/routes.json"
 import { LoginHosts } from "../../../hooks/services/types"
 
@@ -14,6 +15,6 @@ export type AuthStackParamList = {
         password: string;
     };
     search_address: {
-        
+        onGoBack(data: OnCompleteParams): void;
     }
 }

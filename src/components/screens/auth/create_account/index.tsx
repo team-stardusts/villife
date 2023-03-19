@@ -11,6 +11,7 @@ import AuthScreenBottonButton from "../../../blocks/auth_screens/bottom_button";
 import CreateAccountScreenProps from "./types";
 import AuthScreenCommonInput from "../../../blocks/auth_screens/input";
 import StringValidator from "../../../../libs/string_validator";
+import { useLoginService } from "../../../../hooks/services/hooks";
 
 
 type AccountType = {
@@ -23,6 +24,7 @@ export default function CreateAccountScreen({navigation, route}: CreateAccountSc
     const { host, access_token } = route.params;
     const Theme = useAppTheme();
     const SystemInfo = useSystemInfo();
+    const LoginManager = useLoginService();
     const Messages = useScreenMessage();
     const styles = useCreateAccountScreenStyles();
     const Server = new Villife();
@@ -37,12 +39,23 @@ export default function CreateAccountScreen({navigation, route}: CreateAccountSc
     const [isDone, setIsDone] = useState<boolean>(false)
 
     const handleJoin = async() => {
+        const {id, password} = account;
+
+        if (id && password && access_token) {
+            //const result = await LoginManager[host].join(id, password, access_token);
+            //console.log(result.isSuccess);
+            //console.log(result.data);
+
+            navigation.navigate("set_building", {id, password})
+        }
+        /*
         const result = await Server.socialJoin("naver", {
             id: "dnsi37",
             password: "testpassword1!",
             access_token: "AAAANvJAi3gLF2h5RO4jWj6kNmi2li930TLhzkyLN9H_j-227mHcH3REuuRvxLQ3zg3tzclSNmKToJa_oVJ0jz3rRb0",
-            phone_number: "010-5502-7723",
+            //phone_number: "010-5502-7723",
         });
+        */
     }
 
     const validateAccount = (): void => {
@@ -148,7 +161,9 @@ export default function CreateAccountScreen({navigation, route}: CreateAccountSc
             </View>
             <AuthScreenBottonButton 
                 title={Messages.messages.auth.create_account.next_btn_title}
-                onPress={() => navigation.navigate("set_building", {id: account.id ?? "", password: account.password ?? ""})}
+                onPress={() => {
+                    handleJoin();
+                }}
                 disabled={!isDone}
                 />
         </SafeAreaView>

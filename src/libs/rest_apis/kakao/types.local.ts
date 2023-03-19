@@ -1,10 +1,16 @@
-import { PaginationMeta } from "./types";
+import { PagealbeParams, PaginationMeta } from "./types";
 
 namespace KakaoLocal {
     export type SearchAddress = {
         documents: Document[];
         meta: PaginationMeta;
     }
+
+    export interface SearchAddressParams extends PagealbeParams {
+        query: string;
+        analyze_type?: "similar" | "exact";
+    }
+
     export interface Document extends Coordinate {
         address_type: string;
         address?: Address;

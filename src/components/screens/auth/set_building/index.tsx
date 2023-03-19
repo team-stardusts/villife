@@ -1,3 +1,4 @@
+import Postcode from "@actbase/react-daum-postcode";
 import { useEffect, useState } from "react";
 import { SafeAreaView, View, Text } from "react-native";
 import useScreenMessage from "../../../../hooks/multilingual/hooks";
@@ -5,7 +6,13 @@ import AuthScreenBottonButton from "../../../blocks/auth_screens/bottom_button";
 import AuthScreenCommonInput from "../../../blocks/auth_screens/input";
 import AuthScreenTitleView from "../../../blocks/auth_screens/title_view";
 import useSetBuildingScreenStyles from "./styles";
-import SetBuildingScreenProps from "./types";
+import SetBuildingScreenProps, { SelectedAddress } from "./types";
+import { LogBox } from 'react-native';
+import { OnCompleteParams } from "@actbase/react-daum-postcode/lib/types";
+
+
+// navigation params에 callback 함수를 삽입하면 발생하는 error로 
+// 이 screen에서 발생하는 error는 ignore해도 됨.
 
 type UserDataType = {
     address: null | string;
@@ -16,6 +23,11 @@ type UserDataType = {
 
 
 export default function SetBuildingScreen({navigation, route}: SetBuildingScreenProps) {
+    LogBox.ignoreLogs([
+        'Non-serializable values were found in the navigation state',
+        'Did not receive response to shouldStartLoad in time, defaulting to YES'
+      ]);
+      
     const Messages = useScreenMessage();
     const styles = useSetBuildingScreenStyles();
     const [userData, setUserData] = useState<UserDataType>({
@@ -24,7 +36,8 @@ export default function SetBuildingScreen({navigation, route}: SetBuildingScreen
         car_number: null,
         nickname: null,
     });
-    const [isDone, setIsDone] = useState<boolean>(false)
+    const [isDone, setIsDone] = useState<boolean>(false);
+    const [address, setAddress] = useState<SelectedAddress | null>(null);
 
     const validateUserData = () => {
         const {
@@ -43,13 +56,35 @@ export default function SetBuildingScreen({navigation, route}: SetBuildingScreen
         }
     }
 
+    const handleOnSelected = (searched: OnCompleteParams) => {
+        const {
+            roadAddress,
+            jibunAddress,
+            buildingCode,
+            buildingName,
+            zonecode,
+        } = searched;
+
+        setAddress({
+            roadAddress,
+            jibunAddress,
+            buildingCode,
+            buildingName,
+            zonecode,
+        })
+    }
+
     useEffect(() => {
         validateUserData();
     }, [userData]);
 
     useEffect(() => {
-        console.log(isDone)
-    }, [isDone])
+        console.log(address?.roadAddress);
+        console.log(address?.jibunAddress);
+        console.log(address?.buildingCode);
+        console.log(address?.buildingName);
+        console.log(address?.zonecode);
+    }, [address])
 
     return (
         <SafeAreaView style={styles.Screen.topLevelBox}>
@@ -65,6 +100,7 @@ export default function SetBuildingScreen({navigation, route}: SetBuildingScreen
                                 title={Messages.messages.auth.set_building.adress_input_title}
                                 placeholder={Messages.messages.auth.set_building.adress_input_placeholder}
                                 name="address"
+                                onPressIn={() => navigation.navigate("search_address", {onGoBack: handleOnSelected})}
                                 onChangeText={(text, name) =>{
                                     if (name === "address")
                                     setUserData({...userData, [name]: text})

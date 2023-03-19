@@ -9,7 +9,7 @@ class BuildingManager implements IBuildingManager{
     readonly kakao: Kakao = new Kakao();
     
     public async searchByAddress(address: string): Promise<KakaoLocal.SearchAddress | null>{
-        const result = await this.kakao.searchAddress(address);
+        const result = await this.kakao.searchAddress({query: address});
 
         if (result.isSuccessful) {
             return result.data;

@@ -43,7 +43,7 @@ export default function useSearchAddressScreenStyles(){//}: SearchAddressScreenS
             justifyContent: "center",
             borderBottomWidth: 2,
             borderStyle: "solid",
-            borderColor: Theme.colors.colorFamily.darkgrey,
+            borderColor: Theme.colors.colorFamily.grey,
         },
         input: {
             color: Theme.colors.colorFamily.black,

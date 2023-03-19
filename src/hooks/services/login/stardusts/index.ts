@@ -10,6 +10,9 @@ class StardustsLoginManager extends ALoginManager{
     public async refresh(): Promise<any> {
         
     }
+    public async join(): Promise<any> {
+        
+    }
 }
 
 export default StardustsLoginManager;

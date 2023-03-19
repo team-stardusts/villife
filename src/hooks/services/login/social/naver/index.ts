@@ -8,6 +8,7 @@ import { LoginDataType } from '../../../../storage/tables/types';
 import SystemInfo from '../../../../systeminfo';
 import useSystemInfo from '../../../../systeminfo/hooks';
 import ALoginManager from '../../absc';
+import INaverLoginManager from './types';
 //import { INaverLoginManager } from '../types';
 
 
@@ -16,7 +17,7 @@ const CONSUMER_KEY = "h9g_ACLEIul7f_iFXNx1";
 const CONSUMER_SECRET = "7L_rwsIBsk";
 const SERVISE_URL_SHEME = "com.stardusts.villife";
 
-class NaverLoginManager extends ALoginManager {
+class NaverLoginManager extends ALoginManager implements INaverLoginManager{
     systemInfo: SystemInfo = useSystemInfo();
 
     public async login(): Promise<VillifeResultType<CustomSocialLoginResultType>> {
@@ -54,6 +55,15 @@ class NaverLoginManager extends ALoginManager {
         
     }
     public async refresh(): Promise<any> {
+    }
+
+    public async join(id: string, password: string, accessToken: string): Promise<any> {
+        return await this.server.socialJoin("naver", {
+            id,
+            password,
+            access_token: accessToken
+        });
+        
     }
 }
 

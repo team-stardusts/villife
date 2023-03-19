@@ -10,7 +10,7 @@ class Kakao extends AREST implements IKakaoRestAPI{
     readonly requester: AxiosInstance = axios.create({
         baseURL: "https://dapi.kakao.com/v2",
         headers: {
-            Authorization: `KakaoAK ${"KAKAO_API_KEY"}`
+            Authorization: `KakaoAK ${"3dcb994b16bbe5e3684501ce8d4dc642"}`
         },
         timeout: 1000,
         timeoutErrorMessage: "The request timed out.\
@@ -19,15 +19,13 @@ class Kakao extends AREST implements IKakaoRestAPI{
 
     readonly routes: RoutesType = routes;
     
-    public async searchAddress(address: string): Respones<KakaoLocal.SearchAddress> {
+    public async searchAddress(params: KakaoLocal.SearchAddressParams): Respones<KakaoLocal.SearchAddress> {
         let route = this.routes.local.search.address;
 
         return await this.request<any, KakaoLocal.SearchAddress>({
             method: "get",
             url: route,
-            params: {
-                query: address,
-            }
+            params,
         })
     }
 }

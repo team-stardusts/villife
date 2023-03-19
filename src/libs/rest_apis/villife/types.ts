@@ -40,6 +40,6 @@ export type SocialJoinParamsType = {
     id: string;
     password: string;
     access_token: string;
-    phone_number: string;
+    //phone_number: string;
 }
 //export type StardustsReturnType<T> = Promise<StardustsResultType<T>>;

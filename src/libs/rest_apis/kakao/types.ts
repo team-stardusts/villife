@@ -2,7 +2,7 @@ import { Requestable, Respones } from "../types";
 import KakaoLocal from "./types.local";
 
 export default interface IKakoREST extends Requestable {
-    searchAddress(address: string): Respones<KakaoLocal.SearchAddress>;
+    searchAddress(params: KakaoLocal.SearchAddressParams): Respones<KakaoLocal.SearchAddress>;
 }
 
 export interface PaginationMeta {
@@ -14,4 +14,9 @@ export interface PaginationMeta {
 export interface FailureData {
     errorType: string | undefined;
     message: string | undefined;
+}
+
+export interface PagealbeParams {
+    page?: number;
+    size?: number;
 }
