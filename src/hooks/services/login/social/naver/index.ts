@@ -5,10 +5,11 @@ import { Response } from '../../../../../libs/rest_apis/types';
 //    GetProfileResponse,
 //} from '@react-native-seoul/naver-login';
 
-import SystemInfo from '../../../../systeminfo';
+import ISystemInfo from '../../../../systeminfo';
 import useSystemInfo from '../../../../systeminfo/hooks';
 import ALoginManager from '../../absc';
 import INaverLoginManager from './types';
+import DotEnv from '../../../../../libs/dotenv';
 //import { INaverLoginManager } from '../types';
 
 
@@ -18,19 +19,20 @@ const CONSUMER_SECRET = "7L_rwsIBsk";
 const SERVISE_URL_SHEME = "com.stardusts.villife";
 
 class NaverLoginManager extends ALoginManager implements INaverLoginManager{
-    systemInfo: SystemInfo = useSystemInfo();
+    systemInfo: ISystemInfo = useSystemInfo();
+    private env: DotEnv = new DotEnv();
 
     public async login(): Response<CustomSocialLoginResultType> {
         const iosParams = {
-            kServiceAppName: APP_NAME,
-            kConsumerKey: CONSUMER_KEY,
-            kConsumerSecret: CONSUMER_SECRET,
-            kServiceAppUrlScheme: SERVISE_URL_SHEME
+            kServiceAppName: this.env.app.NAME ?? "",
+            kConsumerKey: this.env.api.naver.API_CONSUMER_KEY ?? "",
+            kConsumerSecret: this.env.api.naver.API_CONSUMER_SECRET ?? "",
+            kServiceAppUrlScheme: this.env.api.naver.API_SERVISE_URL_SHEME ?? ""
         }
         const androidParams = {
-            kServiceAppName: APP_NAME,
-            kConsumerKey: CONSUMER_KEY,
-            kConsumerSecret: CONSUMER_SECRET,
+            kServiceAppName: this.env.app.NAME ?? "",
+            kConsumerKey: this.env.api.naver.API_CONSUMER_KEY ?? "",
+            kConsumerSecret: this.env.api.naver.API_CONSUMER_SECRET ?? "",
         }
 
         const params = this.systemInfo.platform.OS === "ios" ? iosParams : androidParams;
@@ -45,6 +47,7 @@ class NaverLoginManager extends ALoginManager implements INaverLoginManager{
                 return; 
             })
         })
+
         // NaverLogin 실패 상황 예외 처리 필요
         return await this.server.socialLogin("naver", naverLoginResult.accessToken);
     }

@@ -4,17 +4,20 @@ import routes from "./routes";
 import { RoutesType } from "./routes/types";
 import IVillifeRESTAPI, { CustomSocialLoginResultType, SocialJoinParamsType, SocialJoinResultType, SocialLoginHostType, SocialLoginResultType } from "./types";
 import { Response } from "../types";
+import DotEnv from "../../dotenv";
 
 
 class Villife extends AREST implements IVillifeRESTAPI {
-    requester: AxiosInstance = axios.create({
-        baseURL: "http://192.168.0.36:8080",
+    private env: DotEnv = new DotEnv();
+
+    readonly requester: AxiosInstance = axios.create({
+        baseURL: this.env.api.villife.REST_API_BASE_URL,
         timeout: 1000,
         timeoutErrorMessage: "The request timed out.\
             Check the Stardusts server."
     });
 
-    routes: RoutesType = routes;
+    readonly routes: RoutesType = routes;
 
 
     public async login(id: string, password: string): Promise<any> {
@@ -37,12 +40,13 @@ class Villife extends AREST implements IVillifeRESTAPI {
             data: { access_token: accessToken }
         });
         
+        // Stadusts token과 Navertoken
         const data = Object.assign({
             social: { access_token: accessToken },
         }, {
             stardusts: result.data,
         })
-        
+
         return {
             isSuccessful: result.isSuccessful,
             data: data,

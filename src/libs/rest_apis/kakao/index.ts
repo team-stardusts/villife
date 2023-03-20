@@ -1,4 +1,5 @@
 import axios, { AxiosInstance, AxiosRequestConfig } from "axios";
+import DotEnv from "../../dotenv";
 import AREST from "../absc";
 import { Response } from "../types";
 import routes from "./routes";
@@ -7,10 +8,12 @@ import IKakaoRestAPI from "./types";
 import KakaoLocal from "./types.local";
 
 class Kakao extends AREST implements IKakaoRestAPI{
+    private env: DotEnv = new DotEnv();
+
     readonly requester: AxiosInstance = axios.create({
-        baseURL: "https://dapi.kakao.com/v2",
+        baseURL: this.env.api.kakao.REST_API_BASE_URL,
         headers: {
-            Authorization: `KakaoAK ${"3dcb994b16bbe5e3684501ce8d4dc642"}`
+            Authorization: `KakaoAK ${this.env.api.kakao.REST_API_KEY}`
         },
         timeout: 1000,
         timeoutErrorMessage: "The request timed out.\

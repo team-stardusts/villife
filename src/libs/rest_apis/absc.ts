@@ -2,25 +2,30 @@ import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 import { Requestable, Responsable } from "./types";
 
 abstract class AREST implements Requestable {
-    requester = axios.create({});
-    routes: any;
+    readonly requester = axios.create({});
+    readonly routes: any;
 
-    private isSuccessful(status_code: number): boolean {
-        return (200 <= status_code && status_code <= 299) ? true : false
+    private isSuccessful(status_code: number | undefined): boolean {
+        if (status_code === undefined) {
+            return false;
+        }
+        else {
+            return (200 <= status_code && status_code <= 299) ? true : false
+        }
     }
 
     public async request<T=any, U=any>(config: AxiosRequestConfig<T>): Promise<Responsable<U>> {
         const result: AxiosResponse<U, any> = await this.requester(config)
-            .then((res => {
+            .then((res) => {
                 return res;
-            }))
+            })
             .catch((err) => {
                 return err.response;
             });
 
         return {
-            isSuccessful: this.isSuccessful(result.status),
-            data: result.data,
+            isSuccessful: this.isSuccessful(result?.status),
+            data: result?.data,
         };
     }
 }
