@@ -1,4 +1,4 @@
-type SelectedAddressType = {
+type SelectedAddressStateType = {
     roadAddress: string;
     jibunAddress: string;
     buildingCode: number;
@@ -6,4 +6,4 @@ type SelectedAddressType = {
     zonecode: number;
 } | null;
 
-export default SelectedAddressType;
+export default SelectedAddressStateType;

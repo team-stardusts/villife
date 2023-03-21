@@ -1,6 +1,6 @@
-import StardustsStorage from "."
+import VillifeStorage from "."
 
 
-export default function useStardustsStorage(): StardustsStorage {
-    return new StardustsStorage();
+export default function useVillifeStorage(): VillifeStorage {
+    return new VillifeStorage();
 }

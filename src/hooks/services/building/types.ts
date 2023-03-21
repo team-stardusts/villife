@@ -1,7 +1,7 @@
-import Kakao from "../../../libs/rest_apis/kakao";
+import KakaoServer from "../../../libs/rest_apis/kakao";
 import KakaoLocal from "../../../libs/rest_apis/kakao/types.local";
 import { Response } from "../../../libs/rest_apis/types";
-import Villife from "../../../libs/rest_apis/villife";
+import VillifeServer from "../../../libs/rest_apis/villife";
 
 export default interface IBuildingManager extends Searchable, RESTUsable{
 
@@ -12,6 +12,6 @@ export interface Searchable {
 }
 
 export interface RESTUsable {
-    readonly villife: Villife;
-    readonly kakao: Kakao;
+    readonly villife: VillifeServer;
+    readonly kakao: KakaoServer;
 }

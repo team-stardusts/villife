@@ -1,6 +1,5 @@
 import LocalStorage from "../../../libs/localstorage";
 import { Storable } from "../types"
-import { LoginDataType } from "./types";
 
 abstract class ATable implements Storable {
     readonly key: string = "";

@@ -1,9 +1,9 @@
 import { atom } from "recoil"
-import SelectedAddressType from "./types"
+import SelectedAddressStateType from "./types"
 
-const selectedAddress = atom<SelectedAddressType>({
-    key: "selectedAddress",
+const selectedAddressState = atom<SelectedAddressStateType>({
+    key: "selectedAddressState",
     default: null,
 })
 
-export default selectedAddress;
+export default selectedAddressState;

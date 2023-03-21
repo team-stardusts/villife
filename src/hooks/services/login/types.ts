@@ -1,12 +1,12 @@
 import type NaverLoginManager from "./social/naver";
-import type StardustsLoginManager from "./stardusts";
+import type VillifeLoginManager from "./villife";
 
 export default interface ILoginManagers {
-    stardusts: StardustsLoginManager;
+    villife: VillifeLoginManager;
     naver: NaverLoginManager;
 }
 
-export interface ILoginable {
+export interface Loginable {
     login(): Promise<any>;
     logout(): Promise<any>;
     refresh(): Promise<any>;

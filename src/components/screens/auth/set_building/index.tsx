@@ -7,9 +7,9 @@ import AuthScreenTitleView from "../../../blocks/auth_screens/title_view";
 import useSetBuildingScreenStyles from "./styles";
 import SetBuildingScreenProps from "./types";
 import { OnCompleteParams } from "@actbase/react-daum-postcode/lib/types";
-import SelectedAddressType from "../../../../hooks/states/atoms/address/selected_address/types";
+import SelectedAddressStateType from "../../../../hooks/states/atoms/address/selected_address/types";
 import { useRecoilState } from "recoil";
-import selectedAddress from "../../../../hooks/states/atoms/address/selected_address";
+import selectedAddressState from "../../../../hooks/states/atoms/address/selected_address";
 
 
 LogBox.ignoreLogs([
@@ -22,7 +22,7 @@ export default function SetBuildingScreen({navigation, route}: SetBuildingScreen
     const styles = useSetBuildingScreenStyles();
     const [roomNumber, setRoomNumber] = useState<string|null>(null);
     const [isDone, setIsDone] = useState<boolean>(false);
-    const [address, setAddress] = useRecoilState<SelectedAddressType>(selectedAddress);
+    const [address, setAddress] = useRecoilState<SelectedAddressStateType>(selectedAddressState);
 
     const validateUserData = () => {
         if (!(address && roomNumber)) {

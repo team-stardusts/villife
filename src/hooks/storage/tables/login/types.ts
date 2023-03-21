@@ -16,7 +16,6 @@ export type LoginDataType = {
     host: HostType;
     userId: string;
     accessToken: string;
-    accessTokenExpiresAt: Date;
     refreshToken: string;
-    refreshTokenExpiresAt: Date;
+    tokensExpiresAt: number; // Milliseconds / UTC + 0
 }

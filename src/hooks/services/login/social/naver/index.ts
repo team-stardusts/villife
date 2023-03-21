@@ -49,7 +49,7 @@ class NaverLoginManager extends ALoginManager implements INaverLoginManager{
         })
 
         // NaverLogin 실패 상황 예외 처리 필요
-        return await this.server.socialLogin("naver", naverLoginResult.accessToken);
+        return await this.villife.socialLogin("naver", naverLoginResult.accessToken);
     }
 
     public async logout(): Promise<any> {
@@ -61,7 +61,7 @@ class NaverLoginManager extends ALoginManager implements INaverLoginManager{
     }
 
     public async join(id: string, password: string, accessToken: string): Promise<any> {
-        return await this.server.socialJoin("naver", {
+        return await this.villife.socialJoin("naver", {
             id,
             password,
             access_token: accessToken

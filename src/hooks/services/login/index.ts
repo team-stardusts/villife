@@ -1,9 +1,9 @@
 import NaverLoginManager from "./social/naver";
-import StardustsLoginManager from "./stardusts";
+import VillifeLoginManager from "./villife";
 import ILoginManagers from "./types";
 
 class LoginManagers implements ILoginManagers {
-    stardusts: StardustsLoginManager = new StardustsLoginManager();
+    villife: VillifeLoginManager = new VillifeLoginManager();
     naver: NaverLoginManager = new NaverLoginManager();
 }
 

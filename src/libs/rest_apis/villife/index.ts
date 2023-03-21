@@ -7,7 +7,7 @@ import { Response } from "../types";
 import DotEnv from "../../dotenv";
 
 
-class Villife extends AREST implements IVillifeRESTAPI {
+class VillifeServer extends AREST implements IVillifeRESTAPI {
     private env: DotEnv = new DotEnv();
 
     readonly requester: AxiosInstance = axios.create({
@@ -76,4 +76,4 @@ class Villife extends AREST implements IVillifeRESTAPI {
     }
 }
 
-export default Villife;
+export default VillifeServer;

@@ -54,7 +54,7 @@ export default function LoginScreen({navigation}: LoginScreenTypes.LoginScreenPr
         
         if (isSuccessful) {
             // Navigate to home screen.
-            console.log(data);
+            console.log("login", data);
         }
         else if (!isSuccessful) {
             // Modal & Navigate to join screen.
@@ -67,10 +67,6 @@ export default function LoginScreen({navigation}: LoginScreenTypes.LoginScreenPr
             );
         }
     }
-
-    useEffect(() => {
-        console.log(loginData);
-    }, [loginData])
 
     return (
         <SafeAreaView style={styles.Screen.topLevelBox}>

@@ -7,7 +7,7 @@ import { RoutesType } from "./routes/types";
 import IKakaoRestAPI from "./types";
 import KakaoLocal from "./types.local";
 
-class Kakao extends AREST implements IKakaoRestAPI{
+class KakaoServer extends AREST implements IKakaoRestAPI{
     private env: DotEnv = new DotEnv();
 
     readonly requester: AxiosInstance = axios.create({
@@ -33,4 +33,4 @@ class Kakao extends AREST implements IKakaoRestAPI{
     }
 }
 
-export default Kakao;
+export default KakaoServer;

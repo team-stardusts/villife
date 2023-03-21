@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { SafeAreaView, Text, View } from "react-native";
-import Villife from "../../../../libs/rest_apis/villife";
+import VillifeServer from "../../../../libs/rest_apis/villife";
 import useScreenMessage from "../../../../hooks/multilingual/hooks";
 import useSystemInfo from "../../../../hooks/systeminfo/hooks";
 import useAppTheme from "../../../../hooks/themes/hooks";
@@ -27,7 +27,7 @@ export default function CreateAccountScreen({navigation, route}: CreateAccountSc
     const LoginManager = useLoginService();
     const Messages = useScreenMessage();
     const styles = useCreateAccountScreenStyles();
-    const Server = new Villife();
+    const Server = new VillifeServer();
     const Validator = new StringValidator();
     
     const [account, setAccount] = useState<AccountType>({

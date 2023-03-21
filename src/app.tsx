@@ -6,7 +6,6 @@
  */
 
 import React from 'react';
-import Config from 'react-native-config';
 import ScreenRouter from './components/screen_router';
 import { RecoilRoot } from 'recoil';
 import useSystemInfo from './hooks/systeminfo/hooks';

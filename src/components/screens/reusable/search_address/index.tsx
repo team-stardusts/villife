@@ -2,8 +2,8 @@ import Postcode from "@actbase/react-daum-postcode";
 import { OnCompleteParams } from "@actbase/react-daum-postcode/lib/types";
 import { View, Text, SafeAreaView, ScrollView, LogBox } from "react-native";
 import { useRecoilState } from "recoil";
-import selectedAddress from "../../../../hooks/states/atoms/address/selected_address";
-import SelectedAddressType from "../../../../hooks/states/atoms/address/selected_address/types";
+import selectedAddressState from "../../../../hooks/states/atoms/address/selected_address";
+import SelectedAddressStateType from "../../../../hooks/states/atoms/address/selected_address/types";
 import SearchAddressScreenProps from "./types";
 
 LogBox.ignoreLogs([
@@ -12,7 +12,7 @@ LogBox.ignoreLogs([
 ]);
 
 export default function SearchAddressScreen({navigation, route}: SearchAddressScreenProps) {
-    const [address, setAddress] = useRecoilState<SelectedAddressType>(selectedAddress);
+    const [address, setAddress] = useRecoilState<SelectedAddressStateType>(selectedAddressState);
 
     const handleOnSelected = (searched: OnCompleteParams) => {
         const {
