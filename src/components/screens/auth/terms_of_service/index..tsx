@@ -6,6 +6,9 @@ import useTermsOfServiceScreenStyles from './styles';
 import TermsOfServiceScreenProps from './types';
 import AuthScreenSwitchButton from '../../../blocks/auth_screens/switch_button';
 import AuthScreenBottonButton from '../../../blocks/auth_screens/bottom_button';
+import {Defs, Image, Path, Pattern, Rect, Svg, Use} from 'react-native-svg';
+import PressableVectorIcon from '../../../blocks/icon/Vector';
+import useSystemInfo from '../../../../hooks/systeminfo/hooks';
 
 type UserDataType = {};
 
@@ -13,6 +16,7 @@ export default function TermsOfServiceScreen({
   navigation,
   route,
 }: TermsOfServiceScreenProps) {
+  const iconDiameter: number = useSystemInfo().window.width * 0.05;
   const Messages = useScreenMessage();
   const Styles = useTermsOfServiceScreenStyles();
 
@@ -33,12 +37,16 @@ export default function TermsOfServiceScreen({
               Messages.messages.auth.terms_of_service.terms_of_service_Privacy
             }
           />
-          <AuthScreenSwitchButton
-            title={
-              Messages.messages.auth.terms_of_service.terms_of_service_service
-            }
-          />
+          <View style={{position: 'absolute', flexDirection: 'row'}}>
+            <AuthScreenSwitchButton
+              title={
+                Messages.messages.auth.terms_of_service.terms_of_service_service
+              }
+            />
+            <PressableVectorIcon providerName="right" diameter={iconDiameter} />
+          </View>
         </View>
+
         <View style={Styles.BlankSection.topLevelBox} />
       </View>
       <AuthScreenBottonButton

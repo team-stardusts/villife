@@ -19,32 +19,25 @@ export default function AuthScreenSwitchButton(
 
   return (
     <View style={Styles.inputWrapper}>
-      <View
-        style={{
-          flexDirection: 'row',
-          justifyContent: 'center',
-          position: 'absolute',
-        }}>
-        {isPressing ? (
-          <>
-            <Pressable onPress={onPress} style={Styles.onBarSort}>
-              <View style={Styles.onWidthBar}>
-                <View style={Styles.onCircleInBar} />
-              </View>
-            </Pressable>
+      {isPressing ? (
+        <>
+          <Pressable onPress={onPress} style={Styles.onBarSort}>
+            <View style={Styles.onWidthBar}>
+              <View style={Styles.onCircleInBar} />
+            </View>
             <Text style={Styles.title}>{props.title}</Text>
-          </>
-        ) : (
-          <>
-            <Pressable onPress={onPress} style={Styles.offBarSort}>
-              <View style={Styles.offWidthBar}>
-                <View style={Styles.offCircleInBar} />
-              </View>
-            </Pressable>
+          </Pressable>
+        </>
+      ) : (
+        <>
+          <Pressable onPress={onPress} style={Styles.offBarSort}>
+            <View style={Styles.offWidthBar}>
+              <View style={Styles.offCircleInBar} />
+            </View>
             <Text style={Styles.title}>{props.title}</Text>
-          </>
-        )}
-      </View>
+          </Pressable>
+        </>
+      )}
     </View>
   );
 }

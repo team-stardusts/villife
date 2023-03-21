@@ -8,31 +8,20 @@ export default function useAuthScreenSwitchButtonStyles(): UseAuthScreenSwitchBu
   const SystemInfo = useSystemInfo();
 
   return StyleSheet.create({
-    topLevelBox: {
-      position: 'absolute',
-      bottom: 0,
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      width: '100%',
-      height: SystemInfo.window.height * 0.08,
+    inputWrapper: {
+      marginBottom: SystemInfo.window.width * 0.136,
     },
-    inputWrapper: {marginBottom: SystemInfo.window.width * 0.136},
-
     offBarSort: {
-      alignItems: 'center',
-      marginLeft: SystemInfo.window.width * 0.068,
+      justifyContent: 'center',
     },
     offWidthBar: {
-      flexDirection: 'row',
-      alignItems: 'center',
       width: SystemInfo.window.width * 0.12,
       height: SystemInfo.window.width * 0.065,
       borderRadius: SystemInfo.window.width * 0.065,
       backgroundColor: '#E4E4E4',
+      justifyContent: 'center',
       position: 'absolute',
     },
-
     offCircleInBar: {
       width: SystemInfo.window.width * 0.049,
       height: SystemInfo.window.width * 0.049,
@@ -41,17 +30,15 @@ export default function useAuthScreenSwitchButtonStyles(): UseAuthScreenSwitchBu
       backgroundColor: '#797A7C',
     },
     onBarSort: {
-      alignItems: 'center',
-      marginLeft: SystemInfo.window.width * 0.068,
+      justifyContent: 'center',
     },
     onWidthBar: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      justifyContent: 'flex-end',
       width: SystemInfo.window.width * 0.12,
       height: SystemInfo.window.width * 0.065,
       borderRadius: SystemInfo.window.width * 0.065,
       backgroundColor: '#DFEEFF',
+      justifyContent: 'center',
+      alignItems: 'flex-end',
       position: 'absolute',
     },
     onCircleInBar: {
@@ -64,9 +51,7 @@ export default function useAuthScreenSwitchButtonStyles(): UseAuthScreenSwitchBu
     title: {
       color: Theme.colors.colorFamily.black,
       fontWeight: 'bold',
-      justifyContent: 'center',
-      marginLeft: SystemInfo.window.width * 0.09,
-      alignItems: 'center',
+      marginLeft: SystemInfo.window.width * 0.139,
       fontSize: SystemInfo.window.width * 0.065,
     },
   });

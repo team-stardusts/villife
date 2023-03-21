@@ -15,7 +15,7 @@ export default function useTermsOfServiceScreenStyles(): TermsOfServiceScreenSty
     },
     screenWrapper: {
       flex: 1,
-      paddingHorizontal: SystemInfo.window.width * 0.06,
+      paddingHorizontal: SystemInfo.window.width * 0.068,
     },
     contentsWrapper: {
       flex: 8,
