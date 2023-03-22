@@ -18,26 +18,24 @@ export default function AuthScreenSwitchButton(
   };
 
   return (
-    <View style={Styles.inputWrapper}>
+    <>
       {isPressing ? (
         <>
-          <Pressable onPress={onPress} style={Styles.onBarSort}>
+          <Pressable onPress={onPress}>
             <View style={Styles.onWidthBar}>
               <View style={Styles.onCircleInBar} />
             </View>
-            <Text style={Styles.title}>{props.title}</Text>
           </Pressable>
         </>
       ) : (
         <>
-          <Pressable onPress={onPress} style={Styles.offBarSort}>
+          <Pressable onPress={onPress}>
             <View style={Styles.offWidthBar}>
               <View style={Styles.offCircleInBar} />
             </View>
-            <Text style={Styles.title}>{props.title}</Text>
           </Pressable>
         </>
       )}
-    </View>
+    </>
   );
 }

@@ -15,7 +15,7 @@ function RightVectorIcon(props: VectorIconProps): VectorIconReturnType {
     <Svg
       width={diameter}
       height={diameter}
-      viewBox={`0 0 ${diameter} ${diameter}`}
+      viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg">
       <Path

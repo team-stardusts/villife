@@ -26,37 +26,25 @@ export default function useTermsOfServiceScreenStyles(): TermsOfServiceScreenSty
     topLevelBox: {
       flex: 6,
     },
-    attrWrapper: {
-      //display: "flex",
-      flex: 1,
-      paddingTop: SystemInfo.window.width * 0.07,
-    },
     horizontalLine: {
       paddingHorizontal: SystemInfo.window.width * 0.06,
       paddingVertical: SystemInfo.window.width * 0.002,
       backgroundColor: Theme.colors.colorFamily.blue,
       marginBottom: SystemInfo.window.width * 0.068,
     },
-    inputWrapper: {
-      flex: 4,
-      marginBottom: SystemInfo.window.width * 0.02,
+    barSort: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      marginBottom: SystemInfo.window.width * 0.065,
+      backgroundColor: 'gray',
     },
-    inputIdentifier: {
-      //fontFamily: Theme.css.font.universial.fontFamily,
-      color: Theme.colors.colorFamily.blue,
-      fontSize: SystemInfo.window.width * 0.05,
+    descriptionMessage: {
+      color: Theme.colors.colorFamily.black,
       fontWeight: 'bold',
-      paddingBottom: SystemInfo.window.width * 0.01,
+      fontSize: SystemInfo.window.width * 0.065,
+      marginLeft: SystemInfo.window.width * 0.009,
     },
-    btnWrapper: {
-      flex: 3,
-      marginBottom: SystemInfo.window.width * 0.02,
-    },
-    btnTitle: {
-      color: Theme.colors.colorFamily.white,
-      fontSize: SystemInfo.window.width * 0.04,
-      fontWeight: '700',
-    },
+    switchButton: {},
   });
 
   const BlankSection = StyleSheet.create({
