@@ -36,12 +36,11 @@ export default function useTermsOfServiceScreenStyles(): TermsOfServiceScreenSty
       flexDirection: 'row',
       alignItems: 'center',
       marginBottom: SystemInfo.window.width * 0.065,
-      backgroundColor: 'gray',
     },
     descriptionMessage: {
       color: Theme.colors.colorFamily.black,
       fontWeight: 'bold',
-      fontSize: SystemInfo.window.width * 0.065,
+      fontSize: SystemInfo.window.width * 0.03,
       marginLeft: SystemInfo.window.width * 0.009,
     },
     switchButton: {},
