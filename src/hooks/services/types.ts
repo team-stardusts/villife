@@ -3,4 +3,4 @@ import type LoginManagers from "./login";
 
 export type UseLoginServiceReturnType = LoginManagers;
 export type UseBuildingManagerReturnType = BuildingManager;
-export type LoginHosts = "stardusts" | "naver";
+export type LoginHosts = "villife" | "naver";

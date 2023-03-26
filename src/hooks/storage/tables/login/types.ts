@@ -14,8 +14,7 @@ export type LoginTableKey = "login";
 
 export type LoginDataType = {
     host: HostType;
-    userId: string;
     accessToken: string;
     refreshToken: string;
-    tokensExpiresAt: number; // Milliseconds / UTC + 0
+    accessTokenExpiresAt: number; // Milliseconds / UTC + 0
 }

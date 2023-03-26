@@ -15,6 +15,8 @@ import { LoginDataType } from "../../../../hooks/storage/tables/login/types";
 import { SocialLoginHostType } from "../../../../libs/rest_apis/villife/types";
 import Config from "react-native-config";
 import AuthScreenTitleView from "../../../blocks/auth_screens/title_view";
+import { loginDataState } from "../../../../hooks/states/atoms/login";
+import { LoginDataStateType } from "../../../../hooks/states/atoms/login/types";
 //import AppRoutes from '../../../../data/routes.json';
 
 
@@ -40,21 +42,20 @@ export default function LoginScreen({navigation}: LoginScreenTypes.LoginScreenPr
             password: null
         })
 
-    const [loginData, setLoginData] = useState<LoginDataType | null>(null)
-
-    const handleSetLoginData = async(loginData: Promise<LoginDataType | null>) => {
-        loginData.then((res) => {
-            setLoginData(res);
-        })
-    }
+    const [loginData, setLoginData] = useRecoilState<LoginDataStateType>(loginDataState);
 
     const handleLogin = async(host: SocialLoginHostType) => {
-        const { isSuccessful, data } = await LoginManager[host].login();
-        // LoginManager.naver.login();
+        const { isSuccessful, data } = await LoginManager[host].login(); // LoginManager.naver.login();
         
         if (isSuccessful) {
             // Navigate to home screen.
-            console.log("login", data);
+
+            setLoginData({
+                host: host,
+                accessToken: data.villife.access_token,
+                refreshToken: data.villife.refresh_token,
+                accessTokenExpiresAt: data.villife.expire_at,
+            })
         }
         else if (!isSuccessful) {
             // Modal & Navigate to join screen.

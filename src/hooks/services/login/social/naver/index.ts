@@ -23,19 +23,15 @@ class NaverLoginManager extends ALoginManager implements INaverLoginManager{
     private env: DotEnv = new DotEnv();
 
     public async login(): Response<CustomSocialLoginResultType> {
-        const iosParams = {
-            kServiceAppName: this.env.app.NAME ?? "",
-            kConsumerKey: this.env.api.naver.API_CONSUMER_KEY ?? "",
-            kConsumerSecret: this.env.api.naver.API_CONSUMER_SECRET ?? "",
-            kServiceAppUrlScheme: this.env.api.naver.API_SERVISE_URL_SHEME ?? ""
-        }
-        const androidParams = {
+        const params = {
             kServiceAppName: this.env.app.NAME ?? "",
             kConsumerKey: this.env.api.naver.API_CONSUMER_KEY ?? "",
             kConsumerSecret: this.env.api.naver.API_CONSUMER_SECRET ?? "",
         }
 
-        const params = this.systemInfo.platform.OS === "ios" ? iosParams : androidParams;
+        if (this.systemInfo.platform.OS === "ios") {
+            Object.assign(params, {kServiceAppUrlScheme: this.env.api.naver.API_SERVISE_URL_SHEME ?? ""})
+        }
 
         const naverLoginResult: any = await new Promise((resolve, reject) => {
             NaverLogin.login(params, (err, token) => {
@@ -64,7 +60,7 @@ class NaverLoginManager extends ALoginManager implements INaverLoginManager{
         return await this.villife.socialJoin("naver", {
             id,
             password,
-            access_token: accessToken
+            access_token: accessToken,
         });
         
     }

@@ -8,8 +8,7 @@ import { LoginDataType } from "../../../storage/tables/login/types";
 import ALoginManager from "../absc";
 
 class VillifeLoginManager extends ALoginManager {
-    public async login(): Promise<any> {
-
+    public async login(params: any): Promise<any> {
     }
     public async logout(): Promise<any> {
         

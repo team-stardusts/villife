@@ -7,7 +7,7 @@ export default interface ILoginManagers {
 }
 
 export interface Loginable {
-    login(): Promise<any>;
+    login(params: any): Promise<any>;
     logout(): Promise<any>;
     refresh(): Promise<any>;
 }

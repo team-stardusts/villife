@@ -3,8 +3,9 @@ import { Loginable } from "./types";
 
 abstract class ALoginManager implements Loginable {
     villife: VillifeServer = new VillifeServer();
+    // [TO-DO] : Check duplicate ID.
 
-    abstract login(): Promise<any>;
+    abstract login(params: any): Promise<any>;
     abstract logout(): Promise<any>;
     abstract refresh(): Promise<any>;
     //abstract join(): Promise<any>;

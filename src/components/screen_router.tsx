@@ -10,7 +10,8 @@ import { LoginDataType } from '../hooks/storage/tables/login/types';
 import { useRecoilState } from 'recoil';
 import { isLoggedInState } from '../hooks/states/atoms/login';
 import { useLoginService } from '../hooks/services/hooks';
-import useLoginSessionHandler from '../hooks/session';
+import useLoginSession from '../hooks/session';
+import Config from 'react-native-config';
 
 enableScreens(true);
 
@@ -18,30 +19,16 @@ export default function ScreenRouter() {
     const storage: StardustsStorage = useVillifeStorage();
     const [isLoading, setIsLoading] = useState(true);
     const [isLoggedIn, setIsLoggedIn] = useRecoilState<boolean | null>(isLoggedInState);
-    const handleLoginSession = useLoginSessionHandler();
-
-    handleLoginSession();
+    
+    useLoginSession();
 
     useEffect(() => {
-        const bootstrap = async () => {
-            //const logindata: LoginDataType | null = await storage.login.get();
-
-            //logindata ?? setIsLoading(false);
-            
-            //setTimeout(() => logindata ?? setIsLoading(false), 1000);
-
-            /* 
-            isLoggedIn은 최초에만 null 값을 가지고, 그 이후에는 boolean 이어야 함.
-            null 값을 넣을 경우 Splash screen이 routing 됨.
-            */
-            if (isLoggedIn === null) {
-                setIsLoading(true);
-            }
-            else {
-                setIsLoading(false);
-            }
+        if (isLoggedIn === null) {
+            setIsLoading(true);
         }
-        bootstrap();
+        else {
+            setIsLoading(false);
+        }
     }, [isLoggedIn])
 
     return (

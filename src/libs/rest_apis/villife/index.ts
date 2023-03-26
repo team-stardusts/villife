@@ -44,7 +44,7 @@ class VillifeServer extends AREST implements IVillifeRESTAPI {
         const data = Object.assign({
             social: { access_token: accessToken },
         }, {
-            stardusts: result.data,
+            villife: result.data,
         })
 
         return {

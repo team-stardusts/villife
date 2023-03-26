@@ -22,12 +22,9 @@ type AccountType = {
 
 export default function CreateAccountScreen({navigation, route}: CreateAccountScreenProps) {
     const { host, access_token } = route.params;
-    const Theme = useAppTheme();
-    const SystemInfo = useSystemInfo();
     const LoginManager = useLoginService();
     const Messages = useScreenMessage();
     const styles = useCreateAccountScreenStyles();
-    const Server = new VillifeServer();
     const Validator = new StringValidator();
     
     const [account, setAccount] = useState<AccountType>({
@@ -43,8 +40,6 @@ export default function CreateAccountScreen({navigation, route}: CreateAccountSc
 
         if (id && password && access_token) {
             const result = await LoginManager[host].join(id, password, access_token);
-            console.log(result.isSuccess);
-            console.log(result.data);
 
             navigation.navigate("set_building", {id, password})
         }
@@ -136,7 +131,7 @@ export default function CreateAccountScreen({navigation, route}: CreateAccountSc
                                     secureTextEntry
                                     />
                                 {
-                                    host === "stardusts"
+                                    host === "villife"
                                     ? <>
                                         <AuthScreenCommonInput 
                                             title={Messages.messages.auth.join.title_of_select_carrier_input}

@@ -3,33 +3,38 @@ import { useRecoilState } from "recoil"
 import { isLoggedInState, loginDataState } from "../states/atoms/login"
 import { IsLogggedInType, LoginDataStateType } from "../states/atoms/login/types";
 
-export default function useLoginSessionHandler() {
-    const handleLoginSession = () => {
-        const [isLoggedIn, setIsLoggedIn] = useRecoilState<IsLogggedInType>(isLoggedInState);
-        const [loginData, setLoginData] = useRecoilState<LoginDataStateType>(loginDataState);
+export default function useLoginSession() {
+    const TEN_MINUTES: number = 600000;
+    const [isLoggedIn, setIsLoggedIn] = useRecoilState<IsLogggedInType>(isLoggedInState);
+    const [loginData, setLoginData] = useRecoilState<LoginDataStateType>(loginDataState);
 
-        useEffect(() => {
-            console.log("Hello", loginData);
+    const maintainSession = async() => {
+        if (loginData === null) {
+            setIsLoggedIn(false);
+        }
+        else {
+            const expiresAt = loginData.accessTokenExpiresAt * 1000;
+            const timeDelta = expiresAt - new Date().getTime();
+            //console.log("eAt:", new Date(expiresAt));
+            //console.log("now:", new Date())
 
-            if (isLoggedIn === null) {
-                setIsLoggedIn(false);
-            } 
-
-            /*
-            [TO-DO]
-            1. storage에서 로그인 데이터를 가져옴.
-                - result == null -> setIsLoggedIn(false);
-                - result == LoginDataType
-                    - result.expiresAt < now -> setIsLoggedIn(false);
-                    - res.expiresAt > now
-                        - 60000 < res.expiresAt - now =< 300000 -> login(); setIsLoggedIn(true);
-                        - res.expiresAt > 300000 -> login(); setIsLoggedIn(true);
-                        - else -> setIsLoggedIn(false);
-            2. Interval로 로그인 확인 및 로그인 연장.
-            */
-
-        }, [loginData])
+            switch(true) {
+                case timeDelta > 300000:
+                    console.log("Refresh")
+                    //const result = await login()
+                    //setLoginData()
+                    setIsLoggedIn(true);
+                default: // 토큰 기한 만료
+                    setLoginData(null);
+            }
+        }
     }
+    
+    useEffect(() => {
+        maintainSession();
+    }, [loginData]);
 
-    return handleLoginSession;
+    useEffect(() => {
+        setInterval(()=>maintainSession(), TEN_MINUTES);
+    }, [])
 }

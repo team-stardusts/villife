@@ -17,13 +17,13 @@ export type SocialLoginResultType = {
     access_token: string;
     expire_at: number;
     refresh_token: string;
-} | "cannot find user" | undefined;
+} // | "cannot find user" | undefined;
 
 export type CustomSocialLoginResultType = {
     social: {
         access_token: string;
     };
-    stardusts: SocialLoginResultType;
+    villife: SocialLoginResultType;
 }
 
 export type SocialJoinResultType = 
