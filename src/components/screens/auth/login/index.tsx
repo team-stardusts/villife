@@ -14,6 +14,7 @@ import { SocialLoginHostType } from "../../../../libs/rest_apis/villife/types";
 import AuthScreenTitleView from "../../../blocks/auth_screens/title_view";
 import { loginDataState } from "../../../../hooks/states/atoms/login";
 import { LoginDataStateType } from "../../../../hooks/states/atoms/login/types";
+import useVillifeStorage from "../../../../hooks/storage/hooks";
 //import AppRoutes from '../../../../data/routes.json';
 
 
@@ -46,13 +47,15 @@ export default function LoginScreen({navigation}: LoginScreenProps) {
         
         if (isSuccessful) {
             // Navigate to home screen.
-
-            setLoginData({
+            const loginData_ = {
                 host: host,
                 accessToken: data.villife.access_token,
                 refreshToken: data.villife.refresh_token,
                 accessTokenExpiresAt: data.villife.expire_at,
-            })
+            }
+            const storage = useVillifeStorage();
+            storage.login.set(loginData_);
+            setLoginData(loginData_);
 
             navigation.navigate("home");
         }

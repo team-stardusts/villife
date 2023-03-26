@@ -1,11 +1,9 @@
 import { useEffect, useState } from 'react';
 import { enableScreens } from 'react-native-screens';
-import useVillifeStorage from '../../hooks/storage/hooks';
-import StardustsStorage from '../../hooks/storage';
 import { useRecoilState } from 'recoil';
 import { isLoggedInState } from '../../hooks/states/atoms/login';
 import useLoginSession from '../../hooks/session';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createNativeStackNavigator, NativeStackScreenProps } from '@react-navigation/native-stack';
 import { StackParamList } from './types';
 import LoginScreen from '../screens/auth/login';
 import CreateAccountScreen from '../screens/auth/create_account';
@@ -20,16 +18,23 @@ enableScreens(true);
 
 const Stack = createNativeStackNavigator<StackParamList>();
 
+type test = NativeStackScreenProps<StackParamList>;
+
 export default function ScreenRouter() {
-    const storage: StardustsStorage = useVillifeStorage();
     const [isLoading, setIsLoading] = useState(true);
     const [isLoggedIn, setIsLoggedIn] = useRecoilState<boolean | null>(isLoggedInState);
+    const navigation = useNavigation<test["navigation"]>();
 
     useLoginSession();
-
+    // [TO-DO] Code 정리
     useEffect(() => {
         if (isLoggedIn === null) {
             setIsLoading(true);
+            navigation.navigate("splash", {});
+        }
+        else if(isLoggedIn === true) {
+            setIsLoading(false);
+            navigation.navigate("home", {});
         }
         else {
             setIsLoading(false);
@@ -37,7 +42,6 @@ export default function ScreenRouter() {
     }, [isLoggedIn])
 
     return (
-        <NavigationContainer>
             <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName={"login"}>
                 <Stack.Group >
                     <Stack.Screen name={"login"} component={LoginScreen} />
@@ -55,6 +59,5 @@ export default function ScreenRouter() {
                     <Stack.Screen name={"search_address"} component={SearchAddressScreen} />
                 </Stack.Group>
             </Stack.Navigator>
-        </NavigationContainer>
     );
 }

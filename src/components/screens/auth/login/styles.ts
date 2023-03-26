@@ -1,9 +1,9 @@
 import { StyleSheet } from "react-native";
-import LoginScreenTypes from "./types";
+import LoginScreenTypes, { LoginScreenStylesType } from "./types";
 import useAppTheme from "../../../../hooks/themes/hooks";
 import useSystemInfo from "../../../../hooks/systeminfo/hooks";
 
-export default function useLoginScreenStyles(): LoginScreenTypes.LoginScreenStylesType {
+export default function useLoginScreenStyles(): LoginScreenStylesType {
     const Theme = useAppTheme();
     const SystemInfo = useSystemInfo();
 

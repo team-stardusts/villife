@@ -21,7 +21,7 @@ type AccountType = {
 
 export default function CreateAccountScreen({navigation, route}: CreateAccountScreenProps) {
     const { host, access_token } = route.params;
-    const LoginManager = useLoginService();
+    const LoginManagers = useLoginService();
     const Messages = useScreenMessage();
     const styles = useCreateAccountScreenStyles();
     const Validator = new StringValidator();
@@ -37,8 +37,8 @@ export default function CreateAccountScreen({navigation, route}: CreateAccountSc
         const {id, password} = account;
 
         if (id && password && access_token) {
-            const result = await LoginManager[host].join(id, password, access_token);
-
+            const result = await LoginManagers[host].join(id, password, access_token);
+            console.log("login:", result.isSuccessful);
             navigation.navigate("set_building", {id, password})
         }
     }

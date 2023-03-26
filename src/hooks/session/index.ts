@@ -2,11 +2,13 @@ import { useEffect } from "react"
 import { useRecoilState } from "recoil"
 import { isLoggedInState, loginDataState } from "../states/atoms/login"
 import { IsLogggedInType, LoginDataStateType } from "../states/atoms/login/types";
+import useVillifeStorage from "../storage/hooks";
 
 export default function useLoginSession() {
     const TEN_MINUTES: number = 600000;
     const [isLoggedIn, setIsLoggedIn] = useRecoilState<IsLogggedInType>(isLoggedInState);
     const [loginData, setLoginData] = useRecoilState<LoginDataStateType>(loginDataState);
+    const storage = useVillifeStorage();
     
     const maintainSession = async() => {
         if (loginData === null) {
@@ -15,8 +17,6 @@ export default function useLoginSession() {
         else {
             const expiresAt = loginData.accessTokenExpiresAt * 1000;
             const timeDelta = expiresAt - new Date().getTime();
-            //console.log("eAt:", new Date(expiresAt));
-            //console.log("now:", new Date())
 
             switch(true) {
                 case timeDelta > 300000:
@@ -30,12 +30,14 @@ export default function useLoginSession() {
             }
         }
     }
-    
+    // [TO-DO] Code 정리
+
     useEffect(() => {
         maintainSession();
     }, [loginData]);
 
     useEffect(() => {
-        setInterval(maintainSession, TEN_MINUTES);
+        storage.login.get().then(res => setLoginData(res));
+        setInterval(maintainSession, 1000)//TEN_MINUTES);
     }, [])
 }

@@ -1,8 +1,8 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import type { StyleSheet } from "react-native/types";
-import { AuthStackParamList } from "../../../navigators/auth/types";
+import { StackParamList } from "../../../router/types";
 
-type CreateAccountScreenProps = NativeStackScreenProps<AuthStackParamList, "create_account">;
+type CreateAccountScreenProps = NativeStackScreenProps<StackParamList, "create_account">;
 
 export default CreateAccountScreenProps;
 
