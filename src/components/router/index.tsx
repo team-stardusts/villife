@@ -39,13 +39,13 @@ export default function ScreenRouter() {
     return (
         <NavigationContainer>
             <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName={"login"}>
-                <Stack.Group>
+                <Stack.Group >
                     <Stack.Screen name={"login"} component={LoginScreen} />
+                    <Stack.Screen name={"terms_of_service"} component={TermsOfServiceScreen} />
                     <Stack.Screen name={"create_account"} component={CreateAccountScreen} />
                     <Stack.Screen name={"set_building"} component={SetBuildingScreen} />
-                    <Stack.Screen name={"terms_of_service"} component={TermsOfServiceScreen} />
                 </Stack.Group>
-                <Stack.Group>
+                <Stack.Group screenOptions={{ headerShown: true }}>
                     <Stack.Screen name={"home"} component={HomeScreen} />
                 </Stack.Group>
                 <Stack.Group>

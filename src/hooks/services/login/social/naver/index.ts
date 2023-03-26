@@ -1,5 +1,5 @@
 import { NaverLogin } from '@react-native-seoul/naver-login';
-import { CustomSocialLoginResultType } from '../../../../../libs/rest_apis/villife/types';
+import { CustomSocialLoginResultType, SocialJoinResultType } from '../../../../../libs/rest_apis/villife/types';
 import { Response } from '../../../../../libs/rest_apis/types';
 //import NaverLogin, {
 //    GetProfileResponse,
@@ -56,7 +56,7 @@ class NaverLoginManager extends ALoginManager implements INaverLoginManager{
     public async refresh(): Promise<any> {
     }
 
-    public async join(id: string, password: string, accessToken: string): Promise<any> {
+    public async join(id: string, password: string, accessToken: string): Response<SocialJoinResultType> {
         return await this.villife.socialJoin("naver", {
             id,
             password,

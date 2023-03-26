@@ -1,19 +1,16 @@
 import { Pressable, SafeAreaView, Text, View } from "react-native";
 import useScreenMessage from "../../../../hooks/multilingual/hooks";
-import LoginScreenTypes from "./types";
+import LoginScreenProps, { LoginScreenStylesType } from "./types";
 import useLoginScreenStyles from "./styles";
 import UniversalTextInput from "../../../blocks/universial/textinput";
 import UniversialButton from "../../../blocks/universial/button";
 import { useRecoilState } from "recoil";
-import { testState } from "../../../../hooks/states/atoms/test";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import useSystemInfo from "../../../../hooks/systeminfo/hooks";
 import SocialLoginIcon from "../../../blocks/icon/login";
 import useAppTheme from "../../../../hooks/themes/hooks";
 import { useLoginService } from "../../../../hooks/services/hooks";
-import { LoginDataType } from "../../../../hooks/storage/tables/login/types";
 import { SocialLoginHostType } from "../../../../libs/rest_apis/villife/types";
-import Config from "react-native-config";
 import AuthScreenTitleView from "../../../blocks/auth_screens/title_view";
 import { loginDataState } from "../../../../hooks/states/atoms/login";
 import { LoginDataStateType } from "../../../../hooks/states/atoms/login/types";
@@ -26,12 +23,12 @@ type UserAuth = {
 }
 
 
-export default function LoginScreen({navigation}: LoginScreenTypes.LoginScreenProps) {
+export default function LoginScreen({navigation}: LoginScreenProps) {
     const LoginManager = useLoginService();
     const Messages = useScreenMessage();
     const Theme = useAppTheme();
     const SystemInfo = useSystemInfo();
-    const styles: LoginScreenTypes.LoginScreenStylesType = useLoginScreenStyles();
+    const styles: LoginScreenStylesType = useLoginScreenStyles();
     const iconDiameter: number = useSystemInfo().window.width * 0.12;
     
     const [isSocialLoginButtonPressed, setIsSocialLoginButtonPressed]
@@ -56,6 +53,8 @@ export default function LoginScreen({navigation}: LoginScreenTypes.LoginScreenPr
                 refreshToken: data.villife.refresh_token,
                 accessTokenExpiresAt: data.villife.expire_at,
             })
+
+            navigation.navigate("home");
         }
         else if (!isSuccessful) {
             // Modal & Navigate to join screen.

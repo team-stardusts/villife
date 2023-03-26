@@ -6,7 +6,6 @@ import useTermsOfServiceScreenStyles from './styles';
 import TermsOfServiceScreenProps from './types';
 import AuthScreenSwitchButton from '../../../blocks/auth_screens/switch_button';
 import AuthScreenBottonButton from '../../../blocks/auth_screens/bottom_button';
-import {Defs, Image, Path, Pattern, Rect, Svg, Use} from 'react-native-svg';
 import PressableVectorIcon from '../../../blocks/icon/vector';
 import useSystemInfo from '../../../../hooks/systeminfo/hooks';
 
