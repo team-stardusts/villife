@@ -8,8 +8,6 @@
 import React from 'react';
 import ScreenRouter from './components/screen_router';
 import { RecoilRoot } from 'recoil';
-import useSystemInfo from './hooks/systeminfo/hooks';
-
 
 export default function App(): JSX.Element {
   
@@ -19,6 +17,6 @@ export default function App(): JSX.Element {
     </RecoilRoot>
   );
 }
-      //<RecoilRoot>
-      //  <ScreenRouter />
-      //</RecoilRoot>
+//<RecoilRoot>
+//  <ScreenRouter />
+//</RecoilRoot>

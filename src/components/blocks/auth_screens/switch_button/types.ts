@@ -1,11 +1,11 @@
 import {GestureResponderEvent, StyleSheet} from 'react-native';
 
-export default interface AuthScreenBottonButtonProps {
-  title: string;
+export default interface AuthScreenSwitchButtonProps {
+  title?: string | null;
   disabled?: boolean | null;
   onPress?: null | ((event: GestureResponderEvent) => void) | undefined;
 }
 
-export type UseAuthScreenBottonButtonStylesType = ReturnType<
+export type UseAuthScreenSwitchButtonStylesType = ReturnType<
   typeof StyleSheet.create
 >;
