@@ -14,7 +14,7 @@ import TermsOfServiceScreen from '../screens/auth/terms_of_service/index.';
 import SearchAddressScreen from '../screens/reusable/search_address';
 import HomeScreen from '../screens/main/home';
 import SplashScreen from '../screens/splash/splash_screen';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, useNavigation } from '@react-navigation/native';
 
 enableScreens(true);
 
@@ -24,7 +24,7 @@ export default function ScreenRouter() {
     const storage: StardustsStorage = useVillifeStorage();
     const [isLoading, setIsLoading] = useState(true);
     const [isLoggedIn, setIsLoggedIn] = useRecoilState<boolean | null>(isLoggedInState);
-    
+
     useLoginSession();
 
     useEffect(() => {

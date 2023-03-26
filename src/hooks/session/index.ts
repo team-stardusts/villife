@@ -7,7 +7,7 @@ export default function useLoginSession() {
     const TEN_MINUTES: number = 600000;
     const [isLoggedIn, setIsLoggedIn] = useRecoilState<IsLogggedInType>(isLoggedInState);
     const [loginData, setLoginData] = useRecoilState<LoginDataStateType>(loginDataState);
-
+    
     const maintainSession = async() => {
         if (loginData === null) {
             setIsLoggedIn(false);
@@ -21,6 +21,7 @@ export default function useLoginSession() {
             switch(true) {
                 case timeDelta > 300000:
                     console.log("Refresh")
+                    // [TO-DO] Firebase auth
                     //const result = await login()
                     //setLoginData()
                     setIsLoggedIn(true);
@@ -35,6 +36,6 @@ export default function useLoginSession() {
     }, [loginData]);
 
     useEffect(() => {
-        setInterval(()=>maintainSession(), TEN_MINUTES);
+        setInterval(maintainSession, TEN_MINUTES);
     }, [])
 }

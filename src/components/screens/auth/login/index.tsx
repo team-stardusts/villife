@@ -160,13 +160,15 @@ export default function LoginScreen({navigation}: LoginScreenProps) {
                                 }, 
                                 styles.JoinLinkSection.text
                                 ]}
-                                onPress={() => navigation.navigate(
+                                onPress={() => {
+                                    /*navigation.navigate(
                                     "create_account",
                                     {
-                                        host: "stardusts",
+                                        host: "villife",
                                         access_token: null,
-                                    }
-                                    )}
+                                    }*/
+                                    handleLogin("naver");
+                                }}
                                 >
                                 {Messages.messages.auth.login.join}
                             </Text>

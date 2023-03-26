@@ -4,7 +4,7 @@ export default interface ILoginTable extends ATable {
     readonly key: LoginTableKey;
 
     get(): Promise<LoginDataType | null>;
-    set(data: LoginDataType): Promise<boolean>;
+    set(data: LoginDataType | null): Promise<boolean>;
     remove(): Promise<void>;
 }
 

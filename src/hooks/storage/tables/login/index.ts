@@ -9,7 +9,7 @@ class LoginTable extends ATable implements ILoginTable{
         return await this.storage.getItem(this.key);
     }
 
-    public async set(data: LoginDataType): Promise<boolean> {
+    public async set(data: LoginDataType | null): Promise<boolean> {
         return await this.storage.setItem(this.key, data);
     }
 
