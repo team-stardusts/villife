@@ -41,15 +41,8 @@ export default function CreateAccountScreen({navigation, route}: CreateAccountSc
 
             navigation.navigate("set_building", {id, password})
         }
-        /*
-        const result = await Server.socialJoin("naver", {
-            id: "dnsi37",
-            password: "testpassword1!",
-            access_token: "AAAANvJAi3gLF2h5RO4jWj6kNmi2li930TLhzkyLN9H_j-227mHcH3REuuRvxLQ3zg3tzclSNmKToJa_oVJ0jz3rRb0",
-            //phone_number: "010-5502-7723",
-        });
-        */
     }
+    
     const validateAccount = (): void => {
       const {id, password, confirm_password} = account;
 

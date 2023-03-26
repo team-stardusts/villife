@@ -6,7 +6,7 @@
  */
 
 import React from 'react';
-import ScreenRouter from './components/screen_router';
+import ScreenRouter from './components/router';
 import { RecoilRoot } from 'recoil';
 
 export default function App(): JSX.Element {

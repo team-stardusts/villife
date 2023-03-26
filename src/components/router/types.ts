@@ -1,8 +1,6 @@
-import { OnCompleteParams } from "@actbase/react-daum-postcode/lib/types";
-import AppRoutes from "../../../data/routes.json"
-import { LoginHosts } from "../../../hooks/services/types"
+import { LoginHosts } from "../../hooks/services/types";
 
-export type AuthStackParamList = {
+export type StackParamList = {
     login: {
         
     };
@@ -18,6 +16,12 @@ export type AuthStackParamList = {
         
     };
     terms_of_service: {
+
+    };
+    home: {
+
+    };
+    splash: {
 
     };
 }
