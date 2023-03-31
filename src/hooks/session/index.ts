@@ -31,13 +31,18 @@ export default function useLoginSession() {
         }
     }
     // [TO-DO] Code 정리
+    
+    const bootstrap = async() => {
+        await storage.login.get()
+            .then(loginDataInStorage => setLoginData(loginDataInStorage));
+        setInterval(maintainSession, 1000)//TEN_MINUTES);
+    }
 
     useEffect(() => {
         maintainSession();
     }, [loginData]);
 
     useEffect(() => {
-        storage.login.get().then(res => setLoginData(res));
-        setInterval(maintainSession, 1000)//TEN_MINUTES);
+        bootstrap();
     }, [])
 }
