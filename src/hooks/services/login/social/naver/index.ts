@@ -44,7 +44,7 @@ class NaverLoginManager extends ALoginManager implements INaverLoginManager{
             })
         })
 
-        // NaverLogin 실패 상황 예외 처리 필요
+        // [TO-DO] NaverLogin 실패 상황 예외 처리 필요
         return await this.villife.socialLogin("naver", naverLoginResult.accessToken);
     }
 
