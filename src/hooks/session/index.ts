@@ -35,7 +35,7 @@ export default function useLoginSession() {
     const bootstrap = async() => {
         await storage.login.get()
             .then(loginDataInStorage => setLoginData(loginDataInStorage));
-        setInterval(maintainSession, 1000)//TEN_MINUTES);
+        setInterval(maintainSession, TEN_MINUTES);
     }
 
     useEffect(() => {
