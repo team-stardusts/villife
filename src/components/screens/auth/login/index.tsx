@@ -47,12 +47,14 @@ export default function LoginScreen({navigation}: LoginScreenProps) {
         
         if (isSuccessful) {
             // Navigate to home screen.
+            // [TO-DO] Code 정리
             const loginData_ = {
                 host: host,
                 accessToken: data.villife.access_token,
                 refreshToken: data.villife.refresh_token,
                 accessTokenExpiresAt: data.villife.expire_at,
             }
+
             const storage = useVillifeStorage();
             storage.login.set(loginData_);
             setLoginData(loginData_);
