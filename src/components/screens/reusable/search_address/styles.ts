@@ -1,9 +1,10 @@
 import { StyleSheet } from "react-native";
 import useSystemInfo from "../../../../hooks/systeminfo/hooks";
 import useAppTheme from "../../../../hooks/themes/hooks";
-import { SearchAddressScreenStylesType } from "./types";
+//import { SearchAddressScreenStylesType } from "./types";
 
-export default function useSearchAddressScreenStyles(){//}: SearchAddressScreenStylesType {
+export default function useSearchAddressScreenStyles() {
+    //}: SearchAddressScreenStylesType {
     const Theme = useAppTheme();
     const SystemInfo = useSystemInfo();
 
@@ -21,7 +22,7 @@ export default function useSearchAddressScreenStyles(){//}: SearchAddressScreenS
         },
         textWrapper: {
             flex: 1,
-            paddingTop: SystemInfo.window.width * 0.05, 
+            paddingTop: SystemInfo.window.width * 0.05,
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
@@ -30,8 +31,8 @@ export default function useSearchAddressScreenStyles(){//}: SearchAddressScreenS
             color: Theme.colors.colorFamily.blue,
             fontSize: SystemInfo.window.width * 0.05,
             fontWeight: "bold",
-        }
-    })
+        },
+    });
 
     const InputsSection = StyleSheet.create({
         topLevelBox: {
@@ -48,7 +49,7 @@ export default function useSearchAddressScreenStyles(){//}: SearchAddressScreenS
         input: {
             color: Theme.colors.colorFamily.black,
             fontSize: SystemInfo.window.width * 0.037,
-        }
+        },
     });
 
     const AddressListSection = StyleSheet.create({
@@ -81,7 +82,7 @@ export default function useSearchAddressScreenStyles(){//}: SearchAddressScreenS
             paddingVertical: SystemInfo.window.height * 0.007,
         },
         addressWrapper: {
-            flexDirection: "row"
+            flexDirection: "row",
         },
         addressTypeBadge: {
             borderWidth: 0.3,
@@ -94,7 +95,7 @@ export default function useSearchAddressScreenStyles(){//}: SearchAddressScreenS
         addressType: {
             fontSize: SystemInfo.window.width * 0.03,
             color: Theme.colors.colorFamily.blue,
-        }
+        },
     });
 
     return {
@@ -102,5 +103,5 @@ export default function useSearchAddressScreenStyles(){//}: SearchAddressScreenS
         TitleSection,
         InputsSection,
         AddressListSection,
-    }
+    };
 }

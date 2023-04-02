@@ -7,21 +7,15 @@ import SelectedAddressStateType from "../../../../hooks/states/atoms/address/sel
 import SearchAddressScreenProps from "./types";
 
 LogBox.ignoreLogs([
-    'Non-serializable values were found in the navigation state',
+    "Non-serializable values were found in the navigation state",
     //'Did not receive response to shouldStartLoad in time'
 ]);
 
-export default function SearchAddressScreen({navigation, route}: SearchAddressScreenProps) {
+export default function SearchAddressScreen({ navigation, route }: SearchAddressScreenProps) {
     const [address, setAddress] = useRecoilState<SelectedAddressStateType>(selectedAddressState);
 
     const handleOnSelected = (searched: OnCompleteParams) => {
-        const {
-            roadAddress,
-            jibunAddress,
-            buildingCode,
-            buildingName,
-            zonecode,
-        } = searched;
+        const { roadAddress, jibunAddress, buildingCode, buildingName, zonecode } = searched;
 
         setAddress({
             roadAddress,
@@ -32,18 +26,18 @@ export default function SearchAddressScreen({navigation, route}: SearchAddressSc
         });
 
         navigation.goBack();
-    }
+    };
 
     return (
-        <SafeAreaView style={{flex: 1}}>
+        <SafeAreaView style={{ flex: 1 }}>
             <Postcode
-                style={{flex: 1, width:"100%"}}
+                style={{ flex: 1, width: "100%" }}
                 jsOptions={{ animation: true }}
                 onSelected={handleOnSelected}
                 onError={function (error: unknown): void {
-                    throw new Error('Function not implemented.');
-                    }}
-                />
+                    throw new Error("Function not implemented.");
+                }}
+            />
         </SafeAreaView>
-    )
+    );
 }
