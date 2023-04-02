@@ -55,7 +55,6 @@ public class MainActivity extends ReactActivity {
     Log.d(VilllifeLog.DEBUG_TAG , "Main Activity Created");
     PushPermissionRequester pushPermissionRequester = new PushPermissionRequester(this);
     pushPermissionRequester.askNotificationPermission();
-    new CloudMessagingService().getPresentToken();
 
   }
   // ================================================

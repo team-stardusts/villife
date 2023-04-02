@@ -36,7 +36,6 @@ public class PushPermissionRequester {
     }
 
 
-
     public void askNotificationPermission() {
         Log.d(VilllifeLog.DEBUG_TAG , "build version:"+Build.VERSION.SDK_INT);
         // This is only necessary for API level >= 33 (TIRAMISU)
