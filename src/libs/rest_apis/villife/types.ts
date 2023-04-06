@@ -37,4 +37,7 @@ export type SocialJoinParamsType = {
     access_token: string;
     //phone_number: string;
 }
+
+export type RegisterFirebaseTokenResult = "insert AccessToken to header and check format of request" |
+"input token to parameter" | "invalid token" | "server internal error"
 //export type StardustsReturnType<T> = Promise<StardustsResultType<T>>;
