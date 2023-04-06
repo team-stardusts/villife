@@ -35,6 +35,7 @@ export type SocialJoinParamsType = {
     id: string;
     password: string;
     access_token: string;
+    atuhority : number
     //phone_number: string;
 }
 

@@ -36,7 +36,7 @@ export default function ScreenRouter() {
   useEffect(() => {
     if (isLoggedIn === null) {
       setIsLoading(true);
-      navigation.navigate('test', {});
+      //navigation.navigate('test', {});
       //navigation.navigate("splash", {});
     } else if (isLoggedIn === true) {
       setIsLoading(false);

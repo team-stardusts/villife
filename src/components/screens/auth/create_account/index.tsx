@@ -37,7 +37,13 @@ export default function CreateAccountScreen({navigation, route}: CreateAccountSc
         const {id, password} = account;
 
         if (id && password && access_token) {
-            const result = await LoginManagers[host].join(id, password, access_token);
+
+            /**
+             * TODO :: 
+             * 1. UI 에서 Authority 추출 후 API Param 에 삽입
+             * ※ 
+             */
+            const result = await LoginManagers[host].join(id, password, access_token,1);
             console.log("login:", result.isSuccessful);
             navigation.navigate("set_building", {id, password})
         }

@@ -9,7 +9,7 @@ abstract class ALoginManager implements Loginable {
     abstract logout(): Promise<any>;
     abstract refresh(): Promise<any>;
     //abstract join(): Promise<any>;
-    abstract join(id: string, password: string, accessToken: string): Promise<any>;
+    abstract join(id: string, password: string, accessToken: string,atuhority : number): Promise<any>;
 }
 
 export default ALoginManager;
