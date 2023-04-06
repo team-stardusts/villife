@@ -22,7 +22,7 @@ public class CloudMessagingService extends FirebaseMessagingService {
         super.onMessageReceived(message);
         MessageHandler handler = new MessageHandler(message);
         handler.handleMessage();
-        Log.d(VilllifeLog.DEBUG_TAG , "message arrived" + message.getData());
+
     }
 
     @Override
