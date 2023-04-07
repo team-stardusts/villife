@@ -196,6 +196,9 @@ dependencies {
     implementation 'com.google.firebase:firebase-analytics' // added by junwoo relate to firebase
     implementation "com.google.firebase:firebase-messaging:23.1.1" // added by junwoo relate to firebase
     implementation project(':react-native-config') // added by seongbinhong for .env
+    implementation 'com.google.code.gson:gson:2.8.9' // added by junwoo to handle json
+    testImplementation 'junit:junit:4.13.2' // added by junwoo for test
+    testImplementation 'com.google.truth:truth:1.1'
 }
 
 apply from: file("../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesAppBuildGradle(project)

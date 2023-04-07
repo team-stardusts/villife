@@ -1,5 +1,6 @@
 package com.stardusts.villife.pushnoti;
 
+import android.content.Context;
 import android.util.Log;
 import androidx.annotation.NonNull;
 
@@ -19,8 +20,10 @@ public class CloudMessagingService extends FirebaseMessagingService {
 
     @Override
     public void onMessageReceived(@NonNull RemoteMessage message) {
+
+        Context context = getApplicationContext();
         super.onMessageReceived(message);
-        MessageHandler handler = new MessageHandler(message);
+        MessageHandler handler = new MessageHandler(message,context);
         handler.handleMessage();
 
     }
