@@ -9,18 +9,9 @@
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* villifeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* villifeTests.m */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
+		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		B381A69029D7FFF6001610F1 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = B381A68F29D7FFF6001610F1 /* FirebaseAnalytics */; };
-		B38F55CF29D8877E0075D53A /* FirebasePushNotifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = B38F55CE29D8877E0075D53A /* FirebasePushNotifier.swift */; };
-		B38F55D029D8877E0075D53A /* FirebasePushNotifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = B38F55CE29D8877E0075D53A /* FirebasePushNotifier.swift */; };
-		B3A3E59029D818FB00FD1CD8 /* RCTCalendarModule.m in Sources */ = {isa = PBXBuildFile; fileRef = B3A3E58F29D818FB00FD1CD8 /* RCTCalendarModule.m */; };
-		B3A3E59129D818FB00FD1CD8 /* RCTCalendarModule.m in Sources */ = {isa = PBXBuildFile; fileRef = B3A3E58F29D818FB00FD1CD8 /* RCTCalendarModule.m */; };
-		B3C01F2D29D875C8004B6457 /* info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B3C01F2C29D875C8004B6457 /* info.plist */; };
-		B3C01F2F29D875EA004B6457 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B3C01F2E29D875EA004B6457 /* GoogleService-Info.plist */; };
-		B3C01F3329D87657004B6457 /* info.plist in Sources */ = {isa = PBXBuildFile; fileRef = B3C01F2C29D875C8004B6457 /* info.plist */; };
-		B3C01F3429D87657004B6457 /* GoogleService-Info.plist in Sources */ = {isa = PBXBuildFile; fileRef = B3C01F2E29D875EA004B6457 /* GoogleService-Info.plist */; };
-		B3F192CE29D89036002774CF /* FirebasePushNotifierBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = B3F192CD29D89036002774CF /* FirebasePushNotifierBridge.m */; };
-		B3F192CF29D89036002774CF /* FirebasePushNotifierBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = B3F192CD29D89036002774CF /* FirebasePushNotifierBridge.m */; };
+		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		B6CA4577984ED65D79F68170 /* libPods-villife-villifeTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 02FF3E9099BE3C27A991E59C /* libPods-villife-villifeTests.a */; };
 		F903ED0422A04208C0BA0588 /* libPods-villife.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 37200A7BFF8D7CB3A24A46AC /* libPods-villife.a */; };
 /* End PBXBuildFile section */
@@ -44,6 +35,7 @@
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = villife/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = villife/AppDelegate.mm; sourceTree = "<group>"; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = villife/Images.xcassets; sourceTree = "<group>"; };
+		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = villife/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = villife/main.m; sourceTree = "<group>"; };
 		37200A7BFF8D7CB3A24A46AC /* libPods-villife.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-villife.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E7EF1B662A7A37CCF97B40D /* Pods-villife.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-villife.release.xcconfig"; path = "Target Support Files/Pods-villife/Pods-villife.release.xcconfig"; sourceTree = "<group>"; };
@@ -51,12 +43,6 @@
 		93E1A259F227DA0EAF193075 /* Pods-villife-villifeTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-villife-villifeTests.release.xcconfig"; path = "Target Support Files/Pods-villife-villifeTests/Pods-villife-villifeTests.release.xcconfig"; sourceTree = "<group>"; };
 		9671481111D6E7E2C67ED807 /* Pods-villife-villifeTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-villife-villifeTests.debug.xcconfig"; path = "Target Support Files/Pods-villife-villifeTests/Pods-villife-villifeTests.debug.xcconfig"; sourceTree = "<group>"; };
 		AEA35323B6EAC9285C6B5B3B /* Pods-villife.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-villife.debug.xcconfig"; path = "Target Support Files/Pods-villife/Pods-villife.debug.xcconfig"; sourceTree = "<group>"; };
-		B38F55CE29D8877E0075D53A /* FirebasePushNotifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FirebasePushNotifier.swift; path = villife/FirebasePushNotifier.swift; sourceTree = "<group>"; };
-		B3A3E58E29D8179A00FD1CD8 /* RCTCalendarModule.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCTCalendarModule.h; sourceTree = "<group>"; };
-		B3A3E58F29D818FB00FD1CD8 /* RCTCalendarModule.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCTCalendarModule.m; sourceTree = "<group>"; };
-		B3C01F2C29D875C8004B6457 /* info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = info.plist; path = villife/info.plist; sourceTree = "<group>"; };
-		B3C01F2E29D875EA004B6457 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "villife/GoogleService-Info.plist"; sourceTree = "<group>"; };
-		B3F192CD29D89036002774CF /* FirebasePushNotifierBridge.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = FirebasePushNotifierBridge.m; path = villife/FirebasePushNotifierBridge.m; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -73,7 +59,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B381A69029D7FFF6001610F1 /* FirebaseAnalytics in Frameworks */,
 				F903ED0422A04208C0BA0588 /* libPods-villife.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -104,14 +89,9 @@
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.mm */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
+				13B07FB61A68108700A75B9A /* Info.plist */,
 				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
 				13B07FB71A68108700A75B9A /* main.m */,
-				B3A3E58E29D8179A00FD1CD8 /* RCTCalendarModule.h */,
-				B3A3E58F29D818FB00FD1CD8 /* RCTCalendarModule.m */,
-				B3C01F2C29D875C8004B6457 /* info.plist */,
-				B3C01F2E29D875EA004B6457 /* GoogleService-Info.plist */,
-				B38F55CE29D8877E0075D53A /* FirebasePushNotifier.swift */,
-				B3F192CD29D89036002774CF /* FirebasePushNotifierBridge.m */,
 			);
 			name = villife;
 			sourceTree = "<group>";
@@ -200,6 +180,7 @@
 				FD10A7F022414F080027D42C /* Start Packager */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
+				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				E621D13C397AC2BEA0487159 /* [CP] Embed Pods Frameworks */,
 				FED7F83438756A02331F4D81 /* [CP] Copy Pods Resources */,
@@ -209,9 +190,6 @@
 			dependencies = (
 			);
 			name = villife;
-			packageProductDependencies = (
-				B381A68F29D7FFF6001610F1 /* FirebaseAnalytics */,
-			);
 			productName = villife;
 			productReference = 13B07F961A680F5B00A75B9A /* villife.app */;
 			productType = "com.apple.product-type.application";
@@ -226,11 +204,10 @@
 				TargetAttributes = {
 					00E356ED1AD99517003FC87E = {
 						CreatedOnToolsVersion = 6.2;
-						LastSwiftMigration = 1420;
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
-						LastSwiftMigration = 1420;
+						LastSwiftMigration = 1120;
 					};
 				};
 			};
@@ -243,9 +220,6 @@
 				Base,
 			);
 			mainGroup = 83CBB9F61A601CBA00E9B192;
-			packageReferences = (
-				B381A68E29D7FFF6001610F1 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
-			);
 			productRefGroup = 83CBBA001A601CBA00E9B192 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -261,8 +235,15 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B3C01F2D29D875C8004B6457 /* info.plist in Resources */,
-				B3C01F2F29D875EA004B6457 /* GoogleService-Info.plist in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		13B07F8E1A680F5B00A75B9A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
+				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -424,9 +405,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				00E356F31AD99517003FC87E /* villifeTests.m in Sources */,
-				B3F192CF29D89036002774CF /* FirebasePushNotifierBridge.m in Sources */,
-				B38F55D029D8877E0075D53A /* FirebasePushNotifier.swift in Sources */,
-				B3A3E59129D818FB00FD1CD8 /* RCTCalendarModule.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -434,11 +412,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B3C01F3329D87657004B6457 /* info.plist in Sources */,
-				B3C01F3429D87657004B6457 /* GoogleService-Info.plist in Sources */,
-				B3F192CE29D89036002774CF /* FirebasePushNotifierBridge.m in Sources */,
-				B38F55CF29D8877E0075D53A /* FirebasePushNotifier.swift in Sources */,
-				B3A3E59029D818FB00FD1CD8 /* RCTCalendarModule.m in Sources */,
 				13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 			);
@@ -459,9 +432,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 9671481111D6E7E2C67ED807 /* Pods-villife-villifeTests.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				CLANG_ENABLE_MODULES = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -480,9 +451,6 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.stardusts.villifeTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "villifeTests-Bridging-Header.h";
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/villife.app/villife";
 			};
 			name = Debug;
@@ -491,9 +459,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 93E1A259F227DA0EAF193075 /* Pods-villife-villifeTests.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				CLANG_ENABLE_MODULES = YES;
 				COPY_PHASE_STRIP = NO;
 				INFOPLIST_FILE = villifeTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
@@ -509,8 +475,6 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.stardusts.villifeTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "villifeTests-Bridging-Header.h";
-				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/villife.app/villife";
 			};
 			name = Release;
@@ -536,7 +500,6 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.stardusts.villife;
 				PRODUCT_NAME = villife;
-				SWIFT_OBJC_BRIDGING_HEADER = "villife-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -563,7 +526,6 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.stardusts.villife;
 				PRODUCT_NAME = villife;
-				SWIFT_OBJC_BRIDGING_HEADER = "villife-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -602,7 +564,7 @@
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "";
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = i386;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -674,7 +636,7 @@
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "";
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = i386;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -737,25 +699,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		B381A68E29D7FFF6001610F1 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 9.0.0;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		B381A68F29D7FFF6001610F1 /* FirebaseAnalytics */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = B381A68E29D7FFF6001610F1 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseAnalytics;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 83CBB9F71A601CBA00E9B192 /* Project object */;
 }

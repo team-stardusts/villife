@@ -4,8 +4,6 @@
 
 // Added for Naver login.
 #import <NaverThirdPartyLogin/NaverThirdPartyLoginConnection.h>
-// Added for Firebase.
-#import <Firebase.h>
 
 
 @implementation AppDelegate
@@ -16,9 +14,6 @@
   // You can add your custom initial props in the dictionary below.
   // They will be passed down to the ViewController used by React Native.
   self.initialProps = @{};
-  
-  // Added for Firebase.
-  //[FIRApp configure];
 
   return [super application:application didFinishLaunchingWithOptions:launchOptions];
 }
@@ -53,7 +48,5 @@
   }
   return YES;
 }
-
-
 
 @end
