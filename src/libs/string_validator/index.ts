@@ -1,9 +1,8 @@
 import IStringValidator, { StringRegularExpressions } from "./types";
 
-
-class StringValidator implements IStringValidator{
+class StringValidator implements IStringValidator {
     readonly regExps: StringRegularExpressions = {
-        //영문자로 시작하는 영문자 또는 숫자 6~20자 
+        //영문자로 시작하는 영문자 또는 숫자 6~20자
         id: /^[a-z]+[a-z0-9]{5,19}$/g,
         //8 ~ 16자 영문, 숫자, 특수문자를 최소 한가지씩 조합
         password: /^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+]).{8,16}$/,
@@ -11,7 +10,42 @@ class StringValidator implements IStringValidator{
         // '-' 입력 시
         phoneNumberWithHypen: /^01(?:0|1|[6-9])-(?:\d{3}|\d{4})-\d{4}$/,
         email: /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i,
+        number: /^[0-9]+$/,
+        hasNumber: /\d/,
+        hasAlpha: /[a-zA-Z]/,
+        hasAlphaLargeCase: /[A-Z]/,
+        hasSpecialChar: /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/,
     };
+
+    // string length >= length
+    public isLongerThan(text: string, length: number): boolean {
+        return new RegExp(`^.{${length.toString()},}$`).test(text);
+    }
+
+    // string length <= length
+    public isShorterThan(text: string, length: number): boolean {
+        return new RegExp(`^.{0,${length.toString()}}$`).test(text);
+    }
+
+    public isLengthWithinRange(text: string, from: number, to: number): boolean {
+        return this.isLongerThan(text, from) && this.isShorterThan(text, to);
+    }
+
+    public hasNumber(text: string): boolean {
+        return this.regExps.hasNumber.test(text);
+    }
+
+    public hasAlpha(text: string): boolean {
+        return this.regExps.hasAlpha.test(text);
+    }
+
+    public hasAlphaLargeCase(text: string): boolean {
+        return this.regExps.hasAlphaLargeCase.test(text);
+    }
+
+    public hasSpecialChar(text: string): boolean {
+        return this.regExps.hasSpecialChar.test(text);
+    }
 
     public isID(id: string): boolean {
         return this.regExps.id.test(id);
@@ -21,11 +55,10 @@ class StringValidator implements IStringValidator{
         return this.regExps.password.test(password);
     }
 
-    public isPhoneNumber(phoneNumber: string, doesItContainHypen: boolean=true): boolean {
+    public isPhoneNumber(phoneNumber: string, doesItContainHypen: boolean = true): boolean {
         if (doesItContainHypen) {
             return this.regExps.phoneNumberWithHypen.test(phoneNumber);
-        }
-        else {
+        } else {
             return this.regExps.phoneNumber.test(phoneNumber);
         }
     }

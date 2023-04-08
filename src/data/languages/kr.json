@@ -1,70 +1,89 @@
 {
-  "main": {
-    "home": {
-      "page_name": "home"
+    "main": {
+        "home": {
+            "page_name": "home"
+        }
+    },
+    "auth": {
+        "login": {
+            "page_name": "login",
+            "request_login": {
+                "line_1": "빌라이프 서비스 이용을 위해",
+                "line_2": "로그인 해주세요."
+            },
+            "title_of_id_input": "아이디",
+            "title_of_password_input": "비밀번호",
+            "title_of_login_btn": "로그인",
+            "title_of_naver_social_login_btn": "네이버 로그인",
+            "join": "회원가입",
+            "reset_password": "비밀번호 재설정"
+        },
+        "join": {
+            "page_name": "join",
+            "join": "빌라이프 가입",
+            "identification": "본인인증",
+            "title_of_name_input": "이름",
+            "title_of_birth_input": "생년월일",
+            "title_of_select_carrier_input": "통신사(선택)",
+            "title_of_send_btn": "인증번호 전송"
+        },
+        "create_account": {
+            "page_name": "create_account",
+            "title": "ID & 비밀번호 설정하기",
+            "subtitle_1": "세입자 및 관리자를 확인하여 선택해 주세요.",
+            "subtitle_2": "로그인 할 때 사용할 비밀번호를 입력해 주세요.",
+            "subtitle_3": "비밀번호는 영문, 숫자, 특수문자 포함 8자리 이상으로 설정해주세요.",
+            "name_input_title": "ID",
+            "name_input_placeholder": "사용할 ID를 입력해주세요.",
+            "password_input_title": "비밀번호",
+            "password_input_placeholder": "영문, 숫자, 특문문자 조합으로 입력해주세요.",
+            "confirm_password_input_title": "비밀번호 확인",
+            "confirm_password_input_placeholder": "비밀번호를 한번 더 입력해주세요.",
+            "next_btn_title": "다음"
+        },
+        "set_building": {
+            "page_name": "set_building",
+            "title": "내 빌라 정보 설정하기",
+            "subtitle": "회원가입을 완료하고 관리사무소의 가입 승인을 기다려주세요.",
+            "adress_input_title": "주소",
+            "adress_input_placeholder": "빌라명을 검색해주세요.",
+            "room_number_input_title": "호수",
+            "room_number_input_placeholder": "호수를 입력해주세요.",
+            "car_number_input_title": "차량번호",
+            "car_number_input_placeholder": "차량번호를 입력해주세요.",
+            "nickname_input_title": "닉네임",
+            "nickname_input_placeholder": "닉네임을 입력해주세요.",
+            "next_btn_title": "다음",
+            "next_btn_title_when_change_next": "다음에 변경하기"
+        },
+        "terms_of_service": {
+            "page_name": "terms_of_service",
+            "title": "빌라이프 가입하기",
+            "subtitle": "다음 약관에 동의하신 후 새롭고 편리한 빌라 생활을 시작해 보세요.",
+            "terms_of_service_all": "약관에 모두 동의합니다",
+            "terms_of_service_service": "서비스 이용약관 동의",
+            "terms_of_service_Privacy": "개인정보 처리방침 동의"
+        },
+        "welcome": {
+            "page_name": "welcome",
+            "title": "빌라이프 회원이 되신 것을 환영합니다.",
+            "subtitle_1": "회원가입 절차가 모두 완료 되었습니다.",
+            "subtitle_2": "로그인 후 편리한 빌라이프 서비스를 확인해 보세요.",
+            "next_btn_title": "확인"
+        }
+    },
+    "splash": {
+        "page_name": "splash"
+    },
+    "words": {
+        "owner": "관리자",
+        "member": "세입자",
+        "use_english": "영문",
+        "use_english_only_smallcase": "소문자",
+        "use_number": "숫자",
+        "use_special_char": "특수문자",
+        "tokens_for_4to10": "4~10자 이내",
+        "tokens_for_8to20": "8~20자 이내",
+        "matching_password": "비밀번호 일치"
     }
-  },
-  "auth": {
-    "login": {
-      "page_name": "login",
-      "request_login": {
-        "line_1": "빌라이프 서비스 이용을 위해",
-        "line_2": "로그인 해주세요."
-      },
-      "title_of_id_input": "아이디",
-      "title_of_password_input": "비밀번호",
-      "title_of_login_btn": "로그인",
-      "title_of_naver_social_login_btn": "네이버 로그인",
-      "join": "회원가입",
-      "reset_password": "비밀번호 재설정"
-    },
-    "join": {
-      "page_name": "join",
-      "join": "빌라이프 가입",
-      "identification": "본인인증",
-      "title_of_name_input": "이름",
-      "title_of_birth_input": "생년월일",
-      "title_of_select_carrier_input": "통신사(선택)",
-      "title_of_send_btn": "인증번호 전송"
-    },
-    "create_account": {
-      "page_name": "create_account",
-      "title": "ID & 비밀번호 설정하기",
-      "subtitle_1": "로그인할 때 사용할 비밀번호를 입력해주세요.",
-      "subtitle_2": "비밀번호는 영문, 숫자, 특수문자 포함 8자리 이상으로 설정해주세요.",
-      "name_input_title": "ID",
-      "name_input_placeholder": "사용할 ID를 입력해주세요.",
-      "password_input_title": "비밀번호",
-      "password_input_placeholder": "영문, 숫자, 특문문자 조합으로 입력해주세요.",
-      "confirm_password_input_title": "비밀번호 확인",
-      "confirm_password_input_placeholder": "비밀번호를 한번 더 입력해주세요.",
-      "next_btn_title": "다음"
-    },
-    "set_building": {
-      "page_name": "set_building",
-      "title": "내 빌라 정보 설정하기",
-      "subtitle": "회원가입을 완료하고 관리사무소의 가입 승인을 기다려주세요.",
-      "adress_input_title": "주소",
-      "adress_input_placeholder": "빌라명을 검색해주세요.",
-      "room_number_input_title": "호수",
-      "room_number_input_placeholder": "호수를 입력해주세요.",
-      "car_number_input_title": "차량번호",
-      "car_number_input_placeholder": "차량번호를 입력해주세요.",
-      "nickname_input_title": "닉네임",
-      "nickname_input_placeholder": "닉네임을 입력해주세요.",
-      "next_btn_title": "다음",
-      "next_btn_title_when_change_next": "다음에 변경하기"
-    },
-    "terms_of_service": {
-      "page_name": "terms_of_service",
-      "title": "빌라이프 가입하기",
-      "subtitle": "다음 약관에 동의하신 후 새롭고 편리한 빌라 생활을 시작해 보세요.",
-      "terms_of_service_all": "약관에 모두 동의합니다",
-      "terms_of_service_service": "서비스 이용약관 동의",
-      "terms_of_service_Privacy": "개인정보 처리방침 동의"
-    }
-  },
-  "splash": {
-    "page_name": "splash"
-  }
 }

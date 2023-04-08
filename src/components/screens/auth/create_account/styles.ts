@@ -22,45 +22,25 @@ export default function useCreateAccountScreenStyles(): CreateAccountScreenStyle
         },
     });
 
-    const TitleSection = StyleSheet.create({
-        /*
-        topLevelBox: {
+    const UserTypeIconSection = StyleSheet.create({
+        toplevelBox: {
             flex: 2,
-            display: "flex",
-            alignItems: "flex-start",
-            justifyContent: "center",
+            flexDirection: "row",
+            justifyContent: "space-evenly",
         },
-        textWrapper: {
-            textAlign: "left",
-            paddingTop: SystemInfo.window.width * 0.04,
-        },
-        title: {
-            color: Theme.colors.colorFamily.blue,
-            fontWeight: "bold",
-            fontSize: SystemInfo.window.width * 0.07,
-        },
-        subtitle: {
-            color: Theme.colors.colorFamily.black,
-            fontSize: SystemInfo.window.width * 0.03,
-        }
-        */
     });
 
     const InputsSection = StyleSheet.create({
         topLevelBox: {
-            flex: 5,
+            flex: 6,
             alignItems: "center",
             justifyContent: "flex-start",
-            paddingTop: SystemInfo.window.height * 0.04,
+            paddingTop: SystemInfo.window.height * 0.05,
         },
         inputsWrapper: {
-            height: "80%",
-            width: "100%",
-        },
-        attrWrapper: {
-            //display: "flex",
+            //height: "80%",
             flex: 1,
-            paddingTop: SystemInfo.window.width * 0.07,
+            width: "100%",
         },
         btnWrapper: {
             flex: 3,
@@ -69,7 +49,7 @@ export default function useCreateAccountScreenStyles(): CreateAccountScreenStyle
         btnDisabled: {
             flex: 1,
             borderRadius: SystemInfo.window.width * 0.02,
-            backgroundColor: "grey"
+            backgroundColor: "grey",
         },
         btnTitle: {
             color: Theme.colors.colorFamily.white,
@@ -81,13 +61,13 @@ export default function useCreateAccountScreenStyles(): CreateAccountScreenStyle
     const BlankSection = StyleSheet.create({
         topLevelBox: {
             flex: 2,
-        }
+        },
     });
 
     return {
-        Screen, 
-        //TitleSection,
+        Screen,
+        UserTypeIconSection,
         InputsSection,
         BlankSection,
-    }
+    };
 }

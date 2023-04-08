@@ -2,11 +2,11 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import type { StyleSheet } from "react-native/types";
 import { StackParamList } from "../../../router/types";
 
-type CreateAccountScreenProps = NativeStackScreenProps<StackParamList, "create_account">;
+type WelcomScreenProps = NativeStackScreenProps<StackParamList, "welcome">;
 
-export default CreateAccountScreenProps;
+export default WelcomScreenProps;
 
-export type CreateAccountScreenStylesType = {
+export type WelcomScreenStylesType = {
     Screen: ReturnType<typeof StyleSheet.create>;
     UserTypeIconSection: ReturnType<typeof StyleSheet.create>;
     InputsSection: ReturnType<typeof StyleSheet.create>;

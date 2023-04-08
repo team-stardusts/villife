@@ -14,6 +14,7 @@ import HomeScreen from "../screens/main/home";
 import SplashScreen from "../screens/splash/splash_screen";
 import { NavigationContainer, useNavigation } from "@react-navigation/native";
 import TestScreen from "../screens/test";
+import WelcomeScreen from "../screens/auth/welcome";
 
 enableScreens(true);
 
@@ -31,7 +32,7 @@ export default function ScreenRouter() {
     useEffect(() => {
         if (isLoggedIn === null) {
             setIsLoading(true);
-            //navigation.navigate('test', {});
+            //navigation.navigate("welcome", { role: "member", id: "test", password: "test" });
             //navigation.navigate("splash", {});
         } else if (isLoggedIn === true) {
             setIsLoading(false);
@@ -47,6 +48,7 @@ export default function ScreenRouter() {
                 <Stack.Screen name={"login"} component={LoginScreen} />
                 <Stack.Screen name={"terms_of_service"} component={TermsOfServiceScreen} />
                 <Stack.Screen name={"create_account"} component={CreateAccountScreen} />
+                <Stack.Screen name={"welcome"} component={WelcomeScreen} />
                 <Stack.Screen name={"set_building"} component={SetBuildingScreen} />
             </Stack.Group>
             <Stack.Group screenOptions={{ headerShown: true }}>

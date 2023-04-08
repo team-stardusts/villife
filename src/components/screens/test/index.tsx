@@ -20,13 +20,7 @@ export default function TestScreen() {
                 authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
                 authStatus === messaging.AuthorizationStatus.PROVISIONAL;
         } else if (sysinfo.platform.OS === "android") {
-            authStatus = await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.READ_CONTACTS, {
-                title: "Notification Permission",
-                message: "ExampleApp needs access to your notifications.",
-                buttonNeutral: "Ask Me Later",
-                buttonNegative: "Cancel",
-                buttonPositive: "OK",
-            });
+            authStatus = await PermissionsAndroid.check(PermissionsAndroid.PERMISSIONS.POST_NOTIFICATIONS);
         } else {
             throw new Error("The user is using an unexpected OS.");
         }
@@ -38,7 +32,7 @@ export default function TestScreen() {
         }
     };
 
-    getFirebaseToken();
+    //getFirebaseToken();
 
     return (
         <View>

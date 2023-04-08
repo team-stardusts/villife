@@ -10,6 +10,7 @@ export default function useLoginSession() {
     const [isLoggedIn, setIsLoggedIn] = useRecoilState<IsLogggedInType>(isLoggedInState);
     const [loginData, setLoginData] = useRecoilState<LoginDataStateType>(loginDataState);
     const storage = useVillifeStorage();
+
     useAutoRegisterFirebaseToken();
 
     const maintainSession = async () => {
@@ -39,7 +40,9 @@ export default function useLoginSession() {
     };
 
     useEffect(() => {
-        maintainSession();
+        if (loginData !== null) {
+            maintainSession();
+        }
     }, [loginData]);
 
     useEffect(() => {
