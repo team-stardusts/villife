@@ -1,5 +1,6 @@
 import { StyleSheet, View, Text, Platform, Pressable } from "react-native";
 import useAppTheme from "../../../../hooks/themes/hooks";
+import { VILLIFE_AUTHORITY } from "../../../../libs/rest_apis/villife";
 import { IconPeople, IconPerson } from "../../../atoms/icon/human";
 import { UserTypeSelectionButtonProps } from "./types";
 
@@ -16,7 +17,7 @@ export default function UserTypeSelectionButton({
     let Icon = null;
 
     switch (userType) {
-        case "owner":
+        case VILLIFE_AUTHORITY.ADMIN:
             Icon = IconPerson;
             break;
         default:

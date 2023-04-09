@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { enableScreens } from "react-native-screens";
-import { useRecoilState } from "recoil";
-import { isLoggedInState } from "../../hooks/states/atoms/login";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { isLoggedInState, loginDataState } from "../../hooks/states/atoms/login";
 import useLoginSession from "../../hooks/session";
 import { createNativeStackNavigator, NativeStackScreenProps } from "@react-navigation/native-stack";
 import { StackParamList } from "./types";
@@ -15,6 +15,8 @@ import SplashScreen from "../screens/splash/splash_screen";
 import { NavigationContainer, useNavigation } from "@react-navigation/native";
 import TestScreen from "../screens/test";
 import WelcomeScreen from "../screens/auth/welcome";
+import { useAutoRegisterFirebaseToken } from "../../hooks/firebase/hooks";
+import useVillifeStorage from "../../hooks/storage/hooks";
 
 enableScreens(true);
 
@@ -24,23 +26,48 @@ type RouterParams = NativeStackScreenProps<StackParamList>;
 
 export default function ScreenRouter() {
     const [isLoading, setIsLoading] = useState(true);
-    const [isLoggedIn, setIsLoggedIn] = useRecoilState<boolean | null>(isLoggedInState);
+    //const [isLoggedIn, setIsLoggedIn] = useRecoilState<boolean | null>(isLoggedInState);
+    const [loginData, setLoginData] = useRecoilState(loginDataState);
     const navigation = useNavigation<RouterParams["navigation"]>();
+    const storage = useVillifeStorage();
 
-    useLoginSession();
+    useAutoRegisterFirebaseToken();
+
+    const bootstrap = async () => {
+        //await storage.login.set(null);
+        const loginDataInStorage = await storage.login.get();
+        setLoginData(loginDataInStorage);
+        setIsLoading(false);
+    };
+
     // [TO-DO] Code 정리
     useEffect(() => {
-        if (isLoggedIn === null) {
-            setIsLoading(true);
-            //navigation.navigate("welcome", { role: "member", id: "test", password: "test" });
-            //navigation.navigate("splash", {});
-        } else if (isLoggedIn === true) {
-            setIsLoading(false);
-            navigation.navigate("home", {});
-        } else {
-            setIsLoading(false);
+        if (isLoading) {
+            return;
         }
-    }, [isLoggedIn]);
+        if (loginData === null) {
+            navigation.navigate("login", {});
+            /* navigation.reset({
+                index: 0,
+                routes: [{ name: "login", params: {} }],
+            }); */
+            //navigation.navigate("welcome", { role: "member", id: "test", password: "test" });
+            //navigation.navigate("test", {});
+        } else {
+            navigation.reset({
+                index: 0,
+                routes: [{ name: "home", params: {} }],
+            });
+        }
+    }, [loginData, isLoading]);
+
+    useEffect(() => {
+        if (!isLoading) {
+            return;
+        }
+        navigation.navigate("splash", {});
+        bootstrap();
+    }, []);
 
     return (
         <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName={"login"}>

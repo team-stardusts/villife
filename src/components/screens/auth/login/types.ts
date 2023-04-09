@@ -1,6 +1,7 @@
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { StyleSheet } from "react-native/types";
 import { LoginDataType } from "../../../../hooks/storage/tables/login/types";
-
+import { StackParamList } from "../../../router/types";
 
 export type LoginScreenStylesType = {
     Screen: ReturnType<typeof StyleSheet.create>;
@@ -9,7 +10,6 @@ export type LoginScreenStylesType = {
     //GreetingSection: ReturnType<typeof StyleSheet.create>;
     //SocialLoginSection: ReturnType<typeof StyleSheet.create>;
 };
-export default interface LoginScreenProps {
-    //onLogin?(): LoginDataType;
-    navigation: any;
-}
+type LoginScreenProps = NativeStackScreenProps<StackParamList> & {};
+
+export default LoginScreenProps;
