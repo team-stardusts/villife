@@ -31,8 +31,8 @@ export default function ScreenRouter() {
     // [TO-DO] Code 정리
     useEffect(() => {
         if (isLoggedIn === null) {
-            setIsLoading(true);
-            //navigation.navigate("welcome", { role: "member", id: "test", password: "test" });
+            setIsLoading(false);
+            navigation.navigate("terms_of_service", { role: "member", id: "test", password: "test" });
             //navigation.navigate("splash", {});
         } else if (isLoggedIn === true) {
             setIsLoading(false);
