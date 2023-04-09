@@ -11,16 +11,12 @@ import SelectedAddressStateType from "../../../../hooks/states/atoms/address/sel
 import { useRecoilState } from "recoil";
 import selectedAddressState from "../../../../hooks/states/atoms/address/selected_address";
 
+LogBox.ignoreLogs(["Did not receive response to shouldStartLoad in time"]);
 
-LogBox.ignoreLogs([
-    'Did not receive response to shouldStartLoad in time'
-  ]);
-
-
-export default function SetBuildingScreen({navigation, route}: SetBuildingScreenProps) {      
+export default function SetBuildingScreen({ navigation, route }: SetBuildingScreenProps) {
     const Messages = useScreenMessage();
     const styles = useSetBuildingScreenStyles();
-    const [roomNumber, setRoomNumber] = useState<string|null>(null);
+    const [roomNumber, setRoomNumber] = useState<string | null>(null);
     const [isDone, setIsDone] = useState<boolean>(false);
     const [address, setAddress] = useRecoilState<SelectedAddressStateType>(selectedAddressState);
 
@@ -28,11 +24,10 @@ export default function SetBuildingScreen({navigation, route}: SetBuildingScreen
         if (!(address && roomNumber)) {
             setIsDone(false);
             return;
-        }
-        else {
+        } else {
             setIsDone(true);
         }
-    }
+    };
 
     useEffect(() => {
         validateUserData();
@@ -41,7 +36,7 @@ export default function SetBuildingScreen({navigation, route}: SetBuildingScreen
     // Selected address 초기화
     useEffect(() => {
         setAddress(null);
-    }, [])
+    }, []);
 
     return (
         <SafeAreaView style={styles.Screen.topLevelBox}>
@@ -49,36 +44,41 @@ export default function SetBuildingScreen({navigation, route}: SetBuildingScreen
                 <AuthScreenTitleView
                     title={Messages.messages.auth.set_building.title}
                     subtitles={[Messages.messages.auth.set_building.subtitle]}
-                    />
+                />
                 <View style={styles.Screen.contentsWrapper}>
                     <View style={styles.InputsSection.topLevelBox}>
                         <View style={styles.InputsSection.attrWrapper}>
-                            <AuthScreenCommonInput 
+                            <AuthScreenCommonInput
                                 title={Messages.messages.auth.set_building.adress_input_title}
                                 placeholder={Messages.messages.auth.set_building.adress_input_placeholder}
                                 name="address"
                                 onPressIn={() => navigation.navigate("search_address", {})}
                                 value={address?.roadAddress ?? ""}
-                                />
-                            <AuthScreenCommonInput 
+                            />
+                            <AuthScreenCommonInput
                                 title={Messages.messages.auth.set_building.room_number_input_title}
                                 placeholder={Messages.messages.auth.set_building.room_number_input_placeholder}
                                 name="room_number"
                                 onChangeText={(text, name) => setRoomNumber(text)}
-                                />
+                            />
                         </View>
                     </View>
-                    <View style={styles.BlankSection.topLevelBox}>
-                    </View>
+                    <View style={styles.BlankSection.topLevelBox}></View>
                 </View>
             </View>
-            <AuthScreenBottonButton 
-                    title={
-                        isDone
+            <AuthScreenBottonButton
+                title={
+                    isDone
                         ? Messages.messages.auth.set_building.next_btn_title
                         : Messages.messages.auth.set_building.next_btn_title_when_change_next
-                    }
-                    />
+                }
+                onPress={() =>
+                    navigation.reset({
+                        index: 0,
+                        routes: [{ name: "home", params: {} }],
+                    })
+                }
+            />
         </SafeAreaView>
-    )
+    );
 }
