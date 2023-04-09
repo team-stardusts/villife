@@ -17,34 +17,31 @@ import { LoginDataStateType } from "../../../../hooks/states/atoms/login/types";
 import useVillifeStorage from "../../../../hooks/storage/hooks";
 //import AppRoutes from '../../../../data/routes.json';
 
-
 type UserAuth = {
-    id: string | null,
-    password: string | null,
-}
+    id: string | null;
+    password: string | null;
+};
 
-
-export default function LoginScreen({navigation}: LoginScreenProps) {
+export default function LoginScreen({ navigation }: LoginScreenProps) {
     const LoginManager = useLoginService();
     const Messages = useScreenMessage();
     const Theme = useAppTheme();
     const SystemInfo = useSystemInfo();
     const styles: LoginScreenStylesType = useLoginScreenStyles();
     const iconDiameter: number = useSystemInfo().window.width * 0.12;
-    
-    const [isSocialLoginButtonPressed, setIsSocialLoginButtonPressed]
-        = useState<boolean>(false)
+
+    const [isSocialLoginButtonPressed, setIsSocialLoginButtonPressed] = useState<boolean>(false);
 
     const [auth, setAuth] = useState<UserAuth>({
-            id: null,
-            password: null
-        })
+        id: null,
+        password: null,
+    });
 
     const [loginData, setLoginData] = useRecoilState<LoginDataStateType>(loginDataState);
 
-    const handleLogin = async(host: SocialLoginHostType) => {
+    const handleLogin = async (host: SocialLoginHostType) => {
         const { isSuccessful, data } = await LoginManager[host].login(); // LoginManager.naver.login();
-        
+
         if (isSuccessful) {
             // Navigate to home screen.
             // [TO-DO] Code 정리
@@ -53,30 +50,26 @@ export default function LoginScreen({navigation}: LoginScreenProps) {
                 accessToken: data.villife.access_token,
                 refreshToken: data.villife.refresh_token,
                 accessTokenExpiresAt: data.villife.expire_at,
-            }
+            };
 
             const storage = useVillifeStorage();
             storage.login.set(loginData_);
             setLoginData(loginData_);
 
             navigation.navigate("home");
-        }
-        else if (!isSuccessful) {
+        } else if (!isSuccessful) {
             // Modal & Navigate to join screen.
-            navigation.navigate(
-                "create_account",
-                {
-                    host: host,
-                    access_token: data.social.access_token,
-                }
-            );
+            navigation.navigate("create_account", {
+                host: host,
+                access_token: data.social.access_token,
+            });
         }
-    }
+    };
 
     return (
         <SafeAreaView style={styles.Screen.topLevelBox}>
             <View style={styles.Screen.contentsBox}>
-            {/*
+                {/*
             <View style={styles.GreetingSection.topLevelBox}>
                 <View style={styles.GreetingSection.textWrapper}>
                     <Text style={styles.GreetingSection.text}>
@@ -88,124 +81,113 @@ export default function LoginScreen({navigation}: LoginScreenProps) {
                 </View>
             </View>
             */}
-            <AuthScreenTitleView title={
-                `${Messages.messages.auth.login.request_login.line_1}\n${Messages.messages.auth.login.request_login.line_2}`
-            }/>
-            <View style={styles.LoginInputSection.topLevelBox}>
-                <View style={styles.LoginInputSection.attrWrapper}>
-                    <View style={styles.LoginInputSection.inputWrapper}>
-                        <Text style={styles.LoginInputSection.inputIdentifier}>
-                            {Messages.messages.auth.login.title_of_id_input}
-                        </Text>
-                        <UniversalTextInput
-                            name="id"
-                            onChangeText={(text, name) => {
-                                if (name === "id")
-                                setAuth({...auth, [name]: text})
-                            }}
+                <AuthScreenTitleView
+                    title={`${Messages.messages.auth.login.request_login.line_1}\n${Messages.messages.auth.login.request_login.line_2}`}
+                />
+                <View style={styles.LoginInputSection.topLevelBox}>
+                    <View style={styles.LoginInputSection.attrWrapper}>
+                        <View style={styles.LoginInputSection.inputWrapper}>
+                            <Text style={styles.LoginInputSection.inputIdentifier}>
+                                {Messages.messages.auth.login.title_of_id_input}
+                            </Text>
+                            <UniversalTextInput
+                                name="id"
+                                onChangeText={(text, name) => {
+                                    if (name === "id") setAuth({ ...auth, [name]: text });
+                                }}
                             />
-                    </View>
-                    <View style={styles.LoginInputSection.inputWrapper}>
-                        <Text style={styles.LoginInputSection.inputIdentifier}>
-                            {Messages.messages.auth.login.title_of_password_input}
-                        </Text>
-                        <UniversalTextInput
-                            name="password"
-                            onChangeText={(text, name) => {
-                                if (name === "password")
-                                setAuth({...auth, [name]: text})
-                            }}
-                            secureTextEntry
-                            />
-                    </View>
-                    <View style={styles.LoginInputSection.btnWrapper}>
-                        <UniversialButton
-                            title={Messages.messages.auth.login.title_of_login_btn}
-                            titleStyle={styles.LoginInputSection.btnTitle}
-                            onPress={() => LoginManager.naver.logout()}
-                            //onPress={() => LoginManager.stardusts.login()}
-                            disabled={false}
-                        />
-                    </View>
-                    <Pressable
-                        style={styles.LoginInputSection.socialLoginBtn}
-                        onPress={() => handleLogin("naver")}
-                        onPressIn={() => setIsSocialLoginButtonPressed(true)}
-                        onPressOut={() => setIsSocialLoginButtonPressed(false)}
-                        >
-                        <View style={styles.LoginInputSection.socialLoginBtnIconWrapper}>
-                            <SocialLoginIcon 
-                                providerName="naver"
-                                diameter={iconDiameter}
-                                />
                         </View>
-                        <Text style={styles.LoginInputSection.socialLoginBtnTitle}>
-                            {Messages.messages.auth.login.title_of_naver_social_login_btn}
-                        </Text>
-                        <View style={
-                            isSocialLoginButtonPressed
-                            ? styles.LoginInputSection.socialLoginPressedIn
-                            : {}
-                        } />
-                    </Pressable>
+                        <View style={styles.LoginInputSection.inputWrapper}>
+                            <Text style={styles.LoginInputSection.inputIdentifier}>
+                                {Messages.messages.auth.login.title_of_password_input}
+                            </Text>
+                            <UniversalTextInput
+                                name="password"
+                                onChangeText={(text, name) => {
+                                    if (name === "password") setAuth({ ...auth, [name]: text });
+                                }}
+                                secureTextEntry
+                            />
+                        </View>
+                        <View style={styles.LoginInputSection.btnWrapper}>
+                            <UniversialButton
+                                title={Messages.messages.auth.login.title_of_login_btn}
+                                titleStyle={styles.LoginInputSection.btnTitle}
+                                onPress={() => LoginManager.naver.logout()}
+                                //onPress={() => LoginManager.stardusts.login()}
+                                disabled={false}
+                            />
+                        </View>
+                        <Pressable
+                            style={styles.LoginInputSection.socialLoginBtn}
+                            onPress={() => handleLogin("naver")}
+                            onPressIn={() => setIsSocialLoginButtonPressed(true)}
+                            onPressOut={() => setIsSocialLoginButtonPressed(false)}>
+                            <View style={styles.LoginInputSection.socialLoginBtnIconWrapper}>
+                                <SocialLoginIcon providerName="naver" diameter={iconDiameter} />
+                            </View>
+                            <Text style={styles.LoginInputSection.socialLoginBtnTitle}>
+                                {Messages.messages.auth.login.title_of_naver_social_login_btn}
+                            </Text>
+                            <View
+                                style={isSocialLoginButtonPressed ? styles.LoginInputSection.socialLoginPressedIn : {}}
+                            />
+                        </Pressable>
+                    </View>
                 </View>
-            </View>
-            <View style={styles.JoinLinkSection.topLevelBox}>
-                <View style={styles.JoinLinkSection.textWrapper}>
-                    <Pressable
-                        children={({pressed}: any) => (
-                            <Text style={[
-                                {
-                                    color: pressed 
-                                        ? Theme.colors.colorFamily.blue
-                                        : Theme.colors.colorFamily.black,
-                                    fontSize: pressed
-                                        ? SystemInfo.window.width * 0.036
-                                        : SystemInfo.window.width * 0.035
-                                }, 
-                                styles.JoinLinkSection.text
-                                ]}
-                                onPress={() => {
-                                    /*navigation.navigate(
+                <View style={styles.JoinLinkSection.topLevelBox}>
+                    <View style={styles.JoinLinkSection.textWrapper}>
+                        <Pressable
+                            children={({ pressed }: any) => (
+                                <Text
+                                    style={[
+                                        {
+                                            color: pressed
+                                                ? Theme.colors.colorFamily.blue
+                                                : Theme.colors.colorFamily.black,
+                                            fontSize: pressed
+                                                ? SystemInfo.window.width * 0.036
+                                                : SystemInfo.window.width * 0.035,
+                                        },
+                                        styles.JoinLinkSection.text,
+                                    ]}
+                                    onPress={() => {
+                                        /*navigation.navigate(
                                     "create_account",
                                     {
                                         host: "villife",
                                         access_token: null,
                                     }*/
-                                    handleLogin("naver");
-                                }}
-                                >
-                                {Messages.messages.auth.login.join}
-                            </Text>
-                        )}
-                    />
-                    <Text style={[
-                        {fontSize: SystemInfo.window.width * 0.035},
-                        styles.JoinLinkSection.text
-                        ]}>
-                        |
-                    </Text>
-                    <Pressable
-                        children={({pressed}: any) => (
-                            <Text style={[
-                                {
-                                    color: pressed 
-                                        ? Theme.colors.colorFamily.blue
-                                        : Theme.colors.colorFamily.black,
-                                    fontSize: pressed
-                                        ? SystemInfo.window.width * 0.036
-                                        : SystemInfo.window.width * 0.035
-                                }, 
-                                styles.JoinLinkSection.text
-                                ]}>
-                                {Messages.messages.auth.login.reset_password}
-                            </Text>
-                        )}
-                    />
+                                        handleLogin("naver");
+                                    }}>
+                                    {Messages.messages.auth.login.join}
+                                </Text>
+                            )}
+                        />
+                        <Text style={[{ fontSize: SystemInfo.window.width * 0.035 }, styles.JoinLinkSection.text]}>
+                            |
+                        </Text>
+                        <Pressable
+                            children={({ pressed }: any) => (
+                                <Text
+                                    style={[
+                                        {
+                                            color: pressed
+                                                ? Theme.colors.colorFamily.blue
+                                                : Theme.colors.colorFamily.black,
+                                            fontSize: pressed
+                                                ? SystemInfo.window.width * 0.036
+                                                : SystemInfo.window.width * 0.035,
+                                        },
+                                        styles.JoinLinkSection.text,
+                                    ]}>
+                                    {Messages.messages.auth.login.reset_password}
+                                </Text>
+                            )}
+                        />
+                    </View>
                 </View>
-            </View>
-            {
-                /*
+                {/*
                     <View style={styles.SocialLoginSection.topLevelBox}>
                         <View style={styles.SocialLoginSection.iconsWrapper}>
                             <SocialLoginIcon 
@@ -225,8 +207,7 @@ export default function LoginScreen({navigation}: LoginScreenProps) {
                                 />
                         </View>
                     </View>
-                */
-            }
+                */}
             </View>
         </SafeAreaView>
     );

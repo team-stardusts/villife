@@ -40,6 +40,7 @@ export default function useLoginSession() {
     };
 
     useEffect(() => {
+        console.log(loginData);
         if (loginData !== null) {
             maintainSession();
         }

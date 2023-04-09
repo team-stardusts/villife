@@ -1,22 +1,12 @@
-import { Button, Text, View } from 'react-native';
+import { useEffect } from "react";
+import { Button, Text, View } from "react-native";
 
-
-export default function HomeScreen() {
-
+export default function HomeScreen({ navigation }: any) {
     return (
         <View>
-            <Button
-                title="Increment"
-                aria-label="Increment value"
-            />
-            <Button
-                aria-label="Decrement value"
-                title="Decrement"
-            />
-            <Button
-                aria-label="Decrement value"
-                title="incrementByAmount"
-            />
+            <Button title="Increment" aria-label="Increment value" />
+            <Button aria-label="Decrement value" title="Decrement" />
+            <Button aria-label="Decrement value" title="incrementByAmount" />
         </View>
     );
 }

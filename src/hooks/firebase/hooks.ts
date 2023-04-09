@@ -51,11 +51,11 @@ export function useAutoRegisterFirebaseToken() {
     const villife: VillifeServer = new VillifeServer();
 
     React.useEffect(() => {
-        console.log("login Data has changed\n", "firebase token :", firebaseToken);
+        //console.log("login Data has changed\n", "firebase token :", firebaseToken);
         if (loginData) {
             villife.registerFirebaseToken(loginData.accessToken, firebaseToken).then((r) => {
                 console.log("register firebase result token", r);
             });
         }
-    }, [loginData]);
+    }, [loginData, firebaseToken]);
 }
