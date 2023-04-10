@@ -1,8 +1,9 @@
-import { useFocusEffect } from "@react-navigation/native";
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import { useCallback, useEffect } from "react";
-import { Alert, BackHandler, Button, Text, View } from "react-native";
+import { Alert, BackHandler, Button, Text, TouchableOpacity, View } from "react-native";
+import HomeScreenProps from "./type";
 
-export default function HomeScreen({ navigation }: any) {
+export default function HomeScreen(props: HomeScreenProps) {
     useFocusEffect(
         useCallback(() => {
             const onBackPress = () => {
@@ -27,6 +28,13 @@ export default function HomeScreen({ navigation }: any) {
             <Button title="Increment" aria-label="Increment value" />
             <Button aria-label="Decrement value" title="Decrement" />
             <Button aria-label="Decrement value" title="incrementByAmount" />
+            <Button
+                onPress={() => {
+                    props.navigation.navigate("noti_home", {});
+                }}
+                aria-label="Decrement value"
+                title="Link to Notice Home"
+            />
         </View>
     );
 }

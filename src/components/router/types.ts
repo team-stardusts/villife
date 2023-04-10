@@ -21,4 +21,6 @@ export type StackParamList = {
     home: {};
     splash: {};
     test: {};
+    noti_home : {}
+    noti_register : {}
 };

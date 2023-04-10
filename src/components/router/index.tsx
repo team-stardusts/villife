@@ -17,6 +17,8 @@ import TestScreen from "../screens/test";
 import WelcomeScreen from "../screens/auth/welcome";
 import { useAutoRegisterFirebaseToken } from "../../hooks/firebase/hooks";
 import useVillifeStorage from "../../hooks/storage/hooks";
+import NoticeRegisterScreen from "../screens/noti/register";
+import NoticeHomeScreen from "../screens/noti/home";
 
 enableScreens(true);
 
@@ -89,6 +91,10 @@ export default function ScreenRouter() {
             </Stack.Group>
             <Stack.Group>
                 <Stack.Screen name={"test"} component={TestScreen} />
+            </Stack.Group>
+            <Stack.Group>
+                <Stack.Screen name={"noti_home"} component={NoticeHomeScreen} />
+                <Stack.Screen name={"noti_register"} component={NoticeRegisterScreen} />
             </Stack.Group>
         </Stack.Navigator>
     );
