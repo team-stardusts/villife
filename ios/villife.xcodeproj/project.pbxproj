@@ -11,11 +11,11 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		1EF9FAFE8C1BD2522A9D9300 /* Pods_villife.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 118257271E78906E5BC22054 /* Pods_villife.framework */; };
+		6293979A3929FF6A051E132D /* Pods_villife_villifeTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA071FF54425CBDF4BF25871 /* Pods_villife_villifeTests.framework */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		B30CC3DC29E0547300E2B447 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B30CC3DB29E0547300E2B447 /* GoogleService-Info.plist */; };
 		B30CC3DD29E0547300E2B447 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B30CC3DB29E0547300E2B447 /* GoogleService-Info.plist */; };
-		B6CA4577984ED65D79F68170 /* libPods-villife-villifeTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 02FF3E9099BE3C27A991E59C /* libPods-villife-villifeTests.a */; };
-		F903ED0422A04208C0BA0588 /* libPods-villife.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 37200A7BFF8D7CB3A24A46AC /* libPods-villife.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -32,14 +32,13 @@
 		00E356EE1AD99517003FC87E /* villifeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = villifeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* villifeTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = villifeTests.m; sourceTree = "<group>"; };
-		02FF3E9099BE3C27A991E59C /* libPods-villife-villifeTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-villife-villifeTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		118257271E78906E5BC22054 /* Pods_villife.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_villife.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07F961A680F5B00A75B9A /* villife.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = villife.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = villife/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = villife/AppDelegate.mm; sourceTree = "<group>"; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = villife/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = villife/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = villife/main.m; sourceTree = "<group>"; };
-		37200A7BFF8D7CB3A24A46AC /* libPods-villife.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-villife.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E7EF1B662A7A37CCF97B40D /* Pods-villife.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-villife.release.xcconfig"; path = "Target Support Files/Pods-villife/Pods-villife.release.xcconfig"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = villife/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		93E1A259F227DA0EAF193075 /* Pods-villife-villifeTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-villife-villifeTests.release.xcconfig"; path = "Target Support Files/Pods-villife-villifeTests/Pods-villife-villifeTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -47,6 +46,7 @@
 		AEA35323B6EAC9285C6B5B3B /* Pods-villife.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-villife.debug.xcconfig"; path = "Target Support Files/Pods-villife/Pods-villife.debug.xcconfig"; sourceTree = "<group>"; };
 		B30CC3DB29E0547300E2B447 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "villife/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B30CC3DE29E12CE600E2B447 /* villife.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = villife.entitlements; path = villife/villife.entitlements; sourceTree = "<group>"; };
+		BA071FF54425CBDF4BF25871 /* Pods_villife_villifeTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_villife_villifeTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -55,7 +55,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B6CA4577984ED65D79F68170 /* libPods-villife-villifeTests.a in Frameworks */,
+				6293979A3929FF6A051E132D /* Pods_villife_villifeTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -63,7 +63,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F903ED0422A04208C0BA0588 /* libPods-villife.a in Frameworks */,
+				1EF9FAFE8C1BD2522A9D9300 /* Pods_villife.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -106,8 +106,8 @@
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				37200A7BFF8D7CB3A24A46AC /* libPods-villife.a */,
-				02FF3E9099BE3C27A991E59C /* libPods-villife-villifeTests.a */,
+				118257271E78906E5BC22054 /* Pods_villife.framework */,
+				BA071FF54425CBDF4BF25871 /* Pods_villife_villifeTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";

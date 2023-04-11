@@ -44,6 +44,7 @@ export default function ScreenRouter() {
 
     // [TO-DO] Code 정리
     useEffect(() => {
+
         if (isLoading) {
             return;
         }
@@ -55,6 +56,7 @@ export default function ScreenRouter() {
             }); */
             //navigation.navigate("welcome", { role: "member", id: "test", password: "test" });
             //navigation.navigate("test", {});
+
         } else {
             navigation.reset({
                 index: 0,
