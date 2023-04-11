@@ -9,12 +9,33 @@ import AuthScreenBottonButton from "../../../blocks/auth_screens/bottom_button";
 import PressableVectorIcon from "../../../blocks/icon/vector";
 import useSystemInfo from "../../../../hooks/systeminfo/hooks";
 
-type UserDataType = {};
-
 export default function TermsOfServiceScreen({ navigation, route }: TermsOfServiceScreenProps) {
     const iconDiameter: number = useSystemInfo().window.width * 0.065;
     const Messages = useScreenMessage();
     const Styles = useTermsOfServiceScreenStyles();
+    const [isAllGranted, setIsAllGranted] = useState(false);
+    const [isPrivacyGranted, setIsPrivacyGranted] = useState(false);
+    const [isServiceGranted, setIsServiceGranted] = useState(false);
+
+    useEffect(() => {
+        if (isAllGranted) {
+            setIsPrivacyGranted(true);
+            setIsServiceGranted(true);
+            return;
+        }
+        if (!isPrivacyGranted || !isServiceGranted) return;
+        setIsPrivacyGranted(false);
+        setIsServiceGranted(false);
+    }, [isAllGranted]);
+
+    useEffect(() => {
+        if (isPrivacyGranted && isServiceGranted) {
+            setIsAllGranted(true);
+        }
+        if (isAllGranted) {
+            !isPrivacyGranted || !isServiceGranted ? setIsAllGranted(false) : () => {};
+        }
+    }, [isPrivacyGranted, isServiceGranted]);
 
     return (
         <SafeAreaView style={Styles.Screen.topLevelBox}>
@@ -25,7 +46,12 @@ export default function TermsOfServiceScreen({ navigation, route }: TermsOfServi
                 />
                 <View style={Styles.Screen.contentsWrapper}>
                     <View style={Styles.InputsSection.barSort}>
-                        <AuthScreenSwitchButton />
+                        <AuthScreenSwitchButton
+                            onPress={() => {
+                                setIsAllGranted(!isAllGranted);
+                            }}
+                            disabled={isAllGranted}
+                        />
                         <Text style={Styles.InputsSection.descriptionMessage}>
                             {Messages.messages.auth.terms_of_service.terms_of_service_all}
                         </Text>
@@ -33,14 +59,24 @@ export default function TermsOfServiceScreen({ navigation, route }: TermsOfServi
                     </View>
                     <View style={Styles.InputsSection.horizontalLine} />
                     <View style={Styles.InputsSection.barSort}>
-                        <AuthScreenSwitchButton />
+                        <AuthScreenSwitchButton
+                            onPress={() => {
+                                setIsPrivacyGranted(!isPrivacyGranted);
+                            }}
+                            disabled={isPrivacyGranted}
+                        />
                         <Text style={Styles.InputsSection.descriptionMessage}>
                             {Messages.messages.auth.terms_of_service.terms_of_service_Privacy}
                         </Text>
                         <PressableVectorIcon providerName="right" diameter={iconDiameter} />
                     </View>
                     <View style={Styles.InputsSection.barSort}>
-                        <AuthScreenSwitchButton />
+                        <AuthScreenSwitchButton
+                            onPress={() => {
+                                setIsServiceGranted(!isServiceGranted);
+                            }}
+                            disabled={isServiceGranted}
+                        />
                         <Text style={Styles.InputsSection.descriptionMessage}>
                             {Messages.messages.auth.terms_of_service.terms_of_service_service}
                         </Text>
@@ -48,9 +84,11 @@ export default function TermsOfServiceScreen({ navigation, route }: TermsOfServi
                     </View>
                 </View>
             </View>
+
             <AuthScreenBottonButton
                 title={Messages.messages.auth.create_account.next_btn_title}
                 onPress={() => console.log("TLQKF")}
+                disabled={!isAllGranted}
             />
         </SafeAreaView>
     );
