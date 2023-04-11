@@ -78,6 +78,24 @@ export type MessagesByLanguage = {
             subtitle_2: string;
             next_btn_title: string;
         };
+        permission_request: {
+            page_name: string;
+            title: string;
+            subtitle_1: string;
+            phone_permission_1: string;
+            phone_permission_2: string;
+            directory_permission_1: string;
+            directory_permission_2: string;
+            subtitle_2: string;
+            camera_permission_1: string;
+            camera_permission_2: string;
+            location_permission_1: string;
+            location_permission_2: string;
+            Additional_Information_1: string;
+            Additional_Information_2: string;
+            next_btn_title_1: string;
+            next_btn_title_2: string;
+        };
     };
     splash: {
         page_name: string;

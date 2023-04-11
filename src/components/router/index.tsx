@@ -19,6 +19,7 @@ import { useAutoRegisterFirebaseToken } from "../../hooks/firebase/hooks";
 import useVillifeStorage from "../../hooks/storage/hooks";
 import NoticeRegisterScreen from "../screens/noti/register";
 import NoticeHomeScreen from "../screens/noti/home";
+import PermissionRequestScreen from "../screens/auth/permission_request";
 
 enableScreens(true);
 
@@ -44,19 +45,17 @@ export default function ScreenRouter() {
 
     // [TO-DO] Code 정리
     useEffect(() => {
-
         if (isLoading) {
             return;
         }
         if (loginData === null) {
-            navigation.navigate("login", {});
+            navigation.navigate("permission_request", {});
             /* navigation.reset({
                 index: 0,
                 routes: [{ name: "login", params: {} }],
             }); */
             //navigation.navigate("welcome", { role: "member", id: "test", password: "test" });
             //navigation.navigate("test", {});
-
         } else {
             navigation.reset({
                 index: 0,
@@ -76,6 +75,7 @@ export default function ScreenRouter() {
     return (
         <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName={"login"}>
             <Stack.Group>
+                <Stack.Screen name={"permission_request"} component={PermissionRequestScreen} />
                 <Stack.Screen name={"login"} component={LoginScreen} />
                 <Stack.Screen name={"terms_of_service"} component={TermsOfServiceScreen} />
                 <Stack.Screen name={"create_account"} component={CreateAccountScreen} />
