@@ -44,12 +44,8 @@ function UpVectorIcon(props: VectorIconProps): VectorIconReturnType {
     const { diameter } = props;
 
     return (
-        <Svg
-            width={diameter}
-            height={diameter}
-            viewBox={`0 0 ${diameter} ${diameter}`}
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg">
+
+        <Svg width={diameter} height={diameter} viewBox={`0 0 24 24`} fill="none" xmlns="http://www.w3.org/2000/svg">
             <Path
                 d="M18 15L12 9L6 15"
                 stroke="#191F26"
@@ -65,12 +61,8 @@ function DownVectorIcon(props: VectorIconProps): VectorIconReturnType {
     const { diameter } = props;
 
     return (
-        <Svg
-            width={diameter}
-            height={diameter}
-            viewBox={`0 0 ${diameter} ${diameter}`}
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg">
+
+        <Svg width={diameter} height={diameter} viewBox={`0 0 24 24`} fill="none">
             <Path
                 d="M6 9L12 15L18 9"
                 stroke="#191F26"
