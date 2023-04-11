@@ -36,7 +36,7 @@ export default function ScreenRouter() {
     useAutoRegisterFirebaseToken();
 
     const bootstrap = async () => {
-        //await storage.login.set(null);
+        await storage.login.set(null);
         const loginDataInStorage = await storage.login.get();
         setLoginData(loginDataInStorage);
         setIsLoading(false);
@@ -48,11 +48,11 @@ export default function ScreenRouter() {
             return;
         }
         if (loginData === null) {
-            navigation.navigate("permission_request", {});
-            /* navigation.reset({
+            //navigation.navigate("permission_request", {});
+            navigation.reset({
                 index: 0,
                 routes: [{ name: "login", params: {} }],
-            }); */
+            });
             //navigation.navigate("welcome", { role: "member", id: "test", password: "test" });
             //navigation.navigate("test", {});
         } else {
