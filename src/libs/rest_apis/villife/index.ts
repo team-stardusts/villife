@@ -4,6 +4,7 @@ import routes from "./routes";
 import { RoutesType } from "./routes/types";
 import {
     Authority,
+    LoginResult,
     RefreshParmas,
     RefreshResult,
     RegisterFirebaseTokenParams,
@@ -11,10 +12,10 @@ import {
     SocialJoinParamsType,
     SocialJoinResultType,
     SocialLoginHostType,
-    SocialLoginResultType,
 } from "./types";
 import { Response } from "../types";
 import DotEnv from "../../dotenv";
+import VillifeStorage from "../../../hooks/storage";
 
 export const VILLIFE_AUTHORITY: Authority = {
     RENTER: 1,
@@ -25,9 +26,10 @@ export const VILLIFE_AUTHORITY: Authority = {
 
 class VillifeServer extends AREST {
     private env: DotEnv = new DotEnv();
+    private readonly storage = new VillifeStorage();
 
     readonly requester: AxiosInstance = axios.create({
-        baseURL: this.env.api.villife.REST_API_BASE_URL,
+        baseURL: "http://13.125.190.36:8080/", //this.env.api.villife.REST_API_BASE_URL,
         timeout: 1000,
         timeoutErrorMessage:
             "The request timed out.\
@@ -36,9 +38,24 @@ class VillifeServer extends AREST {
 
     readonly routes: RoutesType = routes;
 
-    public async login(id: string, password: string): Promise<any> {}
+    public async login(id: string, password: string): Response<LoginResult> {
+        let route: string = routes.login;
 
-    public async socialLogin(category: SocialLoginHostType, accessToken: string): Response<SocialLoginResultType> {
+        return await this.request<any, LoginResult>({
+            method: "post",
+            url: route,
+            data: {
+                id,
+                password,
+            },
+        });
+    }
+
+    public async logout(): Promise<boolean> {
+        return await this.storage.login.set(null);
+    }
+
+    public async socialLogin(category: SocialLoginHostType, accessToken: string): Response<LoginResult> {
         let route: string;
 
         switch (category) {
@@ -49,7 +66,7 @@ class VillifeServer extends AREST {
                 route = this.routes.naverSocialLogin;
         }
 
-        return await this.request<any, SocialLoginResultType>({
+        return await this.request<any, LoginResult>({
             method: "post",
             url: route,
             data: { access_token: accessToken },

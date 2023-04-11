@@ -1,10 +1,10 @@
 import { selector } from "recoil";
-import StardustsStorage from "../../../storage";
+import VillifeStorage from "../../../storage";
 import { LoginDataType } from "../../../storage/tables/login/types";
 import { loginDataState } from "../../atoms/login";
 import { LoginDataStateType } from "../../atoms/login/types";
 
-const storage = new StardustsStorage();
+const storage = new VillifeStorage();
 
 export const loginDataStateSelector = selector<LoginDataStateType>({
     key: "loginDataStateSelector",

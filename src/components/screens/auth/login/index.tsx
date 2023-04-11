@@ -1,6 +1,6 @@
 import { Pressable, SafeAreaView, Text, View } from "react-native";
 import useScreenMessage from "../../../../hooks/multilingual/hooks";
-import LoginScreenProps, { LoginScreenStylesType } from "./types";
+import LoginScreenProps from "./types";
 import useLoginScreenStyles from "./styles";
 import UniversalTextInput from "../../../blocks/universial/textinput";
 import UniversialButton from "../../../blocks/universial/button";
@@ -10,11 +10,11 @@ import useSystemInfo from "../../../../hooks/systeminfo/hooks";
 import SocialLoginIcon from "../../../blocks/icon/login";
 import useAppTheme from "../../../../hooks/themes/hooks";
 import { useLoginService } from "../../../../hooks/services/hooks";
-import { SocialLoginHostType } from "../../../../libs/rest_apis/villife/types";
 import AuthScreenTitleView from "../../../blocks/auth_screens/title_view";
 import { loginDataState } from "../../../../hooks/states/atoms/login";
 import { LoginDataStateType } from "../../../../hooks/states/atoms/login/types";
 import useVillifeStorage from "../../../../hooks/storage/hooks";
+import { HostType } from "../../../../hooks/storage/tables/login/types";
 //import AppRoutes from '../../../../data/routes.json';
 
 type UserAuth = {
@@ -40,15 +40,15 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
 
     const [_, setLoginData] = useRecoilState<LoginDataStateType>(loginDataState);
 
-    const handleLogin = async (host: SocialLoginHostType) => {
-        const { isSuccessful, data, socailAccessToken } = await loginManager[host].login(); // LoginManager.naver.login();
+    const handleLogin = async (host: HostType, params: any) => {
+        const result = await loginManager[host].login(params); // LoginManager.naver.login();
 
-        if (isSuccessful && data) {
+        if (result.isSuccessful && result.data) {
             const loginData = {
                 host: host,
-                accessToken: data.data.access_token,
-                refreshToken: data.data.refresh_token,
-                accessTokenExpiresAt: data.data.expire_at,
+                accessToken: result.data.data.access_token,
+                refreshToken: result.data.data.refresh_token,
+                accessTokenExpiresAt: result.data.data.expire_at,
             };
 
             const setStorageResult = await storage.login.set(loginData);
@@ -63,11 +63,12 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
                 index: 0,
                 routes: [{ name: "home", params: {} }],
             });
-        } else if (!isSuccessful) {
+        } else if (!result.isSuccessful) {
             // Modal & Navigate to join screen.
+            // [TO-DO] return interface 통일이 필요함
             navigation.navigate("create_account", {
                 host: host,
-                access_token: socailAccessToken,
+                access_token: host === "naver" ? result?.socialAccessToken : "",
             });
         }
     };
@@ -119,14 +120,13 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
                             <UniversialButton
                                 title={messages.messages.auth.login.title_of_login_btn}
                                 titleStyle={styles.LoginInputSection.btnTitle}
-                                onPress={() => loginManager.naver.logout()}
-                                //onPress={() => LoginManager.stardusts.login()}
+                                onPress={() => handleLogin("villife", auth)}
                                 disabled={false}
                             />
                         </View>
                         <Pressable
                             style={styles.LoginInputSection.socialLoginBtn}
-                            onPress={() => handleLogin("naver")}
+                            onPress={() => handleLogin("naver", {})}
                             onPressIn={() => setIsSocialLoginButtonPressed(true)}
                             onPressOut={() => setIsSocialLoginButtonPressed(false)}>
                             <View style={styles.LoginInputSection.socialLoginBtnIconWrapper}>
@@ -164,7 +164,7 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
                                         host: "villife",
                                         access_token: null,
                                     }*/
-                                        handleLogin("naver");
+                                        handleLogin("naver", {});
                                     }}>
                                     {messages.messages.auth.login.join}
                                 </Text>

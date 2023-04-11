@@ -8,7 +8,7 @@ export default interface ILoginTable extends ATable {
     remove(): Promise<void>;
 }
 
-export type HostType = "stardusts" | "kakao" | "naver" | "google";
+export type HostType = "villife" | "naver"; //| "kakao"  | "google";
 
 export type LoginTableKey = "login";
 
@@ -17,4 +17,4 @@ export type LoginDataType = {
     accessToken: string;
     refreshToken: string;
     accessTokenExpiresAt: number; // Milliseconds / UTC + 0
-}
+};

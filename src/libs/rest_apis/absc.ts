@@ -1,4 +1,4 @@
-import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
+import axios, { AxiosRequestConfig } from "axios";
 import { Requestable, Responsable } from "./types";
 
 abstract class AREST implements Requestable {
