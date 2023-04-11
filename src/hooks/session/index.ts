@@ -11,7 +11,6 @@ export default function useLoginSession() {
     const [isLoggedIn, setIsLoggedIn] = useRecoilState<IsLogggedInType>(isLoggedInState);
     const [loginData, setLoginData] = useRecoilState<LoginDataStateType>(loginDataState);
     const storage = useVillifeStorage();
-    const villife = new VillifeServer();
 
     useAutoRegisterFirebaseToken();
     // [TO-DO] 코드 정리 필요. Login data를 효율적으로 핸들링 할 방안이 필요함.
