@@ -1,4 +1,5 @@
 import { LoginHosts } from "../../hooks/services/types";
+import { Authority } from "../../libs/rest_apis/villife/types";
 
 export type StackParamList = {
     login: {};
@@ -7,7 +8,7 @@ export type StackParamList = {
         access_token: string | null;
     };
     welcome: {
-        role: "owner" | "member";
+        authority: Authority["ADMIN"] | Authority["RENTER"];
         id: string;
         password: string;
     };
@@ -20,4 +21,6 @@ export type StackParamList = {
     home: {};
     splash: {};
     test: {};
+    noti_home : {}
+    noti_register : {}
 };

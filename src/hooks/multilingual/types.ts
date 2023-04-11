@@ -83,8 +83,10 @@ export type MessagesByLanguage = {
         page_name: string;
     };
     words: {
-        owner: string;
-        member: string;
+        admin: string;
+        renter: string;
+        landlord: string;
+        siteAdmin: string;
         use_english: string;
         use_english_only_smallcase: string;
         use_number: string;

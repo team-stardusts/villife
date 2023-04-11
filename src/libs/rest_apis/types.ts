@@ -1,4 +1,4 @@
-import { AxiosInstance, AxiosRequestConfig } from "axios";
+import { AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse } from "axios";
 
 export interface Requestable {
     readonly requester: AxiosInstance;
@@ -10,7 +10,7 @@ export interface Requestable {
 
 export interface Responsable<T> {
     isSuccessful: boolean;
-    data: T;
+    data: AxiosResponse<T> | undefined;
 }
 
 export type Response<T> = Promise<Responsable<T>>;

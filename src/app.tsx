@@ -9,7 +9,10 @@ import React from "react";
 import ScreenRouter from "./components/router";
 import { RecoilRoot } from "recoil";
 import { NavigationContainer } from "@react-navigation/native";
+import { NativeModules } from "react-native";
+const { UIManager } = NativeModules;
 
+UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true);
 export default function App(): JSX.Element {
     return (
         <RecoilRoot>

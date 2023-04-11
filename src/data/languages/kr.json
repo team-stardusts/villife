@@ -76,8 +76,10 @@
         "page_name": "splash"
     },
     "words": {
-        "owner": "관리자",
-        "member": "세입자",
+        "admin": "관리자",
+        "renter": "임차인",
+        "landlord": "임대인",
+        "siteAdmin": "사이트관리자",
         "use_english": "영문",
         "use_english_only_smallcase": "소문자",
         "use_number": "숫자",

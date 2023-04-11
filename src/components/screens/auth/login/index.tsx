@@ -23,11 +23,12 @@ type UserAuth = {
 };
 
 export default function LoginScreen({ navigation }: LoginScreenProps) {
-    const LoginManager = useLoginService();
-    const Messages = useScreenMessage();
-    const Theme = useAppTheme();
-    const SystemInfo = useSystemInfo();
-    const styles: LoginScreenStylesType = useLoginScreenStyles();
+    const loginManager = useLoginService();
+    const messages = useScreenMessage();
+    const theme = useAppTheme();
+    const systemInfo = useSystemInfo();
+    const styles = useLoginScreenStyles();
+    const storage = useVillifeStorage();
     const iconDiameter: number = useSystemInfo().window.width * 0.12;
 
     const [isSocialLoginButtonPressed, setIsSocialLoginButtonPressed] = useState<boolean>(false);
@@ -37,31 +38,36 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
         password: null,
     });
 
-    const [loginData, setLoginData] = useRecoilState<LoginDataStateType>(loginDataState);
+    const [_, setLoginData] = useRecoilState<LoginDataStateType>(loginDataState);
 
     const handleLogin = async (host: SocialLoginHostType) => {
-        const { isSuccessful, data } = await LoginManager[host].login(); // LoginManager.naver.login();
+        const { isSuccessful, data, socailAccessToken } = await loginManager[host].login(); // LoginManager.naver.login();
 
-        if (isSuccessful) {
-            // Navigate to home screen.
-            // [TO-DO] Code 정리
-            const loginData_ = {
+        if (isSuccessful && data) {
+            const loginData = {
                 host: host,
-                accessToken: data.villife.access_token,
-                refreshToken: data.villife.refresh_token,
-                accessTokenExpiresAt: data.villife.expire_at,
+                accessToken: data.data.access_token,
+                refreshToken: data.data.refresh_token,
+                accessTokenExpiresAt: data.data.expire_at,
             };
 
-            const storage = useVillifeStorage();
-            storage.login.set(loginData_);
-            setLoginData(loginData_);
+            const setStorageResult = await storage.login.set(loginData);
 
-            navigation.navigate("home");
+            if (setStorageResult === null) {
+                // [TO-DO] Storage에 저장하지 못한 예외 상황 처리
+            } else {
+                setLoginData(loginData);
+            }
+
+            navigation.reset({
+                index: 0,
+                routes: [{ name: "home", params: {} }],
+            });
         } else if (!isSuccessful) {
             // Modal & Navigate to join screen.
             navigation.navigate("create_account", {
                 host: host,
-                access_token: data.social.access_token,
+                access_token: socailAccessToken,
             });
         }
     };
@@ -82,13 +88,13 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
             </View>
             */}
                 <AuthScreenTitleView
-                    title={`${Messages.messages.auth.login.request_login.line_1}\n${Messages.messages.auth.login.request_login.line_2}`}
+                    title={`${messages.messages.auth.login.request_login.line_1}\n${messages.messages.auth.login.request_login.line_2}`}
                 />
                 <View style={styles.LoginInputSection.topLevelBox}>
                     <View style={styles.LoginInputSection.attrWrapper}>
                         <View style={styles.LoginInputSection.inputWrapper}>
                             <Text style={styles.LoginInputSection.inputIdentifier}>
-                                {Messages.messages.auth.login.title_of_id_input}
+                                {messages.messages.auth.login.title_of_id_input}
                             </Text>
                             <UniversalTextInput
                                 name="id"
@@ -99,7 +105,7 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
                         </View>
                         <View style={styles.LoginInputSection.inputWrapper}>
                             <Text style={styles.LoginInputSection.inputIdentifier}>
-                                {Messages.messages.auth.login.title_of_password_input}
+                                {messages.messages.auth.login.title_of_password_input}
                             </Text>
                             <UniversalTextInput
                                 name="password"
@@ -111,9 +117,9 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
                         </View>
                         <View style={styles.LoginInputSection.btnWrapper}>
                             <UniversialButton
-                                title={Messages.messages.auth.login.title_of_login_btn}
+                                title={messages.messages.auth.login.title_of_login_btn}
                                 titleStyle={styles.LoginInputSection.btnTitle}
-                                onPress={() => LoginManager.naver.logout()}
+                                onPress={() => loginManager.naver.logout()}
                                 //onPress={() => LoginManager.stardusts.login()}
                                 disabled={false}
                             />
@@ -127,7 +133,7 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
                                 <SocialLoginIcon providerName="naver" diameter={iconDiameter} />
                             </View>
                             <Text style={styles.LoginInputSection.socialLoginBtnTitle}>
-                                {Messages.messages.auth.login.title_of_naver_social_login_btn}
+                                {messages.messages.auth.login.title_of_naver_social_login_btn}
                             </Text>
                             <View
                                 style={isSocialLoginButtonPressed ? styles.LoginInputSection.socialLoginPressedIn : {}}
@@ -143,11 +149,11 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
                                     style={[
                                         {
                                             color: pressed
-                                                ? Theme.colors.colorFamily.blue
-                                                : Theme.colors.colorFamily.black,
+                                                ? theme.colors.colorFamily.blue
+                                                : theme.colors.colorFamily.black,
                                             fontSize: pressed
-                                                ? SystemInfo.window.width * 0.036
-                                                : SystemInfo.window.width * 0.035,
+                                                ? systemInfo.window.width * 0.036
+                                                : systemInfo.window.width * 0.035,
                                         },
                                         styles.JoinLinkSection.text,
                                     ]}
@@ -160,11 +166,11 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
                                     }*/
                                         handleLogin("naver");
                                     }}>
-                                    {Messages.messages.auth.login.join}
+                                    {messages.messages.auth.login.join}
                                 </Text>
                             )}
                         />
-                        <Text style={[{ fontSize: SystemInfo.window.width * 0.035 }, styles.JoinLinkSection.text]}>
+                        <Text style={[{ fontSize: systemInfo.window.width * 0.035 }, styles.JoinLinkSection.text]}>
                             |
                         </Text>
                         <Pressable
@@ -173,15 +179,15 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
                                     style={[
                                         {
                                             color: pressed
-                                                ? Theme.colors.colorFamily.blue
-                                                : Theme.colors.colorFamily.black,
+                                                ? theme.colors.colorFamily.blue
+                                                : theme.colors.colorFamily.black,
                                             fontSize: pressed
-                                                ? SystemInfo.window.width * 0.036
-                                                : SystemInfo.window.width * 0.035,
+                                                ? systemInfo.window.width * 0.036
+                                                : systemInfo.window.width * 0.035,
                                         },
                                         styles.JoinLinkSection.text,
                                     ]}>
-                                    {Messages.messages.auth.login.reset_password}
+                                    {messages.messages.auth.login.reset_password}
                                 </Text>
                             )}
                         />

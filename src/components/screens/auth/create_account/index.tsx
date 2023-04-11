@@ -11,11 +11,11 @@ import AuthScreenCommonInput from "../../../blocks/auth_screens/input";
 import StringValidator from "../../../../libs/string_validator";
 import { useLoginService } from "../../../../hooks/services/hooks";
 import UserTypeSelectionButton from "../../../blocks/auth_screens/icon_user_type";
-
-type Role = "owner" | "member";
+import { Authority } from "../../../../libs/rest_apis/villife/types";
+import { VILLIFE_AUTHORITY } from "../../../../libs/rest_apis/villife";
 
 type AccountType = {
-    role: Role;
+    authority: Authority["ADMIN"] | Authority["RENTER"];
     id: string | null;
     password: string | null;
     confirm_password: string | null;
@@ -30,7 +30,7 @@ export default function CreateAccountScreen({ navigation, route }: CreateAccount
     const validator = new StringValidator();
 
     const [account, setAccount] = useState<AccountType>({
-        role: "member",
+        authority: VILLIFE_AUTHORITY.RENTER,
         id: null,
         password: null,
         confirm_password: null,
@@ -38,7 +38,7 @@ export default function CreateAccountScreen({ navigation, route }: CreateAccount
     const [isDone, setIsDone] = useState<boolean>(false);
 
     const handleJoin = async () => {
-        const { role, id, password } = account;
+        const { authority, id, password } = account;
 
         if (id && password && access_token) {
             /**
@@ -46,9 +46,11 @@ export default function CreateAccountScreen({ navigation, route }: CreateAccount
              * 1. UI 에서 Authority 추출 후 API Param 에 삽입
              * ※
              */
-            const result = await loginManagers[host].join(id, password, access_token, 1);
+            // [TO-DO] join 성공 시 로그인, setLoginData
+            // Home으로 이동 시 navigation stack 초기화
+            const result = await loginManagers[host].join({ id, password, access_token, authority });
             console.log("login:", result.isSuccessful);
-            navigation.navigate("welcome", { role, id, password });
+            navigation.navigate("welcome", { authority, id, password });
         }
     };
 
@@ -86,26 +88,26 @@ export default function CreateAccountScreen({ navigation, route }: CreateAccount
                 <View style={styles.Screen.contentsWrapper}>
                     <View style={styles.UserTypeIconSection.toplevelBox}>
                         <UserTypeSelectionButton
-                            userType="member"
-                            caption={messages.messages.words.member}
+                            userType={VILLIFE_AUTHORITY.RENTER}
+                            caption={messages.messages.words.renter}
                             size={sysinfo.window.width * 0.25}
-                            selected={account.role === "member"}
+                            selected={account.authority === VILLIFE_AUTHORITY.RENTER}
                             onPress={() => {
                                 setAccount({
                                     ...account,
-                                    role: "member",
+                                    authority: VILLIFE_AUTHORITY.RENTER,
                                 });
                             }}
                         />
                         <UserTypeSelectionButton
-                            userType="owner"
-                            caption={messages.messages.words.owner}
+                            userType={VILLIFE_AUTHORITY.ADMIN}
+                            caption={messages.messages.words.admin}
                             size={sysinfo.window.width * 0.25}
-                            selected={account.role === "owner"}
+                            selected={account.authority === VILLIFE_AUTHORITY.ADMIN}
                             onPress={() => {
                                 setAccount({
                                     ...account,
-                                    role: "owner",
+                                    authority: VILLIFE_AUTHORITY.ADMIN,
                                 });
                             }}
                         />

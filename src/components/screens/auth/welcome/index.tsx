@@ -6,6 +6,7 @@ import UserTypeSelectionButton from "../../../blocks/auth_screens/icon_user_type
 import useWelcomeScreenStyles from "./styles";
 import WelcomScreenProps from "./types";
 import useSystemInfo from "../../../../hooks/systeminfo/hooks";
+import { VILLIFE_AUTHORITY } from "../../../../libs/rest_apis/villife";
 
 export default function WelcomeScreen({ navigation, route }: WelcomScreenProps) {
     const styles = useWelcomeScreenStyles();
@@ -18,8 +19,12 @@ export default function WelcomeScreen({ navigation, route }: WelcomScreenProps) 
                 <View style={styles.ContentsSection.toplevelBox}>
                     <View style={styles.ContentsSection.iconBox}>
                         <UserTypeSelectionButton
-                            caption={message.messages.words[route.params.role]}
-                            userType={route.params.role}
+                            caption={
+                                route.params.authority === VILLIFE_AUTHORITY.ADMIN
+                                    ? message.messages.words.admin
+                                    : message.messages.words.renter
+                            }
+                            userType={route.params.authority}
                             size={sysinfo.window.width * 0.25}
                             selected={true}
                         />
