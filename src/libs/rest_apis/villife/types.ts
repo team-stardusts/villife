@@ -56,3 +56,8 @@ export type RefreshResult = {
     access_token: string;
     expire_at: number;
 };
+
+export type MediaUploadResult = {
+    file_name: string;
+    uri: string;
+};

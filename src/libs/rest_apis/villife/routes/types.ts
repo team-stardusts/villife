@@ -4,4 +4,5 @@ export type RoutesType = {
     naverSocialJoin: string;
     registerFirebaseToken: string;
     loginRefresh: string;
+    uploadImage: string;
 };

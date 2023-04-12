@@ -6,6 +6,7 @@ const routes: RoutesType = {
     naverSocialJoin: "auth/signup/naver",
     registerFirebaseToken: "auth/register/firebase-token",
     loginRefresh: "auth/renew/access-token",
+    uploadImage: "media/upload/image",
 } as const;
 
 export default routes;

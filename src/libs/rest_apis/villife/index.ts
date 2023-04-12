@@ -16,6 +16,7 @@ import {
 import { Response } from "../types";
 import DotEnv from "../../dotenv";
 import VillifeStorage from "../../../hooks/storage";
+import { MediaUploadResult } from "./types";
 
 export const VILLIFE_AUTHORITY: Authority = {
     RENTER: 1,
@@ -29,7 +30,7 @@ class VillifeServer extends AREST {
     private readonly storage = new VillifeStorage();
 
     readonly requester: AxiosInstance = axios.create({
-        baseURL: "http://13.125.190.36:8080/", //this.env.api.villife.REST_API_BASE_URL,
+        baseURL: /* "http://13.125.190.36:8080/", */ this.env.api.villife.REST_API_BASE_URL,
         timeout: 1000,
         timeoutErrorMessage:
             "The request timed out.\
@@ -142,6 +143,19 @@ class VillifeServer extends AREST {
                 expired_access_token: params.expiredAccessToken,
                 refresh_token: params.refreshToken,
             },
+        });
+    }
+
+    public async uploadImage(formData: FormData): Response<MediaUploadResult> {
+        let route: string = this.routes.uploadImage;
+
+        return await this.request<any, MediaUploadResult>({
+            method: "post",
+            url: route,
+            headers: {
+                "Content-Type": "multipart/form-data",
+            },
+            data: formData,
         });
     }
 }
