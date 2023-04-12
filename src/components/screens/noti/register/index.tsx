@@ -5,9 +5,17 @@ import React, { useRef } from "react";
 import Button from "../../../atoms/button";
 import NoticeRegisterScreenProps from "./type";
 import { IconRecord, RichEditor, RichToolbar, actions } from "react-native-pell-rich-editor";
-import NativeAlbum from "../../../../libs/media/album";
+import ImageUploader from "../../../../libs/media/uploader";
 
 function NoticeRegisterScreen(props: NoticeRegisterScreenProps) {
+    const content = useRef("");
+    const titile = useRef("");
+
+    const onSubmit = async () => {
+        console.log(content.current);
+        console.log(titile.current);
+    };
+
     return (
         <SafeAreaView style={{ flex: 1 }}>
             <View style={{ width: "100%", height: "10%", backgroundColor: "red" }}>
@@ -16,9 +24,9 @@ function NoticeRegisterScreen(props: NoticeRegisterScreenProps) {
                     style={{ width: 200, height: 50, backgroundColor: "blue" }}
                     title="등록하기"
                     titleStyle={{ color: "white" }}
-                    onPress={() => props.navigation.navigate("noti_register", {})}></Button>
+                    onPress={() => onSubmit()}></Button>
             </View>
-            <NotiEditor />
+            <NotiEditor contentRef={content} titleRef={titile} />
             <View style={{ width: "100%", height: "10%", backgroundColor: "red" }}>
                 <Text>Bottom Nav</Text>
             </View>
@@ -28,7 +36,12 @@ function NoticeRegisterScreen(props: NoticeRegisterScreenProps) {
 
 export default NoticeRegisterScreen;
 
-function NotiEditor() {
+type NotiEditorProps = {
+    titleRef: React.MutableRefObject<string>;
+    contentRef: React.MutableRefObject<string>;
+};
+
+function NotiEditor(props: NotiEditorProps) {
     const richText = useRef<RichEditor>(null);
     const scrollRef = useRef<ScrollView>(null);
 
@@ -48,9 +61,12 @@ function NotiEditor() {
                     disabledIconTint={"#bfbfbf"}
                 />
 
-                <TextInput placeholder="제목을 입력하세요" />
+                <TextInput onChangeText={(text) => (props.titleRef.current = text)} placeholder="제목을 입력하세요" />
                 <RichEditor
-                    // initialFocus={true}
+                    onChange={(text) => {
+                        console.log(text);
+                        props.contentRef.current = text;
+                    }}
                     initialFocus={false}
                     firstFocusEnd={false}
                     editorStyle={EditorStyle.contentStyle} // default light style
@@ -72,6 +88,14 @@ function NotiEditor() {
                     selectedIconTint={"#2095F2"}
                     disabledIconTint={"#bfbfbf"}
                     onPressAddImage={() => {
+                        new ImageUploader()
+                            .pickOneAndUpload()
+                            .then((r) => {
+                                richText.current?.insertImage(r.uri);
+                            })
+                            .catch((reason) => {
+                                console.log(reason);
+                            });
                     }}
                     actions={[
                         actions.undo,

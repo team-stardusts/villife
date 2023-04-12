@@ -8,8 +8,8 @@ interface MediaUploader {
 }
 
 export default class ImageUploader implements MediaUploader {
-    mNativeAlbum = new NativeAlbum();
-    mApi = new VillifeServer();
+    private mNativeAlbum = new NativeAlbum();
+    private mApi = new VillifeServer();
 
     /**
      * @returns filename and server uri , if it failed return undefined as error
@@ -19,13 +19,16 @@ export default class ImageUploader implements MediaUploader {
             return Promise.reject(reason);
         });
         const formData = this.createFormDataFromImage(uri);
+        console.log(formData);
         if (!formData) return Promise.reject(new Error("cannot create form Data"));
         const res = await this.mApi.uploadImage(formData);
         if (!res.data) return Promise.reject(new Error("upload failed err"));
-        return res.data.data;
+        const result = res.data.data;
+        result.uri = this.mApi.getBaseURL() + result.uri;
+        return result;
     }
 
-    createFormDataFromImage(imageUri: string): FormData | undefined {
+    private createFormDataFromImage(imageUri: string): FormData | undefined {
         const formData = new FormData();
         const fileExtension = imageUri.split(".").pop();
 

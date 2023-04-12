@@ -9,6 +9,6 @@ export default class NativeAlbum {
             return Promise.reject(new Error("cannot get image uri"));
         }
         console.log(asset[0].uri);
-        return asset[0].uri!! && Promise.reject(new Error("cannot get image uri"));
+        return asset[0].uri!!;
     }
 }

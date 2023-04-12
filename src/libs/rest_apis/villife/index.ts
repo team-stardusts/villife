@@ -39,6 +39,13 @@ class VillifeServer extends AREST {
 
     readonly routes: RoutesType = routes;
 
+    getBaseURL(): string {
+        if (!this.env.api.villife.REST_API_BASE_URL) {
+            throw new Error("cannotget env");
+        }
+        return this.env.api.villife.REST_API_BASE_URL;
+    }
+
     public async login(id: string, password: string): Response<LoginResult> {
         let route: string = routes.login;
 
