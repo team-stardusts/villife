@@ -5,7 +5,7 @@ export type StackParamList = {
     login: {};
     create_account: {
         host: LoginHosts;
-        access_token: string | null;
+        access_token: string | undefined;
     };
     welcome: {
         authority: Authority["ADMIN"] | Authority["RENTER"];

@@ -2,14 +2,14 @@ import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import { useCallback, useEffect } from "react";
 import { Alert, BackHandler, Button, Text, TouchableOpacity, View } from "react-native";
 import { useRecoilState } from "recoil";
-import { useLoginService } from "../../../../hooks/services/hooks";
+import useAuthService from "../../../../hooks/services/login/hooks";
 import { loginDataState } from "../../../../hooks/states/atoms/login";
 import { LoginDataStateType } from "../../../../hooks/states/atoms/login/types";
 import HomeScreenProps from "./type";
 
 export default function HomeScreen(props: HomeScreenProps) {
     const [loginData, setLoginData] = useRecoilState<LoginDataStateType>(loginDataState);
-    const loginManager = useLoginService();
+    const logout = useAuthService().logout;
 
     useFocusEffect(
         useCallback(() => {
@@ -36,7 +36,7 @@ export default function HomeScreen(props: HomeScreenProps) {
                 title="logout"
                 onPress={async () => {
                     if (loginData !== null) {
-                        await loginManager[loginData.host].logout();
+                        logout();
                         setLoginData(null);
                     }
                 }}

@@ -1,16 +1,19 @@
-import { Response } from "../../../../libs/rest_apis/types";
-import { LoginResult } from "../../../../libs/rest_apis/villife/types";
+import { Responsable, Response } from "../../../../libs/rest_apis/types";
+import { LoginServiceParams, LoginServiceResult } from "../types";
 import ALoginManager from "../absc";
-import { LoginParams } from "./type";
+import IVillifeLoginManager from "./type";
 
-class VillifeLoginManager extends ALoginManager {
-    public async login(params: LoginParams): Response<LoginResult> {
-        return await this.villife.login(params.id, params.password);
+class VillifeLoginManager extends ALoginManager implements IVillifeLoginManager {
+    public async login(params: LoginServiceParams): Promise<LoginServiceResult> {
+        return (await this.villife.login(params.id, params.password)) as LoginServiceResult;
     }
+
     public async logout(): Promise<boolean> {
         return await this.villife.logout();
     }
+
     public async refresh(): Promise<any> {}
+
     public async join(): Promise<any> {}
 }
 

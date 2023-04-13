@@ -53,8 +53,6 @@ export default function ScreenRouter() {
                 index: 0,
                 routes: [{ name: "login", params: {} }],
             });
-            //navigation.navigate("welcome", { role: "member", id: "test", password: "test" });
-            //navigation.navigate("test", {});
         } else {
             navigation.reset({
                 index: 0,

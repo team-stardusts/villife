@@ -157,7 +157,7 @@ export default function CreateAccountScreen({ navigation, route }: CreateAccount
                                 }}
                                 secureTextEntry
                             />
-                            {host === "villife" ? (
+                            {host === "villife" && route.params.access_token !== undefined ? (
                                 <>
                                     <AuthScreenCommonInput
                                         title={messages.messages.auth.join.title_of_select_carrier_input}

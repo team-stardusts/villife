@@ -1,8 +1,7 @@
-export default interface IVillifeLoginManater {
-    login(params: any): any;
-}
+import { LoginServiceParams, LoginServiceResult } from "../types";
 
-export type LoginParams = {
-    id: string;
-    password: string;
-};
+export default interface IVillifeLoginManager {
+    login(params: LoginServiceParams): Promise<LoginServiceResult>;
+    logout(): Promise<boolean>;
+    join(): Promise<any>;
+}
