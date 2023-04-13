@@ -36,7 +36,6 @@ export default function ScreenRouter() {
     useAutoRegisterFirebaseToken();
 
     const bootstrap = async () => {
-        await storage.login.set(null);
         const loginDataInStorage = await storage.login.get();
         setLoginData(loginDataInStorage);
         setIsLoading(false);

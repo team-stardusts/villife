@@ -46,7 +46,7 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
             });
         } else {
             if (host === "villife") {
-                Alert.alert("계정 정보가 잘못 입력 되었습니다.", "옳바른 아이디와 패스워드를 입력해주세요.");
+                Alert.alert("잘못 된 계정 정보가 입력 되었습니다.", "옳바른 아이디와 패스워드를 입력해주세요.");
             } else {
                 navigation.navigate("create_account", {
                     host: host,
@@ -59,18 +59,6 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
     return (
         <SafeAreaView style={styles.Screen.topLevelBox}>
             <View style={styles.Screen.contentsBox}>
-                {/*
-            <View style={styles.GreetingSection.topLevelBox}>
-                <View style={styles.GreetingSection.textWrapper}>
-                    <Text style={styles.GreetingSection.text}>
-                        {Messages.messages.auth.login.request_login.line_1}
-                    </Text>
-                    <Text style={styles.GreetingSection.text}>
-                        {Messages.messages.auth.login.request_login.line_2}
-                    </Text>
-                </View>
-            </View>
-            */}
                 <AuthScreenTitleView
                     title={`${messages.messages.auth.login.request_login.line_1}\n${messages.messages.auth.login.request_login.line_2}`}
                 />
