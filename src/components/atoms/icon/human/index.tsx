@@ -1,9 +1,9 @@
 import { Path, Svg } from "react-native-svg";
-import { IconHumanProps } from "./types";
+import { CommonIconProps } from "../types";
 
 const ICON_DEFAULT_COLOR: string = "#E4E4E4" as const;
 
-export function IconPeople(props: IconHumanProps) {
+export function IconRoundPeople(props: CommonIconProps) {
     const { color, size } = props;
     const widthRatio: number = 13 / (13 + 9);
     const heightRatio: number = 9 / (13 + 9);
@@ -30,7 +30,7 @@ export function IconPeople(props: IconHumanProps) {
     );
 }
 
-export function IconPerson(props: IconHumanProps) {
+export function IconRoundPerson(props: CommonIconProps) {
     const { color, size } = props;
     const widthRatio: number = 17 / (17 + 18);
     const heightRatio: number = 18 / (17 + 18);
@@ -44,6 +44,31 @@ export function IconPerson(props: IconHumanProps) {
             <Path
                 d="M14.992 17.9999H1.44836C1.23061 18.001 1.01549 17.953 0.819569 17.8595C0.623643 17.7659 0.45213 17.6294 0.318228 17.4604C0.176192 17.2772 0.0781071 17.0647 0.0313143 16.8389C-0.0154785 16.6131 -0.00976609 16.3797 0.0480242 16.1564C0.480556 14.4469 1.55213 13.0292 3.14664 12.0569C4.56187 11.1943 6.3634 10.719 8.2199 10.719C10.1129 10.719 11.8671 11.1741 13.2906 12.0362C14.8887 13.0034 15.9618 14.4292 16.3923 16.1594C16.4494 16.3829 16.4545 16.6163 16.4071 16.842C16.3598 17.0677 16.2613 17.2799 16.119 17.4629C15.9852 17.6312 15.8141 17.767 15.6188 17.8601C15.4234 17.9532 15.209 18.001 14.992 17.9999Z"
                 fill={color ?? ICON_DEFAULT_COLOR}
+            />
+        </Svg>
+    );
+}
+
+export function IconPerson(props: CommonIconProps) {
+    const { color, size } = props;
+    const widthRatio: number = 24 / (24 + 25);
+    const heightRatio: number = 25 / (24 + 25);
+
+    return (
+        <Svg width={size * widthRatio} height={size * heightRatio} viewBox="0 0 24 25" fill="none">
+            <Path
+                d="M20 21.4365V19.4365C20 18.3757 19.5786 17.3582 18.8284 16.6081C18.0783 15.858 17.0609 15.4365 16 15.4365H8C6.93913 15.4365 5.92172 15.858 5.17157 16.6081C4.42143 17.3582 4 18.3757 4 19.4365V21.4365"
+                stroke={color ?? ICON_DEFAULT_COLOR}
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+            />
+            <Path
+                d="M12 11.4365C14.2091 11.4365 16 9.64566 16 7.43652C16 5.22738 14.2091 3.43652 12 3.43652C9.79086 3.43652 8 5.22738 8 7.43652C8 9.64566 9.79086 11.4365 12 11.4365Z"
+                stroke={color ?? ICON_DEFAULT_COLOR}
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
             />
         </Svg>
     );

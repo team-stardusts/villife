@@ -12,8 +12,7 @@ export interface SocialLoginIconProps extends LoginIconProps {
 export type LoginIconReturnType = JSX.Element;
 
 export interface PressableIconProps {
-    diameter: number,
+    diameter: number;
     children: React.ReactNode;
     onPress?: null | ((event: GestureResponderEvent) => void) | undefined;
 }
-

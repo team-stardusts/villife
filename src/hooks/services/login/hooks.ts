@@ -13,6 +13,9 @@ export default function useAuthService(): AuthServicesReturn {
     const storage = useVillifeStorage();
 
     useEffect(() => {
+        if (loginData === null) {
+            return;
+        }
         storage.login.set(loginData);
     }, [loginData]);
 

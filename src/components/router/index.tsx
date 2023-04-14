@@ -78,7 +78,7 @@ export default function ScreenRouter() {
                 <Stack.Screen name={"welcome"} component={WelcomeScreen} />
                 <Stack.Screen name={"set_building"} component={SetBuildingScreen} />
             </Stack.Group>
-            <Stack.Group screenOptions={{ headerShown: true }}>
+            <Stack.Group screenOptions={{ headerShown: false }}>
                 <Stack.Screen name={"home"} component={HomeScreen} />
             </Stack.Group>
             <Stack.Group>
