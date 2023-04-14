@@ -61,3 +61,10 @@ export type MediaUploadResult = {
     file_name: string;
     uri: string;
 };
+
+export type CreateNoticeParams = {
+    priority: 1 | 2 | 3 | 4;
+    title: string;
+    content: string;
+    building_id: number;
+};

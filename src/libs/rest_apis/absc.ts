@@ -21,6 +21,7 @@ abstract class AREST implements Requestable {
             .catch((err) => {
                 return err.response;
             });
+            
         //console.log(this.isSuccessful(result?.status));
         return {
             isSuccessful: this.isSuccessful(result?.status),

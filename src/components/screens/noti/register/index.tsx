@@ -1,4 +1,4 @@
-import { KeyboardAvoidingView, Platform, ScrollView, StyleSheet, TextInput, View } from "react-native";
+import { Dimensions, KeyboardAvoidingView, Platform, ScrollView, StyleSheet, TextInput, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Text } from "react-native";
 import React, { useRef } from "react";
@@ -6,6 +6,8 @@ import Button from "../../../atoms/button";
 import NoticeRegisterScreenProps from "./type";
 import { IconRecord, RichEditor, RichToolbar, actions } from "react-native-pell-rich-editor";
 import ImageUploader from "../../../../libs/media/uploader";
+import { CreateNoticeParams } from "../../../../libs/rest_apis/villife/types";
+import VillifeServer from "../../../../libs/rest_apis/villife";
 
 function NoticeRegisterScreen(props: NoticeRegisterScreenProps) {
     const content = useRef("");
@@ -14,6 +16,20 @@ function NoticeRegisterScreen(props: NoticeRegisterScreenProps) {
     const onSubmit = async () => {
         console.log(content.current);
         console.log(titile.current);
+
+        const param: CreateNoticeParams = {
+            priority: 1,
+            title: titile.current,
+            content: content.current,
+            building_id: 1,
+        };
+        const api = new VillifeServer();
+
+        const reuslt = await api.createNotice(param);
+
+        if (reuslt.data?.status == 200) props.navigation.goBack();
+
+        console.log("create notice result\n", reuslt.data?.data);
     };
 
     return (
@@ -44,6 +60,7 @@ type NotiEditorProps = {
 function NotiEditor(props: NotiEditorProps) {
     const richText = useRef<RichEditor>(null);
     const scrollRef = useRef<ScrollView>(null);
+    const size = Dimensions.get("window");
 
     return (
         <>
@@ -71,11 +88,9 @@ function NotiEditor(props: NotiEditorProps) {
                     firstFocusEnd={false}
                     editorStyle={EditorStyle.contentStyle} // default light style
                     ref={richText}
-                    style={EditorStyle.rich}
-                    useContainer={true}
-                    initialHeight={400}
+                    style={[EditorStyle.rich, { height: size.height * 0.7 }]}
+                    useContainer={false}
                     enterKeyHint={"done"}
-                    // containerStyle={{borderRadius: 24}}
                     placeholder={"please input content"}
                     pasteAsPlainText={true}
                 />
@@ -137,15 +152,12 @@ function NotiEditor(props: NotiEditorProps) {
 
 const EditorStyle = StyleSheet.create({
     rich: {
-        minHeight: 300,
         flex: 1,
-        borderBottomWidth: StyleSheet.hairlineWidth,
         borderColor: "#e3e3e3",
     },
 
     richBar: {
         borderColor: "#efefef",
-        borderTopWidth: StyleSheet.hairlineWidth,
     },
     richBarDark: {
         backgroundColor: "#191d20",
@@ -153,6 +165,7 @@ const EditorStyle = StyleSheet.create({
     },
     contentStyle: {
         backgroundColor: "white",
+        height: "100%",
         color: "black",
         caretColor: "red",
         placeholderColor: "gray",
@@ -160,7 +173,7 @@ const EditorStyle = StyleSheet.create({
         contentCSSText: "font-size: 16px; min-height: 200px;", // initial valid
     },
     scroll: {
-        backgroundColor: "#ffffff",
+        backgroundColor: "red",
     },
     scrollDark: {
         backgroundColor: "#2e3847",

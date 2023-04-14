@@ -5,4 +5,8 @@ export type RoutesType = {
     registerFirebaseToken: string;
     loginRefresh: string;
     uploadImage: string;
+    createNotice: string;
+    updateNotice: string;
+    deleteNotice: string;
+    getNoticesByBuildingID: string;
 };

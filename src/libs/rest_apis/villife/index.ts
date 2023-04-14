@@ -4,6 +4,7 @@ import routes from "./routes";
 import { RoutesType } from "./routes/types";
 import {
     Authority,
+    CreateNoticeParams,
     LoginResult,
     RefreshParmas,
     RefreshResult,
@@ -30,7 +31,7 @@ class VillifeServer extends AREST {
     private readonly storage = new VillifeStorage();
 
     readonly requester: AxiosInstance = axios.create({
-        baseURL: "http://13.125.190.36:8080/", //this.env.api.villife.REST_API_BASE_URL,
+        baseURL: /* "http://13.125.190.36:8080/", */ this.env.api.villife.REST_API_BASE_URL,
         timeout: 1000,
         timeoutErrorMessage:
             "The request timed out.\
@@ -90,14 +91,14 @@ class VillifeServer extends AREST {
             url: route,
             method: "get",
             headers: {
-                //"Content-Type": "application/json",
-                Authorization: "Bearer " + "", //params.accessToken,
+                "Content-Type": "application/json",
+                Authorization: "Bearer " + params.accessToken,
             },
             params: {
                 firebase_token: params.firebaseToken,
             },
         });
-
+        console.log(result.data);
         if (!result.isSuccessful) {
             const refreshResult = await this.refresh({
                 expiredAccessToken: params.accessToken,
@@ -155,14 +156,35 @@ class VillifeServer extends AREST {
 
     public async uploadImage(formData: FormData): Response<MediaUploadResult> {
         let route: string = this.routes.uploadImage;
+        const logindata = await this.storage.login.get();
+        if (!logindata) {
+            console.log("request uploading images api, login data :", logindata);
+            Promise.reject(new Error("Login data not found"));
+        }
+        console.log("request uploading images api, login data :", logindata);
 
         return await this.request<any, MediaUploadResult>({
             method: "post",
             url: route,
             headers: {
                 "Content-Type": "multipart/form-data",
+                Authorization: `Bearer ${logindata?.accessToken}`,
             },
             data: formData,
+        });
+    }
+    public async createNotice(params: CreateNoticeParams): Response<RefreshResult> {
+        let route: string = this.routes.createNotice;
+        const loginData = await this.storage.login.get();
+
+        console.log(params);
+        return await this.request<any, RefreshResult>({
+            method: "post",
+            url: route,
+            headers: {
+                Authorization: `Bearer ${loginData?.accessToken}`,
+            },
+            data: params,
         });
     }
 }
