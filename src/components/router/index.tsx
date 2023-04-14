@@ -45,6 +45,7 @@ export default function ScreenRouter() {
             return;
         }
         if (loginData === null) {
+
             //navigation.navigate("permission_request", {});
             navigation.reset({
                 index: 0,

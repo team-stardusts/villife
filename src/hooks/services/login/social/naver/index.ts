@@ -14,12 +14,14 @@ import { Platform } from "react-native";
 class NaverLoginManager extends ALoginManager implements INaverLoginManager {
     private env: DotEnv = new DotEnv();
 
+
     public async login(params: void): Promise<LoginServiceResult> {
         const naverLoginParams = {
             kServiceAppName: this.env.app.NAME ?? "",
             kConsumerKey: this.env.api.naver.API_CONSUMER_KEY ?? "",
             kConsumerSecret: this.env.api.naver.API_CONSUMER_SECRET ?? "",
         };
+        console.log(params);
 
         if (Platform.OS === "ios") {
             Object.assign(naverLoginParams, { kServiceAppUrlScheme: this.env.api.naver.API_SERVISE_URL_SHEME ?? "" });

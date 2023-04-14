@@ -14,6 +14,7 @@ import AuthScreenTitleView from "../../../blocks/auth_screens/title_view";
 import { loginDataState } from "../../../../hooks/states/atoms/login";
 import { LoginDataStateType } from "../../../../hooks/states/atoms/login/types";
 import useVillifeStorage from "../../../../hooks/storage/hooks";
+import { Toast } from "react-native-toast-message/lib/src/Toast";
 import { HostType } from "../../../../hooks/storage/tables/login/types";
 import useAuthService from "../../../../hooks/services/login/hooks";
 import { LoginServiceParams } from "../../../../hooks/services/login/types";
@@ -36,14 +37,17 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
         password: "",
     });
 
+
     const handleLogin = async (host: HostType, params: LoginServiceParams | undefined) => {
         const result = await login(host, params);
+
 
         if (result.isSuccessful && result.data) {
             navigation.reset({
                 index: 0,
                 routes: [{ name: "home", params: {} }],
             });
+
         } else {
             if (host === "villife") {
                 Alert.alert("잘못 된 계정 정보가 입력 되었습니다.", "옳바른 아이디와 패스워드를 입력해주세요.");
@@ -54,6 +58,16 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
                 });
             }
         }
+    };
+
+    const showToast = () => {
+        Toast.show({
+            type: "success",
+            text1: "서비스 준비중입니다.",
+            position: "bottom",
+            visibilityTime: 1500,
+            bottomOffset: systemInfo.window.height * 0.12,
+        });
     };
 
     return (
@@ -129,6 +143,7 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
                                         styles.JoinLinkSection.text,
                                     ]}
                                     onPress={() => {
+
                                         navigation.navigate("create_account", {
                                             host: "villife",
                                             access_token: undefined,
@@ -154,7 +169,8 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
                                                 : systemInfo.window.width * 0.035,
                                         },
                                         styles.JoinLinkSection.text,
-                                    ]}>
+                                    ]}
+                                    onPress={showToast}>
                                     {messages.messages.auth.login.reset_password}
                                 </Text>
                             )}

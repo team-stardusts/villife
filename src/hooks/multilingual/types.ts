@@ -84,8 +84,8 @@ export type MessagesByLanguage = {
             subtitle_1: string;
             phone_permission_1: string;
             phone_permission_2: string;
-            directory_permission_1: string;
-            directory_permission_2: string;
+            address_book_1: string;
+            address_book_2: string;
             subtitle_2: string;
             camera_permission_1: string;
             camera_permission_2: string;

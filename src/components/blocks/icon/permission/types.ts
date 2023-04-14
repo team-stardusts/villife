@@ -10,7 +10,7 @@ export interface PermissionIconProps {
     diameter: number;
 }
 export interface PressablePermissionIconProps extends PermissionIconProps {
-    providerName: "phoneIcon" | "locationIcon" | "cameraIcon" | "addressBookIcon";
+    providerName: string;
     onPress?: null | ((event: GestureResponderEvent) => void) | undefined;
 }
 

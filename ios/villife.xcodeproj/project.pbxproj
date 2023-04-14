@@ -14,6 +14,7 @@
 		1EF9FAFE8C1BD2522A9D9300 /* Pods_villife.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 118257271E78906E5BC22054 /* Pods_villife.framework */; };
 		6293979A3929FF6A051E132D /* Pods_villife_villifeTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA071FF54425CBDF4BF25871 /* Pods_villife_villifeTests.framework */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		8AA9B36429E96163006C1D05 /* Fonts in Resources */ = {isa = PBXBuildFile; fileRef = 8AA9B36329E96162006C1D05 /* Fonts */; };
 		B30CC3DC29E0547300E2B447 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B30CC3DB29E0547300E2B447 /* GoogleService-Info.plist */; };
 		B30CC3DD29E0547300E2B447 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B30CC3DB29E0547300E2B447 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
@@ -41,6 +42,7 @@
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = villife/main.m; sourceTree = "<group>"; };
 		4E7EF1B662A7A37CCF97B40D /* Pods-villife.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-villife.release.xcconfig"; path = "Target Support Files/Pods-villife/Pods-villife.release.xcconfig"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = villife/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		8AA9B36329E96162006C1D05 /* Fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Fonts; sourceTree = "<group>"; };
 		93E1A259F227DA0EAF193075 /* Pods-villife-villifeTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-villife-villifeTests.release.xcconfig"; path = "Target Support Files/Pods-villife-villifeTests/Pods-villife-villifeTests.release.xcconfig"; sourceTree = "<group>"; };
 		9671481111D6E7E2C67ED807 /* Pods-villife-villifeTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-villife-villifeTests.debug.xcconfig"; path = "Target Support Files/Pods-villife-villifeTests/Pods-villife-villifeTests.debug.xcconfig"; sourceTree = "<group>"; };
 		AEA35323B6EAC9285C6B5B3B /* Pods-villife.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-villife.debug.xcconfig"; path = "Target Support Files/Pods-villife/Pods-villife.debug.xcconfig"; sourceTree = "<group>"; };
@@ -122,6 +124,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				8AA9B36329E96162006C1D05 /* Fonts */,
 				13B07FAE1A68108700A75B9A /* villife */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* villifeTests */,
@@ -253,6 +256,7 @@
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				B30CC3DC29E0547300E2B447 /* GoogleService-Info.plist in Resources */,
+				8AA9B36429E96163006C1D05 /* Fonts in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
