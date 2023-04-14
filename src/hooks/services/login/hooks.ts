@@ -1,5 +1,4 @@
 import { useEffect } from "react";
-import { Alert } from "react-native";
 import { useRecoilState } from "recoil";
 import { LoginManagerProvider } from ".";
 import { loginDataState } from "../../states/atoms/login";

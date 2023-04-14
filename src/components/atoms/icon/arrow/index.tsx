@@ -30,9 +30,9 @@ export default function IconArrow(props: IconArrowProps) {
             <Path
                 d={d}
                 stroke={color ?? ICON_DEFAULT_COLOR}
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
             />
         </Svg>
     );

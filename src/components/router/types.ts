@@ -1,3 +1,4 @@
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { LoginHosts } from "../../hooks/services/types";
 import { Authority } from "../../libs/rest_apis/villife/types";
 
@@ -25,3 +26,5 @@ export type StackParamList = {
     noti_register: {};
     permission_request: {};
 };
+
+export type RouterParams = NativeStackScreenProps<StackParamList>;

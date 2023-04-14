@@ -1,15 +1,10 @@
 import { StyleSheet } from "react-native";
 import useSystemInfo from "../../../hooks/systeminfo/hooks";
 import useAppTheme from "../../../hooks/themes/hooks";
-import { useNavigationViewStylesProps } from "./types";
 
-export default function useNavigationViewStyles({ headerShown, BottomNavShown }: useNavigationViewStylesProps) {
+export default function useNavigationViewStyles() {
     const sysinfo = useSystemInfo();
     const theme = useAppTheme();
-
-    const headerFlex = headerShown ? 0.7 : 0;
-    const bottomNavFlex = BottomNavShown ? 0.7 : 0;
-    const contentsFlex = 10 - (headerFlex + bottomNavFlex);
 
     const styles = StyleSheet.create({
         toplevelBox: {
@@ -17,32 +12,42 @@ export default function useNavigationViewStyles({ headerShown, BottomNavShown }:
             backgroundColor: theme.colors.colorFamily.white,
         },
         headerBox: {
-            flex: headerFlex,
+            flex: 0.7,
             flexDirection: "row",
-            backgroundColor: "tomato",
+            backgroundColor: theme.colors.colorFamily.white,
+            borderBottomColor: theme.colors.colorFamily.lightgrey,
+            borderBottomWidth: 3,
         },
         headerNavBox: {
-            flex: 2,
+            flex: 4,
+            flexDirection: "row",
         },
         headerNavIconBox: {
             flex: 1,
             height: "100%",
+            justifyContent: "center",
             alignItems: "center",
         },
         headerNavTitleBox: {
             flex: 1,
             height: "100%",
+            justifyContent: "center",
             alignItems: "center",
         },
         headerReactFuncBox: {
-            flex: 8,
+            flex: 6,
+            alignContent: "center",
+            justifyContent: "center",
+        },
+        headerTitle: {
+            color: theme.colors.colorFamily.black,
         },
         contentsBox: {
-            flex: contentsFlex,
-            backgroundColor: "teal",
+            flex: 8.6,
+            //backgroundColor: "teal",
         },
         bottomNavBox: {
-            flex: bottomNavFlex,
+            flex: 0.7,
             backgroundColor: theme.colors.colorFamily.white,
         },
     });

@@ -1,4 +1,3 @@
-import { Responsable, Response } from "../../../../libs/rest_apis/types";
 import { LoginServiceParams, LoginServiceResult } from "../types";
 import ALoginManager from "../absc";
 import IVillifeLoginManager from "./type";

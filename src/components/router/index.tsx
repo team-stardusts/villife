@@ -3,7 +3,7 @@ import { enableScreens } from "react-native-screens";
 import { useRecoilState } from "recoil";
 import { loginDataState } from "../../hooks/states/atoms/login";
 import { createNativeStackNavigator, NativeStackScreenProps } from "@react-navigation/native-stack";
-import { StackParamList } from "./types";
+import { RouterParams, StackParamList } from "./types";
 import LoginScreen from "../screens/auth/login";
 import CreateAccountScreen from "../screens/auth/create_account";
 import SetBuildingScreen from "../screens/auth/set_building";
@@ -23,8 +23,6 @@ import PermissionRequestScreen from "../screens/auth/permission_request";
 enableScreens(true);
 
 const Stack = createNativeStackNavigator<StackParamList>();
-
-type RouterParams = NativeStackScreenProps<StackParamList>;
 
 export default function ScreenRouter() {
     const [isLoading, setIsLoading] = useState(true);
@@ -78,7 +76,7 @@ export default function ScreenRouter() {
                 <Stack.Screen name={"welcome"} component={WelcomeScreen} />
                 <Stack.Screen name={"set_building"} component={SetBuildingScreen} />
             </Stack.Group>
-            <Stack.Group screenOptions={{ headerShown: false }}>
+            <Stack.Group>
                 <Stack.Screen name={"home"} component={HomeScreen} />
             </Stack.Group>
             <Stack.Group>
