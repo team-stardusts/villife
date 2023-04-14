@@ -4,6 +4,7 @@ import IconHome from "../../atoms/icon/home";
 import IconMessenger from "../../atoms/icon/messenger";
 import IconSpeaker from "../../atoms/icon/speaker";
 import IconWallet from "../../atoms/icon/wallet";
+import { IconPerson } from "./human";
 import IconProps, { ChildIconProps } from "./types";
 
 export default function Icon(props: IconProps) {
@@ -34,6 +35,8 @@ export default function Icon(props: IconProps) {
             return <IconSpeaker {...iconProps} />;
         case "wallet":
             return <IconWallet {...iconProps} />;
+        case "person":
+            return <IconPerson {...iconProps} />;
         default:
             return <IconHome {...iconProps} />;
     }

@@ -43,12 +43,32 @@ export default function useNavigationViewStyles() {
             color: theme.colors.colorFamily.black,
         },
         contentsBox: {
-            flex: 8.6,
+            flex: 8.3,
             //backgroundColor: "teal",
         },
         bottomNavBox: {
-            flex: 0.7,
+            flex: 1,
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "center",
             backgroundColor: theme.colors.colorFamily.white,
+            borderTopColor: theme.colors.colorFamily.lightgrey,
+            borderTopWidth: 3,
+        },
+        bottomNavWrapper: {
+            width: "18%",
+            alignItems: "center",
+        },
+        bottomNavIconBox: {
+            flex: 5,
+            justifyContent: "flex-end",
+            paddingBottom: sysinfo.window.height * 0.005,
+        },
+        bottomNavCaptionBox: {
+            flex: 5,
+        },
+        bottomNavCaption: {
+            fontSize: sysinfo.window.width * 0.031,
         },
     });
 

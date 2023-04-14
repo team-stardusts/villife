@@ -25,6 +25,9 @@ export type StackParamList = {
     noti_home: {};
     noti_register: {};
     permission_request: {};
+    parking: {};
+    payment: {};
+    mypage: {};
 };
 
 export type RouterParams = NativeStackScreenProps<StackParamList>;
