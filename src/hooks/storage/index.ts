@@ -1,9 +1,8 @@
 import LoginTable from "./tables/login";
-import IStardustsStorage from "./types";
+import IVillifeStorage from "./types";
 
-
-class StardustsStorage implements IStardustsStorage {
+class VillifeStorage implements IVillifeStorage {
     login = new LoginTable();
 }
 
-export default StardustsStorage;
+export default VillifeStorage;

@@ -49,6 +49,7 @@ export default function CreateAccountScreen({ navigation, route }: CreateAccount
             // [TO-DO] join 성공 시 로그인, setLoginData
             // Home으로 이동 시 navigation stack 초기화
             const result = await loginManagers[host].join({ id, password, access_token, authority });
+            // [TO-DO] login 작업 추가 해야함.
             console.log("login:", result.isSuccessful);
             navigation.navigate("welcome", { authority, id, password });
         }
@@ -156,7 +157,7 @@ export default function CreateAccountScreen({ navigation, route }: CreateAccount
                                 }}
                                 secureTextEntry
                             />
-                            {host === "villife" ? (
+                            {host === "villife" && route.params.access_token !== undefined ? (
                                 <>
                                     <AuthScreenCommonInput
                                         title={messages.messages.auth.join.title_of_select_carrier_input}

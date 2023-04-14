@@ -9,13 +9,13 @@ import { Requestable, Responsable, Response } from "../types";
     refresh(params: RefreshParmas): Response<RefreshResult>;
 }
  */
-export type SocialLoginHostType = "naver";
-
-export type SocialLoginResultType = {
+export type LoginResult = {
     access_token: string;
     expire_at: number;
     refresh_token: string;
 }; // | "cannot find user" | undefined;
+
+export type SocialLoginHostType = "naver";
 
 export type SocialJoinResultType = "sign up has been done successfully" | "cannot find user" | "duplicate user";
 
@@ -55,4 +55,16 @@ export type RefreshParmas = {
 export type RefreshResult = {
     access_token: string;
     expire_at: number;
+};
+
+export type MediaUploadResult = {
+    file_name: string;
+    uri: string;
+};
+
+export type CreateNoticeParams = {
+    priority: 1 | 2 | 3 | 4;
+    title: string;
+    content: string;
+    building_id: number;
 };

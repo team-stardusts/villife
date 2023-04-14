@@ -1,24 +1,19 @@
-import { useEffect } from "react";
-import { View } from "react-native";
-import { useRecoilState } from "recoil";
-import { isLoggedInState, loginDataState } from "../../../states/atoms/login";
-import { IsLogggedInType, LoginDataStateType } from "../../../states/atoms/login/types";
-import useVillifeStorage from "../../../storage/hooks";
-import { LoginDataType } from "../../../storage/tables/login/types";
+import { LoginServiceParams, LoginServiceResult } from "../types";
 import ALoginManager from "../absc";
+import IVillifeLoginManager from "./type";
 
-class VillifeLoginManager extends ALoginManager {
-    public async login(params: any): Promise<any> {
+class VillifeLoginManager extends ALoginManager implements IVillifeLoginManager {
+    public async login(params: LoginServiceParams): Promise<LoginServiceResult> {
+        return (await this.villife.login(params.id, params.password)) as LoginServiceResult;
     }
-    public async logout(): Promise<any> {
-        
+
+    public async logout(): Promise<boolean> {
+        return await this.villife.logout();
     }
-    public async refresh(): Promise<any> {
-        
-    }
-    public async join(): Promise<any> {
-        
-    }
+
+    public async refresh(): Promise<any> {}
+
+    public async join(): Promise<any> {}
 }
 
 export default VillifeLoginManager;

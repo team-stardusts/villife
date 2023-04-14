@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { Pressable, View } from "react-native";
-import { Svg, Rect, Defs, Pattern, Use, Image, Path } from "react-native-svg";
+import { Svg, Path } from "react-native-svg";
 import { PressableIconProps, PressableVectorIconProps, VectorIconProps, VectorIconReturnType } from "./types";
 
 function RightVectorIcon(props: VectorIconProps): VectorIconReturnType {
     const { diameter } = props;
 
     return (
-        <Svg width={diameter} height={diameter} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <Svg width={diameter} height={diameter} viewBox="0 0 24 24" fill="none">
             <Path
                 d="M9 18L15 12L9 6"
                 stroke="#191F26"
@@ -23,12 +23,7 @@ function LeftVectorIcon(props: VectorIconProps): VectorIconReturnType {
     const { diameter } = props;
 
     return (
-        <Svg
-            width={diameter}
-            height={diameter}
-            viewBox={`0 0 ${diameter} ${diameter}`}
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg">
+        <Svg width={diameter} height={diameter} viewBox={`0 0 ${diameter} ${diameter}`} fill="none">
             <Path
                 d="M15 18L9 12L15 6"
                 stroke="#191F26"
@@ -44,8 +39,7 @@ function UpVectorIcon(props: VectorIconProps): VectorIconReturnType {
     const { diameter } = props;
 
     return (
-
-        <Svg width={diameter} height={diameter} viewBox={`0 0 24 24`} fill="none" xmlns="http://www.w3.org/2000/svg">
+        <Svg width={diameter} height={diameter} viewBox={`0 0 24 24`} fill="none">
             <Path
                 d="M18 15L12 9L6 15"
                 stroke="#191F26"
@@ -61,7 +55,6 @@ function DownVectorIcon(props: VectorIconProps): VectorIconReturnType {
     const { diameter } = props;
 
     return (
-
         <Svg width={diameter} height={diameter} viewBox={`0 0 24 24`} fill="none">
             <Path
                 d="M6 9L12 15L18 9"
@@ -78,12 +71,7 @@ function PlusVectorIcon(props: VectorIconProps): VectorIconReturnType {
     const { diameter } = props;
 
     return (
-        <Svg
-            width={diameter}
-            height={diameter}
-            viewBox={`0 0 ${diameter} ${diameter}`}
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg">
+        <Svg width={diameter} height={diameter} viewBox={`0 0 ${diameter} ${diameter}`} fill="none">
             <Path d="M12 5V19" stroke="#191F26" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
             <Path d="M5 12H19" stroke="#191F26" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
         </Svg>

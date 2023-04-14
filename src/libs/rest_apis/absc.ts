@@ -1,4 +1,4 @@
-import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
+import axios, { AxiosRequestConfig } from "axios";
 import { Requestable, Responsable } from "./types";
 
 abstract class AREST implements Requestable {
@@ -21,6 +21,7 @@ abstract class AREST implements Requestable {
             .catch((err) => {
                 return err.response;
             });
+            
         //console.log(this.isSuccessful(result?.status));
         return {
             isSuccessful: this.isSuccessful(result?.status),

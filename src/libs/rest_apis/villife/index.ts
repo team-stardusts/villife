@@ -4,6 +4,8 @@ import routes from "./routes";
 import { RoutesType } from "./routes/types";
 import {
     Authority,
+    CreateNoticeParams,
+    LoginResult,
     RefreshParmas,
     RefreshResult,
     RegisterFirebaseTokenParams,
@@ -11,10 +13,11 @@ import {
     SocialJoinParamsType,
     SocialJoinResultType,
     SocialLoginHostType,
-    SocialLoginResultType,
 } from "./types";
 import { Response } from "../types";
 import DotEnv from "../../dotenv";
+import VillifeStorage from "../../../hooks/storage";
+import { MediaUploadResult } from "./types";
 
 export const VILLIFE_AUTHORITY: Authority = {
     RENTER: 1,
@@ -25,9 +28,10 @@ export const VILLIFE_AUTHORITY: Authority = {
 
 class VillifeServer extends AREST {
     private env: DotEnv = new DotEnv();
+    private readonly storage = new VillifeStorage();
 
     readonly requester: AxiosInstance = axios.create({
-        baseURL: this.env.api.villife.REST_API_BASE_URL,
+        baseURL: /* "http://13.125.190.36:8080/", */ this.env.api.villife.REST_API_BASE_URL,
         timeout: 1000,
         timeoutErrorMessage:
             "The request timed out.\
@@ -36,9 +40,31 @@ class VillifeServer extends AREST {
 
     readonly routes: RoutesType = routes;
 
-    public async login(id: string, password: string): Promise<any> {}
+    getBaseURL(): string {
+        if (!this.env.api.villife.REST_API_BASE_URL) {
+            throw new Error("cannotget env");
+        }
+        return this.env.api.villife.REST_API_BASE_URL;
+    }
 
-    public async socialLogin(category: SocialLoginHostType, accessToken: string): Response<SocialLoginResultType> {
+    public async login(id: string, password: string): Response<LoginResult> {
+        let route: string = routes.login;
+
+        return await this.request<any, LoginResult>({
+            method: "post",
+            url: route,
+            data: {
+                id,
+                password,
+            },
+        });
+    }
+
+    public async logout(): Promise<boolean> {
+        return await this.storage.login.set(null);
+    }
+
+    public async socialLogin(category: SocialLoginHostType, accessToken: string): Response<LoginResult> {
         let route: string;
 
         switch (category) {
@@ -49,7 +75,7 @@ class VillifeServer extends AREST {
                 route = this.routes.naverSocialLogin;
         }
 
-        return await this.request<any, SocialLoginResultType>({
+        return await this.request<any, LoginResult>({
             method: "post",
             url: route,
             data: { access_token: accessToken },
@@ -65,14 +91,14 @@ class VillifeServer extends AREST {
             url: route,
             method: "get",
             headers: {
-                //"Content-Type": "application/json",
-                Authorization: "Bearer " + "", //params.accessToken,
+                "Content-Type": "application/json",
+                Authorization: "Bearer " + params.accessToken,
             },
             params: {
                 firebase_token: params.firebaseToken,
             },
         });
-
+        console.log(result.data);
         if (!result.isSuccessful) {
             const refreshResult = await this.refresh({
                 expiredAccessToken: params.accessToken,
@@ -125,6 +151,40 @@ class VillifeServer extends AREST {
                 expired_access_token: params.expiredAccessToken,
                 refresh_token: params.refreshToken,
             },
+        });
+    }
+
+    public async uploadImage(formData: FormData): Response<MediaUploadResult> {
+        let route: string = this.routes.uploadImage;
+        const logindata = await this.storage.login.get();
+        if (!logindata) {
+            console.log("request uploading images api, login data :", logindata);
+            Promise.reject(new Error("Login data not found"));
+        }
+        console.log("request uploading images api, login data :", logindata);
+
+        return await this.request<any, MediaUploadResult>({
+            method: "post",
+            url: route,
+            headers: {
+                "Content-Type": "multipart/form-data",
+                Authorization: `Bearer ${logindata?.accessToken}`,
+            },
+            data: formData,
+        });
+    }
+    public async createNotice(params: CreateNoticeParams): Response<RefreshResult> {
+        let route: string = this.routes.createNotice;
+        const loginData = await this.storage.login.get();
+
+        console.log(params);
+        return await this.request<any, RefreshResult>({
+            method: "post",
+            url: route,
+            headers: {
+                Authorization: `Bearer ${loginData?.accessToken}`,
+            },
+            data: params,
         });
     }
 }

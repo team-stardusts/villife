@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
 import { enableScreens } from "react-native-screens";
-import { useRecoilState, useRecoilValue } from "recoil";
-import { isLoggedInState, loginDataState } from "../../hooks/states/atoms/login";
-import useLoginSession from "../../hooks/session";
+import { useRecoilState } from "recoil";
+import { loginDataState } from "../../hooks/states/atoms/login";
 import { createNativeStackNavigator, NativeStackScreenProps } from "@react-navigation/native-stack";
-import { StackParamList } from "./types";
+import { RouterParams, StackParamList } from "./types";
 import LoginScreen from "../screens/auth/login";
 import CreateAccountScreen from "../screens/auth/create_account";
 import SetBuildingScreen from "../screens/auth/set_building";
@@ -12,7 +11,7 @@ import TermsOfServiceScreen from "../screens/auth/terms_of_service/index.";
 import SearchAddressScreen from "../screens/reusable/search_address";
 import HomeScreen from "../screens/main/home";
 import SplashScreen from "../screens/splash/splash_screen";
-import { NavigationContainer, useNavigation } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
 import TestScreen from "../screens/test";
 import WelcomeScreen from "../screens/auth/welcome";
 import { useAutoRegisterFirebaseToken } from "../../hooks/firebase/hooks";
@@ -25,8 +24,6 @@ enableScreens(true);
 
 const Stack = createNativeStackNavigator<StackParamList>();
 
-type RouterParams = NativeStackScreenProps<StackParamList>;
-
 export default function ScreenRouter() {
     const [isLoading, setIsLoading] = useState(true);
     //const [isLoggedIn, setIsLoggedIn] = useRecoilState<boolean | null>(isLoggedInState);
@@ -37,7 +34,6 @@ export default function ScreenRouter() {
     useAutoRegisterFirebaseToken();
 
     const bootstrap = async () => {
-        //await storage.login.set(null);
         const loginDataInStorage = await storage.login.get();
         setLoginData(loginDataInStorage);
         setIsLoading(false);
@@ -49,13 +45,12 @@ export default function ScreenRouter() {
             return;
         }
         if (loginData === null) {
-            navigation.navigate("login", {});
-            /* navigation.reset({
+
+            //navigation.navigate("permission_request", {});
+            navigation.reset({
                 index: 0,
                 routes: [{ name: "login", params: {} }],
-            }); */
-            //navigation.navigate("welcome", { role: "member", id: "test", password: "test" });
-            //navigation.navigate("test", {});
+            });
         } else {
             navigation.reset({
                 index: 0,
@@ -82,7 +77,7 @@ export default function ScreenRouter() {
                 <Stack.Screen name={"welcome"} component={WelcomeScreen} />
                 <Stack.Screen name={"set_building"} component={SetBuildingScreen} />
             </Stack.Group>
-            <Stack.Group screenOptions={{ headerShown: true }}>
+            <Stack.Group>
                 <Stack.Screen name={"home"} component={HomeScreen} />
             </Stack.Group>
             <Stack.Group>

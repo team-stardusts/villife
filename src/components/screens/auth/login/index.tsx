@@ -1,6 +1,6 @@
-import { Pressable, SafeAreaView, Text, View } from "react-native";
+import { Alert, Pressable, SafeAreaView, Text, View } from "react-native";
 import useScreenMessage from "../../../../hooks/multilingual/hooks";
-import LoginScreenProps, { LoginScreenStylesType } from "./types";
+import LoginScreenProps from "./types";
 import useLoginScreenStyles from "./styles";
 import UniversalTextInput from "../../../blocks/universial/textinput";
 import UniversialButton from "../../../blocks/universial/button";
@@ -10,21 +10,19 @@ import useSystemInfo from "../../../../hooks/systeminfo/hooks";
 import SocialLoginIcon from "../../../blocks/icon/login";
 import useAppTheme from "../../../../hooks/themes/hooks";
 import { useLoginService } from "../../../../hooks/services/hooks";
-import { SocialLoginHostType } from "../../../../libs/rest_apis/villife/types";
 import AuthScreenTitleView from "../../../blocks/auth_screens/title_view";
 import { loginDataState } from "../../../../hooks/states/atoms/login";
 import { LoginDataStateType } from "../../../../hooks/states/atoms/login/types";
 import useVillifeStorage from "../../../../hooks/storage/hooks";
 import { Toast } from "react-native-toast-message/lib/src/Toast";
+import { HostType } from "../../../../hooks/storage/tables/login/types";
+import useAuthService from "../../../../hooks/services/login/hooks";
+import { LoginServiceParams } from "../../../../hooks/services/login/types";
 //import AppRoutes from '../../../../data/routes.json';
 
-type UserAuth = {
-    id: string | null;
-    password: string | null;
-};
-
 export default function LoginScreen({ navigation }: LoginScreenProps) {
-    const loginManager = useLoginService();
+    const loginm = useLoginService();
+    const login = useAuthService().login;
     const messages = useScreenMessage();
     const theme = useAppTheme();
     const systemInfo = useSystemInfo();
@@ -34,45 +32,31 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
 
     const [isSocialLoginButtonPressed, setIsSocialLoginButtonPressed] = useState<boolean>(false);
 
-    const [auth, setAuth] = useState<UserAuth>({
-        id: null,
-        password: null,
+    const [account, setAccount] = useState<LoginServiceParams>({
+        id: "",
+        password: "",
     });
 
-    const [_, setLoginData] = useRecoilState<LoginDataStateType>(loginDataState);
 
-    const handleLogin = async (host: SocialLoginHostType) => {
-        console.log("ds");
-        const { isSuccessful, data, socailAccessToken } = await loginManager[host].login(); // LoginManager.naver.login();
-        console.log("dsd");
-        if (isSuccessful && data) {
-            const loginData = {
-                host: host,
-                accessToken: data.data.access_token,
-                refreshToken: data.data.refresh_token,
-                accessTokenExpiresAt: data.data.expire_at,
-            };
-            console.log(loginData);
+    const handleLogin = async (host: HostType, params: LoginServiceParams | undefined) => {
+        const result = await login(host, params);
 
-            const setStorageResult = await storage.login.set(loginData);
 
-            if (setStorageResult === null) {
-                // [TO-DO] Storage에 저장하지 못한 예외 상황 처리
-            } else {
-                setLoginData(loginData);
-            }
-
+        if (result.isSuccessful && result.data) {
             navigation.reset({
                 index: 0,
                 routes: [{ name: "home", params: {} }],
             });
-        } else if (!isSuccessful) {
-            console.log(data);
-            // Modal & Navigate to join screen.
-            navigation.navigate("create_account", {
-                host: host,
-                access_token: socailAccessToken,
-            });
+
+        } else {
+            if (host === "villife") {
+                Alert.alert("잘못 된 계정 정보가 입력 되었습니다.", "옳바른 아이디와 패스워드를 입력해주세요.");
+            } else {
+                navigation.navigate("create_account", {
+                    host: host,
+                    access_token: result.socialAccessToken,
+                });
+            }
         }
     };
 
@@ -89,18 +73,6 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
     return (
         <SafeAreaView style={styles.Screen.topLevelBox}>
             <View style={styles.Screen.contentsBox}>
-                {/*
-            <View style={styles.GreetingSection.topLevelBox}>
-                <View style={styles.GreetingSection.textWrapper}>
-                    <Text style={styles.GreetingSection.text}>
-                        {Messages.messages.auth.login.request_login.line_1}
-                    </Text>
-                    <Text style={styles.GreetingSection.text}>
-                        {Messages.messages.auth.login.request_login.line_2}
-                    </Text>
-                </View>
-            </View>
-            */}
                 <AuthScreenTitleView
                     title={`${messages.messages.auth.login.request_login.line_1}\n${messages.messages.auth.login.request_login.line_2}`}
                 />
@@ -113,7 +85,7 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
                             <UniversalTextInput
                                 name="id"
                                 onChangeText={(text, name) => {
-                                    if (name === "id") setAuth({ ...auth, [name]: text });
+                                    if (name === "id") setAccount({ ...account, [name]: text });
                                 }}
                             />
                         </View>
@@ -124,7 +96,7 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
                             <UniversalTextInput
                                 name="password"
                                 onChangeText={(text, name) => {
-                                    if (name === "password") setAuth({ ...auth, [name]: text });
+                                    if (name === "password") setAccount({ ...account, [name]: text });
                                 }}
                                 secureTextEntry
                             />
@@ -133,14 +105,13 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
                             <UniversialButton
                                 title={messages.messages.auth.login.title_of_login_btn}
                                 titleStyle={styles.LoginInputSection.btnTitle}
-                                onPress={() => loginManager.naver.logout()}
-                                //onPress={() => LoginManager.stardusts.login()}
+                                onPress={() => handleLogin("villife", account)}
                                 disabled={false}
                             />
                         </View>
                         <Pressable
                             style={styles.LoginInputSection.socialLoginBtn}
-                            onPress={() => handleLogin("naver")}
+                            onPress={() => handleLogin("naver", account)}
                             onPressIn={() => setIsSocialLoginButtonPressed(true)}
                             onPressOut={() => setIsSocialLoginButtonPressed(false)}>
                             <View style={styles.LoginInputSection.socialLoginBtnIconWrapper}>
@@ -172,13 +143,11 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
                                         styles.JoinLinkSection.text,
                                     ]}
                                     onPress={() => {
-                                        /*navigation.navigate(
-                                    "create_account",
-                                    {
-                                        host: "villife",
-                                        access_token: null,
-                                    }*/
-                                        showToast();
+
+                                        navigation.navigate("create_account", {
+                                            host: "villife",
+                                            access_token: undefined,
+                                        });
                                     }}>
                                     {messages.messages.auth.login.join}
                                 </Text>
