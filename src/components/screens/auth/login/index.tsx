@@ -15,6 +15,7 @@ import AuthScreenTitleView from "../../../blocks/auth_screens/title_view";
 import { loginDataState } from "../../../../hooks/states/atoms/login";
 import { LoginDataStateType } from "../../../../hooks/states/atoms/login/types";
 import useVillifeStorage from "../../../../hooks/storage/hooks";
+import { Toast } from "react-native-toast-message/lib/src/Toast";
 //import AppRoutes from '../../../../data/routes.json';
 
 type UserAuth = {
@@ -41,8 +42,9 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
     const [_, setLoginData] = useRecoilState<LoginDataStateType>(loginDataState);
 
     const handleLogin = async (host: SocialLoginHostType) => {
+        console.log("ds");
         const { isSuccessful, data, socailAccessToken } = await loginManager[host].login(); // LoginManager.naver.login();
-
+        console.log("dsd");
         if (isSuccessful && data) {
             const loginData = {
                 host: host,
@@ -50,6 +52,7 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
                 refreshToken: data.data.refresh_token,
                 accessTokenExpiresAt: data.data.expire_at,
             };
+            console.log(loginData);
 
             const setStorageResult = await storage.login.set(loginData);
 
@@ -64,12 +67,23 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
                 routes: [{ name: "home", params: {} }],
             });
         } else if (!isSuccessful) {
+            console.log(data);
             // Modal & Navigate to join screen.
             navigation.navigate("create_account", {
                 host: host,
                 access_token: socailAccessToken,
             });
         }
+    };
+
+    const showToast = () => {
+        Toast.show({
+            type: "success",
+            text1: "서비스 준비중입니다.",
+            position: "bottom",
+            visibilityTime: 1500,
+            bottomOffset: systemInfo.window.height * 0.12,
+        });
     };
 
     return (
@@ -164,7 +178,7 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
                                         host: "villife",
                                         access_token: null,
                                     }*/
-                                        handleLogin("naver");
+                                        showToast();
                                     }}>
                                     {messages.messages.auth.login.join}
                                 </Text>
@@ -186,7 +200,8 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
                                                 : systemInfo.window.width * 0.035,
                                         },
                                         styles.JoinLinkSection.text,
-                                    ]}>
+                                    ]}
+                                    onPress={showToast}>
                                     {messages.messages.auth.login.reset_password}
                                 </Text>
                             )}

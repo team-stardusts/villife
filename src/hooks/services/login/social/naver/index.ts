@@ -16,11 +16,13 @@ class NaverLoginManager extends ALoginManager implements INaverLoginManager {
     private env: DotEnv = new DotEnv();
 
     public async login(): Promise<NaverLoginResultType> {
+        console.log("1");
         const params = {
             kServiceAppName: this.env.app.NAME ?? "",
             kConsumerKey: this.env.api.naver.API_CONSUMER_KEY ?? "",
             kConsumerSecret: this.env.api.naver.API_CONSUMER_SECRET ?? "",
         };
+        console.log(params);
 
         if (this.systemInfo.platform.OS === "ios") {
             Object.assign(params, { kServiceAppUrlScheme: this.env.api.naver.API_SERVISE_URL_SHEME ?? "" });

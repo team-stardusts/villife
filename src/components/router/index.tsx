@@ -49,7 +49,7 @@ export default function ScreenRouter() {
             return;
         }
         if (loginData === null) {
-            navigation.navigate("permission_request", {});
+            navigation.navigate("login", {});
             /* navigation.reset({
                 index: 0,
                 routes: [{ name: "login", params: {} }],
