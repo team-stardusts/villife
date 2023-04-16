@@ -32,7 +32,7 @@ class VillifeServer extends AREST {
     private readonly storage = new VillifeStorage();
 
     readonly requester: AxiosInstance = axios.create({
-        baseURL: /* "http://13.125.190.36:8080/", */ this.env.api.villife.REST_API_BASE_URL,
+        baseURL: "http://13.125.190.36:8080/", //this.env.api.villife.REST_API_BASE_URL,
         timeout: 1000,
         timeoutErrorMessage:
             "The request timed out.\
@@ -99,7 +99,7 @@ class VillifeServer extends AREST {
                 firebase_token: params.firebaseToken,
             },
         });
-        console.log(result.data);
+        //console.log(result.data);
         if (!result.isSuccessful) {
             const refreshResult = await this.refresh({
                 expiredAccessToken: params.accessToken,

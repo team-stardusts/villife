@@ -1,18 +1,22 @@
-import { useNavigation } from "@react-navigation/native";
-import { useState } from "react";
-import { LayoutAnimation, SafeAreaView, Text, TouchableOpacity, View } from "react-native";
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
+import { useCallback, useEffect, useState } from "react";
+import { Alert, BackHandler, LayoutAnimation, SafeAreaView, Text, TouchableOpacity, View } from "react-native";
+import useScreenMessage from "../../../hooks/multilingual/hooks";
 import useAppTheme from "../../../hooks/themes/hooks";
 import Icon from "../../atoms/icon";
-import { IconSeries } from "../../atoms/icon/types";
 import { RouterParams, StackParamList } from "../../router/types";
 import useNavigationViewStyles from "./styles";
-import NavigationViewProps, { HeaderOptions } from "./types";
+import NavigationViewProps, { BottomLink } from "./types";
 
 export default function NavigationView({ headerOptions, bottomNavOptions, children }: NavigationViewProps) {
-    const styles = useNavigationViewStyles();
     const theme = useAppTheme();
+    const message = useScreenMessage();
+    const styles = useNavigationViewStyles();
     const navigation = useNavigation<RouterParams["navigation"]>();
+
+    const [currentRootScreen, setCurrentRootPage] = useState<keyof StackParamList>("home");
     const [backBtnColor, setBackBtnColor] = useState<string>(theme.colors.colorFamily.black);
+    const [menuBtnHighlight, setMenuBtnHighlight] = useState<boolean>(false);
 
     const headerShown: boolean = headerOptions?.shown ?? true;
     const bottomNavShown: boolean = bottomNavOptions?.shown ?? true;
@@ -24,28 +28,56 @@ export default function NavigationView({ headerOptions, bottomNavOptions, childr
     const handleBackBtnPress = () => {
         LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
 
-        setBackBtnColor(
-            backBtnColor === theme.colors.colorFamily.black
-                ? theme.colors.colorFamily.black
-                : theme.colors.colorFamily.grey
-        );
+        setBackBtnColor(theme.colors.colorFamily.black);
 
         navigation.pop();
     };
 
-    type BottomLink = {
-        icon: IconSeries;
-        caption: string;
-        screen: {
-            name: keyof StackParamList;
-            params: StackParamList[BottomLink["screen"]["name"]];
-        };
+    const handleMenuPress = (params: BottomLink["screen"]) => {
+        LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+
+        setMenuBtnHighlight(!menuBtnHighlight);
+
+        navigation.reset({
+            index: 0,
+            routes: [params],
+        });
     };
+
+    useEffect(() => {
+        setCurrentRootPage(navigation.getState().routes[0].name);
+    }, []);
+
+    useFocusEffect(
+        useCallback(() => {
+            // 현재 스크린이 루트 스크린일 시 Alert 생성
+            // [TO-DO] Alert 컴포넌트와 메세지 변경 필요
+            const onBackPress = () => {
+                const routes = navigation.getState().routes;
+
+                // 현재 스크린이 루트 스크린일 시
+                if (routes.length === 1) {
+                    Alert.alert("잠시만요!", "앱을 종료하시겠습니까?", [
+                        {
+                            text: "취소",
+                            onPress: () => null,
+                        },
+                        { text: "확인", onPress: () => BackHandler.exitApp() },
+                    ]);
+                    return true;
+                }
+            };
+
+            const subscription = BackHandler.addEventListener("hardwareBackPress", onBackPress);
+
+            return () => subscription.remove();
+        }, [])
+    );
 
     const bottomLinks: BottomLink[] = [
         {
             icon: "home",
-            caption: "홈",
+            caption: message.messages.main.home.screen_title,
             screen: {
                 name: "home",
                 params: {},
@@ -53,7 +85,7 @@ export default function NavigationView({ headerOptions, bottomNavOptions, childr
         },
         {
             icon: "car",
-            caption: "주차",
+            caption: message.messages.main.parking.screen_title,
             screen: {
                 name: "parking",
                 params: {},
@@ -61,7 +93,7 @@ export default function NavigationView({ headerOptions, bottomNavOptions, childr
         },
         {
             icon: "wallet",
-            caption: "관리비",
+            caption: message.messages.main.payment.screen_title,
             screen: {
                 name: "payment",
                 params: {},
@@ -69,7 +101,7 @@ export default function NavigationView({ headerOptions, bottomNavOptions, childr
         },
         {
             icon: "messenger",
-            caption: "민원",
+            caption: message.messages.main.complaints.screen_title,
             screen: {
                 name: "noti_home",
                 params: {},
@@ -77,7 +109,7 @@ export default function NavigationView({ headerOptions, bottomNavOptions, childr
         },
         {
             icon: "person",
-            caption: "마이페이지",
+            caption: message.messages.main.mypage.screen_title,
             screen: {
                 name: "mypage",
                 params: {},
@@ -91,7 +123,7 @@ export default function NavigationView({ headerOptions, bottomNavOptions, childr
                 <View style={styles.headerBox}>
                     <View style={styles.headerNavBox}>
                         {navigation.getState().index > 0 && (
-                            <TouchableOpacity style={styles.headerNavIconBox} onPress={handleBackBtnPress}>
+                            <TouchableOpacity style={styles.headerNavIconBox} onPress={() => handleBackBtnPress()}>
                                 <Icon name="arrow-left" size={80} color={backBtnColor} />
                             </TouchableOpacity>
                         )}
@@ -110,18 +142,35 @@ export default function NavigationView({ headerOptions, bottomNavOptions, childr
                     {bottomLinks.map((obj, index) => (
                         <TouchableOpacity
                             key={index}
+                            activeOpacity={1}
                             style={styles.bottomNavWrapper}
                             onPress={() => {
-                                navigation.reset({
-                                    index: 0,
-                                    routes: [{ name: obj.screen.name, params: obj.screen.params }],
-                                });
+                                handleMenuPress({ name: obj.screen.name, params: obj.screen.params });
                             }}>
                             <View style={styles.bottomNavIconBox}>
-                                <Icon name={obj.icon} size={50} color={backBtnColor} />
+                                <Icon
+                                    name={obj.icon}
+                                    size={50}
+                                    color={
+                                        currentRootScreen === obj.screen.name
+                                            ? theme.colors.colorFamily.black
+                                            : theme.colors.colorFamily.lightgrey
+                                    }
+                                />
                             </View>
                             <View style={styles.bottomNavCaptionBox}>
-                                <Text style={styles.bottomNavCaption}>{obj.caption}</Text>
+                                <Text
+                                    style={[
+                                        styles.bottomNavCaption,
+                                        {
+                                            color:
+                                                currentRootScreen === obj.screen.name
+                                                    ? theme.colors.colorFamily.black
+                                                    : theme.colors.colorFamily.lightgrey,
+                                        },
+                                    ]}>
+                                    {obj.caption}
+                                </Text>
                             </View>
                         </TouchableOpacity>
                     ))}

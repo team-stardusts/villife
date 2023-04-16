@@ -14,15 +14,15 @@ export class LightTheme implements ThemeTypes.ITheme {
             lightgrey: "#D9D9D9",
             red: "#EC2222",
             white: "#FFFFFF",
-        }
+        },
     };
     readonly css = {
         font: {
             universial: {
                 fontFamily: "pretendard",
-            }
-        }
-    }
+            },
+        },
+    };
 }
 
 /*

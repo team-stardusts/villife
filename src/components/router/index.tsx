@@ -45,7 +45,6 @@ export default function ScreenRouter() {
             return;
         }
         if (loginData === null) {
-
             //navigation.navigate("permission_request", {});
             navigation.reset({
                 index: 0,
@@ -68,7 +67,7 @@ export default function ScreenRouter() {
     }, []);
 
     return (
-        <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName={"login"}>
+        <Stack.Navigator screenOptions={{ headerShown: false, animation: "fade" }} initialRouteName={"login"}>
             <Stack.Group>
                 <Stack.Screen name={"permission_request"} component={PermissionRequestScreen} />
                 <Stack.Screen name={"login"} component={LoginScreen} />

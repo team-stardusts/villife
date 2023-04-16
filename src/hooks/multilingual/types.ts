@@ -8,12 +8,24 @@ export type Languages = "korean" | "english";
 export type MessagesByLanguage = {
     main: {
         home: {
-            page_name: string;
+            screen_title: string;
+        };
+        parking: {
+            screen_title: string;
+        };
+        complaints: {
+            screen_title: string;
+        };
+        payment: {
+            screen_title: string;
+        };
+        mypage: {
+            screen_title: string;
         };
     };
     auth: {
         login: {
-            page_name: string;
+            screen_title: string;
             request_login: {
                 line_1: string;
                 line_2: string;
@@ -26,7 +38,7 @@ export type MessagesByLanguage = {
             reset_password: string;
         };
         join: {
-            page_name: string;
+            screen_title: string;
             join: string;
             identification: string;
             title_of_name_input: string;
@@ -35,7 +47,7 @@ export type MessagesByLanguage = {
             title_of_send_btn: string;
         };
         create_account: {
-            page_name: string;
+            screen_title: string;
             title: string;
             subtitle_1: string;
             subtitle_2: string;
@@ -49,7 +61,7 @@ export type MessagesByLanguage = {
             next_btn_title: string;
         };
         set_building: {
-            page_name: string;
+            screen_title: string;
             title: string;
             subtitle: string;
             adress_input_title: string;
@@ -64,7 +76,7 @@ export type MessagesByLanguage = {
             next_btn_title_when_change_next: string;
         };
         terms_of_service: {
-            page_name: string;
+            screen_title: string;
             title: string;
             subtitle: string;
             terms_of_service_all: string;
@@ -72,14 +84,14 @@ export type MessagesByLanguage = {
             terms_of_service_Privacy: string;
         };
         welcome: {
-            page_name: string;
+            screen_title: string;
             title: string;
             subtitle_1: string;
             subtitle_2: string;
             next_btn_title: string;
         };
         permission_request: {
-            page_name: string;
+            screen_title: string;
             title: string;
             subtitle_1: string;
             phone_permission_1: string;
@@ -98,10 +110,10 @@ export type MessagesByLanguage = {
         };
     };
     splash: {
-        page_name: string;
+        screen_title: string;
     };
     words: {
-        admin: string;
+        screen_title: string;
         renter: string;
         landlord: string;
         siteAdmin: string;
