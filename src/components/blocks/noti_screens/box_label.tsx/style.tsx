@@ -8,6 +8,9 @@ const ContentLableStyle = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
     },
+    textStyle: {
+        color: "white",
+    },
 });
 
 export default ContentLableStyle;

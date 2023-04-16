@@ -1,4 +1,13 @@
-import { Dimensions, KeyboardAvoidingView, Platform, ScrollView, StyleSheet, TextInput, View } from "react-native";
+import {
+    Dimensions,
+    KeyboardAvoidingView,
+    Platform,
+    ScrollView,
+    StyleSheet,
+    TextInput,
+    TouchableOpacity,
+    View,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Text } from "react-native";
 import React, { useRef } from "react";
@@ -8,6 +17,8 @@ import { IconRecord, RichEditor, RichToolbar, actions } from "react-native-pell-
 import ImageUploader from "../../../../libs/media/uploader";
 import { CreateNoticeParams } from "../../../../libs/rest_apis/villife/types";
 import VillifeServer from "../../../../libs/rest_apis/villife";
+import Toast from "react-native-toast-message";
+import NavigationView from "../../../blocks/navigation";
 
 function NoticeRegisterScreen(props: NoticeRegisterScreenProps) {
     const content = useRef("");
@@ -27,26 +38,45 @@ function NoticeRegisterScreen(props: NoticeRegisterScreenProps) {
 
         const reuslt = await api.createNotice(param);
 
-        if (reuslt.data?.status == 200) props.navigation.goBack();
+        if (reuslt.data?.status == 200) {
+            Toast.show({
+                type: "success",
+                text1: "공지사항 등록 완료",
+                position: "bottom",
+                visibilityTime: 1500,
+                bottomOffset: 200,
+            });
+            props.navigation.goBack();
+        } else {
+            Toast.show({
+                type: "error",
+                text1: `공지사항 등록 실패`,
+                position: "bottom",
+                visibilityTime: 1500,
+                bottomOffset: 200,
+            });
+        }
 
         console.log("create notice result\n", reuslt.data?.data);
     };
 
     return (
-        <SafeAreaView style={{ flex: 1 }}>
-            <View style={{ width: "100%", height: "10%", backgroundColor: "red" }}>
-                <Text>Top Nav</Text>
-                <Button
-                    style={{ width: 200, height: 50, backgroundColor: "blue" }}
-                    title="등록하기"
-                    titleStyle={{ color: "white" }}
-                    onPress={() => onSubmit()}></Button>
-            </View>
-            <NotiEditor contentRef={content} titleRef={titile} />
-            <View style={{ width: "100%", height: "10%", backgroundColor: "red" }}>
-                <Text>Bottom Nav</Text>
-            </View>
-        </SafeAreaView>
+        <NavigationView
+            headerOptions={{
+                title: "공지사항 등록",
+                shown: true,
+                navComponent: ReigsterButton,
+                navComponentProps: {
+                    onSubmit: () => {
+                        onSubmit();
+                    },
+                },
+            }}
+            bottomNavOptions={{ shown: false }}>
+            <SafeAreaView style={{ flex: 1 }}>
+                <NotiEditor contentRef={content} titleRef={titile} />
+            </SafeAreaView>
+        </NavigationView>
     );
 }
 
@@ -81,14 +111,13 @@ function NotiEditor(props: NotiEditorProps) {
                 <TextInput onChangeText={(text) => (props.titleRef.current = text)} placeholder="제목을 입력하세요" />
                 <RichEditor
                     onChange={(text) => {
-                        console.log(text);
                         props.contentRef.current = text;
                     }}
                     initialFocus={false}
                     firstFocusEnd={false}
                     editorStyle={EditorStyle.contentStyle} // default light style
                     ref={richText}
-                    style={[EditorStyle.rich, { height: size.height * 0.7 }]}
+                    style={[EditorStyle.rich, { height: size.height * 0.8 }]}
                     useContainer={false}
                     enterKeyHint={"done"}
                     placeholder={"please input content"}
@@ -155,12 +184,12 @@ const EditorStyle = StyleSheet.create({
         flex: 1,
         borderColor: "#e3e3e3",
     },
-
     richBar: {
-        borderColor: "#efefef",
+        borderColor: "white",
+        backgroundColor: "white",
     },
     richBarDark: {
-        backgroundColor: "#191d20",
+        backgroundColor: "white",
         borderColor: "#696969",
     },
     contentStyle: {
@@ -189,3 +218,23 @@ const EditorStyle = StyleSheet.create({
         paddingHorizontal: 12,
     },
 });
+
+function ReigsterButton({ onSubmit }: { onSubmit: () => void }) {
+    return (
+        <View
+            style={{
+                backgroundColor: "tomato",
+                height: "100%",
+                alignItems: "flex-end",
+                justifyContent: "center",
+                paddingRight: 15,
+            }}>
+            <TouchableOpacity
+                onPress={() => {
+                    onSubmit();
+                }}>
+                <Text>등록하기</Text>
+            </TouchableOpacity>
+        </View>
+    );
+}

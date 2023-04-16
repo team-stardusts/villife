@@ -6,6 +6,7 @@ import OutlinedBoxStyle from "./style";
 import PressableVectorIcon from "../../icon/vector";
 import { OutlinedBoxProps } from "./type";
 import NotiLable from "../box_label.tsx";
+import WebView, { WebViewMessageEvent } from "react-native-webview";
 
 /**
  * @param OutlinedBoxProp
@@ -14,6 +15,20 @@ import NotiLable from "../box_label.tsx";
 function OutlinedBox(props: OutlinedBoxProps) {
     const [unfold, setUnfold] = React.useState(false);
     const size = Dimensions.get("window");
+
+    const [contentHeight, setContentHeight] = React.useState(0);
+    const lock = React.useRef(false);
+
+    const handleMessage = (event: WebViewMessageEvent) => {
+        const height = Number(event.nativeEvent.data);
+
+        if (lock.current) return;
+        if (height > 0) {
+            console.log(height / 2);
+            setContentHeight(height / 2);
+            lock.current = true;
+        }
+    };
 
     const onPress = () => {
         setUnfold(!unfold);
@@ -42,10 +57,10 @@ function OutlinedBox(props: OutlinedBoxProps) {
                                 borderBottomColor: "#0B75F2",
                             },
                         ]}>
-                        <NotiLable priority={props.priority} name={props.priorityName} />
+                        <NotiLable priority={props.priority} />
                         <View style={OutlinedBoxStyle.titleTextBox}>
-                            <Text style={[]}>공지사항제목</Text>
-                            <Text style={[]}>2023-01</Text>
+                            <Text style={[]}>{props.title}</Text>
+                            <Text style={[]}>{props.wroteAt}</Text>
                         </View>
                         <View style={OutlinedBoxStyle.absoluteWrapper}>
                             <PressableVectorIcon
@@ -57,12 +72,39 @@ function OutlinedBox(props: OutlinedBoxProps) {
                             />
                         </View>
                     </View>
+
                     {unfold && (
-                        <Text>
-                            {
-                                "hello \n hello \n hello \n hello \n hello \n hello \n hello \n hello \n hello \n hello \n hello \n hello \n hello \n hello \n"
+                        <WebView
+                            style={{ height: contentHeight, width: size.width * 0.9 }}
+                            originWhitelist={["*"]}
+                            onMessage={handleMessage}
+                            source={{
+                                html: `<!DOCTYPE html>
+                            <html>
+                            <style> 
+                            body {
+                              font-size: 16px;
                             }
-                        </Text>
+                            div {
+                              color: #333;
+                              font-size: 50px;
+                            }
+                            img {
+                                width: 500px;
+                                height: 500px;
+                                object-fit: cover;
+                                display:block;
+                              }
+                            </style>
+                              <body>
+                                ${props.content}
+                                <script>
+                                const height = Math.max(document.documentElement.clientHeight, document.documentElement.scrollHeight, document.body.clientHeight, document.body.scrollHeight);
+                                window.ReactNativeWebView.postMessage(height.toString());
+                                 </script>
+                              </body>
+                            </html>`,
+                            }}></WebView>
                     )}
                 </View>
             </Pressable>

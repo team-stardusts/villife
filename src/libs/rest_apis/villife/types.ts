@@ -1,5 +1,6 @@
 import { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
 import { Requestable, Responsable, Response } from "../types";
+import { ContentPriority } from "../../../components/blocks/noti_screens/box_label.tsx/type";
 
 /* export default interface IVillifeRESTAPI extends Requestable {
     login(id: string, password: string): Response<any>;
@@ -63,8 +64,19 @@ export type MediaUploadResult = {
 };
 
 export type CreateNoticeParams = {
-    priority: 1 | 2 | 3 | 4;
+    priority: ContentPriority;
     title: string;
     content: string;
     building_id: number;
 };
+
+export type Notice = {
+    ID: number;
+    Priority: ContentPriority;
+    Title: string;
+    Content: string;
+    CreatedAt: string;
+    UpdatedAt: string;
+};
+
+export type GetNoticesResult = Array<Notice>;

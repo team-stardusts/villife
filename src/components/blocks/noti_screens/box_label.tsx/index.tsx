@@ -4,24 +4,22 @@ import ContentLableStyle from "./style";
 
 function NotiLable(props: ContentLableProps) {
     switch (props.priority) {
-        case 0:
+        case 1:
             return (
-                <View style={[ContentLableStyle.container, { backgroundColor: "#EC2222" }]}>
-                    <Text>{props.name}</Text>
+                <View style={[ContentLableStyle.container, { backgroundColor: "red" }]}>
+                    <Text style={ContentLableStyle.textStyle}>필독</Text>
                 </View>
             );
-        case 1:
-            <View style={[ContentLableStyle.container, { backgroundColor: "blue" }]}>
-                <Text>{props.name}</Text>
-            </View>;
         case 2:
-            <View style={[ContentLableStyle.container, { backgroundColor: "green" }]}>
-                <Text>{props.name}</Text>
-            </View>;
+            return (
+                <View style={[ContentLableStyle.container, { backgroundColor: "green" }]}>
+                    <Text style={ContentLableStyle.textStyle}>레벨2</Text>
+                </View>
+            );
         case 3:
             return (
                 <View style={[ContentLableStyle.container, { backgroundColor: "#7C7C7C" }]}>
-                    <Text>{props.name}</Text>
+                    <Text style={ContentLableStyle.textStyle}>일반</Text>
                 </View>
             );
 

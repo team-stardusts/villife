@@ -5,6 +5,7 @@ import { RoutesType } from "./routes/types";
 import {
     Authority,
     CreateNoticeParams,
+    GetNoticesResult,
     LoginResult,
     RefreshParmas,
     RefreshResult,
@@ -173,12 +174,26 @@ class VillifeServer extends AREST {
             data: formData,
         });
     }
-    public async createNotice(params: CreateNoticeParams): Response<RefreshResult> {
+
+    public async getNotices(buildingID: number): Response<GetNoticesResult> {
+        let route: string = this.routes.getNoticesByBuildingID + `?building_id=${buildingID}`;
+        const loginData = await this.storage.login.get();
+
+        return await this.request<any, GetNoticesResult>({
+            method: "get",
+            url: route,
+            headers: {
+                Authorization: `Bearer ${loginData?.accessToken}`,
+            },
+        });
+    }
+
+    public async createNotice(params: CreateNoticeParams): Response<string> {
         let route: string = this.routes.createNotice;
         const loginData = await this.storage.login.get();
 
         console.log(params);
-        return await this.request<any, RefreshResult>({
+        return await this.request<any, string>({
             method: "post",
             url: route,
             headers: {

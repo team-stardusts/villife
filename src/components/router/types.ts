@@ -31,3 +31,4 @@ export type StackParamList = {
 };
 
 export type RouterParams = NativeStackScreenProps<StackParamList>;
+export type VilifeNavigation = RouterParams["navigation"];
