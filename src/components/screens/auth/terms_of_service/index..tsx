@@ -13,6 +13,7 @@ export default function TermsOfServiceScreen({ navigation, route }: TermsOfServi
     const iconDiameter: number = useSystemInfo().window.width * 0.065;
     const Messages = useScreenMessage();
     const Styles = useTermsOfServiceScreenStyles();
+
     const [isAllGranted, setIsAllGranted] = useState(false);
     const [isPrivacyGranted, setIsPrivacyGranted] = useState(false);
     const [isServiceGranted, setIsServiceGranted] = useState(false);

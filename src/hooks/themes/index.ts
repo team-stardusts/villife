@@ -16,11 +16,38 @@ export class LightTheme implements ThemeTypes.ITheme {
             white: "#FFFFFF",
         },
     };
-    readonly css = {
-        font: {
-            universial: {
-                fontFamily: "pretendard",
-            },
+    readonly fonts = {
+        title1: {
+            fortFamily: "Pretendard-ExtraBold",
+            fontSize: 26,
+        },
+        title2: {
+            fortFamily: "Pretendard-Bold",
+            fontSize: 18,
+        },
+        body1: {
+            fortFamily: "Pretendard-Bold",
+            fontSize: 16,
+        },
+        body2: {
+            fortFamily: "Pretendard-Bold",
+            fontSize: 14,
+        },
+        subTitle1: {
+            fortFamily: "Pretendard-Regular",
+            fontSize: 14,
+        },
+        caption1: {
+            fortFamily: "Pretendard-Bold",
+            fontSize: 12,
+        },
+        caption2: {
+            fortFamily: "Pretendard-bold",
+            fontSize: 10,
+        },
+        caption3: {
+            fortFamily: "Pretendard-Regular",
+            fontSize: 10,
         },
     };
 }
@@ -53,7 +80,6 @@ export class DarkTheme implements ThemeTypes.ITheme {
 
 //export class DarkTheme implements ThemeTypes.ITheme{
 //}
-
 export default class AppThemes implements ThemeTypes.IThemes {
     readonly LightTheme = new LightTheme();
     readonly DarkTheme = new LightTheme();
