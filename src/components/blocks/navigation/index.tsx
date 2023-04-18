@@ -26,7 +26,7 @@ export default function NavigationView({ headerOptions, bottomNavOptions, childr
     navComponentProps = navComponentProps !== undefined ? navComponentProps : {};
 
     const handleBackBtnPress = () => {
-        LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+        //LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
 
         setBackBtnColor(theme.colors.colorFamily.black);
 
@@ -34,7 +34,7 @@ export default function NavigationView({ headerOptions, bottomNavOptions, childr
     };
 
     const handleMenuPress = (params: BottomLink["screen"]) => {
-        LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+        //LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
 
         setMenuBtnHighlight(!menuBtnHighlight);
 

@@ -1,5 +1,6 @@
 import {
     Dimensions,
+    Keyboard,
     KeyboardAvoidingView,
     Platform,
     ScrollView,
@@ -19,6 +20,7 @@ import { CreateNoticeParams } from "../../../../libs/rest_apis/villife/types";
 import VillifeServer from "../../../../libs/rest_apis/villife";
 import Toast from "react-native-toast-message";
 import NavigationView from "../../../blocks/navigation";
+import { LightTheme } from "../../../../hooks/themes";
 
 function NoticeRegisterScreen(props: NoticeRegisterScreenProps) {
     const content = useRef("");
@@ -91,6 +93,22 @@ function NotiEditor(props: NotiEditorProps) {
     const richText = useRef<RichEditor>(null);
     const scrollRef = useRef<ScrollView>(null);
     const size = Dimensions.get("window");
+    const [keboardShow, setKeyBoardShow] = React.useState(false);
+
+    React.useEffect(() => {
+        const keyboardDidShowListener = Keyboard.addListener("keyboardDidShow", () => {
+            setKeyBoardShow(true);
+            // Do something when the keyboard is shown
+        });
+        const keyboardDidHideListner = Keyboard.addListener("keyboardDidHide", () => {
+            setKeyBoardShow(false);
+        });
+
+        return () => {
+            keyboardDidShowListener.remove();
+            keyboardDidHideListner.remove();
+        };
+    }, []);
 
     return (
         <>
@@ -99,82 +117,77 @@ function NotiEditor(props: NotiEditorProps) {
                 keyboardDismissMode={"none"}
                 ref={scrollRef}
                 nestedScrollEnabled={true}
+                stickyHeaderIndices={[0]}
                 scrollEventThrottle={20}>
-                <RichToolbar
-                    style={[EditorStyle.richBar]}
-                    flatContainerStyle={EditorStyle.flatStyle}
-                    editor={richText}
-                    selectedIconTint={"#2095F2"}
-                    disabledIconTint={"#bfbfbf"}
-                />
-
-                <TextInput onChangeText={(text) => (props.titleRef.current = text)} placeholder="제목을 입력하세요" />
+                <>
+                    <TextInput
+                        style={EditorStyle.title}
+                        onChangeText={(text) => (props.titleRef.current = text)}
+                        placeholder="제목을 입력하세요"
+                    />
+                </>
                 <RichEditor
                     onChange={(text) => {
                         props.contentRef.current = text;
                     }}
-                    initialFocus={false}
-                    firstFocusEnd={false}
                     editorStyle={EditorStyle.contentStyle} // default light style
                     ref={richText}
-                    style={[EditorStyle.rich, { height: size.height * 0.8 }]}
+                    style={[EditorStyle.rich, { height: keboardShow ? size.height * 0.46 : size.height * 0.79 }]}
                     useContainer={false}
                     enterKeyHint={"done"}
-                    placeholder={"please input content"}
+                    placeholder={"내용을 입력해주세요."}
                     pasteAsPlainText={true}
                 />
+                <View>
+                    <RichToolbar
+                        style={[EditorStyle.richBar]}
+                        flatContainerStyle={EditorStyle.flatStyle}
+                        editor={richText}
+                        selectedIconTint={"#2095F2"}
+                        disabledIconTint={"#bfbfbf"}
+                        onPressAddImage={() => {
+                            new ImageUploader()
+                                .pickOneAndUpload()
+                                .then((r) => {
+                                    richText.current?.insertImage(r.uri);
+                                })
+                                .catch((reason) => {
+                                    console.log(reason);
+                                });
+                        }}
+                        actions={[
+                            actions.heading1,
+                            actions.heading2,
+                            actions.heading3,
+                            actions.heading4,
+                            actions.insertImage,
+                            actions.setBold,
+                            actions.insertOrderedList,
+                            actions.checkboxList,
+                            actions.blockquote,
+                            actions.alignLeft,
+                            actions.alignCenter,
+                            actions.alignRight,
+                            actions.code,
+                            actions.line,
+                        ]} // default defaultActions
+                        iconMap={{
+                            [actions.heading1]: ({ tintColor }: IconRecord) => (
+                                <Text style={[EditorStyle.tib, { color: tintColor }]}>H1</Text>
+                            ),
+                            [actions.heading2]: ({ tintColor }: IconRecord) => (
+                                <Text style={[EditorStyle.tib, { color: tintColor }]}>H2</Text>
+                            ),
+                            [actions.heading3]: ({ tintColor }: IconRecord) => (
+                                <Text style={[EditorStyle.tib, { color: tintColor }]}>H3</Text>
+                            ),
+                            [actions.heading4]: ({ tintColor }: IconRecord) => (
+                                <Text style={[EditorStyle.tib, { color: tintColor }]}>H4</Text>
+                            ),
+                        }}
+                    />
+                </View>
             </ScrollView>
-            <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"}>
-                <RichToolbar
-                    style={[EditorStyle.richBar]}
-                    flatContainerStyle={EditorStyle.flatStyle}
-                    editor={richText}
-                    selectedIconTint={"#2095F2"}
-                    disabledIconTint={"#bfbfbf"}
-                    onPressAddImage={() => {
-                        new ImageUploader()
-                            .pickOneAndUpload()
-                            .then((r) => {
-                                richText.current?.insertImage(r.uri);
-                            })
-                            .catch((reason) => {
-                                console.log(reason);
-                            });
-                    }}
-                    actions={[
-                        actions.undo,
-                        actions.redo,
-                        actions.insertImage,
-                        actions.setStrikethrough,
-                        actions.checkboxList,
-                        actions.insertOrderedList,
-                        actions.blockquote,
-                        actions.alignLeft,
-                        actions.alignCenter,
-                        actions.alignRight,
-                        actions.code,
-                        actions.line,
-                        actions.heading1,
-                        actions.heading2,
-                        actions.heading3,
-                        actions.heading4,
-                    ]} // default defaultActions
-                    iconMap={{
-                        [actions.heading1]: ({ tintColor }: IconRecord) => (
-                            <Text style={[EditorStyle.tib, { color: tintColor }]}>H1</Text>
-                        ),
-                        [actions.heading2]: ({ tintColor }: IconRecord) => (
-                            <Text style={[EditorStyle.tib, { color: tintColor }]}>H2</Text>
-                        ),
-                        [actions.heading3]: ({ tintColor }: IconRecord) => (
-                            <Text style={[EditorStyle.tib, { color: tintColor }]}>H3</Text>
-                        ),
-                        [actions.heading4]: ({ tintColor }: IconRecord) => (
-                            <Text style={[EditorStyle.tib, { color: tintColor }]}>H4</Text>
-                        ),
-                    }}
-                />
-            </KeyboardAvoidingView>
         </>
     );
 }
@@ -182,15 +195,14 @@ function NotiEditor(props: NotiEditorProps) {
 const EditorStyle = StyleSheet.create({
     rich: {
         flex: 1,
-        borderColor: "#e3e3e3",
     },
     richBar: {
-        borderColor: "white",
-        backgroundColor: "white",
+        backgroundColor: "rgba(83, 156, 241,0.2)",
     },
-    richBarDark: {
-        backgroundColor: "white",
-        borderColor: "#696969",
+    title: {
+        fontSize: 30,
+        marginLeft: "3%",
+        fontFamily: "Pretendard-Bold",
     },
     contentStyle: {
         backgroundColor: "white",
@@ -198,18 +210,11 @@ const EditorStyle = StyleSheet.create({
         color: "black",
         caretColor: "red",
         placeholderColor: "gray",
+
         // cssText: '#editor {background-color: #f3f3f3}', // initial valid
         contentCSSText: "font-size: 16px; min-height: 200px;", // initial valid
     },
-    scroll: {
-        backgroundColor: "red",
-    },
-    scrollDark: {
-        backgroundColor: "#2e3847",
-    },
-    darkBack: {
-        backgroundColor: "#191d20",
-    },
+    scroll: { flex: 1 },
     tib: {
         textAlign: "center",
         color: "#515156",
@@ -233,7 +238,7 @@ function ReigsterButton({ onSubmit }: { onSubmit: () => void }) {
                 onPress={() => {
                     onSubmit();
                 }}>
-                <Text>등록하기</Text>
+                <Text style={{}}>등록하기</Text>
             </TouchableOpacity>
         </View>
     );

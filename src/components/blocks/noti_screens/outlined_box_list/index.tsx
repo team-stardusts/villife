@@ -30,7 +30,7 @@ function OutlinedBoxRenderItem(props: ListRenderItemInfo<Notice>) {
             priority={props.item.Priority}
             title={props.item.Title}
             content={props.item.Content}
-            wroteAt={props.item.CreatedAt}
+            wroteAt={props.item.CreatedAt.slice(0, 10)}
         />
     );
 }
