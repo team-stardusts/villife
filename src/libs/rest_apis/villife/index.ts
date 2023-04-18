@@ -17,7 +17,7 @@ import {
 } from "./types";
 import { Response } from "../types";
 import DotEnv from "../../dotenv";
-import VillifeStorage from "../../../hooks/storage";
+import VillifeStorage from "../../storage";
 import { MediaUploadResult } from "./types";
 
 export const VILLIFE_AUTHORITY: Authority = {
@@ -32,7 +32,7 @@ class VillifeServer extends AREST {
     private readonly storage = new VillifeStorage();
 
     readonly requester: AxiosInstance = axios.create({
-        baseURL: /* "http://13.125.190.36:8080/", */ this.env.api.villife.REST_API_BASE_URL,
+        baseURL: "http://13.125.190.36:8080/", //this.env.api.villife.REST_API_BASE_URL,
         timeout: 1000,
         timeoutErrorMessage:
             "The request timed out.\

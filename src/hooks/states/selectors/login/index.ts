@@ -1,6 +1,6 @@
 import { selector } from "recoil";
-import VillifeStorage from "../../../storage";
-import { LoginDataType } from "../../../storage/tables/login/types";
+import VillifeStorage from "../../../../libs/storage";
+import { LoginDataType } from "../../../../libs/storage/tables/login/types";
 import { loginDataState } from "../../atoms/login";
 import { LoginDataStateType } from "../../atoms/login/types";
 

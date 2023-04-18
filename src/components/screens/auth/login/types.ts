@@ -1,6 +1,6 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { StyleSheet } from "react-native/types";
-import { LoginDataType } from "../../../../hooks/storage/tables/login/types";
+import { LoginDataType } from "../../../../libs/storage/tables/login/types";
 import { StackParamList } from "../../../router/types";
 
 export type LoginScreenStylesType = {

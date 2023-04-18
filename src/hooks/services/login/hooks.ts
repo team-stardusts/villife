@@ -3,20 +3,20 @@ import { useRecoilState } from "recoil";
 import { LoginManagerProvider } from ".";
 import { loginDataState } from "../../states/atoms/login";
 import { LoginDataStateType } from "../../states/atoms/login/types";
-import useVillifeStorage from "../../storage/hooks";
-import { HostType, LoginDataType } from "../../storage/tables/login/types";
+import VillifeStorage from "../../../libs/storage";
+import { HostType, LoginDataType } from "../../../libs/storage/tables/login/types";
 import { AuthServicesReturn, LoginServiceParams, LoginServiceResult } from "./types";
 
 export default function useAuthService(): AuthServicesReturn {
     const [loginData, setLoginData] = useRecoilState<LoginDataStateType>(loginDataState);
-    const storage = useVillifeStorage();
+    const storage = new VillifeStorage();
 
-    useEffect(() => {
+    /* useEffect(() => {
         if (loginData === null) {
             return;
         }
         storage.login.set(loginData);
-    }, [loginData]);
+    }, [loginData]); */
 
     const login = async (host: HostType, params: LoginServiceParams | undefined): Promise<LoginServiceResult> => {
         const loginManager = LoginManagerProvider.getLoginManager(host);
@@ -45,7 +45,7 @@ export default function useAuthService(): AuthServicesReturn {
             };
         }
 
-        setLoginData(data);
+        await storage.login.set(data);
 
         return result;
     };
@@ -59,6 +59,7 @@ export default function useAuthService(): AuthServicesReturn {
         const loginManager = LoginManagerProvider.getLoginManager(host);
 
         await loginManager.logout();
+        await storage.login.set(null);
     };
 
     return {

@@ -15,10 +15,10 @@ import { useNavigation } from "@react-navigation/native";
 import TestScreen from "../screens/test";
 import WelcomeScreen from "../screens/auth/welcome";
 import { useAutoRegisterFirebaseToken } from "../../hooks/firebase/hooks";
-import useVillifeStorage from "../../hooks/storage/hooks";
 import NoticeRegisterScreen from "../screens/noti/register";
 import NoticeHomeScreen from "../screens/noti/home";
 import PermissionRequestScreen from "../screens/auth/permission_request";
+import VillifeStorage from "../../libs/storage";
 
 enableScreens(true);
 
@@ -29,14 +29,17 @@ export default function ScreenRouter() {
     //const [isLoggedIn, setIsLoggedIn] = useRecoilState<boolean | null>(isLoggedInState);
     const [loginData, setLoginData] = useRecoilState(loginDataState);
     const navigation = useNavigation<RouterParams["navigation"]>();
-    const storage = useVillifeStorage();
+    const storage = new VillifeStorage();
 
     useAutoRegisterFirebaseToken();
 
     const bootstrap = async () => {
-        const loginDataInStorage = await storage.login.get();
-        setLoginData(loginDataInStorage);
-        setIsLoading(false);
+        storage.addEventListener("CHANGE_LOGIN_VALUE", setLoginData);
+
+        storage.login.get().then((data) => {
+            setLoginData(data);
+            setIsLoading(false);
+        });
     };
 
     // [TO-DO] Code 정리
@@ -44,16 +47,18 @@ export default function ScreenRouter() {
         if (isLoading) {
             return;
         }
+
         if (loginData === null) {
             //navigation.navigate("permission_request", {});
             navigation.reset({
                 index: 0,
-                routes: [{ name: "login", params: {} }],
+                routes: [{ name: "login" }],
             });
         } else {
             navigation.reset({
                 index: 0,
-                routes: [{ name: "home", params: {} }],
+                routes: [{ name: "home" }],
+                //routes: [{ name: "test" }],
             });
         }
     }, [loginData, isLoading]);
@@ -64,6 +69,10 @@ export default function ScreenRouter() {
         }
         navigation.navigate("splash", {});
         bootstrap();
+
+        return () => {
+            storage.removeEventListener("CHANGE_LOGIN_VALUE");
+        };
     }, []);
 
     return (

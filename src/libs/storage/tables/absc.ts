@@ -1,5 +1,6 @@
-import LocalStorage from "../../../libs/localstorage";
-import { Storable } from "../types"
+import { EventRegister } from "react-native-event-listeners";
+import LocalStorage from "../localstorage";
+import { Storable } from "./types";
 
 abstract class ATable implements Storable {
     readonly key: string = "";

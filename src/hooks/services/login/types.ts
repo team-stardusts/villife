@@ -1,7 +1,7 @@
 import { Responsable } from "../../../libs/rest_apis/types";
 import VillifeServer from "../../../libs/rest_apis/villife";
 import { LoginResult as VillifeLoginResult } from "../../../libs/rest_apis/villife/types";
-import { HostType } from "../../storage/tables/login/types";
+import { HostType } from "../../../libs/storage/tables/login/types";
 import type NaverLoginManager from "./social/naver";
 import type VillifeLoginManager from "./villife";
 

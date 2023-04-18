@@ -1,6 +1,4 @@
-import ATable from "../absc";
-
-export default interface ILoginTable extends ATable {
+export default interface ILoginTable {
     readonly key: LoginTableKey;
 
     get(): Promise<LoginDataType | null>;

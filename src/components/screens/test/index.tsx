@@ -1,38 +1,22 @@
-import { NativeModules, PermissionsAndroid, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import {
+    EventEmitter,
+    NativeModules,
+    PermissionsAndroid,
+    StyleSheet,
+    Text,
+    TouchableOpacity,
+    View,
+} from "react-native";
 import { useGetFirebaseToken } from "../../../hooks/firebase/hooks";
-import AndroidFirebaseModule from "../../../hooks/firebase/android_module";
 import { firebase } from "@react-native-firebase/messaging";
 import useSystemInfo from "../../../hooks/systeminfo/hooks";
+import { useEffect } from "react";
+import VillifeStorage from "../../../libs/storage";
 
 export default function TestScreen() {
     const firebaseToken = useGetFirebaseToken();
     const sysinfo = useSystemInfo();
-
-    const { messaging } = firebase;
-
-    const getFirebaseToken = async () => {
-        let authStatus: any = null;
-        let isEnabled: boolean = true;
-
-        if (sysinfo.platform.OS === "ios") {
-            const authStatus = await messaging().requestPermission();
-            isEnabled =
-                authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
-                authStatus === messaging.AuthorizationStatus.PROVISIONAL;
-        } else if (sysinfo.platform.OS === "android") {
-            authStatus = await PermissionsAndroid.check(PermissionsAndroid.PERMISSIONS.POST_NOTIFICATIONS);
-        } else {
-            throw new Error("The user is using an unexpected OS.");
-        }
-
-        if (isEnabled && sysinfo.platform.OS === "android") {
-            const token = await messaging().getAPNSToken();
-            console.log("auth", authStatus);
-            console.log("token", token);
-        }
-    };
-
-    //getFirebaseToken();
+    const storage = new VillifeStorage();
 
     return (
         <View>

@@ -36,7 +36,6 @@ export default function HomeScreen({ navigation, route }: HomeScreenProps) {
                     onPress={async () => {
                         if (loginData !== null) {
                             logout();
-                            setLoginData(null);
                         }
                     }}
                 />

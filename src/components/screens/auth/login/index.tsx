@@ -11,11 +11,8 @@ import SocialLoginIcon from "../../../blocks/icon/login";
 import useAppTheme from "../../../../hooks/themes/hooks";
 import { useLoginService } from "../../../../hooks/services/hooks";
 import AuthScreenTitleView from "../../../blocks/auth_screens/title_view";
-import { loginDataState } from "../../../../hooks/states/atoms/login";
-import { LoginDataStateType } from "../../../../hooks/states/atoms/login/types";
-import useVillifeStorage from "../../../../hooks/storage/hooks";
 import { Toast } from "react-native-toast-message/lib/src/Toast";
-import { HostType } from "../../../../hooks/storage/tables/login/types";
+import { HostType } from "../../../../libs/storage/tables/login/types";
 import useAuthService from "../../../../hooks/services/login/hooks";
 import { LoginServiceParams } from "../../../../hooks/services/login/types";
 //import AppRoutes from '../../../../data/routes.json';
@@ -27,7 +24,6 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
     const theme = useAppTheme();
     const systemInfo = useSystemInfo();
     const styles = useLoginScreenStyles();
-    const storage = useVillifeStorage();
     const iconDiameter: number = useSystemInfo().window.width * 0.12;
 
     const [isSocialLoginButtonPressed, setIsSocialLoginButtonPressed] = useState<boolean>(false);
@@ -37,17 +33,14 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
         password: "",
     });
 
-
     const handleLogin = async (host: HostType, params: LoginServiceParams | undefined) => {
         const result = await login(host, params);
-
 
         if (result.isSuccessful && result.data) {
             navigation.reset({
                 index: 0,
                 routes: [{ name: "home", params: {} }],
             });
-
         } else {
             if (host === "villife") {
                 Alert.alert("잘못 된 계정 정보가 입력 되었습니다.", "옳바른 아이디와 패스워드를 입력해주세요.");
@@ -143,7 +136,6 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
                                         styles.JoinLinkSection.text,
                                     ]}
                                     onPress={() => {
-
                                         navigation.navigate("create_account", {
                                             host: "villife",
                                             access_token: undefined,
