@@ -25,7 +25,7 @@ function OutlinedBox(props: OutlinedBoxProps) {
         if (lock.current) return;
         if (height > 0) {
             console.log(height / 2);
-            setContentHeight(height / 2);
+            setContentHeight(height / 3);
             lock.current = true;
         }
     };
@@ -75,7 +75,7 @@ function OutlinedBox(props: OutlinedBoxProps) {
 
                     {unfold && (
                         <WebView
-                            style={{ height: contentHeight, width: size.width * 0.9 }}
+                            style={{ height: contentHeight, width: size.width * 0.8 }}
                             originWhitelist={["*"]}
                             onMessage={handleMessage}
                             source={{
@@ -83,7 +83,7 @@ function OutlinedBox(props: OutlinedBoxProps) {
                             <html>
                             <style> 
                             body {
-                              font-size: 16px;
+                              font-size: 50px;
                             }
                             div {
                               color: #333;

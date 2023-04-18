@@ -163,12 +163,9 @@ function NotiEditor(props: NotiEditorProps) {
                             actions.insertImage,
                             actions.setBold,
                             actions.insertOrderedList,
-                            actions.checkboxList,
-                            actions.blockquote,
                             actions.alignLeft,
                             actions.alignCenter,
                             actions.alignRight,
-                            actions.code,
                             actions.line,
                         ]} // default defaultActions
                         iconMap={{
