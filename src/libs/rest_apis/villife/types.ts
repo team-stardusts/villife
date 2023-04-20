@@ -2,14 +2,16 @@ import { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
 import { Requestable, Responsable, Response } from "../types";
 import { ContentPriority } from "../../../components/blocks/noti_screens/box_label.tsx/type";
 
-/* export default interface IVillifeRESTAPI extends Requestable {
+export default interface IVillifeRESTAPI extends Requestable {
     login(id: string, password: string): Response<any>;
-    socialLogin(category: SocialLoginHostType, accessToken: string): Response<SocialLoginResultType>;
+    requestWithAuthentication<T = any, U = any>(config: AxiosRequestConfig<T>): Promise<Responsable<U>>;
+
+    socialLogin(category: SocialLoginHostType, accessToken: string): Response<LoginResult>;
     join(): Response<any>;
     socialJoin(category: SocialLoginHostType, params: SocialJoinParamsType): Response<SocialJoinResultType>;
     refresh(params: RefreshParmas): Response<RefreshResult>;
 }
- */
+
 export type LoginResult = {
     access_token: string;
     expire_at: number;

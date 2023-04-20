@@ -15,7 +15,7 @@ import {
     SocialJoinResultType,
     SocialLoginHostType,
 } from "./types";
-import { Response } from "../types";
+import { Responsable, Response } from "../types";
 import DotEnv from "../../dotenv";
 import VillifeStorage from "../../storage";
 import { MediaUploadResult } from "./types";
@@ -27,9 +27,12 @@ export const VILLIFE_AUTHORITY: Authority = {
     SITE_ADMIN: 777,
 } as const;
 
+const RESPONSE_STATUS = {
+    NETWORK_AUTHENTICATION_REQUIRED: 511,
+};
+
 class VillifeServer extends AREST {
     private env: DotEnv = new DotEnv();
-    private readonly storage = new VillifeStorage();
 
     readonly requester: AxiosInstance = axios.create({
         baseURL: "http://13.125.190.36:8080/", //this.env.api.villife.REST_API_BASE_URL,
@@ -48,6 +51,46 @@ class VillifeServer extends AREST {
         return this.env.api.villife.REST_API_BASE_URL;
     }
 
+    //[TO-DO] logindata === null 인 경우의 예외가 필요함
+    private async requestWithAuthentication<T = any, U = any>(config: AxiosRequestConfig<T>): Promise<Responsable<U>> {
+        const storage = new VillifeStorage();
+        const logindata = await storage.login.get();
+
+        if (config.headers === undefined) {
+            config.headers = {};
+        }
+
+        config.headers.Authorization = `Bearer ${logindata?.accessToken}`;
+
+        const result = await this.request<any, U>(config);
+
+        if (logindata === null) {
+            console.debug("Villife logindta is null");
+            return result;
+        }
+
+        if (result.data?.status == RESPONSE_STATUS.NETWORK_AUTHENTICATION_REQUIRED) {
+            const refresh = await this.refresh({
+                expiredAccessToken: logindata.accessToken,
+                refreshToken: logindata.refreshToken,
+            });
+
+            if (refresh.data?.data.access_token === undefined) {
+                console.debug("Failed to refresh on VillifeServer.");
+            }
+
+            config.headers.Authorization = `Bearer ${refresh.data?.data.access_token}`;
+
+            await storage.login.set({
+                ...logindata,
+                accessToken: refresh.data?.data.access_token ?? "",
+                accessTokenExpiresAt: refresh.data?.data.expire_at ?? 0,
+            });
+        }
+
+        return await this.request<any, U>(config);
+    }
+
     public async login(id: string, password: string): Response<LoginResult> {
         let route: string = routes.login;
 
@@ -62,7 +105,7 @@ class VillifeServer extends AREST {
     }
 
     public async logout(): Promise<boolean> {
-        return await this.storage.login.set(null);
+        return await new VillifeStorage().login.set(null);
     }
 
     public async socialLogin(category: SocialLoginHostType, accessToken: string): Response<LoginResult> {
@@ -88,37 +131,13 @@ class VillifeServer extends AREST {
     public async registerFirebaseToken(params: RegisterFirebaseTokenParams): Response<RegisterFirebaseTokenResult> {
         const route = routes.registerFirebaseToken;
 
-        const result = await this.request<any, RegisterFirebaseTokenResult>({
+        return await this.requestWithAuthentication<any, RegisterFirebaseTokenResult>({
             url: route,
             method: "get",
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: "Bearer " + params.accessToken,
-            },
             params: {
                 firebase_token: params.firebaseToken,
             },
         });
-        //console.log(result.data);
-        if (!result.isSuccessful) {
-            const refreshResult = await this.refresh({
-                expiredAccessToken: params.accessToken,
-                refreshToken: params.refreshToken,
-            });
-
-            return await this.request<any, RegisterFirebaseTokenResult>({
-                url: route,
-                method: "get",
-                headers: {
-                    Authorization: "Bearer " + refreshResult.data?.data.access_token,
-                },
-                params: {
-                    firebase_token: params.firebaseToken,
-                },
-            });
-        }
-
-        return result;
     }
 
     public async socialJoin(
@@ -157,19 +176,18 @@ class VillifeServer extends AREST {
 
     public async uploadImage(formData: FormData): Response<MediaUploadResult> {
         let route: string = this.routes.uploadImage;
-        const logindata = await this.storage.login.get();
+        /* const logindata = await this.storage.login.get();
         if (!logindata) {
             console.log("request uploading images api, login data :", logindata);
             Promise.reject(new Error("Login data not found"));
         }
-        console.log("request uploading images api, login data :", logindata);
+        console.log("request uploading images api, login data :", logindata); */
 
-        return await this.request<any, MediaUploadResult>({
+        return await this.requestWithAuthentication<any, MediaUploadResult>({
             method: "post",
             url: route,
             headers: {
                 "Content-Type": "multipart/form-data",
-                Authorization: `Bearer ${logindata?.accessToken}`,
             },
             data: formData,
         });
@@ -177,28 +195,20 @@ class VillifeServer extends AREST {
 
     public async getNotices(buildingID: number): Response<GetNoticesResult> {
         let route: string = this.routes.getNoticesByBuildingID + `?building_id=${buildingID}`;
-        const loginData = await this.storage.login.get();
 
-        return await this.request<any, GetNoticesResult>({
+        return await this.requestWithAuthentication<any, GetNoticesResult>({
             method: "get",
             url: route,
-            headers: {
-                Authorization: `Bearer ${loginData?.accessToken}`,
-            },
         });
     }
 
     public async createNotice(params: CreateNoticeParams): Response<string> {
         let route: string = this.routes.createNotice;
-        const loginData = await this.storage.login.get();
 
         console.log(params);
-        return await this.request<any, string>({
+        return await this.requestWithAuthentication<any, string>({
             method: "post",
             url: route,
-            headers: {
-                Authorization: `Bearer ${loginData?.accessToken}`,
-            },
             data: params,
         });
     }

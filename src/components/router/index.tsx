@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { enableScreens } from "react-native-screens";
 import { useRecoilState } from "recoil";
 import { loginDataState } from "../../hooks/states/atoms/login";
@@ -34,8 +34,6 @@ export default function ScreenRouter() {
     useAutoRegisterFirebaseToken();
 
     const bootstrap = async () => {
-        storage.addEventListener("CHANGE_LOGIN_VALUE", setLoginData);
-
         storage.login.get().then((data) => {
             setLoginData(data);
             setIsLoading(false);
@@ -64,9 +62,19 @@ export default function ScreenRouter() {
     }, [loginData, isLoading]);
 
     useEffect(() => {
+        if (loginData?.accessToken === undefined) {
+            return;
+        }
+        console.log("Refresh!", loginData?.accessToken.slice(0, 15));
+    }, [loginData]);
+
+    useEffect(() => {
+        storage.addEventListener("CHANGE_LOGIN_VALUE", setLoginData);
+
         if (!isLoading) {
             return;
         }
+
         navigation.navigate("splash", {});
         bootstrap();
 

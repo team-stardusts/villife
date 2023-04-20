@@ -128,10 +128,17 @@ export default function NavigationView({ headerOptions, bottomNavOptions, childr
                             </TouchableOpacity>
                         )}
                         <View style={styles.headerNavTitleBox}>
-                            <Text style={styles.headerTitle}>{headerOptions.title}</Text>
+                            <Text numberOfLines={2} ellipsizeMode="tail" style={styles.headerTitle}>
+                                {headerOptions.title}
+                            </Text>
                         </View>
                     </View>
-                    <View style={styles.headerReactFuncBox}>
+                    <View style={styles.headerCenterReactFuncBox}>
+                        <Text numberOfLines={2} ellipsizeMode="tail">
+                            Admin, Building selector's space
+                        </Text>
+                    </View>
+                    <View style={styles.headerRightReactFuncBox}>
                         {headerOptions.navComponent && <headerOptions.navComponent {...navComponentProps} />}
                     </View>
                 </View>

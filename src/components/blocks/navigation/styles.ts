@@ -2,8 +2,7 @@ import { StyleSheet } from "react-native";
 import useSystemInfo from "../../../hooks/systeminfo/hooks";
 import useAppTheme from "../../../hooks/themes/hooks";
 
-export default function
- useNavigationViewStyles() {
+export default function useNavigationViewStyles() {
     const sysinfo = useSystemInfo();
     const theme = useAppTheme();
 
@@ -20,29 +19,36 @@ export default function
             borderBottomWidth: 3,
         },
         headerNavBox: {
-            flex: 5,
+            flex: 3.5,
             flexDirection: "row",
+            justifyContent: "flex-start",
         },
         headerNavIconBox: {
-            flex: 1,
-            height: "100%",
-            justifyContent: "center",
-            alignItems: "center",
-        },
-        headerNavTitleBox: {
-            flex: 1,
+            flex: 2.5,
             height: "100%",
             justifyContent: "center",
             alignItems: "flex-start",
         },
-        headerReactFuncBox: {
-            flex: 5,
+        headerNavTitleBox: {
+            flex: 7.5,
+            height: "100%",
+            justifyContent: "center",
+            alignItems: "flex-start",
+        },
+        headerCenterReactFuncBox: {
+            flex: 3,
+            alignContent: "center",
+            justifyContent: "center",
+        },
+        headerRightReactFuncBox: {
+            flex: 3.5,
             alignContent: "center",
             justifyContent: "center",
         },
         headerTitle: {
             color: theme.colors.colorFamily.black,
-            marginLeft: 20,
+            paddingLeft: 20,
+            //marginRight: 5,
             fontFamily: "Pretendard-Bold",
             fontSize: 20,
         },
