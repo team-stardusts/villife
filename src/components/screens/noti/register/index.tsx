@@ -1,4 +1,5 @@
 import {
+    ActivityIndicator,
     Dimensions,
     Keyboard,
     KeyboardAvoidingView,
@@ -21,14 +22,14 @@ import VillifeServer from "../../../../libs/rest_apis/villife";
 import Toast from "react-native-toast-message";
 import NavigationView from "../../../blocks/navigation";
 import { LightTheme } from "../../../../hooks/themes";
+import { NoticeEventEmitter } from "../../../blocks/noti_screens/outlined_box_list/event";
 
 function NoticeRegisterScreen(props: NoticeRegisterScreenProps) {
     const content = useRef("");
     const titile = useRef("");
-
+    const [loading, setLoading] = React.useState(false);
     const onSubmit = async () => {
-        console.log(content.current);
-        console.log(titile.current);
+        setLoading(true);
 
         const param: CreateNoticeParams = {
             priority: 1,
@@ -39,8 +40,10 @@ function NoticeRegisterScreen(props: NoticeRegisterScreenProps) {
         const api = new VillifeServer();
 
         const reuslt = await api.createNotice(param);
+        setLoading(false);
 
         if (reuslt.data?.status == 200) {
+            new NoticeEventEmitter().emitListUpdatedEvent();
             Toast.show({
                 type: "success",
                 text1: "공지사항 등록 완료",
@@ -72,6 +75,7 @@ function NoticeRegisterScreen(props: NoticeRegisterScreenProps) {
                     onSubmit: () => {
                         onSubmit();
                     },
+                    loading: loading,
                 },
             }}
             bottomNavOptions={{ shown: false }}>
@@ -221,7 +225,7 @@ const EditorStyle = StyleSheet.create({
     },
 });
 
-function ReigsterButton({ onSubmit }: { onSubmit: () => void }) {
+function ReigsterButton({ onSubmit, loading }: { onSubmit: () => void; loading: boolean }) {
     return (
         <View
             style={{
@@ -235,7 +239,7 @@ function ReigsterButton({ onSubmit }: { onSubmit: () => void }) {
                 onPress={() => {
                     onSubmit();
                 }}>
-                <Text style={{}}>등록하기</Text>
+                {loading ? <ActivityIndicator size={"large"} /> : <Text style={{}}>등록하기</Text>}
             </TouchableOpacity>
         </View>
     );

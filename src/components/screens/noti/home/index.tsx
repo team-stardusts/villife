@@ -15,7 +15,6 @@ function test({ name }: { name: string }) {
     return (
         <View
             style={{
-                backgroundColor: "tomato",
                 height: "100%",
                 alignItems: "flex-end",
                 justifyContent: "center",

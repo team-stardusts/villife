@@ -6,7 +6,6 @@ const OutlinedBoxStyle = StyleSheet.create({
         borderColor: "#0B75F2",
         marginVertical: "1.5%",
         borderRadius: 15,
-        overflow: "hidden",
     },
     innerBox: {
         alignItems: "center",
@@ -26,6 +25,32 @@ const OutlinedBoxStyle = StyleSheet.create({
         height: "100%",
         justifyContent: "center",
         alignItems: "flex-end",
+    },
+    editButtonContainer: {
+        position: "absolute",
+        zIndex: 10,
+        right: "5%",
+    },
+    editButton: {
+        backgroundColor: "#DAEAFD",
+        flexDirection: "row",
+        alignItems: "center",
+        padding: 3,
+        borderRadius: 10,
+    },
+    editModalContentContainer: {
+        marginTop: "5%",
+        width: "100%",
+    },
+    editModalMenu: {
+        flexDirection: "row",
+        alignItems: "center",
+        paddingHorizontal: "10%",
+        paddingBottom: "5%",
+    },
+    editModalMenuText: {
+        marginLeft: 15,
+        color: "black",
     },
 });
 

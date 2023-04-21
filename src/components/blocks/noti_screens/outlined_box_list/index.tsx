@@ -27,6 +27,7 @@ function FlatListOutlinedContentsBox(props: any) {
 function OutlinedBoxRenderItem(props: ListRenderItemInfo<Notice>) {
     return (
         <OutlinedBox
+            id={props.item.ID}
             priority={props.item.Priority}
             title={props.item.Title}
             content={props.item.Content}

@@ -1,4 +1,4 @@
-import { Dimensions, FlatList, ListRenderItemInfo, Pressable, StyleSheet, View } from "react-native";
+import { Dimensions, FlatList, ListRenderItemInfo, Pressable, StyleSheet, TouchableOpacity, View } from "react-native";
 import { Text } from "react-native";
 import React from "react";
 import { LayoutAnimation } from "react-native";
@@ -7,6 +7,9 @@ import PressableVectorIcon from "../../icon/vector";
 import { OutlinedBoxProps } from "./type";
 import NotiLable from "../box_label.tsx";
 import WebView, { WebViewMessageEvent } from "react-native-webview";
+import { EditIcon, TrashCanIcon } from "../../icon/noti";
+import BottomSlidableModal from "../../universial/slidemodal_bottom";
+import NotiBottomEditModal from "../edit_modal";
 
 /**
  * @param OutlinedBoxProp
@@ -17,6 +20,7 @@ function OutlinedBox(props: OutlinedBoxProps) {
     const size = Dimensions.get("window");
 
     const [contentHeight, setContentHeight] = React.useState(0);
+    const [editModalVisible, setEditModalVisible] = React.useState(false);
     const lock = React.useRef(false);
 
     const handleMessage = (event: WebViewMessageEvent) => {
@@ -24,7 +28,6 @@ function OutlinedBox(props: OutlinedBoxProps) {
 
         if (lock.current) return;
         if (height > 0) {
-            console.log(height / 2);
             setContentHeight(height / 3);
             lock.current = true;
         }
@@ -42,6 +45,7 @@ function OutlinedBox(props: OutlinedBoxProps) {
 
     return (
         <>
+            <NotiBottomEditModal visible={editModalVisible} setVisible={setEditModalVisible} noticeInfo={props} />
             <Pressable
                 onPressOut={() => {
                     if (!unfold) onPress();
@@ -72,6 +76,18 @@ function OutlinedBox(props: OutlinedBoxProps) {
                             />
                         </View>
                     </View>
+                    {unfold && (
+                        <View style={[OutlinedBoxStyle.editButtonContainer, { top: size.height * 0.09 }]}>
+                            <TouchableOpacity
+                                onPress={() => {
+                                    setEditModalVisible(true);
+                                }}
+                                style={OutlinedBoxStyle.editButton}>
+                                <EditIcon color="#2778D7" diameter={14} />
+                                <Text>편집하기</Text>
+                            </TouchableOpacity>
+                        </View>
+                    )}
 
                     {unfold && (
                         <WebView

@@ -5,6 +5,7 @@ import { RoutesType } from "./routes/types";
 import {
     Authority,
     CreateNoticeParams,
+    DeleteNoticeParams,
     GetNoticesResult,
     LoginResult,
     RefreshParmas,
@@ -35,7 +36,7 @@ class VillifeServer extends AREST {
     private env: DotEnv = new DotEnv();
 
     readonly requester: AxiosInstance = axios.create({
-        baseURL: "http://13.125.190.36:8080/", //this.env.api.villife.REST_API_BASE_URL,
+        baseURL: /* "http://13.125.190.36:8080/", */ this.env.api.villife.REST_API_BASE_URL,
         timeout: 1000,
         timeoutErrorMessage:
             "The request timed out.\
@@ -88,6 +89,7 @@ class VillifeServer extends AREST {
             });
         }
 
+        // ISSUE : 두번 리퀘스트를 보냄, 이거 의도한거 맞는지 확인 바람 , return result 가 되어야 할 것 같은데
         return await this.request<any, U>(config);
     }
 
@@ -202,10 +204,27 @@ class VillifeServer extends AREST {
         });
     }
 
+    /**
+     * @param CreateNoticeParams
+     * @warn olny admin can use this api, should check authority before invoke this api
+     */
     public async createNotice(params: CreateNoticeParams): Response<string> {
         let route: string = this.routes.createNotice;
 
-        console.log(params);
+        return await this.requestWithAuthentication<any, string>({
+            method: "post",
+            url: route,
+            data: params,
+        });
+    }
+
+    /**
+     * @param DeleteNoticeParams
+     * @warn olny admin can use this api, should check authority before invoke this api
+     */
+    public async deleteNotice(params: DeleteNoticeParams): Response<string> {
+        let route: string = this.routes.deleteNotice;
+
         return await this.requestWithAuthentication<any, string>({
             method: "post",
             url: route,

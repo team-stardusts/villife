@@ -71,6 +71,10 @@ export type CreateNoticeParams = {
     content: string;
     building_id: number;
 };
+export type DeleteNoticeParams = {
+    building_id: number;
+    notice_id: number;
+};
 
 export type Notice = {
     ID: number;
