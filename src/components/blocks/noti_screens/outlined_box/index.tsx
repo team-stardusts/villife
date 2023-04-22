@@ -1,6 +1,6 @@
 import { Dimensions, FlatList, ListRenderItemInfo, Pressable, StyleSheet, TouchableOpacity, View } from "react-native";
 import { Text } from "react-native";
-import React from "react";
+import React, { useEffect } from "react";
 import { LayoutAnimation } from "react-native";
 import OutlinedBoxStyle from "./style";
 import PressableVectorIcon from "../../icon/vector";
@@ -22,6 +22,13 @@ function OutlinedBox(props: OutlinedBoxProps) {
     const [contentHeight, setContentHeight] = React.useState(0);
     const [editModalVisible, setEditModalVisible] = React.useState(false);
     const lock = React.useRef(false);
+
+    useEffect(() => {
+        return () => {
+            console.log("unmount", props.title);
+            setEditModalVisible(false);
+        };
+    }, []);
 
     const handleMessage = (event: WebViewMessageEvent) => {
         const height = Number(event.nativeEvent.data);

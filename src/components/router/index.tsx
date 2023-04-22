@@ -19,6 +19,7 @@ import NoticeRegisterScreen from "../screens/noti/register";
 import NoticeHomeScreen from "../screens/noti/home";
 import PermissionRequestScreen from "../screens/auth/permission_request";
 import VillifeStorage from "../../libs/storage";
+import NoticeModifyScreen from "../screens/noti/modify";
 
 enableScreens(true);
 
@@ -108,6 +109,7 @@ export default function ScreenRouter() {
             <Stack.Group>
                 <Stack.Screen name={"noti_home"} component={NoticeHomeScreen} />
                 <Stack.Screen name={"noti_register"} component={NoticeRegisterScreen} />
+                <Stack.Screen name={"noti_modify"} component={NoticeModifyScreen} />
             </Stack.Group>
         </Stack.Navigator>
     );

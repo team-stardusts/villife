@@ -15,6 +15,7 @@ import {
     SocialJoinParamsType,
     SocialJoinResultType,
     SocialLoginHostType,
+    UpdateNoticeParams,
 } from "./types";
 import { Responsable, Response } from "../types";
 import DotEnv from "../../dotenv";
@@ -210,6 +211,19 @@ class VillifeServer extends AREST {
      */
     public async createNotice(params: CreateNoticeParams): Response<string> {
         let route: string = this.routes.createNotice;
+
+        return await this.requestWithAuthentication<any, string>({
+            method: "post",
+            url: route,
+            data: params,
+        });
+    }
+    /**
+     * @param UpdateNoticeParams
+     * @warn olny admin can use this api, should check authority before invoke this api
+     */
+    public async UpdateNotice(params: UpdateNoticeParams): Response<string> {
+        let route: string = this.routes.updateNotice;
 
         return await this.requestWithAuthentication<any, string>({
             method: "post",

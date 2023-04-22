@@ -60,7 +60,7 @@ const localStyle = StyleSheet.create({
         position: "absolute",
         top: 0,
         left: 0,
-        zIndex: 5,
+        zIndex: 10,
     },
     content: {
         width: "88%",

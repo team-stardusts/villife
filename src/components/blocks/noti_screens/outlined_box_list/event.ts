@@ -23,7 +23,6 @@ export class NoticeListUpatedEventListener implements NoticeEventListener {
     private listenerID: string = "";
 
     subscribe(eventCallback: EventCallback): void {
-        //this.listenerID = EventRegister.addEventListener(this.eventName, eventCallback);
         const id = EventRegister.addEventListener(this.eventName, eventCallback);
         if (typeof id == "string") this.listenerID = id;
         else console.log("Event ID is returend as boolean, should check subscribe method");

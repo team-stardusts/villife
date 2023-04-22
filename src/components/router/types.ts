@@ -24,6 +24,11 @@ export type StackParamList = {
     test?: {};
     noti_home?: {};
     noti_register?: {};
+    noti_modify : {
+        title : string
+        content : string
+        notiID : number
+    }
     permission_request?: {};
     parking?: {};
     payment?: {};

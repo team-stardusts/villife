@@ -8,10 +8,12 @@ import { OutlinedBoxProps } from "../outlined_box/type";
 import { DeleteNoticeParams } from "../../../../libs/rest_apis/villife/types";
 import Toast from "react-native-toast-message";
 import { NoticeEventEmitter } from "../outlined_box_list/event";
+import { useNavigation } from "@react-navigation/native";
+import { VilifeNavigation } from "../../../router/types";
 
 function NotiBottomEditModal(props: BottomEditModalProps) {
     const screenSize = Dimensions.get("window");
-
+    const navigation = useNavigation<VilifeNavigation>();
     const [deleteAlertVisible, setDeleteAlertVisible] = React.useState(false);
 
     React.useEffect(() => {
@@ -30,6 +32,7 @@ function NotiBottomEditModal(props: BottomEditModalProps) {
         if (reult.isSuccessful) {
             new NoticeEventEmitter().emitListUpdatedEvent();
             props.setVisible(false);
+            setDeleteAlertVisible(false);
             Toast.show({
                 type: "success",
                 text1: `공지사항 삭제 성공`,
@@ -54,7 +57,15 @@ function NotiBottomEditModal(props: BottomEditModalProps) {
             setModalVisible={props.setVisible}
             height={screenSize.height * 0.3}>
             <View style={BottomEditModalStyle.editModalContentContainer}>
-                <TouchableOpacity style={BottomEditModalStyle.editModalMenu}>
+                <TouchableOpacity
+                    onPress={() => {
+                        navigation.navigate("noti_modify", {
+                            title: props.noticeInfo.title,
+                            content: props.noticeInfo.content,
+                            notiID: props.noticeInfo.id,
+                        });
+                    }}
+                    style={BottomEditModalStyle.editModalMenu}>
                     <EditIcon color="#000000" diameter={30} />
                     <Text style={[BottomEditModalStyle.editModalMenuText, { fontSize: 20 }]}>수정하기</Text>
                     {/* font scaling 필요*/}

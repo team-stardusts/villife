@@ -71,6 +71,13 @@ export type CreateNoticeParams = {
     content: string;
     building_id: number;
 };
+export type UpdateNoticeParams = {
+    priority: ContentPriority;
+    title: string;
+    content: string;
+    building_id: number;
+    notice_id: number;
+};
 export type DeleteNoticeParams = {
     building_id: number;
     notice_id: number;
