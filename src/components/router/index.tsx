@@ -35,10 +35,10 @@ export default function ScreenRouter() {
     useAutoRegisterFirebaseToken();
 
     const bootstrap = async () => {
-        storage.login.get().then((data) => {
-            setLoginData(data);
-            setIsLoading(false);
-        });
+        const data = await storage.login.get();
+
+        setLoginData(data);
+        setIsLoading(false);
     };
 
     // [TO-DO] Code 정리

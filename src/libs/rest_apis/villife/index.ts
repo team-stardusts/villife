@@ -37,7 +37,7 @@ class VillifeServer extends AREST {
     private env: DotEnv = new DotEnv();
 
     readonly requester: AxiosInstance = axios.create({
-        baseURL: /* "http://13.125.190.36:8080/", */ this.env.api.villife.REST_API_BASE_URL,
+        baseURL: "http://13.125.190.36:8080/", // this.env.api.villife.REST_API_BASE_URL,
         timeout: 1000,
         timeoutErrorMessage:
             "The request timed out.\
@@ -71,7 +71,9 @@ class VillifeServer extends AREST {
             return result;
         }
 
-        if (result.data?.status == RESPONSE_STATUS.NETWORK_AUTHENTICATION_REQUIRED) {
+        if (result.data?.status != RESPONSE_STATUS.NETWORK_AUTHENTICATION_REQUIRED) {
+            return result;
+        } else {
             const refresh = await this.refresh({
                 expiredAccessToken: logindata.accessToken,
                 refreshToken: logindata.refreshToken,
