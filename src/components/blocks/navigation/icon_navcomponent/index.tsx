@@ -16,7 +16,7 @@ export default function IconNavComponent(props: IconNavComponentProps) {
             justifyContent: "flex-end",
         },
         contentsWrapper: {
-            width: "40%",
+            width: "70%",
             height: "90%",
             alignItems: "center",
             justifyContent: "space-around",

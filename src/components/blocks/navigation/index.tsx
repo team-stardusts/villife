@@ -1,6 +1,15 @@
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import { useCallback, useEffect, useState } from "react";
-import { Alert, BackHandler, LayoutAnimation, SafeAreaView, Text, TouchableOpacity, View } from "react-native";
+import {
+    Alert,
+    BackHandler,
+    LayoutAnimation,
+    SafeAreaView,
+    StatusBar,
+    Text,
+    TouchableOpacity,
+    View,
+} from "react-native";
 import useScreenMessage from "../../../hooks/multilingual/hooks";
 import useAppTheme from "../../../hooks/themes/hooks";
 import Icon from "../../atoms/icon";
@@ -119,6 +128,7 @@ export default function NavigationView({ headerOptions, bottomNavOptions, childr
 
     return (
         <SafeAreaView style={styles.toplevelBox}>
+            <StatusBar barStyle="dark-content" backgroundColor="white" />
             {headerShown && (
                 <View style={styles.headerBox}>
                     <View style={styles.headerNavBox}>
@@ -128,7 +138,13 @@ export default function NavigationView({ headerOptions, bottomNavOptions, childr
                             </TouchableOpacity>
                         )}
                         <View style={styles.headerNavTitleBox}>
-                            <Text numberOfLines={2} ellipsizeMode="tail" style={styles.headerTitle}>
+                            <Text
+                                numberOfLines={1}
+                                ellipsizeMode="tail"
+                                minimumFontScale={0.2}
+                                maxFontSizeMultiplier={1}
+                                adjustsFontSizeToFit={true}
+                                style={styles.headerTitle}>
                                 {headerOptions.title}
                             </Text>
                         </View>
