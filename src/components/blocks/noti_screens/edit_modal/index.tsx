@@ -24,7 +24,7 @@ function NotiBottomEditModal(props: BottomEditModalProps) {
         const api = new VillifeServer();
 
         const dto: DeleteNoticeParams = {
-            building_id: 1,
+            building_id: 3,
             notice_id: props.noticeInfo.id,
         };
         const reult = await api.deleteNotice(dto);

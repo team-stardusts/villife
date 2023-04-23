@@ -34,7 +34,7 @@ function NoticeModifyScreen(props: NoticeModifyScreenProps) {
             priority: 1,
             title: titile.current,
             content: content.current,
-            building_id: 1,
+            building_id: 3,
             notice_id: props.route.params.notiID,
         };
         const api = new VillifeServer();

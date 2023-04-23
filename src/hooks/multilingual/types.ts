@@ -113,7 +113,7 @@ export type MessagesByLanguage = {
         screen_title: string;
     };
     words: {
-        screen_title: string;
+        admin: string;
         renter: string;
         landlord: string;
         siteAdmin: string;

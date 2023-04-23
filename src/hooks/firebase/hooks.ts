@@ -6,6 +6,7 @@ import { LoginDataStateType } from "../states/atoms/login/types";
 import { loginDataState } from "../states/atoms/login";
 import AndroidFirebaseModule from "./android";
 import IosFirebaseModule from "./ios";
+import { Platform } from "react-native";
 
 export function useGetFirebaseToken(): string {
     const [token, setToken] = React.useState("");
@@ -52,6 +53,9 @@ export function useAutoRegisterFirebaseToken() {
 
     React.useEffect(() => {
         //console.log("login Data has changed\n", "firebase token :", firebaseToken);
+        if (!firebaseToken) {
+            return;
+        }
         if (loginData) {
             villife
                 .registerFirebaseToken({
@@ -60,6 +64,11 @@ export function useAutoRegisterFirebaseToken() {
                     firebaseToken,
                 })
                 .then((r) => {
+                    if (Platform.OS === "ios") {
+                        console.log("ios: ", firebaseToken);
+                    } else {
+                        console.log("and: ", firebaseToken);
+                    }
                     console.log("register firebase result token", r.data?.data);
                 });
         }

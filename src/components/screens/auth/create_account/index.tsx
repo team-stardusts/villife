@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { SafeAreaView, Text, View } from "react-native";
+import { Alert, SafeAreaView, Text, View } from "react-native";
 import useScreenMessage from "../../../../hooks/multilingual/hooks";
 import useSystemInfo from "../../../../hooks/systeminfo/hooks";
 import UniversialButton from "../../../blocks/universial/button";
@@ -13,6 +13,7 @@ import { useLoginService } from "../../../../hooks/services/hooks";
 import UserTypeSelectionButton from "../../../blocks/auth_screens/icon_user_type";
 import { Authority } from "../../../../libs/rest_apis/villife/types";
 import { VILLIFE_AUTHORITY } from "../../../../libs/rest_apis/villife";
+import VillifeStorage from "../../../../libs/storage";
 
 type AccountType = {
     authority: Authority["ADMIN"] | Authority["RENTER"];
@@ -27,6 +28,7 @@ export default function CreateAccountScreen({ navigation, route }: CreateAccount
     const messages = useScreenMessage();
     const styles = useCreateAccountScreenStyles();
     const sysinfo = useSystemInfo();
+    const storage = new VillifeStorage();
     const validator = new StringValidator();
 
     const [account, setAccount] = useState<AccountType>({
@@ -50,7 +52,12 @@ export default function CreateAccountScreen({ navigation, route }: CreateAccount
             // Home으로 이동 시 navigation stack 초기화
             const result = await loginManagers[host].join({ id, password, access_token, authority });
             // [TO-DO] login 작업 추가 해야함.
-            //console.log("login:", result.isSuccessful);
+            if (!result.isSuccessful) {
+                Alert.alert(result.data?.data);
+                navigation.navigate("login");
+            } else {
+                // [TO-DO] storage set ++
+            }
             navigation.navigate("welcome", { authority, id, password });
         }
     };
@@ -102,7 +109,7 @@ export default function CreateAccountScreen({ navigation, route }: CreateAccount
                         />
                         <UserTypeSelectionButton
                             userType={VILLIFE_AUTHORITY.ADMIN}
-                            caption={messages.messages.words.landlord}
+                            caption={messages.messages.words.admin}
                             size={sysinfo.window.width * 0.25}
                             selected={account.authority === VILLIFE_AUTHORITY.ADMIN}
                             onPress={() => {

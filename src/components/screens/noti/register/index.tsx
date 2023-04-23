@@ -35,7 +35,7 @@ function NoticeRegisterScreen(props: NoticeRegisterScreenProps) {
             priority: 1,
             title: titile.current,
             content: content.current,
-            building_id: 1,
+            building_id: 3,
         };
         const api = new VillifeServer();
 
