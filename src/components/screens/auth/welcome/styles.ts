@@ -1,9 +1,9 @@
 import { StyleSheet } from "react-native";
 import useSystemInfo from "../../../../hooks/systeminfo/hooks";
-import useAppTheme from "../../../../hooks/themes/hooks";
+import useAppThemeLegacy from "../../../../hooks/themes_legacy/hooks";
 
 export default function useWelcomeScreenStyles() {
-    const Theme = useAppTheme();
+    const Theme = useAppThemeLegacy();
     const SystemInfo = useSystemInfo();
 
     const Screen = StyleSheet.create({

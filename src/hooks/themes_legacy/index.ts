@@ -1,4 +1,3 @@
-import { useColorScheme } from "react-native";
 import ThemeTypes from "./types";
 
 export class LightTheme implements ThemeTypes.ITheme {
@@ -16,6 +15,7 @@ export class LightTheme implements ThemeTypes.ITheme {
             white: "#FFFFFF",
         },
     };
+
     readonly fonts = {
         title1: {
             fortFamily: "Pretendard-ExtraBold",

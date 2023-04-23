@@ -2,14 +2,14 @@ import { useEffect, useState } from "react";
 import { StyleSheet, View } from "react-native";
 import useScreenMessage from "../../../../../hooks/multilingual/hooks";
 import useSystemInfo from "../../../../../hooks/systeminfo/hooks";
-import useAppTheme from "../../../../../hooks/themes/hooks";
+import useAppThemeLegacy from "../../../../../hooks/themes_legacy/hooks";
 import StringValidator from "../../../../../libs/string_validator";
 import Badge from "../../../../atoms/badge";
 import ValidatorProps from "./types";
 
 export default function TextInputValidators(props: ValidatorProps) {
     const sysinfo = useSystemInfo();
-    const theme = useAppTheme().colors.colorFamily;
+    const theme = useAppThemeLegacy().colors.colorFamily;
     const validator = new StringValidator();
 
     const validBgColor = theme.lightblue;

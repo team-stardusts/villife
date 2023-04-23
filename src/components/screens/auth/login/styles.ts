@@ -1,10 +1,10 @@
 import { StyleSheet } from "react-native";
 import LoginScreenTypes, { LoginScreenStylesType } from "./types";
-import useAppTheme from "../../../../hooks/themes/hooks";
+import useAppThemeLegacy from "../../../../hooks/themes_legacy/hooks";
 import useSystemInfo from "../../../../hooks/systeminfo/hooks";
 
 export default function useLoginScreenStyles(): LoginScreenStylesType {
-    const Theme = useAppTheme();
+    const Theme = useAppThemeLegacy();
     const SystemInfo = useSystemInfo();
 
     const Screen = StyleSheet.create({
@@ -16,9 +16,9 @@ export default function useLoginScreenStyles(): LoginScreenStylesType {
         contentsBox: {
             flex: 1,
             paddingHorizontal: SystemInfo.window.width * 0.06,
-        }
-    })
-    
+        },
+    });
+
     const LoginInputSection = StyleSheet.create({
         topLevelBox: {
             flex: 3.5,
@@ -77,14 +77,14 @@ export default function useLoginScreenStyles(): LoginScreenStylesType {
         socialLoginBtnIconWrapper: {
             position: "absolute",
             left: SystemInfo.window.width * 0.03,
-            paddingVertical: 2
+            paddingVertical: 2,
         },
         socialLoginBtnTitle: {
             color: Theme.colors.colorFamily.white,
             fontSize: SystemInfo.window.width * 0.04,
             fontWeight: "700",
-        }
-    })
+        },
+    });
 
     const JoinLinkSection = StyleSheet.create({
         topLevelBox: {
@@ -95,12 +95,12 @@ export default function useLoginScreenStyles(): LoginScreenStylesType {
             paddingHorizontal: SystemInfo.window.width * 0.22,
             flexDirection: "row",
             alignItems: "flex-start",
-            justifyContent: "space-around"
+            justifyContent: "space-around",
         },
         text: {
             fontWeight: "800",
-        }
-    })
+        },
+    });
 
     /*
     const GreetingSection = StyleSheet.create({
@@ -135,7 +135,7 @@ export default function useLoginScreenStyles(): LoginScreenStylesType {
         },
     })
     */
-    
+
     return {
         Screen,
         LoginInputSection,

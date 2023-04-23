@@ -1,21 +1,21 @@
-import {StyleSheet} from 'react-native';
-import useSystemInfo from '../../../../hooks/systeminfo/hooks';
-import useAppTheme from '../../../../hooks/themes/hooks';
-import {UseAuthScreenBottonButtonStylesType} from './types';
+import { StyleSheet } from "react-native";
+import useSystemInfo from "../../../../hooks/systeminfo/hooks";
+import useAppThemeLegacy from "../../../../hooks/themes_legacy/hooks";
+import { UseAuthScreenBottonButtonStylesType } from "./types";
 
 export default function useAuthScreenBottomButtonStyles(): UseAuthScreenBottonButtonStylesType {
-  const Theme = useAppTheme();
-  const SystemInfo = useSystemInfo();
+    const Theme = useAppThemeLegacy();
+    const SystemInfo = useSystemInfo();
 
-  return StyleSheet.create({
-    topLevelBox: {
-      position: 'absolute',
-      bottom: 0,
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      width: '100%',
-      height: SystemInfo.window.height * 0.08,
-    },
-  });
+    return StyleSheet.create({
+        topLevelBox: {
+            position: "absolute",
+            bottom: 0,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            width: "100%",
+            height: SystemInfo.window.height * 0.08,
+        },
+    });
 }

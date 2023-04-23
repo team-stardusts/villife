@@ -1,10 +1,10 @@
 import { StyleSheet } from "react-native";
 import useSystemInfo from "../../../../hooks/systeminfo/hooks";
-import useAppTheme from "../../../../hooks/themes/hooks";
+import useAppThemeLegacy from "../../../../hooks/themes_legacy/hooks";
 import { SetBuildingScreenStylesType } from "./types";
 
 export default function useSetBuildingScreenStyles(): SetBuildingScreenStylesType {
-    const Theme = useAppTheme();
+    const Theme = useAppThemeLegacy();
     const SystemInfo = useSystemInfo();
 
     const Screen = StyleSheet.create({
@@ -56,12 +56,12 @@ export default function useSetBuildingScreenStyles(): SetBuildingScreenStylesTyp
     const BlankSection = StyleSheet.create({
         topLevelBox: {
             flex: 5,
-        }
+        },
     });
 
     return {
-        Screen, 
+        Screen,
         InputsSection,
         BlankSection,
-    }
+    };
 }

@@ -1,13 +1,12 @@
 import { StyleSheet } from "react-native";
 import useSystemInfo from "../../../../hooks/systeminfo/hooks";
-import useAppTheme from "../../../../hooks/themes/hooks";
+import useAppThemeLegacy from "../../../../hooks/themes_legacy/hooks";
 import { UseUniversialTextinputStylesProps, UseUniversialTextinputStylesPropsReturnType } from "./types";
 
-
-
 export default function useUniversialTextinputStyles(
-    props: UseUniversialTextinputStylesProps): UseUniversialTextinputStylesPropsReturnType {
-    const Theme = useAppTheme();
+    props: UseUniversialTextinputStylesProps
+): UseUniversialTextinputStylesPropsReturnType {
+    const Theme = useAppThemeLegacy();
     const SystemInfo = useSystemInfo();
 
     return StyleSheet.create({
@@ -18,12 +17,10 @@ export default function useUniversialTextinputStyles(
             margin: 0,
             paddingVertical: SystemInfo.window.width * 0.01,
             paddingHorizontal: SystemInfo.window.width * 0.02,
-            borderColor: props.isFocusing 
-                        ? props.highlightColor ?? Theme.colors.colorFamily.blue
-                        : props.lowlightColor  ?? Theme.colors.colorFamily.lightgrey,
-            borderWidth: props.isFocusing
-                        ? SystemInfo.window.width * 0.004
-                        : SystemInfo.window.width * 0.002,
-        }
+            borderColor: props.isFocusing
+                ? props.highlightColor ?? Theme.colors.colorFamily.blue
+                : props.lowlightColor ?? Theme.colors.colorFamily.lightgrey,
+            borderWidth: props.isFocusing ? SystemInfo.window.width * 0.004 : SystemInfo.window.width * 0.002,
+        },
     });
 }

@@ -21,7 +21,7 @@ import { CreateNoticeParams } from "../../../../libs/rest_apis/villife/types";
 import VillifeServer from "../../../../libs/rest_apis/villife";
 import Toast from "react-native-toast-message";
 import NavigationView from "../../../blocks/navigation";
-import { LightTheme } from "../../../../hooks/themes";
+import { LightTheme } from "../../../../hooks/themes_legacy";
 import { NoticeEventEmitter } from "../../../blocks/noti_screens/outlined_box_list/event";
 
 function NoticeRegisterScreen(props: NoticeRegisterScreenProps) {

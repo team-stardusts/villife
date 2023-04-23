@@ -1,10 +1,10 @@
 import { StyleSheet } from "react-native";
 import useSystemInfo from "../../../../hooks/systeminfo/hooks";
-import useAppTheme from "../../../../hooks/themes/hooks";
+import useAppThemeLegacy from "../../../../hooks/themes_legacy/hooks";
 import { UsePermissionScreenViewStylesType } from "./types";
 
 export default function usePermissionScreenViewStyles(): UsePermissionScreenViewStylesType {
-    const Theme = useAppTheme();
+    const Theme = useAppThemeLegacy();
     const SystemInfo = useSystemInfo();
 
     return StyleSheet.create({

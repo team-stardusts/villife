@@ -1,9 +1,13 @@
-import AppThemes from ".";
 import { useColorScheme } from "react-native";
-import { UseAppThemeReturnType } from "./types";
+import LightTheme from "./light";
 
-export default function useAppTheme(): UseAppThemeReturnType {
-    const Theme: AppThemes = new AppThemes()
+export default function useAppTheme(): LightTheme {
+    const theme = useColorScheme();
 
-    return useColorScheme() === "dark" ? Theme.DarkTheme : Theme.LightTheme;
+    switch (theme) {
+        case "light":
+            return new LightTheme();
+        default:
+            return new LightTheme();
+    }
 }

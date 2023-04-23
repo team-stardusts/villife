@@ -11,14 +11,14 @@ import {
     View,
 } from "react-native";
 import useScreenMessage from "../../../hooks/multilingual/hooks";
-import useAppTheme from "../../../hooks/themes/hooks";
+import useAppThemeLegacy from "../../../hooks/themes_legacy/hooks";
 import Icon from "../../atoms/icon";
 import { RouterParams, StackParamList } from "../../router/types";
 import useNavigationViewStyles from "./styles";
 import NavigationViewProps, { BottomLink } from "./types";
 
 export default function NavigationView({ headerOptions, bottomNavOptions, children }: NavigationViewProps) {
-    const theme = useAppTheme();
+    const theme = useAppThemeLegacy();
     const message = useScreenMessage();
     const styles = useNavigationViewStyles();
     const navigation = useNavigation<RouterParams["navigation"]>();

@@ -8,7 +8,7 @@ import { useRecoilState } from "recoil";
 import { useState } from "react";
 import useSystemInfo from "../../../../hooks/systeminfo/hooks";
 import SocialLoginIcon from "../../../blocks/icon/login";
-import useAppTheme from "../../../../hooks/themes/hooks";
+import useAppThemeLegacy from "../../../../hooks/themes_legacy/hooks";
 import { useLoginService } from "../../../../hooks/services/hooks";
 import AuthScreenTitleView from "../../../blocks/auth_screens/title_view";
 import { Toast } from "react-native-toast-message/lib/src/Toast";
@@ -21,7 +21,7 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
     const loginm = useLoginService();
     const login = useAuthService().login;
     const messages = useScreenMessage();
-    const theme = useAppTheme();
+    const theme = useAppThemeLegacy();
     const systemInfo = useSystemInfo();
     const styles = useLoginScreenStyles();
     const iconDiameter: number = useSystemInfo().window.width * 0.12;

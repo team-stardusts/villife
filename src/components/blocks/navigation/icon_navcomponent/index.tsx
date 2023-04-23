@@ -1,11 +1,11 @@
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import useSystemInfo from "../../../../hooks/systeminfo/hooks";
-import useAppTheme from "../../../../hooks/themes/hooks";
+import useAppThemeLegacy from "../../../../hooks/themes_legacy/hooks";
 import Icon from "../../../atoms/icon";
 import { IconNavComponentProps } from "./types";
 
 export default function IconNavComponent(props: IconNavComponentProps) {
-    const theme = useAppTheme();
+    const theme = useAppThemeLegacy();
     const sysinfo = useSystemInfo();
 
     const styles = StyleSheet.create({

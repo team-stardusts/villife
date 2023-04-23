@@ -1,5 +1,5 @@
 import { StyleSheet, View, Text, Platform, Pressable } from "react-native";
-import useAppTheme from "../../../../hooks/themes/hooks";
+import useAppThemeLegacy from "../../../../hooks/themes_legacy/hooks";
 import { VILLIFE_AUTHORITY } from "../../../../libs/rest_apis/villife";
 import { IconRoundPeople, IconRoundPerson } from "../../../atoms/icon/human";
 import { UserTypeSelectionButtonProps } from "./types";
@@ -11,7 +11,7 @@ export default function UserTypeSelectionButton({
     selected,
     onPress,
 }: UserTypeSelectionButtonProps) {
-    const colorFamily = useAppTheme().colors.colorFamily;
+    const colorFamily = useAppThemeLegacy().colors.colorFamily;
     const color: string = selected ? colorFamily.blue : colorFamily.lightgrey;
 
     let Icon = null;

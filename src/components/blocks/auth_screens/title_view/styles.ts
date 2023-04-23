@@ -1,11 +1,10 @@
 import { StyleSheet } from "react-native";
 import useSystemInfo from "../../../../hooks/systeminfo/hooks";
-import useAppTheme from "../../../../hooks/themes/hooks";
+import useAppThemeLegacy from "../../../../hooks/themes_legacy/hooks";
 import { UseAuthScreenTitleViewStylesType } from "./types";
 
-
 export default function useAuthScreenTtitleViewStyles(): UseAuthScreenTitleViewStylesType {
-    const Theme = useAppTheme();
+    const Theme = useAppThemeLegacy();
     const SystemInfo = useSystemInfo();
 
     return StyleSheet.create({
@@ -20,13 +19,13 @@ export default function useAuthScreenTtitleViewStyles(): UseAuthScreenTitleViewS
             paddingTop: SystemInfo.window.width * 0.04,
         },
         title: {
-            color: Theme.colors.colorFamily.blue, 
+            color: Theme.colors.colorFamily.blue,
             fontWeight: "bold",
             fontSize: SystemInfo.window.width * 0.07,
         },
         subtitle: {
             color: Theme.colors.colorFamily.black,
             fontSize: SystemInfo.window.width * 0.03,
-        }
+        },
     });
 }
