@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Alert, SafeAreaView, Text, View } from "react-native";
+import { Alert, KeyboardAvoidingView, SafeAreaView, ScrollView, Text, View } from "react-native";
 import useScreenMessage from "../../../../hooks/multilingual/hooks";
 import useSystemInfo from "../../../../hooks/systeminfo/hooks";
 import UniversialButton from "../../../blocks/universial/button";
@@ -14,6 +14,7 @@ import UserTypeSelectionButton from "../../../blocks/auth_screens/icon_user_type
 import { Authority } from "../../../../libs/rest_apis/villife/types";
 import { VILLIFE_AUTHORITY } from "../../../../libs/rest_apis/villife";
 import VillifeStorage from "../../../../libs/storage";
+import useStyler from "../../../../hooks/styler/hooks";
 
 type AccountType = {
     authority: Authority["ADMIN"] | Authority["RENTER"];
@@ -27,8 +28,7 @@ export default function CreateAccountScreen({ navigation, route }: CreateAccount
     const loginManagers = useLoginService();
     const messages = useScreenMessage();
     const styles = useCreateAccountScreenStyles();
-    const sysinfo = useSystemInfo();
-    const storage = new VillifeStorage();
+    const { deviceUI } = useStyler();
     const validator = new StringValidator();
 
     const [account, setAccount] = useState<AccountType>({
@@ -84,21 +84,17 @@ export default function CreateAccountScreen({ navigation, route }: CreateAccount
 
     return (
         <SafeAreaView style={styles.Screen.topLevelBox}>
-            <View style={styles.Screen.screenWrapper}>
+            <KeyboardAvoidingView style={styles.Screen.screenWrapper} behavior="padding">
                 <AuthScreenTitleView
                     title={messages.messages.auth.create_account.title}
-                    subtitles={[
-                        messages.messages.auth.create_account.subtitle_1,
-                        messages.messages.auth.create_account.subtitle_2,
-                        messages.messages.auth.create_account.subtitle_3,
-                    ]}
+                    subtitles={[messages.messages.auth.create_account.subtitle]}
                 />
                 <View style={styles.Screen.contentsWrapper}>
                     <View style={styles.UserTypeIconSection.toplevelBox}>
                         <UserTypeSelectionButton
                             userType={VILLIFE_AUTHORITY.RENTER}
                             caption={messages.messages.words.renter}
-                            size={sysinfo.window.width * 0.25}
+                            size={deviceUI.verticalScale(80)}
                             selected={account.authority === VILLIFE_AUTHORITY.RENTER}
                             onPress={() => {
                                 setAccount({
@@ -110,7 +106,7 @@ export default function CreateAccountScreen({ navigation, route }: CreateAccount
                         <UserTypeSelectionButton
                             userType={VILLIFE_AUTHORITY.ADMIN}
                             caption={messages.messages.words.admin}
-                            size={sysinfo.window.width * 0.25}
+                            size={deviceUI.verticalScale(80)}
                             selected={account.authority === VILLIFE_AUTHORITY.ADMIN}
                             onPress={() => {
                                 setAccount({
@@ -183,9 +179,9 @@ export default function CreateAccountScreen({ navigation, route }: CreateAccount
                             )}
                         </View>
                     </View>
-                    <View style={styles.BlankSection.topLevelBox}></View>
                 </View>
-            </View>
+            </KeyboardAvoidingView>
+            <View style={styles.Screen.marginView}></View>
             <AuthScreenBottonButton
                 title={messages.messages.auth.create_account.next_btn_title}
                 onPress={() => {

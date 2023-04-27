@@ -2,10 +2,10 @@ import { StyleSheet } from "react-native";
 import useSystemInfo from "../../../../hooks/systeminfo/hooks";
 import useAppThemeLegacy from "../../../../hooks/themes_legacy/hooks";
 import { UseAuthScreenTitleViewStylesType } from "./types";
+import useStyler from "../../../../hooks/styler/hooks";
 
 export default function useAuthScreenTtitleViewStyles(): UseAuthScreenTitleViewStylesType {
-    const Theme = useAppThemeLegacy();
-    const SystemInfo = useSystemInfo();
+    const { deviceUI, theme } = useStyler();
 
     return StyleSheet.create({
         topLevelBox: {
@@ -16,16 +16,16 @@ export default function useAuthScreenTtitleViewStyles(): UseAuthScreenTitleViewS
         },
         textWrapper: {
             textAlign: "left",
-            paddingTop: SystemInfo.window.width * 0.04,
+            paddingTop: deviceUI.moderateScale(16),
         },
         title: {
-            color: Theme.colors.colorFamily.blue,
-            fontWeight: "bold",
-            fontSize: SystemInfo.window.width * 0.07,
+            color: theme.colorFamily.blue,
+            marginBottom: deviceUI.moderateScale(3),
+            ...theme.font.researved.h2,
         },
         subtitle: {
-            color: Theme.colors.colorFamily.black,
-            fontSize: SystemInfo.window.width * 0.03,
+            color: theme.colorFamily.black,
+            ...theme.font.researved.h5,
         },
     });
 }

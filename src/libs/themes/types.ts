@@ -1,3 +1,5 @@
+export type ColorScheme = "light" | "dark";
+
 export type ColorFamily = {
     blue: string;
     lightblue: string;
@@ -28,8 +30,3 @@ export type Font = {
     fontFamilies: FontFamilies;
     researved: ResearvedFonts;
 };
-
-export interface ITheme {
-    colorFamiliy: ColorFamily;
-    font: Font;
-}

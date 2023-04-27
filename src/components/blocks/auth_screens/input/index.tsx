@@ -7,6 +7,7 @@ import AuthScreenCommonInputProps from "./types";
 import TextInputValidators from "./validator";
 
 export default function AuthScreenCommonInput(props: AuthScreenCommonInputProps) {
+    // [TO-DO] Validator가 검사 후 true를 반환하도록 변경
     const { title, titleStyle, inspect } = props;
     const styles = useAuthScreenCommonInputStyles();
     const message = useScreenMessage();

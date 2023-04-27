@@ -3,6 +3,7 @@ import useAppThemeLegacy from "../../../../hooks/themes_legacy/hooks";
 import { VILLIFE_AUTHORITY } from "../../../../libs/rest_apis/villife";
 import { IconRoundPeople, IconRoundPerson } from "../../../atoms/icon/human";
 import { UserTypeSelectionButtonProps } from "./types";
+import useStyler from "../../../../hooks/styler/hooks";
 
 export default function UserTypeSelectionButton({
     caption,
@@ -11,8 +12,8 @@ export default function UserTypeSelectionButton({
     selected,
     onPress,
 }: UserTypeSelectionButtonProps) {
-    const colorFamily = useAppThemeLegacy().colors.colorFamily;
-    const color: string = selected ? colorFamily.blue : colorFamily.lightgrey;
+    const { deviceUI, theme } = useStyler();
+    const color: string = selected ? theme.colorFamily.blue : theme.colorFamily.lightgrey;
 
     let Icon = null;
 
@@ -33,10 +34,10 @@ export default function UserTypeSelectionButton({
             borderColor: color,
             borderRadius: size * 0.2,
             borderWidth: size * 0.05,
-            backgroundColor: colorFamily.white,
+            backgroundColor: theme.colorFamily.white,
             ...Platform.select({
                 ios: {
-                    shadowColor: colorFamily.darkgrey,
+                    shadowColor: theme.colorFamily.darkgrey,
                     shadowOpacity: 0.4,
                     shadowRadius: size * 0.025,
                     shadowOffset: {
@@ -61,8 +62,8 @@ export default function UserTypeSelectionButton({
         },
         caption: {
             color: color,
+            fontFamily: theme.font.fontFamilies.pretendard.extraBold,
             fontSize: size * 0.2,
-            fontWeight: "bold",
         },
     });
     return (

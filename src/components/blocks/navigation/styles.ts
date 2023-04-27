@@ -1,22 +1,22 @@
 import { StyleSheet } from "react-native";
 import useSystemInfo from "../../../hooks/systeminfo/hooks";
 import useAppThemeLegacy from "../../../hooks/themes_legacy/hooks";
+import useStyler from "../../../hooks/styler/hooks";
 
 export default function useNavigationViewStyles() {
-    const sysinfo = useSystemInfo();
-    const theme = useAppThemeLegacy();
+    const { deviceUI, theme } = useStyler();
 
     const styles = StyleSheet.create({
         toplevelBox: {
             flex: 1,
-            backgroundColor: theme.colors.colorFamily.white,
+            backgroundColor: theme.colorFamily.white,
         },
         headerBox: {
             flex: 0.7,
             flexDirection: "row",
-            backgroundColor: theme.colors.colorFamily.white,
-            borderBottomColor: theme.colors.colorFamily.lightgrey,
-            borderBottomWidth: 2,
+            backgroundColor: theme.colorFamily.white,
+            borderBottomColor: theme.colorFamily.lightgrey,
+            borderBottomWidth: deviceUI.moderateScale(2),
         },
         headerNavBox: {
             flex: 3,
@@ -46,24 +46,23 @@ export default function useNavigationViewStyles() {
             justifyContent: "center",
         },
         headerTitle: {
-            color: theme.colors.colorFamily.black,
-            paddingLeft: 20,
-            marginRight: 5,
-            fontFamily: "Pretendard-Bold",
-            fontSize: 20,
+            color: theme.colorFamily.black,
+            paddingLeft: deviceUI.moderateScale(20), //20,
+            marginRight: deviceUI.moderateScale(5),
+            fontFamily: theme.font.fontFamilies.pretendard.bold,
+            fontSize: deviceUI.moderateScale(17),
         },
         contentsBox: {
             flex: 8.3,
-            //backgroundColor: "teal",
         },
         bottomNavBox: {
             flex: 1,
             flexDirection: "row",
             alignItems: "center",
             justifyContent: "center",
-            backgroundColor: theme.colors.colorFamily.white,
-            borderTopColor: theme.colors.colorFamily.lightgrey,
-            borderTopWidth: 2,
+            backgroundColor: theme.colorFamily.white,
+            borderTopColor: theme.colorFamily.lightgrey,
+            borderTopWidth: deviceUI.moderateScale(2),
         },
         bottomNavWrapper: {
             width: "18%",
@@ -72,13 +71,14 @@ export default function useNavigationViewStyles() {
         bottomNavIconBox: {
             flex: 5,
             justifyContent: "flex-end",
-            paddingBottom: sysinfo.window.height * 0.005,
+            paddingBottom: deviceUI.horizontalScale(0.05),
         },
         bottomNavCaptionBox: {
             flex: 5,
         },
         bottomNavCaption: {
-            fontSize: sysinfo.window.width * 0.031,
+            ...theme.font.researved.h5,
+            fontSize: deviceUI.moderateScale(12),
         },
     });
 

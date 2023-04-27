@@ -1,10 +1,11 @@
 import { StyleSheet } from "react-native";
 import useSystemInfo from "../../../../hooks/systeminfo/hooks";
 import useAppThemeLegacy from "../../../../hooks/themes_legacy/hooks";
+import useStyler from "../../../../hooks/styler/hooks";
 
 export default function useAuthScreenCommonInputStyles() {
-    const theme = useAppThemeLegacy();
     const sysInfo = useSystemInfo();
+    const { deviceUI, theme } = useStyler();
 
     return StyleSheet.create({
         inputWrapper: {
@@ -12,14 +13,14 @@ export default function useAuthScreenCommonInputStyles() {
         },
         inputTitle: {
             //fontFamily: Theme.css.font.universial.fontFamily,
-            color: theme.colors.colorFamily.blue,
-            fontSize: sysInfo.window.width * 0.05,
+            color: theme.colorFamily.blue,
             fontWeight: "bold",
-            paddingBottom: sysInfo.window.width * 0.01,
+            paddingBottom: deviceUI.moderateScale(3),
+            ...theme.font.researved.h4,
         },
         validatorWrapper: {
             flex: 3,
-            paddingTop: sysInfo.window.width * 0.02,
+            paddingTop: deviceUI.moderateScale(4),
             flexDirection: "row",
         },
     });

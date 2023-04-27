@@ -2,23 +2,26 @@ import { StyleSheet } from "react-native";
 import useSystemInfo from "../../../../hooks/systeminfo/hooks";
 import useAppThemeLegacy from "../../../../hooks/themes_legacy/hooks";
 import { CreateAccountScreenStylesType } from "./types";
+import useStyler from "../../../../hooks/styler/hooks";
 
 export default function useCreateAccountScreenStyles(): CreateAccountScreenStylesType {
-    const Theme = useAppThemeLegacy();
-    const SystemInfo = useSystemInfo();
+    const { deviceUI, theme } = useStyler();
 
     const Screen = StyleSheet.create({
         topLevelBox: {
             flex: 1,
             flexDirection: "column",
-            backgroundColor: Theme.colors.colorFamily.white,
+            backgroundColor: theme.colorFamily.white,
         },
         screenWrapper: {
             flex: 1,
-            paddingHorizontal: SystemInfo.window.width * 0.06,
+            paddingHorizontal: deviceUI.moderateScale(20),
         },
         contentsWrapper: {
             flex: 8,
+        },
+        marginView: {
+            marginTop: deviceUI.moderateScale(150),
         },
     });
 
@@ -35,7 +38,7 @@ export default function useCreateAccountScreenStyles(): CreateAccountScreenStyle
             flex: 6,
             alignItems: "center",
             justifyContent: "flex-start",
-            paddingTop: SystemInfo.window.height * 0.05,
+            paddingTop: deviceUI.moderateScale(10),
         },
         inputsWrapper: {
             //height: "80%",
@@ -44,23 +47,12 @@ export default function useCreateAccountScreenStyles(): CreateAccountScreenStyle
         },
         btnWrapper: {
             flex: 3,
-            marginBottom: SystemInfo.window.width * 0.02,
+            marginBottom: deviceUI.moderateScale(10),
         },
         btnDisabled: {
             flex: 1,
-            borderRadius: SystemInfo.window.width * 0.02,
-            backgroundColor: "grey",
-        },
-        btnTitle: {
-            color: Theme.colors.colorFamily.white,
-            fontSize: SystemInfo.window.width * 0.04,
-            fontWeight: "700",
-        },
-    });
-
-    const BlankSection = StyleSheet.create({
-        topLevelBox: {
-            flex: 2,
+            borderRadius: deviceUI.moderateScale(10),
+            backgroundColor: theme.colorFamily.grey,
         },
     });
 
@@ -68,6 +60,5 @@ export default function useCreateAccountScreenStyles(): CreateAccountScreenStyle
         Screen,
         UserTypeIconSection,
         InputsSection,
-        BlankSection,
     };
 }

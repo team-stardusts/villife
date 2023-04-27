@@ -1,8 +1,9 @@
 import ATheme from "../absc";
-import { ColorFamily } from "../types";
+import { ColorFamily, ColorScheme } from "../types";
 
 class LightTheme extends ATheme {
-    readonly colorFamiliy: ColorFamily = {
+    static readonly scheme: ColorScheme = "light";
+    static readonly colorFamily: ColorFamily = {
         black: "#000000",
         blue: "#0B75F2",
         darkgrey: "#3B3C3D",
