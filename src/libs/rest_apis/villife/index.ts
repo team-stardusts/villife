@@ -40,7 +40,7 @@ class VillifeServer extends AREST {
     private env: DotEnv = new DotEnv();
 
     readonly requester: AxiosInstance = axios.create({
-        baseURL: "http://13.125.190.36:8080/", // this.env.api.villife.REST_API_BASE_URL,
+        baseURL: /* "http://13.125.190.36:8080/", */ this.env.api.villife.REST_API_BASE_URL,
         timeout: 1000,
         timeoutErrorMessage:
             "The request timed out.\
@@ -251,12 +251,12 @@ class VillifeServer extends AREST {
         });
     }
 
-      /**
+    /**
      * @param verifyBuildingAddress
      * @warn API for checking whether a building is in our database or not.
      */
     public async verifyBuildingAddress(params: VerifyBuildingAddressParams): Response<VerifyBuildingAddressResult> {
-        let route: string = this.routes.verifyBuilding
+        let route: string = this.routes.verifyBuilding;
 
         return await this.requestWithAuthentication<any, VerifyBuildingAddressResult>({
             method: "post",
@@ -266,7 +266,7 @@ class VillifeServer extends AREST {
     }
 
     public async ValidateUserResidenceForTest(params: UserResidenceValidationParams): Response<string> {
-        let route: string = this.routes.testUserResidenceValidation
+        let route: string = this.routes.testUserResidenceValidation;
 
         return await this.requestWithAuthentication<any, string>({
             method: "post",
@@ -274,8 +274,6 @@ class VillifeServer extends AREST {
             data: params,
         });
     }
-
-
 }
 
 export default VillifeServer;
