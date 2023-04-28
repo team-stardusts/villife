@@ -41,6 +41,7 @@ export default function HomeScreen({ navigation, route }: HomeScreenProps) {
                 />
                 <Button aria-label="Decrement value" title="Decrement" />
                 <Button aria-label="Decrement value" title="incrementByAmount" />
+                <Button onPress={()=>navigation.navigate("set_building",{id:"",password:""})} aria-label="Decrement value" title="건물 설정하기 테스트용" />
             </View>
         </NavigationView>
     );

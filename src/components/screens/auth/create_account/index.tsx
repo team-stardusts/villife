@@ -54,9 +54,10 @@ export default function CreateAccountScreen({ navigation, route }: CreateAccount
             // [TO-DO] login 작업 추가 해야함.
             if (!result.isSuccessful) {
                 Alert.alert(result.data?.data);
-                navigation.navigate("login");
+                return
             } else {
                 // [TO-DO] storage set ++
+                console.log('succeeded in sigining up')
             }
             navigation.navigate("welcome", { authority, id, password });
         }

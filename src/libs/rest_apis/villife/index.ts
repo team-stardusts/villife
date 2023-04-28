@@ -16,6 +16,9 @@ import {
     SocialJoinResultType,
     SocialLoginHostType,
     UpdateNoticeParams,
+    UserResidenceValidationParams,
+    VerifyBuildingAddressParams,
+    VerifyBuildingAddressResult,
 } from "./types";
 import { Responsable, Response } from "../types";
 import DotEnv from "../../dotenv";
@@ -247,6 +250,32 @@ class VillifeServer extends AREST {
             data: params,
         });
     }
+
+      /**
+     * @param verifyBuildingAddress
+     * @warn API for checking whether a building is in our database or not.
+     */
+    public async verifyBuildingAddress(params: VerifyBuildingAddressParams): Response<VerifyBuildingAddressResult> {
+        let route: string = this.routes.verifyBuilding
+
+        return await this.requestWithAuthentication<any, VerifyBuildingAddressResult>({
+            method: "post",
+            url: route,
+            data: params,
+        });
+    }
+
+    public async ValidateUserResidenceForTest(params: UserResidenceValidationParams): Response<string> {
+        let route: string = this.routes.testUserResidenceValidation
+
+        return await this.requestWithAuthentication<any, string>({
+            method: "post",
+            url: route,
+            data: params,
+        });
+    }
+
+
 }
 
 export default VillifeServer;
