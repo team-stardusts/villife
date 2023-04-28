@@ -2,8 +2,8 @@ import IStringValidator, { StringRegularExpressions } from "./types";
 
 class StringValidator implements IStringValidator {
     readonly regExps: StringRegularExpressions = {
-        //영문자로 시작하는 영문자 또는 숫자 6~20자
-        id: /^[a-z]+[a-z0-9]{5,19}$/g,
+        //영문자로 시작하는 영문자 또는 숫자 5~10자
+        id: /^[a-z]+[a-z0-9]{4,10}$/g,
         //8 ~ 16자 영문, 숫자, 특수문자를 최소 한가지씩 조합
         password: /^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+]).{8,16}$/,
         phoneNumber: /^01(?:0|1|[6-9])(?:\d{3}|\d{4})\d{4}$/,

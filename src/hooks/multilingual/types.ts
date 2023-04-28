@@ -49,9 +49,7 @@ export type MessagesByLanguage = {
         create_account: {
             screen_title: string;
             title: string;
-            subtitle_1: string;
-            subtitle_2: string;
-            subtitle_3: string;
+            subtitle: string;
             name_input_title: string;
             name_input_placeholder: string;
             password_input_title: string;
@@ -124,5 +122,11 @@ export type MessagesByLanguage = {
         tokens_for_4to10: string;
         tokens_for_8to20: string;
         matching_password: string;
+        cancle: string;
+        okay: string;
+    };
+    navigation: {
+        say_wait: string;
+        ask_shutdown: string;
     };
 };

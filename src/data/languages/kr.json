@@ -42,9 +42,7 @@
         "create_account": {
             "screen_title": "계정생성",
             "title": "ID & 비밀번호 설정하기",
-            "subtitle_1": "세입자 및 관리자를 확인하여 선택해 주세요.",
-            "subtitle_2": "로그인 할 때 사용할 비밀번호를 입력해 주세요.",
-            "subtitle_3": "비밀번호는 영문, 숫자, 특수문자 포함 8자리 이상으로 설정해주세요.",
+            "subtitle": "상황에 맞게 임차인, 관리자를 선택해주세요.",
             "name_input_title": "ID",
             "name_input_placeholder": "사용할 ID를 입력해주세요.",
             "password_input_title": "비밀번호",
@@ -117,6 +115,12 @@
         "use_special_char": "특수문자",
         "tokens_for_4to10": "4~10자 이내",
         "tokens_for_8to20": "8~20자 이내",
-        "matching_password": "비밀번호 일치"
+        "matching_password": "비밀번호 일치",
+        "cancle": "취소",
+        "okay": "확인"
+    },
+    "navigation": {
+        "say_wait": "잠시만요!",
+        "ask_shutdown": "앱을 종료 하시겠습니까?"
     }
 }

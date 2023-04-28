@@ -1,34 +1,26 @@
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import { useCallback, useEffect, useState } from "react";
-import {
-    Alert,
-    BackHandler,
-    LayoutAnimation,
-    SafeAreaView,
-    StatusBar,
-    Text,
-    TouchableOpacity,
-    View,
-} from "react-native";
+import { Alert, BackHandler, SafeAreaView, StatusBar, Text, TouchableOpacity, View } from "react-native";
 import useScreenMessage from "../../../hooks/multilingual/hooks";
-import useAppThemeLegacy from "../../../hooks/themes_legacy/hooks";
 import Icon from "../../atoms/icon";
 import { RouterParams, StackParamList } from "../../router/types";
 import useNavigationViewStyles from "./styles";
 import NavigationViewProps, { BottomLink } from "./types";
+import useStyler from "../../../hooks/styler/hooks";
 
 export default function NavigationView({ headerOptions, bottomNavOptions, children }: NavigationViewProps) {
-    const theme = useAppThemeLegacy();
+    const { deviceUI, theme } = useStyler();
     const message = useScreenMessage();
     const styles = useNavigationViewStyles();
     const navigation = useNavigation<RouterParams["navigation"]>();
 
     const [currentRootScreen, setCurrentRootPage] = useState<keyof StackParamList>("home");
-    const [backBtnColor, setBackBtnColor] = useState<string>(theme.colors.colorFamily.black);
+    const [backBtnColor, setBackBtnColor] = useState<string>(theme.colorFamily.black);
     const [menuBtnHighlight, setMenuBtnHighlight] = useState<boolean>(false);
 
     const headerShown: boolean = headerOptions?.shown ?? true;
     const bottomNavShown: boolean = bottomNavOptions?.shown ?? true;
+    const statusBarContent = theme.scheme === "light" ? "dark-content" : "light-content";
 
     // Navigation child에 props를 넣어주기 위함
     let navComponentProps = headerOptions.navComponentProps;
@@ -37,7 +29,7 @@ export default function NavigationView({ headerOptions, bottomNavOptions, childr
     const handleBackBtnPress = () => {
         //LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
 
-        setBackBtnColor(theme.colors.colorFamily.black);
+        setBackBtnColor(theme.colorFamily.black);
 
         navigation.pop();
     };
@@ -66,12 +58,12 @@ export default function NavigationView({ headerOptions, bottomNavOptions, childr
 
                 // 현재 스크린이 루트 스크린일 시
                 if (routes.length === 1) {
-                    Alert.alert("잠시만요!", "앱을 종료하시겠습니까?", [
+                    Alert.alert(message.messages.navigation.say_wait, message.messages.navigation.ask_shutdown, [
+                        { text: message.messages.words.okay, onPress: () => BackHandler.exitApp() },
                         {
-                            text: "취소",
+                            text: message.messages.words.cancle,
                             onPress: () => null,
                         },
-                        { text: "확인", onPress: () => BackHandler.exitApp() },
                     ]);
                     return true;
                 }
@@ -128,13 +120,13 @@ export default function NavigationView({ headerOptions, bottomNavOptions, childr
 
     return (
         <SafeAreaView style={styles.toplevelBox}>
-            <StatusBar barStyle="dark-content" backgroundColor="white" />
+            <StatusBar barStyle={statusBarContent} backgroundColor={theme.colorFamily.white} />
             {headerShown && (
                 <View style={styles.headerBox}>
                     <View style={styles.headerNavBox}>
                         {navigation.getState().index > 0 && (
                             <TouchableOpacity style={styles.headerNavIconBox} onPress={() => handleBackBtnPress()}>
-                                <Icon name="arrow-left" size={80} color={backBtnColor} />
+                                <Icon name="arrow-left" size={deviceUI.moderateScale(65)} color={backBtnColor} />
                             </TouchableOpacity>
                         )}
                         <View style={styles.headerNavTitleBox}>
@@ -173,11 +165,11 @@ export default function NavigationView({ headerOptions, bottomNavOptions, childr
                             <View style={styles.bottomNavIconBox}>
                                 <Icon
                                     name={obj.icon}
-                                    size={50}
+                                    size={deviceUI.moderateScale(50)}
                                     color={
                                         currentRootScreen === obj.screen.name
-                                            ? theme.colors.colorFamily.black
-                                            : theme.colors.colorFamily.lightgrey
+                                            ? theme.colorFamily.black
+                                            : theme.colorFamily.lightgrey
                                     }
                                 />
                             </View>
@@ -188,8 +180,8 @@ export default function NavigationView({ headerOptions, bottomNavOptions, childr
                                         {
                                             color:
                                                 currentRootScreen === obj.screen.name
-                                                    ? theme.colors.colorFamily.black
-                                                    : theme.colors.colorFamily.lightgrey,
+                                                    ? theme.colorFamily.black
+                                                    : theme.colorFamily.lightgrey,
                                         },
                                     ]}>
                                     {obj.caption}
