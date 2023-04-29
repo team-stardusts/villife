@@ -23,6 +23,10 @@ export default function TextInputValidators(props: ValidatorProps) {
     const [isValid, setIsValid] = useState<boolean>(false);
 
     useEffect(() => {
+        onValidate && onValidate(examine, isValid);
+    }, [isValid]);
+
+    useEffect(() => {
         if (text === null) {
             return;
         }

@@ -16,7 +16,7 @@ type ValidatorProps = {
     examine: ExamineType;
     matchingText?: string | null;
     size?: number;
-    onValidate?(): void;
+    onValidate?(examine: keyof InspectTypes, isVaild: boolean): void;
 };
 
 export default ValidatorProps;

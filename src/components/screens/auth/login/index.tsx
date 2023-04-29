@@ -1,32 +1,24 @@
-import { Alert, Pressable, SafeAreaView, Text, View } from "react-native";
+import { Alert, SafeAreaView, Text, TouchableOpacity, View } from "react-native";
 import useScreenMessage from "../../../../hooks/multilingual/hooks";
 import LoginScreenProps from "./types";
 import useLoginScreenStyles from "./styles";
 import UniversalTextInput from "../../../blocks/universial/textinput";
 import UniversialButton from "../../../blocks/universial/button";
-import { useRecoilState } from "recoil";
 import { useState } from "react";
-import useSystemInfo from "../../../../hooks/systeminfo/hooks";
 import SocialLoginIcon from "../../../blocks/icon/login";
-import useAppThemeLegacy from "../../../../hooks/themes_legacy/hooks";
-import { useLoginService } from "../../../../hooks/services/hooks";
 import AuthScreenTitleView from "../../../blocks/auth_screens/title_view";
 import { Toast } from "react-native-toast-message/lib/src/Toast";
 import { HostType } from "../../../../libs/storage/tables/login/types";
 import useAuthService from "../../../../hooks/services/login/hooks";
 import { LoginServiceParams } from "../../../../hooks/services/login/types";
-//import AppRoutes from '../../../../data/routes.json';
+import useStyler from "../../../../hooks/styler/hooks";
 
 export default function LoginScreen({ navigation }: LoginScreenProps) {
-    const loginm = useLoginService();
     const login = useAuthService().login;
     const messages = useScreenMessage();
-    const theme = useAppThemeLegacy();
-    const systemInfo = useSystemInfo();
+    const { deviceUI } = useStyler();
     const styles = useLoginScreenStyles();
-    const iconDiameter: number = useSystemInfo().window.width * 0.12;
-
-    const [isSocialLoginButtonPressed, setIsSocialLoginButtonPressed] = useState<boolean>(false);
+    const iconDiameter: number = deviceUI.moderateScale(40);
 
     const [account, setAccount] = useState<LoginServiceParams>({
         id: "",
@@ -59,7 +51,7 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
             text1: "서비스 준비중입니다.",
             position: "bottom",
             visibilityTime: 1500,
-            bottomOffset: systemInfo.window.height * 0.12,
+            bottomOffset: deviceUI.moderateScale(40),
         });
     };
 
@@ -102,71 +94,42 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
                                 disabled={false}
                             />
                         </View>
-                        <Pressable
+                        <TouchableOpacity
                             style={styles.LoginInputSection.socialLoginBtn}
+                            activeOpacity={0.8}
                             onPress={() => handleLogin("naver", account)}
-                            onPressIn={() => setIsSocialLoginButtonPressed(true)}
-                            onPressOut={() => setIsSocialLoginButtonPressed(false)}>
+                            //onPressIn={() => setIsSocialLoginButtonPressed(true)}
+                            //onPressOut={() => setIsSocialLoginButtonPressed(false)}
+                        >
                             <View style={styles.LoginInputSection.socialLoginBtnIconWrapper}>
                                 <SocialLoginIcon providerName="naver" diameter={iconDiameter} />
                             </View>
-                            <Text style={styles.LoginInputSection.socialLoginBtnTitle}>
+                            <Text style={styles.LoginInputSection.btnTitle}>
                                 {messages.messages.auth.login.title_of_naver_social_login_btn}
                             </Text>
-                            <View
-                                style={isSocialLoginButtonPressed ? styles.LoginInputSection.socialLoginPressedIn : {}}
-                            />
-                        </Pressable>
+                        </TouchableOpacity>
                     </View>
                 </View>
                 <View style={styles.JoinLinkSection.topLevelBox}>
                     <View style={styles.JoinLinkSection.textWrapper}>
-                        <Pressable
-                            children={({ pressed }: any) => (
-                                <Text
-                                    style={[
-                                        {
-                                            color: pressed
-                                                ? theme.colors.colorFamily.blue
-                                                : theme.colors.colorFamily.black,
-                                            fontSize: pressed
-                                                ? systemInfo.window.width * 0.036
-                                                : systemInfo.window.width * 0.035,
-                                        },
-                                        styles.JoinLinkSection.text,
-                                    ]}
-                                    onPress={() => {
-                                        navigation.navigate("create_account", {
-                                            host: "villife",
-                                            access_token: undefined,
-                                        });
-                                    }}>
-                                    {messages.messages.auth.login.join}
-                                </Text>
-                            )}
-                        />
-                        <Text style={[{ fontSize: systemInfo.window.width * 0.035 }, styles.JoinLinkSection.text]}>
+                        <TouchableOpacity
+                            activeOpacity={0.4}
+                            onPress={() => {
+                                navigation.navigate("create_account", {
+                                    host: "villife",
+                                    access_token: undefined,
+                                });
+                            }}>
+                            <Text style={styles.JoinLinkSection.text}>{messages.messages.auth.login.join}</Text>
+                        </TouchableOpacity>
+                        <Text style={[{ marginHorizontal: deviceUI.moderateScale(8) }, styles.JoinLinkSection.text]}>
                             |
                         </Text>
-                        <Pressable
-                            children={({ pressed }: any) => (
-                                <Text
-                                    style={[
-                                        {
-                                            color: pressed
-                                                ? theme.colors.colorFamily.blue
-                                                : theme.colors.colorFamily.black,
-                                            fontSize: pressed
-                                                ? systemInfo.window.width * 0.036
-                                                : systemInfo.window.width * 0.035,
-                                        },
-                                        styles.JoinLinkSection.text,
-                                    ]}
-                                    onPress={showToast}>
-                                    {messages.messages.auth.login.reset_password}
-                                </Text>
-                            )}
-                        />
+                        <TouchableOpacity activeOpacity={0.4} onPress={showToast}>
+                            <Text style={styles.JoinLinkSection.text}>
+                                {messages.messages.auth.login.reset_password}
+                            </Text>
+                        </TouchableOpacity>
                     </View>
                 </View>
                 {/*

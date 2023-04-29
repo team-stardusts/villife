@@ -15,6 +15,7 @@ import { Authority } from "../../../../libs/rest_apis/villife/types";
 import { VILLIFE_AUTHORITY } from "../../../../libs/rest_apis/villife";
 import VillifeStorage from "../../../../libs/storage";
 import useStyler from "../../../../hooks/styler/hooks";
+import useAuthService from "../../../../hooks/services/login/hooks";
 
 type AccountType = {
     authority: Authority["ADMIN"] | Authority["RENTER"];
@@ -26,6 +27,7 @@ type AccountType = {
 export default function CreateAccountScreen({ navigation, route }: CreateAccountScreenProps) {
     const { host, access_token } = route.params;
     const loginManagers = useLoginService();
+    const login = useAuthService().login;
     const messages = useScreenMessage();
     const styles = useCreateAccountScreenStyles();
     const { deviceUI } = useStyler();
@@ -36,6 +38,11 @@ export default function CreateAccountScreen({ navigation, route }: CreateAccount
         id: null,
         password: null,
         confirm_password: null,
+    });
+    const [inputValidation, setInputValidation] = useState({
+        id: false,
+        password: false,
+        confirmPassword: false,
     });
     const [isDone, setIsDone] = useState<boolean>(false);
 
@@ -54,34 +61,18 @@ export default function CreateAccountScreen({ navigation, route }: CreateAccount
             // [TO-DO] login 작업 추가 해야함.
             if (!result.isSuccessful) {
                 Alert.alert(result.data?.data);
-                return
+                return;
             } else {
-                // [TO-DO] storage set ++
-                console.log('succeeded in sigining up')
+                console.log("succeeded in sigining up");
+                login(host, { id, password });
             }
             navigation.navigate("welcome", { authority, id, password });
         }
     };
 
-    const validateAccount = (): void => {
-        const { id, password, confirm_password } = account;
-
-        // 입력 값이 하나라도 null 일 경우 pass.
-        if (!(id && password && confirm_password)) {
-            setIsDone(false);
-            return;
-        }
-
-        if (validator.isID(id) && validator.isPassword(password) && password === confirm_password) {
-            setIsDone(true);
-        } else {
-            setIsDone(false);
-        }
-    };
-
     useEffect(() => {
-        validateAccount();
-    }, [account]);
+        setIsDone(inputValidation.id && inputValidation.password && inputValidation.confirmPassword);
+    }, [inputValidation]);
 
     return (
         <SafeAreaView style={styles.Screen.topLevelBox}>
@@ -131,6 +122,12 @@ export default function CreateAccountScreen({ navigation, route }: CreateAccount
                                     hasNumber: true,
                                     tokens4to10: true,
                                 }}
+                                onValidate={(isValid: boolean) =>
+                                    setInputValidation({
+                                        ...inputValidation,
+                                        id: isValid,
+                                    })
+                                }
                             />
                             <AuthScreenCommonInput
                                 name="password"
@@ -145,6 +142,12 @@ export default function CreateAccountScreen({ navigation, route }: CreateAccount
                                     hasSpecialChar: true,
                                     tokens8to20: true,
                                 }}
+                                onValidate={(isValid: boolean) =>
+                                    setInputValidation({
+                                        ...inputValidation,
+                                        password: isValid,
+                                    })
+                                }
                                 secureTextEntry
                             />
                             <AuthScreenCommonInput
@@ -159,6 +162,12 @@ export default function CreateAccountScreen({ navigation, route }: CreateAccount
                                 inspect={{
                                     matching: account.password,
                                 }}
+                                onValidate={(isValid: boolean) =>
+                                    setInputValidation({
+                                        ...inputValidation,
+                                        confirmPassword: isValid,
+                                    })
+                                }
                                 secureTextEntry
                             />
                             {host === "villife" && route.params.access_token !== undefined ? (
