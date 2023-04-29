@@ -24,11 +24,11 @@ export type StackParamList = {
     test?: {};
     noti_home?: {};
     noti_register?: {};
-    noti_modify : {
-        title : string
-        content : string
-        notiID : number
-    }
+    noti_modify: {
+        title: string;
+        content: string;
+        notiID: number;
+    };
     permission_request?: {};
     parking?: {};
     payment?: {};
@@ -36,4 +36,4 @@ export type StackParamList = {
 };
 
 export type RouterParams = NativeStackScreenProps<StackParamList>;
-export type VilifeNavigation = RouterParams["navigation"];
+export type VillifeNavigation = RouterParams["navigation"];

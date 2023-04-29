@@ -9,11 +9,11 @@ import { DeleteNoticeParams } from "../../../../libs/rest_apis/villife/types";
 import Toast from "react-native-toast-message";
 import { NoticeEventEmitter } from "../outlined_box_list/event";
 import { useNavigation } from "@react-navigation/native";
-import { VilifeNavigation } from "../../../router/types";
+import { VillifeNavigation } from "../../../router/types";
 
 function NotiBottomEditModal(props: BottomEditModalProps) {
     const screenSize = Dimensions.get("window");
-    const navigation = useNavigation<VilifeNavigation>();
+    const navigation = useNavigation<VillifeNavigation>();
     const [deleteAlertVisible, setDeleteAlertVisible] = React.useState(false);
 
     React.useEffect(() => {

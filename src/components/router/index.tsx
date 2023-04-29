@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { enableScreens } from "react-native-screens";
 import { useRecoilState } from "recoil";
 import { loginDataState } from "../../hooks/states/atoms/login";
@@ -20,6 +20,9 @@ import NoticeHomeScreen from "../screens/noti/home";
 import PermissionRequestScreen from "../screens/auth/permission_request";
 import VillifeStorage from "../../libs/storage";
 import NoticeModifyScreen from "../screens/noti/modify";
+import MyPageScreen from "../screens/main/mypage";
+import ParkingScreen from "../screens/main/parking";
+import PaymentScreen from "../screens/main/payment";
 
 enableScreens(true);
 
@@ -96,6 +99,9 @@ export default function ScreenRouter() {
             </Stack.Group>
             <Stack.Group>
                 <Stack.Screen name={"home"} component={HomeScreen} />
+                <Stack.Screen name={"mypage"} component={MyPageScreen} />
+                <Stack.Screen name={"parking"} component={ParkingScreen} />
+                <Stack.Screen name={"payment"} component={PaymentScreen} />
             </Stack.Group>
             <Stack.Group>
                 <Stack.Screen name={"splash"} component={SplashScreen} />

@@ -14,6 +14,9 @@
         },
         "mypage": {
             "screen_title": "My"
+        },
+        "noti": {
+            "screen_title": "공지사항"
         }
     },
     "auth": {

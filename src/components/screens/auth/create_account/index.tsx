@@ -31,7 +31,6 @@ export default function CreateAccountScreen({ navigation, route }: CreateAccount
     const messages = useScreenMessage();
     const styles = useCreateAccountScreenStyles();
     const { deviceUI } = useStyler();
-    const validator = new StringValidator();
 
     const [account, setAccount] = useState<AccountType>({
         authority: VILLIFE_AUTHORITY.RENTER,

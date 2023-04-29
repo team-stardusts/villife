@@ -22,6 +22,9 @@ export type MessagesByLanguage = {
         mypage: {
             screen_title: string;
         };
+        noti: {
+            screen_title: string;
+        };
     };
     auth: {
         login: {

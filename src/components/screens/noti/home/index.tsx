@@ -7,11 +7,11 @@ import FlatListOutlinedContentsBox from "../../../blocks/noti_screens/outlined_b
 import Button from "../../../atoms/button";
 import NavigationView from "../../../blocks/navigation";
 import { useNavigation } from "@react-navigation/native";
-import { VilifeNavigation } from "../../../router/types";
+import { VillifeNavigation } from "../../../router/types";
 import { BottomNavigationOptions } from "../../../blocks/navigation/types";
 
 function test({ name }: { name: string }) {
-    const navigation = useNavigation<VilifeNavigation>();
+    const navigation = useNavigation<VillifeNavigation>();
     return (
         <View
             style={{
