@@ -6,7 +6,7 @@
  */
 
 import React from "react";
-import ScreenRouter from "./components/router";
+import ScreenRouter from "./features/common/router";
 import { RecoilRoot } from "recoil";
 import { NavigationContainer } from "@react-navigation/native";
 import { NativeModules } from "react-native";
