@@ -1,6 +1,6 @@
 import { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
 import { Requestable, Responsable, Response } from "../types";
-import { ContentPriority } from "../../../components/blocks/noti_screens/box_label.tsx/type";
+import { ContentPriority } from "../../../features/common/blocks/noti_screens/box_label.tsx/type";
 
 export default interface IVillifeRESTAPI extends Requestable {
     login(id: string, password: string): Response<any>;
@@ -92,21 +92,17 @@ export type Notice = {
     UpdatedAt: string;
 };
 
-
 export type VerifyBuildingAddressParams = {
-    address : string
-}
+    address: string;
+};
 export type VerifyBuildingAddressResult = {
-    building_id : number
-    building_name : string
-}
+    building_id: number;
+    building_name: string;
+};
 
 export type UserResidenceValidationParams = {
-    building_id : number
-    room_number : number
-}
-
-
-
+    building_id: number;
+    room_number: number;
+};
 
 export type GetNoticesResult = Array<Notice>;
