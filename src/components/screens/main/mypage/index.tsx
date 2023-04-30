@@ -7,6 +7,7 @@ import { LoginDataStateType } from "../../../../hooks/states/atoms/login/types";
 import NavigationView from "../../../blocks/navigation";
 import IconNavComponent from "../../../blocks/navigation/icon_navcomponent";
 import MyPageScreenProps from "./type";
+import LocalStorage from "../../../../libs/storage/localstorage";
 
 export default function MyPageScreen({ navigation, route }: MyPageScreenProps) {
     const messages = useScreenMessage();

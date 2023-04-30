@@ -13,6 +13,11 @@ export const VillifeStorageEvents: _VillifeStorageEvents = {
         CHANGE_LOGIN_VALUE: "CHANGE_LOGIN_VALUE",
         REMOVE_LOGIN_VALUE: "REMOVE_LOGIN_VALUE",
     },
+    user: {
+        GET_USER_VALUE: "GET_USER_VALUE",
+        CHANGE_USER_VALUE: "CHANGE_USER_VALUE",
+        REMOVE_USER_VALUE: "REMOVE_USER_VALUE",
+    },
 };
 
 class VillifeStorage implements IVillifeStorage, EventRegisterable {
