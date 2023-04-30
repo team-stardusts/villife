@@ -1,7 +1,7 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { StyleSheet } from "react-native/types";
 import { LoginDataType } from "../../../../libs/storage/tables/login/types";
-import { StackParamList } from "../../../router/types";
+import { VillifeStackParamList } from "../../../router/types";
 
 export type LoginScreenStylesType = {
     Screen: ReturnType<typeof StyleSheet.create>;
@@ -10,6 +10,6 @@ export type LoginScreenStylesType = {
     //GreetingSection: ReturnType<typeof StyleSheet.create>;
     //SocialLoginSection: ReturnType<typeof StyleSheet.create>;
 };
-type LoginScreenProps = NativeStackScreenProps<StackParamList> & {};
+type LoginScreenProps = NativeStackScreenProps<VillifeStackParamList> & {};
 
 export default LoginScreenProps;

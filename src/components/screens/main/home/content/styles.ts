@@ -12,11 +12,16 @@ export default function useHomeScreenContentStyles() {
         },
         navigationBox: {
             flex: 2,
+        },
+        navigationWrapper: {
+            width: "40%",
             flexDirection: "row",
             justifyContent: "flex-start",
             alignItems: "center",
         },
         navigationTitle: {
+            color: theme.colorFamily.black,
+            marginBottom: deviceUI.moderateScale(5),
             ...theme.font.researved.h2,
         },
         childrenBox: {
@@ -24,7 +29,7 @@ export default function useHomeScreenContentStyles() {
             justifyContent: "center",
             alignItems: "center",
             borderRadius: deviceUI.moderateScale(15),
-            backgroundColor: theme.colorFamily.blue,
+            marginBottom: deviceUI.moderateScale(15),
             ...Platform.select({
                 ios: {
                     shadowColor: theme.colorFamily.darkgrey,
@@ -36,7 +41,7 @@ export default function useHomeScreenContentStyles() {
                     },
                 },
                 android: {
-                    elevation: 15,
+                    elevation: 5,
                 },
             }),
         },

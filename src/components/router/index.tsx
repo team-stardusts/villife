@@ -3,7 +3,7 @@ import { enableScreens } from "react-native-screens";
 import { useRecoilState } from "recoil";
 import { loginDataState } from "../../hooks/states/atoms/login";
 import { createNativeStackNavigator, NativeStackScreenProps } from "@react-navigation/native-stack";
-import { RouterParams, StackParamList } from "./types";
+import { RouterParams, VillifeStackParamList } from "./types";
 import LoginScreen from "../screens/auth/login";
 import CreateAccountScreen from "../screens/auth/create_account";
 import SetBuildingScreen from "../screens/auth/set_building";
@@ -23,10 +23,11 @@ import NoticeModifyScreen from "../screens/noti/modify";
 import MyPageScreen from "../screens/main/mypage";
 import ParkingScreen from "../screens/main/parking";
 import PaymentScreen from "../screens/main/payment";
+import ComplaintScreen from "../screens/main/complaint";
 
 enableScreens(true);
 
-const Stack = createNativeStackNavigator<StackParamList>();
+const Stack = createNativeStackNavigator<VillifeStackParamList>();
 
 export default function ScreenRouter() {
     const [isLoading, setIsLoading] = useState(true);
@@ -102,6 +103,7 @@ export default function ScreenRouter() {
                 <Stack.Screen name={"mypage"} component={MyPageScreen} />
                 <Stack.Screen name={"parking"} component={ParkingScreen} />
                 <Stack.Screen name={"payment"} component={PaymentScreen} />
+                <Stack.Screen name={"complaint"} component={ComplaintScreen} />
             </Stack.Group>
             <Stack.Group>
                 <Stack.Screen name={"splash"} component={SplashScreen} />

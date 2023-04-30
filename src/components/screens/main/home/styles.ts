@@ -12,7 +12,7 @@ export default function useHomeScreenStyles() {
         contentsScrollBox: {
             flex: 1,
             paddingHorizontal: deviceUI.moderateScale(18),
-            paddingVertical: deviceUI.moderateScale(20),
+            paddingVertical: deviceUI.moderateScale(18),
         },
     });
 }

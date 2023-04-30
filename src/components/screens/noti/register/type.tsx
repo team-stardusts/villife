@@ -1,6 +1,6 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { StackParamList } from "../../../router/types";
+import { VillifeStackParamList } from "../../../router/types";
 
-type NoticeRegisterScreenProps = NativeStackScreenProps<StackParamList, "noti_register">;
+type NoticeRegisterScreenProps = NativeStackScreenProps<VillifeStackParamList, "noti_register">;
 
 export default NoticeRegisterScreenProps;

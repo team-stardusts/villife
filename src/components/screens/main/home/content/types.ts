@@ -1,11 +1,15 @@
-import { StackParamList } from "../../../../router/types";
+import { VillifeStackParamList } from "../../../../router/types";
 
 export type HomeScreenContentProps = {
     navigation: {
         title: string;
-        to: keyof StackParamList;
-        params?: StackParamList[HomeScreenContentProps["navigation"]["to"]];
+        to: keyof VillifeStackParamList;
+        params?: VillifeStackParamList[HomeScreenContentProps["navigation"]["to"]];
     };
 
     children: React.ReactNode;
+} & ImplementedContentProps;
+
+export type ImplementedContentProps = {
+    backgroundColor: string;
 };

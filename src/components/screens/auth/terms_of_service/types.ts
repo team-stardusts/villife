@@ -1,8 +1,8 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { StyleSheet } from "react-native";
-import { StackParamList } from "../../../router/types";
+import { VillifeStackParamList } from "../../../router/types";
 
-type TermsOfServiceScreenProps = NativeStackScreenProps<StackParamList, "terms_of_service">;
+type TermsOfServiceScreenProps = NativeStackScreenProps<VillifeStackParamList, "terms_of_service">;
 
 export default TermsOfServiceScreenProps;
 

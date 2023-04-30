@@ -3,7 +3,7 @@ import { useCallback, useEffect, useState } from "react";
 import { Alert, BackHandler, SafeAreaView, StatusBar, Text, TouchableOpacity, View } from "react-native";
 import useScreenMessage from "../../../hooks/multilingual/hooks";
 import Icon from "../../atoms/icon";
-import { RouterParams, StackParamList } from "../../router/types";
+import { RouterParams, VillifeStackParamList } from "../../router/types";
 import useNavigationViewStyles from "./styles";
 import NavigationViewProps, { BottomLink } from "./types";
 import useStyler from "../../../hooks/styler/hooks";
@@ -14,7 +14,7 @@ export default function NavigationView({ headerOptions, bottomNavOptions, childr
     const styles = useNavigationViewStyles();
     const navigation = useNavigation<RouterParams["navigation"]>();
 
-    const [currentRootScreen, setCurrentRootPage] = useState<keyof StackParamList>("home");
+    const [currentRootScreen, setCurrentRootPage] = useState<keyof VillifeStackParamList>("home");
     const [backBtnColor, setBackBtnColor] = useState<string>(theme.colorFamily.black);
     const [menuBtnHighlight, setMenuBtnHighlight] = useState<boolean>(false);
 
@@ -102,9 +102,9 @@ export default function NavigationView({ headerOptions, bottomNavOptions, childr
         },
         {
             icon: "messenger",
-            caption: message.messages.main.complaints.screen_title,
+            caption: message.messages.main.complaint.screen_title,
             screen: {
-                name: "noti_home",
+                name: "complaint",
                 params: {},
             },
         },

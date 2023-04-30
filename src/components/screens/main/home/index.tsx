@@ -12,10 +12,26 @@ import IconNavComponent from "../../../blocks/navigation/icon_navcomponent";
 import HomeScreenProps from "./type";
 import HomeScreenContent from "./content";
 import useHomeScreenStyles from "./styles";
+import HomeContentFromComplaint from "../complaint/home_content";
+import useStyler from "../../../../hooks/styler/hooks";
 
 export default function HomeScreen({ navigation, route }: HomeScreenProps) {
     const messages = useScreenMessage();
     const styles = useHomeScreenStyles();
+    const { theme } = useStyler();
+
+    const contents = [
+        HomeContentFromComplaint,
+        HomeContentFromComplaint,
+        HomeContentFromComplaint,
+        HomeContentFromComplaint,
+    ];
+
+    const getBgColor = (index: number) => {
+        const colors = [theme.colorFamily.blue, theme.colorFamily.lightblue, theme.colorFamily.green];
+
+        return colors[index % 3];
+    };
 
     return (
         <NavigationView
@@ -33,9 +49,9 @@ export default function HomeScreen({ navigation, route }: HomeScreenProps) {
             }}>
             <View style={styles.toplevelBox}>
                 <ScrollView style={styles.contentsScrollBox}>
-                    <HomeScreenContent navigation={{ to: "noti_home", title: "Hello" }}>
-                        <Text>Hello, world!</Text>
-                    </HomeScreenContent>
+                    {contents.map((Content, index) => (
+                        <Content key={index} backgroundColor={getBgColor(index)} />
+                    ))}
                 </ScrollView>
             </View>
         </NavigationView>

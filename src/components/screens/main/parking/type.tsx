@@ -1,6 +1,6 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { StackParamList } from "../../../router/types";
+import { VillifeStackParamList } from "../../../router/types";
 
-type ParkingScreenProps = NativeStackScreenProps<StackParamList, "parking">;
+type ParkingScreenProps = NativeStackScreenProps<VillifeStackParamList, "parking">;
 
 export default ParkingScreenProps;

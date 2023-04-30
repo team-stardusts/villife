@@ -13,8 +13,9 @@ export type MessagesByLanguage = {
         parking: {
             screen_title: string;
         };
-        complaints: {
+        complaint: {
             screen_title: string;
+            renter_home_content_title: string;
         };
         payment: {
             screen_title: string;

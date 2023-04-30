@@ -1,8 +1,8 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import type { StyleSheet } from "react-native/types";
-import { StackParamList } from "../../../router/types";
+import { VillifeStackParamList } from "../../../router/types";
 
-type PermissionRequestScreenProps = NativeStackScreenProps<StackParamList, "permission_request">;
+type PermissionRequestScreenProps = NativeStackScreenProps<VillifeStackParamList, "permission_request">;
 
 export default PermissionRequestScreenProps;
 

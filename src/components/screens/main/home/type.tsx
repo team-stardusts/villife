@@ -1,6 +1,6 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { StackParamList } from "../../../router/types";
+import { VillifeStackParamList } from "../../../router/types";
 
-type HomeScreenProps = NativeStackScreenProps<StackParamList, "home">;
+type HomeScreenProps = NativeStackScreenProps<VillifeStackParamList, "home">;
 
 export default HomeScreenProps;

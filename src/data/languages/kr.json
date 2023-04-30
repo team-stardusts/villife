@@ -6,8 +6,9 @@
         "parking": {
             "screen_title": "주차"
         },
-        "complaints": {
-            "screen_title": "민원"
+        "complaint": {
+            "screen_title": "민원",
+            "renter_home_content_title": "나의 민원"
         },
         "payment": {
             "screen_title": "관리비"

@@ -1,8 +1,8 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import type { StyleSheet } from "react-native/types";
-import { StackParamList } from "../../../router/types";
+import { VillifeStackParamList } from "../../../router/types";
 
-type CreateAccountScreenProps = NativeStackScreenProps<StackParamList, "create_account">;
+type CreateAccountScreenProps = NativeStackScreenProps<VillifeStackParamList, "create_account">;
 
 export default CreateAccountScreenProps;
 

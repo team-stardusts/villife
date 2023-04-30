@@ -1,7 +1,6 @@
 import React, { FunctionComponent } from "react";
-import { ViewProps } from "react-native-svg/lib/typescript/fabric/utils";
 import { IconSeries } from "../../atoms/icon/types";
-import { StackParamList } from "../../router/types";
+import { VillifeRootStackParamList } from "../../router/types";
 
 export type HeaderOptions = {
     title: string;
@@ -24,8 +23,8 @@ export type BottomLink = {
     icon: IconSeries;
     caption: string;
     screen: {
-        name: keyof StackParamList;
-        params: StackParamList[BottomLink["screen"]["name"]];
+        name: keyof VillifeRootStackParamList;
+        params: VillifeRootStackParamList[BottomLink["screen"]["name"]];
     };
 };
 
