@@ -17,10 +17,19 @@ export type LoginDataType = {
     refreshToken: string;
     accessTokenExpiresAt: number; // Milliseconds / UTC + 0
 };
+
+//USER TABLE
+
+export interface IUserTable {
+    readonly key: LoginTableKey;
+
+    get(): Promise<UserDataType | null>;
+    set(data: UserDataType | null): Promise<boolean>;
+    remove(): Promise<void>;
+}
 export type UserDataType = {
     name: string;
     authority: Authority[keyof Authority];
-    room_id: number | undefined
-    building_id: number | undefined
-    car_id: number | undefined
+    room_id: number | undefined;
+    building_id: number | undefined;
 };

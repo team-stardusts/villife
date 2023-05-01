@@ -24,6 +24,7 @@ import MyPageScreen from "../../main/mypage/screens/mypage";
 import ParkingScreen from "../../main/parking/screens";
 import PaymentScreen from "../../main/payment/screens";
 import ComplaintScreen from "../../main/complaint/screens";
+import useUserService from "../hooks/user";
 
 enableScreens(true);
 
@@ -35,6 +36,7 @@ export default function ScreenRouter() {
     const [loginData, setLoginData] = useRecoilState(loginDataState);
     const navigation = useNavigation<RouterParams["navigation"]>();
     const storage = new VillifeStorage();
+    const userService = useUserService();
 
     useAutoRegisterFirebaseToken();
 
@@ -87,6 +89,12 @@ export default function ScreenRouter() {
             storage.removeEventListener("CHANGE_LOGIN_VALUE");
         };
     }, []);
+
+    useEffect(() => {
+        userService.getUserBasicInfo().then((userInfo) => {
+            console.log(userInfo);
+        });
+    }, [loginData?.refreshToken]);
 
     return (
         <Stack.Navigator screenOptions={{ headerShown: false, animation: "fade" }} initialRouteName={"login"}>

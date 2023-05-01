@@ -6,6 +6,7 @@ import IVillifeStorage, {
     VillifeStorageEvent,
     VillifeStorageEvents as _VillifeStorageEvents,
 } from "./types";
+import UserTable from "./tables/user";
 
 export const VillifeStorageEvents: _VillifeStorageEvents = {
     login: {
@@ -22,6 +23,7 @@ export const VillifeStorageEvents: _VillifeStorageEvents = {
 
 class VillifeStorage implements IVillifeStorage, EventRegisterable {
     login = new LoginTable();
+    user = new UserTable();
 
     public addEventListener(key: VillifeStorageEvent, callback: StorageListenerCallback): void {
         EventRegister.addEventListener(key, callback);

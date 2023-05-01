@@ -1,13 +1,12 @@
 import { EventRegister } from "react-native-event-listeners";
 import { VillifeStorageEvents } from "../..";
-import LocalStorage from "../../localstorage";
 import ATable from "../absc";
-import ILoginTable, { LoginDataType, LoginTableKey } from "./types";
+import { IUserTable, LoginTableKey, UserDataType } from "./types";
 
-class UserTable extends ATable implements ILoginTable {
+class UserTable extends ATable implements IUserTable {
     readonly key: LoginTableKey = "user";
 
-    public async get(): Promise<LoginDataType | null> {
+    public async get(): Promise<UserDataType | null> {
         const result = await this.storage.getItem(this.key);
 
         EventRegister.emit(VillifeStorageEvents.user.GET_LOGIN_VALUE, result);
@@ -15,7 +14,7 @@ class UserTable extends ATable implements ILoginTable {
         return result;
     }
 
-    public async set(data: LoginDataType | null): Promise<boolean> {
+    public async set(data: UserDataType | null): Promise<boolean> {
         const result = await this.storage.setItem(this.key, data);
 
         EventRegister.emit(VillifeStorageEvents.user.CHANGE_LOGIN_VALUE, data);
