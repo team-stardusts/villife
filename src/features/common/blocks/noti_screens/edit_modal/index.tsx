@@ -21,13 +21,13 @@ function NotiBottomEditModal(props: BottomEditModalProps) {
     }, []);
 
     const onDeleteButtonPress = async () => {
-        const api = new VillifeServer();
+        const notifier = VillifeServer.getNoticeManager();
 
         const dto: DeleteNoticeParams = {
             building_id: 3,
             notice_id: props.noticeInfo.id,
         };
-        const reult = await api.deleteNotice(dto);
+        const reult = await notifier.deleteNotice(dto);
 
         if (reult.isSuccessful) {
             new NoticeEventEmitter().emitListUpdatedEvent();

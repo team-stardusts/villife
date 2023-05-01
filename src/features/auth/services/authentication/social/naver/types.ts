@@ -1,5 +1,5 @@
 import { Response } from "../../../../../../libs/rest_apis/types";
-import { SocialJoinParamsType, LoginResult } from "../../../../../../libs/rest_apis/villife/types";
+import { LoginResult, SocialJoinParamsType } from "../../../../../../libs/rest_apis/villife/auth/types";
 
 export default interface INaverLoginManager {
     login(params: void): Response<LoginResult>;

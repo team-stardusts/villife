@@ -12,7 +12,7 @@ export interface Joinable {
     socialJoin(host: SocialLoginHostType, params: SocialJoinParamsType): Response<SocialJoinResultType>;
 }
 
-export interface FirebaseSyncable {
+export interface FirebaseAccessable {
     registerFirebaseToken(params: RegisterFirebaseTokenParams): Response<RegisterFirebaseTokenResult>;
 }
 
@@ -48,3 +48,5 @@ export type RegisterFirebaseTokenResult =
     | "invalid token"
     | "server internal error";
 //export type StardustsReturnType<T> = Promise<StardustsResultType<T>>;
+
+export default interface IVillifeAuthManager extends Loginable, Joinable, FirebaseAccessable {}

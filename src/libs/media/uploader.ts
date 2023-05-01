@@ -9,7 +9,7 @@ interface MediaUploader {
 
 export default class ImageUploader implements MediaUploader {
     private mNativeAlbum = new NativeAlbum();
-    private mApi = new VillifeServer();
+    private mApi = VillifeServer.getNoticeManager();
 
     /**
      * @returns filename and server uri , if it failed return undefined as error
@@ -24,7 +24,7 @@ export default class ImageUploader implements MediaUploader {
         const res = await this.mApi.uploadImage(formData);
         if (!res.data) return Promise.reject(new Error("upload failed err"));
         const result = res.data.data;
-        result.uri = this.mApi.getBaseURL() + result.uri;
+        result.uri = VillifeServer.getBaseURL() + result.uri;
         return result;
     }
 

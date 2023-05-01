@@ -7,8 +7,8 @@ export default function useNotiViewModel() {
     const [notices, setNotices] = React.useState<GetNoticesResult>();
     const [refresh, setRefresh] = React.useState({});
     const getNotices = async () => {
-        const api = new VillifeServer();
-        const res = await api.getNotices(3); //TODO : Should be changed to real building number which user belongs to
+        const notifier = VillifeServer.getNoticeManager();
+        const res = await notifier.getNotices(3); //TODO : Should be changed to real building number which user belongs to
         console.log(res.data?.data);
         if (res.isSuccessful) {
             setNotices(res.data?.data);

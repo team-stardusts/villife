@@ -1,6 +1,5 @@
 import { Responsable, Response } from "../../../../libs/rest_apis/types";
-import VillifeAuthenticator from "../../../../libs/rest_apis/villife/auth";
-import { HostType } from "../../../../libs/rest_apis/villife/auth/types";
+import IVillifeAuthManager, { HostType } from "../../../../libs/rest_apis/villife/auth/types";
 import { SocialJoinResultType } from "../../../../libs/rest_apis/villife/auth/types";
 import { LoginResult as VillifeLoginResult } from "../../../../libs/rest_apis/villife/auth/types";
 import { Authority } from "../../../../libs/rest_apis/villife/types";
@@ -21,7 +20,7 @@ export interface Joinable {
 }
 
 export interface ILoginManager extends Verifiable, Joinable {
-    villife: VillifeAuthenticator;
+    villife: IVillifeAuthManager;
 }
 
 export type LoginServiceResult = Responsable<VillifeLoginResult> & {

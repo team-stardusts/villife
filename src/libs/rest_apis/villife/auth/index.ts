@@ -1,10 +1,7 @@
 import AVillifeServerModule from "../absc";
 import { Response } from "../../types";
-import {
-    FirebaseSyncable,
-    Joinable,
+import IVillifeAuthManager, {
     LoginResult,
-    Loginable,
     RegisterFirebaseTokenParams,
     RegisterFirebaseTokenResult,
     SocialJoinParamsType,
@@ -13,7 +10,7 @@ import {
 } from "./types";
 import VillifeStorage from "../../../storage";
 
-class VillifeAuthenticator extends AVillifeServerModule implements Loginable, Joinable, FirebaseSyncable {
+class VillifeAuthManager extends AVillifeServerModule implements IVillifeAuthManager {
     public async login(id: string, password: string): Response<LoginResult> {
         let route: string = this.routes.login;
 
@@ -82,4 +79,4 @@ class VillifeAuthenticator extends AVillifeServerModule implements Loginable, Jo
     }
 }
 
-export default VillifeAuthenticator;
+export default VillifeAuthManager;

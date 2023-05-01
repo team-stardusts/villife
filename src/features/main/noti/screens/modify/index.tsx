@@ -36,9 +36,9 @@ function NoticeModifyScreen(props: NoticeModifyScreenProps) {
             building_id: 3,
             notice_id: props.route.params.notiID,
         };
-        const api = new VillifeServer();
+        const notifier = VillifeServer.getNoticeManager();
 
-        const reuslt = await api.UpdateNotice(param);
+        const reuslt = await notifier.UpdateNotice(param);
         setLoading(false);
 
         if (reuslt.data?.status == 200) {

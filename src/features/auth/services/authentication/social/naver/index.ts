@@ -1,5 +1,5 @@
 import { NaverLogin, TokenResponse } from "@react-native-seoul/naver-login";
-import { SocialJoinResultType } from "../../../../../../libs/rest_apis/villife/types";
+import { SocialJoinResultType } from "../../../../../../libs/rest_apis/villife/auth/types";
 import { Response } from "../../../../../../libs/rest_apis/types";
 import ALoginManager from "../../absc";
 import INaverLoginManager, { NaverJoinParams } from "./types";

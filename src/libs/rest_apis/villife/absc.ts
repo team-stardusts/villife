@@ -1,11 +1,11 @@
 import axios, { AxiosInstance, AxiosRequestConfig } from "axios";
-import DotEnv from "../../dotenv";
 import { RoutesType } from "./routes/types";
-import routes from "./routes";
 import AREST from "../absc";
 import { Responsable, Response } from "../types";
 import VillifeStorage from "../../storage";
 import { Authority, RefreshParmas, RefreshResult } from "./types";
+import routes from "./routes";
+import DotEnv from "../../dotenv";
 
 export const VILLIFE_AUTHORITY: Authority = {
     RENTER: 1,
