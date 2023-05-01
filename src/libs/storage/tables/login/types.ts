@@ -1,3 +1,5 @@
+import { HostType as VillifeHostType } from "../../../rest_apis/villife/auth/types";
+
 export default interface ILoginTable {
     readonly key: LoginTableKey;
 
@@ -6,7 +8,7 @@ export default interface ILoginTable {
     remove(): Promise<void>;
 }
 
-export type HostType = "villife" | "naver"; //| "kakao"  | "google";
+export type HostType = VillifeHostType;
 
 export type LoginTableKey = "login";
 

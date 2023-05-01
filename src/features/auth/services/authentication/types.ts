@@ -1,7 +1,8 @@
-import { Responsable } from "../../../../../libs/rest_apis/types";
-import VillifeServer from "../../../../../libs/rest_apis/villife";
-import { LoginResult as VillifeLoginResult } from "../../../../../libs/rest_apis/villife/types";
-import { HostType } from "../../../../../libs/storage/tables/login/types";
+import { Responsable, Response } from "../../../../libs/rest_apis/types";
+import IVillifeAuthManager, { HostType } from "../../../../libs/rest_apis/villife/auth/types";
+import { SocialJoinResultType } from "../../../../libs/rest_apis/villife/auth/types";
+import { LoginResult as VillifeLoginResult } from "../../../../libs/rest_apis/villife/auth/types";
+import { Authority } from "../../../../libs/rest_apis/villife/types";
 import type NaverLoginManager from "./social/naver";
 import type VillifeLoginManager from "./villife";
 
@@ -12,7 +13,6 @@ export default interface ILoginManagers {
 
 export interface Verifiable {
     login(params: any): Promise<LoginServiceResult>;
-    logout(): Promise<boolean>;
 }
 
 export interface Joinable {
@@ -20,7 +20,7 @@ export interface Joinable {
 }
 
 export interface ILoginManager extends Verifiable, Joinable {
-    villife: VillifeServer;
+    villife: IVillifeAuthManager;
 }
 
 export type LoginServiceResult = Responsable<VillifeLoginResult> & {
@@ -32,7 +32,14 @@ export type LoginServiceParams = {
     password: string;
 };
 
+export type JoinServiceParams = {
+    id: string;
+    password: string;
+    authority: Authority[keyof Authority];
+    accessToken: string;
+};
+
 export type AuthServicesReturn = {
     login(host: HostType, params: LoginServiceParams | undefined): Promise<LoginServiceResult>;
-    logout(): Promise<void>;
+    join(host: HostType, params: JoinServiceParams | undefined): Response<SocialJoinResultType>;
 };

@@ -9,14 +9,14 @@ import SocialLoginIcon from "../../../common/blocks/icon/login";
 import AuthScreenTitleView from "../../blocks/title_view";
 import { Toast } from "react-native-toast-message/lib/src/Toast";
 import { HostType } from "../../../../libs/storage/tables/login/types";
-import useAuthService from "../../../common/hooks/services/login/hooks";
-import { LoginServiceParams } from "../../../common/hooks/services/login/types";
 import useStyler from "../../../common/hooks/styler/hooks";
+import useAuthService from "../../services/authentication";
+import { LoginServiceParams } from "../../services/authentication/types";
 
 export default function LoginScreen({ navigation }: LoginScreenProps) {
+    const { deviceUI } = useStyler();
     const login = useAuthService().login;
     const messages = useScreenMessage();
-    const { deviceUI } = useStyler();
     const styles = useLoginScreenStyles();
     const iconDiameter: number = deviceUI.moderateScale(40);
 

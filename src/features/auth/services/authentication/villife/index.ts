@@ -1,6 +1,6 @@
 import { LoginServiceParams, LoginServiceResult } from "../types";
 import ALoginManager from "../absc";
-import IVillifeLoginManager from "./type";
+import IVillifeLoginManager from "./types";
 
 class VillifeLoginManager extends ALoginManager implements IVillifeLoginManager {
     public async login(params: LoginServiceParams): Promise<LoginServiceResult> {

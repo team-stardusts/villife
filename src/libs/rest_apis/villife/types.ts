@@ -1,8 +1,21 @@
-import { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
-import { Requestable, Responsable, Response } from "../types";
-import { ContentPriority } from "../../../features/common/blocks/noti_screens/box_label.tsx/type";
+export type Authority = {
+    RENTER: 1;
+    LANDLORD: 2;
+    ADMIN: 3;
+    SITE_ADMIN: 777;
+};
 
-export default interface IVillifeRESTAPI extends Requestable {
+export type RefreshParmas = {
+    expiredAccessToken: string;
+    refreshToken: string;
+};
+
+export type RefreshResult = {
+    access_token: string;
+    expire_at: number;
+};
+
+/* export default interface IVillifeRESTAPI extends Requestable {
     login(id: string, password: string): Response<any>;
     requestWithAuthentication<T = any, U = any>(config: AxiosRequestConfig<T>): Promise<Responsable<U>>;
 
@@ -21,13 +34,6 @@ export type LoginResult = {
 export type SocialLoginHostType = "naver";
 
 export type SocialJoinResultType = "sign up has been done successfully" | "cannot find user" | "duplicate user";
-
-export type Authority = {
-    RENTER: 1;
-    LANDLORD: 2;
-    ADMIN: 3;
-    SITE_ADMIN: 777;
-};
 
 export type SocialJoinParamsType = {
     id: string;
@@ -49,16 +55,6 @@ export type RegisterFirebaseTokenResult =
     | "invalid token"
     | "server internal error";
 //export type StardustsReturnType<T> = Promise<StardustsResultType<T>>;
-
-export type RefreshParmas = {
-    expiredAccessToken: string;
-    refreshToken: string;
-};
-
-export type RefreshResult = {
-    access_token: string;
-    expire_at: number;
-};
 
 export type MediaUploadResult = {
     file_name: string;
@@ -105,4 +101,4 @@ export type UserResidenceValidationParams = {
     room_number: number;
 };
 
-export type GetNoticesResult = Array<Notice>;
+export type GetNoticesResult = Array<Notice>; */

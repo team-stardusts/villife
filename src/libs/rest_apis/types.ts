@@ -1,4 +1,4 @@
-import { AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse } from "axios";
+import { AxiosInstance, AxiosRequestConfig, AxiosResponse } from "axios";
 
 export interface Requestable {
     readonly requester: AxiosInstance;
