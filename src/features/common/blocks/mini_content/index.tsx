@@ -1,26 +1,28 @@
 import { Text, TouchableOpacity, View } from "react-native";
-import Icon from "../../../../common/atoms/icon";
-import useStyler from "../../../../common/hooks/styler/hooks";
-import { HomeScreenContentProps } from "./types";
+import Icon from "../../atoms/icon";
+import useStyler from "../../hooks/styler/hooks";
+import { MiniContentProps } from "./types";
 import useHomeScreenContentStyles from "./styles";
 import { useNavigation } from "@react-navigation/native";
-import { VillifeNavigation, VILLIFE_ROOT_STACK_PARAMS } from "../../../../common/router/types";
+import { VillifeNavigation, VILLIFE_ROOT_STACK_PARAMS } from "../../router/types";
 
-export default function HomeScreenContent({ navigation, children, backgroundColor }: HomeScreenContentProps) {
+export default function MiniContent({ title, navigation, children, backgroundColor }: MiniContentProps) {
     const { deviceUI, theme } = useStyler();
     const styles = useHomeScreenContentStyles();
     const nav = useNavigation<VillifeNavigation>();
 
     const navigate = () => {
-        const finded = VILLIFE_ROOT_STACK_PARAMS.find((value) => value === navigation.to);
+        if (navigation !== undefined) {
+            const finded = VILLIFE_ROOT_STACK_PARAMS.find((value) => value === navigation.to);
 
-        if (finded !== undefined) {
-            nav.reset({
-                index: 0,
-                routes: [{ name: navigation.to, params: navigation.params }],
-            });
-        } else {
-            nav.push(navigation.to, navigation.params);
+            if (finded !== undefined) {
+                nav.reset({
+                    index: 0,
+                    routes: [{ name: navigation.to, params: navigation.params }],
+                });
+            } else {
+                nav.push(navigation.to, navigation.params);
+            }
         }
     };
 
@@ -28,7 +30,7 @@ export default function HomeScreenContent({ navigation, children, backgroundColo
         <View style={styles.toplevelBox}>
             <TouchableOpacity style={styles.navigationBox} onPress={() => navigate()}>
                 <View style={styles.navigationWrapper}>
-                    <Text style={styles.navigationTitle}>{navigation.title}</Text>
+                    <Text style={styles.navigationTitle}>{title}</Text>
                     <Icon name="arrow-right" size={deviceUI.moderateScale(40)} color={theme.colorFamily.grey} />
                 </View>
             </TouchableOpacity>

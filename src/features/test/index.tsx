@@ -1,5 +1,5 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import { useGetFirebaseToken } from "../common/hooks/firebase/hooks";
+import { useGetFirebaseToken } from "../common/hooks/firebase";
 import useSystemInfo from "../common/hooks/systeminfo/hooks";
 import VillifeStorage from "../../libs/storage";
 

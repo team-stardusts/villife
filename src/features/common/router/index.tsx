@@ -14,7 +14,7 @@ import SplashScreen from "../../splash/screens/splash_screen";
 import { useNavigation } from "@react-navigation/native";
 import TestScreen from "../../test";
 import WelcomeScreen from "../../auth/screens/welcome";
-import { useAutoRegisterFirebaseToken } from "../hooks/firebase/hooks";
+import { useAutoRegisterFirebaseToken } from "../hooks/firebase";
 import NoticeRegisterScreen from "../../main/noti/screens/register";
 import NoticeHomeScreen from "../../main/noti/screens/home";
 import PermissionRequestScreen from "../../auth/screens/permission_request";

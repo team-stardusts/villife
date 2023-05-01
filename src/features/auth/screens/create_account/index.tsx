@@ -7,12 +7,11 @@ import AuthScreenTitleView from "../../blocks/title_view";
 import AuthScreenBottonButton from "../../blocks/bottom_button";
 import CreateAccountScreenProps from "./types";
 import AuthScreenCommonInput from "../../blocks/input";
-import { useLoginService } from "../../../common/hooks/services/hooks";
 import UserTypeSelectionButton from "../../blocks/icon_user_type";
 import { Authority } from "../../../../libs/rest_apis/villife/types";
 import { VILLIFE_AUTHORITY } from "../../../../libs/rest_apis/villife";
 import useStyler from "../../../common/hooks/styler/hooks";
-import useAuthService from "../../../common/hooks/services/login/hooks";
+import useAuthService from "../../services/authentication";
 
 type AccountType = {
     authority: Authority["ADMIN"] | Authority["RENTER"];
@@ -23,8 +22,8 @@ type AccountType = {
 
 export default function CreateAccountScreen({ navigation, route }: CreateAccountScreenProps) {
     const { host, access_token } = route.params;
-    const loginManagers = useLoginService();
     const login = useAuthService().login;
+    const join = useAuthService().join;
     const messages = useScreenMessage();
     const styles = useCreateAccountScreenStyles();
     const { deviceUI } = useStyler();
@@ -46,17 +45,10 @@ export default function CreateAccountScreen({ navigation, route }: CreateAccount
         const { authority, id, password } = account;
 
         if (id && password && access_token) {
-            /**
-             * TODO ::
-             * 1. UI 에서 Authority 추출 후 API Param 에 삽입
-             * ※
-             */
-            // [TO-DO] join 성공 시 로그인, setLoginData
-            // Home으로 이동 시 navigation stack 초기화
-            const result = await loginManagers[host].join({ id, password, access_token, authority });
-            // [TO-DO] login 작업 추가 해야함.
+            const result = await join(host, { id, password, authority, accessToken: access_token });
+
             if (!result.isSuccessful) {
-                Alert.alert(result.data?.data);
+                Alert.alert(result.data?.data ?? "Failed to join.");
                 return;
             } else {
                 console.log("succeeded in sigining up");

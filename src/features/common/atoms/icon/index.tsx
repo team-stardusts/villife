@@ -1,9 +1,9 @@
-import IconArrow from "../../atoms/icon/arrow";
-import IconCar from "../../atoms/icon/car";
-import IconHome from "../../atoms/icon/home";
-import IconMessenger from "../../atoms/icon/messenger";
-import IconSpeaker from "../../atoms/icon/speaker";
-import IconWallet from "../../atoms/icon/wallet";
+import IconArrow from "./arrow";
+import IconCar from "./car";
+import IconHome from "./home";
+import IconMessenger from "./messenger";
+import IconSpeaker from "./speaker";
+import IconWallet from "./wallet";
 import { IconPerson } from "./human";
 import IconProps, { ChildIconProps } from "./types";
 

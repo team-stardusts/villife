@@ -1,13 +1,9 @@
 import { NaverLogin, TokenResponse } from "@react-native-seoul/naver-login";
-import { SocialJoinResultType } from "../../../../../../../libs/rest_apis/villife/types";
-import { Response } from "../../../../../../../libs/rest_apis/types";
-//import NaverLogin, {
-//    GetProfileResponse,
-//} from '@react-native-seoul/naver-login';
-
+import { SocialJoinResultType } from "../../../../../../libs/rest_apis/villife/types";
+import { Response } from "../../../../../../libs/rest_apis/types";
 import ALoginManager from "../../absc";
 import INaverLoginManager, { NaverJoinParams } from "./types";
-import DotEnv from "../../../../../../../libs/dotenv";
+import DotEnv from "../../../../../../libs/dotenv";
 import { LoginServiceResult } from "../../types";
 import { Platform } from "react-native";
 
@@ -20,7 +16,6 @@ class NaverLoginManager extends ALoginManager implements INaverLoginManager {
             kConsumerKey: this.env.api.naver.API_CONSUMER_KEY ?? "",
             kConsumerSecret: this.env.api.naver.API_CONSUMER_SECRET ?? "",
         };
-        console.log(params);
 
         if (Platform.OS === "ios") {
             Object.assign(naverLoginParams, { kServiceAppUrlScheme: this.env.api.naver.API_SERVISE_URL_SHEME ?? "" });
