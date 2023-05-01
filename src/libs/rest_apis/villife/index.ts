@@ -7,6 +7,8 @@ import IVillifeBuildingManager from "./building/types";
 import VillifeBuildingManager from "./building";
 import IVillifeApprovalManager from "./approval/types";
 import VillifeApprovalManager from "./approval";
+import IVillifeParkingManager from "./parking/types";
+import VillifeParkginManager from "./parking";
 
 const env: DotEnv = new DotEnv();
 
@@ -25,6 +27,10 @@ class VillifeServer {
 
     static getApprovalManager(): IVillifeApprovalManager {
         return new VillifeApprovalManager();
+    }
+
+    static getParkingManager(): IVillifeParkingManager {
+        return new VillifeParkginManager();
     }
 
     static getBaseURL(): string {
