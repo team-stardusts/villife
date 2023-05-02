@@ -1,9 +1,9 @@
 import { View } from "react-native";
-import useScreenMessage from "../../../common/hooks/multilingual/hooks";
-import NavigationView from "../../../common/blocks/navigation";
-import ComplaintScreenProps from "./type";
+import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
+import NavigationView from "../../../../common/blocks/navigation";
+import ComplaintModifyScreenProps from "./type";
 
-export default function ComplaintScreen({ navigation, route }: ComplaintScreenProps) {
+export default function ComplaintModifyScreen({ navigation, route }: ComplaintModifyScreenProps) {
     const messages = useScreenMessage();
 
     return (

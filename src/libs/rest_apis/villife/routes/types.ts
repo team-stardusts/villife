@@ -4,15 +4,21 @@ export type RoutesType = {
     naverSocialJoin: string;
     registerFirebaseToken: string;
     loginRefresh: string;
-    verifyBuilding : string
-    approvalDecision : string
-    residenceValidation : string
+    verifyBuilding: string;
+    approvalDecision: string;
+    residenceValidation: string;
     uploadImage: string;
     createNotice: string;
     updateNotice: string;
     deleteNotice: string;
     getNoticesByBuildingID: string;
+    //compaint
+    createComplaint: string;
+    getUserComplaints: string;
+    getBuildingComplaints: string;
+    updateComplaint: string;
+    deleteComplaint: string;
 
     //test api
-    testUserResidenceValidation : string
+    testUserResidenceValidation: string;
 };

@@ -47,7 +47,6 @@ export type VillifeStackParamList = VillifeRootStackParamList & {
         notiID: number;
     };
     permission_request?: {};
-    complaint_home: {};
     complaint_register: {};
     complaint_modify: {};
     complaint_detail_done: {};

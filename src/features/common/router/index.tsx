@@ -23,8 +23,13 @@ import NoticeModifyScreen from "../../main/noti/screens/modify";
 import MyPageScreen from "../../main/mypage/screens/mypage";
 import ParkingScreen from "../../main/parking/screens";
 import PaymentScreen from "../../main/payment/screens";
-import ComplaintScreen from "../../main/complaint/screens";
+import ComplaintScreen from "../../main/complaint/screens/home";
 import useUserService from "../hooks/user";
+import ComplaintHomeScreen from "../../main/complaint/screens/home";
+import ComplaintRegisterScreen from "../../main/complaint/screens/register";
+import ComplaintModifyScreen from "../../main/complaint/screens/modify";
+import ComplaintDetailInProgressScreen from "../../main/complaint/screens/detail_inprogress";
+import ComplaintDetailDoneScreen from "../../main/complaint/screens/detail_done";
 
 enableScreens(true);
 
@@ -111,7 +116,11 @@ export default function ScreenRouter() {
                 <Stack.Screen name={"mypage"} component={MyPageScreen} />
                 <Stack.Screen name={"parking"} component={ParkingScreen} />
                 <Stack.Screen name={"payment"} component={PaymentScreen} />
-                <Stack.Screen name={"complaint"} component={ComplaintScreen} />
+                <Stack.Screen name={"complaint"} component={ComplaintHomeScreen} />
+                <Stack.Screen name={"complaint_register"} component={ComplaintRegisterScreen} />
+                <Stack.Screen name={"complaint_modify"} component={ComplaintModifyScreen} />
+                <Stack.Screen name={"complaint_detail_done"} component={ComplaintDetailDoneScreen} />
+                <Stack.Screen name={"complaint_detail_inprogress"} component={ComplaintDetailInProgressScreen} />
             </Stack.Group>
             <Stack.Group>
                 <Stack.Screen name={"splash"} component={SplashScreen} />
