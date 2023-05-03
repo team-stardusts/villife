@@ -8,7 +8,20 @@
         },
         "complaint": {
             "screen_title": "민원",
-            "renter_home_content_title": "나의 민원"
+            "renter_home_content_title": "나의 민원",
+            "frequently_reported_complaints": "자주 생기는 민원",
+            "frequently_reported_complaints_guide": "자주 생기는 민원을 정리했습니다. 확인 후 민원 등록 부탁드립니다.",
+            "complaints_received": "접수된 민원",
+            "complaints_in_progress": "처리중인 민원",
+            "complaints_done": "지난 민원",
+            "register": "민원등록",
+            "detail": "민원 상세보기",
+            "received": "접수",
+            "inprogress": "처리중",
+            "done": "완료",
+            "progress_status": "진행 상황",
+            "edit_progress_status": "진행 상황 편집",
+            "edit_progress_status_guide": "진행 상황에 맞게 편집해주세요"
         },
         "payment": {
             "screen_title": "관리비"
@@ -121,7 +134,12 @@
         "tokens_for_8to20": "8~20자 이내",
         "matching_password": "비밀번호 일치",
         "cancle": "취소",
-        "okay": "확인"
+        "okay": "확인",
+        "register": "등록하기",
+        "reject": "거절",
+        "accept": "수락",
+        "edit": "편집하기",
+        "modify": "수정하기"
     },
     "navigation": {
         "say_wait": "잠시만요!",

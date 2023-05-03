@@ -16,6 +16,20 @@ export type MessagesByLanguage = {
         complaint: {
             screen_title: string;
             renter_home_content_title: string;
+            frequently_reported_complaints: string;
+            frequently_reported_complaints_guide: string;
+            complaints_received: string;
+            complaints_in_progress: string;
+            complaints_done: string;
+            register: string;
+            detail: string;
+            received : string
+            inprogress : string
+            done : string
+            progress_status : string
+            edit_progress_status : string
+            edit_progress_status_guide : string
+
         };
         payment: {
             screen_title: string;
@@ -128,6 +142,11 @@ export type MessagesByLanguage = {
         matching_password: string;
         cancle: string;
         okay: string;
+        register: string;
+        reject: string;
+        accept: string;
+        edit: string;
+        modify: string;
     };
     navigation: {
         say_wait: string;
