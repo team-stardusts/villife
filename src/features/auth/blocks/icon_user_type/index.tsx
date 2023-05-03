@@ -1,8 +1,8 @@
 import { StyleSheet, View, Text, Platform, Pressable } from "react-native";
-import { VILLIFE_AUTHORITY } from "../../../../libs/rest_apis/villife";
 import { IconRoundPeople, IconRoundPerson } from "../../../common/atoms/icon/human";
 import { UserTypeSelectionButtonProps } from "./types";
 import useStyler from "../../../common/hooks/styler/hooks";
+import { VILLIFE_AUTHORITY } from "../../../../libs/rest_apis/villife/absc";
 
 export default function UserTypeSelectionButton({
     caption,

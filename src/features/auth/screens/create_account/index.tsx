@@ -9,9 +9,9 @@ import CreateAccountScreenProps from "./types";
 import AuthScreenCommonInput from "../../blocks/input";
 import UserTypeSelectionButton from "../../blocks/icon_user_type";
 import { Authority } from "../../../../libs/rest_apis/villife/types";
-import { VILLIFE_AUTHORITY } from "../../../../libs/rest_apis/villife";
 import useStyler from "../../../common/hooks/styler/hooks";
 import useAuthService from "../../services/authentication";
+import { VILLIFE_AUTHORITY } from "../../../../libs/rest_apis/villife/absc";
 
 type AccountType = {
     authority: Authority["ADMIN"] | Authority["RENTER"];

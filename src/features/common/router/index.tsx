@@ -23,13 +23,13 @@ import NoticeModifyScreen from "../../main/noti/screens/modify";
 import MyPageScreen from "../../main/mypage/screens/mypage";
 import ParkingScreen from "../../main/parking/screens";
 import PaymentScreen from "../../main/payment/screens";
-import ComplaintScreen from "../../main/complaint/screens/home";
-import useUserService from "../hooks/user";
+import useUserInfoService from "../hooks/service/user_info";
 import ComplaintHomeScreen from "../../main/complaint/screens/home";
 import ComplaintRegisterScreen from "../../main/complaint/screens/register";
 import ComplaintModifyScreen from "../../main/complaint/screens/modify";
 import ComplaintDetailInProgressScreen from "../../main/complaint/screens/detail_inprogress";
 import ComplaintDetailDoneScreen from "../../main/complaint/screens/detail_done";
+import { Alert } from "react-native";
 
 enableScreens(true);
 
@@ -41,7 +41,7 @@ export default function ScreenRouter() {
     const [loginData, setLoginData] = useRecoilState(loginDataState);
     const navigation = useNavigation<RouterParams["navigation"]>();
     const storage = new VillifeStorage();
-    const userService = useUserService();
+    const userInfoService = useUserInfoService();
 
     useAutoRegisterFirebaseToken();
 
@@ -95,10 +95,21 @@ export default function ScreenRouter() {
         };
     }, []);
 
+    // user 정보 fetch
     useEffect(() => {
-        userService.getUserBasicInfo().then((userInfo) => {
-            console.log(userInfo);
-        });
+        if (loginData == null) {
+            userInfoService.resetUserBasicInfo();
+            return;
+        }
+        userInfoService
+            .getUserBasicInfo()
+            .then((userInfo) => {
+                console.log(userInfo);
+            })
+            .catch((r) => {
+                console.log("get user basic info error :", r);
+                Alert.alert("error", "유저 정보 가져오기 실패");
+            });
     }, [loginData?.refreshToken]);
 
     return (

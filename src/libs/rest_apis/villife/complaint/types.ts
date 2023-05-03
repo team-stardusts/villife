@@ -36,7 +36,7 @@ export type GetComplaintsResult = Array<Complaint>;
 
 export type ComplaintStatus = "received" | "in_progress" | "completed";
 
-export interface IComplaintRestClient {
+export interface IVillifeComplaintRestClient {
     CreateComplaint(params: CreateComplaintParams): Response<string>;
     GetUserComplaints(params: GetUserComplaintsParams): Response<GetComplaintsResult>;
     GetBuildingComplaints(params: GetBuildingComplaintsParams): Response<GetComplaintsResult>;

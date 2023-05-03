@@ -6,11 +6,11 @@ import {
     DeleteComplaintParams,
     GetComplaintsResult,
     GetUserComplaintsParams,
-    IComplaintRestClient,
+    IVillifeComplaintRestClient,
     UpdateComplaintParams,
 } from "./types";
 
-class VillifeComplaintRestClient extends AVillifeServerModule implements IComplaintRestClient {
+class VillifeComplaintRestClient extends AVillifeServerModule implements IVillifeComplaintRestClient {
     async CreateComplaint(params: CreateComplaintParams): Response<string> {
         let route: string = this.routes.createComplaint;
 

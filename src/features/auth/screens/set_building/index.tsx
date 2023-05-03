@@ -9,8 +9,8 @@ import SetBuildingScreenProps from "./types";
 import SelectedAddressStateType from "../../../common/hooks/states/atoms/address/selected_address/types";
 import { useRecoilState } from "recoil";
 import selectedAddressState from "../../../common/hooks/states/atoms/address/selected_address";
-import VillifeServer from "../../../../libs/rest_apis/villife";
-import { VerifyBuildingAddressResult } from "../../../../libs/rest_apis/villife/types";
+import useValidateResidenceService from "../../services/set_building/index";
+import { BuildingInfo } from "../../services/set_building/type";
 
 LogBox.ignoreLogs(["Did not receive response to shouldStartLoad in time"]);
 
@@ -20,7 +20,8 @@ export default function SetBuildingScreen({ navigation, route }: SetBuildingScre
     const [roomNumber, setRoomNumber] = useState<number | null>(null);
     const [isDone, setIsDone] = useState<boolean>(false);
     const [address, setAddress] = useRecoilState<SelectedAddressStateType>(selectedAddressState);
-    const [buildingInfo, setBuildingInfo] = useState<VerifyBuildingAddressResult>();
+    const [buildingInfo, setBuildingInfo] = useState<BuildingInfo>();
+    const validateService = useValidateResidenceService();
 
     const validateUserData = () => {
         if (!(address && roomNumber && buildingInfo)) {
@@ -33,22 +34,21 @@ export default function SetBuildingScreen({ navigation, route }: SetBuildingScre
 
     const onPressNextButton = async () => {
         if (!buildingInfo) return Alert.alert("오류", "유효하지 않은 건물입니다."); // TO DO:: 문구 및 표시 방식 수정 필요
-        const api = new VillifeServer();
-
-        const result = await api.ValidateUserResidenceForTest({
-            building_id: buildingInfo.building_id,
-            room_number: roomNumber!!,
-        });
-        console.log(result.data?.data);
-
-        if (result.data?.status == 200) {
-            navigation.reset({
-                index: 0,
-                routes: [{ name: "home", params: {} }],
+        if (!roomNumber) return Alert.alert("오류", "호수 정보를 입력해주세요");
+        validateService
+            .ValidateUserResidenceForTest({
+                building_id: buildingInfo.building_id,
+                room_number: roomNumber,
+            })
+            .then((r) => {
+                navigation.reset({
+                    index: 0,
+                    routes: [{ name: "home", params: {} }],
+                });
+            })
+            .catch((r) => {
+                return Alert.alert("오류", "거주 인증 실패");
             });
-        } else {
-            Alert.alert("디버그용 에러", `에러 발생 : ${result.data?.data}`);
-        }
     };
 
     useEffect(() => {
@@ -62,15 +62,14 @@ export default function SetBuildingScreen({ navigation, route }: SetBuildingScre
     // 주소 확인 작업
     useEffect(() => {
         if (address == null) return;
-        new VillifeServer().verifyBuildingAddress({ address: address.roadAddress }).then((r) => {
-            if (r.data?.status == 400) {
-                return;
-            }
-            if (r.data?.status == 200) {
-                console.log(r.data.data);
-                setBuildingInfo(r.data.data);
-            }
-        });
+        validateService
+            .VerifyBuildingAddress({ address: address.roadAddress })
+            .then((r) => {
+                setBuildingInfo(r);
+            })
+            .catch((r) => {
+                console.log(r);
+            });
     }, [address]);
 
     return (

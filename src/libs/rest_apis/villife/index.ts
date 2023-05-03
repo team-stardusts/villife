@@ -9,6 +9,10 @@ import IVillifeApprovalManager from "./approval/types";
 import VillifeApprovalManager from "./approval";
 import IVillifeParkingManager from "./parking/types";
 import VillifeParkginManager from "./parking";
+import { IVillifeUserInfoRestClient } from "./user_info/types";
+import VillifeUserInfoRestClient from "./user_info";
+import { IVillifeComplaintRestClient } from "./complaint/types";
+import VillifeComplaintRestClient from "./complaint";
 
 const env: DotEnv = new DotEnv();
 
@@ -31,6 +35,12 @@ class VillifeServer {
 
     static getParkingManager(): IVillifeParkingManager {
         return new VillifeParkginManager();
+    }
+    static getComplaintRestClient(): IVillifeComplaintRestClient {
+        return new VillifeComplaintRestClient();
+    }
+    static getUserInfoRestClient(): IVillifeUserInfoRestClient {
+        return new VillifeUserInfoRestClient();
     }
 
     static getBaseURL(): string {

@@ -18,6 +18,8 @@ export type RoutesType = {
     getBuildingComplaints: string;
     updateComplaint: string;
     deleteComplaint: string;
+    //user info
+    getUserBasicInfo: string;
 
     //test api
     testUserResidenceValidation: string;
