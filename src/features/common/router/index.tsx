@@ -21,7 +21,7 @@ import PermissionRequestScreen from "../../auth/screens/permission_request";
 import VillifeStorage from "../../../libs/storage";
 import NoticeModifyScreen from "../../main/noti/screens/modify";
 import MyPageScreen from "../../main/mypage/screens/mypage";
-import ParkingScreen from "../../main/parking/screens";
+import ParkingScreen from "../../main/parking/screens/home";
 import PaymentScreen from "../../main/payment/screens";
 import useUserInfoService from "../hooks/service/user_info";
 import ComplaintHomeScreen from "../../main/complaint/screens/home";
@@ -125,7 +125,7 @@ export default function ScreenRouter() {
             <Stack.Group>
                 <Stack.Screen name={"home"} component={HomeScreen} />
                 <Stack.Screen name={"mypage"} component={MyPageScreen} />
-                <Stack.Screen name={"parking"} component={ParkingScreen} />
+                <Stack.Screen name={"parking_home"} component={ParkingScreen} />
                 <Stack.Screen name={"payment"} component={PaymentScreen} />
                 <Stack.Screen name={"complaint"} component={ComplaintHomeScreen} />
                 <Stack.Screen name={"complaint_register"} component={ComplaintRegisterScreen} />

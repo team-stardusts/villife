@@ -11,5 +11,5 @@ export type MiniContentProps = {
 } & ImplementedContentProps;
 
 export type ImplementedContentProps = {
-    backgroundColor: string;
+    backgroundColor?: string;
 };

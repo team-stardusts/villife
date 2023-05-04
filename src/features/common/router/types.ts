@@ -1,6 +1,6 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { LoginHosts } from "../hooks/services/types";
 import { Authority } from "../../../libs/rest_apis/villife/types";
+import { HostType } from "../../../libs/rest_apis/villife/auth/types";
 
 export type VillifeRootStackParamList = {
     login?: {};
@@ -8,7 +8,7 @@ export type VillifeRootStackParamList = {
     test?: {};
     home?: {};
     complaint?: {};
-    parking?: {};
+    parking_home?: {};
     payment?: {};
     mypage?: {};
 };
@@ -18,14 +18,14 @@ export const VILLIFE_ROOT_STACK_PARAMS: Array<keyof VillifeRootStackParamList> =
     "complaint",
     "home",
     "splash",
-    "parking",
+    "parking_home",
     "payment",
     "mypage",
 ];
 
 export type VillifeStackParamList = VillifeRootStackParamList & {
     create_account: {
-        host: LoginHosts;
+        host: HostType;
         access_token: string | undefined;
     };
     welcome: {

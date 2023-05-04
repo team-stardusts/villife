@@ -1,4 +1,4 @@
-import { Response } from "../../types";
+import { Response, ResponseForTest } from "../../types";
 
 interface VehicleGettable {
     getMyVehicles(): Response<TenantVehicle[]>;
@@ -6,28 +6,28 @@ interface VehicleGettable {
     getBuildingGuestVehicles(): Response<GuestVehicle[]>;
 }
 
+interface TestVehicleGettable {
+    getMyVehicles(): ResponseForTest<TenantVehicle[]>;
+    getBuildingRegistedVehicles(): ResponseForTest<TenantVehicle[]>;
+    getBuildingGuestVehicles(): ResponseForTest<GuestVehicle[]>;
+}
+
+type VehicleType = "4WD" | "2WD";
+
 export type TenantVehicle = {
     id: number;
     room_number: number;
     phone_number: string;
     model: string;
     plate_number: string;
-    departure_time: string;
-    arrival_time: string;
-    //vehicle_type: string;
+    etd: number;
+    eta: number;
+    vehicle_type: VehicleType;
 };
 
 export type GuestVehicle = TenantVehicle & {
-    perpose: string;
+    visiting_perpose: string;
 };
 
-export type VerifyBuildingAddressParams = {
-    address: string;
-};
-
-export type VerifyBuildingAddressResult = {
-    building_id: number;
-    building_name: string;
-};
-
-export default interface IVillifeParkingManager extends VehicleGettable {}
+// [TO-DO] 서버 API 적용 완료 후 Test interface 변경
+export default interface IVillifeParkingManager extends TestVehicleGettable {}

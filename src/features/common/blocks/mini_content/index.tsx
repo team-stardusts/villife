@@ -37,7 +37,7 @@ export default function MiniContent({ title, navigation, children, backgroundCol
             <View
                 style={[
                     {
-                        backgroundColor: backgroundColor,
+                        backgroundColor: backgroundColor ?? theme.colorFamily.blue,
                     },
                     styles.childrenBox,
                 ]}>

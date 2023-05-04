@@ -1,7 +1,7 @@
 import axios, { AxiosInstance, AxiosRequestConfig } from "axios";
 import { RoutesType } from "./routes/types";
 import AREST from "../absc";
-import { Responsable, Response } from "../types";
+import { Response, ResponseForTest } from "../types";
 import VillifeStorage from "../../storage";
 import { Authority, RefreshParmas, RefreshResult } from "./types";
 import routes from "./routes";
@@ -31,7 +31,16 @@ class AVillifeServerModule extends AREST {
 
     readonly routes: RoutesType = routes;
 
-    public async requestAuthable<T = any, U = any>(config: AxiosRequestConfig<T>): Promise<Responsable<U>> {
+    public async requestForTest<T>(param: T): ResponseForTest<T> {
+        return Promise.resolve({
+            isSuccessful: true,
+            data: {
+                data: param,
+            },
+        });
+    }
+
+    public async requestAuthable<T = any, U = any>(config: AxiosRequestConfig<T>): Response<U> {
         const storage = new VillifeStorage();
         const logindata = await storage.login.get();
 
