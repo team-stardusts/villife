@@ -6,6 +6,4 @@ type ComplaintHomeScreenProps = NativeStackScreenProps<VillifeStackParamList, "c
 
 export default ComplaintHomeScreenProps;
 
-export type ComplaintHomeScreenStylesType = {
-    Screen: ReturnType<typeof StyleSheet.create>;
-};
+export type ComplaintHomeScreenStylesType = ReturnType<typeof StyleSheet.create>;
