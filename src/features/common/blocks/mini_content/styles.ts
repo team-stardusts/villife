@@ -12,9 +12,9 @@ export default function useHomeScreenContentStyles() {
         },
         navigationBox: {
             flex: 2,
+            width: "40%",
         },
         navigationWrapper: {
-            width: "40%",
             flexDirection: "row",
             justifyContent: "flex-start",
             alignItems: "center",

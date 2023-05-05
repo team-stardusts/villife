@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import { GuestVehicle, TenantVehicle } from "../../../../../libs/rest_apis/villife/parking/types";
 import VehicleCardView from "../../blocks/vehicle_card";
 import useStyler from "../../../../common/hooks/styler/hooks";
-import { SCREEN_PADDING_HORIZONTAL_STANDARD_VALUE } from "./styles";
+import { SCREEN_PADDING_HORIZONTAL_STANDARD_VALUE } from "../../../../common/constants";
 
 type Vehicles = {
     myVehicles: TenantVehicle[];
@@ -21,7 +21,7 @@ export default function ParkingScreen({ navigation, route }: ParkingScreenProps)
     const { deviceUI, theme } = useStyler();
     const screenPadding: number = deviceUI.moderateScale(SCREEN_PADDING_HORIZONTAL_STANDARD_VALUE);
     // Card에서 ScrollView를 사용하므로, 가변적인 카드를 만들기 위해서는 Width 지정이 필요함
-    const cardWidth: number = deviceUI.screenSize.width - screenPadding;
+    const cardWidth: number = deviceUI.screenSize.width - (screenPadding + deviceUI.moderateScale(20));
 
     const [vehicles, setVehicles] = useState<Vehicles>({
         myVehicles: [],
@@ -44,7 +44,6 @@ export default function ParkingScreen({ navigation, route }: ParkingScreenProps)
 
     useEffect(() => {
         bootstrap();
-        console.log(deviceUI.screenSize.width - deviceUI.moderateScale(30));
     }, []);
 
     return (
@@ -52,7 +51,7 @@ export default function ParkingScreen({ navigation, route }: ParkingScreenProps)
             headerOptions={{
                 title: messages.messages.main.parking.screen_title,
             }}>
-            <View style={{ paddingHorizontal: 30 }}>
+            <View style={{ padding: screenPadding }}>
                 <VehicleCardView title="내 차량 정보" vehicles={vehicles.myVehicles} cardWidth={cardWidth} />
             </View>
         </NavigationView>

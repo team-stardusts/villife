@@ -23,13 +23,8 @@ import NoticeModifyScreen from "../../main/noti/screens/modify";
 import MyPageScreen from "../../main/mypage/screens/mypage";
 import ParkingScreen from "../../main/parking/screens/home";
 import PaymentScreen from "../../main/payment/screens";
-import useUserInfoService from "../hooks/service/user_info";
 import ComplaintHomeScreen from "../../main/complaint/screens/home";
-import ComplaintRegisterScreen from "../../main/complaint/screens/register";
-import ComplaintModifyScreen from "../../main/complaint/screens/modify";
-import ComplaintDetailInProgressScreen from "../../main/complaint/screens/detail_inprogress";
-import ComplaintDetailDoneScreen from "../../main/complaint/screens/detail_done";
-import { Alert } from "react-native";
+import useUserInfoService from "../hooks/service/user_info";
 
 enableScreens(true);
 
@@ -41,7 +36,7 @@ export default function ScreenRouter() {
     const [loginData, setLoginData] = useRecoilState(loginDataState);
     const navigation = useNavigation<RouterParams["navigation"]>();
     const storage = new VillifeStorage();
-    const userInfoService = useUserInfoService();
+    const userService = useUserInfoService();
 
     useAutoRegisterFirebaseToken();
 
@@ -95,21 +90,10 @@ export default function ScreenRouter() {
         };
     }, []);
 
-    // user 정보 fetch
     useEffect(() => {
-        if (loginData == null) {
-            userInfoService.resetUserBasicInfo();
-            return;
-        }
-        userInfoService
-            .getUserBasicInfo()
-            .then((userInfo) => {
-                console.log(userInfo);
-            })
-            .catch((r) => {
-                console.log("get user basic info error :", r);
-                Alert.alert("error", "유저 정보 가져오기 실패");
-            });
+        /* userService.getUserBasicInfo().then((userInfo) => {
+            console.log(userInfo);
+        }); */
     }, [loginData?.refreshToken]);
 
     return (
@@ -128,10 +112,6 @@ export default function ScreenRouter() {
                 <Stack.Screen name={"parking_home"} component={ParkingScreen} />
                 <Stack.Screen name={"payment"} component={PaymentScreen} />
                 <Stack.Screen name={"complaint"} component={ComplaintHomeScreen} />
-                <Stack.Screen name={"complaint_register"} component={ComplaintRegisterScreen} />
-                <Stack.Screen name={"complaint_modify"} component={ComplaintModifyScreen} />
-                <Stack.Screen name={"complaint_detail_done"} component={ComplaintDetailDoneScreen} />
-                <Stack.Screen name={"complaint_detail_inprogress"} component={ComplaintDetailInProgressScreen} />
             </Stack.Group>
             <Stack.Group>
                 <Stack.Screen name={"splash"} component={SplashScreen} />

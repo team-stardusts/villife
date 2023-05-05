@@ -2,6 +2,7 @@ import { ScrollView, StyleSheet, Text, View } from "react-native";
 import { VehicleCardProps, VehicleCardViewProps } from "./types";
 import MiniContent from "../../../../common/blocks/mini_content";
 import useStyler from "../../../../common/hooks/styler/hooks";
+import { useState } from "react";
 
 function VehicleCard({ vehicle, cardWidth }: VehicleCardProps) {
     const { deviceUI, theme } = useStyler();
@@ -28,19 +29,26 @@ function VehicleCard({ vehicle, cardWidth }: VehicleCardProps) {
 
 export default function VehicleCardView({ title, vehicles, cardWidth }: VehicleCardViewProps) {
     const { deviceUI, theme } = useStyler();
+    const [crrIndex, setCrrIndex] = useState<number>(0);
 
     const style = StyleSheet.create({
         scrollview: {
             width: cardWidth,
-            //backgroundColor: "red",
-            height: "95%",
+            height: "85%",
+        },
+        indicatorBox: {
+            flexDirection: "row",
+            justifyContent: "center",
+            alignItems: "center",
+            width: "100%",
+            height: "15%",
         },
         indicator: {
-            //position: "absolute",
-            width: deviceUI.moderateScale(10),
-            height: deviceUI.moderateScale(10),
-            borderRadius: deviceUI.moderateScale(10),
-            backgroundColor: theme.colorFamily.white,
+            width: deviceUI.moderateScale(8),
+            height: deviceUI.moderateScale(8),
+            borderRadius: deviceUI.moderateScale(8),
+            marginHorizontal: deviceUI.moderateScale(2),
+            //backgroundColor: theme.colorFamily.white,
         },
     });
 
@@ -51,7 +59,22 @@ export default function VehicleCardView({ title, vehicles, cardWidth }: VehicleC
                     <VehicleCard key={index} vehicle={vehicle} cardWidth={cardWidth} />
                 ))}
             </ScrollView>
-            <View style={style.indicator} />
+            <View style={style.indicatorBox}>
+                {Array(vehicles.length)
+                    .fill(null)
+                    .map((value, index) => (
+                        <View
+                            key={index}
+                            style={[
+                                style.indicator,
+                                {
+                                    backgroundColor:
+                                        crrIndex === index ? theme.colorFamily.white : theme.colorFamily.grey,
+                                },
+                            ]}
+                        />
+                    ))}
+            </View>
         </MiniContent>
     );
 }

@@ -28,10 +28,15 @@ export default function MiniContent({ title, navigation, children, backgroundCol
 
     return (
         <View style={styles.toplevelBox}>
-            <TouchableOpacity style={styles.navigationBox} onPress={() => navigate()}>
+            <TouchableOpacity
+                style={styles.navigationBox}
+                onPress={() => navigate()}
+                disabled={navigation === undefined}>
                 <View style={styles.navigationWrapper}>
                     <Text style={styles.navigationTitle}>{title}</Text>
-                    <Icon name="arrow-right" size={deviceUI.moderateScale(40)} color={theme.colorFamily.grey} />
+                    {navigation && (
+                        <Icon name="arrow-right" size={deviceUI.moderateScale(40)} color={theme.colorFamily.grey} />
+                    )}
                 </View>
             </TouchableOpacity>
             <View
