@@ -24,26 +24,8 @@ export default function useHomeScreenContentStyles() {
             marginBottom: deviceUI.moderateScale(5),
             ...theme.font.researved.h2,
         },
-        childrenBox: {
+        contentWrapper: {
             flex: 8,
-            justifyContent: "center",
-            alignItems: "center",
-            borderRadius: deviceUI.moderateScale(15),
-            marginBottom: deviceUI.moderateScale(15),
-            ...Platform.select({
-                ios: {
-                    shadowColor: theme.colorFamily.darkgrey,
-                    shadowOpacity: 0.3,
-                    shadowRadius: deviceUI.moderateScale(2),
-                    shadowOffset: {
-                        height: 6,
-                        width: 0,
-                    },
-                },
-                android: {
-                    elevation: 5,
-                },
-            }),
         },
     });
 }

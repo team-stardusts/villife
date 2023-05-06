@@ -4,7 +4,19 @@
             "screen_title": "홈"
         },
         "parking": {
-            "screen_title": "주차"
+            "home": {
+                "screen_title": "주차",
+                "my_vehicle_info": "내 차량 정보",
+                "plate_number": "차량 번호",
+                "vehicle_info": "차량 정보",
+                "etd": "출차 시간",
+                "eta": "입차 시간",
+                "villa_vehicle_info": "빌라차량 정보",
+                "register_guest": "방문자 등록",
+                "my_vehicle_to_modify": "수정하기",
+                "tenant": "거주자",
+                "guest": "방문자"
+            }
         },
         "complaint": {
             "screen_title": "민원",

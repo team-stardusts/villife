@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import { ComplaintHomeScreenStylesType } from "./type";
+import { ComplaintHomeScreenStylesType } from "./types";
 import useStyler from "../../../../common/hooks/styler/hooks";
 
 export default function useComplaintHomeSecreenStyle(): ComplaintHomeScreenStylesType {
@@ -13,12 +13,11 @@ export default function useComplaintHomeSecreenStyle(): ComplaintHomeScreenStyle
             backgroundColor: theme.colorFamily.white,
         },
         FAQContainer: {
-            marginHorizontal: "5%",
-            width: "90%",
+            width: "100%",
             height: deviceUI.screenSize.height * 0.07,
-            paddingHorizontal: deviceUI.moderateScale(20),
             backgroundColor: theme.colorFamily.lightblue,
             alignItems: "center",
+            justifyContent: "center",
             flexDirection: "row",
             borderRadius: deviceUI.moderateScale(10),
         },

@@ -5,6 +5,7 @@ import { MiniContentProps } from "./types";
 import useHomeScreenContentStyles from "./styles";
 import { useNavigation } from "@react-navigation/native";
 import { VillifeNavigation, VILLIFE_ROOT_STACK_PARAMS } from "../../router/types";
+import ContentBox from "../content_box";
 
 export default function MiniContent({ title, navigation, children, backgroundColor }: MiniContentProps) {
     const { deviceUI, theme } = useStyler();
@@ -39,14 +40,8 @@ export default function MiniContent({ title, navigation, children, backgroundCol
                     )}
                 </View>
             </TouchableOpacity>
-            <View
-                style={[
-                    {
-                        backgroundColor: backgroundColor ?? theme.colorFamily.blue,
-                    },
-                    styles.childrenBox,
-                ]}>
-                {children}
+            <View style={styles.contentWrapper}>
+                <ContentBox backgroundColor={backgroundColor}>{children}</ContentBox>
             </View>
         </View>
     );

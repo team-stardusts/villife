@@ -5,11 +5,11 @@ import React from "react";
 import StardustAlert from "../../universial/stardust_alert";
 import VillifeServer from "../../../../../libs/rest_apis/villife";
 import { OutlinedBoxProps } from "../outlined_box/type";
-import { DeleteNoticeParams } from "../../../../../libs/rest_apis/villife/types";
 import Toast from "react-native-toast-message";
 import { NoticeEventEmitter } from "../outlined_box_list/event";
 import { useNavigation } from "@react-navigation/native";
 import { VillifeNavigation } from "../../../router/types";
+import { DeleteNoticeParams } from "../../../../../libs/rest_apis/villife/notice/types";
 
 function NotiBottomEditModal(props: BottomEditModalProps) {
     const screenSize = Dimensions.get("window");

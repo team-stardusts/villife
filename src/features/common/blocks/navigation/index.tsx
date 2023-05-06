@@ -86,7 +86,7 @@ export default function NavigationView({ headerOptions, bottomNavOptions, childr
         },
         {
             icon: "car",
-            caption: message.messages.main.parking.screen_title,
+            caption: message.messages.main.parking.home.screen_title,
             screen: {
                 name: "parking_home",
                 params: {},

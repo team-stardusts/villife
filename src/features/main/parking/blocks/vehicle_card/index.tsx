@@ -1,33 +1,75 @@
-import { ScrollView, StyleSheet, Text, View } from "react-native";
+import { NativeScrollEvent, NativeSyntheticEvent, ScrollView, StyleSheet, Text, View } from "react-native";
 import { VehicleCardProps, VehicleCardViewProps } from "./types";
-import MiniContent from "../../../../common/blocks/mini_content";
 import useStyler from "../../../../common/hooks/styler/hooks";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
+import ContentBox from "../../../../common/blocks/content_box";
+import MiniContent from "../../../../common/blocks/mini_content";
 
 function VehicleCard({ vehicle, cardWidth }: VehicleCardProps) {
     const { deviceUI, theme } = useStyler();
+    const messages = useScreenMessage();
 
-    const style = StyleSheet.create({
+    const styles = StyleSheet.create({
         card: {
             width: cardWidth,
             height: "100%",
             overflow: "hidden",
-            justifyContent: "center",
+            justifyContent: "space-between",
             alignItems: "center",
+            paddingVertical: deviceUI.moderateScale(15),
+        },
+        rowWrapper: {
+            flexDirection: "row",
+            width: "100%",
+            justifyContent: "space-between",
+            paddingHorizontal: deviceUI.moderateScale(15),
+        },
+        rowText: {
+            color: theme.colorFamily.white,
+            fontWeight: "bold",
+            ...theme.font.researved.h4,
         },
     });
 
+    function CardRow({ rowKey, rowValue }: { rowKey: string; rowValue: string | number }) {
+        return (
+            <View style={styles.rowWrapper}>
+                <Text style={styles.rowText}>{rowKey}</Text>
+                <Text style={styles.rowText}>{rowValue}</Text>
+            </View>
+        );
+    }
+
+    const cardData: Array<{ rowKey: string; rowValue: string | number }> = [
+        {
+            rowKey: messages.messages.main.parking.home.plate_number,
+            rowValue: vehicle.plate_number,
+        },
+        {
+            rowKey: messages.messages.main.parking.home.vehicle_info,
+            rowValue: vehicle.model,
+        },
+        {
+            rowKey: messages.messages.main.parking.home.etd,
+            rowValue: vehicle.etd,
+        },
+        {
+            rowKey: messages.messages.main.parking.home.eta,
+            rowValue: vehicle.eta,
+        },
+    ];
+
     return (
-        <View style={style.card}>
-            <Text>{vehicle.plate_number}</Text>
-            <Text>{vehicle.model}</Text>
-            <Text>{vehicle.eta}</Text>
-            <Text>{vehicle.etd}</Text>
+        <View style={styles.card}>
+            {cardData.map((datum, index) => (
+                <CardRow key={index} rowKey={datum.rowKey} rowValue={datum.rowValue} />
+            ))}
         </View>
     );
 }
 
-export default function VehicleCardView({ title, vehicles, cardWidth }: VehicleCardViewProps) {
+export default function VehicleCardView({ vehicles, cardWidth }: VehicleCardViewProps) {
     const { deviceUI, theme } = useStyler();
     const [crrIndex, setCrrIndex] = useState<number>(0);
 
@@ -44,17 +86,44 @@ export default function VehicleCardView({ title, vehicles, cardWidth }: VehicleC
             height: "15%",
         },
         indicator: {
-            width: deviceUI.moderateScale(8),
-            height: deviceUI.moderateScale(8),
-            borderRadius: deviceUI.moderateScale(8),
             marginHorizontal: deviceUI.moderateScale(2),
-            //backgroundColor: theme.colorFamily.white,
         },
     });
 
+    // ScrollView가 가로 상태일 때, 현재 페이지를 구함
+    const getCurrentPage = (scollEvent: NativeSyntheticEvent<NativeScrollEvent>, scrollViewWidth: number): number => {
+        // ScrollView width 값이 실제로 지정한 값 보다 근소하게 작게 적용되는 현상이 발생함.
+        // 따라서, 인자로 받는 ScrollView의 Width의 95%의 수치만 사용함.
+        scrollViewWidth *= 0.95;
+
+        let index: number = parseInt((scollEvent.nativeEvent.contentOffset.x / scrollViewWidth).toString());
+
+        if (index === -0) index = 0;
+
+        return index;
+    };
+
+    /* const initialValue = useRef(new Animated.Value(1)).current;
+    const toValue = 1.5;
+    const duration = 5000;
+
+    useEffect(() => {
+        Animated.timing(initialValue, {
+            toValue: toValue,
+            duration: duration,
+            useNativeDriver: true,
+        }).start();
+    }, [crrIndex]); */
+
     return (
-        <MiniContent title={title}>
-            <ScrollView style={style.scrollview} horizontal pagingEnabled showsHorizontalScrollIndicator={false}>
+        <ContentBox>
+            <ScrollView
+                style={style.scrollview}
+                horizontal
+                pagingEnabled
+                showsHorizontalScrollIndicator={false}
+                scrollEventThrottle={5}
+                onScroll={(e) => setCrrIndex(getCurrentPage(e, cardWidth))}>
                 {vehicles.map((vehicle, index) => (
                     <VehicleCard key={index} vehicle={vehicle} cardWidth={cardWidth} />
                 ))}
@@ -70,11 +139,15 @@ export default function VehicleCardView({ title, vehicles, cardWidth }: VehicleC
                                 {
                                     backgroundColor:
                                         crrIndex === index ? theme.colorFamily.white : theme.colorFamily.grey,
+                                    width: crrIndex === index ? deviceUI.moderateScale(7) : deviceUI.moderateScale(6),
+                                    height: crrIndex === index ? deviceUI.moderateScale(7) : deviceUI.moderateScale(6),
+                                    borderRadius:
+                                        crrIndex === index ? deviceUI.moderateScale(7) : deviceUI.moderateScale(6),
                                 },
                             ]}
                         />
                     ))}
             </View>
-        </MiniContent>
+        </ContentBox>
     );
 }

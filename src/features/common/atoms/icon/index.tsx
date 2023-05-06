@@ -6,6 +6,9 @@ import IconSpeaker from "./speaker";
 import IconWallet from "./wallet";
 import { IconPerson } from "./human";
 import IconProps, { ChildIconProps } from "./types";
+import IconLetter from "./letter";
+import IconPhone from "./phone";
+import IconClockArrow from "./clock_arrow";
 
 export default function Icon(props: IconProps) {
     /* let iconProps: ChildIconProps = {
@@ -37,6 +40,12 @@ export default function Icon(props: IconProps) {
             return <IconWallet {...iconProps} />;
         case "person":
             return <IconPerson {...iconProps} />;
+        case "letter":
+            return <IconLetter {...iconProps} />;
+        case "phone":
+            return <IconPhone {...iconProps} />;
+        case "clock-arrow":
+            return <IconClockArrow {...iconProps} />;
         default:
             return <IconHome {...iconProps} />;
     }
