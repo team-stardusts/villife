@@ -6,7 +6,7 @@ import useComplaintHomeSecreenStyle from "./styles";
 import IconQuestionMark from "../../../../common/atoms/icon/question_mark";
 import PressableVectorIcon from "../../../../common/blocks/icon/vector";
 import IconPlus from "../../../../common/atoms/icon/plus";
-import ComplaintContentCard from "../../blocks/content_card/indext";
+import ComplaintContentCard from "../../blocks/content_card";
 import { ComplaintInfo } from "../../services/type";
 
 export default function ComplaintHomeScreen({ navigation, route }: ComplaintHomeScreenProps) {

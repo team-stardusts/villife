@@ -1,4 +1,6 @@
+import { ColorValue } from "react-native";
+
 export type ContentBoxProps = {
     children?: React.ReactNode;
-    backgroundColor?: string;
+    backgroundColor?: ColorValue | undefined;
 };

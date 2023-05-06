@@ -29,7 +29,7 @@ const myVehicles: TenantVehicle[] = [
         room_number: 101,
         phone_number: "010-0000-0000",
         model: "Benz C",
-        plate_number: "77사 7777",
+        plate_number: "99아 9999",
         etd: 10293,
         eta: 10293,
         vehicle_type: "4WD",

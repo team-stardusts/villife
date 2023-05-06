@@ -9,16 +9,28 @@ export default function useParkingHomeScreenStyles() {
             flex: 1,
             backgroundColor: theme.colorFamily.white,
         },
-        contentTitle: {
-            ...theme.font.researved.h2,
-            marginBottom: deviceUI.moderateScale(10),
-        },
         myVehicleCardViewBox: {
             flex: 3.5,
             paddingBottom: deviceUI.moderateScale(10),
         },
         buildingVehiclesViewBox: {
             flex: 6.5,
+        },
+        contentTitle: {
+            ...theme.font.researved.h2,
+            marginBottom: deviceUI.moderateScale(10),
+        },
+        contentTitleBox: {
+            flexDirection: "row",
+            justifyContent: "space-between",
+            alignItems: "center",
+        },
+        contentFuncButtonBox: {
+            width: "30%",
+            height: "100%",
+        },
+        contentFuncButtonIcon: {
+            width: deviceUI.moderateScale(35),
         },
     });
 

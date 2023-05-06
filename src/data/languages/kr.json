@@ -13,9 +13,7 @@
                 "eta": "입차 시간",
                 "villa_vehicle_info": "빌라차량 정보",
                 "register_guest": "방문자 등록",
-                "my_vehicle_to_modify": "수정하기",
-                "tenant": "거주자",
-                "guest": "방문자"
+                "my_vehicle_to_modify": "수정하기"
             }
         },
         "complaint": {
@@ -151,7 +149,9 @@
         "reject": "거절",
         "accept": "수락",
         "edit": "편집하기",
-        "modify": "수정하기"
+        "modify": "수정하기",
+        "tenant": "거주자",
+        "guest": "방문자"
     },
     "navigation": {
         "say_wait": "잠시만요!",

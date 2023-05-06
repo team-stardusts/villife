@@ -1,9 +1,28 @@
-import { Platform, StyleSheet, View } from "react-native";
+import { Animated, Platform, StyleSheet, View } from "react-native";
 import { ContentBoxProps } from "./types";
 import useStyler from "../../hooks/styler/hooks";
+import { useEffect, useRef } from "react";
 
 export default function ContentBox({ children, backgroundColor }: ContentBoxProps) {
     const { deviceUI, theme } = useStyler();
+    const opacityValue = useRef(new Animated.Value(0)).current;
+    const translateYValue = useRef(new Animated.Value(15)).current;
+    const duration: number = 700;
+
+    useEffect(() => {
+        Animated.parallel([
+            Animated.timing(opacityValue, {
+                toValue: 1,
+                duration: duration,
+                useNativeDriver: true,
+            }),
+            Animated.timing(translateYValue, {
+                toValue: 0,
+                duration: duration,
+                useNativeDriver: true,
+            }),
+        ]).start();
+    }, [opacityValue, translateYValue]);
 
     const styles = StyleSheet.create({
         box: {
@@ -29,5 +48,16 @@ export default function ContentBox({ children, backgroundColor }: ContentBoxProp
             }),
         },
     });
-    return <View style={styles.box}>{children !== undefined ? children : <></>}</View>;
+    return (
+        <Animated.View
+            style={[
+                styles.box,
+                {
+                    opacity: opacityValue,
+                    transform: [{ translateY: translateYValue }],
+                },
+            ]}>
+            {children !== undefined ? children : <></>}
+        </Animated.View>
+    );
 }

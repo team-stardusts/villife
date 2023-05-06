@@ -21,8 +21,6 @@ export type MessagesByLanguage = {
                 villa_vehicle_info: string;
                 register_guest: string;
                 my_vehicle_to_modify: string;
-                tenant: string;
-                guest: string;
             };
         };
         complaint: {
@@ -158,6 +156,8 @@ export type MessagesByLanguage = {
         accept: string;
         edit: string;
         modify: string;
+        tenant: string;
+        guest: string;
     };
     navigation: {
         say_wait: string;

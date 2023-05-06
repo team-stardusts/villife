@@ -9,6 +9,8 @@ import IconProps, { ChildIconProps } from "./types";
 import IconLetter from "./letter";
 import IconPhone from "./phone";
 import IconClockArrow from "./clock_arrow";
+import IconPlus from "./plus";
+import IconPencil from "./pencil";
 
 export default function Icon(props: IconProps) {
     /* let iconProps: ChildIconProps = {
@@ -44,6 +46,10 @@ export default function Icon(props: IconProps) {
             return <IconLetter {...iconProps} />;
         case "phone":
             return <IconPhone {...iconProps} />;
+        case "plus":
+            return <IconPlus {...iconProps} />;
+        case "pencil":
+            return <IconPencil {...iconProps} />;
         case "clock-arrow":
             return <IconClockArrow {...iconProps} />;
         default:

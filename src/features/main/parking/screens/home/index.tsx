@@ -12,6 +12,7 @@ import useParkingHomeScreenStyles from "./styles";
 import Badge from "../../../../common/atoms/badge";
 import ContentBox from "../../../../common/blocks/content_box";
 import Icon from "../../../../common/atoms/icon";
+import SimpleFuncButton from "../../../../common/blocks/button/simple_func_button";
 
 type Vehicles = {
     myVehicles: TenantVehicle[];
@@ -29,8 +30,7 @@ type VehicleInfoProps = {
 function VehicleInfo({ ownerType, plateNumber, phoneNumber, etd }: VehicleInfoProps) {
     const styles = useParkingHomeScreenStyles().vehicleInfo;
     const message = useScreenMessage();
-    const badgeTitle =
-        ownerType === "tenant" ? message.messages.main.parking.home.tenant : message.messages.main.parking.home.guest;
+    const badgeTitle = ownerType === "tenant" ? message.messages.words.tenant : message.messages.words.guest;
     const badgeStyle = ownerType === "tenant" ? styles.tenantBadge : styles.guestBadge;
 
     return (
@@ -67,7 +67,7 @@ export default function ParkingScreen({ navigation, route }: ParkingScreenProps)
     const { deviceUI, theme } = useStyler();
     const styles = useParkingHomeScreenStyles().screen;
     const screenPadding: number = deviceUI.moderateScale(SCREEN_PADDING_HORIZONTAL_STANDARD_VALUE);
-    // Card에서 ScrollView를 사용하므로, 가변적인 카드를 만들기 위해서는 Width 지정이 필요함
+    // Card에서 ScrollView를 사용하므로, 가변적인 카드를 만들기 위해서 Width 지정이 필요함
     const cardWidth: number = deviceUI.screenSize.width - (screenPadding + deviceUI.moderateScale(20));
 
     const [vehicles, setVehicles] = useState<Vehicles>({
@@ -75,6 +75,8 @@ export default function ParkingScreen({ navigation, route }: ParkingScreenProps)
         vehicles: [],
         guestVehicles: [],
     });
+    // Vehicles 목록을 딜레이를 줘서 렌더링하기 위함.
+    const [vehiclesForRendering, setVehiclesForRendering] = useState<Array<TenantVehicle | GuestVehicle>>([]);
 
     const bootstrap = async () => {
         const myVehicles = await parkService.getMyVehicles();
@@ -89,6 +91,36 @@ export default function ParkingScreen({ navigation, route }: ParkingScreenProps)
         });
     };
 
+    // Vehicles 목록을 딜레이를 줘서 렌더링하기 위함.
+    const renderVehicleInfos = async () => {
+        const delay: number = 130;
+        const allVehicles: Array<TenantVehicle | GuestVehicle> = [...vehicles.guestVehicles, ...vehicles.vehicles];
+        for (let i = 0; i < allVehicles.length; i++) {
+            // 차량 리스트에서 나의 차량을 제외하기 위함.
+            const myVehicles = vehicles.myVehicles.find(
+                (vehicle) => vehicle.plate_number === allVehicles[i].plate_number
+            );
+
+            if (myVehicles !== undefined) continue;
+
+            await new Promise((resolve) =>
+                setTimeout(() => {
+                    resolve("");
+                }, delay)
+            );
+
+            setVehiclesForRendering((prevData) => {
+                const newData = [...prevData];
+                newData[i] = allVehicles[i];
+                return newData;
+            });
+        }
+    };
+
+    useEffect(() => {
+        renderVehicleInfos();
+    }, [vehicles]);
+
     useEffect(() => {
         bootstrap();
     }, []);
@@ -100,33 +132,43 @@ export default function ParkingScreen({ navigation, route }: ParkingScreenProps)
             }}>
             <View style={styles.toplevelBox}>
                 <View style={styles.myVehicleCardViewBox}>
-                    <Text style={styles.contentTitle}>{messages.messages.main.parking.home.my_vehicle_info}</Text>
+                    <View style={styles.contentTitleBox}>
+                        <Text style={styles.contentTitle}>{messages.messages.main.parking.home.my_vehicle_info}</Text>
+                        <View style={styles.contentFuncButtonBox}>
+                            <SimpleFuncButton
+                                icon={{ name: "pencil", size: styles.contentFuncButtonIcon.width }}
+                                title={messages.messages.words.modify}
+                            />
+                        </View>
+                    </View>
                     <VehicleCardView vehicles={vehicles.myVehicles} cardWidth={cardWidth} />
                 </View>
                 <View style={styles.buildingVehiclesViewBox}>
-                    <Text style={styles.contentTitle}>{messages.messages.main.parking.home.villa_vehicle_info}</Text>
-                    <ScrollView>
-                        {vehicles.guestVehicles.map((vehicle, index) => (
-                            <VehicleInfo
-                                key={index}
-                                ownerType="guest"
-                                plateNumber={vehicle.plate_number}
-                                phoneNumber={vehicle.phone_number}
-                                etd={vehicle.etd}
+                    <View style={styles.contentTitleBox}>
+                        <Text style={styles.contentTitle}>
+                            {messages.messages.main.parking.home.villa_vehicle_info}
+                        </Text>
+                        <View style={styles.contentFuncButtonBox}>
+                            <SimpleFuncButton
+                                icon={{ name: "plus", size: styles.contentFuncButtonIcon.width }}
+                                title={messages.messages.main.parking.home.register_guest}
                             />
-                        ))}
-                        {vehicles.vehicles.map((vehicle, index) => {
-                            // 차량 리스트에서 나의 차량을 제외하기 위함.
-                            const myVehicles = vehicles.myVehicles.find((myVehicle) => myVehicle.id === vehicle.id);
+                        </View>
+                    </View>
+                    <ScrollView>
+                        {vehiclesForRendering.map((vehicle, index) => {
+                            if (vehicle === undefined) return;
 
-                            if (myVehicles !== undefined) {
-                                return;
+                            let ownerType: VehicleInfoProps["ownerType"] = "tenant";
+
+                            if ("visiting_perpose" in vehicle) {
+                                ownerType = "guest";
                             }
 
                             return (
                                 <VehicleInfo
                                     key={index}
-                                    ownerType="tenant"
+                                    ownerType={ownerType}
                                     plateNumber={vehicle.plate_number}
                                     phoneNumber={vehicle.phone_number}
                                     etd={vehicle.etd}

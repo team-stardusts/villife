@@ -17,6 +17,8 @@ export type IconSeries =
     | "arrow-up"
     | "arrow-down"
     | "phone"
+    | "plus"
+    | "pencil"
     | "letter"
     | "clock-arrow";
 

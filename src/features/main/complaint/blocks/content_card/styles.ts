@@ -1,22 +1,22 @@
 import { StyleSheet } from "react-native";
 import useStyler from "../../../../common/hooks/styler/hooks";
-import { ComplaintContentCardStylesType } from "./type";
+import { ComplaintContentCardStylesType } from "./types";
 
 export default function useComplaintContentCardStyles(): ComplaintContentCardStylesType {
     const { deviceUI, theme } = useStyler();
 
     const Style = StyleSheet.create({
-        topLevelBoxInProgress: {
-            backgroundColor: theme.colorFamily.blue,
+        topLevelBox: {
+            //backgroundColor: theme.colorFamily.blue,
             width: deviceUI.screenSize.width * 0.9,
-            height: deviceUI.screenSize.height * 0.14,
+            height: deviceUI.screenSize.height * 0.16,
             borderRadius: deviceUI.moderateScale(15),
         },
-        topLevelBoxCompleted: {
+        contentBoxCompleted: {
             backgroundColor: theme.colorFamily.lightgrey,
-            width: deviceUI.screenSize.width * 0.9,
-            height: deviceUI.screenSize.height * 0.14,
-            borderRadius: deviceUI.moderateScale(15),
+        },
+        contentBoxInProgress: {
+            backgroundColor: theme.colorFamily.blue,
         },
         titleSection: {
             marginTop: deviceUI.moderateScale(10),

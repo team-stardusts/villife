@@ -1,4 +1,4 @@
-import { Text, TouchableOpacity, View } from "react-native";
+import { Animated, Text, TouchableOpacity, View } from "react-native";
 import Icon from "../../atoms/icon";
 import useStyler from "../../hooks/styler/hooks";
 import { MiniContentProps } from "./types";
@@ -6,11 +6,31 @@ import useHomeScreenContentStyles from "./styles";
 import { useNavigation } from "@react-navigation/native";
 import { VillifeNavigation, VILLIFE_ROOT_STACK_PARAMS } from "../../router/types";
 import ContentBox from "../content_box";
+import { useEffect, useRef } from "react";
 
 export default function MiniContent({ title, navigation, children, backgroundColor }: MiniContentProps) {
     const { deviceUI, theme } = useStyler();
     const styles = useHomeScreenContentStyles();
     const nav = useNavigation<VillifeNavigation>();
+
+    const opacityValue = useRef(new Animated.Value(0)).current;
+    const translateYValue = useRef(new Animated.Value(15)).current;
+    const duration: number = 1000;
+
+    useEffect(() => {
+        Animated.parallel([
+            Animated.timing(opacityValue, {
+                toValue: 1,
+                duration: duration,
+                useNativeDriver: true,
+            }),
+            Animated.timing(translateYValue, {
+                toValue: 0,
+                duration: duration,
+                useNativeDriver: true,
+            }),
+        ]).start();
+    }, [opacityValue, translateYValue]);
 
     const navigate = () => {
         if (navigation !== undefined) {
@@ -33,12 +53,19 @@ export default function MiniContent({ title, navigation, children, backgroundCol
                 style={styles.navigationBox}
                 onPress={() => navigate()}
                 disabled={navigation === undefined}>
-                <View style={styles.navigationWrapper}>
+                <Animated.View
+                    style={[
+                        styles.navigationWrapper,
+                        {
+                            opacity: opacityValue,
+                            transform: [{ translateY: translateYValue }],
+                        },
+                    ]}>
                     <Text style={styles.navigationTitle}>{title}</Text>
                     {navigation && (
                         <Icon name="arrow-right" size={deviceUI.moderateScale(40)} color={theme.colorFamily.grey} />
                     )}
-                </View>
+                </Animated.View>
             </TouchableOpacity>
             <View style={styles.contentWrapper}>
                 <ContentBox backgroundColor={backgroundColor}>{children}</ContentBox>
