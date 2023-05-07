@@ -40,7 +40,7 @@ export default function HomeScreen({ navigation, route }: HomeScreenProps) {
                 },
             }}>
             <View style={styles.toplevelBox}>
-                <ScrollView style={styles.contentsScrollBox}>
+                <ScrollView style={styles.contentsScrollBox} showsVerticalScrollIndicator={false}>
                     {contents.map((Content, index) => (
                         <Content key={index} backgroundColor={getBgColor(index)} />
                     ))}
