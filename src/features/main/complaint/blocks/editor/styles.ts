@@ -32,11 +32,13 @@ export default function useComplaintEditorStyle(): ComplaintEditorStylesType {
     return Style;
 }
 
+const fontFamily = "Pretendard-Bold";
+
 export const EditorStyle = {
     initialCSSText: `${PretendardCSS}`,
     backgroundColor: "white",
     color: "black",
     caretColor: "red",
     placeholderColor: "grey",
-    contentCSSText: `font-family:Pretendard-Regular; font-size: 16px; min-height: 200px;`,
+    contentCSSText: `font-family:${fontFamily}`,
 };
