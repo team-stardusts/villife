@@ -1,10 +1,11 @@
-import { NativeScrollEvent, NativeSyntheticEvent, ScrollView, StyleSheet, Text, View } from "react-native";
+import { NativeScrollEvent, NativeSyntheticEvent, ScrollView, StyleSheet, Text, TextBase, View } from "react-native";
 import { VehicleCardProps, VehicleCardViewProps } from "./types";
 import useStyler from "../../../../common/hooks/styler/hooks";
 import { useEffect, useState } from "react";
 import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
 import ContentBox from "../../../../common/blocks/content_box";
 import MiniContent from "../../../../common/blocks/mini_content";
+import PageIndicators from "../../../../common/blocks/page_indicator";
 
 function VehicleCard({ vehicle, cardWidth }: VehicleCardProps) {
     const { deviceUI, theme } = useStyler();
@@ -73,20 +74,21 @@ export default function VehicleCardView({ vehicles, cardWidth }: VehicleCardView
     const { deviceUI, theme } = useStyler();
     const [crrIndex, setCrrIndex] = useState<number>(0);
 
-    const style = StyleSheet.create({
+    const styles = StyleSheet.create({
         scrollview: {
             width: cardWidth,
             height: "85%",
         },
         indicatorBox: {
-            flexDirection: "row",
             justifyContent: "center",
             alignItems: "center",
             width: "100%",
             height: "15%",
         },
-        indicator: {
-            marginHorizontal: deviceUI.moderateScale(2),
+        registerCardBox: {
+            width: cardWidth,
+            justifyContent: "center",
+            alignItems: "center",
         },
     });
 
@@ -103,50 +105,27 @@ export default function VehicleCardView({ vehicles, cardWidth }: VehicleCardView
         return index;
     };
 
-    /* const initialValue = useRef(new Animated.Value(1)).current;
-    const toValue = 1.5;
-    const duration = 5000;
-
-    useEffect(() => {
-        Animated.timing(initialValue, {
-            toValue: toValue,
-            duration: duration,
-            useNativeDriver: true,
-        }).start();
-    }, [crrIndex]); */
-
     return (
         <ContentBox>
             <ScrollView
-                style={style.scrollview}
+                style={styles.scrollview}
+                showsHorizontalScrollIndicator={false}
                 horizontal
                 pagingEnabled
-                showsHorizontalScrollIndicator={false}
                 scrollEventThrottle={5}
                 onScroll={(e) => setCrrIndex(getCurrentPage(e, cardWidth))}>
                 {vehicles.map((vehicle, index) => (
                     <VehicleCard key={index} vehicle={vehicle} cardWidth={cardWidth} />
                 ))}
+                <View style={styles.registerCardBox}>
+                    <Text>Register your vehicle!</Text>
+                </View>
             </ScrollView>
-            <View style={style.indicatorBox}>
-                {Array(vehicles.length)
-                    .fill(null)
-                    .map((value, index) => (
-                        <View
-                            key={index}
-                            style={[
-                                style.indicator,
-                                {
-                                    backgroundColor:
-                                        crrIndex === index ? theme.colorFamily.white : theme.colorFamily.grey,
-                                    width: crrIndex === index ? deviceUI.moderateScale(7) : deviceUI.moderateScale(6),
-                                    height: crrIndex === index ? deviceUI.moderateScale(7) : deviceUI.moderateScale(6),
-                                    borderRadius:
-                                        crrIndex === index ? deviceUI.moderateScale(7) : deviceUI.moderateScale(6),
-                                },
-                            ]}
-                        />
-                    ))}
+            <View style={styles.indicatorBox}>
+                {
+                    // Register Card의 Indicator도 표현하기 위해 + 1
+                }
+                <PageIndicators length={vehicles.length + 1} currentIndex={crrIndex} size={deviceUI.moderateScale(7)} />
             </View>
         </ContentBox>
     );

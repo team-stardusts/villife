@@ -155,7 +155,7 @@ export default function ParkingScreen({ navigation, route }: ParkingScreenProps)
                             />
                         </View>
                     </View>
-                    <ScrollView>
+                    <ScrollView showsVerticalScrollIndicator={false}>
                         {vehiclesForRendering.map((vehicle, index) => {
                             if (vehicle === undefined) return;
 
