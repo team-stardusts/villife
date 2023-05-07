@@ -11,7 +11,17 @@ export type MessagesByLanguage = {
             screen_title: string;
         };
         parking: {
-            screen_title: string;
+            home: {
+                screen_title: string;
+                my_vehicle_info: string;
+                plate_number: string;
+                vehicle_info: string;
+                etd: string;
+                eta: string;
+                villa_vehicle_info: string;
+                register_guest: string;
+                my_vehicle_to_modify: string;
+            };
         };
         complaint: {
             screen_title: string;
@@ -23,13 +33,12 @@ export type MessagesByLanguage = {
             complaints_done: string;
             register: string;
             detail: string;
-            received : string
-            inprogress : string
-            done : string
-            progress_status : string
-            edit_progress_status : string
-            edit_progress_status_guide : string
-
+            received: string;
+            inprogress: string;
+            done: string;
+            progress_status: string;
+            edit_progress_status: string;
+            edit_progress_status_guide: string;
         };
         payment: {
             screen_title: string;
@@ -147,6 +156,8 @@ export type MessagesByLanguage = {
         accept: string;
         edit: string;
         modify: string;
+        tenant: string;
+        guest: string;
     };
     navigation: {
         say_wait: string;

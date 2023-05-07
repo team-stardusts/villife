@@ -15,7 +15,12 @@ export type IconSeries =
     | "arrow-left"
     | "arrow-right"
     | "arrow-up"
-    | "arrow-down";
+    | "arrow-down"
+    | "phone"
+    | "plus"
+    | "pencil"
+    | "letter"
+    | "clock-arrow";
 
 export type ChildIconProps = CommonIconProps & {
     [key: string]: string | number | undefined;

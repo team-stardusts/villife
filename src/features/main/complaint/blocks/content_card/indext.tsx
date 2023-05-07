@@ -1,8 +1,8 @@
 import React from "react";
-import { ComplaintContentCardProps } from "./type";
 import { View, Text, Animated } from "react-native";
 import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
-import useComplaintContentCardStyles from "./style";
+import { ComplaintContentCardProps } from "./types";
+import useComplaintContentCardStyles from "./styles";
 
 function ComplaintContentCard(props: ComplaintContentCardProps) {
     const messages = useScreenMessage();

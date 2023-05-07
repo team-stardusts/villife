@@ -1,5 +1,6 @@
 import { StyleSheet } from "react-native";
 import useStyler from "../../hooks/styler/hooks";
+import { SCREEN_PADDING_HORIZONTAL_STANDARD_VALUE, SCREEN_PADDING_VERTICAL_STANDARD_VALUE } from "../../constants";
 
 export default function useNavigationViewStyles() {
     const { deviceUI, theme } = useStyler();
@@ -52,6 +53,8 @@ export default function useNavigationViewStyles() {
         },
         contentsBox: {
             flex: 8.3,
+            paddingHorizontal: deviceUI.moderateScale(SCREEN_PADDING_HORIZONTAL_STANDARD_VALUE),
+            paddingVertical: deviceUI.moderateScale(SCREEN_PADDING_VERTICAL_STANDARD_VALUE),
         },
         bottomNavBox: {
             flex: 1,

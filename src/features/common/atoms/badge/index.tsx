@@ -11,16 +11,16 @@ export default function Badge({ size, color, title, bgColor }: BadgeProps) {
     const styles = StyleSheet.create({
         box: {
             backgroundColor: bgColor ?? "lightgrey",
-            alignSelf: "flex-start",
             justifyContent: "center",
             alignItems: "center",
             borderRadius: size ? size * 1.2 : 18,
             paddingVertical: size ? size * 0.2 : 3,
-            paddingHorizontal: size ?? 15,
+            paddingHorizontal: size ? size * 0.8 : 3,
         },
         title: {
             fontSize: size ?? 15,
             color: color ?? "black",
+            fontWeight: size && size > 12 ? "bold" : "100",
         },
     });
 

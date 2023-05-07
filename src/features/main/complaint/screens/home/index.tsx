@@ -1,12 +1,12 @@
 import { View, Text, TouchableOpacity, FlatList } from "react-native";
 import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
 import NavigationView from "../../../../common/blocks/navigation";
-import ComplaintHomeScreenProps from "./type";
-import useComplaintHomeSecreenStyle from "./style";
+import ComplaintHomeScreenProps from "./types";
+import useComplaintHomeSecreenStyle from "./styles";
 import IconQuestionMark from "../../../../common/atoms/icon/question_mark";
 import PressableVectorIcon from "../../../../common/blocks/icon/vector";
 import IconPlus from "../../../../common/atoms/icon/plus";
-import ComplaintContentCard from "../../blocks/content_card/indext";
+import ComplaintContentCard from "../../blocks/content_card";
 import { ComplaintInfo } from "../../services/type";
 
 export default function ComplaintHomeScreen({ navigation, route }: ComplaintHomeScreenProps) {
