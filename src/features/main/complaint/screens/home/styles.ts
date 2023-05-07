@@ -41,8 +41,7 @@ export default function useComplaintHomeSecreenStyle(): ComplaintHomeScreenStyle
         },
 
         menuContainer: {
-            width: "90%",
-            marginHorizontal: "5%",
+            width: "100%",
             height: deviceUI.screenSize.height * 0.07,
             alignItems: "center",
             flexDirection: "row",

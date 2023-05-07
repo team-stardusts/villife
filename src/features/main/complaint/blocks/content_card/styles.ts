@@ -19,9 +19,10 @@ export default function useComplaintContentCardStyles(): ComplaintContentCardSty
             backgroundColor: theme.colorFamily.blue,
         },
         titleSection: {
-            marginTop: deviceUI.moderateScale(10),
+            width: "90%",
             flexDirection: "row",
             justifyContent: "space-between",
+            alignItems: "center",
             marginHorizontal: "5%",
         },
         titleText: {

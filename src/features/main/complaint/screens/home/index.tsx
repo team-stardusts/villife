@@ -40,7 +40,11 @@ export default function ComplaintHomeScreen({ navigation, route }: ComplaintHome
                             diameter={styles.vectorIconSize.height as number}></PressableVectorIcon>
                     </TouchableOpacity>
                     <View style={styles.registerButtonWrapper}>
-                        <TouchableOpacity style={styles.registerButton}>
+                        <TouchableOpacity
+                            style={styles.registerButton}
+                            onPress={() => {
+                                navigation.navigate("complaint_register", {});
+                            }}>
                             <IconPlus size={styles.plusIconSize.width as number} />
                             <Text style={styles.registerButtonText}>{messages.messages.main.complaint.register}</Text>
                         </TouchableOpacity>
@@ -99,7 +103,7 @@ const sampleData: Array<ComplaintInfo> = [
         id: 2,
         title: "세탁기가 고장났어요",
         content: "내용",
-        status: "received",
+        status: "in_progress",
         created_at: "2022-12-01",
         updated_at: "",
     },
@@ -107,7 +111,7 @@ const sampleData: Array<ComplaintInfo> = [
         id: 3,
         title: "세탁기가 고장났어요",
         content: "내용",
-        status: "received",
+        status: "in_progress",
         created_at: "2022-12-01",
         updated_at: "",
     },
@@ -115,7 +119,7 @@ const sampleData: Array<ComplaintInfo> = [
         id: 4,
         title: "세탁기가 고장났어요",
         content: "내용",
-        status: "received",
+        status: "in_progress",
         created_at: "2022-12-01",
         updated_at: "",
     },

@@ -19,7 +19,16 @@ function ComplaintContentCard(props: ComplaintContentCardProps) {
     });
 
     React.useEffect(() => {
-        console.log("render");
+        if (props.info.status == "received") {
+            Animated.sequence([
+                Animated.timing(circleOpacity1, {
+                    toValue: 1,
+                    duration: 500,
+                    useNativeDriver: true,
+                }),
+            ]).start();
+            return;
+        }
         Animated.sequence([
             Animated.timing(circleOpacity1, {
                 toValue: 1,
