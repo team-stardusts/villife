@@ -39,7 +39,8 @@ export default function ComplaintRegisterScreen({ navigation, route }: Complaint
                     },
                     loading: loading,
                 },
-            }}>
+            }}
+            bottomNavOptions={{ shown: false }}>
             <ComplaintEditor titleRef={title} contentRef={content} />
         </NavigationView>
     );
