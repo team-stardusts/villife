@@ -58,7 +58,7 @@ export default function ScreenRouter() {
             //navigation.navigate("permission_request", {});
             navigation.reset({
                 index: 0,
-                routes: [{ name: "login" }],
+                routes: [{ name: "noti_home" }],
             });
         } else {
             navigation.reset({

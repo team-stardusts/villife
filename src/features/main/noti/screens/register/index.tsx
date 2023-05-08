@@ -21,6 +21,8 @@ import VillifeServer from "../../../../../libs/rest_apis/villife";
 import Toast from "react-native-toast-message";
 import NavigationView from "../../../../common/blocks/navigation";
 import { NoticeEventEmitter } from "../../../../common/blocks/noti_screens/outlined_box_list/event";
+import RegisterButton from "../../blocks/register_button";
+import NotiRegisterButtonProps from "../../blocks/register_button";
 
 function NoticeRegisterScreen(props: NoticeRegisterScreenProps) {
     const content = useRef("");
@@ -35,7 +37,7 @@ function NoticeRegisterScreen(props: NoticeRegisterScreenProps) {
             content: content.current,
             building_id: 3,
         };
-        const api = new VillifeServer();
+        const api = VillifeServer.getNoticeManager();
 
         const reuslt = await api.createNotice(param);
         setLoading(false);
@@ -68,7 +70,7 @@ function NoticeRegisterScreen(props: NoticeRegisterScreenProps) {
             headerOptions={{
                 title: "공지사항 등록",
                 shown: true,
-                navComponent: ReigsterButton,
+                navComponent: RegisterButton,
                 navComponentProps: {
                     onSubmit: () => {
                         onSubmit();
@@ -222,23 +224,3 @@ const EditorStyle = StyleSheet.create({
         paddingHorizontal: 12,
     },
 });
-
-function ReigsterButton({ onSubmit, loading }: { onSubmit: () => void; loading: boolean }) {
-    return (
-        <View
-            style={{
-                backgroundColor: "tomato",
-                height: "100%",
-                alignItems: "flex-end",
-                justifyContent: "center",
-                paddingRight: 15,
-            }}>
-            <TouchableOpacity
-                onPress={() => {
-                    onSubmit();
-                }}>
-                {loading ? <ActivityIndicator size={"large"} /> : <Text style={{}}>등록하기</Text>}
-            </TouchableOpacity>
-        </View>
-    );
-}
