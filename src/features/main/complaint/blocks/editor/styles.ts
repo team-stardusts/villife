@@ -1,7 +1,7 @@
 import { StyleSheet } from "react-native";
 import useStyler from "../../../../common/hooks/styler/hooks";
 import { ComplaintEditorStylesType } from "./types";
-import { PretendardCSS } from "./fonts/pretendard-regular";
+import RemoteCSS from "../../../../../libs/themes/remote_css";
 
 export default function useComplaintEditorStyle(): ComplaintEditorStylesType {
     const { deviceUI, theme } = useStyler();
@@ -35,7 +35,7 @@ export default function useComplaintEditorStyle(): ComplaintEditorStylesType {
 const fontFamily = "Pretendard-Bold";
 
 export const EditorStyle = {
-    initialCSSText: `${PretendardCSS}`,
+    initialCSSText: `${RemoteCSS.getPretendardBold()}`,
     backgroundColor: "white",
     color: "black",
     caretColor: "red",

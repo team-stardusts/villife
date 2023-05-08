@@ -3,12 +3,14 @@ import { ComplaintEditorProps } from "./types";
 import { IconRecord, RichEditor, RichToolbar, actions } from "react-native-pell-rich-editor";
 import { Dimensions, Keyboard, ScrollView, Text, TextInput, View } from "react-native";
 import useComplaintEditorStyle, { EditorStyle } from "./styles";
+import useComplaintService from "../../services";
 
 function ComplaintEditor(props: ComplaintEditorProps) {
     const styles = useComplaintEditorStyle();
     const richText = useRef<RichEditor>(null);
     const scrollRef = useRef<ScrollView>(null);
     const size = Dimensions.get("window");
+    const service = useComplaintService();
     const [keboardShow, setKeyBoardShow] = React.useState(false);
 
     React.useEffect(() => {
@@ -26,8 +28,8 @@ function ComplaintEditor(props: ComplaintEditorProps) {
     }, []);
 
     /** TO DO ::
-     * 1.server Env 바탕으로 폰트 가져오는 Library 객체 만들기
-     * 2.만든 후 에디터 및 웹뷰에 적용하기
+     * 1.server Env 바탕으로 폰트 가져오는 Library 객체 만들기 done
+     * 2.만든 후 에디터 및 웹뷰에 적용하기 done
      * 3.클릭시 키보드랑 화면 말려 올라가는거 해결하기
      */
 
@@ -35,7 +37,7 @@ function ComplaintEditor(props: ComplaintEditorProps) {
         <>
             <ScrollView
                 style={[styles.scroll]}
-                keyboardDismissMode={"none"}
+                keyboardDismissMode={"interactive"}
                 ref={scrollRef}
                 nestedScrollEnabled={true}
                 stickyHeaderIndices={[0]}
@@ -69,14 +71,7 @@ function ComplaintEditor(props: ComplaintEditorProps) {
                         selectedIconTint={"#2095F2"}
                         disabledIconTint={"#bfbfbf"}
                         onPressAddImage={() => {
-                            /*  new ImageUploader()
-                                .pickOneAndUpload()
-                                .then((r) => {
-                                    richText.current?.insertImage(r.uri);
-                                })
-                                .catch((reason) => {
-                                    console.log(reason);
-                                }); */
+                            service.UploadAndInsertImage(richText);
                         }}
                         actions={[
                             actions.heading1,
@@ -85,12 +80,10 @@ function ComplaintEditor(props: ComplaintEditorProps) {
                             actions.heading4,
                             actions.insertImage,
                             actions.setBold,
-                            actions.insertOrderedList,
                             actions.alignLeft,
                             actions.alignCenter,
                             actions.alignRight,
-                            actions.line,
-                        ]} // default defaultActions
+                        ]}
                         iconMap={{
                             [actions.heading1]: ({ tintColor }: IconRecord) => (
                                 <Text style={[styles.tib, { color: tintColor }]}>H1</Text>

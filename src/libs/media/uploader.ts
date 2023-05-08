@@ -1,7 +1,7 @@
 import axios from "axios";
 import NativeAlbum from "./album";
 import VillifeServer from "../rest_apis/villife";
-import { MediaUploadResult } from "../rest_apis/villife/types";
+import { MediaUploadResult } from "../rest_apis/villife/notice/types";
 
 interface MediaUploader {
     pickOneAndUpload(imageUri: string): Promise<MediaUploadResult>;
