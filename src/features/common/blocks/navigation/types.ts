@@ -11,6 +11,11 @@ export type HeaderOptions = {
     };
 };
 
+export type BodyOptions = {
+    applyDefaultHorizontalPadding?: boolean;
+    applyDefaultVerticalPadding?: boolean;
+};
+
 export type BottomNavigationOptions = {
     shown?: boolean;
 };
@@ -30,6 +35,7 @@ export type BottomLink = {
 
 type NavigationViewProps = {
     headerOptions: HeaderOptions;
+    bodyOptions?: BodyOptions;
     bottomNavOptions?: BottomNavigationOptions;
     children: React.ReactNode;
 };

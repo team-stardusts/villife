@@ -9,7 +9,7 @@ export type VillifeRootStackParamList = {
     test?: {};
     home?: {};
     complaint?: {};
-    parking_home?: {};
+    parking?: {};
     payment?: {};
     mypage?: {};
 };
@@ -19,7 +19,7 @@ export const VILLIFE_ROOT_STACK_PARAMS: Array<keyof VillifeRootStackParamList> =
     "complaint",
     "home",
     "splash",
-    "parking_home",
+    "parking",
     "payment",
     "mypage",
 ];
@@ -50,7 +50,8 @@ export type VillifeStackParamList = VillifeRootStackParamList & {
     permission_request?: {};
     complaint_register: {};
     complaint_modify: {};
-    complaint_detail: Complaint
+    complaint_detail: Complaint;
+    register_vehicle?: {};
 };
 
 export type RouterParams = NativeStackScreenProps<VillifeStackParamList>;

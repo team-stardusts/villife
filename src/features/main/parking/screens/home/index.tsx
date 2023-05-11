@@ -1,7 +1,7 @@
 import { ScrollView, Text, TouchableOpacity, View } from "react-native";
 import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
 import NavigationView from "../../../../common/blocks/navigation";
-import ParkingScreenProps from "./type";
+import ParkingScreenProps from "./types";
 import useParkService from "../../services/park";
 import { useEffect, useState } from "react";
 import { GuestVehicle, TenantVehicle } from "../../../../../libs/rest_apis/villife/parking/types";
@@ -134,12 +134,12 @@ export default function ParkingScreen({ navigation, route }: ParkingScreenProps)
                 <View style={styles.myVehicleCardViewBox}>
                     <View style={styles.contentTitleBox}>
                         <Text style={styles.contentTitle}>{messages.messages.main.parking.home.my_vehicle_info}</Text>
-                        <View style={styles.contentFuncButtonBox}>
+                        {/* <View style={styles.contentFuncButtonBox}>
                             <SimpleFuncButton
                                 icon={{ name: "pencil", size: styles.contentFuncButtonIcon.width }}
                                 title={messages.messages.words.modify}
                             />
-                        </View>
+                        </View> */}
                     </View>
                     <VehicleCardView vehicles={vehicles.myVehicles} cardWidth={cardWidth} />
                 </View>

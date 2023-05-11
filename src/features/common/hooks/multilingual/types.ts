@@ -14,13 +14,15 @@ export type MessagesByLanguage = {
             home: {
                 screen_title: string;
                 my_vehicle_info: string;
-                plate_number: string;
-                vehicle_info: string;
-                etd: string;
-                eta: string;
                 villa_vehicle_info: string;
                 register_guest: string;
-                my_vehicle_to_modify: string;
+                say_no_vehicle_info: string;
+                induce_to_register_own_vehicle: string;
+            };
+            register_home: {
+                screen_title: string;
+                register_own_vehicle: string;
+                request_input_vehicle_info: string;
             };
         };
         complaint: {
@@ -158,6 +160,11 @@ export type MessagesByLanguage = {
         modify: string;
         tenant: string;
         guest: string;
+        etd: string;
+        eta: string;
+        plate_number: string;
+        vehicle_info: string;
+        vehicle_model: string;
     };
     navigation: {
         say_wait: string;

@@ -7,13 +7,15 @@
             "home": {
                 "screen_title": "주차",
                 "my_vehicle_info": "내 차량 정보",
-                "plate_number": "차량 번호",
-                "vehicle_info": "차량 정보",
-                "etd": "출차 시간",
-                "eta": "입차 시간",
                 "villa_vehicle_info": "빌라차량 정보",
                 "register_guest": "방문자 등록",
-                "my_vehicle_to_modify": "수정하기"
+                "say_no_vehicle_info": "차량 정보가 없습니다.",
+                "induce_to_register_own_vehicle": "원활한 빌라 주차를 위해 차량의 정보를 입력해주세요."
+            },
+            "register_home": {
+                "screen_title": "차량 정보 등록",
+                "register_own_vehicle": "내 차량 정보 등록",
+                "request_input_vehicle_info": "일일 출차시간 및 입차시간과 차량 정보를 입력 해주세요."
             }
         },
         "complaint": {
@@ -151,7 +153,12 @@
         "edit": "편집하기",
         "modify": "수정하기",
         "tenant": "거주자",
-        "guest": "방문자"
+        "guest": "방문자",
+        "etd": "출차 시간",
+        "eta": "입차 시간",
+        "plate_number": "차량 번호",
+        "vehicle_info": "차량 정보",
+        "vehicle_model": "차량 모델"
     },
     "navigation": {
         "say_wait": "잠시만요!",
