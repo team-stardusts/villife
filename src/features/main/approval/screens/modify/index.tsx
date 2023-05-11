@@ -1,21 +1,20 @@
 import { SafeAreaView } from "react-native-safe-area-context";
 import React, { useRef } from "react";
 import NoticeModifyScreenProps from "./type";
+import { UpdateNoticeParams } from "../../../../../libs/rest_apis/villife/types";
 import VillifeServer from "../../../../../libs/rest_apis/villife";
 import Toast from "react-native-toast-message";
 import NavigationView from "../../../../common/blocks/navigation";
+import { NoticeEventEmitter } from "../../../../common/blocks/noti_screens/outlined_box_list/event";
 import NotiEditor from "../../blocks/noti_editor";
 import ModifyButton from "../../blocks/modify_button";
 import useNoticeModifyScreenStyles from "./styles";
-import { UpdateNoticeParams } from "../../../../../libs/rest_apis/villife/notice/types";
-import { NoticeEventEmitter } from "../../blocks/outlined_box_list/event";
 
 export default function NoticeModifyScreen(props: NoticeModifyScreenProps) {
     const styles = useNoticeModifyScreenStyles();
 
     const content = useRef(props.route.params.content);
     const titile = useRef(props.route.params.title);
-    const isTitleEnabled = true;
     const [loading, setLoading] = React.useState(false);
     const onSubmit = async () => {
         setLoading(true);
@@ -74,7 +73,7 @@ export default function NoticeModifyScreen(props: NoticeModifyScreenProps) {
             }}
             bottomNavOptions={{ shown: false }}>
             <SafeAreaView style={styles.contentsWrapper}>
-                <NotiEditor contentRef={content} titleRef={titile} isTitleEnabled={isTitleEnabled} />
+                <NotiEditor contentRef={content} titleRef={titile} />
             </SafeAreaView>
         </NavigationView>
     );

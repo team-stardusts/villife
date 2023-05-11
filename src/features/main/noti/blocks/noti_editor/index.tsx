@@ -37,16 +37,23 @@ export default function NotiEditor(props: NotiEditorProps) {
                 nestedScrollEnabled={true}
                 stickyHeaderIndices={[0]}
                 scrollEventThrottle={20}>
-                <>
+                {props.isTitleEnabled ? (
                     <TextInput
-                        value={props.titleRef.current}
+                        value={props.isTitleEnabled ? props.titleRef.current : ""}
                         style={Styles.title}
                         onChangeText={(text) => (props.titleRef.current = text)}
                         placeholder="제목을 입력하세요"
                     />
-                </>
+                ) : (
+                    <TextInput
+                        style={Styles.title}
+                        onChangeText={(text) => (props.titleRef.current = text)}
+                        placeholder="제목을 입력하세요"
+                    />
+                )}
+
                 <RichEditor
-                    initialContentHTML={props.contentRef.current}
+                    initialContentHTML={props.isTitleEnabled ? props.contentRef.current : ""}
                     onChange={(text) => {
                         props.contentRef.current = text;
                     }}

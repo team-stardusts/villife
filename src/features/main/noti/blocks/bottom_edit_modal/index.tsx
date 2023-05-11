@@ -1,17 +1,20 @@
 import { Dimensions, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import BottomSlidableModal from "../../universial/slidemodal_bottom";
-import { EditIcon, TrashCanIcon } from "../../icon/noti";
 import React from "react";
-import StardustAlert from "../../universial/stardust_alert";
 import VillifeServer from "../../../../../libs/rest_apis/villife";
-import { OutlinedBoxProps } from "../outlined_box/type";
 import Toast from "react-native-toast-message";
 import { NoticeEventEmitter } from "../outlined_box_list/event";
 import { useNavigation } from "@react-navigation/native";
-import { VillifeNavigation } from "../../../router/types";
 import { DeleteNoticeParams } from "../../../../../libs/rest_apis/villife/notice/types";
+import { VillifeNavigation } from "../../../../common/router/types";
+import BottomSlidableModal from "../../../../common/blocks/universial/slidemodal_bottom";
+import { EditIcon, TrashCanIcon } from "../../../../common/blocks/icon/noti";
+import StardustAlert from "../../../../common/blocks/universial/stardust_alert";
+import BottomEditModalProps from "./type";
+import useBottomEditModalStyles from "./style";
 
-function NotiBottomEditModal(props: BottomEditModalProps) {
+export default function NotiBottomEditModal(props: BottomEditModalProps) {
+    const styles = useBottomEditModalStyles();
+
     const screenSize = Dimensions.get("window");
     const navigation = useNavigation<VillifeNavigation>();
     const [deleteAlertVisible, setDeleteAlertVisible] = React.useState(false);
@@ -56,7 +59,7 @@ function NotiBottomEditModal(props: BottomEditModalProps) {
             modalVisible={props.visible}
             setModalVisible={props.setVisible}
             height={screenSize.height * 0.3}>
-            <View style={BottomEditModalStyle.editModalContentContainer}>
+            <View style={styles.editModalContentContainer}>
                 <TouchableOpacity
                     onPress={() => {
                         navigation.navigate("noti_modify", {
@@ -65,18 +68,18 @@ function NotiBottomEditModal(props: BottomEditModalProps) {
                             notiID: props.noticeInfo.id,
                         });
                     }}
-                    style={BottomEditModalStyle.editModalMenu}>
+                    style={styles.editModalMenu}>
                     <EditIcon color="#000000" diameter={30} />
-                    <Text style={[BottomEditModalStyle.editModalMenuText, { fontSize: 20 }]}>수정하기</Text>
+                    <Text style={[styles.editModalMenuText, { fontSize: 20 }]}>수정하기</Text>
                     {/* font scaling 필요*/}
                 </TouchableOpacity>
                 <TouchableOpacity
                     onPress={() => {
                         setDeleteAlertVisible(true);
                     }}
-                    style={BottomEditModalStyle.editModalMenu}>
+                    style={styles.editModalMenu}>
                     <TrashCanIcon color="#000000" diameter={30} />
-                    <Text style={[BottomEditModalStyle.editModalMenuText, { fontSize: 20 }]}>삭제하기</Text>
+                    <Text style={[styles.editModalMenuText, { fontSize: 20 }]}>삭제하기</Text>
                     {/* font scaling 필요*/}
                 </TouchableOpacity>
 
@@ -97,40 +100,3 @@ function NotiBottomEditModal(props: BottomEditModalProps) {
         </BottomSlidableModal>
     );
 }
-
-export default NotiBottomEditModal;
-
-type BottomEditModalProps = {
-    visible: boolean;
-    setVisible: React.Dispatch<React.SetStateAction<boolean>>;
-    noticeInfo: OutlinedBoxProps;
-};
-
-const BottomEditModalStyle = StyleSheet.create({
-    editButtonContainer: {
-        position: "absolute",
-        zIndex: 10,
-        right: "5%",
-    },
-    editButton: {
-        backgroundColor: "#DAEAFD",
-        flexDirection: "row",
-        alignItems: "center",
-        padding: 3,
-        borderRadius: 10,
-    },
-    editModalContentContainer: {
-        marginTop: "5%",
-        width: "100%",
-    },
-    editModalMenu: {
-        flexDirection: "row",
-        alignItems: "center",
-        paddingHorizontal: "10%",
-        paddingBottom: "5%",
-    },
-    editModalMenuText: {
-        marginLeft: 15,
-        color: "black",
-    },
-});
