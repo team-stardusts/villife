@@ -1,6 +1,7 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { Authority } from "../../../libs/rest_apis/villife/types";
 import { HostType } from "../../../libs/rest_apis/villife/auth/types";
+import { Complaint } from "../../../libs/rest_apis/villife/complaint/types";
 
 export type VillifeRootStackParamList = {
     login?: {};
@@ -49,8 +50,7 @@ export type VillifeStackParamList = VillifeRootStackParamList & {
     permission_request?: {};
     complaint_register: {};
     complaint_modify: {};
-    complaint_detail_done: {};
-    complaint_detail_inprogress: {};
+    complaint_detail: Complaint
 };
 
 export type RouterParams = NativeStackScreenProps<VillifeStackParamList>;

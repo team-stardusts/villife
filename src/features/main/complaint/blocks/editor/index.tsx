@@ -49,9 +49,11 @@ function ComplaintEditor(props: ComplaintEditorProps) {
                             props.titleRef.current = text;
                         }}
                         placeholder="제목을 입력하세요"
+                        value={props.titleRef.current}
                     />
                 </>
                 <RichEditor
+                    initialContentHTML={props.contentRef.current}
                     onChange={(text) => {
                         props.contentRef.current = text;
                     }}
