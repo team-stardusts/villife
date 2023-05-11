@@ -54,19 +54,19 @@ function VehicleCard({ vehicle, cardWidth }: VehicleCardProps) {
 
     const cardData: Array<{ rowKey: string; rowValue: string | number }> = [
         {
-            rowKey: messages.messages.main.parking.home.plate_number,
+            rowKey: messages.messages.words.plate_number,
             rowValue: vehicle.plate_number,
         },
         {
-            rowKey: messages.messages.main.parking.home.vehicle_info,
+            rowKey: messages.messages.words.vehicle_info,
             rowValue: vehicle.model,
         },
         {
-            rowKey: messages.messages.main.parking.home.etd,
+            rowKey: messages.messages.words.etd,
             rowValue: vehicle.etd,
         },
         {
-            rowKey: messages.messages.main.parking.home.eta,
+            rowKey: messages.messages.words.eta,
             rowValue: vehicle.eta,
         },
     ];

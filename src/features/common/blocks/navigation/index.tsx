@@ -8,15 +8,22 @@ import NavigationViewProps, { BottomLink } from "./types";
 import useStyler from "../../hooks/styler/hooks";
 import { RouterParams, VillifeStackParamList } from "../../router/types";
 
-export default function NavigationView({ headerOptions, bottomNavOptions, children }: NavigationViewProps) {
+export default function NavigationView({
+    headerOptions,
+    bodyOptions = {
+        applyDefaultHorizontalPadding: true,
+        applyDefaultVerticalPadding: true,
+    },
+    bottomNavOptions,
+    children,
+}: NavigationViewProps) {
     const { deviceUI, theme } = useStyler();
     const message = useScreenMessage();
-    const styles = useNavigationViewStyles();
+    const styles = useNavigationViewStyles(bodyOptions);
     const navigation = useNavigation<RouterParams["navigation"]>();
 
-    const [currentRootScreen, setCurrentRootPage] = useState<keyof VillifeStackParamList>("home");
+    const [currentRootScreen, setCurrentRootScreen] = useState<keyof VillifeStackParamList>("home");
     const [backBtnColor, setBackBtnColor] = useState<string>(theme.colorFamily.black);
-    const [menuBtnHighlight, setMenuBtnHighlight] = useState<boolean>(false);
 
     const headerShown: boolean = headerOptions?.shown ?? true;
     const bottomNavShown: boolean = bottomNavOptions?.shown ?? true;
@@ -27,17 +34,14 @@ export default function NavigationView({ headerOptions, bottomNavOptions, childr
     navComponentProps = navComponentProps !== undefined ? navComponentProps : {};
 
     const handleBackBtnPress = () => {
-        //LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
-
         setBackBtnColor(theme.colorFamily.black);
 
         navigation.pop();
     };
 
     const handleMenuPress = (params: BottomLink["screen"]) => {
-        //LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
-
-        setMenuBtnHighlight(!menuBtnHighlight);
+        // 현재 스크린의 버튼 클릭 시 routing 되지 않도록 함.
+        if (params.name === currentRootScreen) return;
 
         navigation.reset({
             index: 0,
@@ -46,9 +50,10 @@ export default function NavigationView({ headerOptions, bottomNavOptions, childr
     };
 
     useEffect(() => {
-        setCurrentRootPage(navigation.getState().routes[0].name);
+        setCurrentRootScreen(navigation.getState().routes[0].name);
     }, []);
 
+    // Android back button 대비 코드
     useFocusEffect(
         useCallback(() => {
             // 현재 스크린이 루트 스크린일 시 Alert 생성
@@ -88,7 +93,7 @@ export default function NavigationView({ headerOptions, bottomNavOptions, childr
             icon: "car",
             caption: message.messages.main.parking.home.screen_title,
             screen: {
-                name: "parking_home",
+                name: "parking",
                 params: {},
             },
         },
@@ -151,7 +156,7 @@ export default function NavigationView({ headerOptions, bottomNavOptions, childr
                     </View>
                 </View>
             )}
-            <View style={styles.contentsBox} children={children} />
+            <View style={styles.bodyBox} children={children} />
             {bottomNavShown && (
                 <View style={styles.bottomNavBox}>
                     {bottomLinks.map((obj, index) => (

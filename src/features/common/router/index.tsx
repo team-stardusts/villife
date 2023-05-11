@@ -110,7 +110,7 @@ export default function ScreenRouter() {
             <Stack.Group>
                 <Stack.Screen name={"home"} component={HomeScreen} />
                 <Stack.Screen name={"mypage"} component={MyPageScreen} />
-                <Stack.Screen name={"parking_home"} component={ParkingScreen} />
+                <Stack.Screen name={"parking"} component={ParkingScreen} />
                 <Stack.Screen name={"payment"} component={PaymentScreen} />
                 <Stack.Screen name={"complaint"} component={ComplaintHomeScreen} />
                 <Stack.Screen name={"complaint_register"} component={ComplaintRegisterScreen} />

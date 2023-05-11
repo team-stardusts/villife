@@ -1,7 +1,7 @@
 import { ScrollView, Text, TouchableOpacity, View } from "react-native";
 import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
 import NavigationView from "../../../../common/blocks/navigation";
-import ParkingScreenProps from "./type";
+import ParkingScreenProps from "./types";
 import useParkService from "../../services/park";
 import { useEffect, useState } from "react";
 import { GuestVehicle, TenantVehicle } from "../../../../../libs/rest_apis/villife/parking/types";
