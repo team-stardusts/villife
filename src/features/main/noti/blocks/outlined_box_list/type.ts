@@ -1,4 +1,4 @@
-import { ContentPriority } from "../box_label.tsx/type";
+import { ContentPriority } from "../noti_label.tsx/type";
 
 export type OutlinedBoxProps = {
     priority: ContentPriority;

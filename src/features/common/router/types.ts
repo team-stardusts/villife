@@ -51,6 +51,7 @@ export type VillifeStackParamList = VillifeRootStackParamList & {
     complaint_modify: {};
     complaint_detail_done: {};
     complaint_detail_inprogress: {};
+    approval_home: {};
 };
 
 export type RouterParams = NativeStackScreenProps<VillifeStackParamList>;

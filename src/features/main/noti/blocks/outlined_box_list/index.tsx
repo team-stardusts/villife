@@ -2,7 +2,7 @@ import { FlatList, ListRenderItemInfo } from "react-native";
 import React from "react";
 import OutlinedBox from "../outlined_box";
 import useNotiViewModel from "./useNotiViewModel";
-import { GetNoticesResult, Notice } from "../../../../libs/rest_apis/villife/types";
+import { Notice } from "../../../../../libs/rest_apis/villife/notice/types";
 
 //TO DO :: implement props which contains data it needs
 

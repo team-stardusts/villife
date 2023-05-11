@@ -3,13 +3,12 @@ import { Text } from "react-native";
 import React, { useEffect } from "react";
 import { LayoutAnimation } from "react-native";
 import OutlinedBoxStyle from "./style";
-import PressableVectorIcon from "../../icon/vector";
 import { OutlinedBoxProps } from "./type";
-import NotiLable from "../box_label.tsx";
+import NotiLable from "../noti_label.tsx";
 import WebView, { WebViewMessageEvent } from "react-native-webview";
-import { EditIcon, TrashCanIcon } from "../../icon/noti";
-import BottomSlidableModal from "../../universial/slidemodal_bottom";
-import NotiBottomEditModal from "../edit_modal";
+import NotiBottomEditModal from "../bottom_edit_modal";
+import PressableVectorIcon from "../../../../common/blocks/icon/vector";
+import { EditIcon } from "../../../../common/blocks/icon/noti";
 
 /**
  * @param OutlinedBoxProp

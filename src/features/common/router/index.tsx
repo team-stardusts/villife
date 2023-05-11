@@ -26,6 +26,7 @@ import PaymentScreen from "../../main/payment/screens";
 import ComplaintHomeScreen from "../../main/complaint/screens/home";
 import useUserInfoService from "../hooks/service/user_info";
 import ComplaintRegisterScreen from "../../main/complaint/screens/register";
+import ApprovalHomeScreen from "../../main/approval/screens/home";
 
 enableScreens(true);
 
@@ -58,7 +59,7 @@ export default function ScreenRouter() {
             //navigation.navigate("permission_request", {});
             navigation.reset({
                 index: 0,
-                routes: [{ name: "noti_home" }],
+                routes: [{ name: "login" }],
             });
         } else {
             navigation.reset({
@@ -128,6 +129,9 @@ export default function ScreenRouter() {
                 <Stack.Screen name={"noti_home"} component={NoticeHomeScreen} />
                 <Stack.Screen name={"noti_register"} component={NoticeRegisterScreen} />
                 <Stack.Screen name={"noti_modify"} component={NoticeModifyScreen} />
+            </Stack.Group>
+            <Stack.Group>
+                <Stack.Screen name={"approval_home"} component={ApprovalHomeScreen} />
             </Stack.Group>
         </Stack.Navigator>
     );

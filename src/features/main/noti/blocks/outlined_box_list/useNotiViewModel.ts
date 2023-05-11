@@ -1,7 +1,7 @@
 import React from "react";
 import VillifeServer from "../../../../../libs/rest_apis/villife";
-import { GetNoticesResult } from "../../../../../libs/rest_apis/villife/types";
 import { NoticeListUpatedEventListener } from "./event";
+import { GetNoticesResult } from "../../../../../libs/rest_apis/villife/notice/types";
 
 export default function useNotiViewModel() {
     const [notices, setNotices] = React.useState<GetNoticesResult>();
