@@ -29,7 +29,10 @@ class ComplaintService implements IComplaintService {
     async UploadAndInsertImage(ref: React.RefObject<RichEditor>): Promise<void | Error> {
         try {
             const result = await this.mImageUploader.pickOneAndUpload();
-            ref.current?.insertImage(result.uri);
+            ref.current?.insertHTML(
+                `<div><img src="${result.uri}" alt="My Image" style="width: 25vh; height:25vh; object-fit:cover; border-radius: 10px;" ></div>`
+            );
+            console.log(ref);
         } catch (err) {
             return new Error("cannot upload image");
         }

@@ -6,4 +6,5 @@ export type ComplaintEditorStylesType = ReturnType<typeof StyleSheet.create>;
 export type ComplaintEditorProps = {
     titleRef: React.MutableRefObject<string>;
     contentRef: React.MutableRefObject<string>;
+    mode: "register" | "modify";
 };

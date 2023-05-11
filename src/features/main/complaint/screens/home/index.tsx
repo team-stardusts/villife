@@ -57,9 +57,13 @@ export default function ComplaintHomeScreen({ navigation, route }: ComplaintHome
                     data={sampleData}
                     renderItem={(info) => {
                         return (
-                            <View style={{ marginVertical: 2 }}>
+                            <TouchableOpacity
+                                onPress={() => {
+                                    navigation.navigate("complaint_detail", info.item);
+                                }}
+                                style={{ marginVertical: 2 }}>
                                 <ComplaintContentCard info={info.item} />
-                            </View>
+                            </TouchableOpacity>
                         );
                     }}
                 />
@@ -79,9 +83,13 @@ export default function ComplaintHomeScreen({ navigation, route }: ComplaintHome
                     data={sampleData2}
                     renderItem={(info) => {
                         return (
-                            <View style={{ marginVertical: 2 }}>
+                            <TouchableOpacity
+                                onPress={() => {
+                                    navigation.navigate("complaint_detail", info.item);
+                                }}
+                                style={{ marginVertical: 2 }}>
                                 <ComplaintContentCard info={info.item} />
-                            </View>
+                            </TouchableOpacity>
                         );
                     }}
                 />
@@ -94,7 +102,8 @@ const sampleData: Array<ComplaintInfo> = [
     {
         id: 1,
         title: "세탁기가 고장났어요",
-        content: "내용",
+        content:
+            "<div>세탁기가 고장나서 매우 불편합니다. 고쳐주세요!</div> </br> <div> 3일전부터 안되기 시작했고 사진 첨부합니다. </div><div>세탁기가 고장나서 매우 불편합니다. 고쳐주세요!</div> </br> <div> 3일전부터 안되기 시작했고 사진 첨부합니다. </div><div>세탁기가 고장나서 매우 불편합니다. 고쳐주세요!</div> </br> <div> 3일전부터 안되기 시작했고 사진 첨부합니다. </div><div>세탁기가 고장나서 매우 불편합니다. 고쳐주세요!</div> </br> <div> 3일전부터 안되기 시작했고 사진 첨부합니다. </div><div>세탁기가 고장나서 매우 불편합니다. 고쳐주세요!</div> </br> <div> 3일전부터 안되기 시작했고 사진 첨부합니다. </div><div>세탁기가 고장나서 매우 불편합니다. 고쳐주세요!</div> </br> <div> 3일전부터 안되기 시작했고 사진 첨부합니다. </div>",
         status: "received",
         created_at: "2022-12-01",
         updated_at: "",
@@ -102,7 +111,7 @@ const sampleData: Array<ComplaintInfo> = [
     {
         id: 2,
         title: "세탁기가 고장났어요",
-        content: "내용",
+        content: "내용2222",
         status: "in_progress",
         created_at: "2022-12-01",
         updated_at: "",

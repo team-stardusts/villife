@@ -1,4 +1,13 @@
-import { NativeScrollEvent, NativeSyntheticEvent, ScrollView, StyleSheet, Text, TextBase, View } from "react-native";
+import {
+    NativeScrollEvent,
+    NativeSyntheticEvent,
+    ScrollView,
+    StyleSheet,
+    Text,
+    TextBase,
+    TouchableOpacity,
+    View,
+} from "react-native";
 import { VehicleCardProps, VehicleCardViewProps } from "./types";
 import useStyler from "../../../../common/hooks/styler/hooks";
 import { useEffect, useState } from "react";
@@ -6,6 +15,9 @@ import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
 import ContentBox from "../../../../common/blocks/content_box";
 import MiniContent from "../../../../common/blocks/mini_content";
 import PageIndicators from "../../../../common/blocks/page_indicator";
+import Icon from "../../../../common/atoms/icon";
+import { useNavigation } from "@react-navigation/native";
+import { RouterParams } from "../../../../common/router/types";
 
 function VehicleCard({ vehicle, cardWidth }: VehicleCardProps) {
     const { deviceUI, theme } = useStyler();
@@ -44,19 +56,19 @@ function VehicleCard({ vehicle, cardWidth }: VehicleCardProps) {
 
     const cardData: Array<{ rowKey: string; rowValue: string | number }> = [
         {
-            rowKey: messages.messages.main.parking.home.plate_number,
+            rowKey: messages.messages.words.plate_number,
             rowValue: vehicle.plate_number,
         },
         {
-            rowKey: messages.messages.main.parking.home.vehicle_info,
+            rowKey: messages.messages.words.vehicle_info,
             rowValue: vehicle.model,
         },
         {
-            rowKey: messages.messages.main.parking.home.etd,
+            rowKey: messages.messages.words.etd,
             rowValue: vehicle.etd,
         },
         {
-            rowKey: messages.messages.main.parking.home.eta,
+            rowKey: messages.messages.words.eta,
             rowValue: vehicle.eta,
         },
     ];
@@ -71,6 +83,8 @@ function VehicleCard({ vehicle, cardWidth }: VehicleCardProps) {
 }
 
 export default function VehicleCardView({ vehicles, cardWidth }: VehicleCardViewProps) {
+    const messages = useScreenMessage();
+    const navigation = useNavigation<RouterParams["navigation"]>();
     const { deviceUI, theme } = useStyler();
     const [crrIndex, setCrrIndex] = useState<number>(0);
 
@@ -90,6 +104,23 @@ export default function VehicleCardView({ vehicles, cardWidth }: VehicleCardView
             justifyContent: "center",
             alignItems: "center",
         },
+        registerCardTitleWrapper: {
+            justifyContent: "center",
+            alignItems: "center",
+            marginBottom: deviceUI.moderateScale(10),
+        },
+        registerCardTitle: {
+            color: theme.colorFamily.white,
+            ...theme.font.researved.h3,
+        },
+        registerCardSubtitle: {
+            color: theme.colorFamily.white,
+            ...theme.font.researved.h5,
+        },
+        registerIcon: {
+            color: theme.colorFamily.white,
+            width: deviceUI.moderateScale(80),
+        },
     });
 
     // ScrollView가 가로 상태일 때, 현재 페이지를 구함
@@ -105,6 +136,10 @@ export default function VehicleCardView({ vehicles, cardWidth }: VehicleCardView
         return index;
     };
 
+    const handlePressRegisterBtn = () => {
+        navigation.navigate("register_vehicle");
+    };
+
     return (
         <ContentBox>
             <ScrollView
@@ -117,9 +152,19 @@ export default function VehicleCardView({ vehicles, cardWidth }: VehicleCardView
                 {vehicles.map((vehicle, index) => (
                     <VehicleCard key={index} vehicle={vehicle} cardWidth={cardWidth} />
                 ))}
-                <View style={styles.registerCardBox}>
-                    <Text>Register your vehicle!</Text>
-                </View>
+                <TouchableOpacity style={styles.registerCardBox} activeOpacity={0.6} onPress={handlePressRegisterBtn}>
+                    {vehicles.length === 0 && (
+                        <View style={styles.registerCardTitleWrapper}>
+                            <Text style={styles.registerCardTitle}>
+                                {messages.messages.main.parking.home.say_no_vehicle_info}
+                            </Text>
+                            <Text style={styles.registerCardSubtitle}>
+                                {messages.messages.main.parking.home.induce_to_register_own_vehicle}
+                            </Text>
+                        </View>
+                    )}
+                    <Icon name="plus" size={styles.registerIcon.width} color={styles.registerIcon.color} />
+                </TouchableOpacity>
             </ScrollView>
             <View style={styles.indicatorBox}>
                 {

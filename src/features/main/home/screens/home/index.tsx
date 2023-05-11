@@ -30,7 +30,7 @@ export default function HomeScreen({ navigation, route }: HomeScreenProps) {
             headerOptions={{
                 title: messages.messages.main.home.screen_title,
                 navComponent: IconNavComponent,
-                // [TO-DO] caption: 공지사항 -> messages.~~
+                // [TO-DO] caption: 공지사항 -> messages.~n~
                 navComponentProps: {
                     iconName: "speaker",
                     caption: messages.messages.main.noti.screen_title,

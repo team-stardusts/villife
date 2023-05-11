@@ -1,8 +1,9 @@
 import { StyleSheet } from "react-native";
 import useStyler from "../../hooks/styler/hooks";
 import { SCREEN_PADDING_HORIZONTAL_STANDARD_VALUE, SCREEN_PADDING_VERTICAL_STANDARD_VALUE } from "../../constants";
+import { BodyOptions } from "./types";
 
-export default function useNavigationViewStyles() {
+export default function useNavigationViewStyles(bodyOptions?: BodyOptions) {
     const { deviceUI, theme } = useStyler();
 
     const styles = StyleSheet.create({
@@ -51,10 +52,15 @@ export default function useNavigationViewStyles() {
             fontFamily: theme.font.fontFamilies.pretendard.bold,
             fontSize: deviceUI.moderateScale(17),
         },
-        contentsBox: {
+        bodyBox: {
             flex: 8.3,
-            paddingHorizontal: deviceUI.moderateScale(SCREEN_PADDING_HORIZONTAL_STANDARD_VALUE),
-            paddingVertical: deviceUI.moderateScale(SCREEN_PADDING_VERTICAL_STANDARD_VALUE),
+            // Default padding은 index.tsx에서 조정
+            paddingHorizontal: bodyOptions?.applyDefaultHorizontalPadding
+                ? deviceUI.moderateScale(SCREEN_PADDING_HORIZONTAL_STANDARD_VALUE)
+                : 0,
+            paddingVertical: bodyOptions?.applyDefaultVerticalPadding
+                ? deviceUI.moderateScale(SCREEN_PADDING_VERTICAL_STANDARD_VALUE)
+                : 0,
         },
         bottomNavBox: {
             flex: 1,

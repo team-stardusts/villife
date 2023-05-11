@@ -5,7 +5,6 @@ import useStyler from "../../../../common/hooks/styler/hooks";
 export default function useComplaintHomeSecreenStyle(): ComplaintHomeScreenStylesType {
     const { deviceUI, theme } = useStyler();
 
-    console.log(deviceUI.screenSize.height * 0.4);
     const Style = StyleSheet.create({
         topLevelBox: {
             flex: 1,
