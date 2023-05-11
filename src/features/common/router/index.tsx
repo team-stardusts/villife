@@ -26,6 +26,7 @@ import PaymentScreen from "../../main/payment/screens";
 import ComplaintHomeScreen from "../../main/complaint/screens/home";
 import useUserInfoService from "../hooks/service/user_info";
 import ComplaintRegisterScreen from "../../main/complaint/screens/register";
+import RegisterVehicleScreen from "../../main/parking/screens/register_vehicle";
 
 enableScreens(true);
 
@@ -109,9 +110,16 @@ export default function ScreenRouter() {
             </Stack.Group>
             <Stack.Group>
                 <Stack.Screen name={"home"} component={HomeScreen} />
-                <Stack.Screen name={"mypage"} component={MyPageScreen} />
+            </Stack.Group>
+            <Stack.Group>
                 <Stack.Screen name={"parking"} component={ParkingScreen} />
+                <Stack.Screen name={"register_vehicle"} component={RegisterVehicleScreen} />
+            </Stack.Group>
+            <Stack.Group>
                 <Stack.Screen name={"payment"} component={PaymentScreen} />
+                <Stack.Screen name={"mypage"} component={MyPageScreen} />
+            </Stack.Group>
+            <Stack.Group>
                 <Stack.Screen name={"complaint"} component={ComplaintHomeScreen} />
                 <Stack.Screen name={"complaint_register"} component={ComplaintRegisterScreen} />
             </Stack.Group>

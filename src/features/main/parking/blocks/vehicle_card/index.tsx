@@ -16,6 +16,8 @@ import ContentBox from "../../../../common/blocks/content_box";
 import MiniContent from "../../../../common/blocks/mini_content";
 import PageIndicators from "../../../../common/blocks/page_indicator";
 import Icon from "../../../../common/atoms/icon";
+import { useNavigation } from "@react-navigation/native";
+import { RouterParams } from "../../../../common/router/types";
 
 function VehicleCard({ vehicle, cardWidth }: VehicleCardProps) {
     const { deviceUI, theme } = useStyler();
@@ -82,6 +84,7 @@ function VehicleCard({ vehicle, cardWidth }: VehicleCardProps) {
 
 export default function VehicleCardView({ vehicles, cardWidth }: VehicleCardViewProps) {
     const messages = useScreenMessage();
+    const navigation = useNavigation<RouterParams["navigation"]>();
     const { deviceUI, theme } = useStyler();
     const [crrIndex, setCrrIndex] = useState<number>(0);
 
@@ -133,6 +136,10 @@ export default function VehicleCardView({ vehicles, cardWidth }: VehicleCardView
         return index;
     };
 
+    const handlePressRegisterBtn = () => {
+        navigation.navigate("register_vehicle");
+    };
+
     return (
         <ContentBox>
             <ScrollView
@@ -145,10 +152,7 @@ export default function VehicleCardView({ vehicles, cardWidth }: VehicleCardView
                 {vehicles.map((vehicle, index) => (
                     <VehicleCard key={index} vehicle={vehicle} cardWidth={cardWidth} />
                 ))}
-                <TouchableOpacity
-                    style={styles.registerCardBox}
-                    activeOpacity={0.6}
-                    onPress={() => console.log("Register Vehicle!")}>
+                <TouchableOpacity style={styles.registerCardBox} activeOpacity={0.6} onPress={handlePressRegisterBtn}>
                     {vehicles.length === 0 && (
                         <View style={styles.registerCardTitleWrapper}>
                             <Text style={styles.registerCardTitle}>
