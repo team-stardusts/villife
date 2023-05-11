@@ -13,7 +13,8 @@
                 "eta": "입차 시간",
                 "villa_vehicle_info": "빌라차량 정보",
                 "register_guest": "방문자 등록",
-                "my_vehicle_to_modify": "수정하기"
+                "say_no_vehicle_info": "차량 정보가 없습니다.",
+                "induce_to_register_own_vehicle": "원활한 빌라 주차를 위해 차량의 정보를 입력해주세요."
             }
         },
         "complaint": {

@@ -20,7 +20,8 @@ export type MessagesByLanguage = {
                 eta: string;
                 villa_vehicle_info: string;
                 register_guest: string;
-                my_vehicle_to_modify: string;
+                say_no_vehicle_info: string;
+                induce_to_register_own_vehicle: string;
             };
         };
         complaint: {

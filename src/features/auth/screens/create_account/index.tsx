@@ -54,6 +54,7 @@ export default function CreateAccountScreen({ navigation, route }: CreateAccount
                 console.log("succeeded in sigining up");
                 login(host, { id, password });
             }
+            // [TO-DO] Welcome screen으로 이동 전에 Stack 초기화
             navigation.navigate("welcome", { authority, id, password });
         }
     };

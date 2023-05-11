@@ -1,4 +1,13 @@
-import { NativeScrollEvent, NativeSyntheticEvent, ScrollView, StyleSheet, Text, TextBase, View } from "react-native";
+import {
+    NativeScrollEvent,
+    NativeSyntheticEvent,
+    ScrollView,
+    StyleSheet,
+    Text,
+    TextBase,
+    TouchableOpacity,
+    View,
+} from "react-native";
 import { VehicleCardProps, VehicleCardViewProps } from "./types";
 import useStyler from "../../../../common/hooks/styler/hooks";
 import { useEffect, useState } from "react";
@@ -6,6 +15,7 @@ import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
 import ContentBox from "../../../../common/blocks/content_box";
 import MiniContent from "../../../../common/blocks/mini_content";
 import PageIndicators from "../../../../common/blocks/page_indicator";
+import Icon from "../../../../common/atoms/icon";
 
 function VehicleCard({ vehicle, cardWidth }: VehicleCardProps) {
     const { deviceUI, theme } = useStyler();
@@ -71,6 +81,7 @@ function VehicleCard({ vehicle, cardWidth }: VehicleCardProps) {
 }
 
 export default function VehicleCardView({ vehicles, cardWidth }: VehicleCardViewProps) {
+    const messages = useScreenMessage();
     const { deviceUI, theme } = useStyler();
     const [crrIndex, setCrrIndex] = useState<number>(0);
 
@@ -89,6 +100,23 @@ export default function VehicleCardView({ vehicles, cardWidth }: VehicleCardView
             width: cardWidth,
             justifyContent: "center",
             alignItems: "center",
+        },
+        registerCardTitleWrapper: {
+            justifyContent: "center",
+            alignItems: "center",
+            marginBottom: deviceUI.moderateScale(10),
+        },
+        registerCardTitle: {
+            color: theme.colorFamily.white,
+            ...theme.font.researved.h3,
+        },
+        registerCardSubtitle: {
+            color: theme.colorFamily.white,
+            ...theme.font.researved.h5,
+        },
+        registerIcon: {
+            color: theme.colorFamily.white,
+            width: deviceUI.moderateScale(80),
         },
     });
 
@@ -117,9 +145,22 @@ export default function VehicleCardView({ vehicles, cardWidth }: VehicleCardView
                 {vehicles.map((vehicle, index) => (
                     <VehicleCard key={index} vehicle={vehicle} cardWidth={cardWidth} />
                 ))}
-                <View style={styles.registerCardBox}>
-                    <Text>Register your vehicle!</Text>
-                </View>
+                <TouchableOpacity
+                    style={styles.registerCardBox}
+                    activeOpacity={0.6}
+                    onPress={() => console.log("Register Vehicle!")}>
+                    {vehicles.length === 0 && (
+                        <View style={styles.registerCardTitleWrapper}>
+                            <Text style={styles.registerCardTitle}>
+                                {messages.messages.main.parking.home.say_no_vehicle_info}
+                            </Text>
+                            <Text style={styles.registerCardSubtitle}>
+                                {messages.messages.main.parking.home.induce_to_register_own_vehicle}
+                            </Text>
+                        </View>
+                    )}
+                    <Icon name="plus" size={styles.registerIcon.width} color={styles.registerIcon.color} />
+                </TouchableOpacity>
             </ScrollView>
             <View style={styles.indicatorBox}>
                 {
