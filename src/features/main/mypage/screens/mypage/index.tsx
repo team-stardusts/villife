@@ -26,7 +26,7 @@ export default function MyPageScreen({ navigation, route }: MyPageScreenProps) {
                         }
                     }}
                 />
-                <Button aria-label="Decrement value" title="Decrement" />
+                <Button title="Go to test screen" onPress={() => navigation.navigate("test")} />
                 <Button aria-label="Decrement value" title="incrementByAmount" />
                 <Button
                     onPress={() => navigation.navigate("set_building", { id: "", password: "" })}
