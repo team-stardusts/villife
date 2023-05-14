@@ -1,9 +1,27 @@
 import { StyleSheet } from "react-native";
+import useStyler from "../../../../common/hooks/styler/hooks";
 
 export default function useRegisterVehicleScreenStyles() {
+    const { deviceUI, theme } = useStyler();
+
     return StyleSheet.create({
-        toplevelBox: {
+        container: {
             flex: 1,
+        },
+        etdaPickerContainer: {
+            height: "30%",
+        },
+        vehicleInfoInputsContainer: {
+            height: "30%",
+        },
+        vehicleInfoInputContainer: {
+            marginBottom: deviceUI.moderateScale(15),
+        },
+        vehicleInfoInputTitle: {
+            ...theme.font.researved.h4,
+            fontFamily: theme.font.fontFamilies.pretendard.bold,
+            color: theme.colorFamily.blue,
+            marginBottom: deviceUI.moderateScale(5),
         },
     });
 }

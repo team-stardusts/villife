@@ -11,7 +11,7 @@ export default function UserTypeSelectionButton({
     selected,
     onPress,
 }: UserTypeSelectionButtonProps) {
-    const { deviceUI, theme } = useStyler();
+    const { theme } = useStyler();
     const color: string = selected ? theme.colorFamily.blue : theme.colorFamily.lightgrey;
 
     let Icon = null;

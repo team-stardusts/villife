@@ -16,4 +16,5 @@ export default interface IStringValidator {
     isPassword(password: string): boolean;
     isPhoneNumber(phoneNumber: string, doesItContainHypen: boolean): boolean;
     isEmail(email: string): boolean;
+    isCorrectVehiclePlateNumber(plateNumber: string): boolean;
 }

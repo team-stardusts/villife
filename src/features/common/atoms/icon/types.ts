@@ -16,6 +16,7 @@ export type IconSeries =
     | "arrow-right"
     | "arrow-up"
     | "arrow-down"
+    | "arrow-right-with-midline"
     | "phone"
     | "plus"
     | "pencil"

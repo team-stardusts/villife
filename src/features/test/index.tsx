@@ -3,13 +3,13 @@ import { useGetFirebaseToken } from "../common/hooks/firebase";
 import useSystemInfo from "../common/hooks/systeminfo/hooks";
 import VillifeStorage from "../../libs/storage";
 import NavigationView from "../common/blocks/navigation";
-import TimePicker from "./time_picker";
+import TimePicker from "../common/atoms/time_picker";
 import useStyler from "../common/hooks/styler/hooks";
+import EtdaTimePicker from "../main/parking/blocks/etad_time_picker";
 
 export default function TestScreen() {
     const firebaseToken = useGetFirebaseToken();
     const { deviceUI } = useStyler();
-    const timepickerHeight = deviceUI.moderateScale(150);
 
     const styles = StyleSheet.create({
         testButtonContainer: {
@@ -30,7 +30,6 @@ export default function TestScreen() {
         },
         timepickerWrapper: {
             width: "100%",
-            height: timepickerHeight,
         },
     });
 
@@ -47,7 +46,18 @@ export default function TestScreen() {
             </View>
             <View style={styles.timepickerContainer}>
                 <View style={styles.timepickerWrapper}>
-                    <TimePicker height={timepickerHeight} />
+                    <EtdaTimePicker
+                        initialTime={{
+                            etd: {
+                                hour: 7,
+                                minute: 10,
+                            },
+                            eta: {
+                                hour: 12,
+                                minute: 30,
+                            },
+                        }}
+                    />
                 </View>
             </View>
         </NavigationView>

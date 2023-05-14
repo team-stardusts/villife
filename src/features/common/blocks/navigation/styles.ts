@@ -47,7 +47,7 @@ export default function useNavigationViewStyles(bodyOptions?: BodyOptions) {
         },
         headerTitle: {
             color: theme.colorFamily.black,
-            paddingLeft: deviceUI.moderateScale(20), //20,
+            //paddingLeft: deviceUI.moderateScale(20), //20,
             marginRight: deviceUI.moderateScale(5),
             fontFamily: theme.font.fontFamilies.pretendard.bold,
             fontSize: deviceUI.moderateScale(17),
