@@ -1,7 +1,7 @@
 import { ScrollView, View } from "react-native";
 import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
 import NavigationView from "../../../../common/blocks/navigation";
-import IconNavComponent from "../../../../common/blocks/navigation/icon_navcomponent";
+import SimpleNavComponent from "../../../../common/blocks/navigation/navcomponent";
 import HomeScreenProps from "./type";
 import useHomeScreenStyles from "./styles";
 import HomeContentFromComplaint from "../../../complaint/blocks/home_content";
@@ -29,11 +29,10 @@ export default function HomeScreen({ navigation, route }: HomeScreenProps) {
         <NavigationView
             headerOptions={{
                 title: messages.messages.main.home.screen_title,
-                navComponent: IconNavComponent,
-                // [TO-DO] caption: 공지사항 -> messages.~n~
+                navComponent: SimpleNavComponent,
                 navComponentProps: {
                     iconName: "speaker",
-                    caption: messages.messages.main.noti.screen_title,
+                    title: messages.messages.main.noti.screen_title,
                     onPress: () => {
                         navigation.navigate("noti_home");
                     },

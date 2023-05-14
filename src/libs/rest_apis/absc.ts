@@ -1,5 +1,5 @@
 import axios, { AxiosRequestConfig } from "axios";
-import { Requestable, Responsable } from "./types";
+import { Requestable, Response } from "./types";
 
 abstract class AREST implements Requestable {
     readonly requester = axios.create({});
@@ -13,7 +13,7 @@ abstract class AREST implements Requestable {
         }
     }
 
-    public async request<T = any, U = any>(config: AxiosRequestConfig<T>): Promise<Responsable<U>> {
+    public async request<T = any, U = any>(config: AxiosRequestConfig<T>): Response<U> {
         const result = await this.requester(config)
             .then((res) => {
                 return res;
@@ -21,7 +21,7 @@ abstract class AREST implements Requestable {
             .catch((err) => {
                 return err.response;
             });
-            
+
         //console.log(this.isSuccessful(result?.status));
         return {
             isSuccessful: this.isSuccessful(result?.status),

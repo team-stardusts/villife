@@ -2,14 +2,14 @@ import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import useSystemInfo from "../../../hooks/systeminfo/hooks";
 import useAppThemeLegacy from "../../../hooks/themes_legacy/hooks";
 import Icon from "../../../atoms/icon";
-import { IconNavComponentProps } from "./types";
+import { SimpleNavComponentProps } from "./types";
 
-export default function IconNavComponent(props: IconNavComponentProps) {
+export default function SimpleNavComponent(props: SimpleNavComponentProps) {
     const theme = useAppThemeLegacy();
     const sysinfo = useSystemInfo();
 
     const styles = StyleSheet.create({
-        toplevelBox: {
+        container: {
             flex: 1,
             flexDirection: "row",
             alignItems: "center",
@@ -25,24 +25,26 @@ export default function IconNavComponent(props: IconNavComponentProps) {
             alignItems: "center",
             justifyContent: "center",
         },
-        caption: {
+        title: {
             fontSize: sysinfo.window.height * 0.015,
             color: theme.colors.colorFamily.black,
         },
     });
 
     return (
-        <View style={styles.toplevelBox}>
+        <View style={styles.container}>
             <TouchableOpacity style={styles.contentsWrapper} onPress={props.onPress}>
+                {props.iconName && (
+                    <View style={styles.atomBox}>
+                        <Icon
+                            name={props.iconName}
+                            size={sysinfo.window.height * 0.055}
+                            color={theme.colors.colorFamily.black}
+                        />
+                    </View>
+                )}
                 <View style={styles.atomBox}>
-                    <Icon
-                        name={props.iconName}
-                        size={sysinfo.window.height * 0.055}
-                        color={theme.colors.colorFamily.black}
-                    />
-                </View>
-                <View style={styles.atomBox}>
-                    <Text style={styles.caption}>{props.caption}</Text>
+                    <Text style={styles.title}>{props.title}</Text>
                 </View>
             </TouchableOpacity>
         </View>
