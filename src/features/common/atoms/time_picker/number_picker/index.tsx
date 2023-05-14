@@ -3,7 +3,6 @@ import {
     ColorValue,
     NativeScrollEvent,
     NativeSyntheticEvent,
-    Platform,
     ScrollView,
     StyleSheet,
     View,
@@ -102,7 +101,7 @@ export default function NumberPicker({
     // Initial index가 numbers의 길이보다 크다면 0으로 지정
     const _initialIndex = initialIndex === undefined ? 0 : initialIndex >= numbers.length ? 0 : initialIndex;
 
-    const { theme } = useStyler();
+    const { deviceUI, theme } = useStyler();
     const scrollRef = useRef<ScrollView | null>(null);
     const scrollAnimatedValue = useRef(new Animated.Value(0)).current;
 
@@ -132,6 +131,23 @@ export default function NumberPicker({
         };
     };
 
+    const androidPositionSettingFunction = {
+        onMomentumScrollEnd(event: NativeSyntheticEvent<NativeScrollEvent>): void {
+            const chunk = getCenterPosition(event);
+            scrollRef.current?.scrollTo({ y: chunk.offsetY, animated: true });
+        },
+    };
+
+    const iosPositionSettingFunction = {
+        onScrollEndDrag(event: NativeSyntheticEvent<NativeScrollEvent>): void {
+            const chunk = getCenterPosition(event);
+            scrollRef.current?.scrollTo({ y: chunk.offsetY, animated: true });
+        },
+    };
+
+    const scrollViewPosionSettingFunction =
+        deviceUI.platform === "android" ? androidPositionSettingFunction : iosPositionSettingFunction;
+
     const styles = StyleSheet.create({
         container: {
             width: "100%",
@@ -146,6 +162,7 @@ export default function NumberPicker({
             ref={scrollRef}
             style={styles.container}
             showsVerticalScrollIndicator={false}
+            scrollEventThrottle={16}
             onScroll={(event) => {
                 Animated.event([{ nativeEvent: { contentOffset: { y: scrollAnimatedValue } } }], {
                     useNativeDriver: false,
@@ -153,11 +170,7 @@ export default function NumberPicker({
                 const chunk = getCenterPosition(event);
                 setCrrValue(numbers[chunk.index]);
             }}
-            onScrollEndDrag={(event) => {
-                const chunk = getCenterPosition(event);
-                scrollRef.current?.scrollTo({ y: chunk.offsetY, animated: true });
-            }}
-            scrollEventThrottle={16}>
+            {...scrollViewPosionSettingFunction}>
             {_numbers.map((number, index) => (
                 <NumberNode
                     key={index}

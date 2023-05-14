@@ -19,10 +19,15 @@ export type MessagesByLanguage = {
                 say_no_vehicle_info: string;
                 induce_to_register_own_vehicle: string;
             };
-            register_home: {
+            register_vehicle: {
                 screen_title: string;
                 register_own_vehicle: string;
                 request_input_vehicle_info: string;
+                vehicle_plate_number_input_placeholder: string;
+                vehicle_model_number_input_placeholder: string;
+                invalid_plate_number_and_model: string;
+                invalid_plate_number: string;
+                invalid_model: string;
             };
         };
         complaint: {

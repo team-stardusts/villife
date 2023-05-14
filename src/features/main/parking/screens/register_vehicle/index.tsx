@@ -13,8 +13,9 @@ import SimpleNavComponent from "../../../../common/blocks/navigation/navcomponen
 import useStyler from "../../../../common/hooks/styler/hooks";
 import { Toast } from "react-native-toast-message/lib/src/Toast";
 import { TOAST_DEFAULT_OFFSET, TOAST_DEFAULT_VISIBILITY_TIME } from "../../../../common/constants";
+import { EtdaTime } from "../../blocks/etad_time_picker/types";
 
-type Vehicle = {
+type Vehicle = EtdaTime & {
     plateNumber: string;
     model: string;
 };
@@ -32,6 +33,14 @@ export default function RegisterVehicleScreen({ navigation, route }: RegisterVeh
     const [vehicle, setVehicle] = useState<Vehicle>({
         plateNumber: "",
         model: "",
+        eta: {
+            hour: 0,
+            minute: 0,
+        },
+        etd: {
+            hour: 0,
+            minute: 0,
+        },
     });
 
     const validatePlateNumber = (plateNumber: string): boolean => {
@@ -61,7 +70,7 @@ export default function RegisterVehicleScreen({ navigation, route }: RegisterVeh
         if (!modelValid && !plateNumberValid) {
             Toast.show({
                 type: "error",
-                text1: "전부 잘못됨!",
+                text1: messages.messages.main.parking.register_vehicle.invalid_plate_number_and_model,
                 position: "bottom",
                 visibilityTime: TOAST_DEFAULT_VISIBILITY_TIME,
                 bottomOffset: TOAST_DEFAULT_OFFSET,
@@ -70,19 +79,19 @@ export default function RegisterVehicleScreen({ navigation, route }: RegisterVeh
             return;
         }
 
-        !modelValid &&
+        !plateNumberValid &&
             Toast.show({
                 type: "error",
-                text1: "모델 잘못됨!",
+                text1: messages.messages.main.parking.register_vehicle.invalid_plate_number,
                 position: "bottom",
                 visibilityTime: TOAST_DEFAULT_VISIBILITY_TIME,
                 bottomOffset: TOAST_DEFAULT_OFFSET,
             });
 
-        !plateNumberValid &&
+        !modelValid &&
             Toast.show({
                 type: "error",
-                text1: "번호 잘못됨!",
+                text1: messages.messages.main.parking.register_vehicle.invalid_model,
                 position: "bottom",
                 visibilityTime: TOAST_DEFAULT_VISIBILITY_TIME,
                 bottomOffset: TOAST_DEFAULT_OFFSET,
@@ -94,10 +103,14 @@ export default function RegisterVehicleScreen({ navigation, route }: RegisterVeh
         }
     };
 
+    useEffect(() => {
+        console.log(vehicle);
+    }, [vehicle]);
+
     return (
         <NavigationView
             headerOptions={{
-                title: messages.messages.main.parking.register_home.screen_title,
+                title: messages.messages.main.parking.register_vehicle.screen_title,
                 navComponent: SimpleNavComponent,
                 navComponentProps: {
                     title: messages.messages.words.register,
@@ -106,17 +119,24 @@ export default function RegisterVehicleScreen({ navigation, route }: RegisterVeh
             }}>
             <View style={styles.container}>
                 <ParkingScreenGuide
-                    title={messages.messages.main.parking.register_home.register_own_vehicle}
-                    subtitle={messages.messages.main.parking.register_home.request_input_vehicle_info}
+                    title={messages.messages.main.parking.register_vehicle.register_own_vehicle}
+                    subtitle={messages.messages.main.parking.register_vehicle.request_input_vehicle_info}
                 />
                 <View style={styles.etdaPickerContainer}>
-                    <EtdaTimePicker />
+                    <EtdaTimePicker
+                        onTimeChange={(time) => {
+                            setVehicle({ ...vehicle, ...time });
+                        }}
+                    />
                 </View>
                 <View style={styles.vehicleInfoInputsContainer}>
                     <View style={styles.vehicleInfoInputContainer}>
                         <Text style={styles.vehicleInfoInputTitle}>{messages.messages.words.plate_number}</Text>
                         <UniversalTextInput
                             name="plateNumber"
+                            placeholder={
+                                messages.messages.main.parking.register_vehicle.vehicle_plate_number_input_placeholder
+                            }
                             highlightColor={
                                 vehicle.plateNumber !== "" && !validatePlateNumber(vehicle.plateNumber)
                                     ? theme.colorFamily.red
@@ -134,6 +154,9 @@ export default function RegisterVehicleScreen({ navigation, route }: RegisterVeh
                         <Text style={styles.vehicleInfoInputTitle}>{messages.messages.words.vehicle_model}</Text>
                         <UniversalTextInput
                             name="model"
+                            placeholder={
+                                messages.messages.main.parking.register_vehicle.vehicle_model_number_input_placeholder
+                            }
                             highlightColor={
                                 vehicle.model !== "" && !validateModel(vehicle.model)
                                     ? theme.colorFamily.red

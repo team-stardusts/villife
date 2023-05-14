@@ -15,7 +15,9 @@ export default function useRegisterVehicleScreenStyles() {
             height: "30%",
         },
         vehicleInfoInputContainer: {
-            marginBottom: deviceUI.moderateScale(15),
+            height: "50%",
+            //marginBottom: deviceUI.moderateScale(15),
+            justifyContent: "center",
         },
         vehicleInfoInputTitle: {
             ...theme.font.researved.h4,

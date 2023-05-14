@@ -12,10 +12,15 @@
                 "say_no_vehicle_info": "차량 정보가 없습니다.",
                 "induce_to_register_own_vehicle": "원활한 빌라 주차를 위해 차량의 정보를 입력해주세요."
             },
-            "register_home": {
+            "register_vehicle": {
                 "screen_title": "차량 정보 등록",
                 "register_own_vehicle": "내 차량 정보 등록",
-                "request_input_vehicle_info": "일일 출차시간 및 입차시간과 차량 정보를 입력 해주세요."
+                "request_input_vehicle_info": "일일 출차시간 및 입차시간과 차량 정보를 입력 해주세요.",
+                "vehicle_plate_number_input_placeholder": "000가 00000의 형식으로 입력해주세요.",
+                "vehicle_model_number_input_placeholder": "특수문자 제외, 공백 포함 3 ~ 15 글자를 입력해주세요.",
+                "invalid_plate_number_and_model": "차량 번호와 모델을 확인해주세요.",
+                "invalid_plate_number": "차량 번호를 확인해주세요.",
+                "invalid_model": "차량 모델을 확인해주세요."
             }
         },
         "complaint": {
