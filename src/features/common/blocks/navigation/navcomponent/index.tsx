@@ -3,10 +3,10 @@ import useSystemInfo from "../../../hooks/systeminfo/hooks";
 import useAppThemeLegacy from "../../../hooks/themes_legacy/hooks";
 import Icon from "../../../atoms/icon";
 import { SimpleNavComponentProps } from "./types";
+import useStyler from "../../../hooks/styler/hooks";
 
 export default function SimpleNavComponent(props: SimpleNavComponentProps) {
-    const theme = useAppThemeLegacy();
-    const sysinfo = useSystemInfo();
+    const { deviceUI, theme } = useStyler();
 
     const styles = StyleSheet.create({
         container: {
@@ -26,8 +26,11 @@ export default function SimpleNavComponent(props: SimpleNavComponentProps) {
             justifyContent: "center",
         },
         title: {
-            fontSize: sysinfo.window.height * 0.015,
-            color: theme.colors.colorFamily.black,
+            fontFamily:
+                props.iconName !== undefined
+                    ? theme.font.fontFamilies.pretendard.regular
+                    : theme.font.fontFamilies.pretendard.bold,
+            color: theme.colorFamily.black,
         },
     });
 
@@ -36,11 +39,7 @@ export default function SimpleNavComponent(props: SimpleNavComponentProps) {
             <TouchableOpacity style={styles.contentsWrapper} onPress={props.onPress}>
                 {props.iconName && (
                     <View style={styles.atomBox}>
-                        <Icon
-                            name={props.iconName}
-                            size={sysinfo.window.height * 0.055}
-                            color={theme.colors.colorFamily.black}
-                        />
+                        <Icon name={props.iconName} size={deviceUI.moderateScale(45)} color={theme.colorFamily.black} />
                     </View>
                 )}
                 <View style={styles.atomBox}>
