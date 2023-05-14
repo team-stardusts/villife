@@ -17,10 +17,6 @@ export default function ComplaintHomeScreen({ navigation, route }: ComplaintHome
         <NavigationView
             headerOptions={{
                 title: messages.messages.main.complaint.screen_title,
-            }}
-            bodyOptions={{
-                applyDefaultHorizontalPadding: false,
-                applyDefaultVerticalPadding: false,
             }}>
             <View style={styles.topLevelBox}>
                 <View style={styles.FAQContainer}>

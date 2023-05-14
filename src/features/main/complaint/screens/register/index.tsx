@@ -40,6 +40,10 @@ export default function ComplaintRegisterScreen({ navigation, route }: Complaint
                     loading: loading,
                 },
             }}
+            bodyOptions={{
+                applyDefaultHorizontalPadding: false,
+                applyDefaultVerticalPadding: false,
+            }}
             bottomNavOptions={{ shown: false }}>
             <ComplaintEditor titleRef={title} contentRef={content} mode="register" />
         </NavigationView>
