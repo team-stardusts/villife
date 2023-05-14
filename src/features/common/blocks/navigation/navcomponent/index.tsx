@@ -2,14 +2,14 @@ import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import useSystemInfo from "../../../hooks/systeminfo/hooks";
 import useAppThemeLegacy from "../../../hooks/themes_legacy/hooks";
 import Icon from "../../../atoms/icon";
-import { IconNavComponentProps } from "./types";
+import { SimpleNavComponentProps } from "./types";
+import useStyler from "../../../hooks/styler/hooks";
 
-export default function IconNavComponent(props: IconNavComponentProps) {
-    const theme = useAppThemeLegacy();
-    const sysinfo = useSystemInfo();
+export default function SimpleNavComponent(props: SimpleNavComponentProps) {
+    const { deviceUI, theme } = useStyler();
 
     const styles = StyleSheet.create({
-        toplevelBox: {
+        container: {
             flex: 1,
             flexDirection: "row",
             alignItems: "center",
@@ -25,24 +25,25 @@ export default function IconNavComponent(props: IconNavComponentProps) {
             alignItems: "center",
             justifyContent: "center",
         },
-        caption: {
-            fontSize: sysinfo.window.height * 0.015,
-            color: theme.colors.colorFamily.black,
+        title: {
+            fontFamily:
+                props.iconName !== undefined
+                    ? theme.font.fontFamilies.pretendard.regular
+                    : theme.font.fontFamilies.pretendard.bold,
+            color: theme.colorFamily.black,
         },
     });
 
     return (
-        <View style={styles.toplevelBox}>
+        <View style={styles.container}>
             <TouchableOpacity style={styles.contentsWrapper} onPress={props.onPress}>
+                {props.iconName && (
+                    <View style={styles.atomBox}>
+                        <Icon name={props.iconName} size={deviceUI.moderateScale(45)} color={theme.colorFamily.black} />
+                    </View>
+                )}
                 <View style={styles.atomBox}>
-                    <Icon
-                        name={props.iconName}
-                        size={sysinfo.window.height * 0.055}
-                        color={theme.colors.colorFamily.black}
-                    />
-                </View>
-                <View style={styles.atomBox}>
-                    <Text style={styles.caption}>{props.caption}</Text>
+                    <Text style={styles.title}>{props.title}</Text>
                 </View>
             </TouchableOpacity>
         </View>

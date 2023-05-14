@@ -15,6 +15,9 @@ class StringValidator implements IStringValidator {
         hasAlpha: /[a-zA-Z]/,
         hasAlphaLargeCase: /[A-Z]/,
         hasSpecialChar: /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/,
+        // 공백 반드시 포함
+        vehiclePlateNumber: /^(([0-9]{2,3})|([가-힣]{2,3}))[가-힣]{1}[\s\u3000]\d{4}$/,
+        // 공백 포함 미포함 : /^(([0-9]{2,3})|([가-힣]{2,3}))[\s\u3000]?[가-힣]{1}[\s\u3000]?\d{4}$/,
     };
 
     // string length >= length
@@ -65,6 +68,10 @@ class StringValidator implements IStringValidator {
 
     public isEmail(email: string): boolean {
         return this.regExps.email.test(email);
+    }
+
+    public isCorrectVehiclePlateNumber(plateNumber: string): boolean {
+        return this.regExps.vehiclePlateNumber.test(plateNumber);
     }
 }
 

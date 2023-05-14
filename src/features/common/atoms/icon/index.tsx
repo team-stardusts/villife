@@ -11,6 +11,7 @@ import IconPhone from "./phone";
 import IconClockArrow from "./clock_arrow";
 import IconPlus from "./plus";
 import IconPencil from "./pencil";
+import IconArrowWithMidline from "./arrow_with_midline";
 
 export default function Icon(props: IconProps) {
     /* let iconProps: ChildIconProps = {
@@ -32,6 +33,8 @@ export default function Icon(props: IconProps) {
             };
 
             return <IconArrow {..._props} />;
+        case "arrow-right-with-midline":
+            return <IconArrowWithMidline {...iconProps} />;
         case "car":
             return <IconCar {...iconProps} />;
         case "messenger":

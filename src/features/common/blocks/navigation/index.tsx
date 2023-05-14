@@ -136,12 +136,20 @@ export default function NavigationView({
                         )}
                         <View style={styles.headerNavTitleBox}>
                             <Text
+                                style={[
+                                    styles.headerTitle,
+                                    {
+                                        paddingLeft:
+                                            navigation.getState().index === 0
+                                                ? deviceUI.moderateScale(20)
+                                                : deviceUI.moderateScale(3),
+                                    },
+                                ]}
                                 numberOfLines={1}
                                 ellipsizeMode="tail"
                                 minimumFontScale={0.2}
                                 maxFontSizeMultiplier={1}
-                                adjustsFontSizeToFit={true}
-                                style={styles.headerTitle}>
+                                adjustsFontSizeToFit={true}>
                                 {headerOptions.title}
                             </Text>
                         </View>
