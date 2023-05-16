@@ -9,54 +9,42 @@ import ModifyButton from "../../blocks/modify_button";
 import useNoticeModifyScreenStyles from "./styles";
 import { UpdateNoticeParams } from "../../../../../libs/rest_apis/villife/notice/types";
 import { NoticeEventEmitter } from "../../blocks/outlined_box_list/event";
+import useNoticeService from "../../services";
+import VillifeToastMessage from "../../../../common/atoms/toast";
 
 export default function NoticeModifyScreen(props: NoticeModifyScreenProps) {
     const styles = useNoticeModifyScreenStyles();
+    const service = useNoticeService();
 
     const content = useRef(props.route.params.content);
-    const titile = useRef(props.route.params.title);
+    const title = useRef(props.route.params.title);
     const isTitleEnabled = true;
+
     const [loading, setLoading] = React.useState(false);
+
     const onSubmit = async () => {
         setLoading(true);
-
+        if (title.current == "" || content.current == "") {
+            setLoading(false);
+            return VillifeToastMessage.showBottomToast("info", "제목 또는 내용을 입력해주세요");
+        }
         const param: UpdateNoticeParams = {
-            priority: 1,
-            title: titile.current,
+            title: title.current,
             content: content.current,
+            priority: 1,
             building_id: 3,
             notice_id: props.route.params.notiID,
         };
-        const notifier = VillifeServer.getNoticeManager();
 
-        const reuslt = await notifier.UpdateNotice(param);
         setLoading(false);
 
-        if (reuslt.data?.status == 200) {
-            new NoticeEventEmitter().emitListUpdatedEvent();
-            Toast.show({
-                type: "success",
-                text1: "공지사항 수정 완료",
-                position: "bottom",
-                visibilityTime: 1500,
-                bottomOffset: 200,
-            });
-            console.log();
+        const result = await service.updateNotice(param);
+        if (result.isSuccessful)
             props.navigation.reset({
                 index: 0,
                 routes: [{ name: "noti_home" }],
             });
-        } else {
-            Toast.show({
-                type: "error",
-                text1: `공지사항 수정 실패`,
-                position: "bottom",
-                visibilityTime: 1500,
-                bottomOffset: 200,
-            });
-        }
-
-        console.log("create notice result\n", reuslt.data?.data);
+        console.log("create notice result\n", result.data?.data);
     };
 
     return (
@@ -74,7 +62,7 @@ export default function NoticeModifyScreen(props: NoticeModifyScreenProps) {
             }}
             bottomNavOptions={{ shown: false }}>
             <SafeAreaView style={styles.contentsWrapper}>
-                <NotiEditor contentRef={content} titleRef={titile} isTitleEnabled={isTitleEnabled} />
+                <NotiEditor contentRef={content} titleRef={title} isTitleEnabled={isTitleEnabled} />
             </SafeAreaView>
         </NavigationView>
     );

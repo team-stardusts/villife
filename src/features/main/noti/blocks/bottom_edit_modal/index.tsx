@@ -30,9 +30,9 @@ export default function NotiBottomEditModal(props: BottomEditModalProps) {
             building_id: 3,
             notice_id: props.noticeInfo.id,
         };
-        const reult = await notifier.deleteNotice(dto);
+        const result = await notifier.deleteNotice(dto);
 
-        if (reult.isSuccessful) {
+        if (result.isSuccessful) {
             new NoticeEventEmitter().emitListUpdatedEvent();
             props.setVisible(false);
             setDeleteAlertVisible(false);
