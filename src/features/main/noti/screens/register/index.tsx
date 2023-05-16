@@ -13,50 +13,36 @@ import useNoticeRegisterScreenStyles from "./styles";
 import { CreateNoticeParams } from "../../../../../libs/rest_apis/villife/notice/types";
 import NotiEditor from "../../blocks/noti_editor";
 import { NoticeEventEmitter } from "../../blocks/outlined_box_list/event";
+import useNoticeService from "../../services";
+import VillifeToastMessage from "../../../../common/atoms/toast";
 
 export default function NoticeRegisterScreen(props: NoticeRegisterScreenProps) {
     const styles = useNoticeRegisterScreenStyles();
-
+    const service = useNoticeService();
     const content = useRef("");
-    const titile = useRef("");
+    const title = useRef("");
+
     const isTitleEnabled = false;
 
     const [loading, setLoading] = React.useState(false);
+
     const onSubmit = async () => {
         setLoading(true);
-
+        if (title.current == "" || content.current == "") {
+            setLoading(false);
+            return VillifeToastMessage.showBottomToast("info", "제목 또는 내용을 입력해주세요");
+        }
         const param: CreateNoticeParams = {
-            priority: 1,
-            title: titile.current,
+            title: title.current,
             content: content.current,
+            priority: 1,
             building_id: 3,
         };
-        const api = VillifeServer.getNoticeManager();
-
-        const reuslt = await api.createNotice(param);
         setLoading(false);
 
-        if (reuslt.data?.status == 200) {
-            new NoticeEventEmitter().emitListUpdatedEvent();
-            Toast.show({
-                type: "success",
-                text1: "공지사항 등록 완료",
-                position: "bottom",
-                visibilityTime: 1500,
-                bottomOffset: 200,
-            });
-            props.navigation.goBack();
-        } else {
-            Toast.show({
-                type: "error",
-                text1: `공지사항 등록 실패`,
-                position: "bottom",
-                visibilityTime: 1500,
-                bottomOffset: 200,
-            });
-        }
-
-        console.log("create notice result\n", reuslt.data?.data);
+        const result = await service.registerNotice(param);
+        if (result.isSuccessful) props.navigation.goBack();
+        console.log("create notice result\n", result.data?.data);
     };
 
     return (
@@ -74,7 +60,7 @@ export default function NoticeRegisterScreen(props: NoticeRegisterScreenProps) {
             }}
             bottomNavOptions={{ shown: false }}>
             <SafeAreaView style={styles.contentsWrapper}>
-                <NotiEditor contentRef={content} titleRef={titile} isTitleEnabled={isTitleEnabled} />
+                <NotiEditor contentRef={content} titleRef={title} isTitleEnabled={isTitleEnabled} />
             </SafeAreaView>
         </NavigationView>
     );

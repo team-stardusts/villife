@@ -3,22 +3,22 @@ import { Response } from "../../types";
 export interface Noticealbe {
     getNotices(buildingID: number): Response<GetNoticesResult>;
     createNotice(params: CreateNoticeParams): Response<string>;
-    UpdateNotice(params: UpdateNoticeParams): Response<string>;
+    updateNotice(params: UpdateNoticeParams): Response<string>;
     deleteNotice(params: DeleteNoticeParams): Response<string>;
 }
 export type ContentPriority = 1 | 2 | 3;
 
 export type CreateNoticeParams = {
-    priority: ContentPriority;
     title: string;
     content: string;
+    priority: ContentPriority;
     building_id: number;
 };
 
 export type UpdateNoticeParams = {
-    priority: ContentPriority;
     title: string;
     content: string;
+    priority: ContentPriority;
     building_id: number;
     notice_id: number;
 };

@@ -34,7 +34,7 @@ class VillifeNoticeManager extends AVillifeServerModule implements IVillifeNotic
      * @param UpdateNoticeParams
      * @warn olny admin can use this api, should check authority before invoke this api
      */
-    public async UpdateNotice(params: UpdateNoticeParams): Response<string> {
+    public async updateNotice(params: UpdateNoticeParams): Response<string> {
         let route: string = this.routes.updateNotice;
 
         return await this.requestAuthable<any, string>({
