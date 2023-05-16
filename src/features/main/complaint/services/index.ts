@@ -9,12 +9,13 @@ import {
     UpdateComplaintParams,
 } from "../../../../libs/rest_apis/villife/complaint/types";
 import VillifeServer from "../../../../libs/rest_apis/villife";
-import ImageUploader from "../../../../libs/media/uploader";
+import ImageUploader, { MediaUploader } from "../../../../libs/media/uploader";
 import { RichEditor } from "react-native-pell-rich-editor";
 import { Response } from "../../../../libs/rest_apis/types";
 import { err } from "react-native-svg/lib/typescript/xml";
 import { DeleteComplaintParams } from "../../../../libs/rest_apis/villife/complaint/types";
 import VillifeToastMessage from "../../../common/atoms/toast";
+import { MediaUploadResult } from "../../../../libs/rest_apis/villife/media/types";
 
 export default function useComplaintService(): IComplaintService {
     const service: IComplaintService = new ComplaintService();
@@ -24,7 +25,7 @@ export default function useComplaintService(): IComplaintService {
 class ComplaintService implements IComplaintService {
     private mStroage = new VillifeStorage();
     private mApi: IVillifeComplaintRestClient = VillifeServer.getComplaintRestClient();
-    private mImageUploader = new ImageUploader();
+    private mImageUploader: MediaUploader = new ImageUploader();
 
     async UploadAndInsertImage(ref: React.RefObject<RichEditor>): Promise<void | Error> {
         try {
@@ -35,6 +36,15 @@ class ComplaintService implements IComplaintService {
             console.log(ref);
         } catch (err) {
             return new Error("cannot upload image");
+        }
+    }
+
+    async PickAndUploadImage(): Promise<MediaUploadResult> {
+        try {
+            const result = await this.mImageUploader.pickOneAndUpload();
+            return result;
+        } catch (err) {
+            throw new Error("cannot upload image");
         }
     }
 

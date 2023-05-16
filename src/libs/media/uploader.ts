@@ -1,15 +1,15 @@
 import axios from "axios";
 import NativeAlbum from "./album";
 import VillifeServer from "../rest_apis/villife";
-import { MediaUploadResult } from "../rest_apis/villife/notice/types";
+import { MediaUploadResult } from "../rest_apis/villife/media/types";
 
-interface MediaUploader {
-    pickOneAndUpload(imageUri: string): Promise<MediaUploadResult>;
+export interface MediaUploader {
+    pickOneAndUpload(): Promise<MediaUploadResult>;
 }
 
 export default class ImageUploader implements MediaUploader {
     private mNativeAlbum = new NativeAlbum();
-    private mApi = VillifeServer.getNoticeManager();
+    private mApi = VillifeServer.getMediaManager();
 
     /**
      * @returns filename and server uri , if it failed return undefined as error

@@ -1,21 +1,11 @@
 import { Response } from "../../types";
 
-export interface ImageUploadable {
-    uploadImage(formData: FormData): Response<MediaUploadResult>;
-}
-
 export interface Noticealbe {
     getNotices(buildingID: number): Response<GetNoticesResult>;
     createNotice(params: CreateNoticeParams): Response<string>;
     UpdateNotice(params: UpdateNoticeParams): Response<string>;
     deleteNotice(params: DeleteNoticeParams): Response<string>;
 }
-
-export type MediaUploadResult = {
-    file_name: string;
-    uri: string;
-};
-
 export type ContentPriority = 1 | 2 | 3;
 
 export type CreateNoticeParams = {
@@ -49,4 +39,4 @@ export type Notice = {
 
 export type GetNoticesResult = Array<Notice>;
 
-export default interface IVillifeNoticeManager extends ImageUploadable, Noticealbe {}
+export default interface IVillifeNoticeManager extends Noticealbe {}

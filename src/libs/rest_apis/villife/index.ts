@@ -13,6 +13,8 @@ import { IVillifeUserInfoRestClient } from "./user_info/types";
 import VillifeUserInfoRestClient from "./user_info";
 import { IVillifeComplaintRestClient } from "./complaint/types";
 import VillifeComplaintRestClient from "./complaint";
+import IVillifeMediaManager from "./media/types";
+import VillifeMediaManager from "./media";
 
 const env: DotEnv = new DotEnv();
 
@@ -41,6 +43,9 @@ class VillifeServer {
     }
     static getUserInfoRestClient(): IVillifeUserInfoRestClient {
         return new VillifeUserInfoRestClient();
+    }
+    static getMediaManager(): IVillifeMediaManager {
+        return new VillifeMediaManager();
     }
 
     static getBaseURL(): string {

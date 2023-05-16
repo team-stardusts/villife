@@ -4,24 +4,10 @@ import IVillifeNoticeManager, {
     CreateNoticeParams,
     DeleteNoticeParams,
     GetNoticesResult,
-    MediaUploadResult,
     UpdateNoticeParams,
 } from "./types";
 
 class VillifeNoticeManager extends AVillifeServerModule implements IVillifeNoticeManager {
-    public async uploadImage(formData: FormData): Response<MediaUploadResult> {
-        let route: string = this.routes.uploadImage;
-
-        return await this.requestAuthable<any, MediaUploadResult>({
-            method: "post",
-            url: route,
-            headers: {
-                "Content-Type": "multipart/form-data",
-            },
-            data: formData,
-        });
-    }
-
     public async getNotices(buildingID: number): Response<GetNoticesResult> {
         let route: string = this.routes.getNoticesByBuildingID + `?building_id=${buildingID}`;
 

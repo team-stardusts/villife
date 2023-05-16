@@ -21,7 +21,6 @@ export default function useComplaintDetailSecreenStyle(): ComplaintDetailScreenS
         statusBarSection: {
             flexDirection: "row",
             width: "100%",
-            minHeight: deviceUI.moderateScale(10),
             marginBottom: deviceUI.moderateScale(15),
             marginLeft: leftMargin,
         },
@@ -69,33 +68,7 @@ export default function useComplaintDetailSecreenStyle(): ComplaintDetailScreenS
             position: "absolute",
             height: "100%",
         },
-        replyInputContainer: {
-            borderColor: theme.colorFamily.blue,
-            borderWidth: deviceUI.moderateScale(1),
-            flexDirection: "row",
-            alignItems: "center",
-            backgroundColor: "white",
-        },
-        replyTextInput: {
-            minheight: deviceUI.moderateScale(10),
-            width: "80%",
-            fontFamily: theme.font.fontFamilies.pretendard.bold,
-        },
-        replyImageIconSize: {
-            width: deviceUI.moderateScale(24),
-        },
-        imageIconBox: {
-            height: deviceUI.moderateScale(30),
-            width: deviceUI.moderateScale(40),
-            justifyContent: "center",
-            alignItems: "center",
-        },
-        verticalLine: {
-            borderLeftColor: theme.colorFamily.blue,
-            borderLeftWidth: deviceUI.moderateScale(1),
-            height: "100%",
-            width: deviceUI.moderateScale(1),
-        },
+       
     });
     return Style;
 }

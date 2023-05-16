@@ -8,6 +8,7 @@ import {
     GetUserComplaintsParams,
     UpdateComplaintParams,
 } from "../../../../libs/rest_apis/villife/complaint/types";
+import { MediaUploadResult } from "../../../../libs/rest_apis/villife/media/types";
 
 export type ComplaintInfo = Complaint;
 
@@ -18,4 +19,5 @@ export interface IComplaintService {
     GetBuildingComplaints(params: GetBuildingComplaintsParams): Promise<Response<GetComplaintsResult>>;
     GetUserComplaints(params: GetUserComplaintsParams): Promise<Response<GetComplaintsResult>>;
     DeleteComplaint(params: DeleteComplaintParams): Promise<Response<string>>;
+    PickAndUploadImage(): Promise<MediaUploadResult>;
 }

@@ -1,19 +1,9 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
 import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
 import NavigationView from "../../../../common/blocks/navigation";
 import ComplaintDetailScreenProps from "./type";
 import useComplaintDetailSecreenStyle from "./style";
-import {
-    FlatList,
-    Keyboard,
-    KeyboardAvoidingView,
-    Platform,
-    Pressable,
-    ScrollView,
-    Text,
-    TextInput,
-    View,
-} from "react-native";
+import { ScrollView, Text, TextInput, View } from "react-native";
 import React from "react";
 import RemoteCSS from "../../../../../libs/themes/remote_css";
 import AutoHeightWebView from "react-native-autoheight-webview";
@@ -22,8 +12,7 @@ import ComplaintStatusLable from "../../blocks/status_lable";
 import IconBuilding from "../../../../common/atoms/icon/building";
 import { IconPerson } from "../../../../common/atoms/icon/human";
 import ComplaintReplyItem from "../../blocks/reply_item";
-import useOnKeyboardEvent from "../../../../common/hooks/keyboard";
-import IconImage from "../../../../common/atoms/icon/image";
+import ReplyInputSection from "../../blocks/reply_input";
 
 export default function ComplaintDetailScreen({ navigation, route }: ComplaintDetailScreenProps) {
     const messages = useScreenMessage();
@@ -31,7 +20,7 @@ export default function ComplaintDetailScreen({ navigation, route }: ComplaintDe
     const content = useRef(route.params.content);
     const title = useRef(route.params.title);
     const userInfo = useUserInfoService();
-    const keyboardHeight = useOnKeyboardEvent({});
+
     return (
         <NavigationView
             headerOptions={{
@@ -96,21 +85,7 @@ export default function ComplaintDetailScreen({ navigation, route }: ComplaintDe
                     })}
                 </View>
             </ScrollView>
-
-            <View style={[styles.replyInputContainer, { bottom: keyboardHeight }]}>
-                <Pressable style={styles.imageIconBox}>
-                    <IconImage color="black" size={styles.replyImageIconSize.width as number} />
-                </Pressable>
-                <View style={styles.verticalLine} />
-                <TextInput
-                    returnKeyLabel="다음"
-                    returnKeyType="go"
-                    editable
-                    multiline
-                    placeholder="댓글을 입력하세요"
-                    style={[styles.replyTextInput]}
-                />
-            </View>
+            <ReplyInputSection complaintID={route.params.id} />
         </NavigationView>
     );
 }
@@ -120,7 +95,7 @@ const sampleReply = [
         replyID: 1,
         writterName: "김준우",
         writtedAt: "2023-02-01",
-        content: "세탁기 주문 완료 했습니다. 3일뒤 배송 예정이에요!씨발새기야",
+        content: "세탁기 주문 완료 했습니다. 3일뒤 배송 예정이에요!",
         imageUris: ["uri", "2", "3", "4", "5", "6", "7"],
     },
     {
