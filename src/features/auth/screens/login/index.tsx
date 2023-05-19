@@ -35,7 +35,7 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
             });
         } else {
             if (host === "villife") {
-                Alert.alert("잘못 된 계정 정보가 입력 되었습니다.", "옳바른 아이디와 패스워드를 입력해주세요.");
+                Alert.alert("잘못된 계정 정보가 입력 되었습니다.", "옳바른 아이디와 패스워드를 입력해주세요.");
             } else {
                 // [TO-DO] 예기치 않은 이유로 로그인 실패 시 navigation X
                 navigation.navigate("create_account", {
