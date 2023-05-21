@@ -1,38 +1,63 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import StardustAlert from "../../../../common/blocks/universial/stardust_alert";
 import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
 import useStyler from "../../../../common/hooks/styler/hooks";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import EtdaTimePicker from "../etad_time_picker";
 import Icon from "../../../../common/atoms/icon";
+import useModifyModal from "./styles";
 
 type ModifyEtdaModalProps = {
     modalVisible: boolean;
     setModalVisible: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-export default function ModifyEtdaModal({ modalVisible, setModalVisible }: ModifyEtdaModalProps) {
+type Page = "etda" | "info";
+
+type EtdaPageProps = {
+    onToInfoPageBtnPress(): void;
+};
+
+function EtdaPage({ onToInfoPageBtnPress: onToInfoBtnPress }: EtdaPageProps) {
     const { deviceUI, theme } = useStyler();
     const messages = useScreenMessage();
 
-    const styles = StyleSheet.create({
-        timePickerContainer: {
-            height: "80%",
-            justifyContent: "center",
-            alignItems: "center",
-        },
-        toModifyVehicleInfoContainer: {
-            height: "20%",
-            flexDirection: "row",
-            justifyContent: "center",
-            alignItems: "center",
-        },
-        toModifyVehicleInfoText: {
-            marginRight: deviceUI.moderateScale(2),
-            color: theme.colorFamily.blue,
-            ...theme.font.researved.h5,
-        },
-    });
+    const styles = useModifyModal().etda;
+
+    return (
+        <View style={styles.container}>
+            <View style={styles.timePickerContainer}>
+                <EtdaTimePicker />
+            </View>
+            <TouchableOpacity
+                style={styles.toModifyVehicleInfoContainer}
+                activeOpacity={0.6}
+                onPress={onToInfoBtnPress}>
+                <Text style={styles.toModifyVehicleInfoText}>
+                    {messages.messages.main.parking.home.inform_to_modify_vehicle_info}
+                </Text>
+                <Icon name={"arrow-right"} size={deviceUI.moderateScale(35)} color={theme.colorFamily.lightgrey} />
+            </TouchableOpacity>
+        </View>
+    );
+}
+
+function InfoPage() {
+    return <View></View>;
+}
+
+export default function ModifyEtdaModal({ modalVisible, setModalVisible }: ModifyEtdaModalProps) {
+    const { deviceUI, theme } = useStyler();
+    const [crrPage, setCrrPage] = useState<Page>("etda");
+    const messages = useScreenMessage();
+
+    const styles = useModifyModal().toplevel;
+
+    useEffect(() => {
+        return () => {
+            setCrrPage("etda");
+        };
+    }, []);
 
     return (
         <StardustAlert
@@ -44,18 +69,11 @@ export default function ModifyEtdaModal({ modalVisible, setModalVisible }: Modif
             rightButtonText={messages.messages.words.modified}
             leftOnPress={() => {
                 setModalVisible(false);
+                setCrrPage("etda");
             }}
             rightOnPress={() => {}}>
-            <View style={{ height: deviceUI.moderateScale(180), width: "90%" }}>
-                <View style={styles.timePickerContainer}>
-                    <EtdaTimePicker />
-                </View>
-                <TouchableOpacity style={styles.toModifyVehicleInfoContainer} activeOpacity={0.6}>
-                    <Text style={styles.toModifyVehicleInfoText}>
-                        {messages.messages.main.parking.home.inform_to_modify_vehicle_info}
-                    </Text>
-                    <Icon name={"arrow-right"} size={deviceUI.moderateScale(35)} color={theme.colorFamily.lightgrey} />
-                </TouchableOpacity>
+            <View style={styles.contentContainer}>
+                {crrPage === "etda" ? <EtdaPage onToInfoPageBtnPress={() => setCrrPage("info")} /> : <InfoPage />}
             </View>
         </StardustAlert>
     );
