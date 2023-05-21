@@ -21,6 +21,7 @@ import EtdaTimePicker from "../main/parking/blocks/etad_time_picker";
 import UniversalTextInput from "../common/blocks/universial/textinput";
 import { useEffect, useRef, useState } from "react";
 import useOnKeyboardEvent from "../common/hooks/keyboard";
+import KeyboardAwareScrollView from "../common/blocks/keyboard_aware_scrollview";
 
 export default function TestScreen() {
     const firebaseToken = useGetFirebaseToken();
@@ -32,7 +33,6 @@ export default function TestScreen() {
         },
         scrollview: {
             flex: 1,
-            paddingBottom: 30,
             //backgroundColor: "lightgrey",
         },
         container: {
@@ -63,140 +63,64 @@ export default function TestScreen() {
             flex: 9,
         },
     });
-    const [isFold, setIsFold] = useState<boolean>(true);
-    const scollRef = useRef<ScrollView>(null);
-    const panResponder = useRef<PanResponder>(null).current;
-    const [state, setState] = useState({ x: 0, y: 0 });
-    const [pressedY, setPressedY] = useState<number>(0);
-    const [DidMeasure, setDidMesure] = useState(false);
-    const [scollHeight, setScrollHeight] = useState<{
-        absolute: number;
-        current: number;
-    }>({
-        absolute: 0,
-        current: 0,
-    });
 
-    const keyboardH = useOnKeyboardEvent({
-        onShow(keyboardHeight) {
-            setIsFold(false);
-            setScrollHeight({
-                ...scollHeight,
-                current: scollHeight.absolute - keyboardHeight,
-            });
-            const coordiY = deviceUI.screenSize.height - (pressedY + 30);
-            console.log("offsetY", coordiY);
-
-            let offsetY = 0;
-
-            if (coordiY < keyboardHeight) offsetY = coordiY;
-
-            scollRef.current?.scrollTo({ y: offsetY, animated: true });
-            setPressedY(0);
-        },
-        onHide() {
-            setIsFold(true);
-            setScrollHeight({
-                ...scollHeight,
-                current: scollHeight.absolute,
-            });
-            scollRef.current?.scrollTo({ y: 0, animated: true });
-        },
-    });
-
-    const scrollHV = useRef(new Animated.Value(scollHeight.absolute)).current;
-
-    useEffect(() => {
-        Animated.timing(scrollHV, {
-            toValue: scollHeight.current,
-            duration: 100,
-            useNativeDriver: false,
-        });
-    }, [scollHeight]);
-
-    /* useEffect(() => {
-        if (panResponder !== undefined) {
-            panResponder = PanResponder.create({
-                onMoveShouldSetPanResponder: () => true,
-                onPanResponderMove: (evt, gestureState) => {
-                    const { moveX, moveY } = gestureState;
-                    setState({ x: moveX, y: moveY });
-                },
-            });
-        }
-    }, []); */
+    const [touchedCoordinateY, setTouchedCoordinateY] = useState<number>(0);
 
     return (
         <NavigationView headerOptions={{ title: "TEST" }}>
-            <TouchableWithoutFeedback
-                onPress={(event) => {
-                    console.log("X", event.nativeEvent.locationX);
-                    console.log("Y", event.nativeEvent.locationY);
-                }}>
-                <KeyboardAvoidingView style={[styles.avoidingContainer]} behavior="padding">
-                    <ScrollView
-                        ref={scollRef}
-                        style={[styles.scrollview]}
-                        //keyboardShouldPersistTaps="handled"
-                        onLayout={(event) => {
-                            if (!DidMeasure) {
-                                setDidMesure(true);
-                                setScrollHeight({
-                                    ...scollHeight,
-                                    absolute: event.nativeEvent.layout.height,
-                                    current: event.nativeEvent.layout.height,
-                                });
-                            }
-                        }}>
-                        <View
-                            style={[styles.container, { height: scollHeight.absolute, marginBottom: isFold ? 0 : 30 }]}>
-                            <View style={styles.testButtonContainer}>
-                                <TouchableOpacity
-                                    onPress={() => {
-                                        console.log(firebaseToken);
-                                    }}
-                                    style={styles.testButton}>
-                                    <Text style={styles.buttonText}>버튼</Text>
-                                </TouchableOpacity>
-                            </View>
-                            <View style={styles.inputsContainer}>
-                                <Text>a</Text>
-                                <UniversalTextInput />
-                                <Text>b</Text>
-                                <UniversalTextInput />
-                                <Text>c</Text>
-                                <UniversalTextInput />
-                                <Text>d</Text>
-                                <UniversalTextInput />
-                                <Text>e</Text>
-                                <UniversalTextInput />
-                                <Text>e</Text>
-                                <UniversalTextInput />
-                                <Text>e</Text>
-                                <UniversalTextInput />
-                                <Text>e</Text>
-                                <UniversalTextInput
-                                    onTouchEnd={(event) => {
-                                        setPressedY(event.nativeEvent.pageY);
-                                    }}
-                                />
-                                <Text>e</Text>
-                                <UniversalTextInput
-                                    onTouchEnd={(event) => {
-                                        setPressedY(event.nativeEvent.pageY);
-                                    }}
-                                />
-                                <Text>e</Text>
-                                <UniversalTextInput
-                                    onTouchEnd={(event) => {
-                                        setPressedY(event.nativeEvent.pageY);
-                                    }}
-                                />
-                            </View>
-                        </View>
-                    </ScrollView>
-                </KeyboardAvoidingView>
-            </TouchableWithoutFeedback>
+            <KeyboardAwareScrollView touchedCoordinateY={touchedCoordinateY}>
+                <View style={styles.testButtonContainer}>
+                    <TouchableOpacity
+                        onPress={() => {
+                            console.log(firebaseToken);
+                        }}
+                        style={styles.testButton}>
+                        <Text style={styles.buttonText}>버튼</Text>
+                    </TouchableOpacity>
+                </View>
+                <View style={styles.inputsContainer}>
+                    <Text>a</Text>
+                    <UniversalTextInput
+                        onTouchEndCapture={(event) => {
+                            setTouchedCoordinateY(event.nativeEvent.pageY);
+                        }}
+                    />
+                    <Text>b</Text>
+                    <UniversalTextInput />
+                    <Text>c</Text>
+                    <UniversalTextInput />
+                    <Text>d</Text>
+                    <UniversalTextInput />
+                    <Text>e</Text>
+                    <UniversalTextInput />
+                    <Text>e</Text>
+                    <UniversalTextInput />
+                    <Text>e</Text>
+                    <UniversalTextInput />
+                    <Text>e</Text>
+                    <UniversalTextInput />
+                    <Text>e</Text>
+                    <UniversalTextInput />
+                    <Text>x</Text>
+                    <UniversalTextInput
+                        onTouchEndCapture={(event) => {
+                            setTouchedCoordinateY(event.nativeEvent.pageY);
+                        }}
+                    />
+                    <Text>y</Text>
+                    <UniversalTextInput
+                        onTouchEndCapture={(event) => {
+                            setTouchedCoordinateY(event.nativeEvent.pageY);
+                        }}
+                    />
+                    <Text>z</Text>
+                    <UniversalTextInput
+                        onTouchEndCapture={(event) => {
+                            setTouchedCoordinateY(event.nativeEvent.pageY);
+                        }}
+                    />
+                </View>
+            </KeyboardAwareScrollView>
         </NavigationView>
     );
 }

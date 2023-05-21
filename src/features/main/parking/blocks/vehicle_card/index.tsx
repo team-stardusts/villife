@@ -4,7 +4,6 @@ import {
     ScrollView,
     StyleSheet,
     Text,
-    TextBase,
     TouchableOpacity,
     View,
 } from "react-native";
@@ -13,15 +12,18 @@ import useStyler from "../../../../common/hooks/styler/hooks";
 import { useEffect, useState } from "react";
 import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
 import ContentBox from "../../../../common/blocks/content_box";
-import MiniContent from "../../../../common/blocks/mini_content";
 import PageIndicators from "../../../../common/blocks/page_indicator";
 import Icon from "../../../../common/atoms/icon";
 import { useNavigation } from "@react-navigation/native";
 import { RouterParams } from "../../../../common/router/types";
+import StardustAlert from "../../../../common/blocks/universial/stardust_alert";
+import EtdaTimePicker from "../etad_time_picker";
+import ModifyEtdaModal from "../modify_etda_modal";
 
 function VehicleCard({ vehicle, cardWidth }: VehicleCardProps) {
     const { deviceUI, theme } = useStyler();
     const messages = useScreenMessage();
+    const [deleteAlertVisible, setDeleteAlertVisible] = useState<boolean>(false);
 
     const styles = StyleSheet.create({
         card: {
@@ -74,11 +76,12 @@ function VehicleCard({ vehicle, cardWidth }: VehicleCardProps) {
     ];
 
     return (
-        <View style={styles.card}>
+        <TouchableOpacity style={styles.card} activeOpacity={0.6} onPress={() => setDeleteAlertVisible(true)}>
             {cardData.map((datum, index) => (
                 <CardRow key={index} rowKey={datum.rowKey} rowValue={datum.rowValue} />
             ))}
-        </View>
+            <ModifyEtdaModal modalVisible={deleteAlertVisible} setModalVisible={setDeleteAlertVisible} />
+        </TouchableOpacity>
     );
 }
 

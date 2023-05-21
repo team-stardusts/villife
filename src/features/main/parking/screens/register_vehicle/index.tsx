@@ -16,6 +16,7 @@ import { TOAST_DEFAULT_OFFSET, TOAST_DEFAULT_VISIBILITY_TIME } from "../../../..
 import { EtdaTime } from "../../blocks/etad_time_picker/types";
 import VillifeToastMessage from "../../../../common/atoms/toast";
 import useOnKeyboardEvent from "../../../../common/hooks/keyboard";
+import KeyboardAwareScrollView from "../../../../common/blocks/keyboard_aware_scrollview";
 
 type Vehicle = EtdaTime & {
     plateNumber: string;
@@ -44,6 +45,7 @@ export default function RegisterVehicleScreen({ navigation, route }: RegisterVeh
             minute: 0,
         },
     });
+    const [touchedCoordinateY, setTouchedCoordinateY] = useState<number>(0);
 
     const validatePlateNumber = (plateNumber: string): boolean => {
         return validator.isCorrectVehiclePlateNumber(plateNumber);
@@ -110,7 +112,7 @@ export default function RegisterVehicleScreen({ navigation, route }: RegisterVeh
                     onPress: handlePressRegisterBtn,
                 },
             }}>
-            <View style={[styles.container]}>
+            <KeyboardAwareScrollView style={styles.container} touchedCoordinateY={touchedCoordinateY}>
                 <ParkingScreenGuide
                     title={messages.messages.main.parking.register_vehicle.register_own_vehicle}
                     subtitle={messages.messages.main.parking.register_vehicle.request_input_vehicle_info}
@@ -141,6 +143,7 @@ export default function RegisterVehicleScreen({ navigation, route }: RegisterVeh
                                     : undefined
                             }
                             onChangeText={(text, name) => setVehicle({ ...vehicle, [name as keyof Vehicle]: text })}
+                            onTouchEndCapture={(event) => setTouchedCoordinateY(event.nativeEvent.pageY)}
                         />
                     </View>
                     <View style={styles.vehicleInfoInputContainer}>
@@ -161,10 +164,11 @@ export default function RegisterVehicleScreen({ navigation, route }: RegisterVeh
                                     : undefined
                             }
                             onChangeText={(text, name) => setVehicle({ ...vehicle, [name as keyof Vehicle]: text })}
+                            onTouchEndCapture={(event) => setTouchedCoordinateY(event.nativeEvent.pageY)}
                         />
                     </View>
                 </View>
-            </View>
+            </KeyboardAwareScrollView>
         </NavigationView>
     );
 }

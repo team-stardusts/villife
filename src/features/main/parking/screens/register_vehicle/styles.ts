@@ -9,10 +9,10 @@ export default function useRegisterVehicleScreenStyles() {
             flex: 1,
         },
         etdaPickerContainer: {
-            height: "30%",
+            height: deviceUI.moderateScale(170),
         },
         vehicleInfoInputsContainer: {
-            height: "30%",
+            height: deviceUI.moderateScale(150),
         },
         vehicleInfoInputContainer: {
             height: "50%",
