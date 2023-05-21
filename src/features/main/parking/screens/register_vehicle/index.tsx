@@ -1,4 +1,4 @@
-import { Text, View } from "react-native";
+import { KeyboardAvoidingView, ScrollView, Text, TouchableWithoutFeedback, View } from "react-native";
 import NavigationView from "../../../../common/blocks/navigation";
 import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
 import RegisterVehicleScreenProps from "./types";
@@ -7,13 +7,16 @@ import useRegisterVehicleScreenStyles from "./styles";
 import ParkingScreenGuide from "../../blocks/screen_guide";
 import EtdaTimePicker from "../../blocks/etad_time_picker";
 import UniversalTextInput from "../../../../common/blocks/universial/textinput";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import StringValidator from "../../../../../libs/string_validator";
 import SimpleNavComponent from "../../../../common/blocks/navigation/navcomponent";
 import useStyler from "../../../../common/hooks/styler/hooks";
 import { Toast } from "react-native-toast-message/lib/src/Toast";
 import { TOAST_DEFAULT_OFFSET, TOAST_DEFAULT_VISIBILITY_TIME } from "../../../../common/constants";
 import { EtdaTime } from "../../blocks/etad_time_picker/types";
+import VillifeToastMessage from "../../../../common/atoms/toast";
+import useOnKeyboardEvent from "../../../../common/hooks/keyboard";
+import KeyboardAwareScrollView from "../../../../common/blocks/keyboard_aware_scrollview";
 
 type Vehicle = EtdaTime & {
     plateNumber: string;
@@ -26,8 +29,8 @@ export default function RegisterVehicleScreen({ navigation, route }: RegisterVeh
 
     const messages = useScreenMessage();
     const styles = useRegisterVehicleScreenStyles();
-    const { theme } = useStyler();
 
+    const { theme } = useStyler();
     const validator = new StringValidator();
 
     const [vehicle, setVehicle] = useState<Vehicle>({
@@ -42,6 +45,7 @@ export default function RegisterVehicleScreen({ navigation, route }: RegisterVeh
             minute: 0,
         },
     });
+    const [touchedCoordinateY, setTouchedCoordinateY] = useState<number>(0);
 
     const validatePlateNumber = (plateNumber: string): boolean => {
         return validator.isCorrectVehiclePlateNumber(plateNumber);
@@ -80,22 +84,13 @@ export default function RegisterVehicleScreen({ navigation, route }: RegisterVeh
         }
 
         !plateNumberValid &&
-            Toast.show({
-                type: "error",
-                text1: messages.messages.main.parking.register_vehicle.invalid_plate_number,
-                position: "bottom",
-                visibilityTime: TOAST_DEFAULT_VISIBILITY_TIME,
-                bottomOffset: TOAST_DEFAULT_OFFSET,
-            });
+            VillifeToastMessage.showBottomToast(
+                "error",
+                messages.messages.main.parking.register_vehicle.invalid_plate_number
+            );
 
         !modelValid &&
-            Toast.show({
-                type: "error",
-                text1: messages.messages.main.parking.register_vehicle.invalid_model,
-                position: "bottom",
-                visibilityTime: TOAST_DEFAULT_VISIBILITY_TIME,
-                bottomOffset: TOAST_DEFAULT_OFFSET,
-            });
+            VillifeToastMessage.showBottomToast("error", messages.messages.main.parking.register_vehicle.invalid_model);
 
         if (modelValid && plateNumberValid) {
             // Regsiter Service 등록
@@ -104,7 +99,7 @@ export default function RegisterVehicleScreen({ navigation, route }: RegisterVeh
     };
 
     useEffect(() => {
-        console.log(vehicle);
+        //console.log(vehicle);
     }, [vehicle]);
 
     return (
@@ -117,7 +112,7 @@ export default function RegisterVehicleScreen({ navigation, route }: RegisterVeh
                     onPress: handlePressRegisterBtn,
                 },
             }}>
-            <View style={styles.container}>
+            <KeyboardAwareScrollView style={styles.container} touchedCoordinateY={touchedCoordinateY}>
                 <ParkingScreenGuide
                     title={messages.messages.main.parking.register_vehicle.register_own_vehicle}
                     subtitle={messages.messages.main.parking.register_vehicle.request_input_vehicle_info}
@@ -148,6 +143,7 @@ export default function RegisterVehicleScreen({ navigation, route }: RegisterVeh
                                     : undefined
                             }
                             onChangeText={(text, name) => setVehicle({ ...vehicle, [name as keyof Vehicle]: text })}
+                            onTouchEndCapture={(event) => setTouchedCoordinateY(event.nativeEvent.pageY)}
                         />
                     </View>
                     <View style={styles.vehicleInfoInputContainer}>
@@ -168,10 +164,11 @@ export default function RegisterVehicleScreen({ navigation, route }: RegisterVeh
                                     : undefined
                             }
                             onChangeText={(text, name) => setVehicle({ ...vehicle, [name as keyof Vehicle]: text })}
+                            onTouchEndCapture={(event) => setTouchedCoordinateY(event.nativeEvent.pageY)}
                         />
                     </View>
                 </View>
-            </View>
+            </KeyboardAwareScrollView>
         </NavigationView>
     );
 }

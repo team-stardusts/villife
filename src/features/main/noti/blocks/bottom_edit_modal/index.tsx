@@ -86,7 +86,7 @@ export default function NotiBottomEditModal(props: BottomEditModalProps) {
                 <StardustAlert
                     modalVisible={deleteAlertVisible}
                     setModalVisible={setDeleteAlertVisible}
-                    mainText="정말 삭제 하시겠어요?"
+                    title="정말 삭제 하시겠어요?"
                     leftButtonText="취소"
                     rightButtonText="삭제"
                     leftOnPress={() => {

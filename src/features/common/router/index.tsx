@@ -62,6 +62,7 @@ export default function ScreenRouter() {
             navigation.reset({
                 index: 0,
                 routes: [{ name: "login" }],
+                //routes: [{ name: "test" }],
             });
         } else {
             navigation.reset({

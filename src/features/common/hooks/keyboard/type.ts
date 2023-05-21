@@ -1,4 +1,4 @@
 export type UseOnKeyboardEventParam = {
-    onShow?: () => void;
-    onHide?: () => void;
+    onShow?: (keyboardHeight: number) => void;
+    onHide?: (keyboardHeight: number) => void;
 };

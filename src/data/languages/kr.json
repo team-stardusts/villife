@@ -10,7 +10,11 @@
                 "villa_vehicle_info": "빌라차량 정보",
                 "register_guest": "방문자 등록",
                 "say_no_vehicle_info": "차량 정보가 없습니다.",
-                "induce_to_register_own_vehicle": "원활한 빌라 주차를 위해 차량의 정보를 입력해주세요."
+                "induce_to_register_own_vehicle": "원활한 빌라 주차를 위해 차량의 정보를 입력해주세요.",
+                "modify_vehicle_info": "차량 정보 수정하기",
+                "request_to_modify_etda": "출차 및 입차 시간을 수정해주세요.",
+                "request_to_modify_vehicle_info": "차량 번호와 모델을 수정해주세요.",
+                "inform_to_modify_vehicle_info": "차량 번호와 모델 수정하기"
             },
             "register_vehicle": {
                 "screen_title": "차량 정보 등록",
@@ -156,6 +160,8 @@
         "reject": "거절",
         "accept": "수락",
         "edit": "편집하기",
+        "correction": "수정",
+        "modified": "수정",
         "modify": "수정하기",
         "tenant": "거주자",
         "guest": "방문자",

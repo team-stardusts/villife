@@ -18,6 +18,10 @@ export type MessagesByLanguage = {
                 register_guest: string;
                 say_no_vehicle_info: string;
                 induce_to_register_own_vehicle: string;
+                modify_vehicle_info: string;
+                request_to_modify_etda: string;
+                request_to_modify_vehicle_info: string;
+                inform_to_modify_vehicle_info: string;
             };
             register_vehicle: {
                 screen_title: string;
@@ -162,6 +166,7 @@ export type MessagesByLanguage = {
         reject: string;
         accept: string;
         edit: string;
+        modified: string;
         modify: string;
         tenant: string;
         guest: string;
