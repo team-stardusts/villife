@@ -20,6 +20,7 @@ const routes: RoutesType = {
     getBuildingComplaints: "complaint/get/list/by-building-id",
     updateComplaint: "complaint/update",
     deleteComplaint: "complaint/delete",
+    reply: "complaint/reply",
     //user info
     getUserBasicInfo: "user/basicinfo",
     //@deprecated for test

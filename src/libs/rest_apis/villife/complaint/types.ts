@@ -42,4 +42,30 @@ export interface IVillifeComplaintRestClient {
     GetBuildingComplaints(params: GetBuildingComplaintsParams): Response<GetComplaintsResult>;
     UpdateComplaint(params: UpdateComplaintParams): Response<string>;
     DeleteComplaint(params: DeleteComplaintParams): Response<string>;
+    CreateReply(params: CreateReplyReqParams): Response<string>;
+    GetReplies(complaintID: number): Response<string>;
+    UpdateReply(params: UpdateReplyReqParams): Response<string>;
+    DeleteReply(replyID: number): Response<string>;
 }
+
+export type CreateReplyReqParams = {
+    complaint_id: number;
+    content: string;
+    image_uris: Array<string>;
+};
+
+export type UpdateReplyReqParams = {
+    reply_id: number;
+    content: string;
+    image_uris: Array<string>;
+};
+
+export type GetRepliesResult = Array<GetOneReplyResult>;
+
+export type GetOneReplyResult = {
+    id: number;
+    writer_name: string;
+    content: string;
+    image_uri: Array<string>;
+    writted_at: string;
+};

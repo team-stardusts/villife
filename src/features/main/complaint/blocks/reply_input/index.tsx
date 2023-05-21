@@ -1,4 +1,4 @@
-import { Image, Pressable, StyleSheet, TextInput, View } from "react-native";
+import { ActivityIndicator, Image, Pressable, StyleSheet, TextInput, View } from "react-native";
 import useOnKeyboardEvent from "../../../../common/hooks/keyboard";
 import IconImage from "../../../../common/atoms/icon/image";
 import useReplyInputStyle from "./style";
@@ -12,6 +12,8 @@ function ReplyInputSection(props: RelpyInputProps) {
     const styles = useReplyInputStyle();
     const [imageUris, setImageUris] = React.useState<Array<string>>([]);
     const service = useComplaintService();
+
+    //TO DO :: 댓글 등록 및 수정 서비스 추가
 
     const onPressImageIcon = async () => {
         try {
@@ -27,8 +29,12 @@ function ReplyInputSection(props: RelpyInputProps) {
         <View style={[styles.replyInputContainer, { bottom: keyboardHeight }]}>
             <View style={styles.replyImageSection}>
                 {imageUris.map((uri) => {
+                    if (uri == "" || uri == undefined) {
+                        return <ActivityIndicator />;
+                    }
                     return (
                         <Image
+                            key={uri}
                             style={{
                                 margin: styles.image.margin,
                                 width: styles.image.width,

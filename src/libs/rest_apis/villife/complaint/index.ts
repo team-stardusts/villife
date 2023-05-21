@@ -1,6 +1,6 @@
 import { Response } from "../../types";
 import AVillifeServerModule from "../absc";
-import { GetBuildingComplaintsParams } from "./types";
+import { CreateReplyReqParams, GetBuildingComplaintsParams, UpdateReplyReqParams } from "./types";
 import {
     CreateComplaintParams,
     DeleteComplaintParams,
@@ -54,6 +54,46 @@ class VillifeComplaintRestClient extends AVillifeServerModule implements IVillif
             method: "post",
             url: route,
             data: params,
+        });
+    }
+
+    async CreateReply(params: CreateReplyReqParams): Response<string> {
+        let route: string = this.routes.reply;
+
+        return await this.requestAuthable<any, string>({
+            method: "post",
+            url: route,
+            data: params,
+        });
+    }
+
+    async GetReplies(complaintID: number): Response<string> {
+        const query = `?complaint_id=${complaintID}`;
+        let route: string = this.routes.reply + query;
+
+        return await this.requestAuthable<any, string>({
+            method: "get",
+            url: route,
+        });
+    }
+
+    async UpdateReply(params: UpdateReplyReqParams): Response<string> {
+        let route: string = this.routes.reply;
+
+        return await this.requestAuthable<any, string>({
+            method: "patch",
+            url: route,
+            data: params,
+        });
+    }
+
+    async DeleteReply(replyID: number): Response<string> {
+        const query = `?reply_id=${replyID}`;
+        let route: string = this.routes.reply + query;
+
+        return await this.requestAuthable<any, string>({
+            method: "delete",
+            url: route,
         });
     }
 }

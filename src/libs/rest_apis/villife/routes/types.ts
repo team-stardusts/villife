@@ -18,6 +18,7 @@ export type RoutesType = {
     getBuildingComplaints: string;
     updateComplaint: string;
     deleteComplaint: string;
+    reply: string;
     //user info
     getUserBasicInfo: string;
 
