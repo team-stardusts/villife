@@ -34,10 +34,17 @@ export default function useModifyModal() {
         },
     });
 
-    const info = StyleSheet.create({});
+    const info = StyleSheet.create({
+        container: {
+            width: "100%",
+            height: "100%",
+            paddingBottom: deviceUI.moderateScale(10),
+        },
+    });
 
     return {
         toplevel,
         etda,
+        info,
     };
 }

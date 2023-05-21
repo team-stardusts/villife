@@ -1,13 +1,17 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import StardustAlert from "../../../../common/blocks/universial/stardust_alert";
 import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
 import useStyler from "../../../../common/hooks/styler/hooks";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Animated, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import EtdaTimePicker from "../etad_time_picker";
 import Icon from "../../../../common/atoms/icon";
 import useModifyModal from "./styles";
+import VehicleInfoInputBox from "../vehicle_info_input_box";
+import { VehicleInfo, VehicleValidationResult } from "../vehicle_info_input_box/types";
+import { GuestVehicle, TenantVehicle } from "../../../../../libs/rest_apis/villife/parking/types";
 
-type ModifyEtdaModalProps = {
+type VehicleModifyModalProps = {
+    initialVehicleInfo: TenantVehicle | GuestVehicle;
     modalVisible: boolean;
     setModalVisible: React.Dispatch<React.SetStateAction<boolean>>;
 };
@@ -16,6 +20,10 @@ type Page = "etda" | "info";
 
 type EtdaPageProps = {
     onToInfoPageBtnPress(): void;
+};
+
+type InfoPageProps = {
+    initialVehicleInfo: VehicleModifyModalProps["initialVehicleInfo"];
 };
 
 function EtdaPage({ onToInfoPageBtnPress: onToInfoBtnPress }: EtdaPageProps) {
@@ -42,16 +50,59 @@ function EtdaPage({ onToInfoPageBtnPress: onToInfoBtnPress }: EtdaPageProps) {
     );
 }
 
-function InfoPage() {
-    return <View></View>;
+function InfoPage({ initialVehicleInfo }: InfoPageProps) {
+    const styles = useModifyModal().info;
+    const opacityValue = useRef(new Animated.Value(0)).current;
+
+    const [info, setInfo] = useState<VehicleInfo>({
+        plateNumber: "",
+        model: "",
+    });
+    const [valid, setValid] = useState<VehicleValidationResult>({
+        plateNumber: false,
+        model: false,
+    });
+
+    useEffect(() => {
+        Animated.timing(opacityValue, {
+            toValue: 1,
+            duration: 800,
+            useNativeDriver: true,
+        }).start();
+    });
+
+    return (
+        <Animated.View style={[styles.container, { opacity: opacityValue }]}>
+            <VehicleInfoInputBox
+                initialVehicleInfo={{
+                    plateNumber: initialVehicleInfo.plate_number,
+                    model: initialVehicleInfo.model,
+                }}
+                onValidation={setValid}
+                onChangeVehicleInfo={setInfo}
+            />
+        </Animated.View>
+    );
 }
 
-export default function ModifyEtdaModal({ modalVisible, setModalVisible }: ModifyEtdaModalProps) {
+export default function VehicleModifyModal({
+    initialVehicleInfo,
+    modalVisible,
+    setModalVisible,
+}: VehicleModifyModalProps) {
     const { deviceUI, theme } = useStyler();
     const [crrPage, setCrrPage] = useState<Page>("etda");
     const messages = useScreenMessage();
 
     const styles = useModifyModal().toplevel;
+
+    const handleModifyEtda = () => {
+        console.log("Hi!");
+    };
+
+    const handleModifyInfo = () => {
+        console.log("Hello!");
+    };
 
     useEffect(() => {
         return () => {
@@ -71,9 +122,15 @@ export default function ModifyEtdaModal({ modalVisible, setModalVisible }: Modif
                 setModalVisible(false);
                 setCrrPage("etda");
             }}
-            rightOnPress={() => {}}>
+            rightOnPress={() => {
+                crrPage === "etda" ? handleModifyEtda() : handleModifyInfo();
+            }}>
             <View style={styles.contentContainer}>
-                {crrPage === "etda" ? <EtdaPage onToInfoPageBtnPress={() => setCrrPage("info")} /> : <InfoPage />}
+                {crrPage === "etda" ? (
+                    <EtdaPage onToInfoPageBtnPress={() => setCrrPage("info")} />
+                ) : (
+                    <InfoPage initialVehicleInfo={initialVehicleInfo} />
+                )}
             </View>
         </StardustAlert>
     );

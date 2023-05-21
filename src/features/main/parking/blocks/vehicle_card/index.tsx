@@ -16,9 +16,7 @@ import PageIndicators from "../../../../common/blocks/page_indicator";
 import Icon from "../../../../common/atoms/icon";
 import { useNavigation } from "@react-navigation/native";
 import { RouterParams } from "../../../../common/router/types";
-import StardustAlert from "../../../../common/blocks/universial/stardust_alert";
-import EtdaTimePicker from "../etad_time_picker";
-import ModifyEtdaModal from "../modify_etda_modal";
+import VehicleModifyModal from "../modify_modal";
 
 function VehicleCard({ vehicle, cardWidth }: VehicleCardProps) {
     const { deviceUI, theme } = useStyler();
@@ -80,7 +78,11 @@ function VehicleCard({ vehicle, cardWidth }: VehicleCardProps) {
             {cardData.map((datum, index) => (
                 <CardRow key={index} rowKey={datum.rowKey} rowValue={datum.rowValue} />
             ))}
-            <ModifyEtdaModal modalVisible={deleteAlertVisible} setModalVisible={setDeleteAlertVisible} />
+            <VehicleModifyModal
+                initialVehicleInfo={vehicle}
+                modalVisible={deleteAlertVisible}
+                setModalVisible={setDeleteAlertVisible}
+            />
         </TouchableOpacity>
     );
 }

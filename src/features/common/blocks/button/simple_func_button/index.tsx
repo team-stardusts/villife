@@ -42,7 +42,14 @@ export default function SimpleFuncButton({ icon, title, titleStyle, onPress }: S
                 if (onPress !== undefined) onPress(event);
             }}>
             {icon && <Icon name={icon.name} size={icon.size} color={theme.colorFamily.white} />}
-            <Text style={titleStyle ?? styles.title}>{title}</Text>
+            <Text
+                style={titleStyle ?? styles.title}
+                ellipsizeMode="tail"
+                minimumFontScale={0.5}
+                maxFontSizeMultiplier={1}
+                adjustsFontSizeToFit={true}>
+                {title}
+            </Text>
         </TouchableOpacity>
     );
 }
