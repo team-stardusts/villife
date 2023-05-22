@@ -27,8 +27,7 @@ export default function useReplyInputStyle(): RelplyInputStylesType {
             borderRadius: deviceUI.moderateScale(8),
         },
         replyTextInput: {
-            minheight: deviceUI.moderateScale(10),
-            width: "80%",
+            width: "75%",
             fontFamily: theme.font.fontFamilies.pretendard.bold,
         },
         replyImageIconSize: {
@@ -45,6 +44,11 @@ export default function useReplyInputStyle(): RelplyInputStylesType {
             borderLeftWidth: deviceUI.moderateScale(1),
             height: "80%",
             width: deviceUI.moderateScale(1),
+        },
+        replySubmitText: {
+            color: theme.colorFamily.black,
+            fontFamily: theme.font.fontFamilies.pretendard.regular,
+            fontSize: deviceUI.moderateScale(10),
         },
     });
     return Style;

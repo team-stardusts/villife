@@ -5,6 +5,7 @@ import {
     DeleteComplaintParams,
     GetBuildingComplaintsParams,
     GetComplaintsResult,
+    GetRepliesResult,
     GetUserComplaintsParams,
     UpdateComplaintParams,
 } from "../../../../libs/rest_apis/villife/complaint/types";
@@ -14,10 +15,22 @@ export type ComplaintInfo = Complaint;
 
 export interface IComplaintService {
     UploadAndInsertImage(ref: React.RefObject<RichEditor>): Promise<void | Error>;
-    RegisterComplaint(content: string, title: string): Promise<Response<string>>;
-    UpdateComplaint(params: UpdateComplaintParams): Promise<Response<string>>;
-    GetBuildingComplaints(params: GetBuildingComplaintsParams): Promise<Response<GetComplaintsResult>>;
-    GetUserComplaints(params: GetUserComplaintsParams): Promise<Response<GetComplaintsResult>>;
-    DeleteComplaint(params: DeleteComplaintParams): Promise<Response<string>>;
+    RegisterComplaint(content: string, title: string): Response<string>
+    UpdateComplaint(params: UpdateComplaintParams): Response<string>
+    GetBuildingComplaints(params: GetBuildingComplaintsParams): Response<GetComplaintsResult>
+    GetUserComplaints(params: GetUserComplaintsParams): Response<GetComplaintsResult>
+    DeleteComplaint(params: DeleteComplaintParams): Response<string>
     PickAndUploadImage(): Promise<MediaUploadResult>;
+    CreateReply(complaintID: number, content: string, imageUris: Array<string>): Response<string>
+    UpdateReply(replyID: number, content: string, imageUris: Array<string>): Response<string>
+    GetReplies(complaintID: number): Response<GetRepliesResult>;
+    DeleteReply(replyID: number): Response<string>
 }
+
+export type Reply = {
+    id: number;
+    writer_name: string;
+    content: string;
+    image_uris: Array<string>;
+    writted_at: string;
+};

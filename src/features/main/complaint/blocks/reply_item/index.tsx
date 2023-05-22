@@ -3,9 +3,18 @@ import useComplaintRegisterButtonStyle from "./style";
 import { ComplaintReplyItemProps } from "./type";
 import { IconPerson } from "../../../../common/atoms/icon/human";
 import IconMoreHorizontal from "../../../../common/atoms/icon/more_horizontal";
+import React from "react";
 
 function ComplaintReplyItem(props: ComplaintReplyItemProps) {
     const styles = useComplaintRegisterButtonStyle();
+    const [sanitizedURIs, setSanitizedURIs] = React.useState<Array<string>>([]);
+
+    React.useEffect(() => {
+        const appropriateURIs = props.data.image_uris.split(",").filter((uri) => {
+            return uri != "";
+        });
+        setSanitizedURIs(appropriateURIs);
+    }, []);
     return (
         <View style={styles.container}>
             <View style={styles.profile}>
@@ -15,7 +24,7 @@ function ComplaintReplyItem(props: ComplaintReplyItemProps) {
                 <Text style={styles.contentText}>{props.data.content}</Text>
                 <FlatList
                     horizontal
-                    data={props.data.imageUris}
+                    data={sanitizedURIs}
                     showsHorizontalScrollIndicator={false}
                     keyExtractor={(index, item) => {
                         return item.toString();
@@ -38,9 +47,9 @@ function ComplaintReplyItem(props: ComplaintReplyItemProps) {
                 />
 
                 <View style={styles.infoSection}>
-                    <Text style={styles.writterText}>{props.data.writterName}</Text>
+                    <Text style={styles.writterText}>{props.data.writer_name}</Text>
                     <View style={styles.verticalLine} />
-                    <Text style={styles.writterText}>{props.data.writtedAt}</Text>
+                    <Text style={styles.writterText}>{props.data.writted_at}</Text>
                 </View>
             </View>
             <Pressable>

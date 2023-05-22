@@ -4,6 +4,7 @@ import VillifeStorage from "../../../../libs/storage";
 import {
     GetBuildingComplaintsParams,
     GetComplaintsResult,
+    GetRepliesResult,
     GetUserComplaintsParams,
     IVillifeComplaintRestClient,
     UpdateComplaintParams,
@@ -48,25 +49,48 @@ class ComplaintService implements IComplaintService {
         }
     }
 
-    async RegisterComplaint(content: string, title: string): Promise<Response<string>> {
+    async RegisterComplaint(content: string, title: string): Response<string> {
         const result = await this.mApi.CreateComplaint({ content: content, title: title });
         if (result.isSuccessful) VillifeToastMessage.showBottomToast("success", "민원 등록이 완료 되었어요!");
         else VillifeToastMessage.showBottomToast("error", "죄송합니다,민원 등록에 실패했어요");
         return result;
     }
-    async UpdateComplaint(params: UpdateComplaintParams): Promise<Response<string>> {
+    async UpdateComplaint(params: UpdateComplaintParams): Response<string> {
         const result = await this.mApi.UpdateComplaint(params);
         if (result.isSuccessful) VillifeToastMessage.showBottomToast("success", "민원 등록이 완료 되었어요!");
         else VillifeToastMessage.showBottomToast("error", "죄송합니다,민원 등록에 실패했어요");
         return result;
     }
-    async GetBuildingComplaints(params: GetBuildingComplaintsParams): Promise<Response<GetComplaintsResult>> {
+    async GetBuildingComplaints(params: GetBuildingComplaintsParams): Response<GetComplaintsResult> {
         return await this.mApi.GetBuildingComplaints(params);
     }
-    async GetUserComplaints(params: GetUserComplaintsParams): Promise<Response<GetComplaintsResult>> {
+    async GetUserComplaints(params: GetUserComplaintsParams): Response<GetComplaintsResult> {
         return await this.mApi.GetUserComplaints(params);
     }
-    async DeleteComplaint(params: DeleteComplaintParams): Promise<Response<string>> {
+    async DeleteComplaint(params: DeleteComplaintParams): Response<string> {
         return await this.mApi.DeleteComplaint(params);
+    }
+
+    async CreateReply(complaintID: number, content: string, imageUris: Array<string>): Response<string> {
+        return await this.mApi.CreateReply({
+            complaint_id: complaintID,
+            content: content,
+            image_uris: imageUris,
+        });
+    }
+    async UpdateReply(replyID: number, content: string, imageUris: Array<string>): Response<string> {
+        return await this.mApi.UpdateReply({
+            reply_id: replyID,
+            content: content,
+            image_uris: imageUris,
+        });
+    }
+
+    async GetReplies(complaintID: number): Response<GetRepliesResult> {
+        return this.mApi.GetReplies(complaintID);
+    }
+
+    async DeleteReply(replyID: number): Response<string> {
+        return this.mApi.DeleteReply(replyID);
     }
 }

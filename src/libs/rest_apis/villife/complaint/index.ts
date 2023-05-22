@@ -1,6 +1,6 @@
 import { Response } from "../../types";
 import AVillifeServerModule from "../absc";
-import { CreateReplyReqParams, GetBuildingComplaintsParams, UpdateReplyReqParams } from "./types";
+import { CreateReplyReqParams, GetBuildingComplaintsParams, GetRepliesResult, UpdateReplyReqParams } from "./types";
 import {
     CreateComplaintParams,
     DeleteComplaintParams,
@@ -60,18 +60,27 @@ class VillifeComplaintRestClient extends AVillifeServerModule implements IVillif
     async CreateReply(params: CreateReplyReqParams): Response<string> {
         let route: string = this.routes.reply;
 
+        var stringUris = "";
+        params.image_uris.map((uri) => {
+            stringUris += `${uri},`;
+        });
+        const convertedParams = {
+            complaint_id: params.complaint_id,
+            content: params.content,
+            image_uris: stringUris,
+        };
         return await this.requestAuthable<any, string>({
             method: "post",
             url: route,
-            data: params,
+            data: convertedParams,
         });
     }
 
-    async GetReplies(complaintID: number): Response<string> {
+    async GetReplies(complaintID: number): Response<GetRepliesResult> {
         const query = `?complaint_id=${complaintID}`;
         let route: string = this.routes.reply + query;
 
-        return await this.requestAuthable<any, string>({
+        return await this.requestAuthable<any, GetRepliesResult>({
             method: "get",
             url: route,
         });
@@ -80,10 +89,19 @@ class VillifeComplaintRestClient extends AVillifeServerModule implements IVillif
     async UpdateReply(params: UpdateReplyReqParams): Response<string> {
         let route: string = this.routes.reply;
 
+        var stringUris = "";
+        params.image_uris.map((uri) => {
+            stringUris += `${uri},`;
+        });
+        const convertedParams = {
+            reply_id: params.reply_id,
+            content: params.content,
+            image_uris: stringUris,
+        };
         return await this.requestAuthable<any, string>({
             method: "patch",
             url: route,
-            data: params,
+            data: convertedParams,
         });
     }
 

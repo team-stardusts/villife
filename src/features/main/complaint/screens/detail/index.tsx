@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
 import NavigationView from "../../../../common/blocks/navigation";
 import ComplaintDetailScreenProps from "./type";
@@ -13,6 +13,8 @@ import IconBuilding from "../../../../common/atoms/icon/building";
 import { IconPerson } from "../../../../common/atoms/icon/human";
 import ComplaintReplyItem from "../../blocks/reply_item";
 import ReplyInputSection from "../../blocks/reply_input";
+import useComplaintService from "../../services";
+import { GetRepliesResult } from "../../../../../libs/rest_apis/villife/complaint/types";
 
 export default function ComplaintDetailScreen({ navigation, route }: ComplaintDetailScreenProps) {
     const messages = useScreenMessage();
@@ -20,6 +22,16 @@ export default function ComplaintDetailScreen({ navigation, route }: ComplaintDe
     const content = useRef(route.params.content);
     const title = useRef(route.params.title);
     const userInfo = useUserInfoService();
+    const [replies, setReplies] = useState<GetRepliesResult>([]);
+    const service = useComplaintService();
+
+    useEffect(() => {
+        service.GetReplies(route.params.id).then((r) => {
+            const resData = r.data?.data as GetRepliesResult;
+            setReplies(resData);
+        });
+        // event listener 등록 필요
+    }, []);
 
     return (
         <NavigationView
@@ -76,7 +88,7 @@ export default function ComplaintDetailScreen({ navigation, route }: ComplaintDe
                 <View>
                     <Text style={styles.replyTitle}>답글</Text>
                     <View style={styles.horizontalLine}></View>
-                    {sampleReply.map((reply, inedx) => {
+                    {replies.map((reply, inedx) => {
                         return (
                             <View style={styles.replyItem}>
                                 <ComplaintReplyItem data={reply} />

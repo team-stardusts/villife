@@ -100,7 +100,7 @@ export default function ComplaintHomeScreen({ navigation, route }: ComplaintHome
 
 const sampleData: Array<ComplaintInfo> = [
     {
-        id: 1,
+        id: 6,
         title: "세탁기가 고장났어요",
         content:
             "<div>세탁기가 고장나서 매우 불편합니다. 고쳐주세요!</div> </br> <div> 3일전부터 안되기 시작했고 사진 첨부합니다. </div><div>세탁기가 고장나서 매우 불편합니다. 고쳐주세요!</div> </br> <div> 3일전부터 안되기 시작했고 사진 첨부합니다. </div><div>세탁기가 고장나서 매우 불편합니다. 고쳐주세요!</div> </br> <div> 3일전부터 안되기 시작했고 사진 첨부합니다. </div><div>세탁기가 고장나서 매우 불편합니다. 고쳐주세요!</div> </br> <div> 3일전부터 안되기 시작했고 사진 첨부합니다. </div><div>세탁기가 고장나서 매우 불편합니다. 고쳐주세요!</div> </br> <div> 3일전부터 안되기 시작했고 사진 첨부합니다. </div><div>세탁기가 고장나서 매우 불편합니다. 고쳐주세요!</div> </br> <div> 3일전부터 안되기 시작했고 사진 첨부합니다. </div> <br/> <br/> <br/>  <br/> <br/> <br/> <br/> <br/> <br/>",
