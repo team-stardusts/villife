@@ -23,6 +23,10 @@ const routes: RoutesType = {
     reply: "complaint/reply",
     //user info
     getUserBasicInfo: "user/basicinfo",
+    //approval
+    getUserApprovals: "approval/get/list",
+    acceptUserApproval: "approval/accept",
+    rejectUserApproval: "approval/reject",
     //@deprecated for test
     testUserResidenceValidation: "approval/test/user-resi-validation",
 } as const;

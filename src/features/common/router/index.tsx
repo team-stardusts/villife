@@ -29,6 +29,7 @@ import ComplaintRegisterScreen from "../../main/complaint/screens/register";
 import ApprovalHomeScreen from "../../main/approval/screens/home";
 import ComplaintDetailScreen from "../../main/complaint/screens/detail";
 import RegisterVehicleScreen from "../../main/parking/screens/register_vehicle";
+import MyPageHomeScreen from "../../main/mypage/screens/home";
 
 enableScreens(true);
 
@@ -121,6 +122,7 @@ export default function ScreenRouter() {
             <Stack.Group>
                 <Stack.Screen name={"payment"} component={PaymentScreen} />
                 <Stack.Screen name={"mypage"} component={MyPageScreen} />
+                <Stack.Screen name={"my_page"} component={MyPageHomeScreen} />
             </Stack.Group>
             <Stack.Group>
                 <Stack.Screen name={"complaint"} component={ComplaintHomeScreen} />

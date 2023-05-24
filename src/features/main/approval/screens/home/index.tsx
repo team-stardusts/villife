@@ -1,10 +1,9 @@
-import NoticeHomeScreenProps from "./type";
 import { SafeAreaView } from "react-native-safe-area-context";
 import React from "react";
 import NavigationView from "../../../../common/blocks/navigation";
 import useApprovalHomeScreenStyles from "./style";
 import ApprovaleHomeScreenProps from "./type";
-import FlatListOutlinedContentsBox from "../../../noti/blocks/outlined_box_list";
+import FlatListOutlinedContentsBox from "../../blocks/outlined_box_list";
 
 export default function ApprovalHomeScreen(props: ApprovaleHomeScreenProps) {
     const styles = useApprovalHomeScreenStyles();

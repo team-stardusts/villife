@@ -21,6 +21,10 @@ export type RoutesType = {
     reply: string;
     //user info
     getUserBasicInfo: string;
+    //approval
+    getUserApprovals: string;
+    acceptUserApproval: string;
+    rejectUserApproval: string;
 
     //test api
     testUserResidenceValidation: string;
