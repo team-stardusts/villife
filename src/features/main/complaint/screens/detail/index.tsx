@@ -28,9 +28,10 @@ export default function ComplaintDetailScreen({ navigation, route }: ComplaintDe
     useEffect(() => {
         service.GetReplies(route.params.id).then((r) => {
             const resData = r.data?.data as GetRepliesResult;
+            if (resData == null || resData == undefined) return;
             setReplies(resData);
         });
-        // event listener 등록 필요
+        // list update 됐을때 리스너 달기
     }, []);
 
     return (
@@ -101,20 +102,3 @@ export default function ComplaintDetailScreen({ navigation, route }: ComplaintDe
         </NavigationView>
     );
 }
-
-const sampleReply = [
-    {
-        replyID: 1,
-        writterName: "김준우",
-        writtedAt: "2023-02-01",
-        content: "세탁기 주문 완료 했습니다. 3일뒤 배송 예정이에요!",
-        imageUris: ["uri", "2", "3", "4", "5", "6", "7"],
-    },
-    {
-        replyID: 2,
-        writterName: "김준우",
-        writtedAt: "2023-02-01",
-        content: "세탁기 주문 완료 했습니다. 3일뒤 배송 예정이에요!",
-        imageUris: ["uri", "2", "3", "4", "5", "6", "7"],
-    },
-];

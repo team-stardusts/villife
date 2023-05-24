@@ -50,6 +50,21 @@ export default function useReplyInputStyle(): RelplyInputStylesType {
             fontFamily: theme.font.fontFamilies.pretendard.regular,
             fontSize: deviceUI.moderateScale(10),
         },
+        modifyCancleButton: {
+            position: "absolute",
+            top: -deviceUI.moderateScale(33),
+            right: deviceUI.moderateScale(3),
+            width: deviceUI.moderateScale(70),
+            height: deviceUI.moderateScale(30),
+            backgroundColor: theme.colorFamily.red,
+            justifyContent: "center",
+            alignItems: "center",
+            borderRadius: deviceUI.moderateScale(10),
+        },
+        modifyCancleButtonText: {
+            fontFamily: theme.font.fontFamilies.pretendard.bold,
+            color: theme.colorFamily.black,
+        },
     });
     return Style;
 }

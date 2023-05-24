@@ -7,6 +7,8 @@ import React, { useEffect } from "react";
 import useComplaintService from "../../services";
 import VillifeToastMessage from "../../../../common/atoms/toast";
 import { Toast } from "react-native-toast-message/lib/src/Toast";
+import { ComplaintReplyModificationEventListener } from "../../services/event";
+import { Reply } from "../../services/type";
 
 function ReplyInputSection(props: RelpyInputProps) {
     const keyboardHeight = useOnKeyboardEvent({});
@@ -14,13 +16,23 @@ function ReplyInputSection(props: RelpyInputProps) {
     const [imageUris, setImageUris] = React.useState<Array<string>>([]);
     const [replyContent, setReplyContent] = React.useState<string>("");
     const [isLoading, setIsLoading] = React.useState(false);
+    const [modifyMode, setModifyMode] = React.useState(false);
+    const replyWhenModify = React.useRef<Reply>();
     const service = useComplaintService();
 
     useEffect(() => {
-        if (props.whenModify) {
-            setImageUris(props.whenModify.imageUris);
-            setReplyContent(props.whenModify.content);
-        }
+        const listener = new ComplaintReplyModificationEventListener();
+        listener.subscribe((reply) => {
+            replyWhenModify.current = reply;
+            setImageUris(replyWhenModify.current.image_uris);
+            setReplyContent(replyWhenModify.current.content);
+            setModifyMode(true);
+        });
+
+        return () => {
+            listener.unsubscribe();
+            replyWhenModify.current = undefined;
+        };
     }, []);
 
     const onPressImageIcon = async () => {
@@ -33,12 +45,23 @@ function ReplyInputSection(props: RelpyInputProps) {
         }
     };
 
+    const clearReplyInformation = () => {
+        setReplyContent("");
+        setImageUris([]);
+        setModifyMode(false);
+        setIsLoading(false);
+        replyWhenModify.current = undefined;
+    };
+
     const onPressSubmitButton = async () => {
         setIsLoading(true);
-        if (props.whenModify) {
-            const res = await service.UpdateReply(props.whenModify.replyID, replyContent, imageUris);
-            return setIsLoading(false);
+
+        if (modifyMode) {
+            // when this distribution ends
+
+            return clearReplyInformation();
         }
+
         const res = await service.CreateReply(props.complaintID, replyContent, imageUris);
         if (replyContent == "") {
             VillifeToastMessage.showBottomToast("error", "댓글을 입력해 주세요");
@@ -65,16 +88,34 @@ function ReplyInputSection(props: RelpyInputProps) {
                             return <ActivityIndicator />;
                         }
                         return (
-                            <Image
-                                key={uri}
-                                style={{
-                                    margin: styles.image.margin,
-                                    width: styles.image.width,
-                                    height: styles.image.width,
-                                    borderRadius: styles.image.borderRadius,
-                                }}
-                                source={{ uri: uri }}
-                            />
+                            <Pressable
+                                onPress={() => {
+                                    if (modifyMode) {
+                                        setImageUris(
+                                            imageUris.filter((cUri) => {
+                                                return cUri != uri;
+                                            })
+                                        );
+                                    }
+                                }}>
+                                <Image
+                                    key={uri}
+                                    style={{
+                                        margin: styles.image.margin,
+                                        width: styles.image.width,
+                                        height: styles.image.width,
+                                        borderRadius: styles.image.borderRadius,
+                                    }}
+                                    source={{ uri: uri }}
+                                />
+                                {modifyMode ? (
+                                    <View style={{ position: "absolute", top: 0 }}>
+                                        <Text>취소</Text>
+                                    </View>
+                                ) : (
+                                    <></>
+                                )}
+                            </Pressable>
                         );
                     })}
                 </View>
@@ -108,10 +149,21 @@ function ReplyInputSection(props: RelpyInputProps) {
                         onPress={() => {
                             onPressSubmitButton();
                         }}>
-                        <Text>{props.whenModify ? "수정" : "등록"}</Text>
+                        <Text>{modifyMode ? "수정" : "등록"}</Text>
                     </TouchableOpacity>
                 )}
             </View>
+            {modifyMode ? (
+                <TouchableOpacity
+                    onPress={() => {
+                        clearReplyInformation();
+                    }}
+                    style={styles.modifyCancleButton}>
+                    <Text style={styles.modifyCancleButtonText}>취소</Text>
+                </TouchableOpacity>
+            ) : (
+                <></>
+            )}
         </View>
     );
 }
