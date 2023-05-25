@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, FlatList } from "react-native";
+import { View, Text, TouchableOpacity, FlatList, Pressable } from "react-native";
 import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
 import NavigationView from "../../../../common/blocks/navigation";
 import ComplaintHomeScreenProps from "./types";
@@ -57,13 +57,13 @@ export default function ComplaintHomeScreen({ navigation, route }: ComplaintHome
                     data={sampleData}
                     renderItem={(info) => {
                         return (
-                            <TouchableOpacity
+                            <Pressable
                                 onPress={() => {
                                     navigation.navigate("complaint_detail", info.item);
                                 }}
                                 style={{ marginVertical: 2 }}>
                                 <ComplaintContentCard info={info.item} />
-                            </TouchableOpacity>
+                            </Pressable>
                         );
                     }}
                 />

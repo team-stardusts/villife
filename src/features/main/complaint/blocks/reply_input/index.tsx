@@ -1,4 +1,4 @@
-import { ActivityIndicator, Image, Pressable, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { ActivityIndicator, Image, Pressable, Text, TextInput, TouchableOpacity, View } from "react-native";
 import useOnKeyboardEvent from "../../../../common/hooks/keyboard";
 import IconImage from "../../../../common/atoms/icon/image";
 import useReplyInputStyle from "./style";
@@ -6,7 +6,6 @@ import { RelpyInputProps } from "./type";
 import React, { useEffect } from "react";
 import useComplaintService from "../../services";
 import VillifeToastMessage from "../../../../common/atoms/toast";
-import { Toast } from "react-native-toast-message/lib/src/Toast";
 import { ComplaintEventEmitter, ComplaintReplyModificationEventListener } from "../../services/event";
 import { Reply } from "../../services/type";
 import IconXButton from "../../../../common/atoms/icon/x_button";
@@ -64,6 +63,7 @@ function ReplyInputSection(props: RelpyInputProps) {
 
             if (result.isSuccessful) {
                 new ComplaintEventEmitter().emitListUpdatedEvent();
+                
                 return clearReplyInformation();
             }
             VillifeToastMessage.showBottomToast("error", "답글 수정에 실패하였습니다.");
@@ -80,6 +80,7 @@ function ReplyInputSection(props: RelpyInputProps) {
             VillifeToastMessage.showBottomToast("success", "답글이 등록 되었습니다.");
             setImageUris([]);
             setReplyContent("");
+            new ComplaintEventEmitter().emitListUpdatedEvent();
             return setIsLoading(false);
         }
 

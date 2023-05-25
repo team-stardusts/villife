@@ -3,7 +3,7 @@ import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
 import NavigationView from "../../../../common/blocks/navigation";
 import ComplaintDetailScreenProps from "./type";
 import useComplaintDetailSecreenStyle from "./style";
-import { ScrollView, Text, TextInput, View } from "react-native";
+import { Keyboard, LayoutAnimation, ScrollView, Text, TextInput, View } from "react-native";
 import React from "react";
 import RemoteCSS from "../../../../../libs/themes/remote_css";
 import AutoHeightWebView from "react-native-autoheight-webview";
@@ -27,6 +27,7 @@ export default function ComplaintDetailScreen({ navigation, route }: ComplaintDe
     const service = useComplaintService();
 
     useEffect(() => {
+        LayoutAnimation.configureNext(LayoutAnimation.Presets.spring);
         service.GetReplies(route.params.id).then((r) => {
             const resData = r.data?.data as GetRepliesResult;
             if (resData == null || resData == undefined) return;
@@ -42,6 +43,7 @@ export default function ComplaintDetailScreen({ navigation, route }: ComplaintDe
                 if (resData == null || resData == undefined) return;
                 setReplies([...resData]);
             });
+            Keyboard.dismiss();
         });
 
         return () => {
@@ -101,17 +103,21 @@ export default function ComplaintDetailScreen({ navigation, route }: ComplaintDe
                     source={{ html: content.current }}
                     scalesPageToFit={false}
                     viewportContent={"width=device-width, user-scalable=no"}></AutoHeightWebView>
-                <View>
-                    <Text style={styles.replyTitle}>답글</Text>
-                    <View style={styles.horizontalLine}></View>
-                    {replies.map((reply, inedx) => {
-                        return (
-                            <View key={reply.id} style={styles.replyItem}>
-                                <ComplaintReplyItem data={reply} />
-                            </View>
-                        );
-                    })}
-                </View>
+                {replies.length > 0 ? (
+                    <View>
+                        <Text style={styles.replyTitle}>답글</Text>
+                        <View style={styles.horizontalLine}></View>
+                        {replies.map((reply, inedx) => {
+                            return (
+                                <View key={reply.id} style={styles.replyItem}>
+                                    <ComplaintReplyItem data={reply} />
+                                </View>
+                            );
+                        })}
+                    </View>
+                ) : (
+                    <></>
+                )}
             </ScrollView>
             <ReplyInputSection complaintID={route.params.id} />
         </NavigationView>
