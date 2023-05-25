@@ -15,6 +15,7 @@ import ComplaintReplyItem from "../../blocks/reply_item";
 import ReplyInputSection from "../../blocks/reply_input";
 import useComplaintService from "../../services";
 import { GetRepliesResult } from "../../../../../libs/rest_apis/villife/complaint/types";
+import { ComplaintListUpatedEventListener } from "../../services/event";
 
 export default function ComplaintDetailScreen({ navigation, route }: ComplaintDetailScreenProps) {
     const messages = useScreenMessage();
@@ -29,9 +30,23 @@ export default function ComplaintDetailScreen({ navigation, route }: ComplaintDe
         service.GetReplies(route.params.id).then((r) => {
             const resData = r.data?.data as GetRepliesResult;
             if (resData == null || resData == undefined) return;
-            setReplies(resData);
+            setReplies([...resData]);
         });
-        // list update 됐을때 리스너 달기
+
+        const listener = new ComplaintListUpatedEventListener();
+        listener.subscribe(() => {
+            console.log("이벤트 수신");
+            service.GetReplies(route.params.id).then((r) => {
+                const resData = r.data?.data as GetRepliesResult;
+                console.log(resData);
+                if (resData == null || resData == undefined) return;
+                setReplies([...resData]);
+            });
+        });
+
+        return () => {
+            listener.unsubscribe();
+        };
     }, []);
 
     return (
@@ -91,7 +106,7 @@ export default function ComplaintDetailScreen({ navigation, route }: ComplaintDe
                     <View style={styles.horizontalLine}></View>
                     {replies.map((reply, inedx) => {
                         return (
-                            <View style={styles.replyItem}>
+                            <View key={reply.id} style={styles.replyItem}>
                                 <ComplaintReplyItem data={reply} />
                             </View>
                         );

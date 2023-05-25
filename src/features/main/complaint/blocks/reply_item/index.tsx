@@ -4,23 +4,24 @@ import { ComplaintReplyItemProps } from "./type";
 import { IconPerson } from "../../../../common/atoms/icon/human";
 import IconMoreHorizontal from "../../../../common/atoms/icon/more_horizontal";
 import React from "react";
-import ComplaintBottomEditModal from "../bottom_edit_modal";
+import ComplaintReplyEditModal from "../bottom_edit_modal";
 
 function ComplaintReplyItem(props: ComplaintReplyItemProps) {
     const styles = useComplaintRegisterButtonStyle();
     const [sanitizedURIs, setSanitizedURIs] = React.useState<Array<string>>([]);
-
     const [editModalVisible, setEditModalVisible] = React.useState(false);
 
     React.useEffect(() => {
         const appropriateURIs = props.data.image_uris.split(",").filter((uri) => {
             return uri != "";
         });
+        console.log(`reply item has rendered , ${props.data.image_uris}`);
         setSanitizedURIs(appropriateURIs);
-    }, []);
+    }, [props.data.writted_at]);
+
     return (
         <View style={styles.container}>
-            <ComplaintBottomEditModal
+            <ComplaintReplyEditModal
                 visible={editModalVisible}
                 setVisible={setEditModalVisible}
                 replyInfo={{
@@ -63,7 +64,7 @@ function ComplaintReplyItem(props: ComplaintReplyItemProps) {
                 <View style={styles.infoSection}>
                     <Text style={styles.writterText}>{props.data.writer_name}</Text>
                     <View style={styles.verticalLine} />
-                    <Text style={styles.writterText}>{props.data.writted_at}</Text>
+                    <Text style={styles.writterText}>{props.data.writted_at.substring(0, 16)}</Text>
                 </View>
             </View>
             <Pressable onPress={() => setEditModalVisible(!editModalVisible)}>

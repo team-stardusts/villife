@@ -7,8 +7,9 @@ import React, { useEffect } from "react";
 import useComplaintService from "../../services";
 import VillifeToastMessage from "../../../../common/atoms/toast";
 import { Toast } from "react-native-toast-message/lib/src/Toast";
-import { ComplaintReplyModificationEventListener } from "../../services/event";
+import { ComplaintEventEmitter, ComplaintReplyModificationEventListener } from "../../services/event";
 import { Reply } from "../../services/type";
+import IconXButton from "../../../../common/atoms/icon/x_button";
 
 function ReplyInputSection(props: RelpyInputProps) {
     const keyboardHeight = useOnKeyboardEvent({});
@@ -58,8 +59,15 @@ function ReplyInputSection(props: RelpyInputProps) {
 
         if (modifyMode) {
             // when this distribution ends
+            if (!replyWhenModify.current?.id) return;
+            const result = await service.UpdateReply(replyWhenModify.current.id, replyContent, imageUris);
 
-            return clearReplyInformation();
+            if (result.isSuccessful) {
+                new ComplaintEventEmitter().emitListUpdatedEvent();
+                return clearReplyInformation();
+            }
+            VillifeToastMessage.showBottomToast("error", "답글 수정에 실패하였습니다.");
+            return setIsLoading(false);
         }
 
         const res = await service.CreateReply(props.complaintID, replyContent, imageUris);
@@ -89,6 +97,7 @@ function ReplyInputSection(props: RelpyInputProps) {
                         }
                         return (
                             <Pressable
+                                key={uri}
                                 onPress={() => {
                                     if (modifyMode) {
                                         setImageUris(
@@ -109,8 +118,8 @@ function ReplyInputSection(props: RelpyInputProps) {
                                     source={{ uri: uri }}
                                 />
                                 {modifyMode ? (
-                                    <View style={{ position: "absolute", top: 0 }}>
-                                        <Text>취소</Text>
+                                    <View style={{ position: "absolute", top: 0, right: 0 }}>
+                                        <IconXButton size={40} />
                                     </View>
                                 ) : (
                                     <></>

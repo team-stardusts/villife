@@ -12,13 +12,15 @@ import StardustAlert from "../../../../common/blocks/universial/stardust_alert";
 import ReplyEditModalProps from "./type";
 import useBottomEditModalStyles from "./style";
 import { ComplaintEventEmitter } from "../../services/event";
+import useComplaintService from "../../services";
+import VillifeToastMessage from "../../../../common/atoms/toast";
 
-export default function ComplaintBottomEditModal(props: ReplyEditModalProps) {
+export default function ComplaintReplyEditModal(props: ReplyEditModalProps) {
     const styles = useBottomEditModalStyles();
 
     const screenSize = Dimensions.get("window");
-    const navigation = useNavigation<VillifeNavigation>();
     const [deleteAlertVisible, setDeleteAlertVisible] = React.useState(false);
+    const service = useComplaintService();
 
     React.useEffect(() => {
         if (!props.visible) setDeleteAlertVisible(false);
@@ -27,8 +29,20 @@ export default function ComplaintBottomEditModal(props: ReplyEditModalProps) {
     const onModifyButtonPress = async () => {
         const emitter = new ComplaintEventEmitter();
         emitter.emitReplyModificationEvent(props.replyInfo);
+        props.setVisible(false);
     };
-    const onDeleteButtonPress = async () => {};
+    const onDeleteButtonPress = async () => {
+        const result = await service.DeleteReply(props.replyInfo.id);
+        if (!result.isSuccessful) {
+            VillifeToastMessage.showBottomToast("error", "답글 삭제에 실패했습니다");
+            setDeleteAlertVisible(false);
+            return props.setVisible(false);
+        }
+        const emitter = new ComplaintEventEmitter();
+        emitter.emitListUpdatedEvent();
+        setDeleteAlertVisible(false);
+        props.setVisible(false);
+    };
 
     return (
         <BottomSlidableModal
