@@ -99,16 +99,23 @@ function ReplyInputSection(props: RelpyInputProps) {
                             <Pressable
                                 key={uri}
                                 onPress={() => {
-                                    if (modifyMode) {
+                                    /*  if (modifyMode) {
                                         setImageUris(
                                             imageUris.filter((cUri) => {
                                                 return cUri != uri;
                                             })
                                         );
-                                    }
+                                    } */
+                                    setImageUris(
+                                        imageUris.filter((cUri) => {
+                                            return cUri != uri;
+                                        })
+                                    );
                                 }}>
                                 <Image
                                     key={uri}
+                                    onLoadStart={() => {}}
+                                    onLoadEnd={() => {}}
                                     style={{
                                         margin: styles.image.margin,
                                         width: styles.image.width,
@@ -117,13 +124,16 @@ function ReplyInputSection(props: RelpyInputProps) {
                                     }}
                                     source={{ uri: uri }}
                                 />
-                                {modifyMode ? (
+                                {/* {modifyMode ? (
                                     <View style={{ position: "absolute", top: 0, right: 0 }}>
                                         <IconXButton size={40} />
                                     </View>
                                 ) : (
                                     <></>
-                                )}
+                                )} */}
+                                <View style={{ position: "absolute", top: 0, right: 0 }}>
+                                    <IconXButton size={40} />
+                                </View>
                             </Pressable>
                         );
                     })}
