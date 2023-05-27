@@ -52,6 +52,7 @@ class NoticeService implements INoticeService {
             new NoticeEventEmitter().emitListUpdatedEvent();
             VillifeToastMessage.showBottomToast("success", "공지사항 등록이 완료 되었어요!");
         } else VillifeToastMessage.showBottomToast("error", "죄송합니다,공지사항 등록에 실패했어요");
+        console.log(result);
         return result;
     }
 

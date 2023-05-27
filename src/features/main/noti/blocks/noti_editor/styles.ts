@@ -1,7 +1,10 @@
 import { StyleSheet } from "react-native";
 import { UseNotiEditorStylesType } from "./type";
+import useStyler from "../../../../common/hooks/styler/hooks";
 
 export default function useNotiEditorStyles(): UseNotiEditorStylesType {
+    const { deviceUI, theme } = useStyler();
+
     return StyleSheet.create({
         rich: {
             flex: 1,
@@ -11,7 +14,7 @@ export default function useNotiEditorStyles(): UseNotiEditorStylesType {
         },
         title: {
             fontSize: 30,
-            marginLeft: "3%",
+            marginLeft: deviceUI.moderateScale(10),
             fontFamily: "Pretendard-Bold",
         },
         contentStyle: {

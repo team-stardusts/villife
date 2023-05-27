@@ -73,27 +73,26 @@ function OutlinedBox(props: OutlinedBoxProps) {
                             <Text style={[]}>{props.wroteAt}</Text>
                         </View>
                         <View style={OutlinedBoxStyle.absoluteWrapper}>
-                            <PressableVectorIcon
-                                onPress={() => {
-                                    onPress();
-                                }}
-                                providerName={unfold ? "up" : "down"}
-                                diameter={30}
-                            />
+                            <View style={{ flexDirection: "row" }}>
+                                {unfold && (
+                                    <TouchableOpacity
+                                        style={OutlinedBoxStyle.editButton}
+                                        onPress={() => {
+                                            setEditModalVisible(true);
+                                        }}>
+                                        <EditIcon color="#000000" diameter={20} />
+                                    </TouchableOpacity>
+                                )}
+                                <PressableVectorIcon
+                                    onPress={() => {
+                                        onPress();
+                                    }}
+                                    providerName={unfold ? "up" : "down"}
+                                    diameter={30}
+                                />
+                            </View>
                         </View>
                     </View>
-                    {unfold && (
-                        <View style={[OutlinedBoxStyle.editButtonContainer, { top: size.height * 0.09 }]}>
-                            <TouchableOpacity
-                                onPress={() => {
-                                    setEditModalVisible(true);
-                                }}
-                                style={OutlinedBoxStyle.editButton}>
-                                <EditIcon color="#2778D7" diameter={14} />
-                                <Text>편집하기</Text>
-                            </TouchableOpacity>
-                        </View>
-                    )}
 
                     {unfold && (
                         <WebView

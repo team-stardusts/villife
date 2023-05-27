@@ -32,11 +32,9 @@ const OutlinedBoxStyle = StyleSheet.create({
         right: "5%",
     },
     editButton: {
-        backgroundColor: "#DAEAFD",
-        flexDirection: "row",
+        marginRight: "10%",
         alignItems: "center",
-        padding: 3,
-        borderRadius: 10,
+        justifyContent: "center",
     },
     editModalContentContainer: {
         marginTop: "5%",

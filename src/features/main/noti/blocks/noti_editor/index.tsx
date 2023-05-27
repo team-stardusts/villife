@@ -59,7 +59,7 @@ export default function NotiEditor(props: NotiEditorProps) {
                     }}
                     editorStyle={Styles} // default light style
                     ref={richText}
-                    style={[Styles.rich, { height: keboardShow ? size.height * 0.46 : size.height * 0.79 }]}
+                    style={[Styles.rich, { height: keboardShow ? size.height * 0.46 : size.height * 0.75 }]}
                     useContainer={false}
                     enterKeyHint={"done"}
                     placeholder={"내용을 입력해주세요."}
