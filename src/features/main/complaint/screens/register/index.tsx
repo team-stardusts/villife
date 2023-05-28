@@ -8,6 +8,7 @@ import ComplaintReigsterButton from "../../blocks/register_button";
 import React from "react";
 import useComplaintService from "../../services";
 import VillifeToastMessage from "../../../../common/atoms/toast";
+import { ComplaintEventEmitter } from "../../services/event";
 
 export default function ComplaintRegisterScreen({ navigation, route }: ComplaintRegisterScreenProps) {
     const messages = useScreenMessage();
@@ -24,7 +25,10 @@ export default function ComplaintRegisterScreen({ navigation, route }: Complaint
         }
         setLoading(false);
         const result = await service.RegisterComplaint(content.current, title.current);
-        if (result.isSuccessful) navigation.goBack();
+        if (result.isSuccessful) {
+            new ComplaintEventEmitter().emitListUpdatedEvent();
+            navigation.goBack();
+        }
     };
 
     return (

@@ -24,6 +24,12 @@ export default function useComplaintDetailSecreenStyle(): ComplaintDetailScreenS
             marginBottom: deviceUI.moderateScale(15),
             marginLeft: leftMargin,
         },
+        titleSection: {
+            flexDirection: "row",
+            width: "100%",
+            alignItems: "center",
+            justifyContent: "space-between",
+        },
         title: {
             fontSize: deviceUI.moderateScale(24),
             fontFamily: theme.font.fontFamilies.pretendard.bold,
@@ -31,6 +37,16 @@ export default function useComplaintDetailSecreenStyle(): ComplaintDetailScreenS
             color: theme.colorFamily.black,
             marginTop: deviceUI.moderateScale(15),
             marginBottom: deviceUI.moderateScale(10),
+        },
+        editButton: {
+            height: deviceUI.moderateScale(26),
+            width: deviceUI.moderateScale(80),
+            backgroundColor: theme.colorFamily.lightblue,
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "center",
+            borderRadius: deviceUI.moderateScale(8),
+            marginRight: leftMargin,
         },
         webViewContainer: {
             opacity: 0.99,

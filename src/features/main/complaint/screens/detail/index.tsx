@@ -3,7 +3,16 @@ import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
 import NavigationView from "../../../../common/blocks/navigation";
 import ComplaintDetailScreenProps from "./type";
 import useComplaintDetailSecreenStyle from "./style";
-import { Keyboard, LayoutAnimation, ScrollView, Text, TextInput, View } from "react-native";
+import {
+    Keyboard,
+    LayoutAnimation,
+    ScrollView,
+    Text,
+    TextInput,
+    Touchable,
+    TouchableOpacity,
+    View,
+} from "react-native";
 import React from "react";
 import RemoteCSS from "../../../../../libs/themes/remote_css";
 import AutoHeightWebView from "react-native-autoheight-webview";
@@ -13,17 +22,16 @@ import IconBuilding from "../../../../common/atoms/icon/building";
 import { IconPerson } from "../../../../common/atoms/icon/human";
 import ComplaintReplyItem from "../../blocks/reply_item";
 import ReplyInputSection from "../../blocks/reply_input";
-import useComplaintService from "../../services";
-import { GetRepliesResult } from "../../../../../libs/rest_apis/villife/complaint/types";
-import { ComplaintListUpatedEventListener } from "../../services/event";
 import { useComplaintDetailViewModel } from "./view_model";
+import IconPencil from "../../../../common/atoms/icon/pencil";
+import ComplaintDetailEditModal from "../../blocks/detail_bottom_edit";
 
 export default function ComplaintDetailScreen({ navigation, route }: ComplaintDetailScreenProps) {
     const messages = useScreenMessage();
     const styles = useComplaintDetailSecreenStyle();
-    const content = useRef(route.params.content);
-    const title = useRef(route.params.title);
     const uiState = useComplaintDetailViewModel(route.params);
+    const userInfoService = useUserInfoService();
+    const [editModalVisible, setEditModalVisible] = React.useState(false);
 
     return (
         <NavigationView
@@ -35,9 +43,26 @@ export default function ComplaintDetailScreen({ navigation, route }: ComplaintDe
                 applyDefaultVerticalPadding: false,
             }}
             bottomNavOptions={{ shown: false }}>
+            <ComplaintDetailEditModal
+                visible={editModalVisible}
+                setVisible={setEditModalVisible}
+                ComplaintInfo={route.params}
+            />
             <ScrollView style={[styles.topLevelBox]} scrollEventThrottle={20}>
                 <>
-                    <Text style={styles.title}>{route.params.title}</Text>
+                    <View style={styles.titleSection}>
+                        <Text style={styles.title}>{route.params.title}</Text>
+                        <TouchableOpacity>
+                            <TouchableOpacity
+                                style={styles.editButton}
+                                onPress={() => {
+                                    setEditModalVisible(true);
+                                }}>
+                                <IconPencil size={(styles.iconSize.width as number) * 3} />
+                                <Text style={styles.registerButtonText}>{messages.messages.words.edit}</Text>
+                            </TouchableOpacity>
+                        </TouchableOpacity>
+                    </View>
                 </>
                 <View style={styles.statusBarSection}>
                     <ComplaintStatusLable status={route.params.status} />
@@ -61,13 +86,13 @@ export default function ComplaintDetailScreen({ navigation, route }: ComplaintDe
                       color: #333;
                     }
                     img {
-                        width: 500px;
-                        height: 500px;
+                        width: 50vw !important;
+                        height: 50vw !important;
                         object-fit: cover;
                         display:block;
                         border-radius: 15px;
                       }`}
-                    source={{ html: content.current }}
+                    source={{ html: route.params.content }}
                     scalesPageToFit={false}
                     viewportContent={"width=device-width, user-scalable=no"}></AutoHeightWebView>
                 {uiState.replies.length > 0 ? (

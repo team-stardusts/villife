@@ -30,6 +30,7 @@ import ApprovalHomeScreen from "../../main/approval/screens/home";
 import ComplaintDetailScreen from "../../main/complaint/screens/detail";
 import RegisterVehicleScreen from "../../main/parking/screens/register_vehicle";
 import MyPageHomeScreen from "../../main/mypage/screens/home";
+import ComplaintModifyScreen from "../../main/complaint/screens/modify";
 
 enableScreens(true);
 
@@ -128,6 +129,7 @@ export default function ScreenRouter() {
                 <Stack.Screen name={"complaint"} component={ComplaintHomeScreen} />
                 <Stack.Screen name={"complaint_register"} component={ComplaintRegisterScreen} />
                 <Stack.Screen name={"complaint_detail"} component={ComplaintDetailScreen} />
+                <Stack.Screen name={"complaint_modify"} component={ComplaintModifyScreen} />
             </Stack.Group>
             <Stack.Group>
                 <Stack.Screen name={"splash"} component={SplashScreen} />

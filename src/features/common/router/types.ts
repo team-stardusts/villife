@@ -49,7 +49,7 @@ export type VillifeStackParamList = VillifeRootStackParamList & {
     };
     permission_request?: {};
     complaint_register: {};
-    complaint_modify: {};
+    complaint_modify: Complaint;
     approval_home: {};
     complaint_detail: Complaint;
     register_vehicle?: {};

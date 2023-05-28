@@ -4,6 +4,7 @@ import useUserInfoService from "../../../../common/hooks/service/user_info";
 import { ComplaintInfo } from "../../services/type";
 import { ComplaintHomeDisplayMode } from "./types";
 import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
+import { ComplaintListUpatedEventListener } from "../../services/event";
 
 export default function ComplaintHomeViewModel(): ComplaintHomeUiState {
     const service = useComplaintService();
@@ -57,8 +58,7 @@ export default function ComplaintHomeViewModel(): ComplaintHomeUiState {
             setComplaints(res.data.data);
         }
     };
-
-    React.useEffect(() => {
+    const fetchComplaintByDisplayMode = async () => {
         switch (displayMode) {
             case "received_and_in_progress":
                 fetchReceivedAndInProgressComplaint();
@@ -78,7 +78,20 @@ export default function ComplaintHomeViewModel(): ComplaintHomeUiState {
                 setMenuTitle(messages.messages.main.complaint.complaints_done);
                 break;
         }
+    };
+
+    React.useEffect(() => {
+        fetchComplaintByDisplayMode();
     }, [displayMode]);
+
+    React.useEffect(() => {
+        const listener = new ComplaintListUpatedEventListener();
+        listener.subscribe(() => {
+            console.log("fetchComplaintByDisplayMode");
+            fetchComplaintByDisplayMode();
+        });
+        return () => listener.unsubscribe();
+    }, []);
 
     return {
         uiState: {

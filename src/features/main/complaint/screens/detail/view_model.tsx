@@ -38,4 +38,5 @@ export function useComplaintDetailViewModel(complaintInfo: Complaint): Complaint
 
 type ComplaintDetailUiState = {
     replies: GetRepliesResult;
+    updatedComplaint?: Complaint;
 };

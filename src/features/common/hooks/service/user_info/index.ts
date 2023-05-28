@@ -14,7 +14,7 @@ class UserInfoService implements IUserInfoService {
     private stroage = new VillifeStorage();
     private api: IVillifeUserInfoRestClient = VillifeServer.getUserInfoRestClient();
 
-    async getUserBasicInfo(): Promise<UserDataType | Error> {
+    async getUserBasicInfo(): Promise<UserDataType> {
         const userInfo = await this.stroage.user.get();
         if (userInfo != null) return userInfo;
 
