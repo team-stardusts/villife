@@ -42,7 +42,8 @@
             "done": "완료",
             "progress_status": "진행 상황",
             "edit_progress_status": "진행 상황 편집",
-            "edit_progress_status_guide": "진행 상황에 맞게 편집해주세요"
+            "edit_progress_status_guide": "진행 상황에 맞게 편집해주세요",
+            "complaint_received_and_in_progress": "진행중인 민원"
         },
         "payment": {
             "screen_title": "관리비"

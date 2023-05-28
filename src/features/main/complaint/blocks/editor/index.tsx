@@ -27,12 +27,6 @@ function ComplaintEditor(props: ComplaintEditorProps) {
         };
     }, []);
 
-    /** TO DO ::
-     * 1.server Env 바탕으로 폰트 가져오는 Library 객체 만들기 done
-     * 2.만든 후 에디터 및 웹뷰에 적용하기 done
-     * 3.클릭시 키보드랑 화면 말려 올라가는거 해결하기
-     */
-
     return (
         <>
             <ScrollView
@@ -49,7 +43,7 @@ function ComplaintEditor(props: ComplaintEditorProps) {
                             props.titleRef.current = text;
                         }}
                         placeholder="제목을 입력하세요"
-                        value={props.titleRef.current}
+                        value={props.mode == "modify" ? props.titleRef.current : undefined}
                     />
                 </>
                 <RichEditor

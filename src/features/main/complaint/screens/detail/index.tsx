@@ -16,40 +16,14 @@ import ReplyInputSection from "../../blocks/reply_input";
 import useComplaintService from "../../services";
 import { GetRepliesResult } from "../../../../../libs/rest_apis/villife/complaint/types";
 import { ComplaintListUpatedEventListener } from "../../services/event";
+import { useComplaintDetailViewModel } from "./view_model";
 
 export default function ComplaintDetailScreen({ navigation, route }: ComplaintDetailScreenProps) {
     const messages = useScreenMessage();
     const styles = useComplaintDetailSecreenStyle();
     const content = useRef(route.params.content);
     const title = useRef(route.params.title);
-    const userInfo = useUserInfoService();
-    const [replies, setReplies] = useState<GetRepliesResult>([]);
-    const service = useComplaintService();
-
-    useEffect(() => {
-        LayoutAnimation.configureNext(LayoutAnimation.Presets.spring);
-        service.GetReplies(route.params.id).then((r) => {
-            const resData = r.data?.data as GetRepliesResult;
-            if (resData == null || resData == undefined) return;
-            setReplies([...resData]);
-        });
-
-        const listener = new ComplaintListUpatedEventListener();
-        listener.subscribe(() => {
-            console.log("이벤트 수신");
-            service.GetReplies(route.params.id).then((r) => {
-                const resData = r.data?.data as GetRepliesResult;
-                console.log(resData);
-                if (resData == null || resData == undefined) return;
-                setReplies([...resData]);
-            });
-            Keyboard.dismiss();
-        });
-
-        return () => {
-            listener.unsubscribe();
-        };
-    }, []);
+    const uiState = useComplaintDetailViewModel(route.params);
 
     return (
         <NavigationView
@@ -63,14 +37,7 @@ export default function ComplaintDetailScreen({ navigation, route }: ComplaintDe
             bottomNavOptions={{ shown: false }}>
             <ScrollView style={[styles.topLevelBox]} scrollEventThrottle={20}>
                 <>
-                    <TextInput
-                        style={styles.title}
-                        onChangeText={(text) => {
-                            title.current = text;
-                        }}
-                        placeholder="제목을 입력하세요"
-                        value={title.current}
-                    />
+                    <Text style={styles.title}>{route.params.title}</Text>
                 </>
                 <View style={styles.statusBarSection}>
                     <ComplaintStatusLable status={route.params.status} />
@@ -103,11 +70,11 @@ export default function ComplaintDetailScreen({ navigation, route }: ComplaintDe
                     source={{ html: content.current }}
                     scalesPageToFit={false}
                     viewportContent={"width=device-width, user-scalable=no"}></AutoHeightWebView>
-                {replies.length > 0 ? (
+                {uiState.replies.length > 0 ? (
                     <View>
                         <Text style={styles.replyTitle}>답글</Text>
                         <View style={styles.horizontalLine}></View>
-                        {replies.map((reply, inedx) => {
+                        {uiState.replies.map((reply, inedx) => {
                             return (
                                 <View key={reply.id} style={styles.replyItem}>
                                     <ComplaintReplyItem data={reply} />

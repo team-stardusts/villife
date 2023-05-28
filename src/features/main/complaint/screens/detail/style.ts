@@ -28,6 +28,9 @@ export default function useComplaintDetailSecreenStyle(): ComplaintDetailScreenS
             fontSize: deviceUI.moderateScale(24),
             fontFamily: theme.font.fontFamilies.pretendard.bold,
             marginLeft: leftMargin,
+            color: theme.colorFamily.black,
+            marginTop: deviceUI.moderateScale(15),
+            marginBottom: deviceUI.moderateScale(10),
         },
         webViewContainer: {
             opacity: 0.99,
@@ -68,7 +71,6 @@ export default function useComplaintDetailSecreenStyle(): ComplaintDetailScreenS
             position: "absolute",
             height: "100%",
         },
-       
     });
     return Style;
 }

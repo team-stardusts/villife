@@ -1,23 +1,33 @@
 import { View, Text, TouchableOpacity, FlatList, Pressable } from "react-native";
 import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
 import NavigationView from "../../../../common/blocks/navigation";
-import ComplaintHomeScreenProps from "./types";
+import ComplaintHomeScreenProps, { ComplaintHomeDisplayMode } from "./types";
 import useComplaintHomeSecreenStyle from "./styles";
 import IconQuestionMark from "../../../../common/atoms/icon/question_mark";
 import PressableVectorIcon from "../../../../common/blocks/icon/vector";
 import IconPlus from "../../../../common/atoms/icon/plus";
 import ComplaintContentCard from "../../blocks/content_card";
 import { ComplaintInfo } from "../../services/type";
+import ComplaintHomeViewModel from "./view_model";
+import React, { useEffect } from "react";
+import ComplaintHomeEditModal from "../../blocks/home_bottom_edit";
 
 export default function ComplaintHomeScreen({ navigation, route }: ComplaintHomeScreenProps) {
     const messages = useScreenMessage();
     const styles = useComplaintHomeSecreenStyle();
+    const viewModel = ComplaintHomeViewModel();
+    const [editModalVisible, setEditModalVisible] = React.useState(false);
 
     return (
         <NavigationView
             headerOptions={{
                 title: messages.messages.main.complaint.screen_title,
             }}>
+            <ComplaintHomeEditModal
+                visible={editModalVisible}
+                setVisible={setEditModalVisible}
+                setDisplayMode={viewModel.setDisplayMode}
+            />
             <View style={styles.topLevelBox}>
                 <View style={styles.FAQContainer}>
                     <IconQuestionMark size={styles.questionMarkIconSize.width as number} />
@@ -31,10 +41,12 @@ export default function ComplaintHomeScreen({ navigation, route }: ComplaintHome
                     </View>
                 </View>
                 <View style={styles.menuContainer}>
-                    <TouchableOpacity style={styles.menuTitleBox}>
-                        <Text style={styles.menuTitleText}>
-                            {messages.messages.main.complaint.complaints_in_progress}
-                        </Text>
+                    <TouchableOpacity
+                        style={styles.menuTitleBox}
+                        onPress={() => {
+                            setEditModalVisible(true);
+                        }}>
+                        <Text style={styles.menuTitleText}>{viewModel.uiState.menuTitle}</Text>
                         <PressableVectorIcon
                             providerName={"right"}
                             diameter={styles.vectorIconSize.height as number}></PressableVectorIcon>
@@ -54,7 +66,7 @@ export default function ComplaintHomeScreen({ navigation, route }: ComplaintHome
                     style={styles.flatList}
                     contentContainerStyle={styles.flatListContainer}
                     pagingEnabled
-                    data={sampleData}
+                    data={viewModel.uiState.complaintsWillBeDisplayed}
                     renderItem={(info) => {
                         return (
                             <Pressable
@@ -64,32 +76,6 @@ export default function ComplaintHomeScreen({ navigation, route }: ComplaintHome
                                 style={{ marginVertical: 2 }}>
                                 <ComplaintContentCard info={info.item} />
                             </Pressable>
-                        );
-                    }}
-                />
-
-                <View style={styles.menuContainer}>
-                    <TouchableOpacity style={styles.menuTitleBox}>
-                        <Text style={styles.menuTitleText}>{messages.messages.main.complaint.complaints_done}</Text>
-                        <PressableVectorIcon
-                            providerName={"right"}
-                            diameter={styles.vectorIconSize.height as number}></PressableVectorIcon>
-                    </TouchableOpacity>
-                </View>
-                <FlatList
-                    style={styles.flatList}
-                    contentContainerStyle={styles.flatListContainer}
-                    pagingEnabled
-                    data={sampleData2}
-                    renderItem={(info) => {
-                        return (
-                            <TouchableOpacity
-                                onPress={() => {
-                                    navigation.navigate("complaint_detail", info.item);
-                                }}
-                                style={{ marginVertical: 2 }}>
-                                <ComplaintContentCard info={info.item} />
-                            </TouchableOpacity>
                         );
                     }}
                 />

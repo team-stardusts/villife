@@ -4,7 +4,7 @@ import { ComplaintReplyItemProps } from "./type";
 import { IconPerson } from "../../../../common/atoms/icon/human";
 import IconMoreHorizontal from "../../../../common/atoms/icon/more_horizontal";
 import React from "react";
-import ComplaintReplyEditModal from "../bottom_edit_modal";
+import ComplaintReplyEditModal from "../reply_bottom_edit";
 
 function ComplaintReplyItem(props: ComplaintReplyItemProps) {
     const styles = useComplaintRegisterButtonStyle();

@@ -21,20 +21,20 @@ class VillifeComplaintRestClient extends AVillifeServerModule implements IVillif
         });
     }
     async GetUserComplaints(params: GetUserComplaintsParams): Response<GetComplaintsResult> {
-        const qurey = `/?status=${params.status}`;
+        const qurey = `?status=${params.status}`;
         let route: string = this.routes.getUserComplaints + qurey;
 
         return await this.requestAuthable<any, GetComplaintsResult>({
-            method: "post",
+            method: "get",
             url: route,
         });
     }
     async GetBuildingComplaints(params: GetBuildingComplaintsParams): Response<GetComplaintsResult> {
-        const qurey = `/?status=${params.status}&building_id=${params.building_id}`;
+        const qurey = `?status=${params.status}&building_id=${params.building_id}`;
         let route: string = this.routes.getBuildingComplaints + qurey;
 
         return await this.requestAuthable<any, GetComplaintsResult>({
-            method: "post",
+            method: "get",
             url: route,
         });
     }

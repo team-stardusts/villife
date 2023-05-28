@@ -50,6 +50,7 @@ export type MessagesByLanguage = {
             progress_status: string;
             edit_progress_status: string;
             edit_progress_status_guide: string;
+            complaint_received_and_in_progress: string;
         };
         payment: {
             screen_title: string;

@@ -6,7 +6,7 @@ import OutlinedBoxStyle from "./style";
 import { OutlinedBoxProps } from "./type";
 import NotiLable from "../noti_label.tsx";
 import WebView, { WebViewMessageEvent } from "react-native-webview";
-import NotiBottomEditModal from "../../../complaint/blocks/bottom_edit_modal";
+import NotiBottomEditModal from "../../../complaint/blocks/reply_bottom_edit";
 import PressableVectorIcon from "../../../../common/blocks/icon/vector";
 import { EditIcon } from "../../../../common/blocks/icon/noti";
 

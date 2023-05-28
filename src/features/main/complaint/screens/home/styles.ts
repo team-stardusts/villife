@@ -48,6 +48,7 @@ export default function useComplaintHomeSecreenStyle(): ComplaintHomeScreenStyle
         menuTitleBox: {
             alignItems: "center",
             flexDirection: "row",
+            zIndex: 5,
         },
         menuTitleText: {
             fontSize: deviceUI.moderateScale(24),
