@@ -33,6 +33,16 @@ export default function MyPageScreen({ navigation, route }: MyPageScreenProps) {
                     aria-label="Decrement value"
                     title="건물 설정하기 테스트용"
                 />
+                <Button
+                    onPress={() => navigation.navigate("my_page", { id: "", password: "" })}
+                    aria-label="Decrement value"
+                    title="마이페이지"
+                />
+                <Button
+                    onPress={() => navigation.navigate("approval_home", { id: "", password: "" })}
+                    aria-label="Decrement value"
+                    title="요청함"
+                />
             </View>
         </NavigationView>
     );

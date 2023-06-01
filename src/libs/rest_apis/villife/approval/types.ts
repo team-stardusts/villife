@@ -10,21 +10,19 @@ export type VerifyBuildingAddressResult = {
 };
 
 export type RejectApprovalParams = {
-    approval_id: number;
+    id: number;
 };
 
 export type AcceptApprovalParams = {
-    approval_id: number;
+    id: number;
 };
 
 export type Approval = {
     id: number;
-    content: string;
-    category: string;
-    requester_id: number;
-    approval_id: number;
-    building_name: string;
-    title: string;
+    category: number;
+    detail_type: number;
+    content: any;
+    createAt: string;
 };
 
 export type getApprovalsResult = Array<Approval>;
