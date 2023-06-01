@@ -1,16 +1,29 @@
-import React0 from "react";
+import React0, { useEffect } from "react";
 import { UserDataType } from "../../../../../libs/storage/tables/user/types";
 import { IUserInfoService } from "./type";
 import VillifeStorage from "../../../../../libs/storage";
 import { IVillifeUserInfoRestClient } from "../../../../../libs/rest_apis/villife/user_info/types";
 import VillifeServer from "../../../../../libs/rest_apis/villife";
+import { useRecoilState } from "recoil";
+import { userBasicInfoState } from "../../states/atoms/user/basic_information";
 
-export default function useUserInfoService(): IUserInfoService {
+export default function useUserInfoService() {
+    const [userBasicInfo, setUserBasicInfo] = useRecoilState(userBasicInfoState);
+
+    useEffect(() => {
+        service.getUserBasicInfo().then((r) => {
+            setUserBasicInfo(r);
+        });
+    }, []);
+
     const service: IUserInfoService = new UserInfoService();
-    return service;
+    return {
+        basicInfo: userBasicInfo,
+        service: service,
+    };
 }
 
-class UserInfoService implements IUserInfoService {
+export class UserInfoService implements IUserInfoService {
     private stroage = new VillifeStorage();
     private api: IVillifeUserInfoRestClient = VillifeServer.getUserInfoRestClient();
 
