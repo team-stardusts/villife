@@ -21,6 +21,7 @@ export type RoutesType = {
     reply: string;
     //user info
     getUserBasicInfo: string;
+    getBuildingManagedByAdmin : string
     //approval
     getUserApprovals: string;
     acceptUserApproval: string;

@@ -2,24 +2,45 @@ import React0, { useEffect } from "react";
 import { UserDataType } from "../../../../../libs/storage/tables/user/types";
 import { IUserInfoService } from "./type";
 import VillifeStorage from "../../../../../libs/storage";
-import { IVillifeUserInfoRestClient } from "../../../../../libs/rest_apis/villife/user_info/types";
+import { SimpleBuildingInfo, IVillifeUserInfoRestClient } from "../../../../../libs/rest_apis/villife/user_info/types";
 import VillifeServer from "../../../../../libs/rest_apis/villife";
 import { useRecoilState } from "recoil";
 import { userBasicInfoState } from "../../states/atoms/user/basic_information";
+import { adminInfoState } from "../../states/atoms/user/admin_only";
+import { Response } from "../../../../../libs/rest_apis/types";
+import { AdminInformation } from "../../states/atoms/user/admin_only/type";
 
 export default function useUserInfoService() {
     const [userBasicInfo, setUserBasicInfo] = useRecoilState(userBasicInfoState);
+    const [adminInfo, setAdminInfo] = useRecoilState(adminInfoState);
+
+    const onCreate = async () => {
+        const result = await service.getUserBasicInfo();
+        setUserBasicInfo(result);
+
+        if (result.authority == 3) {
+            const result = await service.fetchBuildingsManagedByAdmin();
+            if (result.isSuccessful) {
+                if (!result.data?.data[0]) return;
+                const adminInformation: AdminInformation = {
+                    selectedBuilding: result.data?.data[0],
+                    managedBuildings: result.data.data,
+                };
+                console.log(adminInformation);
+                setAdminInfo(adminInformation);
+            }
+        }
+    };
 
     useEffect(() => {
-        service.getUserBasicInfo().then((r) => {
-            setUserBasicInfo(r);
-        });
+        onCreate();
     }, []);
 
     const service: IUserInfoService = new UserInfoService();
     return {
         basicInfo: userBasicInfo,
         service: service,
+        adminInfo: adminInfo,
     };
 }
 
@@ -65,5 +86,9 @@ export class UserInfoService implements IUserInfoService {
         const isSet = await this.stroage.user.set(null);
         if (isSet) return;
         else console.log("failed to reset user basic info stroage");
+    }
+
+    async fetchBuildingsManagedByAdmin(): Response<Array<SimpleBuildingInfo>> {
+        return await this.api.GetBuildingsManagedByAdmin();
     }
 }
