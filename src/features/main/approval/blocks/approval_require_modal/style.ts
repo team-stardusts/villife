@@ -43,8 +43,10 @@ export default function useApprovalRequiredModalStyles(): UseApprovalRequiredMod
             alignItems: "center",
         },
         childrenSection: {
-            justifyContent: "center",
+            flexDirection: "row",
+            justifyContent: "space-between",
             alignItems: "center",
+            paddingHorizontal: "10%",
         },
         buttonSection: {
             justifyContent: "center",
@@ -75,9 +77,9 @@ export default function useApprovalRequiredModalStyles(): UseApprovalRequiredMod
             width: "40%",
             justifyContent: "center",
             alignItems: "center",
-            backgroundColor: "#EEEEEE",
             borderRadius: deviceUI.moderateScale(8),
             marginRight: deviceUI.moderateScale(10),
+            backgroundColor: theme.colorFamily.blue,
         },
         rightButton: {
             height: "80%",

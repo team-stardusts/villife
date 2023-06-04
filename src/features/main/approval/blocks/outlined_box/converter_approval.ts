@@ -11,6 +11,7 @@ export class ApprovalDataConverter {
     convert(): ConvertedApprovalData {
         const identifier = this.requset.category * 1000 + this.requset.detail_type;
         console.log(identifier);
+
         switch (identifier) {
             case 1001:
                 const approvalContent1001 = this.requset.content as RequestCotent1001;
@@ -26,7 +27,7 @@ export class ApprovalDataConverter {
                     id: this.requset.id,
                     category: this.requset.category,
                     detailType: this.requset.detail_type,
-                    createdAt: this.requset.createAt,
+                    createdAt: this.requset.create_at,
                     roomNumber: approvalContent1001.room_number,
                     buildingName: approvalContent1001.building_name,
                     title: approvalContent1001.title,
@@ -48,7 +49,7 @@ export class ApprovalDataConverter {
                     id: this.requset.id,
                     category: this.requset.category,
                     detailType: this.requset.detail_type,
-                    createdAt: this.requset.createAt,
+                    createdAt: this.requset.create_at,
                     roomNumber: approvalContent2001.room_number,
                     buildingName: approvalContent2001.building_name,
                     title: approvalContent2001.title,
@@ -62,7 +63,7 @@ export class ApprovalDataConverter {
                     id: this.requset.id,
                     category: this.requset.category,
                     detailType: this.requset.detail_type,
-                    createdAt: this.requset.createAt,
+                    createdAt: this.requset.create_at,
                     roomNumber: 111,
                     buildingName: "아무개",
                     title: "default 값",

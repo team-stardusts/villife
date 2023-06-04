@@ -1,13 +1,9 @@
-import { Dimensions, Modal, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Dimensions, Modal, Text, TouchableOpacity, View } from "react-native";
 import React from "react";
 import VillifeServer from "../../../../../libs/rest_apis/villife";
 import Toast from "react-native-toast-message";
-
 import { useNavigation } from "@react-navigation/native";
-import { DeleteNoticeParams } from "../../../../../libs/rest_apis/villife/notice/types";
 import { VillifeNavigation } from "../../../../common/router/types";
-import BottomSlidableModal from "../../../../common/blocks/universial/slidemodal_bottom";
-import { EditIcon, TrashCanIcon } from "../../../../common/blocks/icon/noti";
 import StardustAlert from "../../../../common/blocks/universial/stardust_alert";
 import useBottomEditModalStyles from "./style";
 import ApprovalRequiredModalProps from "./type";
@@ -110,18 +106,18 @@ export default function ApprovalRequiredModal(props: ApprovalRequiredModalProps)
                     })}
                     <View style={[styles.buttonSection, { height: screenSize.height * 0.07, marginBottom: 20 }]}>
                         <TouchableOpacity
+                            activeOpacity={0.7}
                             onPress={() => {
                                 setDeleteAlertVisible(true);
                             }}
-                            style={styles.editModalMenu}>
-                            <TrashCanIcon color="#000000" diameter={30} />
-                            <Text style={[styles.editModalMenuText, { fontSize: 20 }]}>거절</Text>
+                            style={styles.leftButton}>
+                            <Text style={styles.rightButtonText}>거절</Text>
                         </TouchableOpacity>
 
                         <StardustAlert
                             modalVisible={deleteAlertVisible}
                             setModalVisible={setDeleteAlertVisible}
-                            title={convertedApprovalRequest.title}
+                            title={"거절하겠습니까?"}
                             leftButtonText="취소"
                             rightButtonText="거절"
                             leftOnPress={() => {
