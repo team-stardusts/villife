@@ -22,7 +22,7 @@ export type Approval = {
     category: number;
     detail_type: number;
     content: any;
-    createAt: string;
+    create_at: string;
 };
 
 export type getApprovalsResult = Array<Approval>;

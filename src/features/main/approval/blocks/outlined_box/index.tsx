@@ -1,16 +1,11 @@
-import { Dimensions, FlatList, ListRenderItemInfo, Pressable, StyleSheet, TouchableOpacity, View } from "react-native";
+import { Dimensions, Pressable, View } from "react-native";
 import { Text } from "react-native";
 import React, { useEffect, useState } from "react";
 import OutlinedBoxStyle from "./style";
 import { OutlinedBoxProps } from "./type";
-import PressableVectorIcon from "../../../../common/blocks/icon/vector";
-import { EditIcon } from "../../../../common/blocks/icon/noti";
 import ApprovalRequiredModal from "../approval_require_modal";
-import ApprovalLable from "../approval_label.tsx";
-import { Approval, getApprovalsResult } from "../../../../../libs/rest_apis/villife/approval/types";
-import IconPlus from "../../../../common/atoms/icon/plus";
-import Icon from "../../../../common/atoms/icon";
 import { ApprovalDataConverter, ConvertedApprovalData } from "./converter_approval";
+import IconMoreVertical from "../../../../common/atoms/icon/more_vertical";
 
 /**
  * @param OutlinedBoxProp
@@ -23,9 +18,14 @@ function OutlinedBox(props: OutlinedBoxProps) {
     const [convertedApprovals, setConvertedApprovals] = useState<ConvertedApprovalData>({} as ConvertedApprovalData);
 
     useEffect(() => {
-        const converter = new ApprovalDataConverter(props.approvalRequest);
-        setConvertedApprovals(converter.convert());
-    }, []);
+        const fetchData = () => {
+            const converter = new ApprovalDataConverter(props.approvalRequest);
+            const convertedData = converter.convert();
+            setConvertedApprovals(convertedData);
+            console.log("TLqkf", convertedData);
+        };
+        fetchData();
+    }, [props.approvalRequest]);
 
     return (
         <>
@@ -50,16 +50,16 @@ function OutlinedBox(props: OutlinedBoxProps) {
                         <View style={OutlinedBoxStyle.titleTextBox}>
                             <Text style={[]}>{convertedApprovals.title}</Text>
                             <Text style={[]}>{convertedApprovals.buildingName}</Text>
+                            <Text style={[]}>{convertedApprovals.roomNumber}</Text>
                         </View>
                         <View style={OutlinedBoxStyle.absoluteWrapper}>
                             <View style={{ flexDirection: "row" }}>
-                                <PressableVectorIcon
+                                <Pressable
                                     onPress={() => {
                                         setModalVisible(true);
-                                    }}
-                                    providerName={"down"}
-                                    diameter={30}
-                                />
+                                    }}>
+                                    <IconMoreVertical color="black" size={30} />
+                                </Pressable>
                             </View>
                         </View>
                     </View>
