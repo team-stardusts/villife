@@ -25,6 +25,15 @@
                 "invalid_plate_number_and_model": "차량 번호와 모델을 확인해주세요.",
                 "invalid_plate_number": "차량 번호를 확인해주세요.",
                 "invalid_model": "차량 모델을 확인해주세요."
+            },
+            "register_guest_vehicle": {
+                "screen_title": "방문 차량 정보 등록",
+                "register_guest_vehicle": "방문자 차량 정보 등록",
+                "request_input_vehicle_info": "방문 일정과 차량 정보를 입력 해주세요.",
+                "vehicle_plate_number_input_placeholder": "000가 00000의 형식으로 입력해주세요.",
+                "phone_number_input_placeholder": "'-'을 제외한 숫자만 입력해주세요.",
+                "visiting_perpose_input_placeholder": "'-'을 제외한 숫자만 입력해주세요.",
+                "invalid_input_value": "입력한 정보들을 다시 확인해주세요."
             }
         },
         "complaint": {
@@ -170,7 +179,8 @@
         "eta": "입차 시간",
         "plate_number": "차량 번호",
         "vehicle_info": "차량 정보",
-        "vehicle_model": "차량 모델"
+        "vehicle_model": "차량 모델",
+        "visiting_perpose": "방문 목적"
     },
     "navigation": {
         "say_wait": "잠시만요!",

@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import StardustAlert from "../../../../common/blocks/universial/stardust_alert";
 import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
 import useStyler from "../../../../common/hooks/styler/hooks";
-import { Animated, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Animated, Text, TouchableOpacity, View } from "react-native";
 import EtdaTimePicker from "../etad_time_picker";
 import Icon from "../../../../common/atoms/icon";
 import useModifyModal from "./styles";

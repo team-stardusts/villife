@@ -1,5 +1,9 @@
 import { Response, ResponseForTest } from "../../types";
 
+namespace Villife {
+    namespace Parking {}
+}
+
 interface VehicleGettable {
     getMyVehicles(): Response<TenantVehicle[]>;
     getBuildingRegistedVehicles(): Response<TenantVehicle[]>;
