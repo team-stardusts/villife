@@ -2,10 +2,13 @@ import { Dimensions, Pressable, View } from "react-native";
 import { Text } from "react-native";
 import React, { useEffect, useState } from "react";
 import OutlinedBoxStyle from "./style";
-import { OutlinedBoxProps } from "./type";
 import ApprovalRequiredModal from "../approval_require_modal";
 import { ApprovalDataConverter, ConvertedApprovalData } from "./converter_approval";
 import IconMoreVertical from "../../../../common/atoms/icon/more_vertical";
+import IconBuilding from "../../../../common/atoms/icon/building";
+import useApprovalOutlinedBoxStyle from "./style";
+import OutlinedBoxProps from "./type";
+import IconUserBorder from "../../../../common/atoms/icon/user_border";
 
 /**
  * @param OutlinedBoxProp
@@ -13,6 +16,7 @@ import IconMoreVertical from "../../../../common/atoms/icon/more_vertical";
  */
 function OutlinedBox(props: OutlinedBoxProps) {
     const size = Dimensions.get("window");
+    const styles = useApprovalOutlinedBoxStyle();
 
     const [modalVisible, setModalVisible] = useState<boolean>(false);
     const [convertedApprovals, setConvertedApprovals] = useState<ConvertedApprovalData>({} as ConvertedApprovalData);
@@ -38,21 +42,31 @@ function OutlinedBox(props: OutlinedBoxProps) {
                 onPressOut={() => {
                     setModalVisible(true);
                 }}
-                style={[OutlinedBoxStyle.container, { minHeight: size.height * 0.1 * 0.8, width: size.width * 0.9 }]}>
-                <View style={OutlinedBoxStyle.innerBox}>
+                style={[styles.container, { minHeight: size.height * 0.1 * 0.8, width: size.width * 0.9 }]}>
+                <View style={styles.innerBox}>
                     <View
                         style={[
-                            OutlinedBoxStyle.innerTitleSection,
+                            styles.innerTitleSection,
                             {
                                 height: size.height * 0.1 * 0.8,
                             },
                         ]}>
-                        <View style={OutlinedBoxStyle.titleTextBox}>
+                        <View style={styles.titleTextBox}>
                             <Text style={[]}>{convertedApprovals.title}</Text>
-                            <Text style={[]}>{convertedApprovals.buildingName}</Text>
-                            <Text style={[]}>{convertedApprovals.roomNumber}</Text>
+                            <View style={{ flexDirection: "row" }}>
+                                <View
+                                    style={{ flexDirection: "row", justifyContent: "center", alignContent: "center" }}>
+                                    <IconBuilding size={styles.iconSize.width as number} />
+                                    <Text style={[]}>{convertedApprovals.buildingName}</Text>
+                                </View>
+                                <View
+                                    style={{ flexDirection: "row", justifyContent: "center", alignContent: "center" }}>
+                                    <IconUserBorder size={styles.iconSize.width as number} />
+                                    <Text style={[]}>{convertedApprovals.roomNumber}</Text>
+                                </View>
+                            </View>
                         </View>
-                        <View style={OutlinedBoxStyle.absoluteWrapper}>
+                        <View style={styles.absoluteWrapper}>
                             <View style={{ flexDirection: "row" }}>
                                 <Pressable
                                     onPress={() => {

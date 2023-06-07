@@ -36,7 +36,7 @@ export default function ApprovalHomeScreen(props: ApprovaleHomeScreenProps) {
                 content: {
                     vehicle_number: "108라 8477",
                     vehicle_model: "BMW 320I",
-                    title: "신규 가입",
+                    title: "차량 정보 등록",
                     sub_title: "정보 확인 후 수정사항 없을 시 수락 부탁드립니다.",
                     building_name: "그린파크",
                     room_number: 501,
@@ -64,9 +64,7 @@ export default function ApprovalHomeScreen(props: ApprovaleHomeScreenProps) {
                 },
             }}
             bottomNavOptions={{ shown: false }}>
-            <SafeAreaView style={styles.contentsWrapper}>
-                <FlatListOutlinedContentsBox approvals={approvals} />
-            </SafeAreaView>
+            <FlatListOutlinedContentsBox approvals={approvals} />
         </NavigationView>
     );
 }
