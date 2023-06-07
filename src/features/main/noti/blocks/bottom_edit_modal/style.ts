@@ -1,8 +1,14 @@
 import { StyleSheet } from "react-native";
 import { useBottomEditModalStylesType } from "./type";
+import useStyler from "../../../../common/hooks/styler/hooks";
 
 export default function useBottomEditModalStyles(): useBottomEditModalStylesType {
+    const { deviceUI, theme } = useStyler();
     return StyleSheet.create({
+        bottomModalHeight: {
+            height: deviceUI.getScreenSize().height * 0.3,
+        },
+        iconSize: { width: deviceUI.moderateScale(30) },
         editButtonContainer: {
             position: "absolute",
             zIndex: 10,
@@ -14,6 +20,7 @@ export default function useBottomEditModalStyles(): useBottomEditModalStylesType
             alignItems: "center",
             padding: 3,
             borderRadius: 10,
+            ...theme.font.researved.h3,
         },
         editModalContentContainer: {
             marginTop: "5%",

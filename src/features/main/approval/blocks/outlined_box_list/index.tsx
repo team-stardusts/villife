@@ -1,7 +1,6 @@
-import { FlatList, ListRenderItemInfo } from "react-native";
-import React, { useEffect, useState } from "react";
+import { FlatList, ListRenderItemInfo, StyleSheet } from "react-native";
 import OutlinedBox from "../outlined_box";
-import { Approval, getApprovalsResult } from "../../../../../libs/rest_apis/villife/approval/types";
+import { Approval } from "../../../../../libs/rest_apis/villife/approval/types";
 
 //TO DO :: implement props which contains data it needs
 
@@ -10,14 +9,19 @@ import { Approval, getApprovalsResult } from "../../../../../libs/rest_apis/vill
  * @description size fixed as width covers 90% of screen width
  * @usage noti screen, complaint screen
  */
-function FlatListOutlinedContentsBox(props: { approvals: ReadonlyArray<Approval> }) {
-    const { approvals } = props;
 
+function FlatListOutlinedContentsBox(props: { approvals: ReadonlyArray<Approval> }) {
+    const styles = StyleSheet.create({
+        container: {
+            alignItems: "center",
+            width: "100%",
+        },
+    });
     return (
         <FlatList
-            contentContainerStyle={{ alignItems: "center", width: "100%" }}
-            data={approvals}
-            keyExtractor={(item, index) => `${index}${item}`}
+            contentContainerStyle={styles.container}
+            data={props.approvals}
+            keyExtractor={(index, item) => `${index}${item}`}
             renderItem={OutlinedBoxRenderItem}
         />
     );

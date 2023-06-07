@@ -21,6 +21,7 @@ export default function useApprovalRequiredModalStyles(): UseApprovalRequiredMod
             opacity: 0.6,
             zIndex: -1,
         },
+        wrapperTop: { width: deviceUI.getScreenSize().width, height: deviceUI.getScreenSize().height },
         content: {
             width: "88%",
             backgroundColor: "white",
@@ -36,6 +37,7 @@ export default function useApprovalRequiredModalStyles(): UseApprovalRequiredMod
         textSection: {
             justifyContent: "center",
             alignItems: "center",
+            height: deviceUI.getScreenSize().height * 0.1,
         },
         imageSection: {
             width: "80%",
@@ -48,10 +50,12 @@ export default function useApprovalRequiredModalStyles(): UseApprovalRequiredMod
             alignItems: "center",
             paddingHorizontal: "10%",
         },
-        buttonSection: {
+        leftButtonSection: {
             justifyContent: "center",
             alignItems: "center",
             flexDirection: "row",
+            height: deviceUI.getScreenSize().height * 0.07,
+            marginBottom: deviceUI.moderateScale(20),
         },
         title: {
             color: theme.colorFamily.black,
@@ -79,7 +83,7 @@ export default function useApprovalRequiredModalStyles(): UseApprovalRequiredMod
             alignItems: "center",
             borderRadius: deviceUI.moderateScale(8),
             marginRight: deviceUI.moderateScale(10),
-            backgroundColor: theme.colorFamily.blue,
+            backgroundColor: theme.colorFamily.lightgrey,
         },
         rightButton: {
             height: "80%",

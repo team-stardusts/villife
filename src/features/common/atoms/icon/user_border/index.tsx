@@ -1,7 +1,7 @@
 import { Defs, G, Path, Rect, Svg } from "react-native-svg";
 import { CommonIconProps } from "../types";
 
-const ICON_DEFAULT_COLOR: string = "#E4E4E4" as const;
+const ICON_DEFAULT_COLOR: string = "#000000" as const;
 
 export default function IconUserBorder(props: CommonIconProps) {
     const { color, size } = props;

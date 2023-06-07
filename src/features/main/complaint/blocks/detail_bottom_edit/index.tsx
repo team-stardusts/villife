@@ -7,13 +7,15 @@ import { useNavigation } from "@react-navigation/native";
 import { DeleteNoticeParams } from "../../../../../libs/rest_apis/villife/notice/types";
 import { VillifeNavigation } from "../../../../common/router/types";
 import BottomSlidableModal from "../../../../common/blocks/universial/slidemodal_bottom";
-import { EditIcon, TrashCanIcon } from "../../../../common/blocks/icon/noti";
+
 import StardustAlert from "../../../../common/blocks/universial/stardust_alert";
 import DetailEditModalProps from "./type";
 import useBottomEditModalStyles from "./style";
 import { ComplaintEventEmitter } from "../../services/event";
 import useComplaintService from "../../services";
 import VillifeToastMessage from "../../../../common/atoms/toast";
+import { EditIcon } from "../../../../common/atoms/icon/edit";
+import { TrashCanIcon } from "../../../../common/atoms/icon/trash_can";
 
 export default function ComplaintDetailEditModal(props: DetailEditModalProps) {
     const styles = useBottomEditModalStyles();
@@ -56,7 +58,7 @@ export default function ComplaintDetailEditModal(props: DetailEditModalProps) {
                         onModifyButtonPress();
                     }}
                     style={styles.editModalMenu}>
-                    <EditIcon color="#000000" diameter={30} />
+                    <EditIcon size={30} />
                     <Text style={[styles.editModalMenuText, { fontSize: 20 }]}>수정하기</Text>
                     {/* font scaling 필요*/}
                 </TouchableOpacity>
@@ -65,7 +67,7 @@ export default function ComplaintDetailEditModal(props: DetailEditModalProps) {
                         setDeleteAlertVisible(true);
                     }}
                     style={styles.editModalMenu}>
-                    <TrashCanIcon color="#000000" diameter={30} />
+                    <TrashCanIcon size={30} />
                     <Text style={[styles.editModalMenuText, { fontSize: 20 }]}>삭제하기</Text>
                     {/* font scaling 필요*/}
                 </TouchableOpacity>

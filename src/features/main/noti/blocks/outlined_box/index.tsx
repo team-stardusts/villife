@@ -7,8 +7,9 @@ import { OutlinedBoxProps } from "./type";
 import NotiLable from "../noti_label.tsx";
 import WebView, { WebViewMessageEvent } from "react-native-webview";
 import PressableVectorIcon from "../../../../common/blocks/icon/vector";
-import { EditIcon } from "../../../../common/blocks/icon/noti";
+
 import NotiBottomEditModal from "../bottom_edit_modal";
+import { EditIcon } from "../../../../common/atoms/icon/edit";
 
 /**
  * @param OutlinedBoxProp
@@ -80,7 +81,7 @@ function OutlinedBox(props: OutlinedBoxProps) {
                                         onPress={() => {
                                             setEditModalVisible(true);
                                         }}>
-                                        <EditIcon color="#000000" diameter={20} />
+                                        <EditIcon size={20} />
                                     </TouchableOpacity>
                                 )}
                                 <PressableVectorIcon

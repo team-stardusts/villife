@@ -10,7 +10,6 @@ export class ApprovalDataConverter {
 
     convert(): ConvertedApprovalData {
         const identifier = this.requset.category * 1000 + this.requset.detail_type;
-        console.log(identifier);
 
         switch (identifier) {
             case 1001:

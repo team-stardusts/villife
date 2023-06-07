@@ -1,5 +1,4 @@
 import { StyleSheet } from "react-native";
-import { OutlinedBoxProps } from "../outlined_box/type";
 import { ConvertedApprovalData } from "../outlined_box/converter_approval";
 
 export default interface ApprovalRequiredModalProps {

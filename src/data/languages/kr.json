@@ -61,7 +61,22 @@
             "screen_title": "My"
         },
         "noti": {
-            "screen_title": "공지사항"
+            "screen_title": "공지사항",
+            "delete_success": "공지사항 삭제 성공",
+            "delete_error": "공지사항 삭제 실패",
+            "modify": "수정하기",
+            "delete": "삭제하기",
+            "delete_title": "정말 삭제하겠습니까?"
+        },
+        "approval": {
+            "screen_title": "승인함",
+            "reject_success": "거절 성공",
+            "reject_error": "거절 실패",
+            "accept_success": "승인 성공",
+            "accept_error": "승인 실패",
+            "reject": "거절",
+            "accept": "승인",
+            "reject_title": "정말 거절하겠습니까?"
         }
     },
     "auth": {
@@ -165,6 +180,7 @@
         "tokens_for_8to20": "8~20자 이내",
         "matching_password": "비밀번호 일치",
         "cancle": "취소",
+        "delete": "삭제",
         "okay": "확인",
         "register": "등록하기",
         "reject": "거절",

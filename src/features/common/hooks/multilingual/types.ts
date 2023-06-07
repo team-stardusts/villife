@@ -69,6 +69,20 @@ export type MessagesByLanguage = {
         };
         noti: {
             screen_title: string;
+            delete_success: string;
+            delete_error: string;
+            modify: string;
+            delete: string;
+        };
+        approval: {
+            screen_title: string;
+            reject_success: string;
+            reject_error: string;
+            accept_success: string;
+            accept_error: string;
+            reject: string;
+            accept: string;
+            reject_title: string;
         };
     };
     auth: {
@@ -171,6 +185,7 @@ export type MessagesByLanguage = {
         tokens_for_8to20: string;
         matching_password: string;
         cancle: string;
+        delete: string;
         okay: string;
         register: string;
         reject: string;
