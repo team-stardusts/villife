@@ -5,6 +5,7 @@ import NavigationView from "../../../../common/blocks/navigation";
 import WriteButton from "../../blocks/write_button";
 import useNoticeHomeScreenStyles from "./style";
 import FlatListOutlinedContentsBox from "../../blocks/outlined_box_list";
+import { View, Text } from "react-native";
 
 export default function NoticeHomeScreen(props: NoticeHomeScreenProps) {
     const styles = useNoticeHomeScreenStyles();
@@ -20,9 +21,7 @@ export default function NoticeHomeScreen(props: NoticeHomeScreenProps) {
                 },
             }}
             bottomNavOptions={{ shown: false }}>
-            <SafeAreaView style={styles.contentsWrapper}>
-                <FlatListOutlinedContentsBox />
-            </SafeAreaView>
+            <FlatListOutlinedContentsBox />
         </NavigationView>
     );
 }

@@ -7,13 +7,16 @@ import { useNavigation } from "@react-navigation/native";
 import { DeleteNoticeParams } from "../../../../../libs/rest_apis/villife/notice/types";
 import { VillifeNavigation } from "../../../../common/router/types";
 import BottomSlidableModal from "../../../../common/blocks/universial/slidemodal_bottom";
-import { EditIcon, TrashCanIcon } from "../../../../common/blocks/icon/noti";
 import StardustAlert from "../../../../common/blocks/universial/stardust_alert";
 import BottomEditModalProps from "./type";
 import useBottomEditModalStyles from "./style";
+import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
+import { EditIcon } from "../../../../common/atoms/icon/edit";
+import { TrashCanIcon } from "../../../../common/atoms/icon/trash_can";
 
 export default function NotiBottomEditModal(props: BottomEditModalProps) {
     const styles = useBottomEditModalStyles();
+    const messages = useScreenMessage();
 
     const screenSize = Dimensions.get("window");
     const navigation = useNavigation<VillifeNavigation>();
@@ -38,7 +41,7 @@ export default function NotiBottomEditModal(props: BottomEditModalProps) {
             setDeleteAlertVisible(false);
             Toast.show({
                 type: "success",
-                text1: `공지사항 삭제 성공`,
+                text1: messages.messages.main.noti.delete_success,
                 position: "bottom",
                 visibilityTime: 1500,
                 bottomOffset: 100,
@@ -46,7 +49,7 @@ export default function NotiBottomEditModal(props: BottomEditModalProps) {
         } else {
             Toast.show({
                 type: "error",
-                text1: `공지사항 삭제 실패`,
+                text1: messages.messages.main.noti.delete_error,
                 position: "bottom",
                 visibilityTime: 1500,
                 bottomOffset: 100,
@@ -58,7 +61,7 @@ export default function NotiBottomEditModal(props: BottomEditModalProps) {
         <BottomSlidableModal
             modalVisible={props.visible}
             setModalVisible={props.setVisible}
-            height={screenSize.height * 0.3}>
+            height={styles.bottomModalHeight as number}>
             <View style={styles.editModalContentContainer}>
                 <TouchableOpacity
                     onPress={() => {
@@ -69,26 +72,24 @@ export default function NotiBottomEditModal(props: BottomEditModalProps) {
                         });
                     }}
                     style={styles.editModalMenu}>
-                    <EditIcon color="#000000" diameter={30} />
-                    <Text style={[styles.editModalMenuText, { fontSize: 20 }]}>수정하기</Text>
-                    {/* font scaling 필요*/}
+                    <EditIcon size={styles.iconSize as number} />
+                    <Text style={styles.editModalMenuText}>{messages.messages.main.noti.modify}</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                     onPress={() => {
                         setDeleteAlertVisible(true);
                     }}
                     style={styles.editModalMenu}>
-                    <TrashCanIcon color="#000000" diameter={30} />
-                    <Text style={[styles.editModalMenuText, { fontSize: 20 }]}>삭제하기</Text>
-                    {/* font scaling 필요*/}
+                    <TrashCanIcon size={styles.iconSize as number} />
+                    <Text style={styles.editModalMenuText}>{messages.messages.main.noti.delete}</Text>
                 </TouchableOpacity>
 
                 <StardustAlert
                     modalVisible={deleteAlertVisible}
                     setModalVisible={setDeleteAlertVisible}
-                    title="정말 삭제 하시겠어요?"
-                    leftButtonText="취소"
-                    rightButtonText="삭제"
+                    title={messages.messages.main.noti.screen_title}
+                    leftButtonText={messages.messages.words.cancle}
+                    rightButtonText={messages.messages.words.delete}
                     leftOnPress={() => {
                         setDeleteAlertVisible(false);
                     }}

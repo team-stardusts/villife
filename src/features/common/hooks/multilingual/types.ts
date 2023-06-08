@@ -33,6 +33,15 @@ export type MessagesByLanguage = {
                 invalid_plate_number: string;
                 invalid_model: string;
             };
+            register_guest_vehicle: {
+                screen_title: string;
+                register_guest_vehicle: string;
+                request_input_vehicle_info: string;
+                vehicle_plate_number_input_placeholder: string;
+                phone_number_input_placeholder: string;
+                visiting_perpose_input_placeholder: string;
+                invalid_input_value: string;
+            };
         };
         complaint: {
             screen_title: string;
@@ -60,6 +69,20 @@ export type MessagesByLanguage = {
         };
         noti: {
             screen_title: string;
+            delete_success: string;
+            delete_error: string;
+            modify: string;
+            delete: string;
+        };
+        approval: {
+            screen_title: string;
+            reject_success: string;
+            reject_error: string;
+            accept_success: string;
+            accept_error: string;
+            reject: string;
+            accept: string;
+            reject_title: string;
         };
     };
     auth: {
@@ -162,6 +185,7 @@ export type MessagesByLanguage = {
         tokens_for_8to20: string;
         matching_password: string;
         cancle: string;
+        delete: string;
         okay: string;
         register: string;
         reject: string;
@@ -176,6 +200,7 @@ export type MessagesByLanguage = {
         plate_number: string;
         vehicle_info: string;
         vehicle_model: string;
+        visiting_perpose: string;
     };
     navigation: {
         say_wait: string;

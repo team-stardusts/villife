@@ -1,5 +1,5 @@
 import { Dimensions, Modal, Text, TouchableOpacity, View } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import VillifeServer from "../../../../../libs/rest_apis/villife";
 import Toast from "react-native-toast-message";
 import { useNavigation } from "@react-navigation/native";
@@ -8,19 +8,18 @@ import StardustAlert from "../../../../common/blocks/universial/stardust_alert";
 import useBottomEditModalStyles from "./style";
 import ApprovalRequiredModalProps from "./type";
 import { AcceptApprovalParams, RejectApprovalParams } from "../../../../../libs/rest_apis/villife/approval/types";
-import useApprovalService from "../../services";
-import useStyler from "../../../../common/hooks/styler/hooks";
+import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
 
 export default function ApprovalRequiredModal(props: ApprovalRequiredModalProps) {
+    const messages = useScreenMessage();
+
     const screenSize = Dimensions.get("window");
     const styles = useBottomEditModalStyles();
     const { visible, setVisible, convertedApprovalRequest } = props;
-    const service = useApprovalService();
 
-    const navigation = useNavigation<VillifeNavigation>();
-    const [deleteAlertVisible, setDeleteAlertVisible] = React.useState(false);
+    const [deleteAlertVisible, setDeleteAlertVisible] = useState(false);
 
-    React.useEffect(() => {
+    useEffect(() => {
         if (!props.visible) setDeleteAlertVisible(false);
     }, []);
 
@@ -37,7 +36,7 @@ export default function ApprovalRequiredModal(props: ApprovalRequiredModalProps)
             setDeleteAlertVisible(false);
             Toast.show({
                 type: "success",
-                text1: `요청 거절 성공`,
+                text1: messages.messages.main.approval.reject_success,
                 position: "bottom",
                 visibilityTime: 1500,
                 bottomOffset: 100,
@@ -45,7 +44,7 @@ export default function ApprovalRequiredModal(props: ApprovalRequiredModalProps)
         } else {
             Toast.show({
                 type: "error",
-                text1: `요청 거절 실패`,
+                text1: messages.messages.main.approval.reject_error,
                 position: "bottom",
                 visibilityTime: 1500,
                 bottomOffset: 100,
@@ -65,7 +64,7 @@ export default function ApprovalRequiredModal(props: ApprovalRequiredModalProps)
             setVisible(false);
             Toast.show({
                 type: "success",
-                text1: `요청 승락 성공`,
+                text1: messages.messages.main.approval.accept_success,
                 position: "bottom",
                 visibilityTime: 1500,
                 bottomOffset: 100,
@@ -73,7 +72,7 @@ export default function ApprovalRequiredModal(props: ApprovalRequiredModalProps)
         } else {
             Toast.show({
                 type: "error",
-                text1: `요청 승락 실패`,
+                text1: messages.messages.main.approval.accept_error,
                 position: "bottom",
                 visibilityTime: 1500,
                 bottomOffset: 100,
@@ -89,37 +88,36 @@ export default function ApprovalRequiredModal(props: ApprovalRequiredModalProps)
             onRequestClose={() => {
                 setVisible(!props.visible);
             }}
-            style={[{ width: screenSize.width, height: screenSize.height }, styles.wrapper]}>
+            style={[styles.wrapper, styles.wrapperTop]}>
             <View style={styles.container}>
                 <View style={styles.content}>
-                    <View style={[styles.textSection, { height: screenSize.height * 0.1 }]}>
+                    <View style={styles.textSection}>
                         <Text style={styles.title}>{convertedApprovalRequest.title}</Text>
                         <Text style={styles.subtitle}>{convertedApprovalRequest.subTitle}</Text>
                     </View>
-                    {convertedApprovalRequest?.detailContent?.map((content) => {
+                    {convertedApprovalRequest?.detailContent?.map((content, index) => {
                         return (
-                            <View style={styles.childrenSection}>
+                            <View style={styles.childrenSection} key={index}>
                                 <Text>{content.title}</Text>
                                 <Text>{content.content}</Text>
                             </View>
                         );
                     })}
-                    <View style={[styles.buttonSection, { height: screenSize.height * 0.07, marginBottom: 20 }]}>
+                    <View style={styles.leftButtonSection}>
                         <TouchableOpacity
                             activeOpacity={0.7}
                             onPress={() => {
                                 setDeleteAlertVisible(true);
                             }}
                             style={styles.leftButton}>
-                            <Text style={styles.rightButtonText}>거절</Text>
+                            <Text style={styles.leftButtonText}>{messages.messages.main.approval.reject}</Text>
                         </TouchableOpacity>
-
                         <StardustAlert
                             modalVisible={deleteAlertVisible}
                             setModalVisible={setDeleteAlertVisible}
-                            title={"거절하겠습니까?"}
-                            leftButtonText="취소"
-                            rightButtonText="거절"
+                            title={messages.messages.main.approval.reject_title}
+                            leftButtonText={messages.messages.words.cancle}
+                            rightButtonText={messages.messages.main.approval.reject}
                             leftOnPress={() => {
                                 setDeleteAlertVisible(false);
                             }}
@@ -133,7 +131,7 @@ export default function ApprovalRequiredModal(props: ApprovalRequiredModalProps)
                                 onApcceptButtonPress();
                             }}
                             style={styles.rightButton}>
-                            <Text style={styles.rightButtonText}>수락</Text>
+                            <Text style={styles.rightButtonText}>{messages.messages.main.approval.accept}</Text>
                         </TouchableOpacity>
                     </View>
                 </View>

@@ -7,6 +7,7 @@ import { useNavigation } from "@react-navigation/native";
 import { VillifeNavigation, VILLIFE_ROOT_STACK_PARAMS } from "../../router/types";
 import ContentBox from "../content_box";
 import { useEffect, useRef } from "react";
+import { ANIMATION_DURATION_SLOW } from "../../constants";
 
 export default function MiniContent({ title, navigation, children, backgroundColor }: MiniContentProps) {
     const { deviceUI, theme } = useStyler();
@@ -14,19 +15,18 @@ export default function MiniContent({ title, navigation, children, backgroundCol
     const nav = useNavigation<VillifeNavigation>();
 
     const opacityValue = useRef(new Animated.Value(0)).current;
-    const translateYValue = useRef(new Animated.Value(15)).current;
-    const duration: number = 1000;
+    const translateYValue = useRef(new Animated.Value(10)).current;
 
     useEffect(() => {
         Animated.parallel([
             Animated.timing(opacityValue, {
                 toValue: 1,
-                duration: duration,
+                duration: ANIMATION_DURATION_SLOW,
                 useNativeDriver: true,
             }),
             Animated.timing(translateYValue, {
                 toValue: 0,
-                duration: duration,
+                duration: ANIMATION_DURATION_SLOW,
                 useNativeDriver: true,
             }),
         ]).start();

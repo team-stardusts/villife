@@ -93,7 +93,7 @@ export default function ParkingScreen({ navigation, route }: ParkingScreenProps)
 
     // Vehicles 목록을 딜레이를 줘서 렌더링하기 위함.
     const renderVehicleInfos = async () => {
-        const delay: number = 130;
+        const delay: number = 50;
         const allVehicles: Array<TenantVehicle | GuestVehicle> = [...vehicles.guestVehicles, ...vehicles.vehicles];
         for (let i = 0; i < allVehicles.length; i++) {
             // 차량 리스트에서 나의 차량을 제외하기 위함.
@@ -152,6 +152,9 @@ export default function ParkingScreen({ navigation, route }: ParkingScreenProps)
                             <SimpleFuncButton
                                 icon={{ name: "plus", size: styles.contentFuncButtonIcon.width }}
                                 title={messages.messages.main.parking.home.register_guest}
+                                onPress={() => {
+                                    navigation.navigate("register_guest_vehicle");
+                                }}
                             />
                         </View>
                     </View>

@@ -25,6 +25,15 @@
                 "invalid_plate_number_and_model": "차량 번호와 모델을 확인해주세요.",
                 "invalid_plate_number": "차량 번호를 확인해주세요.",
                 "invalid_model": "차량 모델을 확인해주세요."
+            },
+            "register_guest_vehicle": {
+                "screen_title": "방문 차량 정보 등록",
+                "register_guest_vehicle": "방문자 차량 정보 등록",
+                "request_input_vehicle_info": "방문 일정과 차량 정보를 입력 해주세요.",
+                "vehicle_plate_number_input_placeholder": "000가 00000의 형식으로 입력해주세요.",
+                "phone_number_input_placeholder": "'-'을 제외한 숫자만 입력해주세요.",
+                "visiting_perpose_input_placeholder": "'-'을 제외한 숫자만 입력해주세요.",
+                "invalid_input_value": "입력한 정보들을 다시 확인해주세요."
             }
         },
         "complaint": {
@@ -52,7 +61,22 @@
             "screen_title": "My"
         },
         "noti": {
-            "screen_title": "공지사항"
+            "screen_title": "공지사항",
+            "delete_success": "공지사항 삭제 성공",
+            "delete_error": "공지사항 삭제 실패",
+            "modify": "수정하기",
+            "delete": "삭제하기",
+            "delete_title": "정말 삭제하겠습니까?"
+        },
+        "approval": {
+            "screen_title": "승인함",
+            "reject_success": "거절 성공",
+            "reject_error": "거절 실패",
+            "accept_success": "승인 성공",
+            "accept_error": "승인 실패",
+            "reject": "거절",
+            "accept": "승인",
+            "reject_title": "정말 거절하겠습니까?"
         }
     },
     "auth": {
@@ -156,6 +180,7 @@
         "tokens_for_8to20": "8~20자 이내",
         "matching_password": "비밀번호 일치",
         "cancle": "취소",
+        "delete": "삭제",
         "okay": "확인",
         "register": "등록하기",
         "reject": "거절",
@@ -170,7 +195,8 @@
         "eta": "입차 시간",
         "plate_number": "차량 번호",
         "vehicle_info": "차량 정보",
-        "vehicle_model": "차량 모델"
+        "vehicle_model": "차량 모델",
+        "visiting_perpose": "방문 목적"
     },
     "navigation": {
         "say_wait": "잠시만요!",
