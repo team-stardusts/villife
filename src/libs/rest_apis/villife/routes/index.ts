@@ -23,7 +23,7 @@ const routes: RoutesType = {
     reply: "complaint/reply",
     //user info
     getUserBasicInfo: "user/basicinfo",
-    getBuildingManagedByAdmin: "user/admin-buildings",
+    getBuildingManagedByAdmin: "user/buildings-admin-manages",
     //approval
     getUserApprovals: "approval/get/list",
     acceptUserApproval: "approval/accept",

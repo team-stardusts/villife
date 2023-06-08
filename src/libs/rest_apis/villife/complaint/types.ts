@@ -20,7 +20,7 @@ export type GetUserComplaintsParams = {
     status: ComplaintStatus;
 };
 export type GetBuildingComplaintsParams = {
-    building_id: string;
+    building_id: number;
     status: ComplaintStatus;
 };
 

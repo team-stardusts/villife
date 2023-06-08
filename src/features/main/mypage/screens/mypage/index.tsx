@@ -6,11 +6,13 @@ import { LoginDataStateType } from "../../../../common/hooks/states/atoms/login/
 import NavigationView from "../../../../common/blocks/navigation";
 import MyPageScreenProps from "./type";
 import useLogoutService from "../../services/logout";
+import useUserInfoService from "../../../../common/hooks/service/user_info";
 
 export default function MyPageScreen({ navigation, route }: MyPageScreenProps) {
     const messages = useScreenMessage();
     const [loginData] = useRecoilState<LoginDataStateType>(loginDataState);
     const logout = useLogoutService().logout;
+    const userInfo = useUserInfoService();
 
     return (
         <NavigationView
@@ -42,6 +44,21 @@ export default function MyPageScreen({ navigation, route }: MyPageScreenProps) {
                     onPress={() => navigation.navigate("approval_home", { id: "", password: "" })}
                     aria-label="Decrement value"
                     title="요청함"
+                />
+                <Button
+                    onPress={() => {
+                        userInfo.service.resetUserBasicInfo();
+                    }}
+                    aria-label="Decrement value"
+                    title="유저 인포 갱신"
+                />
+                <Button
+                    onPress={() => {
+                        if (userInfo.changeSelectedBuildingOfAdmin(userInfo.adminInfo?.managedBuildings[2]))
+                            console.log("changed");
+                    }}
+                    aria-label="Decrement value"
+                    title="admin 건물변경"
                 />
             </View>
         </NavigationView>

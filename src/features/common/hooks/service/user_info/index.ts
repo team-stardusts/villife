@@ -14,12 +14,13 @@ export default function useUserInfoService() {
     const [userBasicInfo, setUserBasicInfo] = useRecoilState(userBasicInfoState);
     const [adminInfo, setAdminInfo] = useRecoilState(adminInfoState);
 
-    const onCreate = async () => {
+    const updateUserInfo = async () => {
         const result = await service.getUserBasicInfo();
         setUserBasicInfo(result);
-
+        console.log(result);
         if (result.authority == 3) {
             const result = await service.fetchBuildingsManagedByAdmin();
+            console.log(result.data?.data);
             if (result.isSuccessful) {
                 if (!result.data?.data[0]) return;
                 const adminInformation: AdminInformation = {
@@ -32,8 +33,19 @@ export default function useUserInfoService() {
         }
     };
 
+    const changeSelectedBuildingOfAdmin: (building?: SimpleBuildingInfo) => boolean = (
+        building?: SimpleBuildingInfo
+    ) => {
+        if (!building) return false;
+        const newAdminInfo = adminInfo;
+        if (!newAdminInfo?.selectedBuilding) return false;
+        newAdminInfo.selectedBuilding = building;
+        setAdminInfo(newAdminInfo);
+        return true;
+    };
+
     useEffect(() => {
-        onCreate();
+        if (!userBasicInfo?.authority) updateUserInfo();
     }, []);
 
     const service: IUserInfoService = new UserInfoService();
@@ -41,6 +53,7 @@ export default function useUserInfoService() {
         basicInfo: userBasicInfo,
         service: service,
         adminInfo: adminInfo,
+        changeSelectedBuildingOfAdmin: changeSelectedBuildingOfAdmin,
     };
 }
 

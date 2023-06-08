@@ -1,6 +1,6 @@
 export type Authority = {
     RENTER: 1;
-    LANDLORD: 2;
+    OWNER: 2;
     ADMIN: 3;
     SITE_ADMIN: 777;
 };

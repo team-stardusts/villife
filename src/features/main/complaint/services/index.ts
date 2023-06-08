@@ -62,6 +62,7 @@ class ComplaintService implements IComplaintService {
         return result;
     }
     async GetBuildingComplaints(params: GetBuildingComplaintsParams): Response<GetComplaintsResult> {
+        if (params.building_id == 0) throw new Error("invalid building id");
         return await this.mApi.GetBuildingComplaints(params);
     }
     async GetUserComplaints(params: GetUserComplaintsParams): Response<GetComplaintsResult> {

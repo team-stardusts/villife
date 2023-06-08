@@ -5,10 +5,11 @@ import { ComplaintInfo } from "../../services/type";
 import { ComplaintHomeDisplayMode } from "./types";
 import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
 import { ComplaintListUpatedEventListener } from "../../services/event";
+import { AUTHORITY } from "../../../../common/hooks/service/user_info/constant";
 
 export default function ComplaintHomeViewModel(): ComplaintHomeUiState {
     const service = useComplaintService();
-    const userInfoService = useUserInfoService();
+    const userInfo = useUserInfoService();
     const messages = useScreenMessage();
     const [complaints, setComplaints] = React.useState<Array<ComplaintInfo>>([]);
     const [displayMode, setDisplayMode] = React.useState<ComplaintHomeDisplayMode>("received_and_in_progress");
@@ -17,13 +18,25 @@ export default function ComplaintHomeViewModel(): ComplaintHomeUiState {
     );
 
     const fetchReceivedAndInProgressComplaint = async () => {
-        const resReceived = await service.GetUserComplaints({
-            status: "received",
-        });
+        const resReceived =
+            userInfo.basicInfo?.authority == AUTHORITY.ADMIN
+                ? await service.GetBuildingComplaints({
+                      building_id: userInfo.adminInfo?.selectedBuilding.id || 0,
+                      status: "received",
+                  })
+                : await service.GetUserComplaints({
+                      status: "received",
+                  });
         if (!resReceived.isSuccessful) return [];
-        const res = await service.GetUserComplaints({
-            status: "in_progress",
-        });
+        const res =
+            userInfo.basicInfo?.authority == AUTHORITY.ADMIN
+                ? await service.GetBuildingComplaints({
+                      building_id: userInfo.adminInfo?.selectedBuilding.id || 0,
+                      status: "in_progress",
+                  })
+                : await service.GetUserComplaints({
+                      status: "in_progress",
+                  });
         if (!res.isSuccessful) return;
         if (res.data?.data) {
             const concatnatedComplaints = resReceived.data?.data.concat(...res.data.data);
@@ -32,27 +45,45 @@ export default function ComplaintHomeViewModel(): ComplaintHomeUiState {
         }
     };
     const fetchReceivedComplaint = async () => {
-        const res = await service.GetUserComplaints({
-            status: "received",
-        });
+        const res =
+            userInfo.basicInfo?.authority == AUTHORITY.ADMIN
+                ? await service.GetBuildingComplaints({
+                      building_id: userInfo.adminInfo?.selectedBuilding.id || 0,
+                      status: "received",
+                  })
+                : await service.GetUserComplaints({
+                      status: "received",
+                  });
         if (!res.isSuccessful) return [];
         if (res.data?.data) {
             setComplaints(res.data.data);
         }
     };
     const fetchInProgressComplaint = async () => {
-        const res = await service.GetUserComplaints({
-            status: "in_progress",
-        });
+        const res =
+            userInfo.basicInfo?.authority == AUTHORITY.ADMIN
+                ? await service.GetBuildingComplaints({
+                      building_id: userInfo.adminInfo?.selectedBuilding.id || 0,
+                      status: "in_progress",
+                  })
+                : await service.GetUserComplaints({
+                      status: "in_progress",
+                  });
         if (!res.isSuccessful) return;
         if (res.data?.data) {
             setComplaints(res.data.data);
         }
     };
     const fetchCompletedComplaint = async () => {
-        const res = await service.GetUserComplaints({
-            status: "completed",
-        });
+        const res =
+            userInfo.basicInfo?.authority == AUTHORITY.ADMIN
+                ? await service.GetBuildingComplaints({
+                      building_id: userInfo.adminInfo?.selectedBuilding.id || 0,
+                      status: "completed",
+                  })
+                : await service.GetUserComplaints({
+                      status: "completed",
+                  });
         if (!res.isSuccessful) return;
         if (res.data?.data) {
             setComplaints(res.data.data);
