@@ -12,6 +12,11 @@ export default function useComplaintContentCardStyles(): ComplaintContentCardSty
             height: deviceUI.screenSize.height * 0.16,
             borderRadius: deviceUI.moderateScale(15),
         },
+        editModeTopLevelBox: {
+            width: deviceUI.screenSize.width * 0.8,
+            height: deviceUI.screenSize.height * 0.16,
+            borderRadius: deviceUI.moderateScale(15),
+        },
         contentBoxCompleted: {
             backgroundColor: theme.colorFamily.lightgrey,
         },
@@ -69,6 +74,7 @@ export default function useComplaintContentCardStyles(): ComplaintContentCardSty
             width: deviceUI.moderateScale(30),
             height: deviceUI.moderateScale(30),
             borderRadius: deviceUI.moderateScale(15),
+            zIndex: 10,
         },
         absoluteWrapper: {
             position: "absolute",
@@ -114,6 +120,13 @@ export default function useComplaintContentCardStyles(): ComplaintContentCardSty
         },
         middleLineCompleted: {
             width: deviceUI.screenSize.width * 0.75,
+            height: deviceUI.moderateScale(3),
+            backgroundColor: theme.colorFamily.darkgrey,
+            marginLeft: deviceUI.moderateScale(15),
+            borderRadius: deviceUI.moderateScale(5),
+        },
+        middleLineCompletedWhenEdit: {
+            width: deviceUI.screenSize.width * 0.65,
             height: deviceUI.moderateScale(3),
             backgroundColor: theme.colorFamily.darkgrey,
             marginLeft: deviceUI.moderateScale(15),

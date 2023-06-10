@@ -8,6 +8,7 @@ export function useComplaintDetailViewModel(complaintInfo: Complaint): Complaint
     const [replies, setReplies] = useState<GetRepliesResult>([]);
     const service = useComplaintService();
     useEffect(() => {
+        console.log(complaintInfo);
         LayoutAnimation.configureNext(LayoutAnimation.Presets.spring);
         service.GetReplies(complaintInfo.id).then((r) => {
             if (!r.isSuccessful) return;

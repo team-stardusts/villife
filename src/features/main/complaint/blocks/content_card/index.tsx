@@ -1,9 +1,10 @@
 import React from "react";
 import { ComplaintContentCardProps } from "./types";
-import { View, Text, Animated } from "react-native";
+import { View, Text, Animated, Pressable, TouchableOpacity } from "react-native";
 import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
 import useComplaintContentCardStyles from "./styles";
 import ContentBox from "../../../../common/blocks/content_box";
+import { ComplaintStatus } from "../../../../../libs/rest_apis/villife/complaint/types";
 
 function ComplaintContentCard(props: ComplaintContentCardProps) {
     const messages = useScreenMessage();
@@ -12,6 +13,7 @@ function ComplaintContentCard(props: ComplaintContentCardProps) {
     const circleOpacity1 = React.useRef(new Animated.Value(0)).current;
     const circleOpacity2 = React.useRef(new Animated.Value(0)).current;
     const progressLineWidth = React.useRef(new Animated.Value(0)).current;
+    const [status, setStatus] = React.useState<ComplaintStatus>(props.info.status);
 
     const interpolatedWidth = progressLineWidth.interpolate({
         inputRange: [0, 1],
@@ -19,12 +21,24 @@ function ComplaintContentCard(props: ComplaintContentCardProps) {
     });
 
     React.useEffect(() => {
-        if (props.info.status == "received") {
+        if (status == "received") {
             Animated.sequence([
                 Animated.timing(circleOpacity1, {
                     toValue: 1,
-                    duration: 500,
+                    duration: 100,
                     useNativeDriver: true,
+                }),
+            ]).start();
+            Animated.sequence([
+                Animated.timing(circleOpacity2, {
+                    toValue: 0,
+                    duration: 100,
+                    useNativeDriver: true,
+                }),
+                Animated.timing(progressLineWidth, {
+                    toValue: 0,
+                    duration: 100,
+                    useNativeDriver: false,
                 }),
             ]).start();
             return;
@@ -32,27 +46,27 @@ function ComplaintContentCard(props: ComplaintContentCardProps) {
         Animated.sequence([
             Animated.timing(circleOpacity1, {
                 toValue: 1,
-                duration: 500,
+                duration: 100,
                 useNativeDriver: true,
             }),
             Animated.timing(circleOpacity2, {
                 toValue: 1,
-                duration: 500,
+                duration: 100,
                 useNativeDriver: true,
             }),
             Animated.timing(progressLineWidth, {
                 toValue: 1,
-                duration: 500,
+                duration: 100,
                 useNativeDriver: false,
             }),
         ]).start();
-    }, []);
+    }, [status]);
 
     return (
-        <View style={styles.topLevelBox}>
+        <View style={props.editMode ? styles.editModeTopLevelBox : styles.topLevelBox}>
             <ContentBox
                 backgroundColor={
-                    props.info.status == "completed"
+                    status == "completed"
                         ? styles.contentBoxCompleted.backgroundColor
                         : styles.contentBoxInProgress.backgroundColor
                 }>
@@ -72,40 +86,70 @@ function ComplaintContentCard(props: ComplaintContentCardProps) {
                             <Text style={styles.statusText}>{messages.messages.main.complaint.done}</Text>
                         </View>
                     </View>
-                    {props.info.status == "completed" ? (
+                    {status == "completed" ? (
                         <View style={styles.progressBarSection}>
-                            <View style={styles.outerCircle}>
+                            <Pressable
+                                onPress={() => {
+                                    if (props.editMode) setStatus("received");
+                                    if (props.updatedStatus) props.updatedStatus.current = "received";
+                                }}
+                                style={styles.outerCircle}>
                                 <Animated.View style={[styles.outerCircleInnerBorderCompleted]}>
                                     <View style={styles.innerCircleCompleted}></View>
                                 </Animated.View>
-                            </View>
-                            <View style={styles.outerCircle}>
+                            </Pressable>
+                            <Pressable
+                                onPress={() => {
+                                    if (props.editMode) setStatus("in_progress");
+                                    if (props.updatedStatus) props.updatedStatus.current = "in_progress";
+                                }}
+                                style={styles.outerCircle}>
                                 <Animated.View style={[styles.outerCircleInnerBorderCompleted]}>
                                     <View style={styles.innerCircleCompleted}></View>
                                 </Animated.View>
-                            </View>
-                            <View style={styles.outerCircle}>
+                            </Pressable>
+                            <Pressable style={styles.outerCircle}>
                                 <Animated.View style={[styles.outerCircleInnerBorderCompleted]}>
                                     <View style={styles.innerCircleCompleted}></View>
                                 </Animated.View>
-                            </View>
-                            <View style={styles.absoluteWrapper}>
-                                <Animated.View style={[styles.middleLineCompleted]}></Animated.View>
-                            </View>
+                            </Pressable>
+                            <Pressable style={styles.absoluteWrapper}>
+                                <Animated.View
+                                    style={[
+                                        props.editMode
+                                            ? styles.middleLineCompletedWhenEdit
+                                            : styles.middleLineCompleted,
+                                    ]}></Animated.View>
+                            </Pressable>
                         </View>
                     ) : (
                         <View style={styles.progressBarSection}>
-                            <View style={styles.outerCircle}>
+                            <TouchableOpacity
+                                onPress={() => {
+                                    if (props.editMode) setStatus("received");
+                                    if (props.updatedStatus) props.updatedStatus.current = "received";
+                                }}
+                                style={styles.outerCircle}>
                                 <Animated.View style={[styles.outerCircleInnerBorder, { opacity: circleOpacity1 }]}>
                                     <View style={styles.innerCircle}></View>
                                 </Animated.View>
-                            </View>
-                            <View style={styles.outerCircle}>
+                            </TouchableOpacity>
+                            <Pressable
+                                onPress={() => {
+                                    if (props.editMode) setStatus("in_progress");
+                                    if (props.updatedStatus) props.updatedStatus.current = "in_progress";
+                                }}
+                                style={styles.outerCircle}>
                                 <Animated.View style={[styles.outerCircleInnerBorder, { opacity: circleOpacity2 }]}>
                                     <View style={styles.innerCircle}></View>
                                 </Animated.View>
-                            </View>
-                            <View style={styles.outerCircle}></View>
+                            </Pressable>
+                            <Pressable
+                                onPress={() => {
+                                    if (props.editMode) setStatus("completed");
+                                    if (props.updatedStatus) props.updatedStatus.current = "completed";
+                                }}
+                                style={styles.outerCircle}></Pressable>
                             <View style={styles.absoluteWrapper}>
                                 <Animated.View
                                     style={[styles.middleLine, { width: interpolatedWidth }]}></Animated.View>

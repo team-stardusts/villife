@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import useComplaintService from "../../services";
 import useUserInfoService from "../../../../common/hooks/service/user_info";
 import { ComplaintInfo } from "../../services/type";
@@ -41,6 +41,7 @@ export default function ComplaintHomeViewModel(): ComplaintHomeUiState {
         if (res.data?.data) {
             const concatnatedComplaints = resReceived.data?.data.concat(...res.data.data);
             if (!concatnatedComplaints) return;
+            setComplaints([]);
             setComplaints(concatnatedComplaints);
         }
     };
@@ -56,6 +57,7 @@ export default function ComplaintHomeViewModel(): ComplaintHomeUiState {
                   });
         if (!res.isSuccessful) return [];
         if (res.data?.data) {
+            setComplaints([]);
             setComplaints(res.data.data);
         }
     };
@@ -71,6 +73,7 @@ export default function ComplaintHomeViewModel(): ComplaintHomeUiState {
                   });
         if (!res.isSuccessful) return;
         if (res.data?.data) {
+            setComplaints([]);
             setComplaints(res.data.data);
         }
     };
@@ -86,6 +89,7 @@ export default function ComplaintHomeViewModel(): ComplaintHomeUiState {
                   });
         if (!res.isSuccessful) return;
         if (res.data?.data) {
+            setComplaints([]);
             setComplaints(res.data.data);
         }
     };
@@ -118,7 +122,7 @@ export default function ComplaintHomeViewModel(): ComplaintHomeUiState {
     React.useEffect(() => {
         const listener = new ComplaintListUpatedEventListener();
         listener.subscribe(() => {
-            console.log("fetchComplaintByDisplayMode");
+            console.log("fetchComplaint");
             fetchComplaintByDisplayMode();
         });
         return () => listener.unsubscribe();

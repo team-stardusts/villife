@@ -29,6 +29,8 @@ export type Complaint = {
     content: string;
     status: ComplaintStatus;
     title: string;
+    building_name: string;
+    complainant_name: string;
     created_at: string;
     updated_at: string;
 };

@@ -25,6 +25,8 @@ import ReplyInputSection from "../../blocks/reply_input";
 import { useComplaintDetailViewModel } from "./view_model";
 import IconPencil from "../../../../common/atoms/icon/pencil";
 import ComplaintDetailEditModal from "../../blocks/detail_bottom_edit";
+import { AUTHORITY } from "../../../../common/hooks/service/user_info/constant";
+import ComplaintProgressEditModal from "../../blocks/progress_edit";
 
 export default function ComplaintDetailScreen({ navigation, route }: ComplaintDetailScreenProps) {
     const messages = useScreenMessage();
@@ -32,6 +34,7 @@ export default function ComplaintDetailScreen({ navigation, route }: ComplaintDe
     const uiState = useComplaintDetailViewModel(route.params);
     const userInfoService = useUserInfoService();
     const [editModalVisible, setEditModalVisible] = React.useState(false);
+    const [progressEditModalVisible, setProgressEditModalVisible] = React.useState(false);
 
     return (
         <NavigationView
@@ -48,6 +51,11 @@ export default function ComplaintDetailScreen({ navigation, route }: ComplaintDe
                 setVisible={setEditModalVisible}
                 ComplaintInfo={route.params}
             />
+            <ComplaintProgressEditModal
+                modalVisible={progressEditModalVisible}
+                setModalVisible={setProgressEditModalVisible}
+                complaint={route.params}
+            />
             <ScrollView style={[styles.topLevelBox]} scrollEventThrottle={20}>
                 <>
                     <View style={styles.titleSection}>
@@ -56,10 +64,18 @@ export default function ComplaintDetailScreen({ navigation, route }: ComplaintDe
                             <TouchableOpacity
                                 style={styles.editButton}
                                 onPress={() => {
+                                    if (userInfoService.basicInfo?.authority == AUTHORITY.ADMIN) {
+                                        setProgressEditModalVisible(true);
+                                        return;
+                                    }
                                     setEditModalVisible(true);
                                 }}>
                                 <IconPencil size={(styles.iconSize.width as number) * 3} />
-                                <Text style={styles.registerButtonText}>{messages.messages.words.edit}</Text>
+                                <Text style={styles.registerButtonText}>
+                                    {userInfoService.basicInfo?.authority == AUTHORITY.ADMIN
+                                        ? messages.messages.main.complaint.progress_status
+                                        : messages.messages.words.edit}
+                                </Text>
                             </TouchableOpacity>
                         </TouchableOpacity>
                     </View>
@@ -68,16 +84,16 @@ export default function ComplaintDetailScreen({ navigation, route }: ComplaintDe
                     <ComplaintStatusLable status={route.params.status} />
                     <View style={styles.blockWithIcon}>
                         <IconBuilding size={styles.iconSize.width as number} />
-                        <Text>{"건물이름"}</Text>
+                        <Text>{route.params.building_name}</Text>
                     </View>
                     <View style={styles.blockWithIcon}>
                         <IconPerson color="black" size={(styles.iconSize.width as number) * 2} />
-                        <Text>{"유저이름"}</Text>
+                        <Text>{route.params.complainant_name}</Text>
                     </View>
                 </View>
                 <AutoHeightWebView
                     style={styles.webViewContainer}
-                    customStyle={` ${RemoteCSS.getPretendardRegular()}
+                    customStyle={`${RemoteCSS.getPretendardRegular()}
                     body {
                       font-size: 14px;
                       font-family:"Pretendard-Regular";
