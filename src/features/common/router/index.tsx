@@ -32,6 +32,7 @@ import RegisterVehicleScreen from "../../main/parking/screens/register_vehicle";
 import MyPageHomeScreen from "../../main/mypage/screens/home";
 import ComplaintModifyScreen from "../../main/complaint/screens/modify";
 import RegisterGuestVehicleScreen from "../../main/parking/screens/register_guest_vehicle";
+import StardustDateParser from "../../../libs/date_parser";
 
 enableScreens(true);
 
@@ -49,7 +50,12 @@ export default function ScreenRouter() {
 
     const bootstrap = async () => {
         const data = await storage.login.get();
-
+        if (data) {
+            console.log(data.accessTokenExpiresAt * 1000);
+            console.log(StardustDateParser.deserialize(data.accessTokenExpiresAt));
+            console.log(new Date("9999-10-31").getTime());
+            console.log(new Date("9999-12-31"));
+        }
         setLoginData(data);
         setIsLoading(false);
     };

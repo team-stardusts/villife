@@ -20,9 +20,6 @@ export default function RegisterVehicleScreen({ navigation, route }: RegisterVeh
     const messages = useScreenMessage();
     const styles = useRegisterVehicleScreenStyles();
 
-    const { theme } = useStyler();
-    const validator = new StringValidator();
-
     const [vehicle, setVehicle] = useState<Vehicle>({
         plateNumber: "",
         model: "",
@@ -35,6 +32,7 @@ export default function RegisterVehicleScreen({ navigation, route }: RegisterVeh
             minute: 0,
         },
     });
+
     const [valid, setValid] = useState<VehicleValidationResult>({
         plateNumber: false,
         model: false,

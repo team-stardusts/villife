@@ -4,8 +4,8 @@ import NavigationView from "../../../../common/blocks/navigation";
 import SimpleNavComponent from "../../../../common/blocks/navigation/navcomponent";
 import HomeScreenProps from "./type";
 import useHomeScreenStyles from "./styles";
-import HomeContentFromComplaint from "../../../complaint/blocks/home_content";
 import useStyler from "../../../../common/hooks/styler/hooks";
+import HomeContentFromComplaint from "../../../complaint/blocks/home_content";
 
 export default function HomeScreen({ navigation, route }: HomeScreenProps) {
     const messages = useScreenMessage();

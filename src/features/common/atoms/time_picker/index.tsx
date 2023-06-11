@@ -16,13 +16,16 @@ export default function TimePicker({
     const minutes = Array.from({ length: 12 }, (v, k) => k * 5);
 
     const { deviceUI, theme } = useStyler();
-    const [time, setTime] = useState<TimePickerTime>({
-        hour: hours[0],
-        minute: minutes[0],
-    });
+    // [TO-DO] Initial Time이 유효하지 않을 시 Throw Error
+    const [time, setTime] = useState<TimePickerTime>(
+        initialTime ?? {
+            hour: hours[0],
+            minute: minutes[0],
+        }
+    );
 
     useEffect(() => {
-        onTimeChange !== undefined && onTimeChange(time);
+        onTimeChange && onTimeChange(time);
     }, [time]);
 
     const styles = StyleSheet.create({

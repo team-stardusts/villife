@@ -45,16 +45,21 @@ function VehicleCard({ vehicle, cardWidth }: VehicleCardProps) {
         },
     });
 
-    function CardRow({ rowKey, rowValue }: { rowKey: string; rowValue: string | number }) {
+    function CardRow({ rowKey, rowValue }: { rowKey: string; rowValue: string }) {
         return (
             <View style={styles.rowWrapper}>
                 <Text style={styles.rowText}>{rowKey}</Text>
-                <Text style={styles.rowText}>{rowValue}</Text>
+                <Text style={styles.rowText}>{rowValue.toString()}</Text>
             </View>
         );
     }
 
-    const cardData: Array<{ rowKey: string; rowValue: string | number }> = [
+    const etdHour = vehicle.etd.getHours().toString();
+    const etdMin = vehicle.etd.getMinutes().toString();
+    const etaHour = vehicle.eta.getHours().toString();
+    const etaMin = vehicle.eta.getMinutes().toString();
+
+    const cardData: Array<{ rowKey: string; rowValue: string }> = [
         {
             rowKey: messages.messages.words.plate_number,
             rowValue: vehicle.plate_number,
@@ -65,11 +70,11 @@ function VehicleCard({ vehicle, cardWidth }: VehicleCardProps) {
         },
         {
             rowKey: messages.messages.words.etd,
-            rowValue: vehicle.etd,
+            rowValue: `${etdHour.length === 1 ? 0 + etdHour : etdHour}:${etdMin.length === 1 ? 0 + etdMin : etdMin}`,
         },
         {
             rowKey: messages.messages.words.eta,
-            rowValue: vehicle.eta,
+            rowValue: `${etaHour.length === 1 ? 0 + etaHour : etaHour}:${etaMin.length === 1 ? 0 + etaMin : etaMin}`,
         },
     ];
 

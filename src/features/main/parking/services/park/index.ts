@@ -1,53 +1,97 @@
-import { useEffect } from "react";
 import VillifeServer from "../../../../../libs/rest_apis/villife";
 import IVillifeParkingManager, { Parking } from "../../../../../libs/rest_apis/villife/parking/types";
-import { ParkServiceReturns } from "./types";
+import { GuestVehicle, MyVehicleEtdaUpdateServiceParams, ParkServiceReturns, TenantVehicle, Vehicle } from "./types";
+import { useRecoilState } from "recoil";
+import { VehiclesStateType } from "../state/types";
+import { vehiclesState } from "../state";
+import { useEffect } from "react";
+import StardustDateParser from "../../../../../libs/date_parser";
+import { EtdaTime } from "../../blocks/etad_time_picker/types";
 
 export default function useParkService(): ParkServiceReturns {
+    const [vehicles, setVehicles] = useRecoilState<VehiclesStateType>(vehiclesState);
     const parkManager: IVillifeParkingManager = VillifeServer.getParkingManager();
 
-    const getMyVehicles = async (): Promise<Parking.TenantVehicle[]> => {
-        const result = await parkManager.getMyVehicles();
+    useEffect(() => {
+        bootstrap();
+    }, []);
+
+    const bootstrap = async () => {
+        setVehicles({
+            ...vehicles,
+            myVehicles: await getVehicles("own"),
+            vehicles: await getVehicles("tenant"),
+            guestVehicles: (await getVehicles("guest")) as GuestVehicle[],
+        });
+    };
+
+    const getVehicles = async (type: "own" | "tenant" | "guest"): Promise<TenantVehicle[] | GuestVehicle[]> => {
+        let result;
+
+        switch (type) {
+            case "own":
+                result = await parkManager.getMyVehicles();
+                break;
+
+            case "tenant":
+                result = await parkManager.getBuildingRegistedVehicles();
+                break;
+
+            default:
+                result = await parkManager.getBuildingGuestVehicles();
+                break;
+        }
 
         if (result.data?.data !== undefined) {
-            return result.data.data;
+            //const dataArray: Parking.TenantVehicle[] | Parking.GuestVehicle[] = result.data.data;
+            const dataArray: Vehicle[] = [];
+
+            for (let i = 0; i < result.data.data.length; i++) {
+                dataArray.push({
+                    ...result.data.data[i],
+                    eta: StardustDateParser.deserialize(result.data.data[i].eta),
+                    etd: StardustDateParser.deserialize(result.data.data[i].etd),
+                });
+            }
+
+            return dataArray;
         }
 
         return [];
     };
 
-    const getVehicles = async (): Promise<Parking.TenantVehicle[]> => {
-        const result = await parkManager.getBuildingRegistedVehicles();
+    const updateMyVehicleEtda = async (params: MyVehicleEtdaUpdateServiceParams): Promise<boolean> => {
+        const _params = {
+            vehicleID: params.vehicleID,
+            etd: StardustDateParser.serialize(new Date(`9999-12-31T${params.etda.etd.hour}:${params.etda.etd.minute}`)),
+            eta: StardustDateParser.serialize(new Date(`9999-12-31T${params.etda.eta.hour}:${params.etda.eta.minute}`)),
+        };
 
-        if (result.data?.data !== undefined) {
-            return result.data.data;
-        }
+        const isSuccessful: boolean = (await parkManager.updateMyVehicleEtda(_params)).isSuccessful;
 
-        return [];
-    };
+        isSuccessful &&
+            setVehicles({
+                ...vehicles,
+                myVehicles: await getVehicles("own"),
+            });
 
-    const getGuestVehicles = async (): Promise<Parking.GuestVehicle[]> => {
-        const result = await parkManager.getBuildingGuestVehicles();
-
-        if (result.data?.data !== undefined) {
-            return result.data.data;
-        }
-
-        return [];
-    };
-
-    const updateMyVehicleEtda = async (params: Parking.VehicleEtdaUpdateParams): Promise<boolean> => {
-        return (await parkManager.updateMyVehicleEtda(params)).isSuccessful;
+        return isSuccessful;
     };
 
     const updateMyVehicleInfo = async (params: Parking.VehicleInfopdateParams): Promise<boolean> => {
-        return (await parkManager.updateMyVehicleInfo(params)).isSuccessful;
+        const isSuccessful: boolean = (await parkManager.updateMyVehicleInfo(params)).isSuccessful;
+
+        isSuccessful &&
+            setVehicles({
+                ...vehicles,
+                myVehicles: await getVehicles("own"),
+            });
+
+        return isSuccessful;
     };
 
     return {
-        getMyVehicles,
-        getVehicles,
-        getGuestVehicles,
+        vehicles,
         updateMyVehicleEtda,
         updateMyVehicleInfo,
     };

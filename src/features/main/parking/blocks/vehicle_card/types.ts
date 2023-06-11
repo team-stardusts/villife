@@ -1,4 +1,4 @@
-import { TenantVehicle } from "../../../../../libs/rest_apis/villife/parking/types";
+import { TenantVehicle } from "../../services/park/types";
 
 export type VehicleCardViewProps = {
     vehicles: TenantVehicle[];

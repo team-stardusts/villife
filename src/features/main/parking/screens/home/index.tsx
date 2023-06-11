@@ -13,18 +13,13 @@ import Badge from "../../../../common/atoms/badge";
 import ContentBox from "../../../../common/blocks/content_box";
 import Icon from "../../../../common/atoms/icon";
 import SimpleFuncButton from "../../../../common/blocks/button/simple_func_button";
-
-type Vehicles = {
-    myVehicles: Parking.TenantVehicle[];
-    vehicles: Parking.TenantVehicle[];
-    guestVehicles: Parking.GuestVehicle[];
-};
+import { Vehicle } from "../../services/park/types";
 
 type VehicleInfoProps = {
     ownerType: "guest" | "tenant";
     plateNumber: string;
     phoneNumber: string;
-    etd: number;
+    etd: Date;
 };
 
 function VehicleInfo({ ownerType, plateNumber, phoneNumber, etd }: VehicleInfoProps) {
@@ -63,43 +58,22 @@ function VehicleInfo({ ownerType, plateNumber, phoneNumber, etd }: VehicleInfoPr
 
 export default function ParkingScreen({ navigation, route }: ParkingScreenProps) {
     const messages = useScreenMessage();
-    const parkService = useParkService();
-    const { deviceUI, theme } = useStyler();
+    const { vehicles } = useParkService();
+    const { deviceUI } = useStyler();
     const styles = useParkingHomeScreenStyles().screen;
     const screenPadding: number = deviceUI.moderateScale(SCREEN_PADDING_HORIZONTAL_STANDARD_VALUE);
+
     // Card에서 ScrollView를 사용하므로, 가변적인 카드를 만들기 위해서 Width 지정이 필요함
     const cardWidth: number = deviceUI.screenSize.width - (screenPadding + deviceUI.moderateScale(20));
 
-    const [vehicles, setVehicles] = useState<Vehicles>({
-        myVehicles: [],
-        vehicles: [],
-        guestVehicles: [],
-    });
     // Vehicles 목록을 딜레이를 줘서 렌더링하기 위함.
-    const [vehiclesForRendering, setVehiclesForRendering] = useState<
-        Array<Parking.TenantVehicle | Parking.GuestVehicle>
-    >([]);
-
-    const bootstrap = async () => {
-        const myVehicles = await parkService.getMyVehicles();
-        const vehicles = await parkService.getVehicles();
-        const guestVehicles = await parkService.getGuestVehicles();
-
-        setVehicles({
-            ...vehicles,
-            myVehicles,
-            vehicles,
-            guestVehicles,
-        });
-    };
+    const [vehiclesForRendering, setVehiclesForRendering] = useState<Vehicle[]>([]);
 
     // Vehicles 목록을 딜레이를 줘서 렌더링하기 위함.
     const renderVehicleInfos = async () => {
         const delay: number = 50;
-        const allVehicles: Array<Parking.TenantVehicle | Parking.GuestVehicle> = [
-            ...vehicles.guestVehicles,
-            ...vehicles.vehicles,
-        ];
+        const allVehicles: Vehicle[] = [...vehicles.guestVehicles, ...vehicles.vehicles];
+
         for (let i = 0; i < allVehicles.length; i++) {
             // 차량 리스트에서 나의 차량을 제외하기 위함.
             const myVehicles = vehicles.myVehicles.find(
@@ -126,10 +100,6 @@ export default function ParkingScreen({ navigation, route }: ParkingScreenProps)
         renderVehicleInfos();
     }, [vehicles]);
 
-    useEffect(() => {
-        bootstrap();
-    }, []);
-
     return (
         <NavigationView
             headerOptions={{
@@ -146,7 +116,10 @@ export default function ParkingScreen({ navigation, route }: ParkingScreenProps)
                             />
                         </View> */}
                     </View>
-                    <VehicleCardView vehicles={vehicles.myVehicles} cardWidth={cardWidth} />
+                    <VehicleCardView
+                        vehicles={vehicles?.myVehicles !== undefined ? vehicles.myVehicles : []}
+                        cardWidth={cardWidth}
+                    />
                 </View>
                 <View style={styles.buildingVehiclesViewBox}>
                     <View style={styles.contentTitleBox}>

@@ -1,7 +1,7 @@
 export type Authority = {
-    RENTER: 1;
-    OWNER: 2;
-    ADMIN: 3;
+    RENTER: 1; // 임차인
+    OWNER: 2; // 임대인
+    ADMIN: 3; // 관리인
     SITE_ADMIN: 777;
 };
 

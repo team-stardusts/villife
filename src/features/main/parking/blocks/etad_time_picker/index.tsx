@@ -5,7 +5,7 @@ import useStyler from "../../../../common/hooks/styler/hooks";
 import { useEffect, useState } from "react";
 import { TimePickerTime } from "../../../../common/atoms/time_picker/types";
 import Icon from "../../../../common/atoms/icon";
-import { EtdaTimePickerProps } from "./types";
+import { EtdaTime, EtdaTimePickerProps } from "./types";
 import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
 
 export default function EtdaTimePicker({ initialTime, onTimeChange }: EtdaTimePickerProps) {
@@ -15,14 +15,18 @@ export default function EtdaTimePicker({ initialTime, onTimeChange }: EtdaTimePi
     const timepickerHeight: number = height * 0.75;
     const headerHeight: number = height * 0.25;
 
-    const [startTime, setStartTime] = useState<TimePickerTime>({
-        hour: 0,
-        minute: 0,
-    });
-    const [endTime, setEndTime] = useState<TimePickerTime>({
-        hour: 0,
-        minute: 0,
-    });
+    const [etda, setEtda] = useState<EtdaTime>(
+        initialTime ?? {
+            etd: {
+                hour: 0,
+                minute: 0,
+            },
+            eta: {
+                hour: 0,
+                minute: 0,
+            },
+        }
+    );
 
     const styles = StyleSheet.create({
         container: {
@@ -72,12 +76,8 @@ export default function EtdaTimePicker({ initialTime, onTimeChange }: EtdaTimePi
     });
 
     useEffect(() => {
-        onTimeChange &&
-            onTimeChange({
-                etd: startTime,
-                eta: endTime,
-            });
-    }, [startTime, endTime]);
+        onTimeChange && onTimeChange(etda);
+    }, [etda]);
 
     return (
         <View style={styles.container}>
@@ -98,7 +98,7 @@ export default function EtdaTimePicker({ initialTime, onTimeChange }: EtdaTimePi
                                 height={timepickerHeight}
                                 focusedcolor={theme.colorFamily.white}
                                 unFocusedColor={theme.colorFamily.lightblue}
-                                onTimeChange={setStartTime}
+                                onTimeChange={(etd: TimePickerTime) => setEtda({ ...etda, etd })}
                             />
                         </View>
                         <View style={styles.timeIsolationContainer}>
@@ -110,7 +110,7 @@ export default function EtdaTimePicker({ initialTime, onTimeChange }: EtdaTimePi
                                 height={timepickerHeight}
                                 focusedcolor={theme.colorFamily.white}
                                 unFocusedColor={theme.colorFamily.lightblue}
-                                onTimeChange={setEndTime}
+                                onTimeChange={(eta: TimePickerTime) => setEtda({ ...etda, eta })}
                             />
                         </View>
                     </View>
