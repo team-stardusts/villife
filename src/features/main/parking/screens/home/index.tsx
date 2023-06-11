@@ -4,7 +4,7 @@ import NavigationView from "../../../../common/blocks/navigation";
 import ParkingScreenProps from "./types";
 import useParkService from "../../services/park";
 import { useEffect, useState } from "react";
-import { GuestVehicle, TenantVehicle } from "../../../../../libs/rest_apis/villife/parking/types";
+import { Parking } from "../../../../../libs/rest_apis/villife/parking/types";
 import VehicleCardView from "../../blocks/vehicle_card";
 import useStyler from "../../../../common/hooks/styler/hooks";
 import { SCREEN_PADDING_HORIZONTAL_STANDARD_VALUE } from "../../../../common/constants";
@@ -15,9 +15,9 @@ import Icon from "../../../../common/atoms/icon";
 import SimpleFuncButton from "../../../../common/blocks/button/simple_func_button";
 
 type Vehicles = {
-    myVehicles: TenantVehicle[];
-    vehicles: TenantVehicle[];
-    guestVehicles: GuestVehicle[];
+    myVehicles: Parking.TenantVehicle[];
+    vehicles: Parking.TenantVehicle[];
+    guestVehicles: Parking.GuestVehicle[];
 };
 
 type VehicleInfoProps = {
@@ -76,7 +76,9 @@ export default function ParkingScreen({ navigation, route }: ParkingScreenProps)
         guestVehicles: [],
     });
     // Vehicles 목록을 딜레이를 줘서 렌더링하기 위함.
-    const [vehiclesForRendering, setVehiclesForRendering] = useState<Array<TenantVehicle | GuestVehicle>>([]);
+    const [vehiclesForRendering, setVehiclesForRendering] = useState<
+        Array<Parking.TenantVehicle | Parking.GuestVehicle>
+    >([]);
 
     const bootstrap = async () => {
         const myVehicles = await parkService.getMyVehicles();
@@ -94,7 +96,10 @@ export default function ParkingScreen({ navigation, route }: ParkingScreenProps)
     // Vehicles 목록을 딜레이를 줘서 렌더링하기 위함.
     const renderVehicleInfos = async () => {
         const delay: number = 50;
-        const allVehicles: Array<TenantVehicle | GuestVehicle> = [...vehicles.guestVehicles, ...vehicles.vehicles];
+        const allVehicles: Array<Parking.TenantVehicle | Parking.GuestVehicle> = [
+            ...vehicles.guestVehicles,
+            ...vehicles.vehicles,
+        ];
         for (let i = 0; i < allVehicles.length; i++) {
             // 차량 리스트에서 나의 차량을 제외하기 위함.
             const myVehicles = vehicles.myVehicles.find(

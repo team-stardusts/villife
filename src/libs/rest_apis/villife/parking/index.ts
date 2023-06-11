@@ -1,9 +1,9 @@
 import { AxiosRequestConfig } from "axios";
 import { Response, ResponseForTest } from "../../types";
 import AVillifeServerModule from "../absc";
-import IVillifeParkingManager, { GuestVehicle, TenantVehicle } from "./types";
+import IVillifeParkingManager, { Parking } from "./types";
 
-const myVehicles: TenantVehicle[] = [
+const myVehicles: Parking.TenantVehicle[] = [
     {
         id: 1,
         room_number: 101,
@@ -36,7 +36,7 @@ const myVehicles: TenantVehicle[] = [
     },
 ];
 
-const tenants: TenantVehicle[] = [
+const tenants: Parking.TenantVehicle[] = [
     ...myVehicles,
     {
         id: 3,
@@ -90,7 +90,7 @@ const tenants: TenantVehicle[] = [
     },
 ];
 
-const guests: GuestVehicle[] = [
+const guests: Parking.GuestVehicle[] = [
     {
         id: 1,
         room_number: 102,
@@ -120,21 +120,21 @@ class VillifeParkginManager extends AVillifeServerModule implements IVillifePark
      * @param getMyVehicles
      * @warn
      */
-    public async getMyVehicles(): ResponseForTest<TenantVehicle[]> {
+    public async getMyVehicles(): ResponseForTest<Parking.TenantVehicle[]> {
         const route: string = "test";
 
         /* return await this.requestAuthable<any, TenantVehicle[]>({
             method: "get",
             url: route,
         }); */
-        return await this.requestForTest<TenantVehicle[]>(myVehicles);
+        return await this.requestForTest<Parking.TenantVehicle[]>(myVehicles);
     }
 
     /**
      * @param getBuildingRegistedVehicles
      * @warn
      */
-    public async getBuildingRegistedVehicles(): ResponseForTest<TenantVehicle[]> {
+    public async getBuildingRegistedVehicles(): ResponseForTest<Parking.TenantVehicle[]> {
         const route: string = "test";
 
         /* return await this.requestAuthable<any, TenantVehicle[]>({
@@ -142,21 +142,61 @@ class VillifeParkginManager extends AVillifeServerModule implements IVillifePark
             url: route,
         }); */
 
-        return await this.requestForTest<TenantVehicle[]>(tenants);
+        return await this.requestForTest<Parking.TenantVehicle[]>(tenants);
     }
 
     /**
      * @param getBuildingGuestVehicles
      * @warn
      */
-    public async getBuildingGuestVehicles(): ResponseForTest<GuestVehicle[]> {
+    public async getBuildingGuestVehicles(): ResponseForTest<Parking.GuestVehicle[]> {
         const route: string = "test";
 
         /* return await this.requestAuthable<any, GuestVehicle[]>({
             method: "get",
             url: route,
         }); */
-        return await this.requestForTest<GuestVehicle[]>(guests);
+        return await this.requestForTest<Parking.GuestVehicle[]>(guests);
+    }
+
+    /**
+     *
+     * @param params
+     * @returns
+     */
+    public async updateMyVehicleEtda(
+        params: Parking.VehicleEtdaUpdateParams
+    ): ResponseForTest<Parking.VehicleInfoUpdateReturnType> {
+        const route: string = "test";
+
+        const vechiles = (await this.getMyVehicles()).data.data as Parking.TenantVehicle[];
+
+        const vehicleIndexWantToChange = vechiles.findIndex((vehicle) => vehicle.id === params.vehicleID);
+
+        vechiles[vehicleIndexWantToChange].eta = params.eta;
+        vechiles[vehicleIndexWantToChange].etd = params.etd;
+
+        return await this.requestForTest<Parking.VehicleInfoUpdateReturnType>("Test");
+    }
+
+    /**
+     *
+     * @param params
+     * @returns
+     */
+    public async updateMyVehicleInfo(
+        params: Parking.VehicleInfopdateParams
+    ): ResponseForTest<Parking.VehicleInfoUpdateReturnType> {
+        const route: string = "test";
+
+        const vechiles = (await this.getMyVehicles()).data.data as Parking.TenantVehicle[];
+
+        const vehicleIndexWantToChange = vechiles.findIndex((vehicle) => vehicle.id === params.vehicleID);
+
+        vechiles[vehicleIndexWantToChange].model = params.model;
+        vechiles[vehicleIndexWantToChange].plate_number = params.plateNumber;
+
+        return await this.requestForTest<Parking.VehicleInfoUpdateReturnType>("Test");
     }
 }
 

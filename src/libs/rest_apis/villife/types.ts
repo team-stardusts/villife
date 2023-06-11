@@ -15,6 +15,10 @@ export type RefreshResult = {
     expire_at: number;
 };
 
+export namespace TestNamespace {
+    export type TestType = "";
+}
+
 /* export default interface IVillifeRESTAPI extends Requestable {
     login(id: string, password: string): Response<any>;
     requestWithAuthentication<T = any, U = any>(config: AxiosRequestConfig<T>): Promise<Responsable<U>>;

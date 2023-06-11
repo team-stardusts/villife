@@ -8,7 +8,7 @@ export interface Requestable {
     request(config: AxiosRequestConfig): any;
 }
 
-type Responsable<T> = {
+export type Responsable<T> = {
     isSuccessful: boolean;
     data: AxiosResponse<T> | undefined;
 };

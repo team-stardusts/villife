@@ -2,16 +2,19 @@ import { useEffect, useRef, useState } from "react";
 import StardustAlert from "../../../../common/blocks/universial/stardust_alert";
 import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
 import useStyler from "../../../../common/hooks/styler/hooks";
-import { Animated, Text, TouchableOpacity, View } from "react-native";
+import { Alert, Animated, Text, TouchableOpacity, View } from "react-native";
 import EtdaTimePicker from "../etad_time_picker";
 import Icon from "../../../../common/atoms/icon";
 import useModifyModal from "./styles";
 import VehicleInfoInputBox from "../vehicle_info_input_box";
 import { VehicleInfo, VehicleValidationResult } from "../vehicle_info_input_box/types";
-import { GuestVehicle, TenantVehicle } from "../../../../../libs/rest_apis/villife/parking/types";
+import { Parking } from "../../../../../libs/rest_apis/villife/parking/types";
+import useParkService from "../../services/park";
+import { useNavigation } from "@react-navigation/native";
+import { RouterParams } from "../../../../common/router/types";
 
 type VehicleModifyModalProps = {
-    initialVehicleInfo: TenantVehicle | GuestVehicle;
+    initialVehicleInfo: Parking.TenantVehicle | Parking.GuestVehicle;
     modalVisible: boolean;
     setModalVisible: React.Dispatch<React.SetStateAction<boolean>>;
 };
@@ -90,18 +93,43 @@ export default function VehicleModifyModal({
     modalVisible,
     setModalVisible,
 }: VehicleModifyModalProps) {
-    const { deviceUI, theme } = useStyler();
+    const { updateMyVehicleEtda, updateMyVehicleInfo } = useParkService();
     const [crrPage, setCrrPage] = useState<Page>("etda");
+    const navigation = useNavigation<RouterParams["navigation"]>();
     const messages = useScreenMessage();
 
     const styles = useModifyModal().toplevel;
 
-    const handleModifyEtda = () => {
-        console.log("Hi!");
+    const handlePressCancleBtn = () => {
+        setModalVisible(false);
+        setCrrPage("etda");
     };
 
-    const handleModifyInfo = () => {
-        console.log("Hello!");
+    const handleModifyEtda = async () => {
+        const params = {
+            vehicleID: initialVehicleInfo.id,
+            etd: initialVehicleInfo.etd,
+            eta: initialVehicleInfo.eta,
+        };
+
+        const result = await updateMyVehicleEtda(params);
+
+        result ? Alert.alert("ETDA 바꾸기 성공~") : Alert.alert("ETDA 바꾸기 실패~");
+        navigation.navigate("parking");
+        setModalVisible(false);
+    };
+
+    const handleModifyInfo = async () => {
+        const params = {
+            vehicleID: initialVehicleInfo.id,
+            model: initialVehicleInfo.model,
+            plateNumber: initialVehicleInfo.plate_number,
+        };
+
+        const result = await updateMyVehicleInfo(params);
+
+        result ? Alert.alert("INFO 바꾸기 성공~") : Alert.alert("INFO 바꾸기 실패~");
+        setModalVisible(false);
     };
 
     useEffect(() => {
@@ -118,10 +146,7 @@ export default function VehicleModifyModal({
             subtitle={messages.messages.main.parking.home.request_to_modify_etda}
             leftButtonText={messages.messages.words.cancle}
             rightButtonText={messages.messages.words.modified}
-            leftOnPress={() => {
-                setModalVisible(false);
-                setCrrPage("etda");
-            }}
+            leftOnPress={handlePressCancleBtn}
             rightOnPress={() => {
                 crrPage === "etda" ? handleModifyEtda() : handleModifyInfo();
             }}>
