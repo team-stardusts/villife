@@ -16,6 +16,7 @@ const routes: RoutesType = {
     getNoticesByBuildingID: "notice/get/list/by-building-id",
     //complaint
     createComplaint: "complaint/create",
+    getOneComplaint: "complaint",
     getUserComplaints: "complaint/get/list",
     getBuildingComplaints: "complaint/get/list/by-building-id",
     updateComplaint: "complaint/update",

@@ -15,7 +15,6 @@ function ComplaintReplyItem(props: ComplaintReplyItemProps) {
         const appropriateURIs = props.data.image_uris.split(",").filter((uri) => {
             return uri != "";
         });
-        console.log(`reply item has rendered , ${props.data.image_uris}`);
         setSanitizedURIs(appropriateURIs);
     }, [props.data.writted_at]);
 

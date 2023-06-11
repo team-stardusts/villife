@@ -2,6 +2,7 @@ import React from "react";
 import { IComplaintService } from "./type";
 import VillifeStorage from "../../../../libs/storage";
 import {
+    Complaint,
     GetBuildingComplaintsParams,
     GetComplaintsResult,
     GetRepliesResult,
@@ -24,7 +25,6 @@ export default function useComplaintService(): IComplaintService {
 }
 
 class ComplaintService implements IComplaintService {
-    private mStroage = new VillifeStorage();
     private mApi: IVillifeComplaintRestClient = VillifeServer.getComplaintRestClient();
     private mImageUploader: MediaUploader = new ImageUploader();
 
@@ -57,10 +57,15 @@ class ComplaintService implements IComplaintService {
     }
     async UpdateComplaint(params: UpdateComplaintParams): Response<string> {
         const result = await this.mApi.UpdateComplaint(params);
-        if (result.isSuccessful) VillifeToastMessage.showBottomToast("success", "민원 등록이 완료 되었어요!");
-        else VillifeToastMessage.showBottomToast("error", "죄송합니다,민원 등록에 실패했어요");
+        if (result.isSuccessful) VillifeToastMessage.showBottomToast("success", "민원 수정이 완료 되었어요!");
+        else VillifeToastMessage.showBottomToast("error", "죄송합니다,민원 수정에 실패했어요");
         return result;
     }
+
+    async GetOneComplaint(complaintID: number): Response<Complaint> {
+        return await this.mApi.GetOneComplaint(complaintID);
+    }
+
     async GetBuildingComplaints(params: GetBuildingComplaintsParams): Response<GetComplaintsResult> {
         if (params.building_id == 0) throw new Error("invalid building id");
         return await this.mApi.GetBuildingComplaints(params);

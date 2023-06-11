@@ -1,6 +1,12 @@
 import { Response } from "../../types";
 import AVillifeServerModule from "../absc";
-import { CreateReplyReqParams, GetBuildingComplaintsParams, GetRepliesResult, UpdateReplyReqParams } from "./types";
+import {
+    Complaint,
+    CreateReplyReqParams,
+    GetBuildingComplaintsParams,
+    GetRepliesResult,
+    UpdateReplyReqParams,
+} from "./types";
 import {
     CreateComplaintParams,
     DeleteComplaintParams,
@@ -18,6 +24,13 @@ class VillifeComplaintRestClient extends AVillifeServerModule implements IVillif
             method: "post",
             url: route,
             data: params,
+        });
+    }
+    async GetOneComplaint(complaintID: number): Response<Complaint> {
+        let route: string = this.routes.getOneComplaint + `?complaint_id=${complaintID}`;
+        return await this.requestAuthable<any, Complaint>({
+            method: "get",
+            url: route,
         });
     }
     async GetUserComplaints(params: GetUserComplaintsParams): Response<GetComplaintsResult> {

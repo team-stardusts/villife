@@ -14,6 +14,7 @@ export type RoutesType = {
     getNoticesByBuildingID: string;
     //compaint
     createComplaint: string;
+    getOneComplaint: string;
     getUserComplaints: string;
     getBuildingComplaints: string;
     updateComplaint: string;
@@ -21,7 +22,7 @@ export type RoutesType = {
     reply: string;
     //user info
     getUserBasicInfo: string;
-    getBuildingManagedByAdmin : string
+    getBuildingManagedByAdmin: string;
     //approval
     getUserApprovals: string;
     acceptUserApproval: string;

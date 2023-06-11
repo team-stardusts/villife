@@ -49,17 +49,17 @@ export default function ComplaintDetailScreen({ navigation, route }: ComplaintDe
             <ComplaintDetailEditModal
                 visible={editModalVisible}
                 setVisible={setEditModalVisible}
-                ComplaintInfo={route.params}
+                ComplaintInfo={uiState.complaint}
             />
             <ComplaintProgressEditModal
                 modalVisible={progressEditModalVisible}
                 setModalVisible={setProgressEditModalVisible}
-                complaint={route.params}
+                complaint={uiState.complaint}
             />
             <ScrollView style={[styles.topLevelBox]} scrollEventThrottle={20}>
                 <>
                     <View style={styles.titleSection}>
-                        <Text style={styles.title}>{route.params.title}</Text>
+                        <Text style={styles.title}>{uiState.complaint.title}</Text>
                         <TouchableOpacity>
                             <TouchableOpacity
                                 style={styles.editButton}
@@ -81,14 +81,14 @@ export default function ComplaintDetailScreen({ navigation, route }: ComplaintDe
                     </View>
                 </>
                 <View style={styles.statusBarSection}>
-                    <ComplaintStatusLable status={route.params.status} />
+                    <ComplaintStatusLable status={uiState.complaint.status} />
                     <View style={styles.blockWithIcon}>
                         <IconBuilding size={styles.iconSize.width as number} />
-                        <Text>{route.params.building_name}</Text>
+                        <Text>{uiState.complaint.building_name}</Text>
                     </View>
                     <View style={styles.blockWithIcon}>
                         <IconPerson color="black" size={(styles.iconSize.width as number) * 2} />
-                        <Text>{route.params.complainant_name}</Text>
+                        <Text>{uiState.complaint.complainant_name}</Text>
                     </View>
                 </View>
                 <AutoHeightWebView
@@ -108,7 +108,7 @@ export default function ComplaintDetailScreen({ navigation, route }: ComplaintDe
                         display:block;
                         border-radius: 15px;
                       }`}
-                    source={{ html: route.params.content }}
+                    source={{ html: uiState.complaint.content }}
                     scalesPageToFit={false}
                     viewportContent={"width=device-width, user-scalable=no"}></AutoHeightWebView>
                 {uiState.replies.length > 0 ? (
@@ -127,7 +127,7 @@ export default function ComplaintDetailScreen({ navigation, route }: ComplaintDe
                     <></>
                 )}
             </ScrollView>
-            <ReplyInputSection complaintID={route.params.id} />
+            <ReplyInputSection complaintID={uiState.complaint.id} />
         </NavigationView>
     );
 }
