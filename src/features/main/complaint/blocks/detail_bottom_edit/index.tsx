@@ -31,6 +31,7 @@ export default function ComplaintDetailEditModal(props: DetailEditModalProps) {
 
     const onModifyButtonPress = async () => {
         if (props.ComplaintInfo.status == "received") navigation.navigate("complaint_modify", props.ComplaintInfo);
+        else VillifeToastMessage.showBottomToast("error", "접수중인 민원만 수정 할 수 있습니다.");
         props.setVisible(false);
     };
     const onDeleteButtonPress = async () => {

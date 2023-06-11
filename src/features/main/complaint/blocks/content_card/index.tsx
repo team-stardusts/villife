@@ -72,7 +72,11 @@ function ComplaintContentCard(props: ComplaintContentCardProps) {
                 }>
                 <View style={styles.titleSection}>
                     <Text style={styles.titleText}>{props.info.title}</Text>
-                    <Text style={styles.dateTimeText}>{props.info.created_at.substring(0, 16)}</Text>
+                    <Text style={styles.dateTimeText}>
+                        {props.info.created_at.substring(0, 4) == "0001"
+                            ? props.info.updated_at.substring(0, 10)
+                            : props.info.created_at.substring(0, 10)}
+                    </Text>
                 </View>
                 <View style={styles.statusSection}>
                     <View style={styles.statusTextSection}>

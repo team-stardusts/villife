@@ -7,9 +7,8 @@ import IconQuestionMark from "../../../../common/atoms/icon/question_mark";
 import PressableVectorIcon from "../../../../common/blocks/icon/vector";
 import IconPlus from "../../../../common/atoms/icon/plus";
 import ComplaintContentCard from "../../blocks/content_card";
-import { ComplaintInfo } from "../../services/type";
 import ComplaintHomeViewModel from "./view_model";
-import React, { useEffect } from "react";
+import React from "react";
 import ComplaintHomeEditModal from "../../blocks/home_bottom_edit";
 
 export default function ComplaintHomeScreen({ navigation, route }: ComplaintHomeScreenProps) {

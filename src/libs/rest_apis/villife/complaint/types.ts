@@ -40,6 +40,7 @@ export type ComplaintStatus = "received" | "in_progress" | "completed";
 
 export interface IVillifeComplaintRestClient {
     CreateComplaint(params: CreateComplaintParams): Response<string>;
+    GetOneComplaint(complaintID: number): Response<Complaint>;
     GetUserComplaints(params: GetUserComplaintsParams): Response<GetComplaintsResult>;
     GetBuildingComplaints(params: GetBuildingComplaintsParams): Response<GetComplaintsResult>;
     UpdateComplaint(params: UpdateComplaintParams): Response<string>;

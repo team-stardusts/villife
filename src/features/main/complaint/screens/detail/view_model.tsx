@@ -6,9 +6,9 @@ import useComplaintService from "../../services";
 
 export function useComplaintDetailViewModel(complaintInfo: Complaint): ComplaintDetailUiState {
     const [replies, setReplies] = useState<GetRepliesResult>([]);
+    const [complaint, setComplaint] = useState<Complaint>(complaintInfo);
     const service = useComplaintService();
     useEffect(() => {
-        console.log(complaintInfo);
         LayoutAnimation.configureNext(LayoutAnimation.Presets.spring);
         service.GetReplies(complaintInfo.id).then((r) => {
             if (!r.isSuccessful) return;
@@ -18,6 +18,12 @@ export function useComplaintDetailViewModel(complaintInfo: Complaint): Complaint
         });
         const listener = new ComplaintListUpatedEventListener();
         listener.subscribe(() => {
+            service.GetOneComplaint(complaintInfo.id).then((r) => {
+                if (r.isSuccessful) {
+                    if (r.data?.data) setComplaint(r.data?.data);
+                }
+            });
+
             service.GetReplies(complaintInfo.id).then((r) => {
                 if (!r.isSuccessful) return;
                 const resData = r.data?.data as GetRepliesResult;
@@ -33,11 +39,13 @@ export function useComplaintDetailViewModel(complaintInfo: Complaint): Complaint
     }, []);
 
     return {
+        complaint: complaint,
         replies: replies,
     };
 }
 
 type ComplaintDetailUiState = {
+    complaint: Complaint;
     replies: GetRepliesResult;
     updatedComplaint?: Complaint;
 };

@@ -122,7 +122,6 @@ export default function ComplaintHomeViewModel(): ComplaintHomeUiState {
     React.useEffect(() => {
         const listener = new ComplaintListUpatedEventListener();
         listener.subscribe(() => {
-            console.log("fetchComplaint");
             fetchComplaintByDisplayMode();
         });
         return () => listener.unsubscribe();
