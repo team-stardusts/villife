@@ -17,10 +17,7 @@ export interface IComplaintService {
     UploadAndInsertImage(ref: React.RefObject<RichEditor>): Promise<void | Error>;
     RegisterComplaint(content: string, title: string): Response<string>;
     UpdateComplaint(params: UpdateComplaintParams): Response<string>;
-<<<<<<< HEAD
-=======
     GetOneComplaint(complaintID: number): Response<Complaint>;
->>>>>>> 8408568b10b959f6547efef8d4a99291e7ed46de
     GetBuildingComplaints(params: GetBuildingComplaintsParams): Response<GetComplaintsResult>;
     GetUserComplaints(params: GetUserComplaintsParams): Response<GetComplaintsResult>;
     DeleteComplaint(params: DeleteComplaintParams): Response<string>;
