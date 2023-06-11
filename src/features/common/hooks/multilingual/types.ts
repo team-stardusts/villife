@@ -206,4 +206,7 @@ export type MessagesByLanguage = {
         say_wait: string;
         ask_shutdown: string;
     };
+    boilerplate: {
+        preparing_service: string;
+    };
 };

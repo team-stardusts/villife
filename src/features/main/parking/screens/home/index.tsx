@@ -14,6 +14,7 @@ import ContentBox from "../../../../common/blocks/content_box";
 import Icon from "../../../../common/atoms/icon";
 import SimpleFuncButton from "../../../../common/blocks/button/simple_func_button";
 import { Vehicle } from "../../services/park/types";
+import VillifeToastMessage from "../../../../common/atoms/toast";
 
 type VehicleInfoProps = {
     ownerType: "guest" | "tenant";
@@ -42,10 +43,26 @@ function VehicleInfo({ ownerType, plateNumber, phoneNumber, etd }: VehicleInfoPr
                         <Text style={styles.plateNumber}>{plateNumber}</Text>
                     </View>
                     <View style={styles.communicationFuncBox}>
-                        <TouchableOpacity activeOpacity={0.6} style={styles.communicationIconBox}>
+                        <TouchableOpacity
+                            activeOpacity={0.6}
+                            style={styles.communicationIconBox}
+                            onPress={() =>
+                                VillifeToastMessage.showBottomToast(
+                                    "info",
+                                    message.messages.boilerplate.preparing_service
+                                )
+                            }>
                             <Icon name="phone" size={styles.phoneIcon.width} color={styles.phoneIcon.color} />
                         </TouchableOpacity>
-                        <TouchableOpacity activeOpacity={0.6} style={styles.communicationIconBox}>
+                        <TouchableOpacity
+                            activeOpacity={0.6}
+                            style={styles.communicationIconBox}
+                            onPress={() =>
+                                VillifeToastMessage.showBottomToast(
+                                    "info",
+                                    message.messages.boilerplate.preparing_service
+                                )
+                            }>
                             <Icon name="letter" size={styles.letterIcon.width} color={styles.letterIcon.color} />
                         </TouchableOpacity>
                     </View>
