@@ -7,8 +7,9 @@ export type StardustAlertProps = {
     subtitle?: string;
     leftButtonText: string;
     rightButtonText: string;
-    leftOnPress: () => void;
-    rightOnPress: () => void;
+    onPressLeftBtn: () => void;
+    onPressRightBtn: () => void;
+    onPressVoidSpace?: () => void;
     image?: any; //must use require()
     children?: React.ReactNode;
 };

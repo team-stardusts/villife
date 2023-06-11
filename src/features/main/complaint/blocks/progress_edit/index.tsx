@@ -35,11 +35,11 @@ export default function ComplaintProgressEditModal(props: ComplaintProgressEditM
             modalVisible={props.modalVisible}
             setModalVisible={props.setModalVisible}
             leftButtonText={message.messages.words.cancle}
-            leftOnPress={() => {
+            onPressLeftBtn={() => {
                 props.setModalVisible(false);
             }}
             rightButtonText={message.messages.words.edit}
-            rightOnPress={() => {
+            onPressRightBtn={() => {
                 onPressModifyButton();
             }}
             children={<ComplaintContentCard info={props.complaint} editMode={true} updatedStatus={updatedStatus} />}

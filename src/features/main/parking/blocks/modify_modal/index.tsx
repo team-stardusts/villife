@@ -185,8 +185,9 @@ export default function VehicleModifyModal({
             subtitle={messages.messages.main.parking.home.request_to_modify_etda}
             leftButtonText={messages.messages.words.cancle}
             rightButtonText={messages.messages.words.modified}
-            leftOnPress={handlePressCancleBtn}
-            rightOnPress={() => {
+            onPressVoidSpace={handlePressCancleBtn}
+            onPressLeftBtn={handlePressCancleBtn}
+            onPressRightBtn={() => {
                 crrPage === "etda" ? handleModifyEtda() : handleModifyInfo();
             }}>
             <View style={styles.contentContainer}>

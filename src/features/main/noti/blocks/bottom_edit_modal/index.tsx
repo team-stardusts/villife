@@ -90,10 +90,10 @@ export default function NotiBottomEditModal(props: BottomEditModalProps) {
                     title={messages.messages.main.noti.screen_title}
                     leftButtonText={messages.messages.words.cancle}
                     rightButtonText={messages.messages.words.delete}
-                    leftOnPress={() => {
+                    onPressLeftBtn={() => {
                         setDeleteAlertVisible(false);
                     }}
-                    rightOnPress={() => {
+                    onPressRightBtn={() => {
                         onDeleteButtonPress();
                     }}
                 />

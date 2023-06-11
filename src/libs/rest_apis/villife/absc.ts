@@ -19,7 +19,7 @@ export const RESPONSE_STATUS = {
 } as const;
 
 const env = new DotEnv();
-console.log(env.api.villife.REST_API_BASE_URL);
+
 class AVillifeServerModule extends AREST {
     readonly requester: AxiosInstance = axios.create({
         baseURL: env.api.villife.REST_API_BASE_URL,

@@ -118,10 +118,10 @@ export default function ApprovalRequiredModal(props: ApprovalRequiredModalProps)
                             title={messages.messages.main.approval.reject_title}
                             leftButtonText={messages.messages.words.cancle}
                             rightButtonText={messages.messages.main.approval.reject}
-                            leftOnPress={() => {
+                            onPressLeftBtn={() => {
                                 setDeleteAlertVisible(false);
                             }}
-                            rightOnPress={() => {
+                            onPressRightBtn={() => {
                                 onRejectButtonPress();
                             }}
                         />

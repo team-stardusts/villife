@@ -79,10 +79,10 @@ export default function ComplaintDetailEditModal(props: DetailEditModalProps) {
                     title="정말 삭제 하시겠어요?"
                     leftButtonText="취소"
                     rightButtonText="삭제"
-                    leftOnPress={() => {
+                    onPressLeftBtn={() => {
                         setDeleteAlertVisible(false);
                     }}
-                    rightOnPress={() => {
+                    onPressRightBtn={() => {
                         onDeleteButtonPress();
                     }}
                 />

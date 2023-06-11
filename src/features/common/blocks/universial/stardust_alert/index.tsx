@@ -34,7 +34,7 @@ export default function StardustAlert(props: StardustAlertProps) {
                         <TouchableOpacity
                             activeOpacity={0.7}
                             onPress={() => {
-                                if (props.leftOnPress) props.leftOnPress();
+                                if (props.onPressLeftBtn) props.onPressLeftBtn();
                             }}
                             style={styles.leftButton}>
                             <Text style={styles.leftButtonText}>{props.leftButtonText}</Text>
@@ -42,14 +42,19 @@ export default function StardustAlert(props: StardustAlertProps) {
                         <TouchableOpacity
                             activeOpacity={0.7}
                             onPress={() => {
-                                if (props.rightOnPress) props.rightOnPress();
+                                if (props.onPressRightBtn) props.onPressRightBtn();
                             }}
                             style={styles.rightButton}>
                             <Text style={styles.rightButtonText}> {props.rightButtonText}</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
-                <Pressable style={styles.wrapper} onPress={() => props.setModalVisible(false)} />
+                <Pressable
+                    style={styles.wrapper}
+                    onPress={() =>
+                        props.onPressVoidSpace !== undefined ? props.onPressVoidSpace() : props.setModalVisible(false)
+                    }
+                />
             </View>
         </Modal>
     );
