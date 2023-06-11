@@ -19,9 +19,10 @@ export const RESPONSE_STATUS = {
 } as const;
 
 const env = new DotEnv();
+console.log(env.api.villife.REST_API_BASE_URL);
 class AVillifeServerModule extends AREST {
     readonly requester: AxiosInstance = axios.create({
-        baseURL: /* "http://13.125.190.36:8080/" */ env.api.villife.REST_API_BASE_URL,
+        baseURL: env.api.villife.REST_API_BASE_URL,
         timeout: 1000,
         timeoutErrorMessage:
             "The request timed out.\

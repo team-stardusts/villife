@@ -1,5 +1,5 @@
 import React, { Children } from "react";
-import { Modal, StyleSheet, View, Text, TouchableOpacity, Image, Dimensions } from "react-native";
+import { Modal, StyleSheet, View, Text, TouchableOpacity, Image, Dimensions, Pressable } from "react-native";
 import { StardustAlertProps } from "./type";
 import useStyler from "../../../hooks/styler/hooks";
 
@@ -49,7 +49,7 @@ export default function StardustAlert(props: StardustAlertProps) {
                         </TouchableOpacity>
                     </View>
                 </View>
-                <View style={styles.wrapper} />
+                <Pressable style={styles.wrapper} onPress={() => props.setModalVisible(false)} />
             </View>
         </Modal>
     );
