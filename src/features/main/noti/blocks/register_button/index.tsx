@@ -8,12 +8,16 @@ export default function RegisterButton(props: NotiRegisterButtonProps): JSX.Elem
     const Message = useScreenMessage();
 
     return (
-        <View style={styles.RegisterButton}>
+        <View style={styles.registerButton}>
             <TouchableOpacity
                 onPress={() => {
                     props.onSubmit();
                 }}>
-                {props.loading ? <ActivityIndicator size={"large"} /> : <Text>{Message.messages.words.register}</Text>}
+                {props.loading ? (
+                    <ActivityIndicator size={"large"} />
+                ) : (
+                    <Text style={styles.registerText}>{Message.messages.words.register}</Text>
+                )}
             </TouchableOpacity>
         </View>
     );

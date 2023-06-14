@@ -3,6 +3,7 @@ import React from "react";
 import OutlinedBox from "../outlined_box";
 import useNotiViewModel from "./useNotiViewModel";
 import { Notice } from "../../../../../libs/rest_apis/villife/notice/types";
+import useNotiOutLinedBoxListStyles from "./style";
 
 //TO DO :: implement props which contains data it needs
 
@@ -12,11 +13,12 @@ import { Notice } from "../../../../../libs/rest_apis/villife/notice/types";
  * @usage noti screen, complaint screen
  */
 function FlatListOutlinedContentsBox(props: any) {
+    const style = useNotiOutLinedBoxListStyles();
     const viewModel = useNotiViewModel();
 
     return (
         <FlatList
-            contentContainerStyle={{ alignItems: "center", width: "100%" }}
+            contentContainerStyle={style.contentContainer}
             data={viewModel}
             keyExtractor={(item, index) => `${index}${item}`}
             renderItem={OutlinedBoxRenderItem}

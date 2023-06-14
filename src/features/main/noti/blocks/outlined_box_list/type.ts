@@ -1,3 +1,4 @@
+import { StyleSheet } from "react-native";
 import { ContentPriority } from "../noti_label.tsx/type";
 
 export type OutlinedBoxProps = {
@@ -7,3 +8,5 @@ export type OutlinedBoxProps = {
     content?: string;
     wroteAt?: string;
 };
+
+export type UseNotiOutLinedBoxListStylesType = ReturnType<typeof StyleSheet.create>;

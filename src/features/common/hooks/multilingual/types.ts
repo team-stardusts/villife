@@ -69,10 +69,15 @@ export type MessagesByLanguage = {
         };
         noti: {
             screen_title: string;
+            screen_modify_title: string;
+            screen_register_title: string;
             delete_success: string;
             delete_error: string;
             modify: string;
             delete: string;
+            required_reading: string;
+            important_reading: string;
+            reading: string;
         };
         approval: {
             screen_title: string;

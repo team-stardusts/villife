@@ -6,14 +6,15 @@ import WriteButton from "../../blocks/write_button";
 import useNoticeHomeScreenStyles from "./style";
 import FlatListOutlinedContentsBox from "../../blocks/outlined_box_list";
 import { View, Text } from "react-native";
+import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
 
 export default function NoticeHomeScreen(props: NoticeHomeScreenProps) {
-    const styles = useNoticeHomeScreenStyles();
+    const message = useScreenMessage();
 
     return (
         <NavigationView
             headerOptions={{
-                title: "공지사항",
+                title: message.messages.main.noti.screen_title,
                 shown: true,
                 navComponent: WriteButton,
                 navComponentProps: {

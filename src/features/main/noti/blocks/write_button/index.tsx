@@ -8,15 +8,15 @@ import NotiWriteButtonProps from "./type";
 export default function WriteButton(props: NotiWriteButtonProps): JSX.Element {
     const navigation = useNavigation<VillifeNavigation>();
     const styles = useNotiWriteButtonStyles();
-    const Message = useScreenMessage();
+    const message = useScreenMessage();
 
     return (
-        <View style={styles.WriteButton}>
+        <View style={styles.writeButton}>
             <TouchableOpacity
                 onPress={() => {
                     navigation.navigate("noti_register", {});
                 }}>
-                <Text>{Message.messages.words.register}</Text>
+                <Text style={styles.writeText}>{message.messages.words.register}</Text>
             </TouchableOpacity>
         </View>
     );

@@ -62,11 +62,16 @@
         },
         "noti": {
             "screen_title": "공지사항",
+            "screen_modify_title": "공지사항 수정",
+            "screen_register_title": "공지사항 등록",
             "delete_success": "공지사항 삭제 성공",
             "delete_error": "공지사항 삭제 실패",
             "modify": "수정하기",
             "delete": "삭제하기",
-            "delete_title": "정말 삭제하겠습니까?"
+            "delete_title": "정말 삭제하겠습니까?",
+            "required_reading": "필독",
+            "important_reading": "레벨2",
+            "reading": "일반"
         },
         "approval": {
             "screen_title": "승인함",

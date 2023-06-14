@@ -15,10 +15,12 @@ import NotiEditor from "../../blocks/noti_editor";
 import { NoticeEventEmitter } from "../../blocks/outlined_box_list/event";
 import useNoticeService from "../../services";
 import VillifeToastMessage from "../../../../common/atoms/toast";
+import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
 
 export default function NoticeRegisterScreen(props: NoticeRegisterScreenProps) {
     const styles = useNoticeRegisterScreenStyles();
     const service = useNoticeService();
+    const message = useScreenMessage();
     const content = useRef("");
     const title = useRef("");
 
@@ -48,7 +50,7 @@ export default function NoticeRegisterScreen(props: NoticeRegisterScreenProps) {
     return (
         <NavigationView
             headerOptions={{
-                title: "공지사항 등록",
+                title: message.messages.main.noti.screen_register_title,
                 shown: true,
                 navComponent: RegisterButton,
                 navComponentProps: {
