@@ -61,7 +61,7 @@ export default function NotiBottomEditModal(props: BottomEditModalProps) {
         <BottomSlidableModal
             modalVisible={props.visible}
             setModalVisible={props.setVisible}
-            height={styles.bottomModalHeight as number}>
+            height={screenSize.height * 0.3}>
             <View style={styles.editModalContentContainer}>
                 <TouchableOpacity
                     onPress={() => {
@@ -72,7 +72,7 @@ export default function NotiBottomEditModal(props: BottomEditModalProps) {
                         });
                     }}
                     style={styles.editModalMenu}>
-                    <EditIcon size={styles.iconSize as number} />
+                    <EditIcon size={styles.iconSize.width as number} />
                     <Text style={styles.editModalMenuText}>{messages.messages.main.noti.modify}</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
@@ -80,7 +80,7 @@ export default function NotiBottomEditModal(props: BottomEditModalProps) {
                         setDeleteAlertVisible(true);
                     }}
                     style={styles.editModalMenu}>
-                    <TrashCanIcon size={styles.iconSize as number} />
+                    <TrashCanIcon size={styles.iconSize.width as number} />
                     <Text style={styles.editModalMenuText}>{messages.messages.main.noti.delete}</Text>
                 </TouchableOpacity>
 

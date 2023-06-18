@@ -1,30 +1,21 @@
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Text } from "react-native";
 import React, { useRef } from "react";
 import NoticeRegisterScreenProps from "./type";
-import { IconRecord, RichEditor, RichToolbar, actions } from "react-native-pell-rich-editor";
-import ImageUploader from "../../../../../libs/media/uploader";
-import VillifeServer from "../../../../../libs/rest_apis/villife";
-import Toast from "react-native-toast-message";
 import NavigationView from "../../../../common/blocks/navigation";
 import RegisterButton from "../../blocks/register_button";
-import NotiRegisterButtonProps from "../../blocks/register_button";
 import useNoticeRegisterScreenStyles from "./styles";
 import { CreateNoticeParams } from "../../../../../libs/rest_apis/villife/notice/types";
 import NotiEditor from "../../blocks/noti_editor";
-import { NoticeEventEmitter } from "../../blocks/outlined_box_list/event";
 import useNoticeService from "../../services";
 import VillifeToastMessage from "../../../../common/atoms/toast";
 import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
 
 export default function NoticeRegisterScreen(props: NoticeRegisterScreenProps) {
-    const styles = useNoticeRegisterScreenStyles();
-    const service = useNoticeService();
     const message = useScreenMessage();
     const content = useRef("");
     const title = useRef("");
-
-    const isTitleEnabled = false;
+    const service = useNoticeService();
+    const styles = useNoticeRegisterScreenStyles();
 
     const [loading, setLoading] = React.useState(false);
 
@@ -32,7 +23,7 @@ export default function NoticeRegisterScreen(props: NoticeRegisterScreenProps) {
         setLoading(true);
         if (title.current == "" || content.current == "") {
             setLoading(false);
-            return VillifeToastMessage.showBottomToast("info", "제목 또는 내용을 입력해주세요");
+            return VillifeToastMessage.showBottomToast("info", message.messages.main.noti.noti_title_error);
         }
         const param: CreateNoticeParams = {
             title: title.current,
@@ -60,10 +51,9 @@ export default function NoticeRegisterScreen(props: NoticeRegisterScreenProps) {
                     loading: loading,
                 },
             }}
+            bodyOptions={{ applyDefaultHorizontalPadding: false, applyDefaultVerticalPadding: false }}
             bottomNavOptions={{ shown: false }}>
-            <SafeAreaView style={styles.contentsWrapper}>
-                <NotiEditor contentRef={content} titleRef={title} isTitleEnabled={isTitleEnabled} />
-            </SafeAreaView>
+            <NotiEditor contentRef={content} titleRef={title} mode={"register"} />
         </NavigationView>
     );
 }

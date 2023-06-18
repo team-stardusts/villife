@@ -19,7 +19,7 @@ export default function useBottomEditModalStyles(): useBottomEditModalStylesType
             flexDirection: "row",
             alignItems: "center",
             padding: 3,
-            borderRadius: 10,
+            borderRadius: deviceUI.moderateScale(10),
             ...theme.font.researved.h3,
         },
         editModalContentContainer: {

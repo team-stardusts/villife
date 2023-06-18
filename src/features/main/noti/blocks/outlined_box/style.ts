@@ -9,7 +9,7 @@ export default function useNotiOutlinedBoxStyles(): UseNotiOutLinedBoxListStyles
         container: {
             borderWidth: deviceUI.moderateScale(2),
             borderColor: "#0B75F2",
-            marginVertical: "1.5%",
+            marginVertical: deviceUI.getScreenSize().height * 0.008,
             borderRadius: deviceUI.moderateScale(15),
             minHeight: deviceUI.getScreenSize().height * 0.08,
             width: deviceUI.getScreenSize().width * 0.9,
@@ -20,10 +20,12 @@ export default function useNotiOutlinedBoxStyles(): UseNotiOutLinedBoxListStyles
         },
         innerTitleSection: {
             width: "90%",
-            flexDirection: "row",
+            borderColor: "#0B75F2",
+        },
+        contentBox: {
             alignItems: "center",
+            flexDirection: "row",
             height: deviceUI.getScreenSize().height * 0.08,
-            borderBottomColor: "#0B75F2",
         },
         titleTextBox: {
             marginLeft: "5%",
@@ -32,15 +34,13 @@ export default function useNotiOutlinedBoxStyles(): UseNotiOutLinedBoxListStyles
             position: "absolute",
             width: "100%",
             height: "100%",
-            justifyContent: "center",
             alignItems: "flex-end",
-            flexDirection: "row",
-        },
-
-        editButton: {
-            marginRight: "10%",
-            alignItems: "center",
             justifyContent: "center",
+        },
+        iconBox: { flexDirection: "row" },
+        editButton: {
+            justifyContent: "center",
+            marginRight: "2%",
         },
         iconEditSize: {
             width: deviceUI.moderateScale(20),
@@ -53,3 +53,4 @@ export default function useNotiOutlinedBoxStyles(): UseNotiOutLinedBoxListStyles
         },
     });
 }
+0;

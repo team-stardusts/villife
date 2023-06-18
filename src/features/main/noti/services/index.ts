@@ -12,13 +12,15 @@ import IVillifeNoticeManager, {
     DeleteNoticeParams,
     UpdateNoticeParams,
 } from "../../../../libs/rest_apis/villife/notice/types";
-import { ContentPriority } from "../blocks/noti_label.tsx/type";
 import { NoticeEventEmitter } from "../blocks/outlined_box_list/event";
+import useScreenMessage from "../../../common/hooks/multilingual/hooks";
 
 export default function useNoticeService(): INoticeService {
     const service: INoticeService = new NoticeService();
     return service;
 }
+
+const message = useScreenMessage();
 
 class NoticeService implements INoticeService {
     private mStroage = new VillifeStorage();
@@ -50,8 +52,8 @@ class NoticeService implements INoticeService {
         const result = await this.mApi.createNotice(params);
         if (result.data?.status == 200) {
             new NoticeEventEmitter().emitListUpdatedEvent();
-            VillifeToastMessage.showBottomToast("success", "공지사항 등록이 완료 되었어요!");
-        } else VillifeToastMessage.showBottomToast("error", "죄송합니다,공지사항 등록에 실패했어요");
+            VillifeToastMessage.showBottomToast("success", message.messages.main.noti.noti_sucess);
+        } else VillifeToastMessage.showBottomToast("error", message.messages.main.noti.noti_error);
         console.log(result);
         return result;
     }
@@ -60,8 +62,8 @@ class NoticeService implements INoticeService {
         const result = await this.mApi.updateNotice(params);
         if (result.data?.status == 200) {
             new NoticeEventEmitter().emitListUpdatedEvent();
-            VillifeToastMessage.showBottomToast("success", "민원 등록이 완료 되었어요!");
-        } else VillifeToastMessage.showBottomToast("error", "죄송합니다,민원 등록에 실패했어요");
+            VillifeToastMessage.showBottomToast("success", message.messages.main.noti.noti_sucess);
+        } else VillifeToastMessage.showBottomToast("error", message.messages.main.noti.noti_error);
         return result;
     }
     async deleteNotice(params: DeleteNoticeParams): Promise<Response<string>> {

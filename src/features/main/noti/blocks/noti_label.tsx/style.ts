@@ -7,7 +7,7 @@ export default function useNotiLableStyles(): UseNotiLabelStylesType {
     return StyleSheet.create({
         containerRed: {
             width: deviceUI.getScreenSize().width * 0.15,
-            height: deviceUI.getScreenSize().height * 0.5,
+            height: deviceUI.getScreenSize().height * 0.05,
             borderRadius: deviceUI.moderateScale(10),
             justifyContent: "center",
             alignItems: "center",
@@ -28,7 +28,7 @@ export default function useNotiLableStyles(): UseNotiLabelStylesType {
             justifyContent: "center",
             alignItems: "center",
             backgroundColor: "#7C7C7C",
-        },
+        }, 
         textStyle: {
             ...theme.font.researved.h4,
             color: "white",

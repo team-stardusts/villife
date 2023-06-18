@@ -71,7 +71,12 @@
             "delete_title": "정말 삭제하겠습니까?",
             "required_reading": "필독",
             "important_reading": "레벨2",
-            "reading": "일반"
+            "reading": "일반",
+            "noti_sucess": "공지사항 등록이 완료 되었어요!",
+            "noti_error": "죄송합니다,공지사항 등록에 실패했어요",
+            "noti_editor_title": "제목을 입력해주세요",
+            "noti_editor_subtitle": "내용을 입력해주세요",
+            "noti_title_error": "제목 또는 내용을 입력해주세요"
         },
         "approval": {
             "screen_title": "승인함",

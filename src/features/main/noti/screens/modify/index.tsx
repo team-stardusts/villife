@@ -17,7 +17,6 @@ export default function NoticeModifyScreen(props: NoticeModifyScreenProps) {
 
     const content = useRef(props.route.params.content);
     const title = useRef(props.route.params.title);
-    const isTitleEnabled = true;
 
     const [loading, setLoading] = React.useState(false);
 
@@ -25,7 +24,7 @@ export default function NoticeModifyScreen(props: NoticeModifyScreenProps) {
         setLoading(true);
         if (title.current == "" || content.current == "") {
             setLoading(false);
-            return VillifeToastMessage.showBottomToast("info", "제목 또는 내용을 입력해주세요");
+            return VillifeToastMessage.showBottomToast("info", message.messages.main.noti.noti_title_error);
         }
         const param: UpdateNoticeParams = {
             title: title.current,
@@ -34,7 +33,6 @@ export default function NoticeModifyScreen(props: NoticeModifyScreenProps) {
             building_id: 3,
             notice_id: props.route.params.notiID,
         };
-
         setLoading(false);
 
         const result = await service.updateNotice(param);
@@ -59,10 +57,9 @@ export default function NoticeModifyScreen(props: NoticeModifyScreenProps) {
                     loading: loading,
                 },
             }}
+            bodyOptions={{ applyDefaultHorizontalPadding: false, applyDefaultVerticalPadding: false }}
             bottomNavOptions={{ shown: false }}>
-            <SafeAreaView style={styles.contentsWrapper}>
-                <NotiEditor contentRef={content} titleRef={title} isTitleEnabled={isTitleEnabled} />
-            </SafeAreaView>
+            <NotiEditor contentRef={content} titleRef={title} mode={"modify"} />
         </NavigationView>
     );
 }

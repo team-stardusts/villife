@@ -4,9 +4,13 @@ import { IconRecord, RichEditor, RichToolbar, actions } from "react-native-pell-
 import ImageUploader from "../../../../../libs/media/uploader";
 import NotiEditorProps from "./type";
 import useNotiEditorStyles from "./styles";
+import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
+import useNoticeService from "../../services";
 
 export default function NotiEditor(props: NotiEditorProps) {
     const Styles = useNotiEditorStyles();
+    const message = useScreenMessage();
+    const service = useNoticeService();
 
     const richText = useRef<RichEditor>(null);
     const scrollRef = useRef<ScrollView>(null);
@@ -32,37 +36,31 @@ export default function NotiEditor(props: NotiEditorProps) {
         <>
             <ScrollView
                 style={[Styles.scroll]}
-                keyboardDismissMode={"none"}
+                keyboardDismissMode={"interactive"}
                 ref={scrollRef}
                 nestedScrollEnabled={true}
                 stickyHeaderIndices={[0]}
                 scrollEventThrottle={20}>
-                {props.isTitleEnabled ? (
+                <>
                     <TextInput
-                        value={props.isTitleEnabled ? props.titleRef.current : ""}
+                        value={props.mode == "modify" ? props.titleRef.current : undefined}
                         style={Styles.title}
                         onChangeText={(text) => (props.titleRef.current = text)}
-                        placeholder="제목을 입력하세요"
+                        placeholder={message.messages.main.noti.noti_editor_title}
                     />
-                ) : (
-                    <TextInput
-                        style={Styles.title}
-                        onChangeText={(text) => (props.titleRef.current = text)}
-                        placeholder="제목을 입력하세요"
-                    />
-                )}
+                </>
 
                 <RichEditor
-                    initialContentHTML={props.isTitleEnabled ? props.contentRef.current : ""}
+                    initialContentHTML={props.contentRef.current}
                     onChange={(text) => {
                         props.contentRef.current = text;
                     }}
                     editorStyle={Styles} // default light style
                     ref={richText}
-                    style={[Styles.rich, { height: keboardShow ? size.height * 0.46 : size.height * 0.75 }]}
+                    style={[Styles.rich, { height: keboardShow ? size.height * 0.46 : size.height * 0.79 }]}
                     useContainer={false}
                     enterKeyHint={"done"}
-                    placeholder={"내용을 입력해주세요."}
+                    placeholder={message.messages.main.noti.noti_editor_subtitle}
                     pasteAsPlainText={true}
                 />
                 <View>
@@ -73,14 +71,7 @@ export default function NotiEditor(props: NotiEditorProps) {
                         selectedIconTint={"#2095F2"}
                         disabledIconTint={"#bfbfbf"}
                         onPressAddImage={() => {
-                            new ImageUploader()
-                                .pickOneAndUpload()
-                                .then((r) => {
-                                    richText.current?.insertImage(r.uri);
-                                })
-                                .catch((reason) => {
-                                    console.log(reason);
-                                });
+                            service.uploadAndInsertImage(richText);
                         }}
                         actions={[
                             actions.heading1,
@@ -89,12 +80,10 @@ export default function NotiEditor(props: NotiEditorProps) {
                             actions.heading4,
                             actions.insertImage,
                             actions.setBold,
-                            actions.insertOrderedList,
                             actions.alignLeft,
                             actions.alignCenter,
                             actions.alignRight,
-                            actions.line,
-                        ]} // default defaultActions
+                        ]}
                         iconMap={{
                             [actions.heading1]: ({ tintColor }: IconRecord) => (
                                 <Text style={[Styles.tib, { color: tintColor }]}>H1</Text>

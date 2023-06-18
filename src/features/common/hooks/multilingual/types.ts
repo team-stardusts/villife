@@ -78,6 +78,11 @@ export type MessagesByLanguage = {
             required_reading: string;
             important_reading: string;
             reading: string;
+            noti_sucess: string;
+            noti_error: string;
+            noti_editor_title: string;
+            noti_editor_subtitle: string;
+            noti_title_error: string;
         };
         approval: {
             screen_title: string;
