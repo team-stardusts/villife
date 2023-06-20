@@ -1,10 +1,10 @@
 import { EventRegister } from "react-native-event-listeners";
 import { VillifeStorageEvents } from "../..";
 import ATable from "../absc";
-import { IUserTable, LoginTableKey, UserDataType } from "./types";
+import { IUserTable, UserTableKey, UserDataType } from "./types";
 
 class UserTable extends ATable implements IUserTable {
-    readonly key: LoginTableKey = "user";
+    readonly key: UserTableKey = "user";
 
     public async get(): Promise<UserDataType | null> {
         const result = await this.storage.getItem(this.key);

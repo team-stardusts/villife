@@ -1,32 +1,10 @@
 import { Authority } from "../../../rest_apis/villife/types";
-export default interface ILoginTable {
-    readonly key: LoginTableKey;
+import { ITableUsable } from "../types";
 
-    get(): Promise<LoginDataType | null>;
-    set(data: LoginDataType | null): Promise<boolean>;
-    remove(): Promise<void>;
-}
+export interface IUserTable extends ITableUsable<UserTableKey, UserDataType> {}
 
-export type HostType = "villife" | "naver"; //| "kakao"  | "google";
+export type UserTableKey = "user";
 
-export type LoginTableKey = "login" | "user";
-
-export type LoginDataType = {
-    host: HostType;
-    accessToken: string;
-    refreshToken: string;
-    accessTokenExpiresAt: number; // Milliseconds / UTC + 0
-};
-
-//USER TABLE
-
-export interface IUserTable {
-    readonly key: LoginTableKey;
-
-    get(): Promise<UserDataType | null>;
-    set(data: UserDataType | null): Promise<boolean>;
-    remove(): Promise<void>;
-}
 export type UserDataType = {
     name: string;
     authority: Authority[keyof Authority];

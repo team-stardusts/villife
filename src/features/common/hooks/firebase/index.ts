@@ -6,8 +6,8 @@ import { loginDataState } from "../states/atoms/login";
 import AndroidFirebaseModule from "./android";
 import IosFirebaseModule from "./ios";
 import { Platform } from "react-native";
-import VillifeAuthManager from "../../../../libs/rest_apis/villife/auth";
 import VillifeServer from "../../../../libs/rest_apis/villife";
+import IVillifeAuthManager from "../../../../libs/rest_apis/villife/auth/types";
 
 export function useGetFirebaseToken(): string {
     const [token, setToken] = React.useState("");
@@ -50,7 +50,7 @@ export function useGetFirebaseToken(): string {
 export function useAutoRegisterFirebaseToken() {
     const firebaseToken = useGetFirebaseToken();
     const [loginData] = useRecoilState<LoginDataStateType>(loginDataState);
-    const villife: VillifeAuthManager = VillifeServer.getAuthenticator();
+    const villife: IVillifeAuthManager = VillifeServer.getAuthenticator();
 
     React.useEffect(() => {
         //console.log("login Data has changed\n", "firebase token :", firebaseToken);
@@ -65,12 +65,12 @@ export function useAutoRegisterFirebaseToken() {
                     firebaseToken,
                 })
                 .then((r) => {
-                    if (Platform.OS === "ios") {
-                        console.log("ios: ", firebaseToken);
-                    } else {
-                        console.log("and: ", firebaseToken);
-                    }
-                    console.log("register firebase result token", r.data?.data);
+                    // if (Platform.OS === "ios") {
+                    //     console.log("ios: ", firebaseToken);
+                    // } else {
+                    //     console.log("and: ", firebaseToken);
+                    // }
+                    console.log("Register firebase result token", r.data?.data);
                 });
         }
     }, [loginData, firebaseToken]);

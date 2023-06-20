@@ -1,12 +1,7 @@
 import { HostType as VillifeHostType } from "../../../rest_apis/villife/auth/types";
+import { ITableUsable } from "../types";
 
-export default interface ILoginTable {
-    readonly key: LoginTableKey;
-
-    get(): Promise<LoginDataType | null>;
-    set(data: LoginDataType | null): Promise<boolean>;
-    remove(): Promise<void>;
-}
+export interface ILoginTable extends ITableUsable<LoginTableKey, LoginDataType> {}
 
 export type HostType = VillifeHostType;
 
