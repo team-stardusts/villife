@@ -18,8 +18,8 @@ export default function GuestVehicleInfoInputBox({
     onTouchInputBox,
     onChangeGuestVehicleInfo,
 }: GuestVehicleInfoInputBoxProps) {
-    const MODEL_MIN_LENGTH: number = 3;
-    const MODEL_MAX_LENGTH: number = 15;
+    const VISITING_PERPOSE_MIN_LENGTH: number = 5;
+    const VISITING_PERPOSE_MAX_LENGTH: number = 30;
 
     const messages = useScreenMessage();
     const styles = useVehicleInfoInputBoxStyles();
@@ -42,9 +42,14 @@ export default function GuestVehicleInfoInputBox({
         return validator.isCorrectVehiclePlateNumber(plateNumber);
     };
 
+    const validatePhoneNumber = (phoneNumber: string): boolean => {
+        return validator.isPhoneNumber(phoneNumber);
+    };
+
     const validateVisitingPerpose = (perpose: string): boolean => {
-        const inCorrectLength: boolean = MODEL_MIN_LENGTH <= perpose.length && perpose.length <= MODEL_MAX_LENGTH;
-        let hadSpecialChar: boolean = false;
+        return VISITING_PERPOSE_MIN_LENGTH <= perpose.length && perpose.length <= VISITING_PERPOSE_MAX_LENGTH;
+        /*const inCorrectLength: boolean = VISITING_PERPOSE_MIN_LENGTH <= perpose.length && perpose.length <= VISITING_PERPOSE_MAX_LENGTH;
+         let hadSpecialChar: boolean = false;
 
         // 공백을 특수문자로 보기 때문에 아래와 같이 검사함
         perpose.split(" ").forEach((word) => {
@@ -58,13 +63,14 @@ export default function GuestVehicleInfoInputBox({
         }
 
         return false;
+        */
     };
 
     const [guestVehicleValid, setGuestVehicleValid] = useState<GuestVehicleValidationResult>(
         initialVehicleInfo !== undefined
             ? {
                   plateNumber: validatePlateNumber(initialVehicleInfo.plateNumber),
-                  phoneNumber: validateVisitingPerpose(initialVehicleInfo.phoneNumber),
+                  phoneNumber: validatePhoneNumber(initialVehicleInfo.phoneNumber),
                   visitingPerpose: validateVisitingPerpose(initialVehicleInfo.phoneNumber),
               }
             : {
@@ -82,6 +88,17 @@ export default function GuestVehicleInfoInputBox({
         onChangeGuestVehicleInfo(guestVehicleInfo);
         onValidation && onValidation(guestVehicleValid);
     }, [guestVehicleInfo, guestVehicleValid]);
+
+    useEffect(() => {
+        const len = guestVehicleInfo.phoneNumber.length;
+
+        if (len === 3 || len === 8) {
+            setGuestVehicleInfo({
+                ...guestVehicleInfo,
+                phoneNumber: guestVehicleInfo.phoneNumber + "-",
+            });
+        }
+    }, [guestVehicleInfo.phoneNumber]);
 
     return (
         <View style={styles.container}>
@@ -120,7 +137,7 @@ export default function GuestVehicleInfoInputBox({
                 />
             </View>
             <View style={styles.vehicleInfoInputContainer}>
-                <Text style={styles.vehicleInfoInputTitle}>{messages.messages.words.vehicle_model}</Text>
+                <Text style={styles.vehicleInfoInputTitle}>{messages.messages.words.guest_phone_number}</Text>
                 <UniversalTextInput
                     name="phoneNumber"
                     value={guestVehicleInfo.phoneNumber}
@@ -136,9 +153,11 @@ export default function GuestVehicleInfoInputBox({
                             : undefined
                     }
                     onChangeText={(text, name) => {
+                        if (text.length > 13) return;
+
                         setGuestVehicleValid({
                             ...guestVehicleValid,
-                            [name as keyof GuestVehicleValidationResult]: validateVisitingPerpose(text),
+                            [name as keyof GuestVehicleValidationResult]: validatePhoneNumber(text),
                         });
                         setGuestVehicleInfo({ ...guestVehicleInfo, [name as keyof GuestVehicleInfo]: text });
                     }}
@@ -152,7 +171,7 @@ export default function GuestVehicleInfoInputBox({
                 />
             </View>
             <View style={styles.vehicleInfoInputContainer}>
-                <Text style={styles.vehicleInfoInputTitle}>{messages.messages.words.vehicle_model}</Text>
+                <Text style={styles.vehicleInfoInputTitle}>{messages.messages.words.visiting_perpose}</Text>
                 <UniversalTextInput
                     name="visitingPerpose"
                     value={guestVehicleInfo.visitingPerpose}
@@ -170,6 +189,8 @@ export default function GuestVehicleInfoInputBox({
                             : undefined
                     }
                     onChangeText={(text, name) => {
+                        if (text.length > VISITING_PERPOSE_MAX_LENGTH) return;
+
                         setGuestVehicleValid({
                             ...guestVehicleValid,
                             [name as keyof GuestVehicleValidationResult]: validateVisitingPerpose(text),

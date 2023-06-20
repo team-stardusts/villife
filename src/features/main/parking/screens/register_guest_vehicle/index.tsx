@@ -13,8 +13,8 @@ import { Toast } from "react-native-toast-message/lib/src/Toast";
 import { TOAST_DEFAULT_OFFSET, TOAST_DEFAULT_VISIBILITY_TIME } from "../../../../common/constants";
 import VillifeToastMessage from "../../../../common/atoms/toast";
 import KeyboardAwareScrollView from "../../../../common/blocks/keyboard_aware_scrollview";
-import VehicleInfoInputBox from "../../blocks/vehicle_info_input_box";
-import { VehicleValidationResult } from "../../blocks/vehicle_info_input_box/types";
+import GuestVehicleInfoInputBox from "../../blocks/guest_vehicle_info_input_box copy";
+import { GuestVehicleValidationResult } from "../../blocks/guest_vehicle_info_input_box copy/types";
 
 export default function RegisterGuestVehicleScreen({ navigation, route }: RegisterGuestVehicleScreenProps) {
     const messages = useScreenMessage();
@@ -35,14 +35,15 @@ export default function RegisterGuestVehicleScreen({ navigation, route }: Regist
             minute: 0,
         },
     });
-    const [valid, setValid] = useState<VehicleValidationResult>({
+    const [valid, setValid] = useState<GuestVehicleValidationResult>({
         plateNumber: false,
-        model: false,
+        phoneNumber: false,
+        visitingPerpose: false,
     });
     const [touchedCoordinateY, setTouchedCoordinateY] = useState<number>(0);
 
     const handlePressRegisterBtn = () => {
-        if (!valid.model && !valid.plateNumber) {
+        if (!valid.phoneNumber && !valid.plateNumber) {
             Toast.show({
                 type: "error",
                 text1: messages.messages.main.parking.register_vehicle.invalid_plate_number_and_model,
@@ -60,10 +61,10 @@ export default function RegisterGuestVehicleScreen({ navigation, route }: Regist
                 messages.messages.main.parking.register_vehicle.invalid_plate_number
             );
 
-        !valid.model &&
+        !valid.phoneNumber &&
             VillifeToastMessage.showBottomToast("error", messages.messages.main.parking.register_vehicle.invalid_model);
 
-        if (valid.model && valid.plateNumber) {
+        if (valid.phoneNumber && valid.plateNumber) {
             // Regsiter Service 등록
             console.log("Good");
         }
@@ -96,12 +97,12 @@ export default function RegisterGuestVehicleScreen({ navigation, route }: Regist
                     />
                 </View>
                 <View style={styles.vehicleInfoInputsContainer}>
-                    <VehicleInfoInputBox
+                    <GuestVehicleInfoInputBox
                         onValidation={setValid}
                         onTouchInputBox={(coordinate) => {
                             setTouchedCoordinateY(coordinate.y);
                         }}
-                        onChangeVehicleInfo={(info) => {
+                        onChangeGuestVehicleInfo={(info) => {
                             setGuestVehicle({
                                 ...guestVehicle,
                                 ...info,

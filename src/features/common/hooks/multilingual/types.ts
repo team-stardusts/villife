@@ -211,6 +211,7 @@ export type MessagesByLanguage = {
         vehicle_info: string;
         vehicle_model: string;
         visiting_perpose: string;
+        guest_phone_number: string;
     };
     navigation: {
         say_wait: string;
