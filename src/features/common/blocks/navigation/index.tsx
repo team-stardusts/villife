@@ -18,7 +18,7 @@ export default function NavigationView({
     bottomNavOptions,
     children,
 }: NavigationViewProps) {
-    const { deviceUI, theme } = useStyler();
+    const { theme } = useStyler();
     const message = useScreenMessage();
     const styles = useNavigationViewStyles(bodyOptions);
     const navigation = useNavigation<RouterParams["navigation"]>();
@@ -69,7 +69,6 @@ export default function NavigationView({
                 />
             )}
             <View style={styles.bodyBox} children={children} />
-
             {bottomNavShown && <NavigationViewBottom />}
         </SafeAreaView>
     );

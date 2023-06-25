@@ -1,11 +1,10 @@
-import { useNavigation } from "@react-navigation/native";
+import { useEffect, useState } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 import { RouterParams } from "../../../router/types";
 import Icon from "../../../atoms/icon";
-import { useEffect, useState } from "react";
 import useNavigationViewHeaderStyles from "./styles";
 import { NavigationViewHeaderProps } from "./types";
-import { useRecoilState } from "recoil";
 import useUserInfoService from "../../../hooks/service/user_info";
 import { VILLIFE_AUTHORITY } from "../../../../../libs/rest_apis/villife/absc";
 import BuildingSelector from "./building_selector";

@@ -3,10 +3,11 @@ import { StyleSheet, Modal, Animated, PanResponder, Dimensions, View, Text } fro
 
 import { Pressable } from "react-native";
 import { BottomSlidableModalProps } from "./type";
+import useStyler from "../../../hooks/styler/hooks";
 
 const BottomSlidableModal = (props: BottomSlidableModalProps) => {
     const panY = React.useRef(new Animated.Value(0)).current;
-    const screenSize = Dimensions.get("window");
+    const screenSize = useStyler().deviceUI.getScreenSize();
 
     const conSize = props.height || screenSize.height * 0.35;
 
@@ -71,7 +72,7 @@ const localStyle = StyleSheet.create({
         backgroundColor: "white",
         overflow: "hidden",
         position: "absolute",
-        bottom: "-10%",
+        bottom: 0, //"-10%",
         left: 0,
         width: "100%",
         zIndex: 3,

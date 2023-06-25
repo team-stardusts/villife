@@ -1,6 +1,6 @@
 import React0, { useEffect } from "react";
 import { UserDataType } from "../../../../../libs/storage/tables/user/types";
-import { IUserInfoService } from "./type";
+import { IUserInfoService, UseUserInfoServiceReturns } from "./types";
 import VillifeStorage from "../../../../../libs/storage";
 import { SimpleBuildingInfo, IVillifeUserInfoRestClient } from "../../../../../libs/rest_apis/villife/user_info/types";
 import VillifeServer from "../../../../../libs/rest_apis/villife";
@@ -12,7 +12,7 @@ import { AdminInformation } from "../../states/atoms/user/admin_only/type";
 import { AUTHORITY } from "./constant";
 import { Authority } from "../../../../../libs/rest_apis/villife/types";
 
-export default function useUserInfoService() {
+export default function useUserInfoService(): UseUserInfoServiceReturns {
     const [userBasicInfo, setUserBasicInfo] = useRecoilState(userBasicInfoState);
     const [adminInfo, setAdminInfo] = useRecoilState(adminInfoState);
 
@@ -29,7 +29,7 @@ export default function useUserInfoService() {
 
         if (result.authority == AUTHORITY.ADMIN) {
             const result = await service.fetchBuildingsManagedByAdmin();
-            console.log("Result of fetching admin's buildings: ", result.data?.data);
+            //console.log("Result of fetching admin's buildings: ", result.data?.data);
 
             if (result.isSuccessful) {
                 // 첫 번째 빌딩 Info를 SelectedBuilding으로 지정
@@ -40,7 +40,7 @@ export default function useUserInfoService() {
                     managedBuildings: result.data.data,
                 };
 
-                console.log("AdminInformation: ", adminInformation);
+                console.log("AdminInformation.SelectedBuilding: ", adminInformation.selectedBuilding);
                 setAdminInfo(adminInformation);
             }
         }
@@ -69,8 +69,8 @@ export default function useUserInfoService() {
 
     return {
         basicInfo: userBasicInfo,
-        service: service,
         adminInfo: adminInfo,
+        service: service,
         changeSelectedBuildingOfAdmin: changeSelectedBuildingOfAdmin,
     };
 }
