@@ -21,7 +21,8 @@ import EtdaTimePicker from "../main/parking/blocks/etad_time_picker";
 import UniversalTextInput from "../common/blocks/universial/textinput";
 import { useEffect, useRef, useState } from "react";
 import useOnKeyboardEvent from "../common/hooks/keyboard";
-import KeyboardAwareScrollView from "../common/blocks/keyboard_aware_scrollview";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+//import KeyboardAwareScrollView from "../common/blocks/keyboard_aware_scrollview";
 
 export default function TestScreen() {
     const firebaseToken = useGetFirebaseToken();
@@ -41,7 +42,7 @@ export default function TestScreen() {
             //backgroundColor: "teal",
         },
         testButtonContainer: {
-            flex: 1,
+            //flex: 1,
         },
         testButton: {
             width: "100%",
@@ -60,7 +61,7 @@ export default function TestScreen() {
             width: "100%",
         },
         inputsContainer: {
-            flex: 9,
+            //flex: 9,
         },
     });
 
@@ -68,7 +69,7 @@ export default function TestScreen() {
 
     return (
         <NavigationView headerOptions={{ title: "TEST" }}>
-            <KeyboardAwareScrollView touchedCoordinateY={touchedCoordinateY}>
+            <KeyboardAwareScrollView enableOnAndroid={true} /* touchedCoordinateY={touchedCoordinateY} */>
                 <View style={styles.testButtonContainer}>
                     <TouchableOpacity
                         onPress={() => {

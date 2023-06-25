@@ -32,6 +32,7 @@ export default function useUserInfoService() {
             console.log("Result of fetching admin's buildings: ", result.data?.data);
 
             if (result.isSuccessful) {
+                // 첫 번째 빌딩 Info를 SelectedBuilding으로 지정
                 if (!result.data?.data[0]) return;
 
                 const adminInformation: AdminInformation = {

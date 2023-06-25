@@ -2,18 +2,18 @@ import { RequestCotent1001, RequestCotent2001 } from "../../../../../libs/rest_a
 import { Approval } from "../../../../../libs/rest_apis/villife/approval/types";
 
 export class ApprovalDataConverter {
-    private requset: Approval;
+    private request: Approval;
 
-    constructor(requst: Approval) {
-        this.requset = requst;
+    constructor(request: Approval) {
+        this.request = request;
     }
 
     convert(): ConvertedApprovalData {
-        const identifier = this.requset.category * 1000 + this.requset.detail_type;
+        const identifier = this.request.category * 1000 + this.request.detail_type;
 
         switch (identifier) {
             case 1001:
-                const approvalContent1001 = this.requset.content as RequestCotent1001;
+                const approvalContent1001 = this.request.content as RequestCotent1001;
 
                 const detailArray1001: DetailContents = [];
                 detailArray1001.push({ title: "ID", content: approvalContent1001.user_id });
@@ -23,10 +23,10 @@ export class ApprovalDataConverter {
                 detailArray1001.push({ title: "전화번호", content: approvalContent1001.user_phone_number });
 
                 const convertedApprovalRequest1001: ConvertedApprovalData = {
-                    id: this.requset.id,
-                    category: this.requset.category,
-                    detailType: this.requset.detail_type,
-                    createdAt: this.requset.create_at,
+                    id: this.request.id,
+                    category: this.request.category,
+                    detailType: this.request.detail_type,
+                    createdAt: this.request.create_at,
                     roomNumber: approvalContent1001.room_number,
                     buildingName: approvalContent1001.building_name,
                     title: approvalContent1001.title,
@@ -36,7 +36,7 @@ export class ApprovalDataConverter {
                 return convertedApprovalRequest1001;
 
             case 2001:
-                const approvalContent2001 = this.requset.content as RequestCotent2001;
+                const approvalContent2001 = this.request.content as RequestCotent2001;
 
                 const detailArray2001: DetailContents = [];
                 detailArray2001.push({ title: "빌라이름", content: approvalContent2001.building_name });
@@ -45,10 +45,10 @@ export class ApprovalDataConverter {
                 detailArray2001.push({ title: "차량 모델", content: approvalContent2001.vehicle_model });
 
                 const convertedApprovalRequest2001: ConvertedApprovalData = {
-                    id: this.requset.id,
-                    category: this.requset.category,
-                    detailType: this.requset.detail_type,
-                    createdAt: this.requset.create_at,
+                    id: this.request.id,
+                    category: this.request.category,
+                    detailType: this.request.detail_type,
+                    createdAt: this.request.create_at,
                     roomNumber: approvalContent2001.room_number,
                     buildingName: approvalContent2001.building_name,
                     title: approvalContent2001.title,
@@ -59,10 +59,10 @@ export class ApprovalDataConverter {
 
             default:
                 return {
-                    id: this.requset.id,
-                    category: this.requset.category,
-                    detailType: this.requset.detail_type,
-                    createdAt: this.requset.create_at,
+                    id: this.request.id,
+                    category: this.request.category,
+                    detailType: this.request.detail_type,
+                    createdAt: this.request.create_at,
                     roomNumber: 111,
                     buildingName: "아무개",
                     title: "default 값",

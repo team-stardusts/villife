@@ -1,14 +1,10 @@
-import React, { FunctionComponent } from "react";
+import React from "react";
 import { IconSeries } from "../../atoms/icon/types";
 import { VillifeRootStackParamList } from "../../router/types";
+import { NavigationViewHeaderProps } from "./header/types";
 
-export type HeaderOptions = {
-    title: string;
+export type HeaderOptions = NavigationViewHeaderProps & {
     shown?: boolean;
-    navComponent?: FunctionComponent<any>;
-    navComponentProps?: {
-        [key: string]: any;
-    };
 };
 
 export type BodyOptions = {
@@ -24,12 +20,12 @@ export type BottomNavigationOptions = {
     isPressingMenuBtn: boolean;
 }; */
 
-export type BottomLink = {
+export type RootLink = {
     icon: IconSeries;
     caption: string;
     screen: {
         name: keyof VillifeRootStackParamList;
-        params: VillifeRootStackParamList[BottomLink["screen"]["name"]];
+        params: VillifeRootStackParamList[RootLink["screen"]["name"]];
     };
 };
 

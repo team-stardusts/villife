@@ -1,12 +1,13 @@
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
-import { useCallback, useEffect, useState } from "react";
-import { Alert, BackHandler, SafeAreaView, StatusBar, Text, TouchableOpacity, View } from "react-native";
+import { useCallback } from "react";
+import { Alert, BackHandler, SafeAreaView, StatusBar, View } from "react-native";
 import useScreenMessage from "../../hooks/multilingual/hooks";
-import Icon from "../../atoms/icon";
 import useNavigationViewStyles from "./styles";
-import NavigationViewProps, { BottomLink } from "./types";
+import NavigationViewProps from "./types";
 import useStyler from "../../hooks/styler/hooks";
-import { RouterParams, VillifeStackParamList } from "../../router/types";
+import { RouterParams } from "../../router/types";
+import NavigationViewHeader from "./header";
+import NavigationViewBottom from "./bottom";
 
 export default function NavigationView({
     headerOptions,
@@ -22,9 +23,6 @@ export default function NavigationView({
     const styles = useNavigationViewStyles(bodyOptions);
     const navigation = useNavigation<RouterParams["navigation"]>();
 
-    const [currentRootScreen, setCurrentRootScreen] = useState<keyof VillifeStackParamList>("home");
-    const [backBtnColor, setBackBtnColor] = useState<string>(theme.colorFamily.black);
-
     const headerShown: boolean = headerOptions?.shown ?? true;
     const bottomNavShown: boolean = bottomNavOptions?.shown ?? true;
     const statusBarContent = theme.scheme === "light" ? "dark-content" : "light-content";
@@ -32,26 +30,6 @@ export default function NavigationView({
     // Navigation child에 props를 넣어주기 위함
     let navComponentProps = headerOptions.navComponentProps;
     navComponentProps = navComponentProps !== undefined ? navComponentProps : {};
-
-    const handleBackBtnPress = () => {
-        setBackBtnColor(theme.colorFamily.black);
-
-        navigation.pop();
-    };
-
-    const handleMenuPress = (params: BottomLink["screen"]) => {
-        // 현재 스크린의 버튼 클릭 시 routing 되지 않도록 함.
-        if (params.name === currentRootScreen) return;
-
-        navigation.reset({
-            index: 0,
-            routes: [params],
-        });
-    };
-
-    useEffect(() => {
-        setCurrentRootScreen(navigation.getState().routes[0].name);
-    }, []);
 
     // Android back button 대비 코드
     useFocusEffect(
@@ -80,130 +58,19 @@ export default function NavigationView({
         }, [])
     );
 
-    const bottomLinks: BottomLink[] = [
-        {
-            icon: "home",
-            caption: message.messages.main.home.screen_title,
-            screen: {
-                name: "home",
-                params: {},
-            },
-        },
-        {
-            icon: "car",
-            caption: message.messages.main.parking.home.screen_title,
-            screen: {
-                name: "parking",
-                params: {},
-            },
-        },
-        {
-            icon: "wallet",
-            caption: message.messages.main.payment.screen_title,
-            screen: {
-                name: "payment",
-                params: {},
-            },
-        },
-        {
-            icon: "messenger",
-            caption: message.messages.main.complaint.screen_title,
-            screen: {
-                name: "complaint",
-                params: {},
-            },
-        },
-        {
-            icon: "person",
-            caption: message.messages.main.mypage.screen_title,
-            screen: {
-                name: "mypage",
-                params: {},
-            },
-        },
-    ];
-
     return (
-        <SafeAreaView style={styles.toplevelBox}>
+        <SafeAreaView style={styles.container}>
             <StatusBar barStyle={statusBarContent} backgroundColor={theme.colorFamily.white} />
             {headerShown && (
-                <View style={styles.headerBox}>
-                    <View style={styles.headerNavBox}>
-                        {navigation.getState().index > 0 && (
-                            <TouchableOpacity style={styles.headerNavIconBox} onPress={() => handleBackBtnPress()}>
-                                <Icon name="arrow-left" size={deviceUI.moderateScale(65)} color={backBtnColor} />
-                            </TouchableOpacity>
-                        )}
-                        <View style={styles.headerNavTitleBox}>
-                            <Text
-                                style={[
-                                    styles.headerTitle,
-                                    {
-                                        paddingLeft:
-                                            navigation.getState().index === 0
-                                                ? deviceUI.moderateScale(20)
-                                                : deviceUI.moderateScale(3),
-                                    },
-                                ]}
-                                numberOfLines={1}
-                                ellipsizeMode="tail"
-                                minimumFontScale={0.2}
-                                maxFontSizeMultiplier={1}
-                                adjustsFontSizeToFit={true}>
-                                {headerOptions.title}
-                            </Text>
-                        </View>
-                    </View>
-                    <View style={styles.headerCenterReactFuncBox}>
-                        <Text numberOfLines={2} ellipsizeMode="tail">
-                            Admin, Building selector's space
-                        </Text>
-                    </View>
-                    <View style={styles.headerRightReactFuncBox}>
-                        {headerOptions.navComponent && <headerOptions.navComponent {...navComponentProps} />}
-                    </View>
-                </View>
+                <NavigationViewHeader
+                    title={headerOptions.title}
+                    navComponent={headerOptions.navComponent}
+                    navComponentProps={headerOptions.navComponentProps}
+                />
             )}
             <View style={styles.bodyBox} children={children} />
-            {bottomNavShown && (
-                <View style={styles.bottomNavBox}>
-                    {bottomLinks.map((obj, index) => (
-                        <TouchableOpacity
-                            key={index}
-                            activeOpacity={1}
-                            style={styles.bottomNavWrapper}
-                            onPress={() => {
-                                handleMenuPress({ name: obj.screen.name, params: obj.screen.params });
-                            }}>
-                            <View style={styles.bottomNavIconBox}>
-                                <Icon
-                                    name={obj.icon}
-                                    size={deviceUI.moderateScale(50)}
-                                    color={
-                                        currentRootScreen === obj.screen.name
-                                            ? theme.colorFamily.black
-                                            : theme.colorFamily.lightgrey
-                                    }
-                                />
-                            </View>
-                            <View style={styles.bottomNavCaptionBox}>
-                                <Text
-                                    style={[
-                                        styles.bottomNavCaption,
-                                        {
-                                            color:
-                                                currentRootScreen === obj.screen.name
-                                                    ? theme.colorFamily.black
-                                                    : theme.colorFamily.lightgrey,
-                                        },
-                                    ]}>
-                                    {obj.caption}
-                                </Text>
-                            </View>
-                        </TouchableOpacity>
-                    ))}
-                </View>
-            )}
+
+            {bottomNavShown && <NavigationViewBottom />}
         </SafeAreaView>
     );
 }

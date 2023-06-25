@@ -12,7 +12,7 @@ export default function useRegisterVehicleScreenStyles() {
             height: deviceUI.moderateScale(170),
         },
         vehicleInfoInputsContainer: {
-            height: deviceUI.moderateScale(150),
+            height: deviceUI.moderateScale(250),
         },
     });
 }

@@ -1,7 +1,7 @@
 import { View, Text } from "react-native";
 import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
 import UniversalTextInput from "../../../../common/blocks/universial/textinput";
-import useVehicleInfoInputBoxStyles from "./styles";
+import useGuestVehicleInfoInputBoxStyles from "./styles";
 import { useEffect, useState } from "react";
 import useStyler from "../../../../common/hooks/styler/hooks";
 import StringValidator from "../../../../../libs/string_validator";
@@ -11,6 +11,7 @@ import {
     GuestVehicleInfoInputBoxProps,
     GuestVehicleValidationResult,
 } from "./types";
+import { TextValidator, VISITING_PERPOSE_MAX_LENGTH } from "../../services/validation";
 
 export default function GuestVehicleInfoInputBox({
     initialVehicleInfo,
@@ -18,13 +19,9 @@ export default function GuestVehicleInfoInputBox({
     onTouchInputBox,
     onChangeGuestVehicleInfo,
 }: GuestVehicleInfoInputBoxProps) {
-    const VISITING_PERPOSE_MIN_LENGTH: number = 5;
-    const VISITING_PERPOSE_MAX_LENGTH: number = 30;
-
     const messages = useScreenMessage();
-    const styles = useVehicleInfoInputBoxStyles();
+    const styles = useGuestVehicleInfoInputBoxStyles();
     const { theme } = useStyler();
-    const validator = new StringValidator();
 
     const [guestVehicleInfo, setGuestVehicleInfo] = useState<GuestVehicleInfo>(
         initialVehicleInfo || {
@@ -38,40 +35,12 @@ export default function GuestVehicleInfoInputBox({
         y: 0,
     });
 
-    const validatePlateNumber = (plateNumber: string): boolean => {
-        return validator.isCorrectVehiclePlateNumber(plateNumber);
-    };
-
-    const validatePhoneNumber = (phoneNumber: string): boolean => {
-        return validator.isPhoneNumber(phoneNumber);
-    };
-
-    const validateVisitingPerpose = (perpose: string): boolean => {
-        return VISITING_PERPOSE_MIN_LENGTH <= perpose.length && perpose.length <= VISITING_PERPOSE_MAX_LENGTH;
-        /*const inCorrectLength: boolean = VISITING_PERPOSE_MIN_LENGTH <= perpose.length && perpose.length <= VISITING_PERPOSE_MAX_LENGTH;
-         let hadSpecialChar: boolean = false;
-
-        // 공백을 특수문자로 보기 때문에 아래와 같이 검사함
-        perpose.split(" ").forEach((word) => {
-            if (word === "" || validator.hasSpecialChar(word)) {
-                hadSpecialChar = true;
-            }
-        });
-
-        if (!hadSpecialChar && inCorrectLength) {
-            return true;
-        }
-
-        return false;
-        */
-    };
-
     const [guestVehicleValid, setGuestVehicleValid] = useState<GuestVehicleValidationResult>(
         initialVehicleInfo !== undefined
             ? {
-                  plateNumber: validatePlateNumber(initialVehicleInfo.plateNumber),
-                  phoneNumber: validatePhoneNumber(initialVehicleInfo.phoneNumber),
-                  visitingPerpose: validateVisitingPerpose(initialVehicleInfo.phoneNumber),
+                  plateNumber: TextValidator.validatePlateNumber(initialVehicleInfo.plateNumber),
+                  phoneNumber: TextValidator.validatePhoneNumber(initialVehicleInfo.phoneNumber),
+                  visitingPerpose: TextValidator.validateVisitingPerpose(initialVehicleInfo.phoneNumber),
               }
             : {
                   plateNumber: false,
@@ -123,7 +92,7 @@ export default function GuestVehicleInfoInputBox({
                     onChangeText={(text, name) => {
                         setGuestVehicleValid({
                             ...guestVehicleValid,
-                            [name as keyof GuestVehicleValidationResult]: validatePlateNumber(text),
+                            [name as keyof GuestVehicleValidationResult]: TextValidator.validatePlateNumber(text),
                         });
                         setGuestVehicleInfo({ ...guestVehicleInfo, [name as keyof GuestVehicleInfo]: text });
                     }}
@@ -157,7 +126,7 @@ export default function GuestVehicleInfoInputBox({
 
                         setGuestVehicleValid({
                             ...guestVehicleValid,
-                            [name as keyof GuestVehicleValidationResult]: validatePhoneNumber(text),
+                            [name as keyof GuestVehicleValidationResult]: TextValidator.validatePhoneNumber(text),
                         });
                         setGuestVehicleInfo({ ...guestVehicleInfo, [name as keyof GuestVehicleInfo]: text });
                     }}
@@ -193,7 +162,7 @@ export default function GuestVehicleInfoInputBox({
 
                         setGuestVehicleValid({
                             ...guestVehicleValid,
-                            [name as keyof GuestVehicleValidationResult]: validateVisitingPerpose(text),
+                            [name as keyof GuestVehicleValidationResult]: TextValidator.validateVisitingPerpose(text),
                         });
                         setGuestVehicleInfo({ ...guestVehicleInfo, [name as keyof GuestVehicleInfo]: text });
                     }}

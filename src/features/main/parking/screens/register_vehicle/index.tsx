@@ -6,15 +6,13 @@ import useRegisterVehicleScreenStyles from "./styles";
 import ParkingScreenGuide from "../../blocks/screen_guide";
 import EtdaTimePicker from "../../blocks/etad_time_picker";
 import { useEffect, useRef, useState } from "react";
-import StringValidator from "../../../../../libs/string_validator";
 import SimpleNavComponent from "../../../../common/blocks/navigation/navcomponent";
-import useStyler from "../../../../common/hooks/styler/hooks";
 import { Toast } from "react-native-toast-message/lib/src/Toast";
 import { TOAST_DEFAULT_OFFSET, TOAST_DEFAULT_VISIBILITY_TIME } from "../../../../common/constants";
 import VillifeToastMessage from "../../../../common/atoms/toast";
-import KeyboardAwareScrollView from "../../../../common/blocks/keyboard_aware_scrollview";
 import VehicleInfoInputBox from "../../blocks/vehicle_info_input_box";
 import { VehicleValidationResult } from "../../blocks/vehicle_info_input_box/types";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 export default function RegisterVehicleScreen({ navigation, route }: RegisterVehicleScreenProps) {
     const messages = useScreenMessage();
@@ -37,7 +35,6 @@ export default function RegisterVehicleScreen({ navigation, route }: RegisterVeh
         plateNumber: false,
         model: false,
     });
-    const [touchedCoordinateY, setTouchedCoordinateY] = useState<number>(0);
 
     const handlePressRegisterBtn = () => {
         if (!valid.model && !valid.plateNumber) {
@@ -67,10 +64,6 @@ export default function RegisterVehicleScreen({ navigation, route }: RegisterVeh
         }
     };
 
-    useEffect(() => {
-        //console.log(vehicle);
-    }, [vehicle]);
-
     return (
         <NavigationView
             headerOptions={{
@@ -81,7 +74,11 @@ export default function RegisterVehicleScreen({ navigation, route }: RegisterVeh
                     onPress: handlePressRegisterBtn,
                 },
             }}>
-            <KeyboardAwareScrollView style={styles.container} touchedCoordinateY={touchedCoordinateY}>
+            <KeyboardAwareScrollView
+                style={styles.container}
+                showsVerticalScrollIndicator={false}
+                //scrollEnabled={false}
+                enableOnAndroid={true}>
                 <ParkingScreenGuide
                     title={messages.messages.main.parking.register_vehicle.register_own_vehicle}
                     subtitle={messages.messages.main.parking.register_vehicle.request_input_vehicle_info}
@@ -96,9 +93,6 @@ export default function RegisterVehicleScreen({ navigation, route }: RegisterVeh
                 <View style={styles.vehicleInfoInputsContainer}>
                     <VehicleInfoInputBox
                         onValidation={setValid}
-                        onTouchInputBox={(coordinate) => {
-                            setTouchedCoordinateY(coordinate.y);
-                        }}
                         onChangeVehicleInfo={(info) => {
                             setVehicle({
                                 ...vehicle,

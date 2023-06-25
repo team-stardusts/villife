@@ -7,50 +7,9 @@ export default function useNavigationViewStyles(bodyOptions?: BodyOptions) {
     const { deviceUI, theme } = useStyler();
 
     const styles = StyleSheet.create({
-        toplevelBox: {
+        container: {
             flex: 1,
             backgroundColor: theme.colorFamily.white,
-        },
-        headerBox: {
-            flex: 0.7,
-            flexDirection: "row",
-            backgroundColor: theme.colorFamily.white,
-            borderBottomColor: theme.colorFamily.lightgrey,
-            borderBottomWidth: deviceUI.moderateScale(2),
-        },
-        headerNavBox: {
-            flex: 3,
-            flexDirection: "row",
-            justifyContent: "flex-start",
-        },
-        headerNavIconBox: {
-            flex: 2.5,
-            height: "100%",
-            justifyContent: "center",
-            alignItems: "flex-start",
-        },
-        headerNavTitleBox: {
-            flex: 7.5,
-            height: "100%",
-            justifyContent: "center",
-            alignItems: "flex-start",
-        },
-        headerCenterReactFuncBox: {
-            flex: 4,
-            alignContent: "center",
-            justifyContent: "center",
-        },
-        headerRightReactFuncBox: {
-            flex: 3,
-            alignContent: "center",
-            justifyContent: "center",
-        },
-        headerTitle: {
-            color: theme.colorFamily.black,
-            //paddingLeft: deviceUI.moderateScale(20), //20,
-            marginRight: deviceUI.moderateScale(5),
-            fontFamily: theme.font.fontFamilies.pretendard.bold,
-            fontSize: deviceUI.moderateScale(17),
         },
         bodyBox: {
             flex: 8.3,

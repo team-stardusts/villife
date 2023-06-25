@@ -22,7 +22,7 @@ export default function SimpleFuncButton({ icon, title, titleStyle, onPress }: S
             flexDirection: "row",
             backgroundColor: theme.colorFamily.lightblue,
             borderRadius: deviceUI.moderateScale(8),
-            paddingHorizontal: deviceUI.moderateScale(10),
+            paddingHorizontal: deviceUI.moderateScale(5),
             paddingVertical: deviceUI.moderateScale(5),
             justifyContent: "space-between",
             alignItems: "center",

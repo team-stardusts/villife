@@ -4,7 +4,6 @@ import NavigationView from "../../../../common/blocks/navigation";
 import ParkingScreenProps from "./types";
 import useParkService from "../../services/park";
 import { useEffect, useState } from "react";
-import { Parking } from "../../../../../libs/rest_apis/villife/parking/types";
 import VehicleCardView from "../../blocks/vehicle_card";
 import useStyler from "../../../../common/hooks/styler/hooks";
 import { SCREEN_PADDING_HORIZONTAL_STANDARD_VALUE } from "../../../../common/constants";
