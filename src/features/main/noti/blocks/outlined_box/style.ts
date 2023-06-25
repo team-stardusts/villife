@@ -1,10 +1,13 @@
 import { StyleSheet } from "react-native";
 import useStyler from "../../../../common/hooks/styler/hooks";
 import { UseNotiOutLinedBoxListStylesType } from "../outlined_box_list/type";
+import { FontFamilies } from '../../../../../libs/themes/types';
 
 export default function useNotiOutlinedBoxStyles(): UseNotiOutLinedBoxListStylesType {
     const { deviceUI, theme } = useStyler();
 
+
+    // [TO-DO] : 색상도 양식에 맞게 변경 
     return StyleSheet.create({
         container: {
             borderWidth: deviceUI.moderateScale(2),

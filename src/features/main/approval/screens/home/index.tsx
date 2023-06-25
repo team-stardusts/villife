@@ -10,6 +10,7 @@ export default function ApprovalHomeScreen(props: ApprovaleHomeScreenProps) {
     const messages = useScreenMessage();
 
     const [approvals, setApprovals] = useState<ReadonlyArray<Approval>>([]);
+    //[TO-DO] : 리얼데이터로 변경해라
     const fetchApprovals = () => {
         const fetchedApprovals: ReadonlyArray<Approval> = [
             {

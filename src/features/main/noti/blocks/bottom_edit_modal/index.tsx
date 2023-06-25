@@ -13,11 +13,13 @@ import useBottomEditModalStyles from "./style";
 import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
 import { EditIcon } from "../../../../common/atoms/icon/edit";
 import { TrashCanIcon } from "../../../../common/atoms/icon/trash_can";
+import useStyler from "../../../../common/hooks/styler/hooks";
 
 export default function NotiBottomEditModal(props: BottomEditModalProps) {
     const styles = useBottomEditModalStyles();
     const messages = useScreenMessage();
-
+    // [TO-DO] : 밑에 수정
+    const { deviceUI } = useStyler();
     const screenSize = Dimensions.get("window");
     const navigation = useNavigation<VillifeNavigation>();
     const [deleteAlertVisible, setDeleteAlertVisible] = React.useState(false);

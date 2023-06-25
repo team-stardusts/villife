@@ -19,7 +19,7 @@ function OutlinedBox(props: OutlinedBoxProps) {
 
     const [modalVisible, setModalVisible] = useState<boolean>(false);
     const [convertedApprovals, setConvertedApprovals] = useState<ConvertedApprovalData>({} as ConvertedApprovalData);
-
+    // [TO-DO] : convert 안에 밑에 기능을 할 수 있게 하자
     useEffect(() => {
         const fetchData = () => {
             const converter = new ApprovalDataConverter(props.approvalRequest);

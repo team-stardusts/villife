@@ -14,10 +14,13 @@ export default function NotiEditor(props: NotiEditorProps) {
 
     const richText = useRef<RichEditor>(null);
     const scrollRef = useRef<ScrollView>(null);
+    // [TO-DO] : deviceUI로 변경, 테마도
     const size = Dimensions.get("window");
     const [keboardShow, setKeyBoardShow] = React.useState(false);
 
+    // [TO-DO] : 준우가 만든 hook 사용
     React.useEffect(() => {
+        // // [TO-DO] : s
         const keyboardDidShowListener = Keyboard.addListener("keyboardDidShow", () => {
             setKeyBoardShow(true);
             // Do something when the keyboard is shown

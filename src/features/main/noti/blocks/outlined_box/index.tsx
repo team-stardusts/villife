@@ -89,13 +89,14 @@ function OutlinedBox(props: OutlinedBoxProps) {
                     {unfold && (
                         <AutoHeightWebView
                             style={styles.foldedContainer}
+                            // [TO-DO] : 글꼴이랑 색상 양식에 맞게 변경
                             customStyle={`${RemoteCSS.getPretendardRegular()}
                                         body {
                                           font-size: 14px;
                                           font-family:"Pretendard-Regular";
                                         }
                                         div {
-                                          color: #333;
+                                          color: #333; 
                                           
                                         }
                                         img {

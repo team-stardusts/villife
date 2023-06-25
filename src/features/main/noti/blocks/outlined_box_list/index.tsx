@@ -5,14 +5,7 @@ import useNotiViewModel from "./useNotiViewModel";
 import { Notice } from "../../../../../libs/rest_apis/villife/notice/types";
 import useNotiOutLinedBoxListStyles from "./style";
 
-//TO DO :: implement props which contains data it needs
-
-/**
- * @param props should be implemented
- * @description size fixed as width covers 90% of screen width
- * @usage noti screen, complaint screen
- */
-function FlatListOutlinedContentsBox(props: any) {
+function FlatListOutlinedContentsBox() {
     const style = useNotiOutLinedBoxListStyles();
     const viewModel = useNotiViewModel();
 

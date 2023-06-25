@@ -2,14 +2,7 @@ import { FlatList, ListRenderItemInfo, StyleSheet } from "react-native";
 import OutlinedBox from "../outlined_box";
 import { Approval } from "../../../../../libs/rest_apis/villife/approval/types";
 
-//TO DO :: implement props which contains data it needs
-
-/**
- * @param props should be implemented
- * @description size fixed as width covers 90% of screen width
- * @usage noti screen, complaint screen
- */
-
+//[TO-DO] : 스타일 밖으로 빼기
 function FlatListOutlinedContentsBox(props: { approvals: ReadonlyArray<Approval> }) {
     const styles = StyleSheet.create({
         container: {

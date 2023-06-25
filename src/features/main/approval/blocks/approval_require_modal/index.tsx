@@ -9,10 +9,11 @@ import useBottomEditModalStyles from "./style";
 import ApprovalRequiredModalProps from "./type";
 import { AcceptApprovalParams, RejectApprovalParams } from "../../../../../libs/rest_apis/villife/approval/types";
 import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
+import useApprovalService from "../../services";
 
 export default function ApprovalRequiredModal(props: ApprovalRequiredModalProps) {
     const messages = useScreenMessage();
-
+    const service = useApprovalService();
     const screenSize = Dimensions.get("window");
     const styles = useBottomEditModalStyles();
     const { visible, setVisible, convertedApprovalRequest } = props;
@@ -23,6 +24,7 @@ export default function ApprovalRequiredModal(props: ApprovalRequiredModalProps)
         if (!props.visible) setDeleteAlertVisible(false);
     }, []);
 
+    // [TO-DO] : service에서 불러와서 사용
     const onRejectButtonPress = async () => {
         const notifier = VillifeServer.getApprovalManager();
 
@@ -52,6 +54,7 @@ export default function ApprovalRequiredModal(props: ApprovalRequiredModalProps)
         }
     };
 
+    // [TO-DO] : service에서 불러와서 사용
     const onApcceptButtonPress = async () => {
         const notifier = VillifeServer.getApprovalManager();
 
