@@ -8,6 +8,7 @@ import { NavigationViewHeaderProps } from "./types";
 import { useRecoilState } from "recoil";
 import useUserInfoService from "../../../hooks/service/user_info";
 import { VILLIFE_AUTHORITY } from "../../../../../libs/rest_apis/villife/absc";
+import BuildingSelector from "./building_selector";
 
 export default function NavigationViewHeader(props: NavigationViewHeaderProps) {
     const [crrNavIndex, setCrrNavIndex] = useState<number>(0);
@@ -15,7 +16,8 @@ export default function NavigationViewHeader(props: NavigationViewHeaderProps) {
     const styles = useNavigationViewHeaderStyles(crrNavIndex);
     const userService = useUserInfoService();
 
-    const isAdmin = () => {
+    const isAdmin = (): boolean => {
+        //console.log(userService.basicInfo?.authority);
         if (userService.basicInfo?.authority === undefined) return false;
 
         return (
@@ -30,13 +32,13 @@ export default function NavigationViewHeader(props: NavigationViewHeaderProps) {
 
     return (
         <View style={styles.container}>
-            <View style={styles.navBox}>
+            <View style={styles.box}>
                 {navigation.getState().index > 0 && (
-                    <TouchableOpacity style={styles.navIconBox} onPress={() => navigation.pop()}>
-                        <Icon name="arrow-left" size={styles.navIcon.width} color={styles.navIcon.color} />
+                    <TouchableOpacity style={styles.iconBox} onPress={() => navigation.pop()}>
+                        <Icon name="arrow-left" size={styles.icon.width} color={styles.icon.color} />
                     </TouchableOpacity>
                 )}
-                <View style={styles.navTitleBox}>
+                <View style={styles.titleBox}>
                     <Text
                         style={styles.title}
                         numberOfLines={1}
@@ -49,11 +51,7 @@ export default function NavigationViewHeader(props: NavigationViewHeaderProps) {
                 </View>
             </View>
             <View style={styles.centerReactFuncBox}>
-                {isAdmin() && (
-                    <Text numberOfLines={2} ellipsizeMode="tail">
-                        Admin, Building selector's space
-                    </Text>
-                )}
+                {isAdmin() && <BuildingSelector adminInfo={userService.adminInfo} />}
             </View>
             <View style={styles.rightReactFuncBox}>
                 {props.navComponent !== undefined && <props.navComponent {...props.navComponentProps} />}

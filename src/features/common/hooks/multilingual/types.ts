@@ -216,6 +216,7 @@ export type MessagesByLanguage = {
     navigation: {
         say_wait: string;
         ask_shutdown: string;
+        building_not_selected: string;
     };
     boilerplate: {
         preparing_service: string;

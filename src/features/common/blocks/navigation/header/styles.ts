@@ -12,22 +12,22 @@ export default function useNavigationViewHeaderStyles(crrNavIndex: number) {
             borderBottomColor: theme.colorFamily.lightgrey,
             borderBottomWidth: deviceUI.moderateScale(2),
         },
-        navBox: {
+        box: {
             flex: 3,
             flexDirection: "row",
             justifyContent: "flex-start",
         },
-        navIconBox: {
+        iconBox: {
             flex: 2.5,
             height: "100%",
             justifyContent: "center",
             alignItems: "flex-start",
         },
-        navIcon: {
+        icon: {
             width: deviceUI.moderateScale(65),
             color: theme.colorFamily.black,
         },
-        navTitleBox: {
+        titleBox: {
             flex: 7.5,
             height: "100%",
             justifyContent: "center",

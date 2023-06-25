@@ -5,6 +5,7 @@ export type CommonIconProps = {
 
 export type IconSeries =
     | "home"
+    | "building"
     | "car"
     | "person"
     | "people-round"

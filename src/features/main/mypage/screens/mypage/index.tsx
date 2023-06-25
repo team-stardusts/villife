@@ -26,6 +26,7 @@ export default function MyPageScreen({ navigation, route }: MyPageScreenProps) {
                         if (loginData !== null) {
                             logout();
                         }
+                        userInfo.service.resetUserBasicInfo();
                     }}
                 />
                 <Button title="Go to test screen" onPress={() => navigation.navigate("test")} />

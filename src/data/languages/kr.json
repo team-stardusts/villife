@@ -210,7 +210,8 @@
     },
     "navigation": {
         "say_wait": "잠시만요!",
-        "ask_shutdown": "앱을 종료 하시겠습니까?"
+        "ask_shutdown": "앱을 종료 하시겠습니까?",
+        "building_not_selected": "빌딩을 선택해주세요."
     },
     "boilerplate": {
         "preparing_service": "서비스 준비중입니다."
