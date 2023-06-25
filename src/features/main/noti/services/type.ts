@@ -5,6 +5,7 @@ import { MediaUploadResult } from "../../../../libs/rest_apis/villife/media/type
 import {
     CreateNoticeParams,
     DeleteNoticeParams,
+    GetNoticesResult,
     Notice,
     UpdateNoticeParams,
 } from "../../../../libs/rest_apis/villife/notice/types";
@@ -17,4 +18,5 @@ export interface INoticeService {
     updateNotice(params: UpdateNoticeParams): Promise<Response<string>>;
     deleteNotice(params: DeleteNoticeParams): Promise<Response<string>>;
     pickAndUploadImage(): Promise<MediaUploadResult>;
+    getNotice(buildingId: number): Response<GetNoticesResult>;
 }

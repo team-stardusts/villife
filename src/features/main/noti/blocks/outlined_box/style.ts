@@ -1,17 +1,14 @@
 import { StyleSheet } from "react-native";
 import useStyler from "../../../../common/hooks/styler/hooks";
 import { UseNotiOutLinedBoxListStylesType } from "../outlined_box_list/type";
-import { FontFamilies } from '../../../../../libs/themes/types';
 
 export default function useNotiOutlinedBoxStyles(): UseNotiOutLinedBoxListStylesType {
     const { deviceUI, theme } = useStyler();
 
-
-    // [TO-DO] : 색상도 양식에 맞게 변경 
     return StyleSheet.create({
         container: {
             borderWidth: deviceUI.moderateScale(2),
-            borderColor: "#0B75F2",
+            borderColor: theme.colorFamily.blue,
             marginVertical: deviceUI.getScreenSize().height * 0.008,
             borderRadius: deviceUI.moderateScale(15),
             minHeight: deviceUI.getScreenSize().height * 0.08,
@@ -23,7 +20,7 @@ export default function useNotiOutlinedBoxStyles(): UseNotiOutLinedBoxListStyles
         },
         innerTitleSection: {
             width: "90%",
-            borderColor: "#0B75F2",
+            borderColor: theme.colorFamily.blue,
         },
         contentBox: {
             alignItems: "center",
@@ -52,8 +49,16 @@ export default function useNotiOutlinedBoxStyles(): UseNotiOutLinedBoxListStyles
             width: deviceUI.moderateScale(30),
         },
         foldedContainer: {
+            marginVertical: deviceUI.moderateScale(25),
             width: deviceUI.getScreenSize().width * 0.8,
+        },
+        titleText: {
+            ...theme.font.researved.h3,
+            color: theme.colorFamily.black,
+        },
+        subTitleText: {
+            ...theme.font.researved.h5,
+            color: theme.colorFamily.black,
         },
     });
 }
-0;

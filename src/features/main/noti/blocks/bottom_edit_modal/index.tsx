@@ -1,10 +1,8 @@
-import { Dimensions, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Text, TouchableOpacity, View } from "react-native";
 import React from "react";
-import VillifeServer from "../../../../../libs/rest_apis/villife";
 import Toast from "react-native-toast-message";
 import { NoticeEventEmitter } from "../outlined_box_list/event";
 import { useNavigation } from "@react-navigation/native";
-import { DeleteNoticeParams } from "../../../../../libs/rest_apis/villife/notice/types";
 import { VillifeNavigation } from "../../../../common/router/types";
 import BottomSlidableModal from "../../../../common/blocks/universial/slidemodal_bottom";
 import StardustAlert from "../../../../common/blocks/universial/stardust_alert";
@@ -14,13 +12,15 @@ import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
 import { EditIcon } from "../../../../common/atoms/icon/edit";
 import { TrashCanIcon } from "../../../../common/atoms/icon/trash_can";
 import useStyler from "../../../../common/hooks/styler/hooks";
+import useNoticeService from "../../services";
+import useUserInfoService from "../../../../common/hooks/service/user_info";
 
 export default function NotiBottomEditModal(props: BottomEditModalProps) {
+    const userInfo = useUserInfoService();
     const styles = useBottomEditModalStyles();
     const messages = useScreenMessage();
-    // [TO-DO] : 밑에 수정
-    const { deviceUI } = useStyler();
-    const screenSize = Dimensions.get("window");
+    const service = useNoticeService();
+    const { deviceUI, theme } = useStyler();
     const navigation = useNavigation<VillifeNavigation>();
     const [deleteAlertVisible, setDeleteAlertVisible] = React.useState(false);
 
@@ -29,33 +29,33 @@ export default function NotiBottomEditModal(props: BottomEditModalProps) {
     }, []);
 
     const onDeleteButtonPress = async () => {
-        const notifier = VillifeServer.getNoticeManager();
-
-        const dto: DeleteNoticeParams = {
-            building_id: 3,
-            notice_id: props.noticeInfo.id,
-        };
-        const result = await notifier.deleteNotice(dto);
-
-        if (result.isSuccessful) {
-            new NoticeEventEmitter().emitListUpdatedEvent();
-            props.setVisible(false);
-            setDeleteAlertVisible(false);
-            Toast.show({
-                type: "success",
-                text1: messages.messages.main.noti.delete_success,
-                position: "bottom",
-                visibilityTime: 1500,
-                bottomOffset: 100,
+        console.log(userInfo);
+        if (userInfo.adminInfo?.selectedBuilding.id && userInfo.basicInfo?.authority) {
+            const result = await service.deleteNotice({
+                building_id: userInfo.adminInfo?.selectedBuilding.id,
+                notice_id: userInfo.basicInfo?.authority,
             });
-        } else {
-            Toast.show({
-                type: "error",
-                text1: messages.messages.main.noti.delete_error,
-                position: "bottom",
-                visibilityTime: 1500,
-                bottomOffset: 100,
-            });
+            console.log("delete : ", result);
+            if (result.isSuccessful) {
+                new NoticeEventEmitter().emitListUpdatedEvent();
+                props.setVisible(false);
+                setDeleteAlertVisible(false);
+                Toast.show({
+                    type: "success",
+                    text1: messages.messages.main.noti.delete_success,
+                    position: "bottom",
+                    visibilityTime: 1500,
+                    bottomOffset: 100,
+                });
+            } else {
+                Toast.show({
+                    type: "error",
+                    text1: messages.messages.main.noti.delete_error,
+                    position: "bottom",
+                    visibilityTime: 1500,
+                    bottomOffset: 100,
+                });
+            }
         }
     };
 
@@ -63,7 +63,7 @@ export default function NotiBottomEditModal(props: BottomEditModalProps) {
         <BottomSlidableModal
             modalVisible={props.visible}
             setModalVisible={props.setVisible}
-            height={screenSize.height * 0.3}>
+            height={deviceUI.getScreenSize().height * 0.3}>
             <View style={styles.editModalContentContainer}>
                 <TouchableOpacity
                     onPress={() => {

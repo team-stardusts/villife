@@ -1,23 +1,24 @@
-import { SafeAreaView } from "react-native-safe-area-context";
 import React, { useRef } from "react";
 import NoticeRegisterScreenProps from "./type";
 import NavigationView from "../../../../common/blocks/navigation";
 import RegisterButton from "../../blocks/register_button";
-import useNoticeRegisterScreenStyles from "./styles";
 import { CreateNoticeParams } from "../../../../../libs/rest_apis/villife/notice/types";
 import NotiEditor from "../../blocks/noti_editor";
 import useNoticeService from "../../services";
 import VillifeToastMessage from "../../../../common/atoms/toast";
 import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
+import useUserInfoService from "../../../../common/hooks/service/user_info";
+import NotiRegisterModal from "../../blocks/noti_register_modal";
 
 export default function NoticeRegisterScreen(props: NoticeRegisterScreenProps) {
+    const userInfo = useUserInfoService();
     const message = useScreenMessage();
     const content = useRef("");
     const title = useRef("");
     const service = useNoticeService();
-    const styles = useNoticeRegisterScreenStyles();
 
     const [loading, setLoading] = React.useState(false);
+    const [editModalVisible, setEditModalVisible] = React.useState(false);
 
     const onSubmit = async () => {
         setLoading(true);
@@ -25,17 +26,26 @@ export default function NoticeRegisterScreen(props: NoticeRegisterScreenProps) {
             setLoading(false);
             return VillifeToastMessage.showBottomToast("info", message.messages.main.noti.noti_title_error);
         }
-        const param: CreateNoticeParams = {
-            title: title.current,
-            content: content.current,
-            priority: 1,
-            building_id: 3,
-        };
         setLoading(false);
+        setEditModalVisible(true);
+    };
 
-        const result = await service.registerNotice(param);
-        if (result.isSuccessful) props.navigation.goBack();
-        console.log("create notice result\n", result.data?.data);
+    const onPrioritySubmit = async (priority: number) => {
+        setLoading(true);
+        setEditModalVisible(false);
+
+        if (priority && userInfo.adminInfo?.selectedBuilding.id) {
+            const param: CreateNoticeParams = {
+                title: title.current,
+                content: content.current,
+                priority: priority,
+                building_id: userInfo.adminInfo?.selectedBuilding.id,
+            };
+            const result = await service.registerNotice(param);
+
+            if (result.isSuccessful) props.navigation.goBack();
+            console.log("create notice result\n", result.data?.data);
+        }
     };
 
     return (
@@ -53,6 +63,11 @@ export default function NoticeRegisterScreen(props: NoticeRegisterScreenProps) {
             }}
             bodyOptions={{ applyDefaultHorizontalPadding: false, applyDefaultVerticalPadding: false }}
             bottomNavOptions={{ shown: false }}>
+            <NotiRegisterModal
+                visible={editModalVisible}
+                setVisible={setEditModalVisible}
+                onPrioritySubmit={onPrioritySubmit}
+            />
             <NotiEditor contentRef={content} titleRef={title} mode={"register"} />
         </NavigationView>
     );

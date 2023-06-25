@@ -7,3 +7,13 @@ type NoticeRegisterScreenProps = NativeStackScreenProps<VillifeStackParamList, "
 export type UseNoticeRegisterScreenStylesType = ReturnType<typeof StyleSheet.create>;
 
 export default NoticeRegisterScreenProps;
+
+/* 
+        const param: CreateNoticeParams = {
+            title: title.current,
+            content: content.current,
+            priority: 1,
+            building_id: 3,
+        };
+
+        const result = await service.registerNotice(param); */

@@ -10,6 +10,7 @@ import { MediaUploadResult } from "../../../../libs/rest_apis/villife/media/type
 import IVillifeNoticeManager, {
     CreateNoticeParams,
     DeleteNoticeParams,
+    GetNoticesResult,
     UpdateNoticeParams,
 } from "../../../../libs/rest_apis/villife/notice/types";
 import { NoticeEventEmitter } from "../blocks/outlined_box_list/event";
@@ -68,5 +69,8 @@ class NoticeService implements INoticeService {
     }
     async deleteNotice(params: DeleteNoticeParams): Promise<Response<string>> {
         return await this.mApi.deleteNotice(params);
+    }
+    async getNotice(buildingId: number): Response<GetNoticesResult> {
+        return await this.mApi.getNotices(buildingId);
     }
 }

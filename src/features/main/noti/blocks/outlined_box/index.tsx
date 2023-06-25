@@ -58,8 +58,8 @@ function OutlinedBox(props: OutlinedBoxProps) {
                         <View style={styles.contentBox}>
                             <NotiLable priority={props.priority} />
                             <View style={styles.titleTextBox}>
-                                <Text>{props.title}</Text>
-                                <Text>{props.wroteAt}</Text>
+                                <Text style={styles.titleText}>{props.title}</Text>
+                                <Text style={styles.subTitleText}>{props.wroteAt}</Text>
                             </View>
                             <View style={styles.absoluteWrapper}>
                                 <View style={styles.iconBox}>

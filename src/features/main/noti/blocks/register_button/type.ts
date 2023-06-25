@@ -1,4 +1,4 @@
-import { GestureResponderEvent, StyleSheet } from "react-native";
+import { StyleSheet } from "react-native";
 
 export default interface NotiRegisterButtonProps {
     loading: boolean;

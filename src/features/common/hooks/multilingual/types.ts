@@ -83,6 +83,8 @@ export type MessagesByLanguage = {
             noti_editor_title: string;
             noti_editor_subtitle: string;
             noti_title_error: string;
+            noti_important_modal: string;
+            noti_general_modal: string;
         };
         approval: {
             screen_title: string;

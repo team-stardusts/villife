@@ -20,9 +20,6 @@ export default function NoticeHomeScreen(props: NoticeHomeScreenProps) {
                 title: message.messages.main.noti.screen_title,
                 shown: true,
                 navComponent: userInfo.basicInfo?.authority == AUTHORITY.ADMIN ? WriteButton : undefined,
-                navComponentProps: {
-                    name: "Hello!",
-                },
             }}
             bodyOptions={{ applyDefaultHorizontalPadding: false, applyDefaultVerticalPadding: false }}
             bottomNavOptions={{ shown: false }}>

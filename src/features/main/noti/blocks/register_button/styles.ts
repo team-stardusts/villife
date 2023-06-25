@@ -13,6 +13,7 @@ export default function useNotiRegisterButtonStyles(): UseNotiRegisterButtonStyl
         },
         registerText: {
             ...theme.font.researved.h4,
+            color: theme.colorFamily.black,
         },
     });
 }

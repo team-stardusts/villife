@@ -6,7 +6,8 @@ export interface Noticealbe {
     updateNotice(params: UpdateNoticeParams): Response<string>;
     deleteNotice(params: DeleteNoticeParams): Response<string>;
 }
-export type ContentPriority = 1 | 2 | 3;
+// 1 : red, 2 : green, 3 : gray
+export type ContentPriority = number;
 
 export type CreateNoticeParams = {
     title: string;

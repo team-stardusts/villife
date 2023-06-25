@@ -76,7 +76,9 @@
             "noti_error": "죄송합니다,공지사항 등록에 실패했어요",
             "noti_editor_title": "제목을 입력해주세요",
             "noti_editor_subtitle": "내용을 입력해주세요",
-            "noti_title_error": "제목 또는 내용을 입력해주세요"
+            "noti_title_error": "제목 또는 내용을 입력해주세요",
+            "noti_important_modal": "중요",
+            "noti_general_modal": "일반"
         },
         "approval": {
             "screen_title": "승인함",
