@@ -44,13 +44,14 @@ export default function ScreenRouter() {
     const [loginData, setLoginData] = useRecoilState(loginDataState);
     const navigation = useNavigation<RouterParams["navigation"]>();
     const storage = new VillifeStorage();
-    //const userService = useUserInfoService();
+    const userService = useUserInfoService();
 
     useAutoRegisterFirebaseToken();
 
     const bootstrap = async () => {
         const data = await storage.login.get();
-
+        // console.log("Access token:", data?.accessToken);
+        // console.log("refresh token:", data?.refreshToken);
         setLoginData(data);
         setIsLoading(false);
     };
@@ -78,11 +79,13 @@ export default function ScreenRouter() {
     }, [loginData, isLoading]);
 
     useEffect(() => {
-        if (loginData?.accessToken === undefined) {
+        if (loginData === null) {
             return;
         }
-        console.log("Refresh!", loginData?.accessToken.slice(0, 15));
-    }, [loginData]);
+
+        //userService.service.resetUserBasicInfo();
+        console.log("Refresh!", loginData.accessToken.slice(0, 15));
+    }, [loginData?.accessToken]);
 
     useEffect(() => {
         storage.addEventListener("CHANGE_LOGIN_VALUE", setLoginData);
@@ -98,12 +101,6 @@ export default function ScreenRouter() {
             storage.removeEventListener("CHANGE_LOGIN_VALUE");
         };
     }, []);
-
-    useEffect(() => {
-        /* userService.getUserBasicInfo().then((userInfo) => {
-            console.log(userInfo);
-        }); */
-    }, [loginData?.refreshToken]);
 
     return (
         <Stack.Navigator screenOptions={{ headerShown: false, animation: "fade" }} initialRouteName={"login"}>

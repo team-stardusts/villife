@@ -1,18 +1,8 @@
-import { useEffect, useRef, useState } from "react";
 import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
 import NavigationView from "../../../../common/blocks/navigation";
 import ComplaintDetailScreenProps from "./type";
 import useComplaintDetailSecreenStyle from "./style";
-import {
-    Keyboard,
-    LayoutAnimation,
-    ScrollView,
-    Text,
-    TextInput,
-    Touchable,
-    TouchableOpacity,
-    View,
-} from "react-native";
+import { ScrollView, Text, TouchableOpacity, View } from "react-native";
 import React from "react";
 import RemoteCSS from "../../../../../libs/themes/remote_css";
 import AutoHeightWebView from "react-native-autoheight-webview";

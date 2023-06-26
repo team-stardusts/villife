@@ -63,9 +63,10 @@ function ReplyInputSection(props: RelpyInputProps) {
 
             if (result.isSuccessful) {
                 new ComplaintEventEmitter().emitListUpdatedEvent();
-                
+
                 return clearReplyInformation();
             }
+
             VillifeToastMessage.showBottomToast("error", "답글 수정에 실패하였습니다.");
             return setIsLoading(false);
         }

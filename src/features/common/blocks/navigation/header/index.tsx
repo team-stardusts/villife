@@ -19,7 +19,7 @@ export default function NavigationViewHeader(props: NavigationViewHeaderProps) {
     return (
         <View style={styles.container}>
             <View style={styles.box}>
-                {navigation.getState().index > 0 && (
+                {crrNavIndex > 0 && (
                     <TouchableOpacity style={styles.iconBox} onPress={() => navigation.pop()}>
                         <Icon name="arrow-left" size={styles.icon.width} color={styles.icon.color} />
                     </TouchableOpacity>

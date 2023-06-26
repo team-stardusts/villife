@@ -53,28 +53,34 @@ class AVillifeServerModule extends AREST {
         const result = await this.request<any, U>(config);
 
         if (logindata === null) {
-            console.debug("Villife logindta is null");
+            console.log("Villife logindata is null");
             return result;
         }
 
+        console.log("Request Authable Status Code :", result.data?.status);
+
         if (result.data?.status != RESPONSE_STATUS.NETWORK_AUTHENTICATION_REQUIRED) {
             return result;
+        }
+
+        const refresh = await this.refresh({
+            expiredAccessToken: logindata.accessToken,
+            refreshToken: logindata.refreshToken,
+        });
+
+        console.log("Access Token Update:", refresh.data?.data.access_token);
+
+        if (refresh.data === undefined) {
+            console.log("Failed to refresh on VillifeServer.");
+
+            storage.login.remove();
         } else {
-            const refresh = await this.refresh({
-                expiredAccessToken: logindata.accessToken,
-                refreshToken: logindata.refreshToken,
-            });
-
-            if (refresh.data?.data.access_token === undefined) {
-                console.debug("Failed to refresh on VillifeServer.");
-            }
-
-            config.headers.Authorization = `Bearer ${refresh.data?.data.access_token}`;
+            config.headers.Authorization = `Bearer ${refresh.data.data.access_token}`;
 
             await storage.login.set({
                 ...logindata,
-                accessToken: refresh.data?.data.access_token ?? "",
-                accessTokenExpiresAt: refresh.data?.data.expire_at ?? 0,
+                accessToken: refresh.data.data.access_token,
+                accessTokenExpiresAt: refresh.data.data.expire_at,
             });
         }
 

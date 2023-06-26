@@ -1,9 +1,10 @@
 import React, { useRef } from "react";
 import { ComplaintEditorProps } from "./types";
 import { IconRecord, RichEditor, RichToolbar, actions } from "react-native-pell-rich-editor";
-import { Dimensions, Keyboard, ScrollView, Text, TextInput, View } from "react-native";
+import { Dimensions, ScrollView, Text, TextInput, View } from "react-native";
 import useComplaintEditorStyle, { EditorStyle } from "./styles";
 import useComplaintService from "../../services";
+import useOnKeyboardEvent from "../../../../common/hooks/keyboard";
 
 function ComplaintEditor(props: ComplaintEditorProps) {
     const styles = useComplaintEditorStyle();
@@ -13,7 +14,16 @@ function ComplaintEditor(props: ComplaintEditorProps) {
     const service = useComplaintService();
     const [keboardShow, setKeyBoardShow] = React.useState(false);
 
-    React.useEffect(() => {
+    useOnKeyboardEvent({
+        onShow() {
+            setKeyBoardShow(true);
+        },
+        onHide() {
+            setKeyBoardShow(false);
+        },
+    });
+
+    /* React.useEffect(() => {
         const keyboardDidShowListener = Keyboard.addListener("keyboardDidShow", () => {
             setKeyBoardShow(true);
         });
@@ -25,7 +35,7 @@ function ComplaintEditor(props: ComplaintEditorProps) {
             keyboardDidShowListener.remove();
             keyboardDidHideListner.remove();
         };
-    }, []);
+    }, []); */
 
     return (
         <>
