@@ -71,6 +71,7 @@ export default function NotiBottomEditModal(props: BottomEditModalProps) {
                             title: props.noticeInfo.title,
                             content: props.noticeInfo.content,
                             notiID: props.noticeInfo.id,
+                            priority: props.noticeInfo.priority,
                         });
                     }}
                     style={styles.editModalMenu}>

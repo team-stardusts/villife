@@ -1,5 +1,5 @@
 import { Dimensions, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import BottomSlidableModal from "../../../../common/blocks/universial/slidemodal_bottom";
 import ReplyEditModalProps from "./type";
 import IconTag from "../../../../common/atoms/icon/tag";
@@ -15,6 +15,8 @@ export default function NotiRegisterModal(props: ReplyEditModalProps) {
     const styles = useBottomEditModalStyles();
     const { deviceUI, theme } = useStyler();
 
+    const [priority, setPriority] = useState<number>();
+
     return (
         <BottomSlidableModal
             modalVisible={props.visible}
@@ -23,7 +25,8 @@ export default function NotiRegisterModal(props: ReplyEditModalProps) {
             <View style={styles.editModalContentContainer}>
                 <TouchableOpacity
                     onPress={() => {
-                        props.onPrioritySubmit(1);
+                        setPriority(1);
+                        props.onPrioritySubmit(priority);
                     }}
                     style={styles.editModalMenu}>
                     <IconTag size={24} />
@@ -31,7 +34,8 @@ export default function NotiRegisterModal(props: ReplyEditModalProps) {
                 </TouchableOpacity>
                 <TouchableOpacity
                     onPress={() => {
-                        props.onPrioritySubmit(3);
+                        setPriority(3);
+                        props.onPrioritySubmit(priority);
                     }}
                     style={styles.editModalMenu}>
                     <IconTag size={24} />

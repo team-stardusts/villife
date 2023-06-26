@@ -46,6 +46,7 @@ export type VillifeStackParamList = VillifeRootStackParamList & {
         title: string;
         content: string;
         notiID: number;
+        priority: number;
     };
     permission_request?: {};
     complaint_register: {};

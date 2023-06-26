@@ -1,6 +1,6 @@
 import { StyleSheet } from "react-native";
 
-export type ContentPriority = 1 | 2 | 3;
+export type ContentPriority = number;
 // @description 1: red , 2: green , 3: grey
 
 export type ContentLableProps = {
