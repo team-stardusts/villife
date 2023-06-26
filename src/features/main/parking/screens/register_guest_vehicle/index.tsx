@@ -6,7 +6,7 @@ import useRegisterVehicleScreenStyles from "./styles";
 import ParkingScreenGuide from "../../blocks/screen_guide";
 import EtdaTimePicker from "../../blocks/etad_time_picker";
 import { useEffect, useState } from "react";
-import SimpleNavComponent from "../../../../common/blocks/navigation/navcomponent";
+import SimpleNavComponent from "../../../../common/blocks/navigation/header/navcomponent";
 import { Toast } from "react-native-toast-message/lib/src/Toast";
 import { TOAST_DEFAULT_OFFSET, TOAST_DEFAULT_VISIBILITY_TIME } from "../../../../common/constants";
 import VillifeToastMessage from "../../../../common/atoms/toast";

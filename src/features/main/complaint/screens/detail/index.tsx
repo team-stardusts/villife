@@ -15,8 +15,8 @@ import ReplyInputSection from "../../blocks/reply_input";
 import { useComplaintDetailViewModel } from "./view_model";
 import IconPencil from "../../../../common/atoms/icon/pencil";
 import ComplaintDetailEditModal from "../../blocks/detail_bottom_edit";
-import { AUTHORITY } from "../../../../common/hooks/service/user_info/constant";
 import ComplaintProgressEditModal from "../../blocks/progress_edit";
+import { VILLIFE_AUTHORITY } from "../../../../../libs/rest_apis/villife/absc";
 
 export default function ComplaintDetailScreen({ navigation, route }: ComplaintDetailScreenProps) {
     const messages = useScreenMessage();
@@ -25,7 +25,7 @@ export default function ComplaintDetailScreen({ navigation, route }: ComplaintDe
     const userInfoService = useUserInfoService();
     const [editModalVisible, setEditModalVisible] = React.useState(false);
     const [progressEditModalVisible, setProgressEditModalVisible] = React.useState(false);
-    
+
     return (
         <NavigationView
             headerOptions={{
@@ -54,7 +54,7 @@ export default function ComplaintDetailScreen({ navigation, route }: ComplaintDe
                             <TouchableOpacity
                                 style={styles.editButton}
                                 onPress={() => {
-                                    if (userInfoService.basicInfo?.authority == AUTHORITY.ADMIN) {
+                                    if (userInfoService.basicInfo?.authority == VILLIFE_AUTHORITY.ADMIN) {
                                         setProgressEditModalVisible(true);
                                         return;
                                     }
@@ -62,7 +62,7 @@ export default function ComplaintDetailScreen({ navigation, route }: ComplaintDe
                                 }}>
                                 <IconPencil size={(styles.iconSize.width as number) * 3} />
                                 <Text style={styles.registerButtonText}>
-                                    {userInfoService.basicInfo?.authority == AUTHORITY.ADMIN
+                                    {userInfoService.basicInfo?.authority == VILLIFE_AUTHORITY.ADMIN
                                         ? messages.messages.main.complaint.progress_status
                                         : messages.messages.words.edit}
                                 </Text>

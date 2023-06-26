@@ -72,6 +72,7 @@ function ReplyInputSection(props: RelpyInputProps) {
         }
 
         const res = await service.CreateReply(props.complaintID, replyContent, imageUris);
+
         if (replyContent == "") {
             VillifeToastMessage.showBottomToast("error", "댓글을 입력해 주세요");
             return setIsLoading(false);

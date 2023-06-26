@@ -3,12 +3,10 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import React from "react";
 import NavigationView from "../../../../common/blocks/navigation";
 import WriteButton from "../../blocks/write_button";
-import useNoticeHomeScreenStyles from "./style";
 import FlatListOutlinedContentsBox from "../../blocks/outlined_box_list";
-import { View, Text } from "react-native";
 import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
 import useUserInfoService from "../../../../common/hooks/service/user_info";
-import { AUTHORITY } from "../../../../common/hooks/service/user_info/constant";
+import { VILLIFE_AUTHORITY } from "../../../../../libs/rest_apis/villife/absc";
 
 export default function NoticeHomeScreen(props: NoticeHomeScreenProps) {
     const message = useScreenMessage();
@@ -19,7 +17,7 @@ export default function NoticeHomeScreen(props: NoticeHomeScreenProps) {
             headerOptions={{
                 title: message.messages.main.noti.screen_title,
                 shown: true,
-                navComponent: userInfo.basicInfo?.authority == AUTHORITY.ADMIN ? WriteButton : undefined,
+                navComponent: userInfo.basicInfo?.authority == VILLIFE_AUTHORITY.ADMIN ? WriteButton : undefined,
             }}
             bodyOptions={{ applyDefaultHorizontalPadding: false, applyDefaultVerticalPadding: false }}
             bottomNavOptions={{ shown: false }}>

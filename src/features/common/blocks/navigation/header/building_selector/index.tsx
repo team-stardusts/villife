@@ -16,15 +16,6 @@ export default function BuildingSelector({}: BuildingSelectorType) {
 
     const [isModalUnfold, setIsModalUnfold] = useState<boolean>(false);
 
-    const isAdmin = (): boolean => {
-        //console.log(userService.basicInfo?.authority);
-        if (user.basicInfo?.authority === undefined) return false;
-
-        return (
-            user.basicInfo.authority === VILLIFE_AUTHORITY.ADMIN || user.basicInfo.authority === VILLIFE_AUTHORITY.OWNER
-        );
-    };
-
     const changeSelectedBulding = (buildingInfo: SimpleBuildingInfo) => {
         const isSuccess = user.changeSelectedBuildingOfAdmin(buildingInfo);
 
@@ -40,7 +31,7 @@ export default function BuildingSelector({}: BuildingSelectorType) {
                 managedBuildings={user.adminInfo?.managedBuildings}
                 onBuildingPress={changeSelectedBulding}
             />
-            {isAdmin() && (
+            {user.isAdmin() && (
                 <TouchableOpacity
                     style={styles.wrapper}
                     activeOpacity={0.4}

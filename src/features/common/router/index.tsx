@@ -50,8 +50,7 @@ export default function ScreenRouter() {
 
     const bootstrap = async () => {
         const data = await storage.login.get();
-        // console.log("Access token:", data?.accessToken);
-        // console.log("refresh token:", data?.refreshToken);
+
         setLoginData(data);
         setIsLoading(false);
     };

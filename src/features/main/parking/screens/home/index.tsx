@@ -14,6 +14,7 @@ import Icon from "../../../../common/atoms/icon";
 import SimpleFuncButton from "../../../../common/blocks/button/simple_func_button";
 import { Vehicle } from "../../services/park/types";
 import VillifeToastMessage from "../../../../common/atoms/toast";
+import useUserInfoService from "../../../../common/hooks/service/user_info";
 
 type VehicleInfoProps = {
     ownerType: "guest" | "tenant";
@@ -29,7 +30,7 @@ function VehicleInfo({ ownerType, plateNumber, phoneNumber, etd }: VehicleInfoPr
     const badgeStyle = ownerType === "tenant" ? styles.tenantBadge : styles.guestBadge;
 
     return (
-        <View style={styles.toplevelBox}>
+        <View style={styles.container}>
             <ContentBox>
                 <View style={styles.contentBox}>
                     <View style={styles.vehicleInfoBox}>
@@ -76,6 +77,7 @@ export default function ParkingScreen({ navigation, route }: ParkingScreenProps)
     const messages = useScreenMessage();
     const { vehicles } = useParkService();
     const { deviceUI } = useStyler();
+    const user = useUserInfoService();
     const styles = useParkingHomeScreenStyles().screen;
     const screenPadding: number = deviceUI.moderateScale(SCREEN_PADDING_HORIZONTAL_STANDARD_VALUE);
 
@@ -121,22 +123,20 @@ export default function ParkingScreen({ navigation, route }: ParkingScreenProps)
             headerOptions={{
                 title: messages.messages.main.parking.home.screen_title,
             }}>
-            <View style={styles.toplevelBox}>
-                <View style={styles.myVehicleCardViewBox}>
-                    <View style={styles.contentTitleBox}>
-                        <Text style={styles.contentTitle}>{messages.messages.main.parking.home.my_vehicle_info}</Text>
-                        {/* <View style={styles.contentFuncButtonBox}>
-                            <SimpleFuncButton
-                                icon={{ name: "pencil", size: styles.contentFuncButtonIcon.width }}
-                                title={messages.messages.words.modify}
-                            />
-                        </View> */}
+            <View style={styles.container}>
+                {!user.isAdmin() && (
+                    <View style={styles.myVehicleCardViewBox}>
+                        <View style={styles.contentTitleBox}>
+                            <Text style={styles.contentTitle}>
+                                {messages.messages.main.parking.home.my_vehicle_info}
+                            </Text>
+                        </View>
+                        <VehicleCardView
+                            vehicles={vehicles?.myVehicles !== undefined ? vehicles.myVehicles : []}
+                            cardWidth={cardWidth}
+                        />
                     </View>
-                    <VehicleCardView
-                        vehicles={vehicles?.myVehicles !== undefined ? vehicles.myVehicles : []}
-                        cardWidth={cardWidth}
-                    />
-                </View>
+                )}
                 <View style={styles.buildingVehiclesViewBox}>
                     <View style={styles.contentTitleBox}>
                         <Text style={styles.contentTitle}>

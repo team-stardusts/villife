@@ -1,4 +1,4 @@
-import React0, { useEffect } from "react";
+import { useEffect } from "react";
 import { UserDataType } from "../../../../../libs/storage/tables/user/types";
 import { IUserInfoService, UseUserInfoServiceReturns } from "./types";
 import VillifeStorage from "../../../../../libs/storage";
@@ -9,12 +9,21 @@ import { userBasicInfoState } from "../../states/atoms/user/basic_information";
 import { adminInfoState } from "../../states/atoms/user/admin_only";
 import { Response } from "../../../../../libs/rest_apis/types";
 import { AdminInformation } from "../../states/atoms/user/admin_only/type";
-import { AUTHORITY } from "./constant";
 import { Authority } from "../../../../../libs/rest_apis/villife/types";
+import { VILLIFE_AUTHORITY } from "../../../../../libs/rest_apis/villife/absc";
 
 export default function useUserInfoService(): UseUserInfoServiceReturns {
     const [userBasicInfo, setUserBasicInfo] = useRecoilState(userBasicInfoState);
     const [adminInfo, setAdminInfo] = useRecoilState(adminInfoState);
+
+    const isAdmin = (): boolean => {
+        //console.log(userService.basicInfo?.authority);
+        if (userBasicInfo?.authority === undefined) return false;
+
+        return (
+            userBasicInfo.authority === VILLIFE_AUTHORITY.ADMIN || userBasicInfo.authority === VILLIFE_AUTHORITY.OWNER
+        );
+    };
 
     const updateUserInfo = async () => {
         const result = await service.getUserBasicInfo();
@@ -23,11 +32,11 @@ export default function useUserInfoService(): UseUserInfoServiceReturns {
 
         console.log(
             "[CURRENT_USER_AUTHRITY]",
-            Object.keys(AUTHORITY).find((key) => AUTHORITY[key as keyof Authority] === result.authority)
+            Object.keys(VILLIFE_AUTHORITY).find((key) => VILLIFE_AUTHORITY[key as keyof Authority] === result.authority)
         );
         console.log("[CURRENT_USER_NAME]", result.name);
 
-        if (result.authority == AUTHORITY.ADMIN) {
+        if (result.authority == VILLIFE_AUTHORITY.ADMIN) {
             const result = await service.fetchBuildingsManagedByAdmin();
             //console.log("Result of fetching admin's buildings: ", result.data?.data);
 
@@ -69,9 +78,10 @@ export default function useUserInfoService(): UseUserInfoServiceReturns {
 
     return {
         basicInfo: userBasicInfo,
-        adminInfo: adminInfo,
-        service: service,
-        changeSelectedBuildingOfAdmin: changeSelectedBuildingOfAdmin,
+        adminInfo,
+        service,
+        isAdmin,
+        changeSelectedBuildingOfAdmin,
     };
 }
 
@@ -119,7 +129,7 @@ export class UserInfoService implements IUserInfoService {
         }
     }
 
-    async resetUserBasicInfo() {
+    async removeUserBasicInfo() {
         const isSet = await this.storage.user.set(null);
         if (isSet) {
             return this.fetchAndStoreUserBasicInfo();

@@ -1,9 +1,9 @@
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
-import useSystemInfo from "../../../hooks/systeminfo/hooks";
-import useAppThemeLegacy from "../../../hooks/themes_legacy/hooks";
-import Icon from "../../../atoms/icon";
+import useSystemInfo from "../../../../hooks/systeminfo/hooks";
+import useAppThemeLegacy from "../../../../hooks/themes_legacy/hooks";
+import Icon from "../../../../atoms/icon";
 import { SimpleNavComponentProps } from "./types";
-import useStyler from "../../../hooks/styler/hooks";
+import useStyler from "../../../../hooks/styler/hooks";
 
 export default function SimpleNavComponent(props: SimpleNavComponentProps) {
     const { deviceUI, theme } = useStyler();

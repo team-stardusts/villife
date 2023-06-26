@@ -53,11 +53,11 @@ class AVillifeServerModule extends AREST {
         const result = await this.request<any, U>(config);
 
         if (logindata === null) {
-            console.log("Villife logindata is null");
+            console.debug("Villife logindata is null");
             return result;
         }
 
-        console.log("Request Authable Status Code :", result.data?.status);
+        // console.debug("Request Authable Status Code :", result.data?.status);
 
         if (result.data?.status != RESPONSE_STATUS.NETWORK_AUTHENTICATION_REQUIRED) {
             return result;
@@ -68,10 +68,10 @@ class AVillifeServerModule extends AREST {
             refreshToken: logindata.refreshToken,
         });
 
-        console.log("Access Token Update:", refresh.data?.data.access_token);
+        //console.debug("Access Token Update:", refresh.data?.data.access_token);
 
         if (refresh.data === undefined) {
-            console.log("Failed to refresh on VillifeServer.");
+            console.debug("Failed to refresh on VillifeServer.");
 
             storage.login.remove();
         } else {

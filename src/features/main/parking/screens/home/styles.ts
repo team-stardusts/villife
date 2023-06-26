@@ -5,7 +5,7 @@ export default function useParkingHomeScreenStyles() {
     const { deviceUI, theme } = useStyler();
 
     const screen = StyleSheet.create({
-        toplevelBox: {
+        container: {
             flex: 1,
             backgroundColor: theme.colorFamily.white,
         },
@@ -35,7 +35,7 @@ export default function useParkingHomeScreenStyles() {
     });
 
     const vehicleInfo = StyleSheet.create({
-        toplevelBox: {
+        container: {
             height: deviceUI.moderateScale(60),
         },
         contentBox: {

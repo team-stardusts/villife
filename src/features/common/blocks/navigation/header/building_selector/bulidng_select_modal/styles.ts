@@ -10,11 +10,13 @@ export default function useBuildingSelectModalStyles() {
         modal: {
             maxHeight: modalHeight,
         },
+        container: {
+            marginBottom: 30,
+        },
         buildingComponent: {
             height: deviceUI.moderateScale(70),
             margin: deviceUI.moderateScale(15),
         },
-        container: {},
     });
 
     const component = StyleSheet.create({

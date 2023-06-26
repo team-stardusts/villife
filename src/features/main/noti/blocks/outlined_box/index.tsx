@@ -1,20 +1,17 @@
-import { Dimensions, FlatList, ListRenderItemInfo, Pressable, StyleSheet, TouchableOpacity, View } from "react-native";
+import { Pressable, TouchableOpacity, View } from "react-native";
 import { Text } from "react-native";
 import React, { useEffect } from "react";
 import { LayoutAnimation } from "react-native";
-import OutlinedBoxStyle from "./style";
 import { OutlinedBoxProps } from "./type";
 import NotiLable from "../noti_label.tsx";
-import WebView, { WebViewMessageEvent } from "react-native-webview";
 import PressableVectorIcon from "../../../../common/blocks/icon/vector";
-
 import NotiBottomEditModal from "../bottom_edit_modal";
 import { EditIcon } from "../../../../common/atoms/icon/edit";
 import useNotiOutlinedBoxStyles from "./style";
 import AutoHeightWebView from "react-native-autoheight-webview";
 import RemoteCSS from "../../../../../libs/themes/remote_css";
 import useUserInfoService from "../../../../common/hooks/service/user_info";
-import { AUTHORITY } from "../../../../common/hooks/service/user_info/constant";
+import { VILLIFE_AUTHORITY } from "../../../../../libs/rest_apis/villife/absc";
 
 /**
  * @param OutlinedBoxProp
@@ -63,7 +60,7 @@ function OutlinedBox(props: OutlinedBoxProps) {
                             </View>
                             <View style={styles.absoluteWrapper}>
                                 <View style={styles.iconBox}>
-                                    {unfold && userInfo.basicInfo?.authority == AUTHORITY.ADMIN ? (
+                                    {unfold && userInfo.basicInfo?.authority == VILLIFE_AUTHORITY.ADMIN ? (
                                         <TouchableOpacity
                                             style={styles.editButton}
                                             onPress={() => {

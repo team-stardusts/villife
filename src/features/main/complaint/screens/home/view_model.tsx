@@ -5,7 +5,7 @@ import { ComplaintInfo } from "../../services/type";
 import { ComplaintHomeDisplayMode } from "./types";
 import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
 import { ComplaintListUpatedEventListener } from "../../services/event";
-import { AUTHORITY } from "../../../../common/hooks/service/user_info/constant";
+import { VILLIFE_AUTHORITY } from "../../../../../libs/rest_apis/villife/absc";
 
 export default function ComplaintHomeViewModel(): ComplaintHomeUiState {
     const service = useComplaintService();
@@ -19,7 +19,7 @@ export default function ComplaintHomeViewModel(): ComplaintHomeUiState {
 
     const fetchReceivedAndInProgressComplaint = async () => {
         const resReceived =
-            userInfo.basicInfo?.authority == AUTHORITY.ADMIN
+            userInfo.basicInfo?.authority == VILLIFE_AUTHORITY.ADMIN
                 ? await service.GetBuildingComplaints({
                       building_id: userInfo.adminInfo?.selectedBuilding.id || 0,
                       status: "received",
@@ -29,7 +29,7 @@ export default function ComplaintHomeViewModel(): ComplaintHomeUiState {
                   });
         if (!resReceived.isSuccessful) return [];
         const res =
-            userInfo.basicInfo?.authority == AUTHORITY.ADMIN
+            userInfo.basicInfo?.authority == VILLIFE_AUTHORITY.ADMIN
                 ? await service.GetBuildingComplaints({
                       building_id: userInfo.adminInfo?.selectedBuilding.id || 0,
                       status: "in_progress",
@@ -47,7 +47,7 @@ export default function ComplaintHomeViewModel(): ComplaintHomeUiState {
     };
     const fetchReceivedComplaint = async () => {
         const res =
-            userInfo.basicInfo?.authority == AUTHORITY.ADMIN
+            userInfo.basicInfo?.authority == VILLIFE_AUTHORITY.ADMIN
                 ? await service.GetBuildingComplaints({
                       building_id: userInfo.adminInfo?.selectedBuilding.id || 0,
                       status: "received",
@@ -63,7 +63,7 @@ export default function ComplaintHomeViewModel(): ComplaintHomeUiState {
     };
     const fetchInProgressComplaint = async () => {
         const res =
-            userInfo.basicInfo?.authority == AUTHORITY.ADMIN
+            userInfo.basicInfo?.authority == VILLIFE_AUTHORITY.ADMIN
                 ? await service.GetBuildingComplaints({
                       building_id: userInfo.adminInfo?.selectedBuilding.id || 0,
                       status: "in_progress",
@@ -79,7 +79,7 @@ export default function ComplaintHomeViewModel(): ComplaintHomeUiState {
     };
     const fetchCompletedComplaint = async () => {
         const res =
-            userInfo.basicInfo?.authority == AUTHORITY.ADMIN
+            userInfo.basicInfo?.authority == VILLIFE_AUTHORITY.ADMIN
                 ? await service.GetBuildingComplaints({
                       building_id: userInfo.adminInfo?.selectedBuilding.id || 0,
                       status: "completed",

@@ -1,7 +1,7 @@
 import { ScrollView, View } from "react-native";
 import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
 import NavigationView from "../../../../common/blocks/navigation";
-import SimpleNavComponent from "../../../../common/blocks/navigation/navcomponent";
+import SimpleNavComponent from "../../../../common/blocks/navigation/header/navcomponent";
 import HomeScreenProps from "./type";
 import useHomeScreenStyles from "./styles";
 import useStyler from "../../../../common/hooks/styler/hooks";
