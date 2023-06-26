@@ -121,8 +121,9 @@ export class UserInfoService implements IUserInfoService {
 
     async resetUserBasicInfo() {
         const isSet = await this.storage.user.set(null);
-        if (isSet) return;
-        else console.log("failed to reset user basic info stroage");
+        if (isSet) {
+            return this.fetchAndStoreUserBasicInfo();
+        } else console.log("failed to reset user basic info stroage");
     }
 
     async fetchBuildingsManagedByAdmin(): Response<Array<SimpleBuildingInfo>> {
