@@ -5,25 +5,12 @@ import { RouterParams } from "../../../router/types";
 import Icon from "../../../atoms/icon";
 import useNavigationViewHeaderStyles from "./styles";
 import { NavigationViewHeaderProps } from "./types";
-import useUserInfoService from "../../../hooks/service/user_info";
-import { VILLIFE_AUTHORITY } from "../../../../../libs/rest_apis/villife/absc";
 import BuildingSelector from "./building_selector";
 
 export default function NavigationViewHeader(props: NavigationViewHeaderProps) {
     const [crrNavIndex, setCrrNavIndex] = useState<number>(0);
     const navigation = useNavigation<RouterParams["navigation"]>();
     const styles = useNavigationViewHeaderStyles(crrNavIndex);
-    const userService = useUserInfoService();
-
-    const isAdmin = (): boolean => {
-        //console.log(userService.basicInfo?.authority);
-        if (userService.basicInfo?.authority === undefined) return false;
-
-        return (
-            userService.basicInfo.authority === VILLIFE_AUTHORITY.ADMIN ||
-            userService.basicInfo.authority === VILLIFE_AUTHORITY.OWNER
-        );
-    };
 
     useEffect(() => {
         setCrrNavIndex(navigation.getState().index);
@@ -50,7 +37,7 @@ export default function NavigationViewHeader(props: NavigationViewHeaderProps) {
                 </View>
             </View>
             <View style={styles.centerReactFuncBox}>
-                {isAdmin() && <BuildingSelector adminInfo={userService.adminInfo} />}
+                <BuildingSelector />
             </View>
             <View style={styles.rightReactFuncBox}>
                 {props.navComponent !== undefined && <props.navComponent {...props.navComponentProps} />}
