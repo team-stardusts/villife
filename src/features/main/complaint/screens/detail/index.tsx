@@ -35,7 +35,7 @@ export default function ComplaintDetailScreen({ navigation, route }: ComplaintDe
     const userInfoService = useUserInfoService();
     const [editModalVisible, setEditModalVisible] = React.useState(false);
     const [progressEditModalVisible, setProgressEditModalVisible] = React.useState(false);
-
+    
     return (
         <NavigationView
             headerOptions={{

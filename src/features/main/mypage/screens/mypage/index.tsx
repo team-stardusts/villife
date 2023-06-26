@@ -57,6 +57,8 @@ export default function MyPageScreen({ navigation, route }: MyPageScreenProps) {
                     onPress={() => {
                         if (userInfo.changeSelectedBuildingOfAdmin(userInfo.adminInfo?.managedBuildings[2]))
                             console.log("changed");
+
+                        console.log(userInfo.adminInfo);
                     }}
                     aria-label="Decrement value"
                     title="admin 건물변경"
