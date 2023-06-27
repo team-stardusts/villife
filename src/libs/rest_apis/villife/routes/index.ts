@@ -1,36 +1,51 @@
 import { RoutesType } from "./types";
 
 const routes: RoutesType = {
-    login: "auth/login",
-    naverSocialLogin: "auth/social-login/naver",
-    naverSocialJoin: "auth/signup/naver",
-    registerFirebaseToken: "auth/register/firebase-token",
-    loginRefresh: "auth/renew/access-token",
-    verifyBuilding: "auth/verify/building-address",
-    approvalDecision: "approval/decision",
-    residenceValidation: "approval/validate/residence",
-    uploadImage: "media/upload/image",
-    createNotice: "notice/create",
-    updateNotice: "notice/update",
-    deleteNotice: "notice/delete",
-    getNoticesByBuildingID: "notice/get/list/by-building-id",
-    //complaint
-    createComplaint: "complaint/create",
-    getOneComplaint: "complaint/get/one",
-    getUserComplaints: "complaint/get/list",
-    getBuildingComplaints: "complaint/get/list/by-building-id",
-    updateComplaint: "complaint/update",
-    deleteComplaint: "complaint/delete",
-    reply: "complaint/reply",
-    //user info
-    getUserBasicInfo: "user/basicinfo",
-    getBuildingManagedByAdmin: "user/buildings-admin-manages",
-    //approval
-    getUserApprovals: "approval/get/list",
-    acceptUserApproval: "approval/accept",
-    rejectUserApproval: "approval/reject",
-    //@deprecated for test
-    testUserResidenceValidation: "approval/test/user-resi-validation",
+    auth: {
+        login: "auth/login",
+        naverSocialLogin: "auth/social-login/naver",
+        naverSocialJoin: "auth/signup/naver",
+        registerFirebaseToken: "auth/register/firebase-token",
+        loginRefresh: "auth/renew/access-token",
+        verifyBuilding: "auth/verify/building-address",
+    },
+    approval: {
+        approvalDecision: "approval/decision",
+        residenceValidation: "approval/validate/residence",
+        getUserApprovals: "approval/get/list",
+        acceptUserApproval: "approval/accept",
+        rejectUserApproval: "approval/reject",
+    },
+    complaint: {
+        createComplaint: "complaint/create",
+        getOneComplaint: "complaint/get/one",
+        getUserComplaints: "complaint/get/list",
+        getBuildingComplaints: "complaint/get/list/by-building-id",
+        updateComplaint: "complaint/update",
+        deleteComplaint: "complaint/delete",
+        reply: "complaint/reply",
+    },
+    media: {
+        uploadImage: "media/upload/image",
+    },
+    notice: {
+        createNotice: "notice/create",
+        updateNotice: "notice/update",
+        deleteNotice: "notice/delete",
+        getNoticesByBuildingID: "notice/get/list/by-building-id",
+    },
+    test: {
+        testUserResidenceValidation: "approval/test/user-resi-validation",
+    },
+    parking: {
+        handleVechile: "park/vehicle",
+        handleGuestVehicle: "park/guest-vehicle",
+        updateParkInformation: "park/park-info",
+    },
+    userInfo: {
+        getUserBasicInfo: "user/basicinfo",
+        getBuildingManagedByAdmin: "user/buildings-admin-manages",
+    },
 } as const;
 
 export default routes;

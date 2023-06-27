@@ -14,7 +14,7 @@ class VillifeApprovalManager extends AVillifeServerModule implements IVillifeApp
      * @warn API for checking whether a building is in our database or not.
      */
     public async verifyBuildingAddress(params: VerifyBuildingAddressParams): Response<VerifyBuildingAddressResult> {
-        let route: string = this.routes.verifyBuilding;
+        let route: string = this.routes.auth.verifyBuilding;
 
         return await this.requestAuthable<any, VerifyBuildingAddressResult>({
             method: "post",
@@ -24,7 +24,7 @@ class VillifeApprovalManager extends AVillifeServerModule implements IVillifeApp
     }
 
     public async getUserApprovals(buildingID: number): Response<getApprovalsResult> {
-        let route: string = this.routes.getUserApprovals;
+        let route: string = this.routes.approval.getUserApprovals;
 
         return await this.requestAuthable<any, getApprovalsResult>({
             method: "post",
@@ -32,7 +32,7 @@ class VillifeApprovalManager extends AVillifeServerModule implements IVillifeApp
         });
     }
     public async rejectUserApproval(params: RejectApprovalParams): Response<string> {
-        let route: string = this.routes.rejectUserApproval;
+        let route: string = this.routes.approval.rejectUserApproval;
 
         return await this.requestAuthable<any, string>({
             method: "post",
@@ -41,7 +41,7 @@ class VillifeApprovalManager extends AVillifeServerModule implements IVillifeApp
         });
     }
     public async acceptUserApproval(params: AcceptApprovalParams): Response<string> {
-        let route: string = this.routes.acceptUserApproval;
+        let route: string = this.routes.approval.acceptUserApproval;
         return await this.requestAuthable<any, string>({
             method: "post",
             url: route,

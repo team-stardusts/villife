@@ -4,7 +4,7 @@ import IVillifeMediaManager, { MediaUploadResult } from "./types";
 
 class VillifeMediaManager extends AVillifeServerModule implements IVillifeMediaManager {
     public async uploadImage(formData: FormData): Response<MediaUploadResult> {
-        let route: string = this.routes.uploadImage;
+        let route: string = this.routes.media.uploadImage;
 
         return await this.requestAuthable<any, MediaUploadResult>({
             method: "post",

@@ -4,7 +4,7 @@ import IVillifeBuildingManager, { UserResidenceValidationParams } from "./types"
 
 class VillifeBuildingManager extends AVillifeServerModule implements IVillifeBuildingManager {
     public async ValidateUserResidenceForTest(params: UserResidenceValidationParams): Response<string> {
-        let route: string = this.routes.testUserResidenceValidation;
+        let route: string = this.routes.test.testUserResidenceValidation;
 
         return await this.requestAuthable<any, string>({
             method: "post",

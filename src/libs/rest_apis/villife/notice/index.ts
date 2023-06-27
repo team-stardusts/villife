@@ -9,7 +9,7 @@ import IVillifeNoticeManager, {
 
 class VillifeNoticeManager extends AVillifeServerModule implements IVillifeNoticeManager {
     public async getNotices(buildingID: number): Response<GetNoticesResult> {
-        let route: string = this.routes.getNoticesByBuildingID + `?building_id=${buildingID}`;
+        let route: string = this.routes.notice.getNoticesByBuildingID + `?building_id=${buildingID}`;
 
         return await this.requestAuthable<any, GetNoticesResult>({
             method: "get",
@@ -22,7 +22,7 @@ class VillifeNoticeManager extends AVillifeServerModule implements IVillifeNotic
      * @warn olny admin can use this api, should check authority before invoke this api
      */
     public async createNotice(params: CreateNoticeParams): Response<string> {
-        let route: string = this.routes.createNotice;
+        let route: string = this.routes.notice.createNotice;
 
         return await this.requestAuthable<any, string>({
             method: "post",
@@ -35,7 +35,7 @@ class VillifeNoticeManager extends AVillifeServerModule implements IVillifeNotic
      * @warn olny admin can use this api, should check authority before invoke this api
      */
     public async updateNotice(params: UpdateNoticeParams): Response<string> {
-        let route: string = this.routes.updateNotice;
+        let route: string = this.routes.notice.updateNotice;
 
         return await this.requestAuthable<any, string>({
             method: "post",
@@ -49,7 +49,7 @@ class VillifeNoticeManager extends AVillifeServerModule implements IVillifeNotic
      * @warn olny admin can use this api, should check authority before invoke this api
      */
     public async deleteNotice(params: DeleteNoticeParams): Response<string> {
-        let route: string = this.routes.deleteNotice;
+        let route: string = this.routes.notice.deleteNotice;
 
         return await this.requestAuthable<any, string>({
             method: "post",

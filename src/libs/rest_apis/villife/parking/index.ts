@@ -117,11 +117,11 @@ const guests: Parking.GuestVehicle[] = [
 
 class VillifeParkginManager extends AVillifeServerModule implements IVillifeParkingManager {
     /**
-     * @param getMyVehicles
-     * @warn
+     *
+     * @returns
      */
     public async getMyVehicles(): ResponseForTest<Parking.TenantVehicle[]> {
-        const route: string = "test";
+        const route: string = this.routes.parking.handleVechile;
 
         /* return await this.requestAuthable<any, TenantVehicle[]>({
             method: "get",

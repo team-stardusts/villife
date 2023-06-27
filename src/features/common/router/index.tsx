@@ -44,7 +44,7 @@ export default function ScreenRouter() {
     const [loginData, setLoginData] = useRecoilState(loginDataState);
     const navigation = useNavigation<RouterParams["navigation"]>();
     const storage = new VillifeStorage();
-    const userService = useUserInfoService();
+    //const userService = useUserInfoService();
 
     useAutoRegisterFirebaseToken();
 

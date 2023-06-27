@@ -18,7 +18,7 @@ import {
 
 class VillifeComplaintRestClient extends AVillifeServerModule implements IVillifeComplaintRestClient {
     async CreateComplaint(params: CreateComplaintParams): Response<string> {
-        let route: string = this.routes.createComplaint;
+        let route: string = this.routes.complaint.createComplaint;
 
         return await this.requestAuthable<any, string>({
             method: "post",
@@ -27,7 +27,7 @@ class VillifeComplaintRestClient extends AVillifeServerModule implements IVillif
         });
     }
     async GetOneComplaint(complaintID: number): Response<Complaint> {
-        let route: string = this.routes.getOneComplaint + `?complaint_id=${complaintID}`;
+        let route: string = this.routes.complaint.getOneComplaint + `?complaint_id=${complaintID}`;
         return await this.requestAuthable<any, Complaint>({
             method: "get",
             url: route,
@@ -35,7 +35,7 @@ class VillifeComplaintRestClient extends AVillifeServerModule implements IVillif
     }
     async GetUserComplaints(params: GetUserComplaintsParams): Response<GetComplaintsResult> {
         const qurey = `?status=${params.status}`;
-        let route: string = this.routes.getUserComplaints + qurey;
+        let route: string = this.routes.complaint.getUserComplaints + qurey;
 
         return await this.requestAuthable<any, GetComplaintsResult>({
             method: "get",
@@ -44,7 +44,7 @@ class VillifeComplaintRestClient extends AVillifeServerModule implements IVillif
     }
     async GetBuildingComplaints(params: GetBuildingComplaintsParams): Response<GetComplaintsResult> {
         const qurey = `?status=${params.status}&building_id=${params.building_id}`;
-        let route: string = this.routes.getBuildingComplaints + qurey;
+        let route: string = this.routes.complaint.getBuildingComplaints + qurey;
 
         return await this.requestAuthable<any, GetComplaintsResult>({
             method: "get",
@@ -52,7 +52,7 @@ class VillifeComplaintRestClient extends AVillifeServerModule implements IVillif
         });
     }
     async UpdateComplaint(params: UpdateComplaintParams): Response<string> {
-        let route: string = this.routes.updateComplaint;
+        let route: string = this.routes.complaint.updateComplaint;
 
         return await this.requestAuthable<any, string>({
             method: "post",
@@ -61,7 +61,7 @@ class VillifeComplaintRestClient extends AVillifeServerModule implements IVillif
         });
     }
     async DeleteComplaint(params: DeleteComplaintParams): Response<string> {
-        let route: string = this.routes.deleteComplaint;
+        let route: string = this.routes.complaint.deleteComplaint;
 
         return await this.requestAuthable<any, string>({
             method: "post",
@@ -71,7 +71,7 @@ class VillifeComplaintRestClient extends AVillifeServerModule implements IVillif
     }
 
     async CreateReply(params: CreateReplyReqParams): Response<string> {
-        let route: string = this.routes.reply;
+        let route: string = this.routes.complaint.reply;
 
         var stringUris = "";
         params.image_uris.map((uri) => {
@@ -91,7 +91,7 @@ class VillifeComplaintRestClient extends AVillifeServerModule implements IVillif
 
     async GetReplies(complaintID: number): Response<GetRepliesResult> {
         const query = `?complaint_id=${complaintID}`;
-        let route: string = this.routes.reply + query;
+        let route: string = this.routes.complaint.reply + query;
 
         return await this.requestAuthable<any, GetRepliesResult>({
             method: "get",
@@ -100,7 +100,7 @@ class VillifeComplaintRestClient extends AVillifeServerModule implements IVillif
     }
 
     async UpdateReply(params: UpdateReplyReqParams): Response<string> {
-        let route: string = this.routes.reply;
+        let route: string = this.routes.complaint.reply;
 
         var stringUris = "";
         params.image_uris.map((uri) => {
@@ -120,7 +120,7 @@ class VillifeComplaintRestClient extends AVillifeServerModule implements IVillif
 
     async DeleteReply(replyID: number): Response<string> {
         const query = `?reply_id=${replyID}`;
-        let route: string = this.routes.reply + query;
+        let route: string = this.routes.complaint.reply + query;
 
         return await this.requestAuthable<any, string>({
             method: "delete",

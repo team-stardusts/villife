@@ -12,7 +12,7 @@ import VillifeStorage from "../../../storage";
 
 class VillifeAuthManager extends AVillifeServerModule implements IVillifeAuthManager {
     public async login(id: string, password: string): Response<LoginResult> {
-        let route: string = this.routes.login;
+        let route: string = this.routes.auth.login;
 
         return await this.request<any, LoginResult>({
             method: "post",
@@ -33,10 +33,10 @@ class VillifeAuthManager extends AVillifeServerModule implements IVillifeAuthMan
 
         switch (host) {
             case "naver":
-                route = this.routes.naverSocialLogin;
+                route = this.routes.auth.naverSocialLogin;
             default:
                 // Social login 추가 시 여기에 Route 추가
-                route = this.routes.naverSocialLogin;
+                route = this.routes.auth.naverSocialLogin;
         }
 
         return await this.request<any, LoginResult>({
@@ -53,10 +53,10 @@ class VillifeAuthManager extends AVillifeServerModule implements IVillifeAuthMan
 
         switch (host) {
             case "naver":
-                route = this.routes.naverSocialJoin;
+                route = this.routes.auth.naverSocialJoin;
             default:
                 // Social login 추가 시 여기에 Route 추가
-                route = this.routes.naverSocialJoin;
+                route = this.routes.auth.naverSocialJoin;
         }
 
         return await this.request<any, SocialJoinResultType>({
@@ -67,7 +67,7 @@ class VillifeAuthManager extends AVillifeServerModule implements IVillifeAuthMan
     }
 
     public async registerFirebaseToken(params: RegisterFirebaseTokenParams): Response<RegisterFirebaseTokenResult> {
-        const route = this.routes.registerFirebaseToken;
+        const route = this.routes.auth.registerFirebaseToken;
 
         return await this.requestAuthable<any, RegisterFirebaseTokenResult>({
             url: route,

@@ -5,7 +5,7 @@ import { SimpleBuildingInfo, IVillifeUserInfoRestClient } from "./types";
 
 class VillifeUserInfoRestClient extends AVillifeServerModule implements IVillifeUserInfoRestClient {
     async GetUserBasicInfo(): Response<UserDataType> {
-        let route: string = this.routes.getUserBasicInfo;
+        let route: string = this.routes.userInfo.getUserBasicInfo;
 
         return await this.requestAuthable<any, UserDataType>({
             method: "get",
@@ -14,7 +14,7 @@ class VillifeUserInfoRestClient extends AVillifeServerModule implements IVillife
     }
 
     async GetBuildingsManagedByAdmin(): Response<Array<SimpleBuildingInfo>> {
-        let route: string = this.routes.getBuildingManagedByAdmin;
+        let route: string = this.routes.userInfo.getBuildingManagedByAdmin;
 
         return await this.requestAuthable<any, Array<SimpleBuildingInfo>>({
             method: "get",
