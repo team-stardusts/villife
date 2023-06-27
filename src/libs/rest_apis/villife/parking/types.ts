@@ -1,15 +1,14 @@
 import { Response, ResponseForTest } from "../../types";
 
 // [TO-DO] 서버 API 적용 완료 후 Test interface 변경
-export default interface IVillifeParkingManager extends Parking.ITestVehicleGettable {}
+export default interface IVillifeParkingManager extends Parking.IVehicleGettable {}
 
 export namespace Parking {
     export interface IVehicleGettable {
-        getMyVehicles(): Response<TenantVehicle[]>;
-        getBuildingRegistedVehicles(): Response<TenantVehicle[]>;
-        getBuildingGuestVehicles(): Response<GuestVehicle[]>;
-        updateMyVehicleEtda(params: Parking.VehicleEtdaUpdateParams): Response<VehicleInfoUpdateReturnType>;
-        updateMyVehicleInfo(params: Parking.VehicleInfopdateParams): Response<VehicleInfoUpdateReturnType>;
+        getVehicles(buildingID?: number): Response<TenantVehicle[]>;
+        getGuestVehiclesOfBuilding(buildingID: number): Response<GuestVehicle[]>;
+        updateUserVehicleEtda(params: Parking.VehicleEtdaUpdateParams): Response<VehicleInfoUpdateReturnType>;
+        updateUserVehicleInfo(params: Parking.VehicleInfopdateParams): Response<VehicleInfoUpdateReturnType>;
     }
 
     export interface ITestVehicleGettable {
@@ -21,6 +20,26 @@ export namespace Parking {
     }
 
     type VehicleType = "4WD" | "2WD";
+
+    export type GetVehiclesRequestParamType = {
+        building_id?: number;
+    };
+
+    export type GetGuestVehiclesOfBuildingParamType = {
+        building_id: number;
+    };
+
+    export type UpdateUserVehicleEtdaBodyType = {
+        eta: number;
+        etd: number;
+        vehicle_id: number;
+    };
+
+    export type UpdateUserVehicleInfoBodyType = {
+        model: string;
+        plate_number: string;
+        vehicle_id: number;
+    };
 
     export type TenantVehicle = {
         id: number;

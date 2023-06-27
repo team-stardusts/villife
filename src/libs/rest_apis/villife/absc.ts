@@ -88,7 +88,7 @@ class AVillifeServerModule extends AREST {
     }
 
     public async refresh(params: RefreshParmas): Response<RefreshResult> {
-        let route: string = this.routes.loginRefresh;
+        let route: string = this.routes.auth.loginRefresh;
 
         return await this.request<any, RefreshResult>({
             method: "post",

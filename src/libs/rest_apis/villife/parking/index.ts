@@ -117,86 +117,106 @@ const guests: Parking.GuestVehicle[] = [
 
 class VillifeParkginManager extends AVillifeServerModule implements IVillifeParkingManager {
     /**
-     *
-     * @returns
+     * Get vehicles of a user, or a building's vehicles
+     * @param {number} buildingID If this parameter is not entered, return vehicles of user.
+     * @returns {Parking.TenantVehicle[]}
      */
-    public async getMyVehicles(): ResponseForTest<Parking.TenantVehicle[]> {
+    public async getVehicles(buildingID?: number): Response<Parking.TenantVehicle[]> {
         const route: string = this.routes.parking.handleVechile;
+        const params: Parking.GetVehiclesRequestParamType =
+            buildingID === undefined
+                ? {}
+                : {
+                      building_id: buildingID,
+                  };
 
-        /* return await this.requestAuthable<any, TenantVehicle[]>({
+        return await this.requestAuthable<any, Parking.TenantVehicle[]>({
             method: "get",
             url: route,
-        }); */
-        return await this.requestForTest<Parking.TenantVehicle[]>(myVehicles);
+            params,
+        });
+        // return await this.requestForTest<Parking.TenantVehicle[]>(myVehicles);
     }
 
     /**
-     * @param getBuildingRegistedVehicles
-     * @warn
+     * Get guest vehicles of a building.
+     * @param {number} buildingID
+     * @returns {Parking.GuestVehicle[]}
      */
-    public async getBuildingRegistedVehicles(): ResponseForTest<Parking.TenantVehicle[]> {
-        const route: string = "test";
+    public async getGuestVehiclesOfBuilding(buildingID: number): Response<Parking.GuestVehicle[]> {
+        const route: string = this.routes.parking.handleGuestVehicle;
+        const params: Parking.GetGuestVehiclesOfBuildingParamType = {
+            building_id: buildingID,
+        };
 
-        /* return await this.requestAuthable<any, TenantVehicle[]>({
+        return await this.requestAuthable<any, Parking.GuestVehicle[]>({
             method: "get",
             url: route,
-        }); */
-
-        return await this.requestForTest<Parking.TenantVehicle[]>(tenants);
+            params,
+        });
+        // return await this.requestForTest<Parking.GuestVehicle[]>(guests);
     }
 
     /**
-     * @param getBuildingGuestVehicles
-     * @warn
+     * Update a park information of a vehicle such as eta, etd.
+     * @param {Parking.VehicleEtdaUpdateParams} params
+     * @returns {Parking.VehicleInfoUpdateReturnType}
      */
-    public async getBuildingGuestVehicles(): ResponseForTest<Parking.GuestVehicle[]> {
-        const route: string = "test";
-
-        /* return await this.requestAuthable<any, GuestVehicle[]>({
-            method: "get",
-            url: route,
-        }); */
-        return await this.requestForTest<Parking.GuestVehicle[]>(guests);
-    }
-
-    /**
-     *
-     * @param params
-     * @returns
-     */
-    public async updateMyVehicleEtda(
+    public async updateUserVehicleEtda(
         params: Parking.VehicleEtdaUpdateParams
-    ): ResponseForTest<Parking.VehicleInfoUpdateReturnType> {
-        const route: string = "test";
+    ): Response<Parking.VehicleInfoUpdateReturnType> {
+        const route: string = this.routes.parking.updateParkInformation;
+        const data: Parking.UpdateUserVehicleEtdaBodyType = {
+            eta: params.eta,
+            etd: params.etd,
+            vehicle_id: params.vehicleID,
+        };
 
-        const vechiles = (await this.getMyVehicles()).data.data as Parking.TenantVehicle[];
+        return await this.requestAuthable<Parking.UpdateUserVehicleEtdaBodyType, Parking.VehicleInfoUpdateReturnType>({
+            method: "patch",
+            url: route,
+            data,
+        });
+
+        /* const vechiles = (await this.getMyVehicles()).data.data as Parking.TenantVehicle[];
 
         const vehicleIndexWantToChange = vechiles.findIndex((vehicle) => vehicle.id === params.vehicleID);
 
         vechiles[vehicleIndexWantToChange].eta = params.eta;
         vechiles[vehicleIndexWantToChange].etd = params.etd;
 
-        return await this.requestForTest<Parking.VehicleInfoUpdateReturnType>("Test");
+        return await this.requestForTest<Parking.VehicleInfoUpdateReturnType>("Test"); */
     }
 
     /**
-     *
-     * @param params
-     * @returns
+     * Update a vehicle information such as model, plate number.
+     * @param {Parking.VehicleInfopdateParams} params
+     * @returns {Parking.VehicleInfoUpdateReturnType}
      */
-    public async updateMyVehicleInfo(
+    public async updateUserVehicleInfo(
         params: Parking.VehicleInfopdateParams
-    ): ResponseForTest<Parking.VehicleInfoUpdateReturnType> {
-        const route: string = "test";
+    ): Response<Parking.VehicleInfoUpdateReturnType> {
+        const route: string = this.routes.parking.handleVechile;
+        const data: Parking.UpdateUserVehicleInfoBodyType = {
+            model: params.model,
+            plate_number: params.plateNumber,
+            vehicle_id: params.vehicleID,
+        };
 
-        const vechiles = (await this.getMyVehicles()).data.data as Parking.TenantVehicle[];
+        return await this.requestAuthable<Parking.UpdateUserVehicleInfoBodyType, Parking.VehicleInfoUpdateReturnType>({
+            method: "patch",
+            url: route,
+            data,
+        });
+
+        /* const vechiles = (await this.getMyVehicles()).data.data as Parking.TenantVehicle[];
 
         const vehicleIndexWantToChange = vechiles.findIndex((vehicle) => vehicle.id === params.vehicleID);
 
         vechiles[vehicleIndexWantToChange].model = params.model;
         vechiles[vehicleIndexWantToChange].plate_number = params.plateNumber;
 
-        return await this.requestForTest<Parking.VehicleInfoUpdateReturnType>("Test");
+        return await this.requestForTest<Parking.VehicleInfoUpdateReturnType>("Test"); */
     }
 }
 

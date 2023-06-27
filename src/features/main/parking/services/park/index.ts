@@ -27,18 +27,18 @@ export default function useParkService(): ParkServiceReturns {
 
     const getVehicles = async (type: "own" | "tenant" | "guest"): Promise<TenantVehicle[] | GuestVehicle[]> => {
         let result;
-
+        // [TO-DO] Building ID를 전달 받아서 넣도록 변경
         switch (type) {
             case "own":
-                result = await parkManager.getMyVehicles();
+                result = await parkManager.getVehicles();
                 break;
 
             case "tenant":
-                result = await parkManager.getBuildingRegistedVehicles();
+                result = await parkManager.getVehicles(0);
                 break;
 
             default:
-                result = await parkManager.getBuildingGuestVehicles();
+                result = await parkManager.getGuestVehiclesOfBuilding(0);
                 break;
         }
 
@@ -67,7 +67,7 @@ export default function useParkService(): ParkServiceReturns {
             eta: StardustDateParser.serialize(new Date(`9999-12-31T${params.etda.eta.hour}:${params.etda.eta.minute}`)),
         };
 
-        const isSuccessful: boolean = (await parkManager.updateMyVehicleEtda(_params)).isSuccessful;
+        const isSuccessful: boolean = (await parkManager.updateUserVehicleEtda(_params)).isSuccessful;
 
         isSuccessful &&
             setVehicles({
@@ -79,7 +79,7 @@ export default function useParkService(): ParkServiceReturns {
     };
 
     const updateMyVehicleInfo = async (params: Parking.VehicleInfopdateParams): Promise<boolean> => {
-        const isSuccessful: boolean = (await parkManager.updateMyVehicleInfo(params)).isSuccessful;
+        const isSuccessful: boolean = (await parkManager.updateUserVehicleInfo(params)).isSuccessful;
 
         isSuccessful &&
             setVehicles({
