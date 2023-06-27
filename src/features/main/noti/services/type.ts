@@ -18,5 +18,5 @@ export interface INoticeService {
     updateNotice(params: UpdateNoticeParams): Promise<Response<string>>;
     deleteNotice(params: DeleteNoticeParams): Promise<Response<string>>;
     pickAndUploadImage(): Promise<MediaUploadResult>;
-    getNotice(buildingId: number): Response<GetNoticesResult>;
+    getNotices(buildingId: number): Response<GetNoticesResult>;
 }

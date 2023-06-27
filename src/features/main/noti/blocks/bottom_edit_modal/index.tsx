@@ -33,7 +33,7 @@ export default function NotiBottomEditModal(props: BottomEditModalProps) {
         if (userInfo.adminInfo?.selectedBuilding.id && userInfo.basicInfo?.authority) {
             const result = await service.deleteNotice({
                 building_id: userInfo.adminInfo?.selectedBuilding.id,
-                notice_id: userInfo.basicInfo?.authority,
+                notice_id: props.noticeInfo.id,
             });
             console.log("delete : ", result);
             if (result.isSuccessful) {

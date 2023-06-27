@@ -70,7 +70,8 @@ class NoticeService implements INoticeService {
     async deleteNotice(params: DeleteNoticeParams): Promise<Response<string>> {
         return await this.mApi.deleteNotice(params);
     }
-    async getNotice(buildingId: number): Response<GetNoticesResult> {
+    async getNotices(buildingId: number): Response<GetNoticesResult> {
+        if (buildingId == 0) throw new Error("invalid building id");
         return await this.mApi.getNotices(buildingId);
     }
 }

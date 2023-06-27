@@ -9,24 +9,47 @@ import useStyler from "../../../../common/hooks/styler/hooks";
 import useNoticeService from "../../services";
 import useUserInfoService from "../../../../common/hooks/service/user_info";
 import { ContentPriority } from "../noti_label.tsx/type";
+import { CreateNoticeParams } from "../../../../../libs/rest_apis/villife/notice/types";
+import NavigationWithProps from "./type";
 
-export default function NotiRegisterModal(props: ReplyEditModalProps) {
+export default function NotiRegisterModal(props: NavigationWithProps) {
     const message = useScreenMessage();
     const styles = useBottomEditModalStyles();
+    const userInfo = useUserInfoService();
+    const service = useNoticeService();
     const { deviceUI, theme } = useStyler();
 
-    const [priority, setPriority] = useState<number>();
+    const [loading, setLoading] = React.useState(false);
+    const [editModalVisible, setEditModalVisible] = React.useState(false);
+
+    const onPrioritySubmit = async (priority: number) => {
+        setLoading(true);
+        setEditModalVisible(false);
+        console.log(priority);
+
+        if (priority && userInfo.adminInfo?.selectedBuilding.id) {
+            const param: CreateNoticeParams = {
+                title: props.title,
+                content: props.content,
+                priority: priority,
+                building_id: userInfo.adminInfo?.selectedBuilding.id,
+            };
+            const result = await service.registerNotice(param);
+
+            if (result.isSuccessful) props.navigation.goBack();
+            console.log("create notice result\n", result.data?.data);
+        }
+    };
 
     return (
         <BottomSlidableModal
             modalVisible={props.visible}
-            setModalVisible={props.setVisible}
+            setModalVisible={setEditModalVisible}
             height={deviceUI.getScreenSize().height * 0.28}>
             <View style={styles.editModalContentContainer}>
                 <TouchableOpacity
                     onPress={() => {
-                        setPriority(1);
-                        props.onPrioritySubmit(priority);
+                        onPrioritySubmit(1);
                     }}
                     style={styles.editModalMenu}>
                     <IconTag size={24} />
@@ -34,8 +57,7 @@ export default function NotiRegisterModal(props: ReplyEditModalProps) {
                 </TouchableOpacity>
                 <TouchableOpacity
                     onPress={() => {
-                        setPriority(3);
-                        props.onPrioritySubmit(priority);
+                        onPrioritySubmit(3);
                     }}
                     style={styles.editModalMenu}>
                     <IconTag size={24} />

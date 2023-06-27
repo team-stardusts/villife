@@ -12,6 +12,7 @@ import AutoHeightWebView from "react-native-autoheight-webview";
 import RemoteCSS from "../../../../../libs/themes/remote_css";
 import useUserInfoService from "../../../../common/hooks/service/user_info";
 import { VILLIFE_AUTHORITY } from "../../../../../libs/rest_apis/villife/absc";
+import { Polygon } from "react-native-svg";
 
 /**
  * @param OutlinedBoxProp
@@ -23,7 +24,6 @@ function OutlinedBox(props: OutlinedBoxProps) {
 
     const [unfold, setUnfold] = React.useState(false);
     const [editModalVisible, setEditModalVisible] = React.useState(false);
-    const lock = React.useRef(false);
 
     useEffect(() => {
         return () => {
@@ -33,6 +33,7 @@ function OutlinedBox(props: OutlinedBoxProps) {
     }, []);
 
     const onPress = () => {
+        console.log(props);
         setUnfold(!unfold);
         LayoutAnimation.configureNext({
             duration: 100,

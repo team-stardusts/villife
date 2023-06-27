@@ -2,16 +2,23 @@ import React from "react";
 import VillifeServer from "../../../../../libs/rest_apis/villife";
 import { NoticeListUpatedEventListener } from "./event";
 import { GetNoticesResult } from "../../../../../libs/rest_apis/villife/notice/types";
+import useNoticeService from "../../services";
+import useUserInfoService from "../../../../common/hooks/service/user_info";
 
 export default function useNotiViewModel() {
+    const service = useNoticeService();
+    const userInfo = useUserInfoService();
     const [notices, setNotices] = React.useState<GetNoticesResult>();
     const [refresh, setRefresh] = React.useState({});
+
     const getNotices = async () => {
-        const notifier = VillifeServer.getNoticeManager();
-        const res = await notifier.getNotices(3); // [TO-DO] : Should be changed to real building number which user belongs to
-        console.log("noti Viewmodel : ", res.data?.data);
-        if (res.isSuccessful) {
-            setNotices(res.data?.data);
+        if (userInfo.adminInfo?.selectedBuilding.id) {
+            const result = await service.getNotices(userInfo.adminInfo?.selectedBuilding.id);
+
+            console.log("noti Viewmodel : ", result.data?.data);
+            if (result.isSuccessful) {
+                setNotices(result.data?.data);
+            }
         }
     };
 

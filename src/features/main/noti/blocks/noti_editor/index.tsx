@@ -46,9 +46,11 @@ export default function NotiEditor(props: NotiEditorProps) {
                 scrollEventThrottle={20}>
                 <>
                     <TextInput
-                        value={props.mode == "modify" ? props.titleRef.current : undefined}
+                        defaultValue={props.titleRef.current}
                         style={Styles.title}
-                        onChangeText={(text) => (props.titleRef.current = text)}
+                        onChangeText={(text) => {
+                            props.titleRef.current = text;
+                        }}
                         placeholder={message.messages.main.noti.noti_editor_title}
                     />
                 </>

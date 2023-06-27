@@ -30,24 +30,6 @@ export default function NoticeRegisterScreen(props: NoticeRegisterScreenProps) {
         setEditModalVisible(true);
     };
 
-    const onPrioritySubmit = async (priority: number) => {
-        setLoading(true);
-        setEditModalVisible(false);
-
-        if (priority && userInfo.adminInfo?.selectedBuilding.id) {
-            const param: CreateNoticeParams = {
-                title: title.current,
-                content: content.current,
-                priority: priority,
-                building_id: userInfo.adminInfo?.selectedBuilding.id,
-            };
-            const result = await service.registerNotice(param);
-
-            if (result.isSuccessful) props.navigation.goBack();
-            console.log("create notice result\n", result.data?.data);
-        }
-    };
-
     return (
         <NavigationView
             headerOptions={{
@@ -66,7 +48,9 @@ export default function NoticeRegisterScreen(props: NoticeRegisterScreenProps) {
             <NotiRegisterModal
                 visible={editModalVisible}
                 setVisible={setEditModalVisible}
-                onPrioritySubmit={onPrioritySubmit}
+                title={title.current}
+                content={content.current}
+                navigation={props.navigation}
             />
             <NotiEditor contentRef={content} titleRef={title} mode={"register"} />
         </NavigationView>

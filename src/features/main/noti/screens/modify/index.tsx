@@ -23,13 +23,11 @@ export default function NoticeModifyScreen(props: NoticeModifyScreenProps) {
     const [loading, setLoading] = React.useState(false);
 
     const onSubmit = async () => {
-        console.log(props.route.params.priority);
         setLoading(true);
         if (title.current == "" || content.current == "") {
             setLoading(false);
             return VillifeToastMessage.showBottomToast("info", message.messages.main.noti.noti_title_error);
         }
-        //[TO-DO] : 밑에 실행하면 삭제가 됨;; 수정이 아니라 왜 이럼?
         if (userInfo.adminInfo?.selectedBuilding.id) {
             const param: UpdateNoticeParams = {
                 title: title.current,
