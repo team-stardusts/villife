@@ -15,6 +15,7 @@ import SimpleFuncButton from "../../../../common/blocks/button/simple_func_butto
 import { Vehicle } from "../../services/park/types";
 import VillifeToastMessage from "../../../../common/atoms/toast";
 import useUserInfoService from "../../../../common/hooks/service/user_info";
+import useProgressiveList from "../../../../common/hooks/progressive_list";
 
 type VehicleInfoProps = {
     ownerType: "guest" | "tenant";
@@ -79,6 +80,7 @@ export default function ParkingScreen({ navigation, route }: ParkingScreenProps)
     const { deviceUI } = useStyler();
     const user = useUserInfoService();
     const styles = useParkingHomeScreenStyles().screen;
+    const { startProgressList } = useProgressiveList();
     const screenPadding: number = deviceUI.moderateScale(SCREEN_PADDING_HORIZONTAL_STANDARD_VALUE);
 
     // Card에서 ScrollView를 사용하므로, 가변적인 카드를 만들기 위해서 Width 지정이 필요함
@@ -87,35 +89,18 @@ export default function ParkingScreen({ navigation, route }: ParkingScreenProps)
     // Vehicles 목록을 딜레이를 줘서 렌더링하기 위함.
     const [vehiclesForRendering, setVehiclesForRendering] = useState<Vehicle[]>([]);
 
-    // Vehicles 목록을 딜레이를 줘서 렌더링하기 위함.
-    const renderVehicleInfos = async () => {
-        const delay: number = 50;
-        const allVehicles: Vehicle[] = [...vehicles.guestVehicles, ...vehicles.vehicles];
-
-        for (let i = 0; i < allVehicles.length; i++) {
-            // 차량 리스트에서 나의 차량을 제외하기 위함.
-            const myVehicles = vehicles.myVehicles.find(
-                (vehicle) => vehicle.plate_number === allVehicles[i].plate_number
-            );
-
-            if (myVehicles !== undefined) continue;
-
-            await new Promise((resolve) =>
-                setTimeout(() => {
-                    resolve("");
-                }, delay)
-            );
-
-            setVehiclesForRendering((prevData) => {
-                const newData = [...prevData];
-                newData[i] = allVehicles[i];
-                return newData;
-            });
-        }
-    };
-
     useEffect(() => {
-        renderVehicleInfos();
+        const myVehicleIds: number[] = vehicles.userVehicles.map((vehicle) => vehicle.id);
+        const allVehiclesExceptUser: Vehicle[] = [...vehicles.guestVehicles, ...vehicles.vehicles].filter((vehicle) =>
+            myVehicleIds.includes(vehicle.id)
+        );
+
+        if (allVehiclesExceptUser.length === 0) return;
+
+        startProgressList<Vehicle>({
+            targetList: allVehiclesExceptUser,
+            StateSettingFuncOfTempList: setVehiclesForRendering,
+        });
     }, [vehicles]);
 
     return (
@@ -132,7 +117,7 @@ export default function ParkingScreen({ navigation, route }: ParkingScreenProps)
                             </Text>
                         </View>
                         <VehicleCardView
-                            vehicles={vehicles?.myVehicles !== undefined ? vehicles.myVehicles : []}
+                            vehicles={vehicles?.userVehicles !== undefined ? vehicles.userVehicles : []}
                             cardWidth={cardWidth}
                         />
                     </View>

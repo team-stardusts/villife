@@ -1,7 +1,7 @@
 import { Text, View } from "react-native";
 import NavigationView from "../../../../common/blocks/navigation";
 import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
-import RegisterGuestVehicleScreenProps from "./types";
+import RegisterGuestVehicleScreenProps, { GuestVehicle } from "./types";
 import useRegisterVehicleScreenStyles from "./styles";
 import ParkingScreenGuide from "../../blocks/screen_guide";
 import EtdaTimePicker from "../../blocks/etad_time_picker";
@@ -12,16 +12,16 @@ import { TOAST_DEFAULT_OFFSET, TOAST_DEFAULT_VISIBILITY_TIME } from "../../../..
 import VillifeToastMessage from "../../../../common/atoms/toast";
 //import KeyboardAwareScrollView from "../../../../common/blocks/keyboard_aware_scrollview";
 import GuestVehicleInfoInputBox from "../../blocks/guest_vehicle_info_input_box copy";
-import { GuestVehicleValidationResult } from "../../blocks/guest_vehicle_info_input_box copy/types";
+import { GuestVehicleInfo, GuestVehicleValidationResult } from "../../blocks/guest_vehicle_info_input_box copy/types";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import useParkService from "../../services/park";
 
 export default function RegisterGuestVehicleScreen({ navigation, route }: RegisterGuestVehicleScreenProps) {
     const messages = useScreenMessage();
     const styles = useRegisterVehicleScreenStyles();
+    const { registerGuestVehicleToBuilding } = useParkService();
 
-    const [guestVehicle, setGuestVehicle] = useState<any>({
-        plateNumber: "",
-        model: "",
+    const [guestVehicle, setGuestVehicle] = useState<GuestVehicle>({
         eta: {
             hour: 0,
             minute: 0,
@@ -30,6 +30,10 @@ export default function RegisterGuestVehicleScreen({ navigation, route }: Regist
             hour: 0,
             minute: 0,
         },
+        model: "",
+        phoneNumber: "",
+        plateNumber: "",
+        visitingPerpose: "",
     });
     const [valid, setValid] = useState<GuestVehicleValidationResult>({
         plateNumber: false,
@@ -37,6 +41,7 @@ export default function RegisterGuestVehicleScreen({ navigation, route }: Regist
         visitingPerpose: false,
     });
 
+    // [TO-DO] 예외 처리가 필요함
     const handlePressRegisterBtn = () => {
         if (!valid.phoneNumber && !valid.plateNumber) {
             Toast.show({
@@ -61,7 +66,16 @@ export default function RegisterGuestVehicleScreen({ navigation, route }: Regist
 
         if (valid.phoneNumber && valid.plateNumber) {
             // Regsiter Service 등록
-            console.log("Good");
+            // [TO-DO] ETDA 컨버터 필요
+            registerGuestVehicleToBuilding({
+                eta: 0,
+                etd: 0,
+                guestPhoneNumber: guestVehicle.phoneNumber,
+                model: guestVehicle.model,
+                plateNumber: guestVehicle.plateNumber,
+                vehicleType: "4WD",
+                visitingPurpose: guestVehicle.visitingPerpose,
+            });
         }
     };
 

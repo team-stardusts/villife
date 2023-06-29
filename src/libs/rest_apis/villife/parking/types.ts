@@ -7,48 +7,69 @@ export namespace Parking {
     export interface IVehicleGettable {
         getVehicles(buildingID?: number): Response<TenantVehicle[]>;
         getGuestVehiclesOfBuilding(buildingID: number): Response<GuestVehicle[]>;
-        updateUserVehicleEtda(params: Parking.VehicleEtdaUpdateParams): Response<VehicleInfoUpdateReturnType>;
-        updateUserVehicleInfo(params: Parking.VehicleInfopdateParams): Response<VehicleInfoUpdateReturnType>;
+        updateUserVehicleEtda(params: VehicleEtdaUpdateParams): Response<VehicleInfoUpdateReturn>;
+        updateUserVehicleInfo(params: VehicleInfopdateParams): Response<VehicleInfoUpdateReturn>;
+        registerGuestVehicleToBuilding(params: RegisterGuestVehicleToBuildingParams): Response<GuestVehicle>;
     }
 
-    export interface ITestVehicleGettable {
+    /* export interface ITestVehicleGettable {
         getMyVehicles(): ResponseForTest<TenantVehicle[]>;
         getBuildingRegistedVehicles(): ResponseForTest<TenantVehicle[]>;
         getBuildingGuestVehicles(): ResponseForTest<GuestVehicle[]>;
         updateMyVehicleEtda(params: Parking.VehicleEtdaUpdateParams): ResponseForTest<VehicleInfoUpdateReturnType>;
         updateMyVehicleInfo(params: Parking.VehicleInfopdateParams): ResponseForTest<VehicleInfoUpdateReturnType>;
-    }
+    } */
 
     type VehicleType = "4WD" | "2WD";
 
-    export type GetVehiclesRequestParamType = {
+    export type RegisterGuestVehicleToBuildingParams = {
+        eta: number;
+        etd: number;
+        guestPhoneNumber: string;
+        model: string;
+        plateNumber: string;
+        vehicleType: VehicleType;
+        visitingPurpose: string;
+    };
+
+    export type RegisterGuestVehicleToBuildingBody = {
+        eta: number;
+        etd: number;
+        guest_phone_number: string;
+        model: string;
+        plate_number: string;
+        vehicle_type: VehicleType;
+        visiting_purpose: string;
+    };
+
+    export type GetVehiclesRequestParam = {
         building_id?: number;
     };
 
-    export type GetGuestVehiclesOfBuildingParamType = {
+    export type GetGuestVehiclesOfBuildingParam = {
         building_id: number;
     };
 
-    export type UpdateUserVehicleEtdaBodyType = {
+    export type UpdateUserVehicleEtdaBody = {
         eta: number;
         etd: number;
         vehicle_id: number;
     };
 
-    export type UpdateUserVehicleInfoBodyType = {
+    export type UpdateUserVehicleInfoBody = {
         model: string;
         plate_number: string;
         vehicle_id: number;
     };
 
     export type TenantVehicle = {
-        id: number;
-        room_number: number;
-        phone_number: string;
-        model: string;
-        plate_number: string;
         etd: number;
         eta: number;
+        id: number;
+        model: string;
+        phone_number: string;
+        plate_number: string;
+        room_number: number;
         vehicle_type: VehicleType;
     };
 
@@ -68,5 +89,5 @@ export namespace Parking {
         model: string;
     };
 
-    export type VehicleInfoUpdateReturnType = string;
+    export type VehicleInfoUpdateReturn = string;
 }

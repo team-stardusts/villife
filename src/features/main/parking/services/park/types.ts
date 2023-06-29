@@ -6,6 +6,7 @@ export type ParkServiceReturns = {
     vehicles: VehiclesStateType;
     updateMyVehicleEtda(params: MyVehicleEtdaUpdateServiceParams): Promise<boolean>;
     updateMyVehicleInfo(params: Parking.VehicleInfopdateParams): Promise<boolean>;
+    registerGuestVehicleToBuilding(params: Parking.RegisterGuestVehicleToBuildingParams): Promise<boolean>;
 };
 
 export type MyVehicleEtdaUpdateServiceParams = {

@@ -1,7 +1,7 @@
 import { GuestVehicle, TenantVehicle } from "../park/types";
 
 export type VehiclesStateType = {
-    myVehicles: TenantVehicle[];
+    userVehicles: TenantVehicle[];
     vehicles: TenantVehicle[];
     guestVehicles: GuestVehicle[];
 };

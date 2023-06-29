@@ -123,7 +123,7 @@ class VillifeParkginManager extends AVillifeServerModule implements IVillifePark
      */
     public async getVehicles(buildingID?: number): Response<Parking.TenantVehicle[]> {
         const route: string = this.routes.parking.handleVechile;
-        const params: Parking.GetVehiclesRequestParamType =
+        const params: Parking.GetVehiclesRequestParam =
             buildingID === undefined
                 ? {}
                 : {
@@ -145,7 +145,7 @@ class VillifeParkginManager extends AVillifeServerModule implements IVillifePark
      */
     public async getGuestVehiclesOfBuilding(buildingID: number): Response<Parking.GuestVehicle[]> {
         const route: string = this.routes.parking.handleGuestVehicle;
-        const params: Parking.GetGuestVehiclesOfBuildingParamType = {
+        const params: Parking.GetGuestVehiclesOfBuildingParam = {
             building_id: buildingID,
         };
 
@@ -160,19 +160,19 @@ class VillifeParkginManager extends AVillifeServerModule implements IVillifePark
     /**
      * Update a park information of a vehicle such as eta, etd.
      * @param {Parking.VehicleEtdaUpdateParams} params
-     * @returns {Parking.VehicleInfoUpdateReturnType}
+     * @returns {Parking.VehicleInfoUpdateReturn}
      */
     public async updateUserVehicleEtda(
         params: Parking.VehicleEtdaUpdateParams
-    ): Response<Parking.VehicleInfoUpdateReturnType> {
+    ): Response<Parking.VehicleInfoUpdateReturn> {
         const route: string = this.routes.parking.updateParkInformation;
-        const data: Parking.UpdateUserVehicleEtdaBodyType = {
+        const data: Parking.UpdateUserVehicleEtdaBody = {
             eta: params.eta,
             etd: params.etd,
             vehicle_id: params.vehicleID,
         };
 
-        return await this.requestAuthable<Parking.UpdateUserVehicleEtdaBodyType, Parking.VehicleInfoUpdateReturnType>({
+        return await this.requestAuthable<Parking.UpdateUserVehicleEtdaBody, Parking.VehicleInfoUpdateReturn>({
             method: "patch",
             url: route,
             data,
@@ -191,19 +191,19 @@ class VillifeParkginManager extends AVillifeServerModule implements IVillifePark
     /**
      * Update a vehicle information such as model, plate number.
      * @param {Parking.VehicleInfopdateParams} params
-     * @returns {Parking.VehicleInfoUpdateReturnType}
+     * @returns {Parking.VehicleInfoUpdateReturn}
      */
     public async updateUserVehicleInfo(
         params: Parking.VehicleInfopdateParams
-    ): Response<Parking.VehicleInfoUpdateReturnType> {
+    ): Response<Parking.VehicleInfoUpdateReturn> {
         const route: string = this.routes.parking.handleVechile;
-        const data: Parking.UpdateUserVehicleInfoBodyType = {
+        const data: Parking.UpdateUserVehicleInfoBody = {
             model: params.model,
             plate_number: params.plateNumber,
             vehicle_id: params.vehicleID,
         };
 
-        return await this.requestAuthable<Parking.UpdateUserVehicleInfoBodyType, Parking.VehicleInfoUpdateReturnType>({
+        return await this.requestAuthable<Parking.UpdateUserVehicleInfoBody, Parking.VehicleInfoUpdateReturn>({
             method: "patch",
             url: route,
             data,
@@ -217,6 +217,27 @@ class VillifeParkginManager extends AVillifeServerModule implements IVillifePark
         vechiles[vehicleIndexWantToChange].plate_number = params.plateNumber;
 
         return await this.requestForTest<Parking.VehicleInfoUpdateReturnType>("Test"); */
+    }
+
+    public async registerGuestVehicleToBuilding(
+        params: Parking.RegisterGuestVehicleToBuildingParams
+    ): Response<Parking.GuestVehicle> {
+        const route: string = this.routes.parking.handleGuestVehicle;
+        const data: Parking.RegisterGuestVehicleToBuildingBody = {
+            eta: params.eta,
+            etd: params.etd,
+            guest_phone_number: params.guestPhoneNumber,
+            model: params.model,
+            plate_number: params.plateNumber,
+            vehicle_type: params.vehicleType,
+            visiting_purpose: params.visitingPurpose,
+        };
+
+        return await this.requestAuthable<Parking.RegisterGuestVehicleToBuildingBody, Parking.GuestVehicle>({
+            method: "post",
+            url: route,
+            data,
+        });
     }
 }
 
