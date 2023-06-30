@@ -13,10 +13,12 @@ import VillifeToastMessage from "../../../../common/atoms/toast";
 import VehicleInfoInputBox from "../../blocks/vehicle_info_input_box";
 import { VehicleValidationResult } from "../../blocks/vehicle_info_input_box/types";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import useParkService from "../../services/park";
 
 export default function RegisterVehicleScreen({ navigation, route }: RegisterVehicleScreenProps) {
     const messages = useScreenMessage();
     const styles = useRegisterVehicleScreenStyles();
+    const { registerUserVehicle } = useParkService();
 
     const [vehicle, setVehicle] = useState<Vehicle>({
         plateNumber: "",
@@ -59,8 +61,11 @@ export default function RegisterVehicleScreen({ navigation, route }: RegisterVeh
             VillifeToastMessage.showBottomToast("error", messages.messages.main.parking.register_vehicle.invalid_model);
 
         if (valid.model && valid.plateNumber) {
-            // Regsiter Service 등록
-            console.log("Good");
+            // [TO-DO] Regsiter Service 등록
+            const result = registerUserVehicle({
+                ...vehicle,
+                vehicleType: "4WD",
+            }).then((r) => console.log("성공?", r));
         }
     };
 

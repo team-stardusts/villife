@@ -11,8 +11,11 @@ import { Response } from "../../../../../libs/rest_apis/types";
 import { AdminInformation } from "../../states/atoms/user/admin_only/type";
 import { Authority } from "../../../../../libs/rest_apis/villife/types";
 import { VILLIFE_AUTHORITY } from "../../../../../libs/rest_apis/villife/absc";
+import { LoginDataStateType } from "../../states/atoms/login/types";
+import { loginDataState } from "../../states/atoms/login";
 
 export default function useUserInfoService(): UseUserInfoServiceReturns {
+    const [loginData] = useRecoilState<LoginDataStateType>(loginDataState);
     const [userBasicInfo, setUserBasicInfo] = useRecoilState(userBasicInfoState);
     const [adminInfo, setAdminInfo] = useRecoilState(adminInfoState);
 
@@ -35,6 +38,7 @@ export default function useUserInfoService(): UseUserInfoServiceReturns {
             Object.keys(VILLIFE_AUTHORITY).find((key) => VILLIFE_AUTHORITY[key as keyof Authority] === result.authority)
         );
         console.log("[CURRENT_USER_NAME]", result.name);
+        console.log("[CURRENT_BUILDING_ID]", result.building_id);
 
         if (result.authority == VILLIFE_AUTHORITY.ADMIN) {
             const result = await service.fetchBuildingsManagedByAdmin();
@@ -70,9 +74,25 @@ export default function useUserInfoService(): UseUserInfoServiceReturns {
         return true;
     };
 
+    // Login data 변경 시 업데이트
     useEffect(() => {
+        if (loginData === null) {
+            console.log("asdfasdfas");
+            service.removeUserBasicInfo().then((r) => {
+                console.log("Reset user info:", r);
+            });
+            setUserBasicInfo(null);
+            setAdminInfo(null);
+
+            return;
+        }
+
         if (!userBasicInfo?.authority) updateUserInfo();
-    }, []);
+    }, [loginData]);
+
+    /* useEffect(() => {
+        if (loginData === null) return;
+    }, []); */
 
     const service: IUserInfoService = new UserInfoService();
 
@@ -130,6 +150,10 @@ export class UserInfoService implements IUserInfoService {
     }
 
     async removeUserBasicInfo() {
+        return await this.storage.user.set(null);
+    }
+
+    async resetUserBasicInfo() {
         const isSet = await this.storage.user.set(null);
         if (isSet) {
             return this.fetchAndStoreUserBasicInfo();
@@ -137,6 +161,6 @@ export class UserInfoService implements IUserInfoService {
     }
 
     async fetchBuildingsManagedByAdmin(): Response<Array<SimpleBuildingInfo>> {
-        return await this.api.GetBuildingsManagedByAdmin();
+        return await this.api.getBuildingsManagedByAdmin();
     }
 }

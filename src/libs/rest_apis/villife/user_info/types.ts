@@ -3,7 +3,7 @@ import { Response } from "../../types";
 
 export interface IVillifeUserInfoRestClient {
     GetUserBasicInfo(): Response<UserDataType>;
-    GetBuildingsManagedByAdmin(): Response<Array<SimpleBuildingInfo>>;
+    getBuildingsManagedByAdmin(): Response<Array<SimpleBuildingInfo>>;
 }
 
 export type SimpleBuildingInfo = {

@@ -13,6 +13,7 @@ export type UseUserInfoServiceReturns = {
 
 export interface IUserInfoService {
     getUserBasicInfo(): Promise<UserDataType>;
-    removeUserBasicInfo(): void;
+    removeUserBasicInfo(): Promise<boolean>;
+    resetUserBasicInfo(): void;
     fetchBuildingsManagedByAdmin(): Response<Array<SimpleBuildingInfo>>;
 }

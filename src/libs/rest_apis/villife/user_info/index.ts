@@ -13,7 +13,7 @@ class VillifeUserInfoRestClient extends AVillifeServerModule implements IVillife
         });
     }
 
-    async GetBuildingsManagedByAdmin(): Response<Array<SimpleBuildingInfo>> {
+    async getBuildingsManagedByAdmin(): Response<Array<SimpleBuildingInfo>> {
         let route: string = this.routes.userInfo.getBuildingManagedByAdmin;
 
         return await this.requestAuthable<any, Array<SimpleBuildingInfo>>({

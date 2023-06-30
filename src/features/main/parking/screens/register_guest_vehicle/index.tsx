@@ -30,7 +30,7 @@ export default function RegisterGuestVehicleScreen({ navigation, route }: Regist
             hour: 0,
             minute: 0,
         },
-        model: "",
+        model: "guest_test",
         phoneNumber: "",
         plateNumber: "",
         visitingPerpose: "",
@@ -67,15 +67,16 @@ export default function RegisterGuestVehicleScreen({ navigation, route }: Regist
         if (valid.phoneNumber && valid.plateNumber) {
             // Regsiter Service 등록
             // [TO-DO] ETDA 컨버터 필요
-            registerGuestVehicleToBuilding({
-                eta: 0,
-                etd: 0,
+            const result = registerGuestVehicleToBuilding({
+                eta: 111111,
+                etd: 111111,
                 guestPhoneNumber: guestVehicle.phoneNumber,
                 model: guestVehicle.model,
                 plateNumber: guestVehicle.plateNumber,
                 vehicleType: "4WD",
                 visitingPurpose: guestVehicle.visitingPerpose,
             });
+            console.log("성공?", result);
         }
     };
 

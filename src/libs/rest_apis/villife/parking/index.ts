@@ -135,7 +135,6 @@ class VillifeParkginManager extends AVillifeServerModule implements IVillifePark
             url: route,
             params,
         });
-        // return await this.requestForTest<Parking.TenantVehicle[]>(myVehicles);
     }
 
     /**
@@ -154,7 +153,6 @@ class VillifeParkginManager extends AVillifeServerModule implements IVillifePark
             url: route,
             params,
         });
-        // return await this.requestForTest<Parking.GuestVehicle[]>(guests);
     }
 
     /**
@@ -177,15 +175,6 @@ class VillifeParkginManager extends AVillifeServerModule implements IVillifePark
             url: route,
             data,
         });
-
-        /* const vechiles = (await this.getMyVehicles()).data.data as Parking.TenantVehicle[];
-
-        const vehicleIndexWantToChange = vechiles.findIndex((vehicle) => vehicle.id === params.vehicleID);
-
-        vechiles[vehicleIndexWantToChange].eta = params.eta;
-        vechiles[vehicleIndexWantToChange].etd = params.etd;
-
-        return await this.requestForTest<Parking.VehicleInfoUpdateReturnType>("Test"); */
     }
 
     /**
@@ -208,15 +197,6 @@ class VillifeParkginManager extends AVillifeServerModule implements IVillifePark
             url: route,
             data,
         });
-
-        /* const vechiles = (await this.getMyVehicles()).data.data as Parking.TenantVehicle[];
-
-        const vehicleIndexWantToChange = vechiles.findIndex((vehicle) => vehicle.id === params.vehicleID);
-
-        vechiles[vehicleIndexWantToChange].model = params.model;
-        vechiles[vehicleIndexWantToChange].plate_number = params.plateNumber;
-
-        return await this.requestForTest<Parking.VehicleInfoUpdateReturnType>("Test"); */
     }
 
     public async registerGuestVehicleToBuilding(
@@ -234,6 +214,23 @@ class VillifeParkginManager extends AVillifeServerModule implements IVillifePark
         };
 
         return await this.requestAuthable<Parking.RegisterGuestVehicleToBuildingBody, Parking.GuestVehicle>({
+            method: "post",
+            url: route,
+            data,
+        });
+    }
+
+    public async registerUserVehicle(params: Parking.RegisterUserVehicle.Params): Response<Parking.TenantVehicle> {
+        const route: string = this.routes.approval.registerUserVehicle;
+        const data: Parking.RegisterUserVehicle.Body = {
+            eta: params.eta,
+            etd: params.etd,
+            model: params.model,
+            plate_number: params.plateNumber,
+            vehicle_type: params.vehicleType,
+        };
+
+        return await this.requestAuthable<Parking.RegisterUserVehicle.Body, Parking.TenantVehicle>({
             method: "post",
             url: route,
             data,

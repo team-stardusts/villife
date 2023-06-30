@@ -24,7 +24,7 @@ class VillifeApprovalManager extends AVillifeServerModule implements IVillifeApp
     }
 
     public async getUserApprovals(buildingID: number): Response<getApprovalsResult> {
-        let route: string = this.routes.approval.getUserApprovals;
+        let route: string = this.routes.approval.getUser;
 
         return await this.requestAuthable<any, getApprovalsResult>({
             method: "post",
@@ -32,7 +32,7 @@ class VillifeApprovalManager extends AVillifeServerModule implements IVillifeApp
         });
     }
     public async rejectUserApproval(params: RejectApprovalParams): Response<string> {
-        let route: string = this.routes.approval.rejectUserApproval;
+        let route: string = this.routes.approval.rejectUser;
 
         return await this.requestAuthable<any, string>({
             method: "post",
@@ -41,7 +41,7 @@ class VillifeApprovalManager extends AVillifeServerModule implements IVillifeApp
         });
     }
     public async acceptUserApproval(params: AcceptApprovalParams): Response<string> {
-        let route: string = this.routes.approval.acceptUserApproval;
+        let route: string = this.routes.approval.acceptUser;
         return await this.requestAuthable<any, string>({
             method: "post",
             url: route,

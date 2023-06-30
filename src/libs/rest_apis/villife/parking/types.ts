@@ -10,6 +10,7 @@ export namespace Parking {
         updateUserVehicleEtda(params: VehicleEtdaUpdateParams): Response<VehicleInfoUpdateReturn>;
         updateUserVehicleInfo(params: VehicleInfopdateParams): Response<VehicleInfoUpdateReturn>;
         registerGuestVehicleToBuilding(params: RegisterGuestVehicleToBuildingParams): Response<GuestVehicle>;
+        registerUserVehicle(params: RegisterUserVehicle.Params): Response<RegisterUserVehicle.Return>;
     }
 
     /* export interface ITestVehicleGettable {
@@ -21,6 +22,23 @@ export namespace Parking {
     } */
 
     type VehicleType = "4WD" | "2WD";
+    export namespace RegisterUserVehicle {
+        export type Params = {
+            eta: number;
+            etd: number;
+            model: string;
+            plateNumber: string;
+            vehicleType: VehicleType;
+        };
+        export type Body = {
+            eta: number;
+            etd: number;
+            model: string;
+            plate_number: string;
+            vehicle_type: VehicleType;
+        };
+        export type Return = TenantVehicle;
+    }
 
     export type RegisterGuestVehicleToBuildingParams = {
         eta: number;

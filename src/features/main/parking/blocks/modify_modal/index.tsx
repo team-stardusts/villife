@@ -116,7 +116,7 @@ export default function VehicleModifyModal({
     const navigation = useNavigation<RouterParams["navigation"]>();
     const messages = useScreenMessage();
     const styles = useModifyModal().toplevel;
-    const { updateMyVehicleEtda, updateMyVehicleInfo } = useParkService();
+    const { updateUserVehicleEtda, updateUserVehicleInfo } = useParkService();
 
     const initialEtda = {
         etd: {
@@ -157,7 +157,7 @@ export default function VehicleModifyModal({
     const handleModifyEtda = async () => {
         console.log("Initial: ", initialVehicleInfo.model, initialEtda);
         console.log("Changed: ", initialVehicleInfo.model, etda.etda);
-        const isSuccessful: boolean = await updateMyVehicleEtda(etda);
+        const isSuccessful: boolean = await updateUserVehicleEtda(etda);
 
         isSuccessful ? Alert.alert("ETDA 바꾸기 성공~") : Alert.alert("ETDA 바꾸기 실패~");
         navigation.navigate("parking");
@@ -165,7 +165,7 @@ export default function VehicleModifyModal({
     };
 
     const handleModifyInfo = async () => {
-        const isSuccessful: boolean = await updateMyVehicleInfo(info);
+        const isSuccessful: boolean = await updateUserVehicleInfo(info);
 
         isSuccessful ? Alert.alert("INFO 바꾸기 성공~") : Alert.alert("INFO 바꾸기 실패~");
         setModalVisible(false);

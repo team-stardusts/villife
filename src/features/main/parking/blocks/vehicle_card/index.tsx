@@ -49,7 +49,7 @@ function VehicleCard({ vehicle, cardWidth }: VehicleCardProps) {
         return (
             <View style={styles.rowWrapper}>
                 <Text style={styles.rowText}>{rowKey}</Text>
-                <Text style={styles.rowText}>{rowValue.toString()}</Text>
+                <Text style={styles.rowText}>{rowValue}</Text>
             </View>
         );
     }

@@ -1,48 +1,3 @@
-/* export type RoutesType = {
-    // Auth
-    login: string;
-    naverSocialLogin: string;
-    naverSocialJoin: string;
-    registerFirebaseToken: string;
-    loginRefresh: string;
-    verifyBuilding: string;
-
-    // Approval
-    approvalDecision: string;
-    residenceValidation: string;
-
-    // Media
-    uploadImage: string;
-
-    // Notice
-    createNotice: string;
-    updateNotice: string;
-    deleteNotice: string;
-    getNoticesByBuildingID: string;
-
-    // Compaint
-    createComplaint: string;
-    getOneComplaint: string;
-    getUserComplaints: string;
-    getBuildingComplaints: string;
-    updateComplaint: string;
-    deleteComplaint: string;
-    reply: string;
-
-    // User information
-    getUserBasicInfo: string;
-    getBuildingManagedByAdmin: string;
-
-    // Approval
-    getUserApprovals: string;
-    acceptUserApproval: string;
-    rejectUserApproval: string;
-    // Parking
-
-    //test api
-    testUserResidenceValidation: string;
-}; */
-
 namespace Routes {
     export type Auth = {
         login: string;
@@ -54,9 +9,10 @@ namespace Routes {
     };
     export type Approval = {
         approvalDecision: string;
-        getUserApprovals: string;
-        acceptUserApproval: string;
-        rejectUserApproval: string;
+        getUser: string;
+        acceptUser: string;
+        registerUserVehicle: string;
+        rejectUser: string;
         residenceValidation: string;
     };
     export type Complaint = {

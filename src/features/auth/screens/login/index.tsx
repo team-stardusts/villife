@@ -35,7 +35,10 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
             });
         } else {
             if (host === "villife") {
-                Alert.alert("잘못된 계정 정보가 입력 되었습니다.", "옳바른 아이디와 패스워드를 입력해주세요.");
+                Alert.alert(
+                    messages.messages.auth.login.invalid_login_data.id,
+                    messages.messages.auth.login.invalid_login_data.password
+                );
             } else {
                 // [TO-DO] 예기치 않은 이유로 로그인 실패 시 navigation X
                 navigation.navigate("create_account", {
@@ -49,7 +52,7 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
     const showToast = () => {
         Toast.show({
             type: "success",
-            text1: "서비스 준비중입니다.",
+            text1: messages.messages.boilerplate.preparing_service,
             position: "bottom",
             visibilityTime: 1500,
             bottomOffset: deviceUI.moderateScale(40),

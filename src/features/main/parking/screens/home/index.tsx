@@ -3,7 +3,7 @@ import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
 import NavigationView from "../../../../common/blocks/navigation";
 import ParkingScreenProps from "./types";
 import useParkService from "../../services/park";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import VehicleCardView from "../../blocks/vehicle_card";
 import useStyler from "../../../../common/hooks/styler/hooks";
 import { SCREEN_PADDING_HORIZONTAL_STANDARD_VALUE } from "../../../../common/constants";
@@ -15,7 +15,6 @@ import SimpleFuncButton from "../../../../common/blocks/button/simple_func_butto
 import { Vehicle } from "../../services/park/types";
 import VillifeToastMessage from "../../../../common/atoms/toast";
 import useUserInfoService from "../../../../common/hooks/service/user_info";
-import useProgressiveList from "../../../../common/hooks/progressive_list";
 
 type VehicleInfoProps = {
     ownerType: "guest" | "tenant";
@@ -80,7 +79,7 @@ export default function ParkingScreen({ navigation, route }: ParkingScreenProps)
     const { deviceUI } = useStyler();
     const user = useUserInfoService();
     const styles = useParkingHomeScreenStyles().screen;
-    const { startProgressList } = useProgressiveList();
+
     const screenPadding: number = deviceUI.moderateScale(SCREEN_PADDING_HORIZONTAL_STANDARD_VALUE);
 
     // Card에서 ScrollView를 사용하므로, 가변적인 카드를 만들기 위해서 Width 지정이 필요함
@@ -89,18 +88,33 @@ export default function ParkingScreen({ navigation, route }: ParkingScreenProps)
     // Vehicles 목록을 딜레이를 줘서 렌더링하기 위함.
     const [vehiclesForRendering, setVehiclesForRendering] = useState<Vehicle[]>([]);
 
+    // Vehicles 목록을 딜레이를 줘서 렌더링하기 위함.
+    const renderVehicleInfos = async () => {
+        const delay: number = 50;
+        // 차량 리스트에서 User vehicles를 제외하기 위함.
+        const allVehiclesExceptUser: Vehicle[] = [...vehicles.guestVehicles, ...vehicles.vehicles];
+
+        if (allVehiclesExceptUser.length === 0) {
+            return;
+        }
+
+        for (let i = 0; i < allVehiclesExceptUser.length; i++) {
+            await new Promise((resolve) =>
+                setTimeout(() => {
+                    resolve("");
+                }, delay)
+            );
+
+            setVehiclesForRendering((prevData) => {
+                const newData = [...prevData];
+                newData[i] = allVehiclesExceptUser[i];
+                return newData;
+            });
+        }
+    };
+
     useEffect(() => {
-        const myVehicleIds: number[] = vehicles.userVehicles.map((vehicle) => vehicle.id);
-        const allVehiclesExceptUser: Vehicle[] = [...vehicles.guestVehicles, ...vehicles.vehicles].filter((vehicle) =>
-            myVehicleIds.includes(vehicle.id)
-        );
-
-        if (allVehiclesExceptUser.length === 0) return;
-
-        startProgressList<Vehicle>({
-            targetList: allVehiclesExceptUser,
-            StateSettingFuncOfTempList: setVehiclesForRendering,
-        });
+        renderVehicleInfos();
     }, [vehicles]);
 
     return (
@@ -143,7 +157,7 @@ export default function ParkingScreen({ navigation, route }: ParkingScreenProps)
 
                             let ownerType: VehicleInfoProps["ownerType"] = "tenant";
 
-                            if ("visiting_perpose" in vehicle) {
+                            if ("visiting_purpose" in vehicle) {
                                 ownerType = "guest";
                             }
 

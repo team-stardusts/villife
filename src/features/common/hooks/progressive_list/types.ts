@@ -1,9 +1,10 @@
-export type UseProgressiveListReturns = {
+/* export type UseProgressiveListReturns = {
     startProgressList<T>(params: StartProgressListParams<T>): Promise<void>;
+}; */
+
+export type UseProgressiveListParams<T> = {
+    targetList: T[];
+    delay?: number;
 };
 
-export type StartProgressListParams<T> = {
-    delay?: number;
-    targetList: T[];
-    StateSettingFuncOfTempList: React.Dispatch<React.SetStateAction<T[]>>;
-};
+export type UseProgressiveListReturns<T> = T[];

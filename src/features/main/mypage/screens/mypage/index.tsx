@@ -26,7 +26,7 @@ export default function MyPageScreen({ navigation, route }: MyPageScreenProps) {
                         if (loginData !== null) {
                             logout();
                         }
-                        userInfo.service.removeUserBasicInfo();
+                        //userInfo.service.resetUserBasicInfo();
                     }}
                 />
                 <Button title="Go to test screen" onPress={() => navigation.navigate("test")} />
@@ -48,7 +48,7 @@ export default function MyPageScreen({ navigation, route }: MyPageScreenProps) {
                 />
                 <Button
                     onPress={() => {
-                        userInfo.service.removeUserBasicInfo();
+                        userInfo.service.resetUserBasicInfo();
                     }}
                     aria-label="Decrement value"
                     title="유저 인포 갱신"

@@ -24,7 +24,6 @@ import MyPageScreen from "../../main/mypage/screens/mypage";
 import ParkingScreen from "../../main/parking/screens/home";
 import PaymentScreen from "../../main/payment/screens";
 import ComplaintHomeScreen from "../../main/complaint/screens/home";
-import useUserInfoService from "../hooks/service/user_info";
 import ComplaintRegisterScreen from "../../main/complaint/screens/register";
 import ApprovalHomeScreen from "../../main/approval/screens/home";
 import ComplaintDetailScreen from "../../main/complaint/screens/detail";
@@ -32,7 +31,6 @@ import RegisterVehicleScreen from "../../main/parking/screens/register_vehicle";
 import MyPageHomeScreen from "../../main/mypage/screens/home";
 import ComplaintModifyScreen from "../../main/complaint/screens/modify";
 import RegisterGuestVehicleScreen from "../../main/parking/screens/register_guest_vehicle";
-import StardustDateParser from "../../../libs/date_parser";
 
 enableScreens(true);
 
@@ -44,7 +42,6 @@ export default function ScreenRouter() {
     const [loginData, setLoginData] = useRecoilState(loginDataState);
     const navigation = useNavigation<RouterParams["navigation"]>();
     const storage = new VillifeStorage();
-    //const userService = useUserInfoService();
 
     useAutoRegisterFirebaseToken();
 
@@ -55,7 +52,7 @@ export default function ScreenRouter() {
         setIsLoading(false);
     };
 
-    // [TO-DO] Code 정리
+    // Loading과 Login data 검사 후 routing.
     useEffect(() => {
         if (isLoading) {
             return;
@@ -77,15 +74,7 @@ export default function ScreenRouter() {
         }
     }, [loginData, isLoading]);
 
-    useEffect(() => {
-        if (loginData === null) {
-            return;
-        }
-
-        //userService.service.resetUserBasicInfo();
-        console.log("Refresh!", loginData.accessToken.slice(0, 15));
-    }, [loginData?.accessToken]);
-
+    // Login data storage event 등록과 함께 Login data 검사
     useEffect(() => {
         storage.addEventListener("CHANGE_LOGIN_VALUE", setLoginData);
 
