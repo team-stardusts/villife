@@ -20,15 +20,7 @@ export default function MyPageScreen({ navigation, route }: MyPageScreenProps) {
                 title: messages.messages.main.mypage.screen_title,
             }}>
             <View>
-                <Button
-                    title="logout"
-                    onPress={async () => {
-                        if (loginData !== null) {
-                            logout();
-                        }
-                        //userInfo.service.resetUserBasicInfo();
-                    }}
-                />
+                <Button title="logout" onPress={logout} />
                 <Button title="Go to test screen" onPress={() => navigation.navigate("test")} />
                 <Button aria-label="Decrement value" title="incrementByAmount" />
                 <Button

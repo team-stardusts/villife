@@ -38,7 +38,6 @@ const Stack = createNativeStackNavigator<VillifeStackParamList>();
 
 export default function ScreenRouter() {
     const [isLoading, setIsLoading] = useState(true);
-    //const [isLoggedIn, setIsLoggedIn] = useRecoilState<boolean | null>(isLoggedInState);
     const [loginData, setLoginData] = useRecoilState(loginDataState);
     const navigation = useNavigation<RouterParams["navigation"]>();
     const storage = new VillifeStorage();

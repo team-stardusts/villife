@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import { UserDataType } from "../../../../../libs/storage/tables/user/types";
 import { IUserInfoService, UseUserInfoServiceReturns } from "./types";
 import VillifeStorage from "../../../../../libs/storage";
@@ -19,14 +19,14 @@ export default function useUserInfoService(): UseUserInfoServiceReturns {
     const [userBasicInfo, setUserBasicInfo] = useRecoilState(userBasicInfoState);
     const [adminInfo, setAdminInfo] = useRecoilState(adminInfoState);
 
-    const isAdmin = (): boolean => {
+    const isAdmin = useCallback((): boolean => {
         //console.log(userService.basicInfo?.authority);
         if (userBasicInfo?.authority === undefined) return false;
 
         return (
             userBasicInfo.authority === VILLIFE_AUTHORITY.ADMIN || userBasicInfo.authority === VILLIFE_AUTHORITY.OWNER
         );
-    };
+    }, [userBasicInfo, adminInfo]);
 
     const updateUserInfo = async () => {
         const result = await service.getUserBasicInfo();
@@ -75,9 +75,9 @@ export default function useUserInfoService(): UseUserInfoServiceReturns {
     };
 
     // Login data 변경 시 업데이트
+    // [TO-DO] 정상동작 하지 않음. loginData 변경 시 동작하지만, LoginData가 null로 변경될 시 동작하지 않음.
     useEffect(() => {
         if (loginData === null) {
-            console.log("asdfasdfas");
             service.removeUserBasicInfo().then((r) => {
                 console.log("Reset user info:", r);
             });
@@ -87,12 +87,10 @@ export default function useUserInfoService(): UseUserInfoServiceReturns {
             return;
         }
 
-        if (!userBasicInfo?.authority) updateUserInfo();
+        if (!userBasicInfo?.authority) {
+            updateUserInfo();
+        }
     }, [loginData]);
-
-    /* useEffect(() => {
-        if (loginData === null) return;
-    }, []); */
 
     const service: IUserInfoService = new UserInfoService();
 

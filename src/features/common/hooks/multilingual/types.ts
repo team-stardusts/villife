@@ -42,6 +42,12 @@ export type MessagesByLanguage = {
                 visiting_perpose_input_placeholder: string;
                 invalid_input_value: string;
             };
+            modify_modal: {
+                succed_to_change_etda: string;
+                fail_to_change_etda: string;
+                succed_to_change_info: string;
+                fail_to_change_info: string;
+            };
         };
         complaint: {
             screen_title: string;
@@ -226,5 +232,6 @@ export type MessagesByLanguage = {
     };
     boilerplate: {
         preparing_service: string;
+        contact_the_manager: string;
     };
 };

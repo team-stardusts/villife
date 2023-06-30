@@ -34,6 +34,12 @@
                 "phone_number_input_placeholder": "연락이 가능한 연락처를 기재해주세요.",
                 "visiting_perpose_input_placeholder": "방문 목적을 기재해주세요.",
                 "invalid_input_value": "입력한 정보들을 다시 확인해주세요."
+            },
+            "modify_modal": {
+                "succed_to_change_etda": "입출차 시간을 변경했습니다.",
+                "fail_to_change_etda": "입출차 시간을 변경하지 못했습니다.",
+                "succed_to_change_info": "차량 정보를 변경했습니다.",
+                "fail_to_change_info": "차량 정보를 변경하지 못했습니다."
             }
         },
         "complaint": {
@@ -220,6 +226,7 @@
         "building_not_selected": "빌딩을 선택해주세요."
     },
     "boilerplate": {
-        "preparing_service": "서비스 준비중입니다."
+        "preparing_service": "서비스 준비중입니다.",
+        "contact_the_manager": "관리자에게 문의바랍니다."
     }
 }

@@ -159,15 +159,25 @@ export default function VehicleModifyModal({
         console.log("Changed: ", initialVehicleInfo.model, etda.etda);
         const isSuccessful: boolean = await updateUserVehicleEtda(etda);
 
-        isSuccessful ? Alert.alert("ETDA 바꾸기 성공~") : Alert.alert("ETDA 바꾸기 실패~");
-        navigation.navigate("parking");
+        isSuccessful
+            ? Alert.alert(messages.messages.main.parking.modify_modal.succed_to_change_etda)
+            : Alert.alert(
+                  messages.messages.main.parking.modify_modal.fail_to_change_etda,
+                  messages.messages.boilerplate.contact_the_manager
+              );
+        //navigation.navigate("parking");
         setModalVisible(false);
     };
 
     const handleModifyInfo = async () => {
         const isSuccessful: boolean = await updateUserVehicleInfo(info);
 
-        isSuccessful ? Alert.alert("INFO 바꾸기 성공~") : Alert.alert("INFO 바꾸기 실패~");
+        isSuccessful
+            ? Alert.alert(messages.messages.main.parking.modify_modal.succed_to_change_info)
+            : Alert.alert(
+                  messages.messages.main.parking.modify_modal.fail_to_change_info,
+                  messages.messages.boilerplate.contact_the_manager
+              );
         setModalVisible(false);
     };
 
