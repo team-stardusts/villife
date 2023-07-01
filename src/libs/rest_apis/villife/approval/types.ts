@@ -21,15 +21,16 @@ export type Approval = {
     id: number;
     category: number;
     detail_type: number;
-    content: any;
-    create_at: string;
+    content: string;
+    create_at: number;
+    updated_at: number;
 };
 
 export type getApprovalsResult = Array<Approval>;
 
 interface Approavalable {
     verifyBuildingAddress(params: VerifyBuildingAddressParams): Response<VerifyBuildingAddressResult>;
-    getUserApprovals(buildingID: number): Response<getApprovalsResult>;
+    getUserApprovals(): Response<getApprovalsResult>;
     rejectUserApproval(params: RejectApprovalParams): Response<string>;
     acceptUserApproval(params: AcceptApprovalParams): Response<string>;
 }

@@ -23,11 +23,11 @@ class VillifeApprovalManager extends AVillifeServerModule implements IVillifeApp
         });
     }
 
-    public async getUserApprovals(buildingID: number): Response<getApprovalsResult> {
+    public async getUserApprovals(): Response<getApprovalsResult> {
         let route: string = this.routes.approval.getUser;
 
         return await this.requestAuthable<any, getApprovalsResult>({
-            method: "post",
+            method: "get",
             url: route,
         });
     }

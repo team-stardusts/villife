@@ -6,7 +6,7 @@ import {
 } from "../../../../libs/rest_apis/villife/approval/types";
 
 export interface IApprovalService {
-    getUserApproval(buildingID: number): Response<getApprovalsResult>;
+    getUserApproval(): Response<getApprovalsResult>;
     rejectUserApproval(params: RejectApprovalParams): Promise<Response<string>>;
     acceptUserApproval(params: AcceptApprovalParams): Promise<Response<string>>;
 }

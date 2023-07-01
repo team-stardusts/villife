@@ -17,8 +17,8 @@ class ApprovalService implements IApprovalService {
     private mStroage = new VillifeStorage();
     private mApi: IVillifeApprovalManager = VillifeServer.getApprovalManager();
 
-    async getUserApproval(buildingID: number): Response<getApprovalsResult> {
-        return await this.mApi.getUserApprovals(buildingID);
+    async getUserApproval(): Response<getApprovalsResult> {
+        return await this.mApi.getUserApprovals();
     }
 
     async rejectUserApproval(params: RejectApprovalParams): Promise<Response<string>> {

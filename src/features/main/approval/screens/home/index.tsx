@@ -5,13 +5,30 @@ import ApprovaleHomeScreenProps from "./type";
 import FlatListOutlinedContentsBox from "../../blocks/outlined_box_list";
 import { Approval } from "../../../../../libs/rest_apis/villife/approval/types";
 import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
+import useUserInfoService from "../../../../common/hooks/service/user_info";
+import { VILLIFE_AUTHORITY } from "../../../../../libs/rest_apis/villife/absc";
+import useApprovalService from "../../services";
 
 export default function ApprovalHomeScreen(props: ApprovaleHomeScreenProps) {
     const messages = useScreenMessage();
+    const userInfo = useUserInfoService();
+    const service = useApprovalService();
 
     const [approvals, setApprovals] = useState<ReadonlyArray<Approval>>([]);
     //[TO-DO] : 리얼데이터로 변경해라
-    const fetchApprovals = () => {
+
+    const fetchApprovals = async () => {
+        const fetchedApprovals = await service.getUserApproval();
+        console.log(fetchedApprovals.data?.data);
+        if (!fetchedApprovals.isSuccessful) return [];
+        if (fetchedApprovals.data?.data) {
+            setApprovals([]);
+            setApprovals(fetchedApprovals.data?.data);
+            console.log(fetchedApprovals);
+        }
+    };
+
+    /*  const fetchApprovals = () => {
         const fetchedApprovals: ReadonlyArray<Approval> = [
             {
                 id: 1,
@@ -45,7 +62,7 @@ export default function ApprovalHomeScreen(props: ApprovaleHomeScreenProps) {
         ];
 
         setApprovals(fetchedApprovals);
-    };
+    }; */
 
     useEffect(() => {
         fetchApprovals();
