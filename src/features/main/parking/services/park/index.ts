@@ -9,14 +9,16 @@ import {
     Vehicle,
 } from "./types";
 import { useRecoilState } from "recoil";
-import { VehiclesStateType } from "../state/types";
-import { vehiclesState } from "../state";
+import { GuestVehicleStateType, TenantVehicleStateType, VehiclesStateType } from "../state/types";
+import { guestVehiclesState, tenantVehiclesState, userVehiclesState, vehiclesState } from "../state";
 import { useEffect } from "react";
 import StardustDateParser from "../../../../../libs/date_parser";
 import useUserInfoService from "../../../../common/hooks/service/user_info";
 
 export default function useParkService(): ParkServiceReturns {
-    const [vehicles, setVehicles] = useRecoilState<VehiclesStateType>(vehiclesState);
+    const [userVehicles, setUserVehicles] = useRecoilState<TenantVehicleStateType>(userVehiclesState);
+    const [tenantVehicles, setTenantVehicles] = useRecoilState<TenantVehicleStateType>(tenantVehiclesState);
+    const [guestVehicles, setGuestVehicles] = useRecoilState<GuestVehicleStateType>(guestVehiclesState);
     const userinfo = useUserInfoService().basicInfo;
     const parkManager: IVillifeParkingManager = VillifeServer.getParkingManager();
 
@@ -25,16 +27,15 @@ export default function useParkService(): ParkServiceReturns {
     }, []);
 
     const bootstrap = async () => {
-        const userVehicles = await getVehicles("own");
-        const tenantvehicles = await getVehicles("tenant");
-        const guestVehicles = (await getVehicles("guest")) as GuestVehicle[];
-
-        setVehicles({
-            ...vehicles,
-            userVehicles: userVehicles,
-            vehicles: tenantvehicles,
-            guestVehicles: guestVehicles,
-        });
+        if (userVehicles.length === 0) {
+            getVehicles("own").then(setUserVehicles);
+        }
+        if (tenantVehicles.length === 0) {
+            getVehicles("tenant").then(setTenantVehicles);
+        }
+        if (guestVehicles.length === 0) {
+            getVehicles("guest").then((result) => setGuestVehicles(result as GuestVehicle[]));
+        }
     };
 
     const getVehicles = async (type: "own" | "tenant" | "guest"): Promise<TenantVehicle[] | GuestVehicle[]> => {
@@ -100,11 +101,11 @@ export default function useParkService(): ParkServiceReturns {
 
         const isSuccessful: boolean = (await parkManager.updateUserVehicleEtda(_params)).isSuccessful;
 
-        isSuccessful &&
-            setVehicles({
+        isSuccessful && getVehicles("own").then(setUserVehicles);
+        /* setUserVehicles({
                 ...vehicles,
-                userVehicles: await getVehicles("own"),
-            });
+                userVehicles: await 
+            }); */
 
         return isSuccessful;
     };
@@ -112,11 +113,12 @@ export default function useParkService(): ParkServiceReturns {
     const updateUserVehicleInfo = async (params: Parking.VehicleInfopdateParams): Promise<boolean> => {
         const isSuccessful: boolean = (await parkManager.updateUserVehicleInfo(params)).isSuccessful;
 
-        isSuccessful &&
+        isSuccessful && getVehicles("own").then(setUserVehicles);
+        /* isSuccessful &&
             setVehicles({
                 ...vehicles,
                 userVehicles: await getVehicles("own"),
-            });
+            }); */
 
         return isSuccessful;
     };
@@ -128,7 +130,7 @@ export default function useParkService(): ParkServiceReturns {
 
         if (result.isSuccessful && result.data?.data !== undefined) {
             const updatedGuestVehicles = [
-                ...vehicles.guestVehicles,
+                ...guestVehicles,
                 {
                     ...result.data.data,
                     eta: StardustDateParser.deserialize(result.data.data.eta),
@@ -136,10 +138,7 @@ export default function useParkService(): ParkServiceReturns {
                 },
             ];
 
-            setVehicles({
-                ...vehicles,
-                guestVehicles: updatedGuestVehicles,
-            });
+            setGuestVehicles(updatedGuestVehicles);
 
             return true;
         }
@@ -160,7 +159,7 @@ export default function useParkService(): ParkServiceReturns {
 
         if (result.isSuccessful && result.data?.data !== undefined) {
             const updatedUserVehicles = [
-                ...vehicles.guestVehicles,
+                ...userVehicles,
                 {
                     ...result.data.data,
                     eta: StardustDateParser.deserialize(result.data.data.eta),
@@ -168,10 +167,7 @@ export default function useParkService(): ParkServiceReturns {
                 },
             ];
 
-            setVehicles({
-                ...vehicles,
-                userVehicles: updatedUserVehicles,
-            });
+            setUserVehicles(updatedUserVehicles);
 
             return true;
         }
@@ -180,7 +176,9 @@ export default function useParkService(): ParkServiceReturns {
     };
 
     return {
-        vehicles,
+        userVehicles,
+        tenantVehicles,
+        guestVehicles,
         updateUserVehicleEtda,
         updateUserVehicleInfo,
         registerGuestVehicleToBuilding,

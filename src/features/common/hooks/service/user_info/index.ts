@@ -11,11 +11,8 @@ import { Response } from "../../../../../libs/rest_apis/types";
 import { AdminInformation } from "../../states/atoms/user/admin_only/type";
 import { Authority } from "../../../../../libs/rest_apis/villife/types";
 import { VILLIFE_AUTHORITY } from "../../../../../libs/rest_apis/villife/absc";
-import { LoginDataStateType } from "../../states/atoms/login/types";
-import { loginDataState } from "../../states/atoms/login";
 
 export default function useUserInfoService(): UseUserInfoServiceReturns {
-    const [loginData] = useRecoilState<LoginDataStateType>(loginDataState);
     const [userBasicInfo, setUserBasicInfo] = useRecoilState(userBasicInfoState);
     const [adminInfo, setAdminInfo] = useRecoilState(adminInfoState);
 
@@ -29,33 +26,38 @@ export default function useUserInfoService(): UseUserInfoServiceReturns {
     }, [userBasicInfo, adminInfo]);
 
     const updateUserInfo = async () => {
-        const result = await service.getUserBasicInfo();
+        try {
+            const result = await service.getUserBasicInfo();
+            setUserBasicInfo(result);
 
-        setUserBasicInfo(result);
+            console.log(
+                "[CURRENT_USER_AUTHRITY]",
+                Object.keys(VILLIFE_AUTHORITY).find(
+                    (key) => VILLIFE_AUTHORITY[key as keyof Authority] === result.authority
+                )
+            );
+            console.log("[CURRENT_USER_NAME]", result.name);
+            console.log("[CURRENT_BUILDING_ID]", result.building_id);
 
-        console.log(
-            "[CURRENT_USER_AUTHRITY]",
-            Object.keys(VILLIFE_AUTHORITY).find((key) => VILLIFE_AUTHORITY[key as keyof Authority] === result.authority)
-        );
-        console.log("[CURRENT_USER_NAME]", result.name);
-        console.log("[CURRENT_BUILDING_ID]", result.building_id);
+            if (result.authority == VILLIFE_AUTHORITY.ADMIN) {
+                const result = await service.fetchBuildingsManagedByAdmin();
+                //console.log("Result of fetching admin's buildings: ", result.data?.data);
 
-        if (result.authority == VILLIFE_AUTHORITY.ADMIN) {
-            const result = await service.fetchBuildingsManagedByAdmin();
-            //console.log("Result of fetching admin's buildings: ", result.data?.data);
+                if (result.isSuccessful) {
+                    // 첫 번째 빌딩 Info를 SelectedBuilding으로 지정
+                    if (!result.data?.data[0]) return;
 
-            if (result.isSuccessful) {
-                // 첫 번째 빌딩 Info를 SelectedBuilding으로 지정
-                if (!result.data?.data[0]) return;
+                    const adminInformation: AdminInformation = {
+                        selectedBuilding: result.data?.data[0],
+                        managedBuildings: result.data.data,
+                    };
 
-                const adminInformation: AdminInformation = {
-                    selectedBuilding: result.data?.data[0],
-                    managedBuildings: result.data.data,
-                };
-
-                console.log("AdminInformation.SelectedBuilding: ", adminInformation.selectedBuilding);
-                setAdminInfo(adminInformation);
+                    console.log("AdminInformation.SelectedBuilding: ", adminInformation.selectedBuilding);
+                    setAdminInfo(adminInformation);
+                }
             }
+        } catch (e) {
+            console.log(e);
         }
     };
 
@@ -74,23 +76,25 @@ export default function useUserInfoService(): UseUserInfoServiceReturns {
         return true;
     };
 
-    // Login data 변경 시 업데이트
-    // [TO-DO] 정상동작 하지 않음. loginData 변경 시 동작하지만, LoginData가 null로 변경될 시 동작하지 않음.
-    useEffect(() => {
-        if (loginData === null) {
-            service.removeUserBasicInfo().then((r) => {
-                console.log("Reset user info:", r);
-            });
-            setUserBasicInfo(null);
-            setAdminInfo(null);
+    const clearUserInfo = async () => {
+        setUserBasicInfo(null);
+        setAdminInfo(null);
+        await service.removeUserBasicInfo();
+    };
 
-            return;
+    const resetUserInfo = async () => {
+        try {
+            await service.resetUserBasicInfo();
+        } catch (e) {
+            console.log(e);
         }
+    };
 
+    useEffect(() => {
         if (!userBasicInfo?.authority) {
             updateUserInfo();
         }
-    }, [loginData]);
+    }, []);
 
     const service: IUserInfoService = new UserInfoService();
 
@@ -100,11 +104,13 @@ export default function useUserInfoService(): UseUserInfoServiceReturns {
         service,
         isAdmin,
         changeSelectedBuildingOfAdmin,
+        clearUserInfo,
+        resetUserInfo,
     };
 }
 
 export class UserInfoService implements IUserInfoService {
-    private storage = new VillifeStorage();
+    private storage = VillifeStorage.getInstance();
     private api: IVillifeUserInfoRestClient = VillifeServer.getUserInfoRestClient();
 
     async getUserBasicInfo(): Promise<UserDataType> {

@@ -143,6 +143,7 @@ export default function VehicleModifyModal({
             },
         },
     });
+
     const [info, setInfo] = useState<Parking.VehicleInfopdateParams>({
         vehicleID: initialVehicleInfo.id,
         model: initialVehicleInfo.model,

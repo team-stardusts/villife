@@ -31,6 +31,8 @@ import RegisterVehicleScreen from "../../main/parking/screens/register_vehicle";
 import MyPageHomeScreen from "../../main/mypage/screens/home";
 import ComplaintModifyScreen from "../../main/complaint/screens/modify";
 import RegisterGuestVehicleScreen from "../../main/parking/screens/register_guest_vehicle";
+import { LoginDataStateType } from "../hooks/states/atoms/login/types";
+import useUserInfoService from "../hooks/service/user_info";
 
 enableScreens(true);
 
@@ -40,8 +42,10 @@ export default function ScreenRouter() {
     const [isLoading, setIsLoading] = useState(true);
     const [loginData, setLoginData] = useRecoilState(loginDataState);
     const navigation = useNavigation<RouterParams["navigation"]>();
-    const storage = new VillifeStorage();
+    const storage = VillifeStorage.getInstance();
+    const userinfo = useUserInfoService();
 
+    //useStoragableStateManager();
     useAutoRegisterFirebaseToken();
 
     const bootstrap = async () => {
@@ -58,13 +62,16 @@ export default function ScreenRouter() {
         }
 
         if (loginData === null) {
-            //navigation.navigate("permission_request", {});
+            userinfo.clearUserInfo();
+
             navigation.reset({
                 index: 0,
                 routes: [{ name: "login" }],
                 //routes: [{ name: "test" }],
             });
         } else {
+            userinfo.resetUserInfo();
+
             navigation.reset({
                 index: 0,
                 routes: [{ name: "home" }],
@@ -73,7 +80,6 @@ export default function ScreenRouter() {
         }
     }, [loginData, isLoading]);
 
-    // Login data storage event 등록과 함께 Login data 검사
     useEffect(() => {
         storage.addEventListener("CHANGE_LOGIN_VALUE", setLoginData);
 

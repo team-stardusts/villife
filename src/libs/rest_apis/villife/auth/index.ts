@@ -25,7 +25,7 @@ class VillifeAuthManager extends AVillifeServerModule implements IVillifeAuthMan
     }
 
     public async logout(): Promise<boolean> {
-        return await new VillifeStorage().login.set(null);
+        return await VillifeStorage.getInstance().login.set(null);
     }
 
     public async socialLogin(host: SocialLoginHostType, accessToken: string): Response<LoginResult> {

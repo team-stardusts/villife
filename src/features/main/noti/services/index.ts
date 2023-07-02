@@ -24,7 +24,7 @@ export default function useNoticeService(): INoticeService {
 const message = useScreenMessage();
 
 class NoticeService implements INoticeService {
-    private mStroage = new VillifeStorage();
+    //private mStroage = VillifeStorage.getInstance();
     private mApi: IVillifeNoticeManager = VillifeServer.getNoticeManager();
     private mImageUploader: MediaUploader = new ImageUploader();
 

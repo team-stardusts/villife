@@ -5,3 +5,6 @@ export type VehiclesStateType = {
     vehicles: TenantVehicle[];
     guestVehicles: GuestVehicle[];
 };
+
+export type TenantVehicleStateType = TenantVehicle[];
+export type GuestVehicleStateType = GuestVehicle[];

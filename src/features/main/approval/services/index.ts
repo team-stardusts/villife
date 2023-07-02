@@ -14,7 +14,7 @@ export default function useApprovalService(): IApprovalService {
 }
 
 class ApprovalService implements IApprovalService {
-    private mStroage = new VillifeStorage();
+    private mStroage = VillifeStorage.getInstance();
     private mApi: IVillifeApprovalManager = VillifeServer.getApprovalManager();
 
     async getUserApproval(): Response<getApprovalsResult> {

@@ -75,7 +75,7 @@ function VehicleInfo({ ownerType, plateNumber, phoneNumber, etd }: VehicleInfoPr
 
 export default function ParkingScreen({ navigation, route }: ParkingScreenProps) {
     const messages = useScreenMessage();
-    const { vehicles } = useParkService();
+    const { userVehicles, tenantVehicles, guestVehicles } = useParkService();
     const { deviceUI } = useStyler();
     const user = useUserInfoService();
     const styles = useParkingHomeScreenStyles().screen;
@@ -85,17 +85,17 @@ export default function ParkingScreen({ navigation, route }: ParkingScreenProps)
     // Card에서 ScrollView를 사용하므로, 가변적인 카드를 만들기 위해서 Width 지정이 필요함
     const cardWidth: number = deviceUI.screenSize.width - (screenPadding + deviceUI.moderateScale(20));
 
-    // Vehicles 목록을 딜레이를 줘서 렌더링하기 위함.
+    /* // Vehicles 목록을 딜레이를 줘서 렌더링하기 위함.
     const [vehiclesForRendering, setVehiclesForRendering] = useState<Vehicle[]>([]);
 
     // Vehicles 목록을 딜레이를 줘서 렌더링하기 위함.
-    const renderVehicleInfos = async () => {
+    const renderVehicleInfos = useCallback(async () => {
         const delay: number = 50;
         // 차량 리스트에서 User vehicles를 제외하기 위함.
-        const allVehiclesExceptUser: Vehicle[] = [...vehicles.guestVehicles, ...vehicles.vehicles];
+        const allVehiclesExceptUser: Vehicle[] = [...guestVehicles, ...tenantVehicles];
 
         if (allVehiclesExceptUser.length === 0) {
-            return;
+            return [];
         }
 
         for (let i = 0; i < allVehiclesExceptUser.length; i++) {
@@ -111,11 +111,7 @@ export default function ParkingScreen({ navigation, route }: ParkingScreenProps)
                 return newData;
             });
         }
-    };
-
-    useEffect(() => {
-        renderVehicleInfos();
-    }, [vehicles]);
+    }, [tenantVehicles, guestVehicles]); */
 
     return (
         <NavigationView
@@ -130,10 +126,7 @@ export default function ParkingScreen({ navigation, route }: ParkingScreenProps)
                                 {messages.messages.main.parking.home.my_vehicle_info}
                             </Text>
                         </View>
-                        <VehicleCardView
-                            vehicles={vehicles?.userVehicles !== undefined ? vehicles.userVehicles : []}
-                            cardWidth={cardWidth}
-                        />
+                        <VehicleCardView vehicles={userVehicles} cardWidth={cardWidth} />
                     </View>
                 )}
                 <View style={styles.buildingVehiclesViewBox}>
@@ -152,9 +145,7 @@ export default function ParkingScreen({ navigation, route }: ParkingScreenProps)
                         </View>
                     </View>
                     <ScrollView showsVerticalScrollIndicator={false}>
-                        {vehiclesForRendering.map((vehicle, index) => {
-                            if (vehicle === undefined) return;
-
+                        {[...guestVehicles, ...tenantVehicles].map((vehicle, index) => {
                             let ownerType: VehicleInfoProps["ownerType"] = "tenant";
 
                             if ("visiting_purpose" in vehicle) {

@@ -41,7 +41,7 @@ class AVillifeServerModule extends AREST {
     }
 
     public async requestAuthable<T = any, U = any>(config: AxiosRequestConfig<T>): Response<U> {
-        const storage = new VillifeStorage();
+        const storage = VillifeStorage.getInstance();
         const logindata = await storage.login.get();
 
         if (config.headers === undefined) {

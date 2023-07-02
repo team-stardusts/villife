@@ -1,9 +1,11 @@
-import VillifeAuthManager from "../../../../../libs/rest_apis/villife/auth";
+import VillifeServer from "../../../../../libs/rest_apis/villife";
 import { LogoutServiceReturns } from "./types";
 
 export default function useLogoutService(): LogoutServiceReturns {
+    const authManager = VillifeServer.getAuthenticator();
     const logout = async (): Promise<boolean> => {
-        return await new VillifeAuthManager().logout();
+        console.log("Logged out");
+        return await authManager.logout();
     };
 
     return { logout };

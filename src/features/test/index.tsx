@@ -12,15 +12,10 @@ import {
     View,
 } from "react-native";
 import { useGetFirebaseToken } from "../common/hooks/firebase";
-import useSystemInfo from "../common/hooks/systeminfo/hooks";
-import VillifeStorage from "../../libs/storage";
 import NavigationView from "../common/blocks/navigation";
-import TimePicker from "../common/atoms/time_picker";
 import useStyler from "../common/hooks/styler/hooks";
-import EtdaTimePicker from "../main/parking/blocks/etad_time_picker";
 import UniversalTextInput from "../common/blocks/universial/textinput";
 import { useEffect, useRef, useState } from "react";
-import useOnKeyboardEvent from "../common/hooks/keyboard";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 //import KeyboardAwareScrollView from "../common/blocks/keyboard_aware_scrollview";
 

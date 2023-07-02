@@ -18,7 +18,7 @@ export class LoginManagerProvider {
 }
 
 export default function useAuthService(): AuthServicesReturn {
-    const storage = new VillifeStorage();
+    const storage = VillifeStorage.getInstance();
 
     const login = async (host: HostType, params: LoginServiceParams | undefined): Promise<LoginServiceResult> => {
         const loginManager = LoginManagerProvider.getLoginManager(host);

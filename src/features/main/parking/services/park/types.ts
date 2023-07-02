@@ -1,10 +1,12 @@
 import { Parking } from "../../../../../libs/rest_apis/villife/parking/types";
 import { TimePickerTime } from "../../../../common/atoms/time_picker/types";
 import { EtdaTime } from "../../blocks/etad_time_picker/types";
-import { VehiclesStateType } from "../state/types";
+import { GuestVehicleStateType, TenantVehicleStateType, VehiclesStateType } from "../state/types";
 
 export type ParkServiceReturns = {
-    vehicles: VehiclesStateType;
+    userVehicles: TenantVehicleStateType;
+    tenantVehicles: TenantVehicleStateType;
+    guestVehicles: GuestVehicleStateType;
     updateUserVehicleEtda(params: MyVehicleEtdaUpdateServiceParams): Promise<boolean>;
     updateUserVehicleInfo(params: Parking.VehicleInfopdateParams): Promise<boolean>;
     registerGuestVehicleToBuilding(params: Parking.RegisterGuestVehicleToBuildingParams): Promise<boolean>;

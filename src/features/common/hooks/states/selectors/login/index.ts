@@ -3,7 +3,7 @@ import VillifeStorage from "../../../../../../libs/storage";
 import { loginDataState } from "../../atoms/login";
 import { LoginDataStateType } from "../../atoms/login/types";
 
-const storage = new VillifeStorage();
+const storage = VillifeStorage.getInstance();
 
 export const loginDataStateSelector = selector<LoginDataStateType>({
     key: "loginDataStateSelector",

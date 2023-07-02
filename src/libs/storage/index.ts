@@ -22,6 +22,14 @@ export const VillifeStorageEvents: _VillifeStorageEvents = {
 };
 
 class VillifeStorage implements IVillifeStorage, EventRegisterable {
+    private static _instance: VillifeStorage | null = null;
+
+    private constructor() {}
+
+    public static getInstance() {
+        return this._instance || (this._instance = new this());
+    }
+
     login = new LoginTable();
     user = new UserTable();
 

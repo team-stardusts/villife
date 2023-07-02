@@ -9,11 +9,13 @@ export type UseUserInfoServiceReturns = {
     service: IUserInfoService;
     changeSelectedBuildingOfAdmin(building?: SimpleBuildingInfo): boolean;
     isAdmin(): boolean;
+    clearUserInfo(): Promise<void>;
+    resetUserInfo(): Promise<void>;
 };
 
 export interface IUserInfoService {
     getUserBasicInfo(): Promise<UserDataType>;
     removeUserBasicInfo(): Promise<boolean>;
-    resetUserBasicInfo(): void;
+    resetUserBasicInfo(): Promise<UserDataType | undefined>;
     fetchBuildingsManagedByAdmin(): Response<Array<SimpleBuildingInfo>>;
 }
