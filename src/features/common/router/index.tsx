@@ -40,13 +40,12 @@ enableScreens(true);
 const Stack = createNativeStackNavigator<VillifeStackParamList>();
 
 export default function ScreenRouter() {
-    const [isLoading, setIsLoading] = useState(true);
-    const [loginData, setLoginData] = useRecoilState(loginDataState);
+    const [isLoading, setIsLoading] = useState<boolean>(true);
+    const [loginData, setLoginData] = useRecoilState<LoginDataStateType>(loginDataState);
     const navigation = useNavigation<RouterParams["navigation"]>();
     const storage = VillifeStorage.getInstance();
     const userinfo = useUserInfoService();
 
-    //useStoragableStateManager();
     useAutoRegisterFirebaseToken();
 
     const bootstrap = async () => {

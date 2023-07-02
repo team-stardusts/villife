@@ -6,7 +6,6 @@ import useBuildingSelectorStyles from "./styles";
 import useScreenMessage from "../../../../hooks/multilingual/hooks";
 import BuildingSelectModal from "./bulidng_select_modal";
 import useUserInfoService from "../../../../hooks/service/user_info";
-import { VILLIFE_AUTHORITY } from "../../../../../../libs/rest_apis/villife/absc";
 import { SimpleBuildingInfo } from "../../../../../../libs/rest_apis/villife/user_info/types";
 
 export default function BuildingSelector({}: BuildingSelectorType) {

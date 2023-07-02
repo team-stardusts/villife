@@ -66,12 +66,12 @@ export default function useUserInfoService(): UseUserInfoServiceReturns {
     ) => {
         if (!building) return false;
 
-        const newAdminInfo = adminInfo;
+        if (adminInfo?.selectedBuilding === undefined) return false;
 
-        if (newAdminInfo?.selectedBuilding === undefined) return false;
-
-        newAdminInfo.selectedBuilding = building;
-        setAdminInfo(newAdminInfo);
+        setAdminInfo({
+            ...adminInfo,
+            selectedBuilding: building,
+        });
 
         return true;
     };

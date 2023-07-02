@@ -9,18 +9,26 @@ import {
     Vehicle,
 } from "./types";
 import { useRecoilState } from "recoil";
-import { GuestVehicleStateType, TenantVehicleStateType, VehiclesStateType } from "../state/types";
-import { guestVehiclesState, tenantVehiclesState, userVehiclesState, vehiclesState } from "../state";
+import { GuestVehicleStateType, TenantVehicleStateType } from "../states/types";
+import { guestVehiclesState, tenantVehiclesState, userVehiclesState } from "../states";
 import { useEffect } from "react";
 import StardustDateParser from "../../../../../libs/date_parser";
 import useUserInfoService from "../../../../common/hooks/service/user_info";
+import { adminInfoState } from "../../../../common/hooks/states/atoms/user/admin_only";
+import { loginDataState } from "../../../../common/hooks/states/atoms/login";
 
 export default function useParkService(): ParkServiceReturns {
     const [userVehicles, setUserVehicles] = useRecoilState<TenantVehicleStateType>(userVehiclesState);
     const [tenantVehicles, setTenantVehicles] = useRecoilState<TenantVehicleStateType>(tenantVehiclesState);
     const [guestVehicles, setGuestVehicles] = useRecoilState<GuestVehicleStateType>(guestVehiclesState);
-    const userinfo = useUserInfoService().basicInfo;
+    const user = useUserInfoService();
     const parkManager: IVillifeParkingManager = VillifeServer.getParkingManager();
+
+    useEffect(() => {
+        getVehicles("own").then(setUserVehicles);
+        getVehicles("tenant").then(setTenantVehicles);
+        getVehicles("guest").then((result) => setGuestVehicles(result as GuestVehicle[]));
+    }, [user.adminInfo?.selectedBuilding]);
 
     useEffect(() => {
         bootstrap();
@@ -40,23 +48,25 @@ export default function useParkService(): ParkServiceReturns {
 
     const getVehicles = async (type: "own" | "tenant" | "guest"): Promise<TenantVehicle[] | GuestVehicle[]> => {
         let result = null;
-        // [TO-DO] Building ID를 전달 받아서 넣도록 변경
+
+        const buildingID = user.isAdmin() ? user.adminInfo?.selectedBuilding.id : user.basicInfo?.building_id;
+
+        if (buildingID === undefined) {
+            console.log("ParkingService:", "There are no building ID in user information.");
+            return [];
+        }
+
         switch (type) {
             case "own":
                 result = await parkManager.getVehicles();
                 break;
 
             case "tenant":
-                result = await parkManager.getVehicles(userinfo?.building_id);
+                result = await parkManager.getVehicles(buildingID);
                 break;
 
             case "guest":
-                if (userinfo?.building_id === undefined) {
-                    console.log("ParkingService:", "There are no building ID in user information.");
-                    break;
-                }
-
-                result = await parkManager.getGuestVehiclesOfBuilding(userinfo.building_id);
+                result = await parkManager.getGuestVehiclesOfBuilding(buildingID);
                 break;
         }
         if (result === null) {
@@ -71,6 +81,9 @@ export default function useParkService(): ParkServiceReturns {
             // 임시로 JSON으로 파싱해서 사용. 수정 시 삭제 필요
 
             if (typeof result.data.data != "object") {
+                if (result.data.data === '[]"user has no room"' || result.data.data === "user has no room") {
+                    return [];
+                }
                 try {
                     result.data.data = JSON.parse((result.data.data as string).slice(2));
                 } catch {

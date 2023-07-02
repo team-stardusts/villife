@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { View } from "react-native";
+import { Easing, View } from "react-native";
 import useSystemInfo from "../../../../common/hooks/systeminfo/hooks";
 import useAppThemeLegacy from "../../../../common/hooks/themes_legacy/hooks";
 import StringValidator from "../../../../../libs/string_validator";
@@ -26,10 +26,6 @@ export default function TextInputValidators(props: ValidatorProps) {
     }, [isValid]);
 
     useEffect(() => {
-        if (text === null) {
-            return;
-        }
-
         switch (examine) {
             case "hasEnglish":
                 setIsValid(validator.hasAlpha(text));
@@ -50,7 +46,7 @@ export default function TextInputValidators(props: ValidatorProps) {
                 setIsValid(validator.isLengthWithinRange(text, 8, 20));
                 break;
             default:
-                setIsValid(text === matchingText && matchingText !== "");
+                setIsValid(text === matchingText);
                 break;
         }
 

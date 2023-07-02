@@ -15,6 +15,8 @@ import SimpleFuncButton from "../../../../common/blocks/button/simple_func_butto
 import { Vehicle } from "../../services/park/types";
 import VillifeToastMessage from "../../../../common/atoms/toast";
 import useUserInfoService from "../../../../common/hooks/service/user_info";
+import { useRecoilState } from "recoil";
+import { adminInfoState } from "../../../../common/hooks/states/atoms/user/admin_only";
 
 type VehicleInfoProps = {
     ownerType: "guest" | "tenant";
@@ -145,7 +147,7 @@ export default function ParkingScreen({ navigation, route }: ParkingScreenProps)
                         </View>
                     </View>
                     <ScrollView showsVerticalScrollIndicator={false}>
-                        {[...guestVehicles, ...tenantVehicles].map((vehicle, index) => {
+                        {[...guestVehicles, ...tenantVehicles].map((vehicle, index, array) => {
                             let ownerType: VehicleInfoProps["ownerType"] = "tenant";
 
                             if ("visiting_purpose" in vehicle) {

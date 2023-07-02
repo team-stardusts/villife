@@ -34,11 +34,11 @@ export default function CreateAccountScreen({ navigation, route }: CreateAccount
         password: null,
         confirm_password: null,
     });
-    const [inputValidation, setInputValidation] = useState({
-        id: false,
-        password: false,
-        confirmPassword: false,
-    });
+
+    const [isCorrectID, setIsCorrectID] = useState<boolean>(false);
+    const [isCorrectPassword, setIsCorrectPassword] = useState<boolean>(false);
+    const [isCorrectConfirmPassword, setIsCorrectConfirmPassword] = useState<boolean>(false);
+
     const [isDone, setIsDone] = useState<boolean>(false);
 
     const handleJoin = async () => {
@@ -60,8 +60,8 @@ export default function CreateAccountScreen({ navigation, route }: CreateAccount
     };
 
     useEffect(() => {
-        setIsDone(inputValidation.id && inputValidation.password && inputValidation.confirmPassword);
-    }, [inputValidation]);
+        setIsDone(isCorrectID && isCorrectPassword && isCorrectConfirmPassword);
+    }, [isCorrectID, isCorrectPassword, isCorrectConfirmPassword]);
 
     return (
         <SafeAreaView style={styles.Screen.topLevelBox}>
@@ -111,11 +111,12 @@ export default function CreateAccountScreen({ navigation, route }: CreateAccount
                                     hasNumber: true,
                                     tokens4to10: true,
                                 }}
-                                onValidate={(isValid: boolean) =>
-                                    setInputValidation({
+                                onValidate={
+                                    (isValid: boolean) => setIsCorrectID(isValid)
+                                    /* setInputValidation({
                                         ...inputValidation,
                                         id: isValid,
-                                    })
+                                    }) */
                                 }
                             />
                             <AuthScreenCommonInput
@@ -131,11 +132,12 @@ export default function CreateAccountScreen({ navigation, route }: CreateAccount
                                     hasSpecialChar: true,
                                     tokens8to20: true,
                                 }}
-                                onValidate={(isValid: boolean) =>
-                                    setInputValidation({
+                                onValidate={
+                                    (isValid: boolean) => setIsCorrectPassword(isValid)
+                                    /* setInputValidation({
                                         ...inputValidation,
                                         password: isValid,
-                                    })
+                                    }) */
                                 }
                                 secureTextEntry
                             />
@@ -151,11 +153,12 @@ export default function CreateAccountScreen({ navigation, route }: CreateAccount
                                 inspect={{
                                     matching: account.password,
                                 }}
-                                onValidate={(isValid: boolean) =>
-                                    setInputValidation({
+                                onValidate={
+                                    (isValid: boolean) => setIsCorrectConfirmPassword(isValid)
+                                    /* setInputValidation({
                                         ...inputValidation,
                                         confirmPassword: isValid,
-                                    })
+                                    }) */
                                 }
                                 secureTextEntry
                             />
