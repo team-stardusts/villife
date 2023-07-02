@@ -14,6 +14,7 @@ import Icon from "../../../../common/atoms/icon";
 import SimpleFuncButton from "../../../../common/blocks/button/simple_func_button";
 import VillifeToastMessage from "../../../../common/atoms/toast";
 import useUserInfoService from "../../../../common/hooks/service/user_info";
+import BottomSlideSelector from "../../blocks/bottom_slide_selector";
 
 type VehicleInfoProps = {
     ownerType: "guest" | "tenant";
@@ -53,7 +54,7 @@ function VehicleInfo({ ownerType, plateNumber, phoneNumber, etd }: VehicleInfoPr
                             }>
                             <Icon name="phone" size={styles.phoneIcon.width} color={styles.phoneIcon.color} />
                         </TouchableOpacity>
-                        <TouchableOpacity
+                        {/* <TouchableOpacity
                             activeOpacity={0.6}
                             style={styles.communicationIconBox}
                             onPress={() =>
@@ -63,7 +64,8 @@ function VehicleInfo({ ownerType, plateNumber, phoneNumber, etd }: VehicleInfoPr
                                 )
                             }>
                             <Icon name="letter" size={styles.letterIcon.width} color={styles.letterIcon.color} />
-                        </TouchableOpacity>
+                        </TouchableOpacity> */}
+                        <BottomSlideSelector selectorType="message" />
                     </View>
                     <View style={styles.infoBox}></View>
                 </View>

@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import { VehicleCardProps, VehicleCardViewProps } from "./types";
 import useStyler from "../../../../common/hooks/styler/hooks";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
 import ContentBox from "../../../../common/blocks/content_box";
 import PageIndicators from "../../../../common/blocks/page_indicator";
