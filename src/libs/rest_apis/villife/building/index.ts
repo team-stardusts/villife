@@ -12,6 +12,15 @@ class VillifeBuildingManager extends AVillifeServerModule implements IVillifeBui
             data: params,
         });
     }
+    public async RequestValidationOfUserRegidence(params: UserResidenceValidationParams): Response<string> {
+        let route: string = this.routes.approval.residenceValidation;
+
+        return await this.requestAuthable<any, string>({
+            method: "post",
+            url: route,
+            data: params,
+        });
+    }
 }
 
 export default VillifeBuildingManager;

@@ -32,11 +32,30 @@ export default function SetBuildingScreen({ navigation, route }: SetBuildingScre
         }
     };
 
-    const onPressNextButton = async () => {
+    /*  const onPressNextButton = async () => {
         if (!buildingInfo) return Alert.alert("오류", "유효하지 않은 건물입니다."); // TO DO:: 문구 및 표시 방식 수정 필요
         if (!roomNumber) return Alert.alert("오류", "호수 정보를 입력해주세요");
         validateService
             .ValidateUserResidenceForTest({
+                building_id: buildingInfo.building_id,
+                room_number: roomNumber,
+            })
+            .then((r) => {
+                navigation.reset({
+                    index: 0,
+                    routes: [{ name: "home", params: {} }],
+                });
+            })
+            .catch((r) => {
+                return Alert.alert("오류", "거주 인증 실패");
+            });
+    }; */
+
+    const onPressNextButton = async () => {
+        if (!buildingInfo) return Alert.alert("오류", "유효하지 않은 건물입니다."); // TO DO:: 문구 및 표시 방식 수정 필요
+        if (!roomNumber) return Alert.alert("오류", "호수 정보를 입력해주세요");
+        validateService
+            .RequestValidationOfUserRegidence({
                 building_id: buildingInfo.building_id,
                 room_number: roomNumber,
             })

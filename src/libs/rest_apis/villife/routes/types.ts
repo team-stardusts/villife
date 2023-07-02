@@ -9,10 +9,9 @@ namespace Routes {
     };
     export type Approval = {
         approvalDecision: string;
-        getUser: string;
-        acceptUser: string;
+        getApprovalRequests: string;
         registerUserVehicle: string;
-        rejectUser: string;
+        decideApprovalRequest: string;
         residenceValidation: string;
     };
     export type Complaint = {

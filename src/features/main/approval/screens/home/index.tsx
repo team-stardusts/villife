@@ -19,22 +19,21 @@ export default function ApprovalHomeScreen(props: ApprovaleHomeScreenProps) {
 
     const fetchApprovals = async () => {
         const fetchedApprovals = await service.getUserApproval();
-        console.log(fetchedApprovals.data?.data);
         if (!fetchedApprovals.isSuccessful) return [];
         if (fetchedApprovals.data?.data) {
             setApprovals([]);
             setApprovals(fetchedApprovals.data?.data);
-            console.log(fetchedApprovals);
         }
     };
 
-    /*  const fetchApprovals = () => {
+    /*     const fetchApprovals = () => {
         const fetchedApprovals: ReadonlyArray<Approval> = [
             {
                 id: 1,
                 category: 1,
                 detail_type: 1,
-                create_at: "2023-05-24",
+                create_at: 20230524,
+                updated_at: 20230525,
                 content: {
                     title: "신규 가입",
                     sub_title: "정보 확인 후 수정사항 없을 시 수락 부탁드립니다.",
@@ -49,7 +48,8 @@ export default function ApprovalHomeScreen(props: ApprovaleHomeScreenProps) {
                 id: 2,
                 category: 2,
                 detail_type: 1,
-                create_at: "2023-05-24",
+                create_at: 20230524,
+                updated_at: 20230525,
                 content: {
                     vehicle_number: "108라 8477",
                     vehicle_model: "BMW 320I",

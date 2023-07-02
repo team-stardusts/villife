@@ -11,11 +11,13 @@ const routes: RoutesType = {
     },
     approval: {
         approvalDecision: "approval/decision",
-        getUser: "approval/get/list",
-        acceptUser: "approval/accept",
+        getApprovalRequests: "approval/request",
         registerUserVehicle: "approval/request/2/1",
-        rejectUser: "approval/reject",
-        residenceValidation: "approval/validate/residence",
+        decideApprovalRequest: "approval/decision",
+        residenceValidation: "approval/request/1/1",
+
+        //request_id
+        // decision : approval or reject
     },
     complaint: {
         createComplaint: "complaint/create",

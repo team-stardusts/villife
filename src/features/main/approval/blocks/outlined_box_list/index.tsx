@@ -10,6 +10,7 @@ function FlatListOutlinedContentsBox(props: { approvals: ReadonlyArray<Approval>
             width: "100%",
         },
     });
+
     return (
         <FlatList
             contentContainerStyle={styles.container}

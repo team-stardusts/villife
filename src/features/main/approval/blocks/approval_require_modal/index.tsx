@@ -1,20 +1,15 @@
-import { Dimensions, Modal, Text, TouchableOpacity, View } from "react-native";
+import { Dimensions, Modal, Pressable, Text, TouchableOpacity, View } from "react-native";
 import React, { useEffect, useState } from "react";
-import VillifeServer from "../../../../../libs/rest_apis/villife";
 import Toast from "react-native-toast-message";
-import { useNavigation } from "@react-navigation/native";
-import { VillifeNavigation } from "../../../../common/router/types";
 import StardustAlert from "../../../../common/blocks/universial/stardust_alert";
 import useBottomEditModalStyles from "./style";
 import ApprovalRequiredModalProps from "./type";
-import { AcceptApprovalParams, RejectApprovalParams } from "../../../../../libs/rest_apis/villife/approval/types";
 import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
 import useApprovalService from "../../services";
 
 export default function ApprovalRequiredModal(props: ApprovalRequiredModalProps) {
     const messages = useScreenMessage();
     const service = useApprovalService();
-    const screenSize = Dimensions.get("window");
     const styles = useBottomEditModalStyles();
     const { visible, setVisible, convertedApprovalRequest } = props;
 
@@ -26,16 +21,12 @@ export default function ApprovalRequiredModal(props: ApprovalRequiredModalProps)
 
     // [TO-DO] : service에서 불러와서 사용
     const onRejectButtonPress = async () => {
-        const notifier = VillifeServer.getApprovalManager();
-
-        const dto: RejectApprovalParams = {
-            id: convertedApprovalRequest.id,
-        };
-        const result = await notifier.rejectUserApproval(dto);
+        const result = await service.rejectUserApproval(props.convertedApprovalRequest.id);
 
         if (result.isSuccessful) {
             setVisible(false);
             setDeleteAlertVisible(false);
+            console.log("[approvalReJect]", result.data?.data);
             Toast.show({
                 type: "success",
                 text1: messages.messages.main.approval.reject_success,
@@ -44,6 +35,7 @@ export default function ApprovalRequiredModal(props: ApprovalRequiredModalProps)
                 bottomOffset: 100,
             });
         } else {
+            console.log("[approvalReJect]", result.data?.data);
             Toast.show({
                 type: "error",
                 text1: messages.messages.main.approval.reject_error,
@@ -56,15 +48,11 @@ export default function ApprovalRequiredModal(props: ApprovalRequiredModalProps)
 
     // [TO-DO] : service에서 불러와서 사용
     const onApcceptButtonPress = async () => {
-        const notifier = VillifeServer.getApprovalManager();
-
-        const dto: AcceptApprovalParams = {
-            id: convertedApprovalRequest.id,
-        };
-        const result = await notifier.rejectUserApproval(dto);
+        const result = await service.acceptUserApproval(props.convertedApprovalRequest.id);
 
         if (result.isSuccessful) {
             setVisible(false);
+            console.log("[approvalAccept]", result.data?.data);
             Toast.show({
                 type: "success",
                 text1: messages.messages.main.approval.accept_success,
@@ -73,6 +61,7 @@ export default function ApprovalRequiredModal(props: ApprovalRequiredModalProps)
                 bottomOffset: 100,
             });
         } else {
+            console.log("[approvalAccept]", result.data?.data);
             Toast.show({
                 type: "error",
                 text1: messages.messages.main.approval.accept_error,
@@ -138,7 +127,7 @@ export default function ApprovalRequiredModal(props: ApprovalRequiredModalProps)
                         </TouchableOpacity>
                     </View>
                 </View>
-                <View style={styles.wrapper} />
+                <Pressable style={styles.wrapper} onPress={() => setVisible(false)} />
             </View>
         </Modal>
     );

@@ -6,7 +6,7 @@ import UserTypeSelectionButton from "../../blocks/icon_user_type";
 import useWelcomeScreenStyles from "./styles";
 import WelcomScreenProps from "./types";
 import useSystemInfo from "../../../common/hooks/systeminfo/hooks";
-import { VILLIFE_AUTHORITY } from "../../../../libs/rest_apis/villife";
+import { VILLIFE_AUTHORITY } from "../../../../libs/rest_apis/villife/absc";
 
 export default function WelcomeScreen({ navigation, route }: WelcomScreenProps) {
     const styles = useWelcomeScreenStyles();

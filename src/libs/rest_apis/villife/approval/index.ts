@@ -1,8 +1,6 @@
 import { Response } from "../../types";
 import AVillifeServerModule from "../absc";
 import IVillifeApprovalManager, {
-    AcceptApprovalParams,
-    RejectApprovalParams,
     VerifyBuildingAddressParams,
     VerifyBuildingAddressResult,
     getApprovalsResult,
@@ -24,28 +22,39 @@ class VillifeApprovalManager extends AVillifeServerModule implements IVillifeApp
     }
 
     public async getUserApprovals(): Response<getApprovalsResult> {
-        let route: string = this.routes.approval.getUser;
+        let route: string = this.routes.approval.getApprovalRequests;
 
         return await this.requestAuthable<any, getApprovalsResult>({
             method: "get",
             url: route,
         });
     }
-    public async rejectUserApproval(params: RejectApprovalParams): Response<string> {
-        let route: string = this.routes.approval.rejectUser;
+    public async rejectUserApproval(request_id: number): Response<string> {
+        let route: string = this.routes.approval.decideApprovalRequest;
+
+        const reqBody = {
+            request_id: request_id,
+            decision: "reject",
+        };
 
         return await this.requestAuthable<any, string>({
             method: "post",
             url: route,
-            data: params,
+            data: reqBody,
         });
     }
-    public async acceptUserApproval(params: AcceptApprovalParams): Response<string> {
-        let route: string = this.routes.approval.acceptUser;
+    public async acceptUserApproval(request_id: number): Response<string> {
+        let route: string = this.routes.approval.decideApprovalRequest;
+
+        const reqBody = {
+            request_id: request_id,
+            decision: "approve",
+        };
+
         return await this.requestAuthable<any, string>({
             method: "post",
             url: route,
-            data: params,
+            data: reqBody,
         });
     }
 }

@@ -8,7 +8,6 @@ import IconBuilding from "../../../../common/atoms/icon/building";
 import useApprovalOutlinedBoxStyle from "./style";
 import OutlinedBoxProps from "./type";
 import IconUserBorder from "../../../../common/atoms/icon/user_border";
-import useStyler from "../../../../common/hooks/styler/hooks";
 
 /**
  * @param OutlinedBoxProp

@@ -2,6 +2,7 @@ import { Response } from "../../types";
 
 interface BuildingVerifiable {
     ValidateUserResidenceForTest(params: UserResidenceValidationParams): Response<string>;
+    RequestValidationOfUserRegidence(param: UserResidenceValidationParams): Response<string>;
 }
 export type UserResidenceValidationParams = {
     building_id: number;

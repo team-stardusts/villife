@@ -9,21 +9,18 @@ export type VerifyBuildingAddressResult = {
     building_name: string;
 };
 
-export type RejectApprovalParams = {
-    id: number;
-};
-
-export type AcceptApprovalParams = {
-    id: number;
+export type ApprovalDecisionParams = {
+    request_id: number;
+    decision: string;
 };
 
 export type Approval = {
     id: number;
     category: number;
     detail_type: number;
-    content: string;
     create_at: number;
     updated_at: number;
+    content: string;
 };
 
 export type getApprovalsResult = Array<Approval>;
@@ -31,8 +28,8 @@ export type getApprovalsResult = Array<Approval>;
 interface Approavalable {
     verifyBuildingAddress(params: VerifyBuildingAddressParams): Response<VerifyBuildingAddressResult>;
     getUserApprovals(): Response<getApprovalsResult>;
-    rejectUserApproval(params: RejectApprovalParams): Response<string>;
-    acceptUserApproval(params: AcceptApprovalParams): Response<string>;
+    rejectUserApproval(request_id: number): Response<string>;
+    acceptUserApproval(request_id: number): Response<string>;
 }
 
 export default interface IVillifeApprovalManager extends Approavalable {}

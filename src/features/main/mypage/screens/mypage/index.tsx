@@ -7,6 +7,9 @@ import NavigationView from "../../../../common/blocks/navigation";
 import MyPageScreenProps from "./type";
 import useLogoutService from "../../services/logout";
 import useUserInfoService from "../../../../common/hooks/service/user_info";
+import VillifeStorage from "../../../../../libs/storage";
+import VillifeServer from "../../../../../libs/rest_apis/villife";
+import { UserResidenceValidationParams } from "../../../../../libs/rest_apis/villife/building/types";
 
 export default function MyPageScreen({ navigation, route }: MyPageScreenProps) {
     const messages = useScreenMessage();
@@ -54,6 +57,18 @@ export default function MyPageScreen({ navigation, route }: MyPageScreenProps) {
                     }}
                     aria-label="Decrement value"
                     title="admin 건물변경"
+                />
+                <Button
+                    onPress={async () => {
+                        const buildingManager = VillifeServer.getBuildingManager();
+                        const param: UserResidenceValidationParams = { building_id: 7, room_number: 501 };
+                        const result = await buildingManager.RequestValidationOfUserRegidence(param);
+                        if (result.isSuccessful) {
+                            console.log("approval data :", result.data);
+                        }
+                    }}
+                    aria-label="Decrement value"
+                    title="User 거주인증 Test"
                 />
             </View>
         </NavigationView>

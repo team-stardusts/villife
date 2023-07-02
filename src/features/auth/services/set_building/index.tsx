@@ -37,4 +37,14 @@ class ValidateResidenceService implements IValidateResidenceService {
         if (!result.data?.data) throw new Error("cannot get data from api result");
         return result.data.data;
     }
+    async RequestValidationOfUserRegidence(params: UserResidenceValidationParams) {
+        const result = await this.buildingRestClient.RequestValidationOfUserRegidence(params);
+
+        if (!result.isSuccessful) {
+            console.log("API Error Log:", result.data?.status);
+            throw new Error("validation of user residence has failed");
+        }
+        if (!result.data?.data) throw new Error("cannot get data from api result");
+        return result.data.data;
+    }
 }
