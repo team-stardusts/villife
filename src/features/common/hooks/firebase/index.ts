@@ -54,9 +54,9 @@ export function useAutoRegisterFirebaseToken() {
 
     React.useEffect(() => {
         //console.log("login Data has changed\n", "firebase token :", firebaseToken);
-        if (!firebaseToken) {
-            return;
-        }
+        if (!firebaseToken) return;
+        if (loginData === null) return;
+
         if (loginData) {
             villife
                 .registerFirebaseToken({
@@ -70,7 +70,7 @@ export function useAutoRegisterFirebaseToken() {
                     // } else {
                     //     console.log("and: ", firebaseToken);
                     // }
-                    console.log("Register firebase result token", r.data?.data);
+                    //console.log("Register firebase result token", r.data?.data);
                 });
         }
     }, [loginData, firebaseToken]);

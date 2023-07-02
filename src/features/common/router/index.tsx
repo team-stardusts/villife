@@ -49,6 +49,7 @@ export default function ScreenRouter() {
     useAutoRegisterFirebaseToken();
 
     const bootstrap = async () => {
+        //await storage.login.set(null);
         const data = await storage.login.get();
 
         setLoginData(data);
@@ -67,11 +68,13 @@ export default function ScreenRouter() {
             navigation.reset({
                 index: 0,
                 routes: [{ name: "login" }],
-                //routes: [{ name: "test" }],
             });
         } else {
             const onLogin = async () => {
-                await userinfo.resetUserInfo();
+                const resestResult = await userinfo.resetUserInfo();
+
+                if (resestResult === undefined) return;
+
                 if (
                     (userinfo.basicInfo?.authority == VILLIFE_AUTHORITY.RENTER &&
                         userinfo.basicInfo.room_id == undefined) ||
