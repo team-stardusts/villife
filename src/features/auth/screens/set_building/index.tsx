@@ -18,41 +18,15 @@ export default function SetBuildingScreen({ navigation, route }: SetBuildingScre
     const Messages = useScreenMessage();
     const styles = useSetBuildingScreenStyles();
     const [roomNumber, setRoomNumber] = useState<number | null>(null);
-    const [isDone, setIsDone] = useState<boolean>(false);
+    const [IsEditMode, setIsEditMode] = useState<boolean>(false);
     const [address, setAddress] = useRecoilState<SelectedAddressStateType>(selectedAddressState);
     const [buildingInfo, setBuildingInfo] = useState<BuildingInfo>();
     const validateService = useValidateResidenceService();
 
-    const validateUserData = () => {
-        if (!(address && roomNumber && buildingInfo)) {
-            setIsDone(false);
-            return;
-        } else {
-            setIsDone(true);
-        }
-    };
-
-    /*  const onPressNextButton = async () => {
-        if (!buildingInfo) return Alert.alert("오류", "유효하지 않은 건물입니다."); // TO DO:: 문구 및 표시 방식 수정 필요
-        if (!roomNumber) return Alert.alert("오류", "호수 정보를 입력해주세요");
-        validateService
-            .ValidateUserResidenceForTest({
-                building_id: buildingInfo.building_id,
-                room_number: roomNumber,
-            })
-            .then((r) => {
-                navigation.reset({
-                    index: 0,
-                    routes: [{ name: "home", params: {} }],
-                });
-            })
-            .catch((r) => {
-                return Alert.alert("오류", "거주 인증 실패");
-            });
-    }; */
-
     const onPressNextButton = async () => {
+        console.log("building : ", buildingInfo, roomNumber);
         if (!buildingInfo) return Alert.alert("오류", "유효하지 않은 건물입니다."); // TO DO:: 문구 및 표시 방식 수정 필요
+
         if (!roomNumber) return Alert.alert("오류", "호수 정보를 입력해주세요");
         validateService
             .RequestValidationOfUserRegidence({
@@ -71,7 +45,7 @@ export default function SetBuildingScreen({ navigation, route }: SetBuildingScre
     };
 
     useEffect(() => {
-        validateUserData();
+        if (address) setIsEditMode(true);
     }, [address, roomNumber]);
 
     // Selected address 초기화
@@ -138,12 +112,18 @@ export default function SetBuildingScreen({ navigation, route }: SetBuildingScre
             </View>
             <AuthScreenBottonButton
                 title={
-                    isDone
+                    IsEditMode
                         ? Messages.messages.auth.set_building.next_btn_title
                         : Messages.messages.auth.set_building.next_btn_title_when_change_next
                 }
                 onPress={() => {
-                    onPressNextButton();
+                    IsEditMode
+                        ? onPressNextButton()
+                        : navigation.reset({
+                              index: 0,
+                              routes: [{ name: "home" }],
+                              //routes: [{ name: "test" }],
+                          });
                 }}
             />
         </SafeAreaView>

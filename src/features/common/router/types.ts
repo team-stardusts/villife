@@ -34,10 +34,7 @@ export type VillifeStackParamList = VillifeRootStackParamList & {
         id: string;
         password: string;
     };
-    set_building: {
-        id: string;
-        password: string;
-    };
+    set_building?: {};
     search_address?: {};
     terms_of_service?: {};
     noti_home?: {};

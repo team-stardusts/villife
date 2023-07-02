@@ -33,6 +33,7 @@ import ComplaintModifyScreen from "../../main/complaint/screens/modify";
 import RegisterGuestVehicleScreen from "../../main/parking/screens/register_guest_vehicle";
 import { LoginDataStateType } from "../hooks/states/atoms/login/types";
 import useUserInfoService from "../hooks/service/user_info";
+import { VILLIFE_AUTHORITY } from "../../../libs/rest_apis/villife/absc";
 
 enableScreens(true);
 
@@ -70,13 +71,24 @@ export default function ScreenRouter() {
                 //routes: [{ name: "test" }],
             });
         } else {
-            userinfo.resetUserInfo();
-
-            navigation.reset({
-                index: 0,
-                routes: [{ name: "home" }],
-                //routes: [{ name: "test" }],
-            });
+            const onLogin = async () => {
+                await userinfo.resetUserInfo();
+                if (
+                    (userinfo.basicInfo?.authority == VILLIFE_AUTHORITY.RENTER &&
+                        userinfo.basicInfo.room_id == undefined) ||
+                    userinfo.basicInfo == null
+                ) {
+                    console.log("[ONLOGIN] User has no room , navigate to Set Building Page");
+                    navigation.navigate("set_building");
+                    return;
+                }
+                navigation.reset({
+                    index: 0,
+                    routes: [{ name: "home" }],
+                    //routes: [{ name: "test" }],
+                });
+            };
+            onLogin();
         }
     }, [loginData, isLoading]);
 

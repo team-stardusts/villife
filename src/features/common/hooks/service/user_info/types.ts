@@ -10,7 +10,7 @@ export type UseUserInfoServiceReturns = {
     changeSelectedBuildingOfAdmin(building?: SimpleBuildingInfo): boolean;
     isAdmin(): boolean;
     clearUserInfo(): Promise<void>;
-    resetUserInfo(): Promise<void>;
+    resetUserInfo(): Promise<UserDataType | undefined>;
 };
 
 export interface IUserInfoService {

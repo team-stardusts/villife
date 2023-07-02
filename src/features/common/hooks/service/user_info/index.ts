@@ -84,9 +84,9 @@ export default function useUserInfoService(): UseUserInfoServiceReturns {
 
     const resetUserInfo = async () => {
         try {
-            await service.resetUserBasicInfo();
+            return await service.resetUserBasicInfo();
         } catch (e) {
-            console.log(e);
+            console.log("Reset Err", e);
         }
     };
 
@@ -122,6 +122,7 @@ export class UserInfoService implements IUserInfoService {
 
     async fetchAndStoreUserBasicInfo() {
         try {
+            console.log("[FetchAndStoreUserBasicInfo] fetching user info ...");
             const result = await this.api.GetUserBasicInfo();
 
             if (!result.isSuccessful) {
@@ -144,7 +145,6 @@ export class UserInfoService implements IUserInfoService {
             }
 
             const isSet = await this.storage.user.set(adjustedData);
-
             if (isSet) return adjustedData;
             else throw new Error("cannot store user info");
         } catch (err) {
@@ -158,9 +158,10 @@ export class UserInfoService implements IUserInfoService {
     }
 
     async resetUserBasicInfo() {
+        console.log("Resetting user basic info ...");
         const isSet = await this.storage.user.set(null);
         if (isSet) {
-            return this.fetchAndStoreUserBasicInfo();
+            return await this.fetchAndStoreUserBasicInfo();
         } else console.log("failed to reset user basic info stroage");
     }
 
