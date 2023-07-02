@@ -12,13 +12,20 @@ import { Parking } from "../../../../../libs/rest_apis/villife/parking/types";
 import useParkService from "../../services/park";
 import { useNavigation } from "@react-navigation/native";
 import { RouterParams } from "../../../../common/router/types";
-import { GuestVehicle, MyVehicleEtdaUpdateServiceParams, TenantVehicle } from "../../services/park/types";
+import {
+    GuestVehicle,
+    MyVehicleEtdaUpdateServiceParams,
+    ParkServiceReturns,
+    TenantVehicle,
+} from "../../services/park/types";
 import { EtdaTime } from "../etad_time_picker/types";
 
 type VehicleModifyModalProps = {
     initialVehicleInfo: TenantVehicle | GuestVehicle;
     modalVisible: boolean;
     setModalVisible: React.Dispatch<React.SetStateAction<boolean>>;
+    updateVehicleEtda: ParkServiceReturns["updateUserVehicleEtda"];
+    updateVehicleInfo: ParkServiceReturns["updateUserVehicleInfo"];
 };
 
 type Page = "etda" | "info";
@@ -112,11 +119,13 @@ export default function VehicleModifyModal({
     initialVehicleInfo,
     modalVisible,
     setModalVisible,
+    updateVehicleEtda,
+    updateVehicleInfo,
 }: VehicleModifyModalProps) {
     const navigation = useNavigation<RouterParams["navigation"]>();
     const messages = useScreenMessage();
     const styles = useModifyModal().toplevel;
-    const { updateUserVehicleEtda, updateUserVehicleInfo } = useParkService();
+    //const { updateUserVehicleEtda, updateUserVehicleInfo } = useParkService();
 
     const initialEtda = {
         etd: {
@@ -158,7 +167,7 @@ export default function VehicleModifyModal({
     const handleModifyEtda = async () => {
         console.log("Initial: ", initialVehicleInfo.model, initialEtda);
         console.log("Changed: ", initialVehicleInfo.model, etda.etda);
-        const isSuccessful: boolean = await updateUserVehicleEtda(etda);
+        const isSuccessful: boolean = await updateVehicleEtda(etda);
 
         isSuccessful
             ? Alert.alert(messages.messages.main.parking.modify_modal.succed_to_change_etda)
@@ -171,7 +180,7 @@ export default function VehicleModifyModal({
     };
 
     const handleModifyInfo = async () => {
-        const isSuccessful: boolean = await updateUserVehicleInfo(info);
+        const isSuccessful: boolean = await updateVehicleInfo(info);
 
         isSuccessful
             ? Alert.alert(messages.messages.main.parking.modify_modal.succed_to_change_info)

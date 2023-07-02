@@ -14,8 +14,6 @@ import { guestVehiclesState, tenantVehiclesState, userVehiclesState } from "../s
 import { useEffect } from "react";
 import StardustDateParser from "../../../../../libs/date_parser";
 import useUserInfoService from "../../../../common/hooks/service/user_info";
-import { adminInfoState } from "../../../../common/hooks/states/atoms/user/admin_only";
-import { loginDataState } from "../../../../common/hooks/states/atoms/login";
 
 export default function useParkService(): ParkServiceReturns {
     const [userVehicles, setUserVehicles] = useRecoilState<TenantVehicleStateType>(userVehiclesState);
@@ -25,14 +23,16 @@ export default function useParkService(): ParkServiceReturns {
     const parkManager: IVillifeParkingManager = VillifeServer.getParkingManager();
 
     useEffect(() => {
+        bootstrap();
+    }, []);
+
+    useEffect(() => {
+        if (user.adminInfo?.selectedBuilding === undefined) return;
+
         getVehicles("own").then(setUserVehicles);
         getVehicles("tenant").then(setTenantVehicles);
         getVehicles("guest").then((result) => setGuestVehicles(result as GuestVehicle[]));
     }, [user.adminInfo?.selectedBuilding]);
-
-    useEffect(() => {
-        bootstrap();
-    }, []);
 
     const bootstrap = async () => {
         if (userVehicles.length === 0) {
@@ -169,7 +169,7 @@ export default function useParkService(): ParkServiceReturns {
             eta: StardustDateParser.serialize(dateOfETA),
             etd: StardustDateParser.serialize(dateOfETD),
         });
-
+        console.log(result.data?.data);
         if (result.isSuccessful && result.data?.data !== undefined) {
             const updatedUserVehicles = [
                 ...userVehicles,

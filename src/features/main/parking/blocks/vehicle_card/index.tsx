@@ -17,8 +17,9 @@ import Icon from "../../../../common/atoms/icon";
 import { useNavigation } from "@react-navigation/native";
 import { RouterParams } from "../../../../common/router/types";
 import VehicleModifyModal from "../modify_modal";
+import useParkService from "../../services/park";
 
-function VehicleCard({ vehicle, cardWidth }: VehicleCardProps) {
+function VehicleCard({ vehicle, cardWidth, updateVehicleEtda, updateVehicleInfo }: VehicleCardProps) {
     const { deviceUI, theme } = useStyler();
     const messages = useScreenMessage();
     const [deleteAlertVisible, setDeleteAlertVisible] = useState<boolean>(false);
@@ -87,6 +88,8 @@ function VehicleCard({ vehicle, cardWidth }: VehicleCardProps) {
                 initialVehicleInfo={vehicle}
                 modalVisible={deleteAlertVisible}
                 setModalVisible={setDeleteAlertVisible}
+                updateVehicleEtda={updateVehicleEtda}
+                updateVehicleInfo={updateVehicleInfo}
             />
         </TouchableOpacity>
     );
@@ -95,6 +98,7 @@ function VehicleCard({ vehicle, cardWidth }: VehicleCardProps) {
 export default function VehicleCardView({ vehicles, cardWidth }: VehicleCardViewProps) {
     const messages = useScreenMessage();
     const navigation = useNavigation<RouterParams["navigation"]>();
+    const { updateUserVehicleEtda, updateUserVehicleInfo } = useParkService();
     const { deviceUI, theme } = useStyler();
     const [crrIndex, setCrrIndex] = useState<number>(0);
 
@@ -150,6 +154,8 @@ export default function VehicleCardView({ vehicles, cardWidth }: VehicleCardView
         navigation.navigate("register_vehicle");
     };
 
+    //console.log("VehicleCards", vehicles[vehicles.length - 1]);
+
     return (
         <ContentBox>
             <ScrollView
@@ -160,7 +166,13 @@ export default function VehicleCardView({ vehicles, cardWidth }: VehicleCardView
                 scrollEventThrottle={5}
                 onScroll={(e) => setCrrIndex(getCurrentPage(e, cardWidth))}>
                 {vehicles.map((vehicle, index) => (
-                    <VehicleCard key={index} vehicle={vehicle} cardWidth={cardWidth} />
+                    <VehicleCard
+                        key={index}
+                        vehicle={vehicle}
+                        cardWidth={cardWidth}
+                        updateVehicleEtda={updateUserVehicleEtda}
+                        updateVehicleInfo={updateUserVehicleInfo}
+                    />
                 ))}
                 <TouchableOpacity style={styles.registerCardBox} activeOpacity={0.6} onPress={handlePressRegisterBtn}>
                     {vehicles.length === 0 && (

@@ -1,4 +1,4 @@
-import { TenantVehicle } from "../../services/park/types";
+import { ParkServiceReturns, TenantVehicle } from "../../services/park/types";
 
 export type VehicleCardViewProps = {
     vehicles: TenantVehicle[];
@@ -8,4 +8,6 @@ export type VehicleCardViewProps = {
 export type VehicleCardProps = {
     vehicle: TenantVehicle;
     cardWidth: number;
+    updateVehicleInfo: ParkServiceReturns["updateUserVehicleInfo"];
+    updateVehicleEtda: ParkServiceReturns["updateUserVehicleEtda"];
 };
