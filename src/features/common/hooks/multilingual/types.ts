@@ -42,11 +42,19 @@ export type MessagesByLanguage = {
                 visiting_perpose_input_placeholder: string;
                 invalid_input_value: string;
             };
+            send_park_push_noti: {
+                screen_title: string;
+                request_to_send_park_noti: string;
+            };
             modify_modal: {
                 succed_to_change_etda: string;
                 fail_to_change_etda: string;
                 succed_to_change_info: string;
                 fail_to_change_info: string;
+            };
+            message_selection_modal: {
+                double_parking: string;
+                change_request: string;
             };
         };
         complaint: {

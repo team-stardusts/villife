@@ -1,7 +1,7 @@
 import { Parking } from "../../../../../libs/rest_apis/villife/parking/types";
 import { TimePickerTime } from "../../../../common/atoms/time_picker/types";
 import { EtdaTime } from "../../blocks/etad_time_picker/types";
-import { GuestVehicleStateType, TenantVehicleStateType, VehiclesStateType } from "../states/types";
+import { GuestVehicleStateType, TenantVehicleStateType } from "../states/types";
 
 export type ParkServiceReturns = {
     userVehicles: TenantVehicleStateType;

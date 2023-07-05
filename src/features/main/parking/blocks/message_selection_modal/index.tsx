@@ -1,14 +1,14 @@
 import { TouchableOpacity, View } from "react-native";
-import BottomMessageSelectionModal from "./message_selection_modal";
+import BottomMessageSelectionModal from "./modal";
 import { useState } from "react";
 import useBottomSlideSelectorStyles from "./styles";
-import { BottomSlideSelectorProps } from "./types";
+import { MessageSelectionModalProps } from "./types";
 import Icon from "../../../../common/atoms/icon";
 
-export default function BottomSlideSelector(props: BottomSlideSelectorProps) {
+export default function MessageSelectionModal(props: MessageSelectionModalProps) {
     const styles = useBottomSlideSelectorStyles().main;
     const [isModalUnfold, setIsModalUnfold] = useState<boolean>(false);
-    const iconName = props.selectorType === "call" ? "phone" : "letter";
+    //const iconName = props.selectorType === "call" ? "phone" : "letter";
 
     return (
         <View style={styles.container}>
@@ -23,7 +23,7 @@ export default function BottomSlideSelector(props: BottomSlideSelectorProps) {
                     setIsModalUnfold(true);
                 }}
                 style={styles.iconBox}>
-                <Icon name={iconName} size={styles.icon.width} color={styles.icon.color} />
+                <Icon name="letter" size={styles.icon.width} color={styles.icon.color} />
             </TouchableOpacity>
         </View>
     );

@@ -52,6 +52,7 @@ export type VillifeStackParamList = VillifeRootStackParamList & {
     complaint_detail: Complaint;
     register_vehicle?: {};
     register_guest_vehicle?: {};
+    send_park_push_noti: {};
     my_page: {};
 };
 

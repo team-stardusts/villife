@@ -35,11 +35,19 @@
                 "visiting_perpose_input_placeholder": "방문 목적을 기재해주세요.",
                 "invalid_input_value": "입력한 정보들을 다시 확인해주세요."
             },
+            "send_park_push_noti": {
+                "screen_title": "차량 주차 알림",
+                "request_to_send_park_noti": "양식에 맞게 주차 알림을 송부해주세요."
+            },
             "modify_modal": {
                 "succed_to_change_etda": "입출차 시간을 변경했습니다.",
                 "fail_to_change_etda": "입출차 시간을 변경하지 못했습니다.",
                 "succed_to_change_info": "차량 정보를 변경했습니다.",
                 "fail_to_change_info": "차량 정보를 변경하지 못했습니다."
+            },
+            "message_selection_modal": {
+                "double_parking": "이중주차 알림",
+                "change_request": "변경요청 알림"
             }
         },
         "complaint": {

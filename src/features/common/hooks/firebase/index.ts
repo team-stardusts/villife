@@ -70,7 +70,7 @@ export function useAutoRegisterFirebaseToken() {
                     // } else {
                     //     console.log("and: ", firebaseToken);
                     // }
-                    //console.log("Register firebase result token", r.data?.data);
+                    console.log("Register firebase result token", r.data?.data);
                 });
         }
     }, [loginData, firebaseToken]);

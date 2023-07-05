@@ -34,6 +34,7 @@ import RegisterGuestVehicleScreen from "../../main/parking/screens/register_gues
 import { LoginDataStateType } from "../hooks/states/atoms/login/types";
 import useUserInfoService from "../hooks/service/user_info";
 import { VILLIFE_AUTHORITY } from "../../../libs/rest_apis/villife/absc";
+import SendParkPushNotiScreen from "../../main/parking/screens/send_park_push_noti";
 
 enableScreens(true);
 
@@ -126,6 +127,7 @@ export default function ScreenRouter() {
                 <Stack.Screen name={"parking"} component={ParkingScreen} />
                 <Stack.Screen name={"register_vehicle"} component={RegisterVehicleScreen} />
                 <Stack.Screen name={"register_guest_vehicle"} component={RegisterGuestVehicleScreen} />
+                <Stack.Screen name={"send_park_push_noti"} component={SendParkPushNotiScreen} />
             </Stack.Group>
             <Stack.Group>
                 <Stack.Screen name={"payment"} component={PaymentScreen} />
