@@ -74,6 +74,8 @@ export type MessagesByLanguage = {
             edit_progress_status: string;
             edit_progress_status_guide: string;
             complaint_received_and_in_progress: string;
+            when_complaint_empty: string;
+            when_complaint_empty_admin: string;
         };
         payment: {
             screen_title: string;

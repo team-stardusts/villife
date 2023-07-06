@@ -117,7 +117,8 @@ export default function ComplaintHomeViewModel(): ComplaintHomeUiState {
 
     React.useEffect(() => {
         fetchComplaintByDisplayMode();
-    }, [displayMode]);
+        console.info("[ComplaintHomeViewModel] fetchComplaintsByDisplayMode()");
+    }, [displayMode, userInfo.adminInfo?.selectedBuilding]);
 
     React.useEffect(() => {
         const listener = new ComplaintListUpatedEventListener();
