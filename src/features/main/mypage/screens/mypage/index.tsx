@@ -10,6 +10,7 @@ import useUserInfoService from "../../../../common/hooks/service/user_info";
 import VillifeStorage from "../../../../../libs/storage";
 import VillifeServer from "../../../../../libs/rest_apis/villife";
 import { UserResidenceValidationParams } from "../../../../../libs/rest_apis/villife/building/types";
+import { VILLIFE_AUTHORITY } from "../../../../../libs/rest_apis/villife/absc";
 
 export default function MyPageScreen({ navigation, route }: MyPageScreenProps) {
     const messages = useScreenMessage();
@@ -36,11 +37,15 @@ export default function MyPageScreen({ navigation, route }: MyPageScreenProps) {
                     aria-label="Decrement value"
                     title="마이페이지"
                 />
-                <Button
-                    onPress={() => navigation.navigate("approval_home", { id: "", password: "" })}
-                    aria-label="Decrement value"
-                    title="요청함"
-                />
+                {userInfo.basicInfo?.authority == VILLIFE_AUTHORITY.ADMIN ? (
+                    <Button
+                        onPress={() => navigation.navigate("approval_home", { id: "", password: "" })}
+                        aria-label="Decrement value"
+                        title="요청함"
+                    />
+                ) : (
+                    <></>
+                )}
                 <Button
                     onPress={() => {
                         userInfo.service.resetUserBasicInfo();

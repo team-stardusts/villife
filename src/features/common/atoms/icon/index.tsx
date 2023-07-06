@@ -13,6 +13,7 @@ import IconPlus from "./plus";
 import IconPencil from "./pencil";
 import IconArrowWithMidline from "./arrow_with_midline";
 import IconBuilding from "./building";
+import IconMenu from "./menu";
 
 export default function Icon(props: IconProps) {
     /* let iconProps: ChildIconProps = {
@@ -58,6 +59,8 @@ export default function Icon(props: IconProps) {
             return <IconPencil {...iconProps} />;
         case "clock-arrow":
             return <IconClockArrow {...iconProps} />;
+        case "menu":
+            return <IconMenu {...iconProps} />;
         default:
             return <IconHome {...iconProps} />;
     }

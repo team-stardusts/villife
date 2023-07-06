@@ -111,6 +111,16 @@ export type MessagesByLanguage = {
             reject: string;
             accept: string;
             reject_title: string;
+            building_name: string;
+            room_number: string;
+            user_name: string;
+            phone_number: string;
+            title_1001: string;
+            sub_title: string;
+            vehicle_number: string;
+            vehicle_model: string;
+            title_1003: string;
+            title_1004: string;
         };
     };
     auth: {

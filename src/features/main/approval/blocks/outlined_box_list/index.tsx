@@ -1,19 +1,18 @@
 import { FlatList, ListRenderItemInfo, StyleSheet } from "react-native";
 import OutlinedBox from "../outlined_box";
 import { Approval } from "../../../../../libs/rest_apis/villife/approval/types";
+import useApprovalViewModel from "./useApprovalViewModel";
+import useApprovalOutLinedBoxListStyles from "./style";
 
 //[TO-DO] : 스타일 밖으로 빼기
-function FlatListOutlinedContentsBox(props: { approvals: ReadonlyArray<Approval> }) {
-    const styles = StyleSheet.create({
-        container: {
-            alignItems: "center",
-            width: "100%",
-        },
-    });
+function FlatListOutlinedContentsBox() {
+    const styles = useApprovalOutLinedBoxListStyles();
+    const viewModel = useApprovalViewModel();
+
     return (
         <FlatList
             contentContainerStyle={styles.container}
-            data={props.approvals}
+            data={viewModel}
             keyExtractor={(index, item) => `${index}${item}`}
             renderItem={OutlinedBoxRenderItem}
         />

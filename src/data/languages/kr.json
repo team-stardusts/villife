@@ -104,7 +104,17 @@
             "accept_error": "승인 실패",
             "reject": "거절",
             "accept": "승인",
-            "reject_title": "정말 거절하겠습니까?"
+            "reject_title": "정말 거절하겠습니까?",
+            "building_name": "빌라 이름",
+            "room_number": "호수",
+            "user_name": "이름",
+            "phone_number": "전화번호",
+            "title_1001": "신규 가입",
+            "sub_title": "정보 확인 후 수정사항 없을 시 수락 부탁드립니다.",
+            "vehicle_number": "차량 번호",
+            "vehicle_model": "차량 모델",
+            "title_1003": "차량 정보 등록",
+            "title_1004": "차량 정보 수정"
         }
     },
     "auth": {

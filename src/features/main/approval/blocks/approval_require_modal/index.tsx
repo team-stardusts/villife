@@ -6,6 +6,7 @@ import useBottomEditModalStyles from "./style";
 import ApprovalRequiredModalProps from "./type";
 import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
 import useApprovalService from "../../services";
+import { ApprovalEventEmitter } from "../outlined_box_list/event";
 
 export default function ApprovalRequiredModal(props: ApprovalRequiredModalProps) {
     const messages = useScreenMessage();
@@ -24,6 +25,7 @@ export default function ApprovalRequiredModal(props: ApprovalRequiredModalProps)
         const result = await service.rejectUserApproval(props.convertedApprovalRequest.id);
 
         if (result.isSuccessful) {
+            new ApprovalEventEmitter().emitListUpdatedEvent();
             setVisible(false);
             setDeleteAlertVisible(false);
             console.log("[approvalReJect]", result.data?.data);
@@ -51,6 +53,7 @@ export default function ApprovalRequiredModal(props: ApprovalRequiredModalProps)
         const result = await service.acceptUserApproval(props.convertedApprovalRequest.id);
 
         if (result.isSuccessful) {
+            new ApprovalEventEmitter().emitListUpdatedEvent();
             setVisible(false);
             console.log("[approvalAccept]", result.data?.data);
             Toast.show({

@@ -1,5 +1,9 @@
-import { RequestCotent1001, RequestCotent2001 } from "../../../../../libs/rest_apis/villife/approval/content_type";
+import {
+    RequestCotent1001,
+    RequestCotent1003or1004,
+} from "../../../../../libs/rest_apis/villife/approval/content_type";
 import { Approval } from "../../../../../libs/rest_apis/villife/approval/types";
+import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
 
 export class ApprovalDataConverter {
     private request: Approval;
@@ -9,6 +13,7 @@ export class ApprovalDataConverter {
     }
 
     convert(): ConvertedApprovalData {
+        const message = useScreenMessage();
         const identifier = this.request.category * 1000 + this.request.detail_type;
 
         switch (identifier) {
@@ -16,12 +21,22 @@ export class ApprovalDataConverter {
                 const approvalContent1001 = JSON.parse(this.request.content) as unknown as RequestCotent1001;
 
                 const detailArray1001: DetailContents = [];
-                detailArray1001.push({ title: "ID", content: approvalContent1001.user_id });
-                detailArray1001.push({ title: "빌라 이름", content: approvalContent1001.building_name });
-                detailArray1001.push({ title: "호수", content: approvalContent1001.room_number });
-                detailArray1001.push({ title: "이름", content: approvalContent1001.user_name });
-                detailArray1001.push({ title: "전화번호", content: approvalContent1001.phone_number });
-                detailArray1001.push({ title: "title", content: "신규인증" });
+                detailArray1001.push({
+                    title: message.messages.main.approval.building_name,
+                    content: approvalContent1001.building_name,
+                });
+                detailArray1001.push({
+                    title: message.messages.main.approval.room_number,
+                    content: approvalContent1001.room_number,
+                });
+                detailArray1001.push({
+                    title: message.messages.main.approval.user_name,
+                    content: approvalContent1001.user_name,
+                });
+                detailArray1001.push({
+                    title: message.messages.main.approval.phone_number,
+                    content: approvalContent1001.phone_number,
+                });
 
                 const convertedApprovalRequest1001: ConvertedApprovalData = {
                     id: this.request.id,
@@ -31,37 +46,84 @@ export class ApprovalDataConverter {
                     updatedAt: this.request.updated_at,
                     roomNumber: approvalContent1001.room_number,
                     buildingName: approvalContent1001.building_name,
-                    title: "신규인증",
-                    subTitle: "확인해주세요",
+                    title: message.messages.main.approval.title_1001,
+                    subTitle: message.messages.main.approval.sub_title,
                     detailContent: detailArray1001,
                 };
 
-                console.log(approvalContent1001);
+                console.log("보여줘", convertedApprovalRequest1001);
 
                 return convertedApprovalRequest1001;
 
-            case 2001:
-                const approvalContent2001 = this.request.content as unknown as RequestCotent2001;
+            case 1003:
+                const approvalContent1003 = this.request.content as unknown as RequestCotent1003or1004;
 
-                const detailArray2001: DetailContents = [];
-                detailArray2001.push({ title: "빌라이름", content: approvalContent2001.building_name });
-                detailArray2001.push({ title: "호수", content: approvalContent2001.room_number });
-                detailArray2001.push({ title: "차량 번호", content: approvalContent2001.vehicle_number });
-                detailArray2001.push({ title: "차량 모델", content: approvalContent2001.vehicle_model });
+                const detailArray1003: DetailContents = [];
+                detailArray1003.push({
+                    title: message.messages.main.approval.building_name,
+                    content: approvalContent1003.building_name,
+                });
+                detailArray1003.push({
+                    title: message.messages.main.approval.room_number,
+                    content: approvalContent1003.room_number,
+                });
+                detailArray1003.push({
+                    title: message.messages.main.approval.vehicle_number,
+                    content: approvalContent1003.vehicle_number,
+                });
+                detailArray1003.push({
+                    title: message.messages.main.approval.vehicle_model,
+                    content: approvalContent1003.vehicle_model,
+                });
 
-                const convertedApprovalRequest2001: ConvertedApprovalData = {
+                const convertedApprovalRequest1003: ConvertedApprovalData = {
                     id: this.request.id,
                     category: this.request.category,
                     detailType: this.request.detail_type,
                     createdAt: this.request.create_at,
                     updatedAt: this.request.updated_at,
-                    roomNumber: approvalContent2001.room_number,
-                    buildingName: approvalContent2001.building_name,
-                    title: approvalContent2001.title,
-                    subTitle: approvalContent2001.sub_title,
-                    detailContent: detailArray2001,
+                    roomNumber: approvalContent1003.room_number,
+                    buildingName: approvalContent1003.building_name,
+                    title: message.messages.main.approval.title_1003,
+                    subTitle: message.messages.main.approval.sub_title,
+                    detailContent: detailArray1003,
                 };
-                return convertedApprovalRequest2001;
+                return convertedApprovalRequest1003;
+
+            case 1004:
+                const approvalContent1004 = this.request.content as unknown as RequestCotent1003or1004;
+
+                const detailArray1004: DetailContents = [];
+                detailArray1004.push({
+                    title: message.messages.main.approval.building_name,
+                    content: approvalContent1004.building_name,
+                });
+                detailArray1004.push({
+                    title: message.messages.main.approval.room_number,
+                    content: approvalContent1004.room_number,
+                });
+                detailArray1004.push({
+                    title: message.messages.main.approval.vehicle_number,
+                    content: approvalContent1004.vehicle_number,
+                });
+                detailArray1004.push({
+                    title: message.messages.main.approval.vehicle_model,
+                    content: approvalContent1004.vehicle_model,
+                });
+
+                const convertedApprovalRequest1004: ConvertedApprovalData = {
+                    id: this.request.id,
+                    category: this.request.category,
+                    detailType: this.request.detail_type,
+                    createdAt: this.request.create_at,
+                    updatedAt: this.request.updated_at,
+                    roomNumber: approvalContent1004.room_number,
+                    buildingName: approvalContent1004.building_name,
+                    title: message.messages.main.approval.title_1004,
+                    subTitle: message.messages.main.approval.sub_title,
+                    detailContent: detailArray1004,
+                };
+                return convertedApprovalRequest1004;
 
             default:
                 return {
