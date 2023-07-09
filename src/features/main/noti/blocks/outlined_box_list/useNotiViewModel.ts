@@ -15,9 +15,18 @@ export default function useNotiViewModel() {
         if (userInfo.adminInfo?.selectedBuilding.id) {
             const result = await service.getNotices(userInfo.adminInfo?.selectedBuilding.id);
 
-            console.log("noti Viewmodel : ", result.data?.data);
+            console.log("noti Viewmodel admin : ", result.data?.data);
             if (result.isSuccessful) {
                 setNotices(result.data?.data);
+            }
+        } else {
+            if (userInfo.basicInfo?.building_id) {
+                const result = await service.getNotices(userInfo.basicInfo?.building_id);
+
+                console.log("noti Viewmodel Renter: ", result.data?.data);
+                if (result.isSuccessful) {
+                    setNotices(result.data?.data);
+                }
             }
         }
     };

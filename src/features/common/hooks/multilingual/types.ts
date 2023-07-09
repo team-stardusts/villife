@@ -9,6 +9,8 @@ export type MessagesByLanguage = {
     main: {
         home: {
             screen_title: string;
+            building_info: string;
+            user_info: string;
         };
         parking: {
             home: {
@@ -91,6 +93,7 @@ export type MessagesByLanguage = {
             delete_error: string;
             modify: string;
             delete: string;
+            delete_title: string;
             required_reading: string;
             important_reading: string;
             reading: string;

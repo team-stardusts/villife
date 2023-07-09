@@ -1,4 +1,4 @@
-import { Pressable, TouchableOpacity, View } from "react-native";
+import { ActivityIndicator, Pressable, TouchableOpacity, View } from "react-native";
 import { Text } from "react-native";
 import React, { useEffect } from "react";
 import { LayoutAnimation } from "react-native";
@@ -13,6 +13,7 @@ import RemoteCSS from "../../../../../libs/themes/remote_css";
 import useUserInfoService from "../../../../common/hooks/service/user_info";
 import { VILLIFE_AUTHORITY } from "../../../../../libs/rest_apis/villife/absc";
 import { Polygon } from "react-native-svg";
+import useStyler from "../../../../common/hooks/styler/hooks";
 
 /**
  * @param OutlinedBoxProp
@@ -21,9 +22,11 @@ import { Polygon } from "react-native-svg";
 function OutlinedBox(props: OutlinedBoxProps) {
     const styles = useNotiOutlinedBoxStyles();
     const userInfo = useUserInfoService();
+    const { theme } = useStyler();
 
     const [unfold, setUnfold] = React.useState(false);
     const [editModalVisible, setEditModalVisible] = React.useState(false);
+    const [loading, setLoading] = React.useState(false);
 
     useEffect(() => {
         return () => {
@@ -33,14 +36,18 @@ function OutlinedBox(props: OutlinedBoxProps) {
     }, []);
 
     const onPress = () => {
-        console.log(props);
-        setUnfold(!unfold);
-        LayoutAnimation.configureNext({
-            duration: 100,
-            update: {
-                type: LayoutAnimation.Types.linear,
-            },
-        });
+        if (!loading) {
+            setLoading(true);
+            console.log(props);
+            setUnfold(!unfold);
+            LayoutAnimation.configureNext({
+                duration: 50,
+                update: {
+                    type: LayoutAnimation.Types.linear,
+                },
+            });
+        }
+        setLoading(false);
     };
 
     return (
@@ -86,6 +93,14 @@ function OutlinedBox(props: OutlinedBoxProps) {
 
                     {unfold && (
                         <AutoHeightWebView
+                            startInLoadingState={true}
+                            renderLoading={() => {
+                                return (
+                                    <View style={{ justifyContent: "center", marginBottom: 50 }}>
+                                        <ActivityIndicator size="large" color={theme.colorFamily.grey} />
+                                    </View>
+                                );
+                            }}
                             style={styles.foldedContainer}
                             // [TO-DO] : 글꼴이랑 색상 양식에 맞게 변경
                             customStyle={`${RemoteCSS.getPretendardRegular()}
@@ -94,7 +109,7 @@ function OutlinedBox(props: OutlinedBoxProps) {
                                           font-family:"Pretendard-Regular";
                                         }
                                         div {
-                                          color: #333; 
+                                          color: ${theme.colorFamily.black}; 
                                           
                                         }
                                         img {

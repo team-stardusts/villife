@@ -90,7 +90,7 @@ export default function NotiBottomEditModal(props: BottomEditModalProps) {
                 <StardustAlert
                     modalVisible={deleteAlertVisible}
                     setModalVisible={setDeleteAlertVisible}
-                    title={messages.messages.main.noti.screen_title}
+                    title={messages.messages.main.noti.delete_title}
                     leftButtonText={messages.messages.words.cancle}
                     rightButtonText={messages.messages.words.delete}
                     onPressLeftBtn={() => {

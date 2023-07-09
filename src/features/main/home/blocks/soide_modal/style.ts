@@ -38,12 +38,15 @@ export default function useHomeSideMoalStyles(): UseHomeSideMoalStylesType {
         },
         menuContainer: {
             height: deviceUI.screenSize.height * 0.85,
-            backgroundColor: "skyblue",
         },
         menu: {
             flexDirection: "row",
             marginLeft: deviceUI.moderateScale(30),
             paddingTop: deviceUI.moderateScale(20),
+            alignItems: "center",
+        },
+        menuText: {
+            marginLeft: deviceUI.moderateScale(10),
         },
     });
 }

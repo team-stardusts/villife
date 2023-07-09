@@ -4,7 +4,7 @@ import IconHome from "./home";
 import IconMessenger from "./messenger";
 import IconSpeaker from "./speaker";
 import IconWallet from "./wallet";
-import { IconPerson } from "./human";
+import { IconPerson, IconRoundPerson } from "./human";
 import IconProps, { ChildIconProps } from "./types";
 import IconLetter from "./letter";
 import IconPhone from "./phone";
@@ -61,6 +61,8 @@ export default function Icon(props: IconProps) {
             return <IconClockArrow {...iconProps} />;
         case "menu":
             return <IconMenu {...iconProps} />;
+        case "round_person":
+            return <IconRoundPerson {...iconProps} />;
         default:
             return <IconHome {...iconProps} />;
     }
