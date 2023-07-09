@@ -52,9 +52,19 @@ export type VillifeStackParamList = VillifeRootStackParamList & {
     complaint_detail: Complaint;
     register_vehicle?: {};
     register_guest_vehicle?: {};
-    send_park_push_noti: {};
+    send_park_push_noti: {
+        messageType: SendParkPushNotiMessageType;
+    };
     my_page: {};
 };
+
+export const SEND_PARK_PUSH_NOTI_MESSAGE_TYPE = {
+    DOUBLE_PARKING: "double_parking",
+    CHANGE_REQUEST: "change_request",
+} as const;
+
+export type SendParkPushNotiMessageType =
+    (typeof SEND_PARK_PUSH_NOTI_MESSAGE_TYPE)[keyof typeof SEND_PARK_PUSH_NOTI_MESSAGE_TYPE];
 
 export type RouterParams = NativeStackScreenProps<VillifeStackParamList>;
 export type VillifeNavigation = RouterParams["navigation"];

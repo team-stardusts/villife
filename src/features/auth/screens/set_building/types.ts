@@ -7,8 +7,8 @@ type SetBuildingScreenProps = NativeStackScreenProps<VillifeStackParamList, "set
 export default SetBuildingScreenProps;
 
 export type SetBuildingScreenStylesType = {
-    Screen: ReturnType<typeof StyleSheet.create>;
-    InputsSection: ReturnType<typeof StyleSheet.create>;
-    BlankSection: ReturnType<typeof StyleSheet.create>;
+    screen: ReturnType<typeof StyleSheet.create>;
+    inputsSection: ReturnType<typeof StyleSheet.create>;
+    blankSection: ReturnType<typeof StyleSheet.create>;
     //SocialLoginSection: ReturnType<typeof StyleSheet.create>;
 };

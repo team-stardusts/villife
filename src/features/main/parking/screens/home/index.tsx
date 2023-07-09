@@ -93,9 +93,15 @@ export default function ParkingScreen({ navigation, route }: ParkingScreenProps)
     }, [userVehicles, tenantVehicles, guestVehicles]);
 
     const sortAndSetVehiclesForRender = (): void => {
-        const newVehiclesForRender: Vehicle[] = [...guestVehicles, ...tenantVehicles];
+        const newVehiclesForRender: Vehicle[] = [...guestVehicles];
 
-        if (user.isAdmin()) newVehiclesForRender.push(...userVehicles);
+        if (user.isAdmin()) newVehiclesForRender.push(...tenantVehicles);
+        else {
+            tenantVehicles.forEach((tenantVehicle) => {
+                if (userVehicles.find((userVehicle) => userVehicle.id == tenantVehicle.id) === undefined)
+                    newVehiclesForRender.push(tenantVehicle);
+            });
+        }
 
         newVehiclesForRender
             /* // 방문자 -> 거주자

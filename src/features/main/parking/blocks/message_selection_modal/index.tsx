@@ -1,12 +1,12 @@
 import { TouchableOpacity, View } from "react-native";
 import BottomMessageSelectionModal from "./modal";
 import { useState } from "react";
-import useBottomSlideSelectorStyles from "./styles";
+import useMessageSelectorStyles from "./styles";
 import { MessageSelectionModalProps } from "./types";
 import Icon from "../../../../common/atoms/icon";
 
 export default function MessageSelectionModal(props: MessageSelectionModalProps) {
-    const styles = useBottomSlideSelectorStyles().main;
+    const styles = useMessageSelectorStyles().main;
     const [isModalUnfold, setIsModalUnfold] = useState<boolean>(false);
     //const iconName = props.selectorType === "call" ? "phone" : "letter";
 

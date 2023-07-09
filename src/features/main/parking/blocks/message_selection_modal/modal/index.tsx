@@ -1,21 +1,21 @@
 import { Text, TouchableOpacity, View } from "react-native";
 import Icon from "../../../../../common/atoms/icon";
 import BottomSlidableModal from "../../../../../common/blocks/universial/slidemodal_bottom";
-import useBottomSlideSelectorStyles from "../styles";
-import { BottomMessageSelectionModalProps, MESSAGE_TYPE, MessageTypeComponentProps } from "./types";
+import useMessageSelectorStyles from "../styles";
+import { BottomMessageSelectionModalProps, MessageTypeComponentProps } from "./types";
 import useScreenMessage from "../../../../../common/hooks/multilingual/hooks";
 import { useNavigation } from "@react-navigation/native";
-import { RouterParams } from "../../../../../common/router/types";
+import { RouterParams, SEND_PARK_PUSH_NOTI_MESSAGE_TYPE } from "../../../../../common/router/types";
 
 export default function BottomMessageSelectionModal(props: BottomMessageSelectionModalProps) {
-    const styles = useBottomSlideSelectorStyles().modal;
+    const styles = useMessageSelectorStyles().modal;
     return (
         <BottomSlidableModal
             modalVisible={props.visible}
             setModalVisible={props.setVisible}
             height={styles.container.height}>
             <View style={styles.wrapper}>
-                {Object.values(MESSAGE_TYPE).map((value, index) => (
+                {Object.values(SEND_PARK_PUSH_NOTI_MESSAGE_TYPE).map((value, index) => (
                     <MessageTypeComponent
                         key={index}
                         messageType={value}
@@ -31,11 +31,11 @@ export default function BottomMessageSelectionModal(props: BottomMessageSelectio
 
 function MessageTypeComponent(props: MessageTypeComponentProps) {
     const navigation = useNavigation<RouterParams["navigation"]>();
-    const styles = useBottomSlideSelectorStyles().modalElement;
+    const styles = useMessageSelectorStyles().modalElement;
     const messages = useScreenMessage();
 
     const handlePress = () => {
-        navigation.push("send_park_push_noti", {});
+        navigation.push("send_park_push_noti", { messageType: props.messageType });
 
         props.onPress();
     };

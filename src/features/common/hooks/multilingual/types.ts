@@ -47,6 +47,10 @@ export type MessagesByLanguage = {
             send_park_push_noti: {
                 screen_title: string;
                 request_to_send_park_noti: string;
+                parked_double: string;
+                scheduled_to_depart_at: string;
+                request_noti_to_go_out_first: string;
+                request_to_change_the_parking_spot: string;
             };
             modify_modal: {
                 succed_to_change_etda: string;

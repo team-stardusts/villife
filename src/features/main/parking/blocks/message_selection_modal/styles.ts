@@ -1,7 +1,7 @@
 import { StyleSheet } from "react-native";
 import useStyler from "../../../../common/hooks/styler/hooks";
 
-export default function useBottomSlideSelectorStyles() {
+export default function useMessageSelectorStyles() {
     const { deviceUI, theme } = useStyler();
 
     const main = StyleSheet.create({

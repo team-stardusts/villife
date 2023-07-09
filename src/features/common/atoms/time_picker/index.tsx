@@ -45,7 +45,7 @@ export default function TimePicker({
     return (
         <View style={styles.container}>
             <NumberPicker
-                initialIndex={initialTime && hours.indexOf(initialTime.hour)}
+                initialIndex={initialTime && initialTime.hour !== null ? hours.indexOf(initialTime.hour) : 0}
                 height={height}
                 numbers={hours}
                 focusedcolor={focusedcolor}
@@ -59,7 +59,7 @@ export default function TimePicker({
             />
             <Text style={styles.timeIsolationText}>:</Text>
             <NumberPicker
-                initialIndex={initialTime && minutes.indexOf(initialTime.minute)}
+                initialIndex={initialTime && initialTime.minute !== null ? minutes.indexOf(initialTime.minute) : 0}
                 height={height}
                 numbers={minutes}
                 focusedcolor={focusedcolor}

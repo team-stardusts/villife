@@ -28,14 +28,13 @@ export default function useParkService(): ParkServiceReturns {
 
     useEffect(() => {
         if (user.adminInfo?.selectedBuilding === undefined) return;
-
         //getVehicles("own").then(setUserVehicles);
-        //getVehicles("tenant").then(setTenantVehicles);
-        //getVehicles("guest").then((result) => setGuestVehicles(result as GuestVehicle[]));
+        getVehicles("tenant").then(setTenantVehicles);
+        getVehicles("guest").then((result) => setGuestVehicles(result as GuestVehicle[]));
     }, [user.adminInfo?.selectedBuilding]);
 
     const bootstrap = async () => {
-        if (userVehicles.length === 0) {
+        if (!user.isAdmin() && userVehicles.length === 0) {
             getVehicles("own").then(setUserVehicles);
         }
         if (tenantVehicles.length === 0) {

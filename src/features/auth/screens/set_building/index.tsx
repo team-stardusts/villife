@@ -15,7 +15,7 @@ import { BuildingInfo } from "../../services/set_building/type";
 LogBox.ignoreLogs(["Did not receive response to shouldStartLoad in time"]);
 
 export default function SetBuildingScreen({ navigation, route }: SetBuildingScreenProps) {
-    const Messages = useScreenMessage();
+    const messages = useScreenMessage();
     const styles = useSetBuildingScreenStyles();
     const [roomNumber, setRoomNumber] = useState<number | null>(null);
     const [IsEditMode, setIsEditMode] = useState<boolean>(false);
@@ -66,18 +66,18 @@ export default function SetBuildingScreen({ navigation, route }: SetBuildingScre
     }, [address]);
 
     return (
-        <SafeAreaView style={styles.Screen.topLevelBox}>
-            <View style={styles.Screen.screenWrapper}>
+        <SafeAreaView style={styles.screen.topLevelBox}>
+            <View style={styles.screen.screenWrapper}>
                 <AuthScreenTitleView
-                    title={Messages.messages.auth.set_building.title}
-                    subtitles={[Messages.messages.auth.set_building.subtitle]}
+                    title={messages.messages.auth.set_building.title}
+                    subtitles={[messages.messages.auth.set_building.subtitle]}
                 />
-                <View style={styles.Screen.contentsWrapper}>
-                    <View style={styles.InputsSection.topLevelBox}>
-                        <View style={styles.InputsSection.attrWrapper}>
+                <View style={styles.screen.contentsWrapper}>
+                    <View style={styles.inputsSection.topLevelBox}>
+                        <View style={styles.inputsSection.attrWrapper}>
                             <AuthScreenCommonInput
-                                title={Messages.messages.auth.set_building.adress_input_title}
-                                placeholder={Messages.messages.auth.set_building.adress_input_placeholder}
+                                title={messages.messages.auth.set_building.adress_input_title}
+                                placeholder={messages.messages.auth.set_building.adress_input_placeholder}
                                 name="address"
                                 onPressIn={() => navigation.navigate("search_address", {})}
                                 value={address?.roadAddress ?? ""}
@@ -97,8 +97,8 @@ export default function SetBuildingScreen({ navigation, route }: SetBuildingScre
                             )}
 
                             <AuthScreenCommonInput
-                                title={Messages.messages.auth.set_building.room_number_input_title}
-                                placeholder={Messages.messages.auth.set_building.room_number_input_placeholder}
+                                title={messages.messages.auth.set_building.room_number_input_title}
+                                placeholder={messages.messages.auth.set_building.room_number_input_placeholder}
                                 name="room_number"
                                 onChangeText={(text, name) => {
                                     setRoomNumber(parseInt(text));
@@ -107,14 +107,14 @@ export default function SetBuildingScreen({ navigation, route }: SetBuildingScre
                             />
                         </View>
                     </View>
-                    <View style={styles.BlankSection.topLevelBox}></View>
+                    <View style={styles.blankSection.topLevelBox}></View>
                 </View>
             </View>
             <AuthScreenBottonButton
                 title={
                     IsEditMode
-                        ? Messages.messages.auth.set_building.next_btn_title
-                        : Messages.messages.auth.set_building.next_btn_title_when_change_next
+                        ? messages.messages.auth.set_building.next_btn_title
+                        : messages.messages.auth.set_building.next_btn_title_when_change_next
                 }
                 onPress={() => {
                     IsEditMode
