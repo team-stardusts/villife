@@ -29,10 +29,7 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
         const result = await login(host, params);
 
         if (result.isSuccessful && result.data) {
-            navigation.reset({
-                index: 0,
-                routes: [{ name: "home", params: {} }],
-            });
+            return;
         } else {
             if (host === "villife") {
                 Alert.alert(

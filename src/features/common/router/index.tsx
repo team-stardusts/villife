@@ -62,7 +62,6 @@ export default function ScreenRouter() {
         if (isLoading) {
             return;
         }
-
         if (loginData === null) {
             userinfo.clearUserInfo();
 
@@ -72,15 +71,17 @@ export default function ScreenRouter() {
             });
         } else {
             const onLogin = async () => {
-                const resestResult = await userinfo.resetUserInfo();
+                const resetResult = await userinfo.resetUserInfo();
 
-                if (resestResult === undefined) return;
+                if (resetResult === undefined) {
+                    navigation.reset({
+                        index: 0,
+                        routes: [{ name: "login" }],
+                    });
+                    return;
+                }
 
-                if (
-                    (userinfo.basicInfo?.authority == VILLIFE_AUTHORITY.RENTER &&
-                        userinfo.basicInfo.room_id == undefined) ||
-                    userinfo.basicInfo == null
-                ) {
+                if (resetResult.authority == VILLIFE_AUTHORITY.RENTER && resetResult.room_id == undefined) {
                     console.log("[ONLOGIN] User has no room , navigate to Set Building Page");
                     navigation.navigate("set_building");
                     return;

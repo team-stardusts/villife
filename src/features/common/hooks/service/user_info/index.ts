@@ -84,7 +84,13 @@ export default function useUserInfoService(): UseUserInfoServiceReturns {
 
     const resetUserInfo = async () => {
         try {
-            return await service.resetUserBasicInfo();
+            const result = await service.resetUserBasicInfo();
+
+            if (result !== undefined) {
+                setUserBasicInfo(result);
+            }
+
+            return result;
         } catch (e) {
             console.log("Reset Err", e);
         }
@@ -133,6 +139,7 @@ export class UserInfoService implements IUserInfoService {
             if (!result.data?.data) throw new Error("cannot find data");
 
             const originalData = result.data?.data;
+
             let adjustedData: UserDataType = originalData;
 
             if (result.data.data.building_id == 0 || result.data.data.room_id == 0) {

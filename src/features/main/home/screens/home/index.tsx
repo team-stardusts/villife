@@ -16,6 +16,7 @@ export default function HomeScreen({ navigation, route }: HomeScreenProps) {
     const styles = useHomeScreenStyles();
     const { theme } = useStyler();
 
+    console.log("[HomeScreen] onCreate");
     const contents = [
         HomeContentFromComplaint,
         HomeContentFromComplaint,

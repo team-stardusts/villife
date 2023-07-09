@@ -87,7 +87,7 @@ export default function ParkingScreen({ navigation, route }: ParkingScreenProps)
 
     // Card에서 ScrollView를 사용하므로, 가변적인 카드를 만들기 위해서 Width 지정이 필요함
     const cardWidth: number = deviceUI.screenSize.width - (screenPadding + deviceUI.moderateScale(20));
-
+    console.log("[ParkHomeScreen] onCreate");
     useEffect(() => {
         sortAndSetVehiclesForRender();
     }, [userVehicles, tenantVehicles, guestVehicles]);
