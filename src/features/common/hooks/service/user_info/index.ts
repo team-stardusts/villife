@@ -87,7 +87,7 @@ export default function useUserInfoService(): UseUserInfoServiceReturns {
             const result = await service.resetUserBasicInfo();
 
             if (result !== undefined) {
-                setUserBasicInfo(result);
+                await updateUserInfo();
             }
 
             return result;

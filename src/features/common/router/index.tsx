@@ -62,6 +62,7 @@ export default function ScreenRouter() {
         if (isLoading) {
             return;
         }
+
         if (loginData === null) {
             userinfo.clearUserInfo();
 
@@ -86,6 +87,7 @@ export default function ScreenRouter() {
                     navigation.navigate("set_building");
                     return;
                 }
+
                 navigation.reset({
                     index: 0,
                     routes: [{ name: "home" }],
