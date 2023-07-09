@@ -38,8 +38,12 @@ function useOnKeyboardEvent(props?: UseOnKeyboardEventParam) {
         Keyboard.addListener(onHide, onKeyboardHide);
 
         return () => {
-            Keyboard.removeAllListeners(onShow);
-            Keyboard.removeAllListeners(onHide);
+            try {
+                Keyboard.removeAllListeners(onShow);
+                Keyboard.removeAllListeners(onHide);
+            } catch (e) {
+                console.log("[useOnKeyboardEvent]", e);
+            }
         };
     }, []);
 

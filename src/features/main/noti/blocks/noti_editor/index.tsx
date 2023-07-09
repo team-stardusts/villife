@@ -3,109 +3,95 @@ import { Dimensions, Keyboard, ScrollView, TextInput, View, Text } from "react-n
 import { IconRecord, RichEditor, RichToolbar, actions } from "react-native-pell-rich-editor";
 import ImageUploader from "../../../../../libs/media/uploader";
 import NotiEditorProps from "./type";
-import useNotiEditorStyles from "./styles";
+import useNotiEditorStyles, { EditorStyle } from "./styles";
 import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
 import useNoticeService from "../../services";
+import useOnKeyboardEvent from "../../../../common/hooks/keyboard";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import useStyler from "../../../../common/hooks/styler/hooks";
 
 export default function NotiEditor(props: NotiEditorProps) {
-    const Styles = useNotiEditorStyles();
-    const message = useScreenMessage();
-    const service = useNoticeService();
-
+    const styles = useNotiEditorStyles();
     const richText = useRef<RichEditor>(null);
-    const scrollRef = useRef<ScrollView>(null);
-    // [TO-DO] : deviceUI로 변경, 테마도
-    const size = Dimensions.get("window");
-    const [keboardShow, setKeyBoardShow] = React.useState(false);
-
-    // [TO-DO] : 준우가 만든 hook 사용
-    React.useEffect(() => {
-        // // [TO-DO] : s
-        const keyboardDidShowListener = Keyboard.addListener("keyboardDidShow", () => {
-            setKeyBoardShow(true);
-            // Do something when the keyboard is shown
-        });
-        const keyboardDidHideListner = Keyboard.addListener("keyboardDidHide", () => {
-            setKeyBoardShow(false);
-        });
-
-        return () => {
-            keyboardDidShowListener.remove();
-            keyboardDidHideListner.remove();
-        };
-    }, []);
+    const scrollRef = useRef<KeyboardAwareScrollView>(null);
+    const service = useNoticeService();
+    const { deviceUI, theme } = useStyler();
+    const message = useScreenMessage();
+    const keyboardHeight = useOnKeyboardEvent();
 
     return (
         <>
-            <ScrollView
-                style={[Styles.scroll]}
+            <TextInput
+                defaultValue={props.titleRef.current}
+                style={styles.title}
+                onChangeText={(text) => {
+                    props.titleRef.current = text;
+                }}
+                placeholder="제목을 입력하세요"
+            />
+            <KeyboardAwareScrollView
+                style={[styles.scroll]}
                 keyboardDismissMode={"interactive"}
                 ref={scrollRef}
                 nestedScrollEnabled={true}
                 stickyHeaderIndices={[0]}
                 scrollEventThrottle={20}>
-                <>
-                    <TextInput
-                        defaultValue={props.titleRef.current}
-                        style={Styles.title}
-                        onChangeText={(text) => {
-                            props.titleRef.current = text;
-                        }}
-                        placeholder={message.messages.main.noti.noti_editor_title}
-                    />
-                </>
-
                 <RichEditor
                     initialContentHTML={props.contentRef.current}
                     onChange={(text) => {
                         props.contentRef.current = text;
                     }}
-                    editorStyle={Styles} // default light style
+                    editorStyle={EditorStyle}
                     ref={richText}
-                    style={[Styles.rich, { height: keboardShow ? size.height * 0.46 : size.height * 0.79 }]}
+                    style={[
+                        styles.rich,
+                        {
+                            height:
+                                deviceUI.getScreenSize().height * 0.78 - deviceUI.moderateScale(50) - keyboardHeight,
+                        },
+                    ]}
                     useContainer={false}
                     enterKeyHint={"done"}
-                    placeholder={message.messages.main.noti.noti_editor_subtitle}
+                    placeholder={"내용을 입력해주세요."}
                     pasteAsPlainText={true}
                 />
-                <View>
-                    <RichToolbar
-                        style={[Styles.richBar]}
-                        flatContainerStyle={Styles.flatStyle}
-                        editor={richText}
-                        selectedIconTint={"#2095F2"}
-                        disabledIconTint={"#bfbfbf"}
-                        onPressAddImage={() => {
-                            service.uploadAndInsertImage(richText);
-                        }}
-                        actions={[
-                            actions.heading1,
-                            actions.heading2,
-                            actions.heading3,
-                            actions.heading4,
-                            actions.insertImage,
-                            actions.setBold,
-                            actions.alignLeft,
-                            actions.alignCenter,
-                            actions.alignRight,
-                        ]}
-                        iconMap={{
-                            [actions.heading1]: ({ tintColor }: IconRecord) => (
-                                <Text style={[Styles.tib, { color: tintColor }]}>H1</Text>
-                            ),
-                            [actions.heading2]: ({ tintColor }: IconRecord) => (
-                                <Text style={[Styles.tib, { color: tintColor }]}>H2</Text>
-                            ),
-                            [actions.heading3]: ({ tintColor }: IconRecord) => (
-                                <Text style={[Styles.tib, { color: tintColor }]}>H3</Text>
-                            ),
-                            [actions.heading4]: ({ tintColor }: IconRecord) => (
-                                <Text style={[Styles.tib, { color: tintColor }]}>H4</Text>
-                            ),
-                        }}
-                    />
-                </View>
-            </ScrollView>
+            </KeyboardAwareScrollView>
+
+            <RichToolbar
+                style={[styles.richBar, { bottom: keyboardHeight, height: deviceUI.moderateScale(50) }]}
+                flatContainerStyle={styles.flatStyle}
+                editor={richText}
+                selectedIconTint={"#2095F2"}
+                disabledIconTint={"#bfbfbf"}
+                onPressAddImage={() => {
+                    service.uploadAndInsertImage(richText);
+                }}
+                actions={[
+                    actions.heading1,
+                    actions.heading2,
+                    actions.heading3,
+                    actions.heading4,
+                    actions.insertImage,
+                    actions.setBold,
+                    actions.alignLeft,
+                    actions.alignCenter,
+                    actions.alignRight,
+                ]}
+                iconMap={{
+                    [actions.heading1]: ({ tintColor }: IconRecord) => (
+                        <Text style={[styles.tib, { color: tintColor }]}>H1</Text>
+                    ),
+                    [actions.heading2]: ({ tintColor }: IconRecord) => (
+                        <Text style={[styles.tib, { color: tintColor }]}>H2</Text>
+                    ),
+                    [actions.heading3]: ({ tintColor }: IconRecord) => (
+                        <Text style={[styles.tib, { color: tintColor }]}>H3</Text>
+                    ),
+                    [actions.heading4]: ({ tintColor }: IconRecord) => (
+                        <Text style={[styles.tib, { color: tintColor }]}>H4</Text>
+                    ),
+                }}
+            />
         </>
     );
 }
