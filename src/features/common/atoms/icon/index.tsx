@@ -4,7 +4,7 @@ import IconHome from "./home";
 import IconMessenger from "./messenger";
 import IconSpeaker from "./speaker";
 import IconWallet from "./wallet";
-import { IconPerson, IconRoundPerson } from "./human";
+import { IconPerson, IconRoundPeople, IconRoundPerson } from "./human";
 import IconProps, { ChildIconProps } from "./types";
 import IconLetter from "./letter";
 import IconPhone from "./phone";
@@ -49,6 +49,10 @@ export default function Icon(props: IconProps) {
             return <IconWallet {...iconProps} />;
         case "person":
             return <IconPerson {...iconProps} />;
+        case "person-round":
+            return <IconRoundPerson {...iconProps} />;
+        case "people-round":
+            return <IconRoundPeople {...iconProps} />;
         case "letter":
             return <IconLetter {...iconProps} />;
         case "phone":

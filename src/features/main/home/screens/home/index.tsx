@@ -10,6 +10,7 @@ import SimpleFuncButton from "../../../../common/blocks/button/simple_func_butto
 import HomeSideMoal from "../../blocks/soide_modal";
 import Icon from "../../../../common/atoms/icon";
 import MenuButton from "../../blocks/menu_button";
+import HomeContentFromParking from "../../../parking/blocks/home_content";
 
 export default function HomeScreen({ navigation, route }: HomeScreenProps) {
     const messages = useScreenMessage();
@@ -20,7 +21,7 @@ export default function HomeScreen({ navigation, route }: HomeScreenProps) {
     const contents = [
         HomeContentFromComplaint,
         HomeContentFromComplaint,
-        HomeContentFromComplaint,
+        HomeContentFromParking,
         HomeContentFromComplaint,
     ];
 

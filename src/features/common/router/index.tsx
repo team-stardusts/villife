@@ -1,9 +1,6 @@
-import { useEffect, useState } from "react";
 import { enableScreens } from "react-native-screens";
-import { useRecoilState } from "recoil";
-import { loginDataState } from "../hooks/states/atoms/login";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { RouterParams, VillifeStackParamList } from "./types";
+import { VillifeStackParamList } from "./types";
 import LoginScreen from "../../auth/screens/login";
 import CreateAccountScreen from "../../auth/screens/create_account";
 import SetBuildingScreen from "../../auth/screens/set_building";
@@ -11,14 +8,12 @@ import TermsOfServiceScreen from "../../auth/screens/terms_of_service/index.";
 import SearchAddressScreen from "../screens/search_address";
 import HomeScreen from "../../main/home/screens/home";
 import SplashScreen from "../../splash/screens/splash_screen";
-import { useNavigation } from "@react-navigation/native";
 import TestScreen from "../../test";
 import WelcomeScreen from "../../auth/screens/welcome";
 import { useAutoRegisterFirebaseToken } from "../hooks/firebase";
 import NoticeRegisterScreen from "../../main/noti/screens/register";
 import NoticeHomeScreen from "../../main/noti/screens/home";
 import PermissionRequestScreen from "../../auth/screens/permission_request";
-import VillifeStorage from "../../../libs/storage";
 import NoticeModifyScreen from "../../main/noti/screens/modify";
 import MyPageScreen from "../../main/mypage/screens/mypage";
 import ParkingScreen from "../../main/parking/screens/home";
@@ -31,87 +26,16 @@ import RegisterVehicleScreen from "../../main/parking/screens/register_vehicle";
 import MyPageHomeScreen from "../../main/mypage/screens/home";
 import ComplaintModifyScreen from "../../main/complaint/screens/modify";
 import RegisterGuestVehicleScreen from "../../main/parking/screens/register_guest_vehicle";
-import { LoginDataStateType } from "../hooks/states/atoms/login/types";
-import useUserInfoService from "../hooks/service/user_info";
-import { VILLIFE_AUTHORITY } from "../../../libs/rest_apis/villife/absc";
 import SendParkPushNotiScreen from "../../main/parking/screens/send_park_push_noti";
+import useRoutingAdministratorByLogin from "./routing_admin";
 
 enableScreens(true);
 
 const Stack = createNativeStackNavigator<VillifeStackParamList>();
 
 export default function ScreenRouter() {
-    const [isLoading, setIsLoading] = useState<boolean>(true);
-    const [loginData, setLoginData] = useRecoilState<LoginDataStateType>(loginDataState);
-    const navigation = useNavigation<RouterParams["navigation"]>();
-    const storage = VillifeStorage.getInstance();
-    const userinfo = useUserInfoService();
-
+    useRoutingAdministratorByLogin();
     useAutoRegisterFirebaseToken();
-
-    const bootstrap = async () => {
-        //await storage.login.set(null);
-        const data = await storage.login.get();
-
-        setLoginData(data);
-        setIsLoading(false);
-    };
-
-    // Loading과 Login data 검사 후 routing.
-    useEffect(() => {
-        if (isLoading) {
-            return;
-        }
-
-        if (loginData === null) {
-            userinfo.clearUserInfo();
-
-            navigation.reset({
-                index: 0,
-                routes: [{ name: "login" }],
-            });
-        } else {
-            const onLogin = async () => {
-                const resetResult = await userinfo.resetUserInfo();
-
-                if (resetResult === undefined) {
-                    navigation.reset({
-                        index: 0,
-                        routes: [{ name: "login" }],
-                    });
-                    return;
-                }
-
-                if (resetResult.authority == VILLIFE_AUTHORITY.RENTER && resetResult.room_id == undefined) {
-                    console.log("[ONLOGIN] User has no room , navigate to Set Building Page");
-                    navigation.navigate("set_building");
-                    return;
-                }
-
-                navigation.reset({
-                    index: 0,
-                    routes: [{ name: "home" }],
-                    //routes: [{ name: "test" }],
-                });
-            };
-            onLogin();
-        }
-    }, [loginData, isLoading]);
-
-    useEffect(() => {
-        storage.addEventListener("CHANGE_LOGIN_VALUE", setLoginData);
-
-        if (!isLoading) {
-            return;
-        }
-
-        navigation.navigate("splash", {});
-        bootstrap();
-
-        return () => {
-            storage.removeEventListener("CHANGE_LOGIN_VALUE");
-        };
-    }, []);
 
     return (
         <Stack.Navigator screenOptions={{ headerShown: false, animation: "fade" }} initialRouteName={"login"}>
