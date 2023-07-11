@@ -10,7 +10,6 @@ export default function useComplaintEditorStyle(): ComplaintEditorStylesType {
         rich: {
             flex: 1,
             fontFamily: "Pretendard-Bold",
-            backgroundColor: "green",
         },
         richBar: {
             backgroundColor: "rgba(83, 156, 241,0.2)",

@@ -17,29 +17,16 @@ function ComplaintEditor(props: ComplaintEditorProps) {
 
     const keyboardHeight = useOnKeyboardEvent();
 
-    /* React.useEffect(() => {
-        const keyboardDidShowListener = Keyboard.addListener("keyboardDidShow", () => {
-            setKeyBoardShow(true);
-        });
-        const keyboardDidHideListner = Keyboard.addListener("keyboardDidHide", () => {
-            setKeyBoardShow(false);
-        });
-
-        return () => {
-            keyboardDidShowListener.remove();
-            keyboardDidHideListner.remove();
-        };
-    }, []); */
-
     return (
         <>
             <TextInput
                 style={styles.title}
                 onChangeText={(text) => {
+                    console.log("onchange", text);
                     props.titleRef.current = text;
                 }}
                 placeholder="제목을 입력하세요"
-                value={props.mode == "modify" ? props.titleRef.current : undefined}
+                defaultValue={props.titleRef.current}
             />
             <KeyboardAwareScrollView
                 style={[styles.scroll]}

@@ -1,4 +1,4 @@
-import { View } from "react-native";
+import { Keyboard, View } from "react-native";
 import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
 import NavigationView from "../../../../common/blocks/navigation";
 import ComplaintModifyScreenProps from "./type";
@@ -31,6 +31,7 @@ export default function ComplaintModifyScreen({ navigation, route }: ComplaintMo
             title: title.current,
         });
         if (result.isSuccessful) {
+            Keyboard.dismiss();
             new ComplaintEventEmitter().emitListUpdatedEvent();
             navigation.goBack();
         }

@@ -64,8 +64,21 @@ export default function ComplaintHomeScreen({ navigation, route }: ComplaintHome
                 <FlatList
                     style={styles.flatList}
                     contentContainerStyle={styles.flatListContainer}
-                    pagingEnabled
                     data={viewModel.uiState.complaintsWillBeDisplayed}
+                    ListEmptyComponent={() => {
+                        return (
+                            <TouchableOpacity
+                                style={styles.whenEmptyCard}
+                                onPress={() => {
+                                    navigation.navigate("complaint_register", {});
+                                }}>
+                                <Text style={styles.whenEmptyCardText}>
+                                    {messages.messages.main.complaint.when_complaint_empty}
+                                </Text>
+                                <IconPlus size={styles.plusIconSize.width as number} />
+                            </TouchableOpacity>
+                        );
+                    }}
                     renderItem={(info) => {
                         return (
                             <Pressable

@@ -90,6 +90,20 @@ export default function useComplaintHomeSecreenStyle(): ComplaintHomeScreenStyle
             justifyContent: "center",
             alignItems: "center",
         },
+        whenEmptyCard: {
+            backgroundColor: theme.colorFamily.blue,
+            width: deviceUI.screenSize.width * 0.9,
+            height: deviceUI.screenSize.height * 0.16,
+            borderRadius: deviceUI.moderateScale(15),
+            justifyContent: "center",
+            alignItems: "center",
+        },
+        whenEmptyCardText: {
+            fontSize: deviceUI.moderateScale(16),
+            fontFamily: theme.font.fontFamilies.pretendard.bold,
+            color: theme.colorFamily.white,
+            marginBottom: deviceUI.moderateScale(10),
+        },
     });
     return Style;
 }
