@@ -1,6 +1,6 @@
 import {
     RequestCotent1001,
-    RequestCotent1003or1004,
+    RequestCotent2001or2002,
 } from "../../../../../libs/rest_apis/villife/approval/content_type";
 import { Approval } from "../../../../../libs/rest_apis/villife/approval/types";
 import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
@@ -55,75 +55,75 @@ export class ApprovalDataConverter {
 
                 return convertedApprovalRequest1001;
 
-            case 1003:
-                const approvalContent1003 = this.request.content as unknown as RequestCotent1003or1004;
+            case 2001:
+                const approvalContent2001 = this.request.content as unknown as RequestCotent2001or2002;
 
-                const detailArray1003: DetailContents = [];
-                detailArray1003.push({
+                const detailArray2001: DetailContents = [];
+                detailArray2001.push({
                     title: message.messages.main.approval.building_name,
-                    content: approvalContent1003.building_name,
+                    content: approvalContent2001.building_name,
                 });
-                detailArray1003.push({
+                detailArray2001.push({
                     title: message.messages.main.approval.room_number,
-                    content: approvalContent1003.room_number,
+                    content: approvalContent2001.room_number,
                 });
-                detailArray1003.push({
+                detailArray2001.push({
                     title: message.messages.main.approval.vehicle_number,
-                    content: approvalContent1003.vehicle_number,
+                    content: approvalContent2001.vehicle_number,
                 });
-                detailArray1003.push({
+                detailArray2001.push({
                     title: message.messages.main.approval.vehicle_model,
-                    content: approvalContent1003.vehicle_model,
+                    content: approvalContent2001.vehicle_model,
                 });
 
-                const convertedApprovalRequest1003: ConvertedApprovalData = {
+                const convertedApprovalRequest2001: ConvertedApprovalData = {
                     id: this.request.id,
                     category: this.request.category,
                     detailType: this.request.detail_type,
                     createdAt: this.request.create_at,
                     updatedAt: this.request.updated_at,
-                    roomNumber: approvalContent1003.room_number,
-                    buildingName: approvalContent1003.building_name,
-                    title: message.messages.main.approval.title_1003,
+                    roomNumber: approvalContent2001.room_number,
+                    buildingName: approvalContent2001.building_name,
+                    title: message.messages.main.approval.title_2001,
                     subTitle: message.messages.main.approval.sub_title,
-                    detailContent: detailArray1003,
+                    detailContent: detailArray2001,
                 };
-                return convertedApprovalRequest1003;
+                return convertedApprovalRequest2001;
 
-            case 1004:
-                const approvalContent1004 = this.request.content as unknown as RequestCotent1003or1004;
+            case 2002:
+                const approvalContent2002 = this.request.content as unknown as RequestCotent2001or2002;
 
-                const detailArray1004: DetailContents = [];
-                detailArray1004.push({
+                const detailArray2002: DetailContents = [];
+                detailArray2002.push({
                     title: message.messages.main.approval.building_name,
-                    content: approvalContent1004.building_name,
+                    content: approvalContent2002.building_name,
                 });
-                detailArray1004.push({
+                detailArray2002.push({
                     title: message.messages.main.approval.room_number,
-                    content: approvalContent1004.room_number,
+                    content: approvalContent2002.room_number,
                 });
-                detailArray1004.push({
+                detailArray2002.push({
                     title: message.messages.main.approval.vehicle_number,
-                    content: approvalContent1004.vehicle_number,
+                    content: approvalContent2002.vehicle_number,
                 });
-                detailArray1004.push({
+                detailArray2002.push({
                     title: message.messages.main.approval.vehicle_model,
-                    content: approvalContent1004.vehicle_model,
+                    content: approvalContent2002.vehicle_model,
                 });
 
-                const convertedApprovalRequest1004: ConvertedApprovalData = {
+                const convertedApprovalRequest2002: ConvertedApprovalData = {
                     id: this.request.id,
                     category: this.request.category,
                     detailType: this.request.detail_type,
                     createdAt: this.request.create_at,
                     updatedAt: this.request.updated_at,
-                    roomNumber: approvalContent1004.room_number,
-                    buildingName: approvalContent1004.building_name,
-                    title: message.messages.main.approval.title_1004,
+                    roomNumber: approvalContent2002.room_number,
+                    buildingName: approvalContent2002.building_name,
+                    title: message.messages.main.approval.title_2002,
                     subTitle: message.messages.main.approval.sub_title,
-                    detailContent: detailArray1004,
+                    detailContent: detailArray2002,
                 };
-                return convertedApprovalRequest1004;
+                return convertedApprovalRequest2002;
 
             default:
                 return {

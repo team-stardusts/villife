@@ -100,7 +100,9 @@
             "noti_editor_subtitle": "내용을 입력해주세요",
             "noti_title_error": "제목 또는 내용을 입력해주세요",
             "noti_important_modal": "중요",
-            "noti_general_modal": "일반"
+            "noti_general_modal": "일반",
+            "when_noti_empty": "등록된 공지사항이 없습니다.",
+            "when_noti_empty_admin": "여기를 눌러 공지사항을 등록해주세요."
         },
         "approval": {
             "screen_title": "승인함",

@@ -108,6 +108,8 @@ export type MessagesByLanguage = {
             noti_title_error: string;
             noti_important_modal: string;
             noti_general_modal: string;
+            when_noti_empty: string;
+            when_noti_empty_admin: string;
         };
         approval: {
             screen_title: string;
@@ -126,8 +128,8 @@ export type MessagesByLanguage = {
             sub_title: string;
             vehicle_number: string;
             vehicle_model: string;
-            title_1003: string;
-            title_1004: string;
+            title_2001: string;
+            title_2002: string;
         };
     };
     auth: {

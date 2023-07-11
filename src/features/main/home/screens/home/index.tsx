@@ -11,6 +11,7 @@ import HomeSideMoal from "../../blocks/soide_modal";
 import Icon from "../../../../common/atoms/icon";
 import MenuButton from "../../blocks/menu_button";
 import HomeContentFromParking from "../../../parking/blocks/home_content";
+import HomeContentFromNoti from "../../../noti/blocks/home_content";
 
 export default function HomeScreen({ navigation, route }: HomeScreenProps) {
     const messages = useScreenMessage();
@@ -18,12 +19,7 @@ export default function HomeScreen({ navigation, route }: HomeScreenProps) {
     const { theme } = useStyler();
 
     console.log("[HomeScreen] onCreate");
-    const contents = [
-        HomeContentFromComplaint,
-        HomeContentFromComplaint,
-        HomeContentFromParking,
-        HomeContentFromComplaint,
-    ];
+    const contents = [HomeContentFromComplaint, HomeContentFromNoti, HomeContentFromParking, HomeContentFromComplaint];
 
     const getBgColor = (index: number) => {
         const colors = [theme.colorFamily.blue, theme.colorFamily.lightblue, theme.colorFamily.green];

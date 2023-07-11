@@ -11,7 +11,7 @@ export type RequestCotent1001 = BasicContent & {
     phone_number: string;
 };
 
-export type RequestCotent1003or1004 = BasicContent & {
+export type RequestCotent2001or2002 = BasicContent & {
     vehicle_number: string;
     vehicle_model: string;
 };

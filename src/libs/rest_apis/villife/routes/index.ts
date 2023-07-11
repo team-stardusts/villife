@@ -39,6 +39,7 @@ const routes: RoutesType = {
     },
     test: {
         testUserResidenceValidation: "approval/test/user-resi-validation",
+        testVehicleResidenceValidation: "approval/request/2/1",
     },
     parking: {
         handleVechile: "park/vehicle",

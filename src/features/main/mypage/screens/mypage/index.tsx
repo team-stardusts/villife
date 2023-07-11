@@ -9,7 +9,10 @@ import useLogoutService from "../../services/logout";
 import useUserInfoService from "../../../../common/hooks/service/user_info";
 import VillifeStorage from "../../../../../libs/storage";
 import VillifeServer from "../../../../../libs/rest_apis/villife";
-import { UserResidenceValidationParams } from "../../../../../libs/rest_apis/villife/building/types";
+import {
+    UserResidenceValidationParams,
+    VehicleResidenceValidationParams,
+} from "../../../../../libs/rest_apis/villife/building/types";
 import { VILLIFE_AUTHORITY } from "../../../../../libs/rest_apis/villife/absc";
 
 export default function MyPageScreen({ navigation, route }: MyPageScreenProps) {
@@ -74,6 +77,24 @@ export default function MyPageScreen({ navigation, route }: MyPageScreenProps) {
                     }}
                     aria-label="Decrement value"
                     title="User 거주인증 Test"
+                />
+                <Button
+                    onPress={async () => {
+                        const buildingManager = VillifeServer.getBuildingManager();
+                        const param: VehicleResidenceValidationParams = {
+                            etd: 253396944000,
+                            eta: 253396944000,
+                            model: "싼타페",
+                            plate_number: "22나 2222",
+                            vehicle_type: "4WD",
+                        };
+                        const result = await buildingManager.ValidateVehicleResidenceForTest(param);
+                        if (result.isSuccessful) {
+                            console.log("vehicle data :", result.data);
+                        }
+                    }}
+                    aria-label="Decrement value"
+                    title="Vehicle 거주인증 Test"
                 />
             </View>
         </NavigationView>

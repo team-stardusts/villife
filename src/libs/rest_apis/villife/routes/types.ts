@@ -37,6 +37,7 @@ namespace Routes {
 
     export type Test = {
         testUserResidenceValidation: string;
+        testVehicleResidenceValidation: string;
     };
 
     export type Parking = {
