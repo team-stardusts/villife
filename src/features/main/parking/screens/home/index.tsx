@@ -15,10 +15,10 @@ import SimpleFuncButton from "../../../../common/blocks/button/simple_func_butto
 import VillifeToastMessage from "../../../../common/atoms/toast";
 import useUserInfoService from "../../../../common/hooks/service/user_info";
 import MessageSelectionModal from "../../blocks/message_selection_modal";
-import { Vehicle } from "../../services/park/types";
+import { VehicleNew, VehicleOwnerType } from "../../services/states/types";
 
 type VehicleInfoProps = {
-    ownerType: "guest" | "tenant";
+    ownerType: VehicleOwnerType;
     plateNumber: string;
     phoneNumber: string;
     etd: Date;
@@ -27,8 +27,8 @@ type VehicleInfoProps = {
 function VehicleInfo({ ownerType, plateNumber, phoneNumber, etd }: VehicleInfoProps) {
     const styles = useParkingHomeScreenStyles().vehicleInfo;
     const message = useScreenMessage();
-    const badgeTitle = ownerType === "tenant" ? message.messages.words.tenant : message.messages.words.guest;
-    const badgeStyle = ownerType === "tenant" ? styles.tenantBadge : styles.guestBadge;
+    const badgeTitle = ownerType !== "guest" ? message.messages.words.tenant : message.messages.words.guest;
+    const badgeStyle = ownerType !== "guest" ? styles.tenantBadge : styles.guestBadge;
 
     return (
         <View style={styles.container}>
@@ -80,8 +80,8 @@ export default function ParkingScreen({ navigation, route }: ParkingScreenProps)
     const { deviceUI } = useStyler();
     const user = useUserInfoService();
     const styles = useParkingHomeScreenStyles().screen;
-    const { userVehicles, tenantVehicles, guestVehicles } = useParkService();
-    const [vehiclesForRender, setVehiclesForRender] = useState<Vehicle[]>([]);
+    const { vehicles } = useParkService();
+    const [vehiclesForRender, setVehiclesForRender] = useState<VehicleNew[]>([]);
 
     const screenPadding: number = deviceUI.moderateScale(SCREEN_PADDING_HORIZONTAL_STANDARD_VALUE);
 
@@ -90,17 +90,15 @@ export default function ParkingScreen({ navigation, route }: ParkingScreenProps)
     console.log("[ParkHomeScreen] onCreate");
     useEffect(() => {
         sortAndSetVehiclesForRender();
-    }, [userVehicles, tenantVehicles, guestVehicles]);
+    }, [vehicles]);
 
     const sortAndSetVehiclesForRender = (): void => {
-        const newVehiclesForRender: Vehicle[] = [...guestVehicles];
+        const newVehiclesForRender: VehicleNew[] = [];
 
-        if (user.isAdmin()) newVehiclesForRender.push(...tenantVehicles);
-        else {
-            tenantVehicles.forEach((tenantVehicle) => {
-                if (userVehicles.find((userVehicle) => userVehicle.id == tenantVehicle.id) === undefined)
-                    newVehiclesForRender.push(tenantVehicle);
-            });
+        if (user.isAdmin()) {
+            newVehiclesForRender.push(...vehicles);
+        } else {
+            newVehiclesForRender.push(...vehicles.filter((vehicle) => vehicle.ownerType !== "user"));
         }
 
         newVehiclesForRender
@@ -167,7 +165,10 @@ export default function ParkingScreen({ navigation, route }: ParkingScreenProps)
                                 {messages.messages.main.parking.home.my_vehicle_info}
                             </Text>
                         </View>
-                        <VehicleCardView vehicles={userVehicles} cardWidth={cardWidth} />
+                        <VehicleCardView
+                            vehicles={vehicles.filter((vehicle) => vehicle.ownerType === "user")}
+                            cardWidth={cardWidth}
+                        />
                     </View>
                 )}
                 <View style={styles.buildingVehiclesViewBox}>
@@ -180,23 +181,17 @@ export default function ParkingScreen({ navigation, route }: ParkingScreenProps)
                                 icon={{ name: "plus", size: styles.contentFuncButtonIcon.width }}
                                 title={messages.messages.main.parking.home.register_guest}
                                 onPress={() => {
-                                    navigation.navigate("register_guest_vehicle", {});
+                                    navigation.push("register_guest_vehicle", {});
                                 }}
                             />
                         </View>
                     </View>
                     <ScrollView showsVerticalScrollIndicator={false}>
                         {vehiclesForRender.map((vehicle, index) => {
-                            let ownerType: VehicleInfoProps["ownerType"] = "tenant";
-
-                            if ("visiting_purpose" in vehicle) {
-                                ownerType = "guest";
-                            }
-
                             return (
                                 <VehicleInfo
                                     key={index}
-                                    ownerType={ownerType}
+                                    ownerType={vehicle.ownerType}
                                     plateNumber={vehicle.plate_number}
                                     phoneNumber={vehicle.phone_number}
                                     etd={vehicle.etd}

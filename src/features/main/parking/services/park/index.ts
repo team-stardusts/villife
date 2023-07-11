@@ -1,51 +1,53 @@
 import VillifeServer from "../../../../../libs/rest_apis/villife";
 import IVillifeParkingManager, { Parking } from "../../../../../libs/rest_apis/villife/parking/types";
-import {
-    GuestVehicle,
-    MyVehicleEtdaUpdateServiceParams,
-    ParkServiceReturns,
-    RegisterUserVehicleParams,
-    TenantVehicle,
-    Vehicle,
-} from "./types";
+import { MyVehicleEtdaUpdateServiceParams, ParkServiceReturns, RegisterUserVehicleParams } from "./types";
 import { useRecoilState } from "recoil";
-import { GuestVehicleStateType, TenantVehicleStateType } from "../states/types";
-import { guestVehiclesState, tenantVehiclesState, userVehiclesState } from "../states";
+import { VehicleNew, VehicleOwnerType, VehiclesStateType } from "../states/types";
+import { vehiclesState } from "../states";
 import { useEffect } from "react";
 import StardustDateParser from "../../../../../libs/date_parser";
 import useUserInfoService from "../../../../common/hooks/service/user_info";
 
 export default function useParkService(): ParkServiceReturns {
-    const [userVehicles, setUserVehicles] = useRecoilState<TenantVehicleStateType>(userVehiclesState);
-    const [tenantVehicles, setTenantVehicles] = useRecoilState<TenantVehicleStateType>(tenantVehiclesState);
-    const [guestVehicles, setGuestVehicles] = useRecoilState<GuestVehicleStateType>(guestVehiclesState);
+    const [vehicles, setVehicles] = useRecoilState<VehiclesStateType>(vehiclesState);
+
     const user = useUserInfoService();
     const parkManager: IVillifeParkingManager = VillifeServer.getParkingManager();
 
     useEffect(() => {
-        bootstrap();
+        updateVehicles();
     }, []);
 
     useEffect(() => {
         if (user.adminInfo?.selectedBuilding === undefined) return;
-        //getVehicles("own").then(setUserVehicles);
-        getVehicles("tenant").then(setTenantVehicles);
-        getVehicles("guest").then((result) => setGuestVehicles(result as GuestVehicle[]));
+        updateVehicles();
     }, [user.adminInfo?.selectedBuilding]);
 
-    const bootstrap = async () => {
-        if (!user.isAdmin() && userVehicles.length === 0) {
-            getVehicles("own").then(setUserVehicles);
+    const updateVehicles = async (ownerType?: VehicleOwnerType) => {
+        const newVehicles: VehicleNew[] = [];
+
+        if (ownerType === undefined || (!user.isAdmin() && ownerType === "user")) {
+            newVehicles.push(...(await getVehiclesByOwnerType("user")));
+        } else {
+            newVehicles.push(...vehicles.filter((vehicle) => vehicle.ownerType === "user"));
         }
-        if (tenantVehicles.length === 0) {
-            getVehicles("tenant").then(setTenantVehicles);
+
+        if (ownerType === undefined || ownerType === "tenant") {
+            newVehicles.push(...(await getVehiclesByOwnerType("tenant")));
+        } else {
+            newVehicles.push(...vehicles.filter((vehicle) => vehicle.ownerType === "tenant"));
         }
-        if (guestVehicles.length === 0) {
-            getVehicles("guest").then((result) => setGuestVehicles(result as GuestVehicle[]));
+
+        if (ownerType === undefined || ownerType === "guest") {
+            newVehicles.push(...(await getVehiclesByOwnerType("guest")));
+        } else {
+            newVehicles.push(...vehicles.filter((vehicle) => vehicle.ownerType === "guest"));
         }
+
+        setVehicles(newVehicles);
     };
 
-    const getVehicles = async (type: "own" | "tenant" | "guest"): Promise<TenantVehicle[] | GuestVehicle[]> => {
+    const getVehiclesByOwnerType = async (ownerType: VehicleOwnerType): Promise<VehicleNew[]> => {
         let result = null;
 
         const buildingID = user.isAdmin() ? user.adminInfo?.selectedBuilding.id : user.basicInfo?.building_id;
@@ -55,8 +57,8 @@ export default function useParkService(): ParkServiceReturns {
             return [];
         }
 
-        switch (type) {
-            case "own":
+        switch (ownerType) {
+            case "user":
                 result = await parkManager.getVehicles();
                 break;
 
@@ -68,15 +70,20 @@ export default function useParkService(): ParkServiceReturns {
                 result = await parkManager.getGuestVehiclesOfBuilding(buildingID);
                 break;
         }
-        if (result === null) {
+
+        if (!result.isSuccessful || result.data?.data === undefined) {
+            console.log(
+                "[PARKING_SERVICE]",
+                `Received an unexpected return while retrieving vehicle list of ${ownerType} vehicles.`
+            );
             return [];
         }
 
-        if (result.data?.data !== undefined && result.data.data.length > 0) {
+        if (result.data.data.length > 0) {
             //const dataArray: Parking.TenantVehicle[] | Parking.GuestVehicle[] = result.data.data;
-            const dataArray: Vehicle[] = [];
+            const dataArray: VehicleNew[] = [];
 
-            // [TO-DO] Tenant vehicles를 받아올 시 Payload가 String으로 오는데,
+            /* // [TO-DO] Tenant vehicles를 받아올 시 Payload가 String으로 오는데,
             // 임시로 JSON으로 파싱해서 사용. 수정 시 삭제 필요
 
             if (typeof result.data.data != "object") {
@@ -88,11 +95,12 @@ export default function useParkService(): ParkServiceReturns {
                 } catch {
                     return [];
                 }
-            }
+            } */
 
             for (let i = 0; i < result.data.data.length; i++) {
                 dataArray.push({
                     ...result.data.data[i],
+                    ownerType: ownerType,
                     eta: StardustDateParser.deserialize(result.data.data[i].eta),
                     etd: StardustDateParser.deserialize(result.data.data[i].etd),
                 });
@@ -113,11 +121,7 @@ export default function useParkService(): ParkServiceReturns {
 
         const isSuccessful: boolean = (await parkManager.updateUserVehicleEtda(_params)).isSuccessful;
 
-        isSuccessful && getVehicles("own").then(setUserVehicles);
-        /* setUserVehicles({
-                ...vehicles,
-                userVehicles: await 
-            }); */
+        isSuccessful && updateVehicles("user");
 
         return isSuccessful;
     };
@@ -125,12 +129,7 @@ export default function useParkService(): ParkServiceReturns {
     const updateUserVehicleInfo = async (params: Parking.VehicleInfopdateParams): Promise<boolean> => {
         const isSuccessful: boolean = (await parkManager.updateUserVehicleInfo(params)).isSuccessful;
 
-        isSuccessful && getVehicles("own").then(setUserVehicles);
-        /* isSuccessful &&
-            setVehicles({
-                ...vehicles,
-                userVehicles: await getVehicles("own"),
-            }); */
+        isSuccessful && updateVehicles("user");
 
         return isSuccessful;
     };
@@ -141,7 +140,7 @@ export default function useParkService(): ParkServiceReturns {
         const result = await parkManager.registerGuestVehicleToBuilding(params);
 
         if (result.isSuccessful && result.data?.data !== undefined) {
-            const updatedGuestVehicles = [
+            /* const updatedGuestVehicles = [
                 ...guestVehicles,
                 {
                     ...result.data.data,
@@ -150,7 +149,17 @@ export default function useParkService(): ParkServiceReturns {
                 },
             ];
 
-            setGuestVehicles(updatedGuestVehicles);
+            setGuestVehicles(updatedGuestVehicles); */
+
+            setVehicles([
+                ...vehicles,
+                {
+                    ...result.data.data,
+                    ownerType: "guest",
+                    eta: StardustDateParser.deserialize(result.data.data.eta),
+                    etd: StardustDateParser.deserialize(result.data.data.etd),
+                },
+            ]);
 
             return true;
         }
@@ -168,9 +177,9 @@ export default function useParkService(): ParkServiceReturns {
             eta: StardustDateParser.serialize(dateOfETA),
             etd: StardustDateParser.serialize(dateOfETD),
         });
-        console.log(result.data?.data);
+
         if (result.isSuccessful && result.data?.data !== undefined) {
-            const updatedUserVehicles = [
+            /* const updatedUserVehicles = [
                 ...userVehicles,
                 {
                     ...result.data.data,
@@ -179,7 +188,16 @@ export default function useParkService(): ParkServiceReturns {
                 },
             ];
 
-            setUserVehicles(updatedUserVehicles);
+            setUserVehicles(updatedUserVehicles); */
+            setVehicles([
+                ...vehicles,
+                {
+                    ...result.data.data,
+                    ownerType: "user",
+                    eta: StardustDateParser.deserialize(result.data.data.eta),
+                    etd: StardustDateParser.deserialize(result.data.data.etd),
+                },
+            ]);
 
             return true;
         }
@@ -188,9 +206,7 @@ export default function useParkService(): ParkServiceReturns {
     };
 
     return {
-        userVehicles,
-        tenantVehicles,
-        guestVehicles,
+        vehicles,
         updateUserVehicleEtda,
         updateUserVehicleInfo,
         registerGuestVehicleToBuilding,

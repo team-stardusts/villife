@@ -4,7 +4,6 @@ import UniversalTextInput from "../../../../common/blocks/universial/textinput";
 import useGuestVehicleInfoInputBoxStyles from "./styles";
 import { useEffect, useState } from "react";
 import useStyler from "../../../../common/hooks/styler/hooks";
-import StringValidator from "../../../../../libs/string_validator";
 import {
     TouchedCoordinate,
     GuestVehicleInfo,
