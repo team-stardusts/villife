@@ -34,6 +34,7 @@ export default function RegisterGuestVehicleScreen({ navigation, route }: Regist
         plateNumber: "",
         visitingPerpose: "",
     });
+
     const [valid, setValid] = useState<GuestVehicleValidationResult>({
         plateNumber: false,
         phoneNumber: false,

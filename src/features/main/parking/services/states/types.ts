@@ -2,7 +2,7 @@ import { Parking } from "../../../../../libs/rest_apis/villife/parking/types";
 
 export type VehicleOwnerType = "user" | "tenant" | "guest";
 
-export type VehicleNew = {
+export type Vehicle = {
     ownerType: VehicleOwnerType;
     id: Parking.TenantVehicle["id"];
     room_number: Parking.TenantVehicle["room_number"];
@@ -14,5 +14,3 @@ export type VehicleNew = {
     eta: Date;
     visiting_perpose?: Parking.GuestVehicle["visiting_perpose"];
 };
-
-export type VehiclesStateType = VehicleNew[];

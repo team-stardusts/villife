@@ -15,7 +15,9 @@ import SimpleFuncButton from "../../../../common/blocks/button/simple_func_butto
 import VillifeToastMessage from "../../../../common/atoms/toast";
 import useUserInfoService from "../../../../common/hooks/service/user_info";
 import MessageSelectionModal from "../../blocks/message_selection_modal";
-import { VehicleNew, VehicleOwnerType } from "../../services/states/types";
+import { Vehicle, VehicleOwnerType } from "../../services/states/types";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { vehiclesState } from "../../services/states";
 
 type VehicleInfoProps = {
     ownerType: VehicleOwnerType;
@@ -80,20 +82,26 @@ export default function ParkingScreen({ navigation, route }: ParkingScreenProps)
     const { deviceUI } = useStyler();
     const user = useUserInfoService();
     const styles = useParkingHomeScreenStyles().screen;
-    const { vehicles } = useParkService();
-    const [vehiclesForRender, setVehiclesForRender] = useState<VehicleNew[]>([]);
+    const { updateVehicles } = useParkService();
+    const vehicles = useRecoilValue<Vehicle[]>(vehiclesState);
+    const [vehiclesForRender, setVehiclesForRender] = useState<Vehicle[]>([]);
 
     const screenPadding: number = deviceUI.moderateScale(SCREEN_PADDING_HORIZONTAL_STANDARD_VALUE);
 
     // Card에서 ScrollView를 사용하므로, 가변적인 카드를 만들기 위해서 Width 지정이 필요함
     const cardWidth: number = deviceUI.screenSize.width - (screenPadding + deviceUI.moderateScale(20));
     console.log("[ParkHomeScreen] onCreate");
+
+    useEffect(() => {
+        updateVehicles();
+    }, []);
+
     useEffect(() => {
         sortAndSetVehiclesForRender();
     }, [vehicles]);
 
     const sortAndSetVehiclesForRender = (): void => {
-        const newVehiclesForRender: VehicleNew[] = [];
+        const newVehiclesForRender: Vehicle[] = [];
 
         if (user.isAdmin()) {
             newVehiclesForRender.push(...vehicles);

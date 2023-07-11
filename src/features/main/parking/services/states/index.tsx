@@ -1,7 +1,7 @@
 import { atom } from "recoil";
-import { VehiclesStateType } from "./types";
+import { Vehicle } from "./types";
 
-export const vehiclesState = atom<VehiclesStateType>({
-    key: "guestVehiclesState",
+export const vehiclesState = atom<Vehicle[]>({
+    key: "vehiclesState",
     default: [],
 });

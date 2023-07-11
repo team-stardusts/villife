@@ -2,29 +2,31 @@ import VillifeServer from "../../../../../libs/rest_apis/villife";
 import IVillifeParkingManager, { Parking } from "../../../../../libs/rest_apis/villife/parking/types";
 import { MyVehicleEtdaUpdateServiceParams, ParkServiceReturns, RegisterUserVehicleParams } from "./types";
 import { useRecoilState } from "recoil";
-import { VehicleNew, VehicleOwnerType, VehiclesStateType } from "../states/types";
+import { Vehicle, VehicleOwnerType } from "../states/types";
 import { vehiclesState } from "../states";
 import { useEffect } from "react";
 import StardustDateParser from "../../../../../libs/date_parser";
 import useUserInfoService from "../../../../common/hooks/service/user_info";
 
 export default function useParkService(): ParkServiceReturns {
-    const [vehicles, setVehicles] = useRecoilState<VehiclesStateType>(vehiclesState);
+    const [vehicles, setVehicles] = useRecoilState<Vehicle[]>(vehiclesState);
 
     const user = useUserInfoService();
     const parkManager: IVillifeParkingManager = VillifeServer.getParkingManager();
 
-    useEffect(() => {
+    /* useEffect(() => {
         updateVehicles();
-    }, []);
+    }, []); */
 
     useEffect(() => {
+        if (user.adminInfo === null) return;
         if (user.adminInfo?.selectedBuilding === undefined) return;
+
         updateVehicles();
     }, [user.adminInfo?.selectedBuilding]);
 
     const updateVehicles = async (ownerType?: VehicleOwnerType) => {
-        const newVehicles: VehicleNew[] = [];
+        const newVehicles: Vehicle[] = [];
 
         if (ownerType === undefined || (!user.isAdmin() && ownerType === "user")) {
             newVehicles.push(...(await getVehiclesByOwnerType("user")));
@@ -47,7 +49,7 @@ export default function useParkService(): ParkServiceReturns {
         setVehicles(newVehicles);
     };
 
-    const getVehiclesByOwnerType = async (ownerType: VehicleOwnerType): Promise<VehicleNew[]> => {
+    const getVehiclesByOwnerType = async (ownerType: VehicleOwnerType): Promise<Vehicle[]> => {
         let result = null;
 
         const buildingID = user.isAdmin() ? user.adminInfo?.selectedBuilding.id : user.basicInfo?.building_id;
@@ -81,7 +83,7 @@ export default function useParkService(): ParkServiceReturns {
 
         if (result.data.data.length > 0) {
             //const dataArray: Parking.TenantVehicle[] | Parking.GuestVehicle[] = result.data.data;
-            const dataArray: VehicleNew[] = [];
+            const dataArray: Vehicle[] = [];
 
             /* // [TO-DO] Tenant vehicles를 받아올 시 Payload가 String으로 오는데,
             // 임시로 JSON으로 파싱해서 사용. 수정 시 삭제 필요
@@ -206,7 +208,8 @@ export default function useParkService(): ParkServiceReturns {
     };
 
     return {
-        vehicles,
+        //vehicles,
+        updateVehicles,
         updateUserVehicleEtda,
         updateUserVehicleInfo,
         registerGuestVehicleToBuilding,
