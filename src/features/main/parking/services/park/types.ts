@@ -4,7 +4,8 @@ import { EtdaTime } from "../../blocks/etad_time_picker/types";
 import { Vehicle, VehicleOwnerType } from "../states/types";
 
 export type ParkServiceReturns = {
-    //vehicles: VehicleNew[];
+    // vehicles: Vehicle[];
+    getVehiclesByOwnerType(ownerType: VehicleOwnerType): Promise<Vehicle[]>;
     updateVehicles(ownerType?: VehicleOwnerType): Promise<void>;
     updateUserVehicleEtda(params: MyVehicleEtdaUpdateServiceParams): Promise<boolean>;
     updateUserVehicleInfo(params: Parking.VehicleInfopdateParams): Promise<boolean>;

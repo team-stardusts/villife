@@ -4,27 +4,29 @@ export type CommonIconProps = {
 };
 
 export type IconSeries =
-    | "home"
-    | "building"
-    | "car"
-    | "person"
-    | "people-round"
-    | "person-round"
-    | "messenger"
-    | "speaker"
-    | "wallet"
     | "arrow-left"
     | "arrow-right"
     | "arrow-up"
     | "arrow-down"
     | "arrow-right-with-midline"
+    | "building"
+    | "car"
+    | "clock-arrow"
+    | "home"
+    | "menu"
+    | "messenger"
+    | "letter"
+    | "list"
+    | "parking-lot"
+    | "person"
+    | "people-round"
+    | "person-round"
     | "phone"
     | "plus"
     | "pencil"
-    | "letter"
-    | "clock-arrow"
-    | "menu"
-    | "round_person";
+    | "round_person"
+    | "speaker"
+    | "wallet";
 
 export type ChildIconProps = CommonIconProps & {
     [key: string]: string | number | undefined;

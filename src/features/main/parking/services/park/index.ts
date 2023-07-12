@@ -10,7 +10,6 @@ import useUserInfoService from "../../../../common/hooks/service/user_info";
 
 export default function useParkService(): ParkServiceReturns {
     const [vehicles, setVehicles] = useRecoilState<Vehicle[]>(vehiclesState);
-
     const user = useUserInfoService();
     const parkManager: IVillifeParkingManager = VillifeServer.getParkingManager();
 
@@ -209,6 +208,7 @@ export default function useParkService(): ParkServiceReturns {
 
     return {
         //vehicles,
+        getVehiclesByOwnerType,
         updateVehicles,
         updateUserVehicleEtda,
         updateUserVehicleInfo,

@@ -14,6 +14,8 @@ import IconPencil from "./pencil";
 import IconArrowWithMidline from "./arrow_with_midline";
 import IconBuilding from "./building";
 import IconMenu from "./menu";
+import IconList from "./list";
+import IconParkingLot from "./parking";
 
 export default function Icon(props: IconProps) {
     /* let iconProps: ChildIconProps = {
@@ -47,6 +49,8 @@ export default function Icon(props: IconProps) {
             return <IconSpeaker {...iconProps} />;
         case "wallet":
             return <IconWallet {...iconProps} />;
+        case "parking-lot":
+            return <IconParkingLot {...iconProps} />;
         case "person":
             return <IconPerson {...iconProps} />;
         case "person-round":
@@ -55,6 +59,8 @@ export default function Icon(props: IconProps) {
             return <IconRoundPeople {...iconProps} />;
         case "letter":
             return <IconLetter {...iconProps} />;
+        case "list":
+            return <IconList {...iconProps} />;
         case "phone":
             return <IconPhone {...iconProps} />;
         case "plus":

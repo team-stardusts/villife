@@ -1,17 +1,42 @@
 import { Platform, StyleSheet } from "react-native";
 import useStyler from "../../../../common/hooks/styler/hooks";
 
-export default function useHomeContentFromParkingStyles() {
+export default function useHomeContentFromParkingStyles(didGetFavoritVehilce: boolean) {
     const { deviceUI, theme } = useStyler();
 
     const main = StyleSheet.create({
         container: {
             flex: 1,
-            flexDirection: "row",
-            justifyContent: "space-around",
             alignItems: "center",
-            paddingHorizontal: deviceUI.moderateScale(10),
-            paddingVertical: deviceUI.moderateScale(15),
+            paddingVertical: didGetFavoritVehilce ? deviceUI.moderateScale(8) : deviceUI.moderateScale(15),
+        },
+        textBox: {
+            flex: 2,
+            width: "100%",
+            flexDirection: "row",
+            alignItems: "center",
+            paddingHorizontal: deviceUI.moderateScale(20),
+            marginBottom: deviceUI.moderateScale(4),
+        },
+        printWrapper: {
+            flex: 1,
+            justifyContent: "center",
+            alignItems: "flex-start",
+        },
+        dateWrapper: {
+            flex: 1,
+            justifyContent: "center",
+            alignItems: "flex-end",
+        },
+        text: {
+            color: theme.colorFamily.black,
+            fontWeight: "bold",
+            ...theme.font.researved.h4,
+        },
+        btnBox: {
+            flex: 8,
+            flexDirection: "row",
+            paddingHorizontal: deviceUI.moderateScale(5),
         },
     });
 
