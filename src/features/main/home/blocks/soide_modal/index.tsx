@@ -7,77 +7,111 @@ import useStyler from "../../../../common/hooks/styler/hooks";
 import Icon from "../../../../common/atoms/icon";
 import { IconSeries } from "../../../../common/atoms/icon/types";
 import useUserInfoService from "../../../../common/hooks/service/user_info";
+import { useNavigation } from "@react-navigation/native";
+import { VillifeNavigation } from "../../../../common/router/types";
+import VillifeToastMessage from "../../../../common/atoms/toast";
 
 export default function HomeSideMoal(props: HomeSideMoalProps) {
-    const messages = useScreenMessage();
+    const message = useScreenMessage();
     const userInfo = useUserInfoService();
     const { deviceUI, theme } = useStyler();
     const styles = useBottomEditModalStyles();
+    const navigation = useNavigation<VillifeNavigation>();
     const { visible, setVisible } = props;
 
-    const [deleteAlertVisible, setDeleteAlertVisible] = useState(false);
-
-    useEffect(() => {
-        if (!props.visible) setDeleteAlertVisible(false);
-    }, []);
-
-    const renterData: Array<{ name: IconSeries; size: number; color: string; title: string }> = [
+    const renterData: Array<{ name: IconSeries; size: number; color: string; title: string; onPress: () => void }> = [
         {
-            name: "menu",
+            name: "speaker",
             size: deviceUI.moderateScale(40),
             color: theme.colorFamily.black,
-            title: messages.messages.main.noti.screen_title,
+            title: message.messages.main.noti.screen_title,
+            onPress: () => {
+                setVisible(false);
+                navigation.navigate("noti_home", {});
+            },
         },
         {
-            name: "person",
+            name: "question-mark",
             size: deviceUI.moderateScale(40),
             color: theme.colorFamily.black,
-            title: messages.messages.main.complaint.frequently_reported_complaints,
+            title: message.messages.main.complaint.frequently_reported_complaints,
+            onPress: () => {
+                setVisible(false);
+                VillifeToastMessage.showBottomToast("error", message.messages.boilerplate.preparing_service);
+            },
         },
         {
             name: "building",
             size: deviceUI.moderateScale(20),
             color: theme.colorFamily.black,
-            title: messages.messages.main.home.building_info,
+            title: message.messages.main.home.building_info,
+            onPress: () => {
+                setVisible(false);
+                VillifeToastMessage.showBottomToast("error", message.messages.boilerplate.preparing_service);
+            },
         },
         {
-            name: "round_person",
+            name: "round-person",
             size: deviceUI.moderateScale(35),
             color: theme.colorFamily.black,
-            title: messages.messages.main.home.user_info,
+            title: message.messages.main.home.user_info,
+            onPress: () => {
+                setVisible(false);
+                VillifeToastMessage.showBottomToast("error", message.messages.boilerplate.preparing_service);
+            },
         },
     ];
 
-    const adminData: Array<{ name: IconSeries; size: number; color: string; title: string }> = [
+    const adminData: Array<{ name: IconSeries; size: number; color: string; title: string; onPress: () => void }> = [
         {
-            name: "menu",
+            name: "speaker",
             size: deviceUI.moderateScale(40),
             color: theme.colorFamily.black,
-            title: messages.messages.main.noti.screen_title,
+            title: message.messages.main.noti.screen_title,
+            onPress: () => {
+                setVisible(false);
+                navigation.navigate("noti_home", {});
+            },
         },
         {
             name: "letter",
             size: deviceUI.moderateScale(40),
             color: theme.colorFamily.black,
-            title: messages.messages.main.approval.screen_title,
+            title: message.messages.main.approval.screen_title,
+            onPress: () => {
+                setVisible(false);
+                navigation.navigate("approval_home", {});
+            },
         },
         {
-            name: "person",
+            name: "question-mark",
             size: deviceUI.moderateScale(40),
             color: theme.colorFamily.black,
-            title: messages.messages.main.complaint.frequently_reported_complaints,
+            title: message.messages.main.complaint.frequently_reported_complaints,
+            onPress: () => {
+                setVisible(false);
+                VillifeToastMessage.showBottomToast("error", message.messages.boilerplate.preparing_service);
+            },
         },
         {
             name: "building",
             size: deviceUI.moderateScale(20),
             color: theme.colorFamily.black,
-            title: messages.messages.main.home.building_info,
+            title: message.messages.main.home.building_info,
+            onPress: () => {
+                setVisible(false);
+                VillifeToastMessage.showBottomToast("error", message.messages.boilerplate.preparing_service);
+            },
         },
         {
-            name: "round_person",
+            name: "round-person",
             size: deviceUI.moderateScale(35),
             color: theme.colorFamily.black,
-            title: messages.messages.main.home.user_info,
+            title: message.messages.main.home.user_info,
+            onPress: () => {
+                setVisible(false);
+                VillifeToastMessage.showBottomToast("error", message.messages.boilerplate.preparing_service);
+            },
         },
     ];
     return (
@@ -103,16 +137,20 @@ export default function HomeSideMoal(props: HomeSideMoalProps) {
                     <View style={styles.menuContainer}>
                         {userInfo.basicInfo?.authority !== undefined && userInfo.basicInfo?.authority == 1
                             ? renterData.map((item, index) => (
-                                  <View key={index} style={styles.menu}>
-                                      <Icon name={item.name} size={item.size} color={item.color} />
-                                      <Text style={styles.menuText}>{item.title}</Text>
-                                  </View>
+                                  <TouchableOpacity onPress={() => item.onPress()}>
+                                      <View key={index} style={styles.menu}>
+                                          <Icon name={item.name} size={item.size} color={item.color} />
+                                          <Text style={styles.menuText}>{item.title}</Text>
+                                      </View>
+                                  </TouchableOpacity>
                               ))
                             : adminData.map((item, index) => (
-                                  <View key={index} style={styles.menu}>
-                                      <Icon name={item.name} size={item.size} color={item.color} />
-                                      <Text style={styles.menuText}>{item.title}</Text>
-                                  </View>
+                                  <TouchableOpacity onPress={() => item.onPress()}>
+                                      <View key={index} style={styles.menu}>
+                                          <Icon name={item.name} size={item.size} color={item.color} />
+                                          <Text style={styles.menuText}>{item.title}</Text>
+                                      </View>
+                                  </TouchableOpacity>
                               ))}
                     </View>
                 </View>

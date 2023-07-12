@@ -27,18 +27,21 @@ export default function ComplaintHomeScreen({ navigation, route }: ComplaintHome
                 setVisible={setEditModalVisible}
                 setDisplayMode={viewModel.setDisplayMode}
             />
+
             <View style={styles.topLevelBox}>
-                <View style={styles.FAQContainer}>
-                    <IconQuestionMark size={styles.questionMarkIconSize.width as number} />
-                    <View style={styles.FAQTextContainer}>
-                        <Text style={styles.FAQTitle}>
-                            {messages.messages.main.complaint.frequently_reported_complaints}
-                        </Text>
-                        <Text style={styles.FAQContent}>
-                            {messages.messages.main.complaint.frequently_reported_complaints_guide}
-                        </Text>
+                <TouchableOpacity onPress={() => navigation.navigate("noti_home", {})}>
+                    <View style={styles.FAQContainer}>
+                        <IconQuestionMark size={styles.questionMarkIconSize.width as number} />
+                        <View style={styles.FAQTextContainer}>
+                            <Text style={styles.FAQTitle}>
+                                {messages.messages.main.complaint.frequently_reported_complaints}
+                            </Text>
+                            <Text style={styles.FAQContent}>
+                                {messages.messages.main.complaint.frequently_reported_complaints_guide}
+                            </Text>
+                        </View>
                     </View>
-                </View>
+                </TouchableOpacity>
                 <View style={styles.menuContainer}>
                     <TouchableOpacity
                         style={styles.menuTitleBox}

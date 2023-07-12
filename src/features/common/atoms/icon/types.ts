@@ -26,7 +26,12 @@ export type IconSeries =
     | "pencil"
     | "round_person"
     | "speaker"
-    | "wallet";
+    | "wallet"
+    | "letter"
+    | "clock-arrow"
+    | "menu"
+    | "round-person"
+    | "question-mark";
 
 export type ChildIconProps = CommonIconProps & {
     [key: string]: string | number | undefined;

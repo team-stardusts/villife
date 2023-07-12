@@ -19,12 +19,8 @@ export default function NotiRegisterModal(props: NavigationWithProps) {
     const service = useNoticeService();
     const { deviceUI, theme } = useStyler();
 
-    const [loading, setLoading] = React.useState(false);
-    const [editModalVisible, setEditModalVisible] = React.useState(false);
-
     const onPrioritySubmit = async (priority: number) => {
-        setLoading(true);
-        setEditModalVisible(false);
+        props.setVisible(false);
         console.log(priority);
 
         if (priority && userInfo.adminInfo?.selectedBuilding.id) {
@@ -44,7 +40,7 @@ export default function NotiRegisterModal(props: NavigationWithProps) {
     return (
         <BottomSlidableModal
             modalVisible={props.visible}
-            setModalVisible={setEditModalVisible}
+            setModalVisible={props.setVisible}
             height={deviceUI.getScreenSize().height * 0.28}>
             <View style={styles.editModalContentContainer}>
                 <TouchableOpacity
