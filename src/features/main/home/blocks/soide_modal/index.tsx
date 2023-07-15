@@ -11,7 +11,7 @@ import { useNavigation } from "@react-navigation/native";
 import { VillifeNavigation } from "../../../../common/router/types";
 import VillifeToastMessage from "../../../../common/atoms/toast";
 
-export default function HomeSideMoal(props: HomeSideMoalProps) {
+export default function HomeSideModal(props: HomeSideMoalProps) {
     const message = useScreenMessage();
     const userInfo = useUserInfoService();
     const { deviceUI, theme } = useStyler();
@@ -137,16 +137,16 @@ export default function HomeSideMoal(props: HomeSideMoalProps) {
                     <View style={styles.menuContainer}>
                         {userInfo.basicInfo?.authority !== undefined && userInfo.basicInfo?.authority == 1
                             ? renterData.map((item, index) => (
-                                  <TouchableOpacity onPress={() => item.onPress()}>
-                                      <View key={index} style={styles.menu}>
+                                  <TouchableOpacity key={index} onPress={() => item.onPress()}>
+                                      <View style={styles.menu}>
                                           <Icon name={item.name} size={item.size} color={item.color} />
                                           <Text style={styles.menuText}>{item.title}</Text>
                                       </View>
                                   </TouchableOpacity>
                               ))
                             : adminData.map((item, index) => (
-                                  <TouchableOpacity onPress={() => item.onPress()}>
-                                      <View key={index} style={styles.menu}>
+                                  <TouchableOpacity key={index} onPress={() => item.onPress()}>
+                                      <View style={styles.menu}>
                                           <Icon name={item.name} size={item.size} color={item.color} />
                                           <Text style={styles.menuText}>{item.title}</Text>
                                       </View>

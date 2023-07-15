@@ -3,7 +3,7 @@ import { useState } from "react";
 import Icon from "../../../../common/atoms/icon";
 import useMenuButtonStyles from "./style";
 import MenuButtonProps from "./type";
-import HomeSideMoal from "../soide_modal";
+import HomeSideModal from "../soide_modal";
 
 export default function MenuButton(props: MenuButtonProps) {
     const styles = useMenuButtonStyles().main;
@@ -12,7 +12,7 @@ export default function MenuButton(props: MenuButtonProps) {
 
     return (
         <View style={styles.container}>
-            <HomeSideMoal visible={visible} setVisible={setVisible} />
+            <HomeSideModal visible={visible} setVisible={setVisible} />
             <TouchableOpacity
                 activeOpacity={0.6}
                 onPress={() => {

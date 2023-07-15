@@ -7,7 +7,7 @@ import useHomeScreenStyles from "./styles";
 import useStyler from "../../../../common/hooks/styler/hooks";
 import HomeContentFromComplaint from "../../../complaint/blocks/home_content";
 import SimpleFuncButton from "../../../../common/blocks/button/simple_func_button";
-import HomeSideMoal from "../../blocks/soide_modal";
+import HomeSideModal from "../../blocks/soide_modal";
 import Icon from "../../../../common/atoms/icon";
 import MenuButton from "../../blocks/menu_button";
 import HomeContentFromParking from "../../../parking/blocks/home_content";
