@@ -31,17 +31,17 @@ export default function HomeScreen({ navigation, route }: HomeScreenProps) {
         <NavigationView
             headerOptions={{
                 title: messages.messages.main.home.screen_title,
-                navComponent: SimpleNavComponent,
-                navComponentProps: {
+                navComponent: MenuButton,
+                /* navComponentProps: {
                     iconName: "speaker",
                     title: messages.messages.main.noti.screen_title,
                     onPress: () => {
                         navigation.navigate("noti_home");
                     },
-                },
+                }, */
             }}>
             <View style={styles.toplevelBox}>
-                <MenuButton />
+                {/* <MenuButton /> */}
                 <ScrollView style={styles.contentsScrollBox} showsVerticalScrollIndicator={false}>
                     {contents.map((Content, index) => (
                         <Content key={index} backgroundColor={getBgColor(index)} />

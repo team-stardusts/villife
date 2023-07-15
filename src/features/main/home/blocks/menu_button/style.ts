@@ -11,11 +11,11 @@ export default function useMenuButtonStyles() {
         iconBox: {
             flex: 1,
             justifyContent: "center",
-            alignItems: "center",
-            paddingHorizontal: deviceUI.moderateScale(5),
+            alignItems: "flex-end",
+            paddingRight: deviceUI.moderateScale(15),
         },
         icon: {
-            width: deviceUI.moderateScale(100),
+            width: deviceUI.moderateScale(70),
             color: theme.colorFamily.black,
         },
     });
