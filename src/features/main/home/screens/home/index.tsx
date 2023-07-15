@@ -19,7 +19,7 @@ export default function HomeScreen({ navigation, route }: HomeScreenProps) {
     const { theme } = useStyler();
 
     console.log("[HomeScreen] onCreate");
-    const contents = [HomeContentFromComplaint, HomeContentFromNoti, HomeContentFromParking, HomeContentFromComplaint];
+    const contents = [HomeContentFromComplaint, HomeContentFromNoti, HomeContentFromParking];
 
     const getBgColor = (index: number) => {
         const colors = [theme.colorFamily.blue, theme.colorFamily.lightblue, theme.colorFamily.green];

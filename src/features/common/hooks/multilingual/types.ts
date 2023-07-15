@@ -62,6 +62,15 @@ export type MessagesByLanguage = {
                 double_parking: string;
                 change_request: string;
             };
+            home_content: {
+                screen_title: string;
+                estimated_time_of_departure: string;
+                hour: string;
+                minute: string;
+                vehicle_list: string;
+                register_guest_vehicle: string;
+                departure_management: string;
+            };
         };
         complaint: {
             screen_title: string;

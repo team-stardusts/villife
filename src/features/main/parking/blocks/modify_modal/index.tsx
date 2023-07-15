@@ -10,37 +10,9 @@ import VehicleInfoInputBox from "../vehicle_info_input_box";
 import { VehicleInfo, VehicleValidationResult } from "../vehicle_info_input_box/types";
 import { Parking } from "../../../../../libs/rest_apis/villife/parking/types";
 import useParkService from "../../services/park";
-import { useNavigation } from "@react-navigation/native";
-import { RouterParams } from "../../../../common/router/types";
-import { MyVehicleEtdaUpdateServiceParams, ParkServiceReturns } from "../../services/park/types";
+import { MyVehicleEtdaUpdateServiceParams } from "../../services/park/types";
 import { EtdaTime } from "../etad_time_picker/types";
-import { Vehicle } from "../../services/states/types";
-
-type VehicleModifyModalProps = {
-    initialVehicleInfo: Vehicle | null;
-    modalVisible: boolean;
-    setModalVisible: React.Dispatch<React.SetStateAction<boolean>>;
-    //updateVehicleEtda: ParkServiceReturns["updateUserVehicleEtda"];
-    //updateVehicleInfo: ParkServiceReturns["updateUserVehicleInfo"];
-};
-
-type Page = "etda" | "info";
-
-type Info = {
-    model: string;
-    plateNumber: string;
-};
-
-type EtdaPageProps = {
-    initialEtda: EtdaTime;
-    onChangeData(etda: EtdaTime): void;
-    onToInfoPageBtnPress(): void;
-};
-
-type InfoPageProps = {
-    initialVehicleInfo: VehicleModifyModalProps["initialVehicleInfo"];
-    onChangeData(info: Info): void;
-};
+import { EtdaPageProps, InfoPageProps, Page, VehicleModifyModalProps } from "./types";
 
 // [TO-DO] Initial ETDA를 받아오도록 변경
 function EtdaPage({ initialEtda, onChangeData, onToInfoPageBtnPress }: EtdaPageProps) {
@@ -119,10 +91,7 @@ export default function VehicleModifyModal({
     initialVehicleInfo,
     modalVisible,
     setModalVisible,
-}: //updateVehicleEtda,
-//updateVehicleInfo,
-VehicleModifyModalProps) {
-    const navigation = useNavigation<RouterParams["navigation"]>();
+}: VehicleModifyModalProps) {
     const messages = useScreenMessage();
     const styles = useModifyModal().toplevel;
     const { updateUserVehicleEtda, updateUserVehicleInfo } = useParkService();
@@ -139,33 +108,31 @@ VehicleModifyModalProps) {
     };
 
     const [crrPage, setCrrPage] = useState<Page>("etda");
-    const [etda, setEtda] = useState<MyVehicleEtdaUpdateServiceParams | null>(
-        initialVehicleInfo !== null
-            ? {
-                  vehicleID: initialVehicleInfo.id,
-                  etda: {
-                      etd: {
-                          hour: initialVehicleInfo.etd.getHours(),
-                          minute: initialVehicleInfo.etd.getMinutes(),
-                      },
-                      eta: {
-                          hour: initialVehicleInfo.eta.getHours(),
-                          minute: initialVehicleInfo.eta.getMinutes(),
-                      },
-                  },
-              }
-            : null
-    );
+    const [etda, setEtda] = useState<MyVehicleEtdaUpdateServiceParams>({
+        vehicleID: initialVehicleInfo.id,
+        etda: {
+            etd: {
+                hour: initialVehicleInfo.etd.getHours(),
+                minute: initialVehicleInfo.etd.getMinutes(),
+            },
+            eta: {
+                hour: initialVehicleInfo.eta.getHours(),
+                minute: initialVehicleInfo.eta.getMinutes(),
+            },
+        },
+    });
 
-    const [info, setInfo] = useState<Parking.VehicleInfopdateParams | null>(
-        initialVehicleInfo !== null
-            ? {
-                  vehicleID: initialVehicleInfo.id,
-                  model: initialVehicleInfo.model,
-                  plateNumber: initialVehicleInfo.plate_number,
-              }
-            : null
-    );
+    const [info, setInfo] = useState<Parking.VehicleInfopdateParams>({
+        vehicleID: initialVehicleInfo.id,
+        model: initialVehicleInfo.model,
+        plateNumber: initialVehicleInfo.plate_number,
+    });
+
+    useEffect(() => {
+        return () => {
+            setCrrPage("etda");
+        };
+    }, []);
 
     const handlePressCancleBtn = () => {
         setModalVisible(false);
@@ -174,13 +141,9 @@ VehicleModifyModalProps) {
 
     const handleModifyEtda = async () => {
         console.log("Initial: ", initialVehicleInfo?.model, initialEtda);
-        console.log("Changed: ", initialVehicleInfo?.model, etda?.etda);
+        console.log("Changed: ", initialVehicleInfo?.model, etda.etda);
 
-        let isSuccessful: boolean = false;
-
-        if (etda !== null) {
-            isSuccessful = await updateUserVehicleEtda(etda);
-        }
+        const isSuccessful: boolean = await updateUserVehicleEtda(etda);
 
         isSuccessful
             ? Alert.alert(messages.messages.main.parking.modify_modal.succed_to_change_etda)
@@ -188,15 +151,12 @@ VehicleModifyModalProps) {
                   messages.messages.main.parking.modify_modal.fail_to_change_etda,
                   messages.messages.boilerplate.contact_the_manager
               );
-        //navigation.navigate("parking");
+
         setModalVisible(false);
     };
 
     const handleModifyInfo = async () => {
-        let isSuccessful: boolean = false;
-        if (info !== null) {
-            isSuccessful = await updateUserVehicleInfo(info);
-        }
+        const isSuccessful: boolean = await updateUserVehicleInfo(info);
 
         isSuccessful
             ? Alert.alert(messages.messages.main.parking.modify_modal.succed_to_change_info)
@@ -204,14 +164,9 @@ VehicleModifyModalProps) {
                   messages.messages.main.parking.modify_modal.fail_to_change_info,
                   messages.messages.boilerplate.contact_the_manager
               );
+
         setModalVisible(false);
     };
-
-    useEffect(() => {
-        return () => {
-            setCrrPage("etda");
-        };
-    }, []);
 
     return (
         <StardustAlert
@@ -229,31 +184,17 @@ VehicleModifyModalProps) {
             <View style={styles.contentContainer}>
                 {crrPage === "etda" ? (
                     <EtdaPage
-                        initialEtda={
-                            initialVehicleInfo !== null
-                                ? {
-                                      etd: {
-                                          hour: initialVehicleInfo.etd.getHours(),
-                                          minute: initialVehicleInfo.etd.getMinutes(),
-                                      },
-                                      eta: {
-                                          hour: initialVehicleInfo.eta.getHours(),
-                                          minute: initialVehicleInfo.eta.getMinutes(),
-                                      },
-                                  }
-                                : {
-                                      etd: {
-                                          hour: 0,
-                                          minute: 0,
-                                      },
-                                      eta: {
-                                          hour: 0,
-                                          minute: 0,
-                                      },
-                                  }
-                        }
+                        initialEtda={{
+                            etd: {
+                                hour: initialVehicleInfo.etd.getHours(),
+                                minute: initialVehicleInfo.etd.getMinutes(),
+                            },
+                            eta: {
+                                hour: initialVehicleInfo.eta.getHours(),
+                                minute: initialVehicleInfo.eta.getMinutes(),
+                            },
+                        }}
                         onChangeData={(data) => {
-                            if (etda === null) return;
                             setEtda({ ...etda, etda: data });
                         }}
                         onToInfoPageBtnPress={() => setCrrPage("info")}
@@ -262,7 +203,6 @@ VehicleModifyModalProps) {
                     <InfoPage
                         initialVehicleInfo={initialVehicleInfo}
                         onChangeData={(data) => {
-                            if (info === null) return;
                             setInfo({ ...info, model: data.model, plateNumber: data.plateNumber });
                         }}
                     />

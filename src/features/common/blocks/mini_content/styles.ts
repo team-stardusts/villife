@@ -7,7 +7,7 @@ export default function useHomeScreenContentStyles() {
     return StyleSheet.create({
         toplevelBox: {
             width: "100%",
-            height: deviceUI.moderateScale(200),
+            height: deviceUI.moderateScale(220),
             //height: deviceUI.screenSize.height / 5,
         },
         navigationBox: {

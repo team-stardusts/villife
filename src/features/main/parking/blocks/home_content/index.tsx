@@ -1,55 +1,71 @@
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Alert, Text, TouchableOpacity, View } from "react-native";
 import MiniContent from "../../../../common/blocks/mini_content";
 import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
 import useHomeContentFromParkingStyles from "./styles";
 import { useEffect, useState } from "react";
 import { IconSeries } from "../../../../common/atoms/icon/types";
 import Icon from "../../../../common/atoms/icon";
-import { RouterParams, VillifeStackParamList } from "../../../../common/router/types";
+import { RouterParams } from "../../../../common/router/types";
 import { useNavigation } from "@react-navigation/native";
 import useParkService from "../../services/park";
 import { Vehicle } from "../../services/states/types";
 import VehicleModifyModal from "../modify_modal";
+import { PRESSABLE_MENU_TYPE, PressableMenuProps } from "./types";
+import { useRecoilValue } from "recoil";
+import { vehiclesState } from "../../services/states";
 
 export default function HomeContentFromParking({ backgroundColor }: { backgroundColor: string }) {
-    const messages = useScreenMessage();
+    const messages = useScreenMessage().messages.main.parking.home_content;
     const [favoritVehicle, setFavoriteVehicle] = useState<Vehicle | null>(null);
     const styles = useHomeContentFromParkingStyles(favoritVehicle !== null);
-    const getVehicles = useParkService().getVehiclesByOwnerType;
+    const vehicles = useRecoilValue<Vehicle[]>(vehiclesState);
+    const updateVehicles = useParkService().updateVehicles;
 
-    const bootstrap = async (): Promise<void> => {
-        const vehicles = await getVehicles("user");
+    const setFavoriteVehicleFromVehicles = async (): Promise<void> => {
+        const userVehicles = vehicles.filter((vehicle) => vehicle.ownerType === "user");
 
-        if (vehicles.length === 0) {
+        if (userVehicles.length === 0) {
             return;
         }
 
         // [TO-DO] 차량 즐겨찾기 기능을 추가하여 즐겨찾는 차량이 선택되도록 변경해야함
-        setFavoriteVehicle(vehicles[0]);
+        setFavoriteVehicle(userVehicles[0]);
     };
 
     useEffect(() => {
-        bootstrap();
+        setFavoriteVehicleFromVehicles();
+    }, [vehicles]);
+
+    useEffect(() => {
+        updateVehicles();
     }, []);
 
     return (
-        <MiniContent title={"주차 관리"} navigation={{ to: "parking" }} backgroundColor={backgroundColor}>
+        <MiniContent title={messages.screen_title} backgroundColor={backgroundColor}>
             <View style={styles.main.container}>
                 {favoritVehicle && (
                     <View style={styles.main.textBox}>
                         <View style={styles.main.printWrapper}>
-                            <Text style={styles.main.text}>나의 출차 예정 시간</Text>
+                            <Text style={styles.main.text}>{messages.estimated_time_of_departure}</Text>
                         </View>
                         <View style={styles.main.dateWrapper}>
                             <Text style={styles.main.text}>
-                                {favoritVehicle.etd.getHours()}시 {favoritVehicle.etd.getMinutes()} 분
+                                {favoritVehicle.etd.getHours()}
+                                {messages.hour} {favoritVehicle.etd.getMinutes()}
+                                {messages.minute}
                             </Text>
                         </View>
                     </View>
                 )}
                 <View style={styles.main.btnBox}>
                     {Object.values(PRESSABLE_MENU_TYPE).map((value, index) => (
-                        <PressableMenu key={index} type={value} styles={styles.menu} vehicle={favoritVehicle} />
+                        <PressableMenu
+                            key={index}
+                            type={value}
+                            styles={styles.menu}
+                            vehicle={favoritVehicle}
+                            messages={messages}
+                        />
                     ))}
                 </View>
             </View>
@@ -57,7 +73,7 @@ export default function HomeContentFromParking({ backgroundColor }: { background
     );
 }
 
-function PressableMenu({ type, styles, vehicle }: PressableMenuProps) {
+function PressableMenu({ type, styles, vehicle, messages }: PressableMenuProps) {
     const navigation = useNavigation<RouterParams["navigation"]>();
     const [text, setText] = useState<string>("");
     const [iconName, setIconName] = useState<IconSeries>("people-round");
@@ -66,15 +82,15 @@ function PressableMenu({ type, styles, vehicle }: PressableMenuProps) {
     useEffect(() => {
         switch (type) {
             case "vehicle_list":
-                setText("차량\n리스트");
+                setText(messages.vehicle_list);
                 setIconName("list");
                 return;
             case "register_guest":
-                setText("방문자\n등록");
+                setText(messages.register_guest_vehicle);
                 setIconName("people-round");
                 return;
             default:
-                setText("출차\n관리");
+                setText(messages.departure_management);
                 setIconName("parking-lot");
                 return;
         }
@@ -92,8 +108,8 @@ function PressableMenu({ type, styles, vehicle }: PressableMenuProps) {
                 navigation.push("register_guest_vehicle", {});
                 return;
             default:
-                setVisible(true);
-                return;
+                if (vehicle === null) Alert.alert("There are no vehicle.");
+                else setVisible(true);
         }
     };
 
@@ -109,21 +125,9 @@ function PressableMenu({ type, styles, vehicle }: PressableMenuProps) {
                     </Text>
                 </View>
             </TouchableOpacity>
-            <VehicleModifyModal modalVisible={visible} setModalVisible={setVisible} initialVehicleInfo={vehicle} />
+            {vehicle !== null && (
+                <VehicleModifyModal modalVisible={visible} setModalVisible={setVisible} initialVehicleInfo={vehicle} />
+            )}
         </>
     );
 }
-
-const PRESSABLE_MENU_TYPE = {
-    VEHICLE_LIST: "vehicle_list",
-    REGISTER_GUEST: "register_guest",
-    VEHICLE_DEFARTURE_MANAGEMENT: "vehicle_departure_management",
-} as const;
-
-export type PressableMenuType = (typeof PRESSABLE_MENU_TYPE)[keyof typeof PRESSABLE_MENU_TYPE];
-
-type PressableMenuProps = {
-    type: PressableMenuType;
-    styles: ReturnType<typeof useHomeContentFromParkingStyles>["menu"];
-    vehicle: Vehicle | null;
-};
