@@ -9,6 +9,7 @@ import useStyler from "../../../../common/hooks/styler/hooks";
 import { ComplaintStatus } from "../../../../../libs/rest_apis/villife/complaint/types";
 import useHomeContentCardStyle from "./styles";
 import useNotiViewModel from "../outlined_box_list/useNotiViewModel";
+import IconPlus from "../../../../common/atoms/icon/plus";
 
 export default function HomeContentFromNoti({ backgroundColor }: { backgroundColor: string }) {
     const messages = useScreenMessage();
@@ -17,7 +18,7 @@ export default function HomeContentFromNoti({ backgroundColor }: { backgroundCol
     const userInfo = useUserInfoService();
     const viewModel = useNotiViewModel();
     const navigation = useNavigation<VillifeNavigation>();
-    const { theme } = useStyler();
+    const { theme, deviceUI } = useStyler();
 
     return (
         <MiniContent
@@ -25,7 +26,8 @@ export default function HomeContentFromNoti({ backgroundColor }: { backgroundCol
             navigation={{ to: "noti_home" }}
             backgroundColor={backgroundColor}>
             {viewModel?.length == 0 ? (
-                <Pressable
+                <TouchableOpacity
+                    style={style.whenEmptyContainer}
                     onPress={() => {
                         if (userInfo.isAdmin()) navigation.navigate("noti_register", {});
                     }}>
@@ -34,7 +36,7 @@ export default function HomeContentFromNoti({ backgroundColor }: { backgroundCol
                             ? message.messages.main.noti.when_noti_empty_admin
                             : message.messages.main.noti.when_noti_empty}
                     </Text>
-                </Pressable>
+                </TouchableOpacity>
             ) : (
                 <View style={style.contentContainer}>
                     {viewModel == undefined ? (

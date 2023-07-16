@@ -23,6 +23,11 @@ export default function useHomeContentCardStyle(): HomeContentCardStyle {
             fontSize: deviceUI.moderateScale(16),
             fontFamily: theme.font.fontFamilies.pretendard.bold,
             color: theme.colorFamily.white,
+            textAlign: "center",
+        },
+        whenEmptyContainer: {
+            verticalAlign: "center",
+            alignItems: "center",
         },
     });
     return Style;

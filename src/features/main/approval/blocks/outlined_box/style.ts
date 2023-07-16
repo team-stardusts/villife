@@ -12,7 +12,7 @@ export default function useApprovalOutlinedBoxStyle(): ApprovalOutlinedBoxStyles
             marginVertical: deviceUI.getScreenSize().height * 0.008,
             borderRadius: deviceUI.moderateScale(15),
             minHeight: deviceUI.getScreenSize().height * 0.08,
-            width: deviceUI.getScreenSize().width * 0.85,
+            width: "100%",
         },
         innerBox: {
             alignItems: "center",

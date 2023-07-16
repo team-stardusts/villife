@@ -15,7 +15,7 @@ export default function useNotiViewModel() {
         if (userInfo.adminInfo?.selectedBuilding.id) {
             const result = await service.getNotices(userInfo.adminInfo?.selectedBuilding.id);
 
-            console.log("noti Viewmodel admin : ", result.data?.data);
+            console.log("[NotiViewModel]Fetched notices count when user is admin : ", result.data?.data.length);
             if (result.isSuccessful) {
                 setNotices(result.data?.data);
             }
@@ -43,7 +43,7 @@ export default function useNotiViewModel() {
 
     React.useEffect(() => {
         getNotices();
-    }, [refresh]);
+    }, [refresh, userInfo.adminInfo?.selectedBuilding]);
 
     return notices;
 }

@@ -13,9 +13,11 @@ export default function useApprovalViewModel() {
     const [refresh, setRefresh] = React.useState({});
 
     const fetchApprovals = async () => {
+        console.log("[ApprovalViewModel] Fetching approvals ...");
         const fetchedApprovals = await service.getUserApproval();
         if (!fetchedApprovals.isSuccessful) return [];
         if (fetchedApprovals.data?.data) {
+            console.log("[ApprovalViewModel] Fetched approval count :", fetchedApprovals.data?.data.length);
             setApprovals([]);
             setApprovals(fetchedApprovals.data?.data);
         }
