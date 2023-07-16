@@ -17,6 +17,7 @@ import IconPencil from "../../../../common/atoms/icon/pencil";
 import ComplaintDetailEditModal from "../../blocks/detail_bottom_edit";
 import ComplaintProgressEditModal from "../../blocks/progress_edit";
 import { VILLIFE_AUTHORITY } from "../../../../../libs/rest_apis/villife/absc";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 export default function ComplaintDetailScreen({ navigation, route }: ComplaintDetailScreenProps) {
     const messages = useScreenMessage();
@@ -46,7 +47,7 @@ export default function ComplaintDetailScreen({ navigation, route }: ComplaintDe
                 setModalVisible={setProgressEditModalVisible}
                 complaint={uiState.complaint}
             />
-            <ScrollView style={[styles.topLevelBox]} scrollEventThrottle={20}>
+            <KeyboardAwareScrollView style={[styles.topLevelBox]} scrollEventThrottle={20}>
                 <>
                     <View style={styles.titleSection}>
                         <Text style={styles.title}>{uiState.complaint.title}</Text>
@@ -116,7 +117,7 @@ export default function ComplaintDetailScreen({ navigation, route }: ComplaintDe
                 ) : (
                     <></>
                 )}
-            </ScrollView>
+            </KeyboardAwareScrollView>
             <ReplyInputSection complaintID={uiState.complaint.id} />
         </NavigationView>
     );

@@ -58,8 +58,6 @@
             "home_content": {
                 "screen_title": "주차 관리",
                 "estimated_time_of_departure": "나의 출차 예정 시간",
-                "hour": "시",
-                "minute": "분",
                 "vehicle_list": "차량\n리스트",
                 "register_guest_vehicle": "방문자\n등록",
                 "departure_management": "출차\n관리"
@@ -259,7 +257,9 @@
         "vehicle_info": "차량 정보",
         "vehicle_model": "차량 모델",
         "visiting_perpose": "방문 목적",
-        "guest_phone_number": "방문 차량 연락처"
+        "guest_phone_number": "방문 차량 연락처",
+        "hour": "시",
+        "minute": "분"
     },
     "navigation": {
         "say_wait": "잠시만요!",
@@ -269,6 +269,8 @@
     "boilerplate": {
         "preparing_service": "서비스 준비중입니다.",
         "contact_the_manager": "관리자에게 문의바랍니다.",
-        "try_again_soon": "잠시 후 다시 시도해주세요."
+        "try_again_soon": "잠시 후 다시 시도해주세요.",
+        "succeed_to_send_message": "메세지를 보냈습니다.",
+        "fail_to_send_message": "메세지를 보내지 못했습니다."
     }
 }

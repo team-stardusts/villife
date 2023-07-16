@@ -2,6 +2,7 @@ import IStringValidator, { StringRegularExpressions } from "./types";
 
 class StringValidator implements IStringValidator {
     readonly regExps: StringRegularExpressions = {
+        isNumber: /^\d+$/,
         //영문자로 시작하는 영문자 또는 숫자 5~10자
         id: /^[a-z]+[a-z0-9]{4,10}$/g,
         //8 ~ 16자 영문, 숫자, 특수문자를 최소 한가지씩 조합
@@ -19,6 +20,10 @@ class StringValidator implements IStringValidator {
         vehiclePlateNumber: /^(([0-9]{2,3})|([가-힣]{2,3}))[가-힣]{1}[\s\u3000]\d{4}$/,
         // 공백 포함 미포함 : /^(([0-9]{2,3})|([가-힣]{2,3}))[\s\u3000]?[가-힣]{1}[\s\u3000]?\d{4}$/,
     };
+
+    public isNumber(text: string): boolean {
+        return this.regExps.number.test(text);
+    }
 
     // string length >= length
     public isLongerThan(text: string, length: number): boolean {

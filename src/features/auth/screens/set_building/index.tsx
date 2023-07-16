@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { SafeAreaView, View, Text, LogBox, Alert } from "react-native";
 import useScreenMessage from "../../../common/hooks/multilingual/hooks";
 import AuthScreenBottonButton from "../../blocks/bottom_button";
@@ -11,17 +11,37 @@ import { useRecoilState } from "recoil";
 import selectedAddressState from "../../../common/hooks/states/atoms/address/selected_address";
 import useValidateResidenceService from "../../services/set_building/index";
 import { BuildingInfo } from "../../services/set_building/type";
+import Badge from "../../../common/atoms/badge";
+import IStringValidator from "../../../../libs/string_validator/types";
+import StringValidator from "../../../../libs/string_validator";
 
 LogBox.ignoreLogs(["Did not receive response to shouldStartLoad in time"]);
+
+type BadgeStatus = {
+    title: string;
+    isValid: boolean;
+};
 
 export default function SetBuildingScreen({ navigation, route }: SetBuildingScreenProps) {
     const messages = useScreenMessage();
     const styles = useSetBuildingScreenStyles();
-    const [roomNumber, setRoomNumber] = useState<number | null>(null);
-    const [IsEditMode, setIsEditMode] = useState<boolean>(false);
+
     const [address, setAddress] = useRecoilState<SelectedAddressStateType>(selectedAddressState);
-    const [buildingInfo, setBuildingInfo] = useState<BuildingInfo>();
+    const [buildingInfo, setBuildingInfo] = useState<BuildingInfo | null>(null);
+
+    const [roomNumber, setRoomNumber] = useState<string | null>(null);
+    const [IsEditMode, setIsEditMode] = useState<boolean>(false);
+    const [addressBadgeStatus, setAddressBadgeStatus] = useState<BadgeStatus>({
+        title: "",
+        isValid: false,
+    });
+    const [roomNumberBadgeStatus, setRoomNumberBadgeStatus] = useState<BadgeStatus>({
+        title: "숫자",
+        isValid: false,
+    });
+
     const validateService = useValidateResidenceService();
+    const validator: IStringValidator = new StringValidator();
 
     const onPressNextButton = async () => {
         console.log("building : ", buildingInfo, roomNumber);
@@ -31,7 +51,7 @@ export default function SetBuildingScreen({ navigation, route }: SetBuildingScre
         validateService
             .RequestValidationOfUserRegidence({
                 building_id: buildingInfo.building_id,
-                room_number: roomNumber,
+                room_number: parseInt(roomNumber),
             })
             .then((r) => {
                 navigation.reset({
@@ -45,13 +65,23 @@ export default function SetBuildingScreen({ navigation, route }: SetBuildingScre
     };
 
     useEffect(() => {
+        if (roomNumber !== null) {
+            setRoomNumberBadgeStatus({ ...roomNumberBadgeStatus, isValid: validator.isNumber(roomNumber) });
+        }
+    }, [roomNumber]);
+
+    useEffect(() => {
         if (address) setIsEditMode(true);
     }, [address, roomNumber]);
 
-    // Selected address 초기화
     useEffect(() => {
-        setAddress(null);
-    }, []);
+        setAddressBadgeStatus({
+            ...addressBadgeStatus,
+            title: address?.roadAddress != "" && buildingInfo != null ? "등록된 빌라" : "미등록 빌라",
+            isValid: address?.roadAddress != "" && buildingInfo != null,
+        });
+    }, [buildingInfo]);
+
     // 주소 확인 작업
     useEffect(() => {
         if (address == null) return;
@@ -61,20 +91,26 @@ export default function SetBuildingScreen({ navigation, route }: SetBuildingScre
                 setBuildingInfo(r);
             })
             .catch((r) => {
+                setBuildingInfo(null);
                 console.log(r);
             });
     }, [address]);
 
+    // Selected address 초기화
+    useEffect(() => {
+        setAddress(null);
+    }, []);
+
     return (
-        <SafeAreaView style={styles.screen.topLevelBox}>
-            <View style={styles.screen.screenWrapper}>
+        <SafeAreaView style={styles.main.container}>
+            <View style={styles.main.screenWrapper}>
                 <AuthScreenTitleView
                     title={messages.messages.auth.set_building.title}
                     subtitles={[messages.messages.auth.set_building.subtitle]}
                 />
-                <View style={styles.screen.contentsWrapper}>
-                    <View style={styles.inputsSection.topLevelBox}>
-                        <View style={styles.inputsSection.attrWrapper}>
+                <View style={styles.main.contentsWrapper}>
+                    <View style={styles.input.container}>
+                        <View style={styles.input.inputBox}>
                             <AuthScreenCommonInput
                                 title={messages.messages.auth.set_building.adress_input_title}
                                 placeholder={messages.messages.auth.set_building.adress_input_placeholder}
@@ -82,32 +118,50 @@ export default function SetBuildingScreen({ navigation, route }: SetBuildingScre
                                 onPressIn={() => navigation.navigate("search_address", {})}
                                 value={address?.roadAddress ?? ""}
                             />
-                            {/** 여기를 예쁘게 수정해주세요 태성님 */}
-                            {address?.roadAddress != undefined && buildingInfo == undefined ? (
-                                <View>
-                                    <Text>유효하지 않은 주소입니다</Text>
-                                </View>
-                            ) : (
-                                <></>
-                            )}
-                            {address?.roadAddress != "" && buildingInfo != undefined && (
-                                <View>
-                                    <Text>{`유효한 주소입니다. 건물 이름 : ${buildingInfo.building_name}`}</Text>
-                                </View>
-                            )}
-
+                        </View>
+                        <View style={styles.input.addressBadgeBox}>
+                            <Badge
+                                title={addressBadgeStatus.title}
+                                color={
+                                    addressBadgeStatus.isValid
+                                        ? styles.input.validBadge.color
+                                        : styles.input.invalidBadge.color
+                                }
+                                bgColor={
+                                    addressBadgeStatus.isValid
+                                        ? styles.input.validBadge.backgroundColor
+                                        : styles.input.invalidBadge.backgroundColor
+                                }
+                                size={styles.input.validBadge.width}
+                            />
+                        </View>
+                        <View style={styles.input.inputBox}>
                             <AuthScreenCommonInput
                                 title={messages.messages.auth.set_building.room_number_input_title}
                                 placeholder={messages.messages.auth.set_building.room_number_input_placeholder}
                                 name="room_number"
                                 onChangeText={(text, name) => {
-                                    setRoomNumber(parseInt(text));
-                                    console.log(roomNumber);
+                                    setRoomNumber(text);
                                 }}
                             />
                         </View>
+                        <View style={styles.input.roomNumberBadgeBox}>
+                            <Badge
+                                title={roomNumberBadgeStatus.title}
+                                color={
+                                    roomNumberBadgeStatus.isValid
+                                        ? styles.input.validBadge.color
+                                        : styles.input.invalidBadge.color
+                                }
+                                bgColor={
+                                    roomNumberBadgeStatus.isValid
+                                        ? styles.input.validBadge.backgroundColor
+                                        : styles.input.invalidBadge.backgroundColor
+                                }
+                                size={styles.input.validBadge.width}
+                            />
+                        </View>
                     </View>
-                    <View style={styles.blankSection.topLevelBox}></View>
                 </View>
             </View>
             <AuthScreenBottonButton

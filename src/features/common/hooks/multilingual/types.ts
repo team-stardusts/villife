@@ -65,8 +65,6 @@ export type MessagesByLanguage = {
             home_content: {
                 screen_title: string;
                 estimated_time_of_departure: string;
-                hour: string;
-                minute: string;
                 vehicle_list: string;
                 register_guest_vehicle: string;
                 departure_management: string;
@@ -266,6 +264,8 @@ export type MessagesByLanguage = {
         vehicle_model: string;
         visiting_perpose: string;
         guest_phone_number: string;
+        hour: string;
+        minute: string;
     };
     navigation: {
         say_wait: string;
@@ -276,5 +276,7 @@ export type MessagesByLanguage = {
         preparing_service: string;
         contact_the_manager: string;
         try_again_soon: string;
+        succeed_to_send_message: string;
+        fail_to_send_message: string;
     };
 };

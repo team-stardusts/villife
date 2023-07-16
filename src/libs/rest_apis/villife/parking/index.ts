@@ -236,6 +236,22 @@ class VillifeParkginManager extends AVillifeServerModule implements IVillifePark
             data,
         });
     }
+
+    public async sendPushNotification(
+        params: Parking.SendPushNotification.Params
+    ): Response<Parking.SendPushNotification.Return> {
+        const route: string = this.routes.parking.sendPushNotification;
+        const data: Parking.SendPushNotification.Body = {
+            vehicle_id: params.vehicleID,
+            ...params,
+        };
+
+        return await this.requestAuthable<Parking.SendPushNotification.Body, Parking.SendPushNotification.Return>({
+            method: "post",
+            url: route,
+            data,
+        });
+    }
 }
 
 export default VillifeParkginManager;

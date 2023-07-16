@@ -5,11 +5,12 @@ import useAppThemeLegacy from "../../../../common/hooks/themes_legacy/hooks";
 import StringValidator from "../../../../../libs/string_validator";
 import Badge from "../../../../common/atoms/badge";
 import ValidatorProps from "./types";
+import IStringValidator from "../../../../../libs/string_validator/types";
 
 export default function TextInputValidators(props: ValidatorProps) {
     const sysinfo = useSystemInfo();
     const theme = useAppThemeLegacy().colors.colorFamily;
-    const validator = new StringValidator();
+    const validator: IStringValidator = new StringValidator();
 
     const validBgColor = theme.lightblue;
     const invalidBgColor = theme.lightgrey;
@@ -27,6 +28,8 @@ export default function TextInputValidators(props: ValidatorProps) {
 
     useEffect(() => {
         switch (examine) {
+            case "isNumber":
+                setIsValid(validator.isNumber(text));
             case "hasEnglish":
                 setIsValid(validator.hasAlpha(text));
                 break;

@@ -44,6 +44,7 @@ namespace Routes {
         handleVechile: string;
         handleGuestVehicle: string;
         updateParkInformation: string;
+        sendPushNotification: string;
     };
 
     export type UserInformation = {

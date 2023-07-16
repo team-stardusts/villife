@@ -15,7 +15,7 @@ import { useRecoilValue } from "recoil";
 import { vehiclesState } from "../../services/states";
 
 export default function HomeContentFromParking({ backgroundColor }: { backgroundColor: string }) {
-    const messages = useScreenMessage().messages.main.parking.home_content;
+    const messages = useScreenMessage().messages;
     const [favoritVehicle, setFavoriteVehicle] = useState<Vehicle | null>(null);
     const styles = useHomeContentFromParkingStyles(favoritVehicle !== null);
     const vehicles = useRecoilValue<Vehicle[]>(vehiclesState);
@@ -40,18 +40,20 @@ export default function HomeContentFromParking({ backgroundColor }: { background
     }, []);
 
     return (
-        <MiniContent title={messages.screen_title} backgroundColor={backgroundColor}>
+        <MiniContent title={messages.main.parking.home_content.screen_title} backgroundColor={backgroundColor}>
             <View style={styles.main.container}>
                 {favoritVehicle && (
                     <View style={styles.main.textBox}>
                         <View style={styles.main.printWrapper}>
-                            <Text style={styles.main.text}>{messages.estimated_time_of_departure}</Text>
+                            <Text style={styles.main.text}>
+                                {messages.main.parking.home_content.estimated_time_of_departure}
+                            </Text>
                         </View>
                         <View style={styles.main.dateWrapper}>
                             <Text style={styles.main.text}>
                                 {favoritVehicle.etd.getHours()}
-                                {messages.hour} {favoritVehicle.etd.getMinutes()}
-                                {messages.minute}
+                                {messages.words.hour} {favoritVehicle.etd.getMinutes()}
+                                {messages.words.minute}
                             </Text>
                         </View>
                     </View>
@@ -63,7 +65,7 @@ export default function HomeContentFromParking({ backgroundColor }: { background
                             type={value}
                             styles={styles.menu}
                             vehicle={favoritVehicle}
-                            messages={messages}
+                            messages={messages.main.parking.home_content}
                         />
                     ))}
                 </View>

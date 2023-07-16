@@ -7,7 +7,7 @@ export default function useReplyInputStyle(): RelplyInputStylesType {
 
     const Style = StyleSheet.create({
         replyInputContainer: {
-            backgroundColor: "white",
+            backgroundColor: theme.colorFamily.white,
         },
         replyImageSection: {
             borderTopColor: theme.colorFamily.blue,
@@ -17,7 +17,7 @@ export default function useReplyInputStyle(): RelplyInputStylesType {
         replyInputSection: {
             flexDirection: "row",
             alignItems: "center",
-            backgroundColor: "white",
+            backgroundColor: theme.colorFamily.white,
             borderColor: theme.colorFamily.blue,
             borderWidth: deviceUI.moderateScale(1),
         },
@@ -28,6 +28,7 @@ export default function useReplyInputStyle(): RelplyInputStylesType {
         },
         replyTextInput: {
             width: "75%",
+            paddingLeft: deviceUI.moderateScale(10),
             fontFamily: theme.font.fontFamilies.pretendard.bold,
         },
         replyImageIconSize: {

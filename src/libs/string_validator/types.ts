@@ -5,6 +5,7 @@ export interface StringRegularExpressions {
 export default interface IStringValidator {
     readonly regExps: StringRegularExpressions;
 
+    isNumber(text: string): boolean;
     hasNumber(text: string): boolean;
     hasAlpha(text: string): boolean;
     hasAlphaLargeCase(text: string): boolean;

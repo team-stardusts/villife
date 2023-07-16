@@ -53,6 +53,7 @@ export type VillifeStackParamList = VillifeRootStackParamList & {
     register_vehicle?: {};
     register_guest_vehicle?: {};
     send_park_push_noti: {
+        vehicleID: number;
         messageType: SendParkPushNotiMessageType;
     };
     my_page: {};

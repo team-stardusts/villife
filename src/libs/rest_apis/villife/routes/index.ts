@@ -45,6 +45,7 @@ const routes: RoutesType = {
         handleVechile: "park/vehicle",
         handleGuestVehicle: "park/guest-vehicle",
         updateParkInformation: "park/park-info",
+        sendPushNotification: "park/noti",
     },
     userInfo: {
         getUserBasicInfo: "user/basicinfo",

@@ -84,11 +84,19 @@ export default function AuthScreenCommonInput(props: AuthScreenCommonInputProps)
     }, []);
 
     return (
-        <View style={styles.inputWrapper}>
+        <View style={styles.container}>
             <Text style={_titleStyle}>{title}</Text>
-            <UniversalTextInput {...props} onChangeText={onChangeText} />
+            <UniversalTextInput style={[props.style, { height: "100%" }]} {...props} onChangeText={onChangeText} />
             {inspect && (
                 <View style={styles.validatorWrapper}>
+                    {inspect?.isNumber && (
+                        <TextInputValidators
+                            title={message.messages.words.use_english}
+                            text={text}
+                            examine={"isNumber"}
+                            onValidate={validate}
+                        />
+                    )}
                     {inspect?.hasEnglish && (
                         <TextInputValidators
                             title={message.messages.words.use_english}

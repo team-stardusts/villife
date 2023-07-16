@@ -1,67 +1,65 @@
 import { StyleSheet } from "react-native";
 import useSystemInfo from "../../../common/hooks/systeminfo/hooks";
 import useAppThemeLegacy from "../../../common/hooks/themes_legacy/hooks";
-import { SetBuildingScreenStylesType } from "./types";
+import useStyler from "../../../common/hooks/styler/hooks";
 
-export default function useSetBuildingScreenStyles(): SetBuildingScreenStylesType {
-    const theme = useAppThemeLegacy();
-    const systemInfo = useSystemInfo();
+export default function useSetBuildingScreenStyles() {
+    const { deviceUI, theme } = useStyler();
 
-    const Screen = StyleSheet.create({
-        topLevelBox: {
+    const main = StyleSheet.create({
+        container: {
             flex: 1,
             flexDirection: "column",
-            backgroundColor: theme.colors.colorFamily.white,
+            backgroundColor: theme.colorFamily.white,
         },
         screenWrapper: {
             flex: 1,
-            paddingHorizontal: systemInfo.window.width * 0.06,
+            paddingHorizontal: deviceUI.getScreenSize().width * 0.06,
         },
         contentsWrapper: {
             flex: 8,
         },
     });
 
-    const InputsSection = StyleSheet.create({
-        topLevelBox: {
-            flex: 3,
-        },
-        attrWrapper: {
-            //display: "flex",
+    const input = StyleSheet.create({
+        container: {
             flex: 1,
-            paddingTop: systemInfo.window.width * 0.07,
+            paddingTop: deviceUI.moderateScale(20),
         },
-        inputWrapper: {
-            flex: 4,
-            marginBottom: systemInfo.window.width * 0.02,
+        inputBox: {
+            height: deviceUI.moderateScale(30),
+            marginBottom: deviceUI.moderateScale(30),
         },
-        inputIdentifier: {
-            //fontFamily: Theme.css.font.universial.fontFamily,
-            color: theme.colors.colorFamily.blue,
-            fontSize: systemInfo.window.width * 0.05,
-            fontWeight: "bold",
-            paddingBottom: systemInfo.window.width * 0.01,
+        addressBadgeBox: {
+            maxWidth: deviceUI.moderateScale(100),
+            marginBottom: deviceUI.moderateScale(40),
+        },
+        roomNumberBadgeBox: {
+            maxWidth: deviceUI.moderateScale(60),
+            marginBottom: deviceUI.moderateScale(40),
+        },
+        validBadge: {
+            width: deviceUI.moderateScale(14),
+            color: theme.colorFamily.white,
+            backgroundColor: theme.colorFamily.blue,
+        },
+        invalidBadge: {
+            color: theme.colorFamily.grey,
+            backgroundColor: theme.colorFamily.lightgrey,
         },
         btnWrapper: {
             flex: 3,
-            marginBottom: systemInfo.window.width * 0.02,
+            marginBottom: deviceUI.getScreenSize().width * 0.02,
         },
         btnTitle: {
-            color: theme.colors.colorFamily.white,
-            fontSize: systemInfo.window.width * 0.04,
+            color: theme.colorFamily.white,
+            fontSize: deviceUI.getScreenSize().width * 0.04,
             fontWeight: "700",
         },
     });
 
-    const BlankSection = StyleSheet.create({
-        topLevelBox: {
-            flex: 5,
-        },
-    });
-
     return {
-        screen: Screen,
-        inputsSection: InputsSection,
-        blankSection: BlankSection,
+        main,
+        input,
     };
 }

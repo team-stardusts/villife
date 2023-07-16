@@ -1,4 +1,5 @@
 export type InspectTypes = {
+    isNumber?: boolean;
     hasEnglish?: boolean;
     hasEnglishOnlySmallCase?: boolean;
     hasNumber?: boolean;

@@ -81,22 +81,7 @@ export default function useParkService(): ParkServiceReturns {
         }
 
         if (result.data.data.length > 0) {
-            //const dataArray: Parking.TenantVehicle[] | Parking.GuestVehicle[] = result.data.data;
             const dataArray: Vehicle[] = [];
-
-            /* // [TO-DO] Tenant vehicles를 받아올 시 Payload가 String으로 오는데,
-            // 임시로 JSON으로 파싱해서 사용. 수정 시 삭제 필요
-
-            if (typeof result.data.data != "object") {
-                if (result.data.data === '[]"user has no room"' || result.data.data === "user has no room") {
-                    return [];
-                }
-                try {
-                    result.data.data = JSON.parse((result.data.data as string).slice(2));
-                } catch {
-                    return [];
-                }
-            } */
 
             for (let i = 0; i < result.data.data.length; i++) {
                 dataArray.push({
@@ -141,17 +126,6 @@ export default function useParkService(): ParkServiceReturns {
         const result = await parkManager.registerGuestVehicleToBuilding(params);
 
         if (result.isSuccessful && result.data?.data !== undefined) {
-            /* const updatedGuestVehicles = [
-                ...guestVehicles,
-                {
-                    ...result.data.data,
-                    eta: StardustDateParser.deserialize(result.data.data.eta),
-                    etd: StardustDateParser.deserialize(result.data.data.etd),
-                },
-            ];
-
-            setGuestVehicles(updatedGuestVehicles); */
-
             setVehicles([
                 ...vehicles,
                 {
@@ -180,16 +154,6 @@ export default function useParkService(): ParkServiceReturns {
         });
 
         if (result.isSuccessful && result.data?.data !== undefined) {
-            /* const updatedUserVehicles = [
-                ...userVehicles,
-                {
-                    ...result.data.data,
-                    eta: StardustDateParser.deserialize(result.data.data.eta),
-                    etd: StardustDateParser.deserialize(result.data.data.etd),
-                },
-            ];
-
-            setUserVehicles(updatedUserVehicles); */
             setVehicles([
                 ...vehicles,
                 {
@@ -206,6 +170,12 @@ export default function useParkService(): ParkServiceReturns {
         return false;
     };
 
+    const sendMessage = async (params: Parking.SendPushNotification.Params): Promise<boolean> => {
+        const result = await parkManager.sendPushNotification(params);
+
+        return result.isSuccessful;
+    };
+
     return {
         //vehicles,
         getVehiclesByOwnerType,
@@ -214,5 +184,6 @@ export default function useParkService(): ParkServiceReturns {
         updateUserVehicleInfo,
         registerGuestVehicleToBuilding,
         registerUserVehicle,
+        sendMessage,
     };
 }

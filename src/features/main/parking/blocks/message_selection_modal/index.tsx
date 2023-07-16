@@ -13,6 +13,7 @@ export default function MessageSelectionModal(props: MessageSelectionModalProps)
     return (
         <View style={styles.container}>
             <BottomMessageSelectionModal
+                vehicleID={props.vehicleID}
                 visible={isModalUnfold}
                 setVisible={setIsModalUnfold}
                 onMessageTypePress={console.log}

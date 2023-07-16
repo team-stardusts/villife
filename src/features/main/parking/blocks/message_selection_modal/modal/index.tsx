@@ -18,6 +18,7 @@ export default function BottomMessageSelectionModal(props: BottomMessageSelectio
                 {Object.values(SEND_PARK_PUSH_NOTI_MESSAGE_TYPE).map((value, index) => (
                     <MessageTypeComponent
                         key={index}
+                        vehicleID={props.vehicleID}
                         messageType={value}
                         onPress={() => {
                             props.setVisible(false);
@@ -35,7 +36,7 @@ function MessageTypeComponent(props: MessageTypeComponentProps) {
     const messages = useScreenMessage();
 
     const handlePress = () => {
-        navigation.push("send_park_push_noti", { messageType: props.messageType });
+        navigation.push("send_park_push_noti", { vehicleID: props.vehicleID, messageType: props.messageType });
 
         props.onPress();
     };

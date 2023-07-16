@@ -11,6 +11,7 @@ export namespace Parking {
         updateUserVehicleInfo(params: VehicleInfopdateParams): Response<VehicleInfoUpdateReturn>;
         registerGuestVehicleToBuilding(params: RegisterGuestVehicleToBuildingParams): Response<GuestVehicle>;
         registerUserVehicle(params: RegisterUserVehicle.Params): Response<RegisterUserVehicle.Return>;
+        sendPushNotification(params: SendPushNotification.Params): Response<SendPushNotification.Return>;
     }
 
     /* export interface ITestVehicleGettable {
@@ -22,6 +23,23 @@ export namespace Parking {
     } */
 
     type VehicleType = "4WD" | "2WD";
+
+    export namespace SendPushNotification {
+        export type Params = {
+            vehicleID: number;
+            title: string;
+            content: string;
+        };
+
+        export type Body = {
+            vehicle_id: number;
+            title: string;
+            content: string;
+        };
+
+        export type Return = string;
+    }
+
     export namespace RegisterUserVehicle {
         export type Params = {
             eta: number;

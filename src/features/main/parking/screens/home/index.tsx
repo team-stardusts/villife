@@ -20,13 +20,14 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import { vehiclesState } from "../../services/states";
 
 type VehicleInfoProps = {
+    vehicleID: number;
     ownerType: VehicleOwnerType;
     plateNumber: string;
     phoneNumber: string;
     etd: Date;
 };
 
-function VehicleInfo({ ownerType, plateNumber, phoneNumber, etd }: VehicleInfoProps) {
+function VehicleInfo({ vehicleID, ownerType, plateNumber, phoneNumber, etd }: VehicleInfoProps) {
     const styles = useParkingHomeScreenStyles().vehicleInfo;
     const message = useScreenMessage();
     const badgeTitle = ownerType !== "guest" ? message.messages.words.tenant : message.messages.words.guest;
@@ -68,7 +69,7 @@ function VehicleInfo({ ownerType, plateNumber, phoneNumber, etd }: VehicleInfoPr
                             }>
                             <Icon name="letter" size={styles.letterIcon.width} color={styles.letterIcon.color} />
                         </TouchableOpacity> */}
-                        <MessageSelectionModal />
+                        <MessageSelectionModal vehicleID={vehicleID} />
                     </View>
                     <View style={styles.infoBox}></View>
                 </View>
@@ -199,6 +200,7 @@ export default function ParkingScreen({ navigation, route }: ParkingScreenProps)
                             return (
                                 <VehicleInfo
                                     key={index}
+                                    vehicleID={vehicle.id}
                                     ownerType={vehicle.ownerType}
                                     plateNumber={vehicle.plate_number}
                                     phoneNumber={vehicle.phone_number}

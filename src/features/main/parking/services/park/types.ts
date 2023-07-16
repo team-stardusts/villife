@@ -11,6 +11,7 @@ export type ParkServiceReturns = {
     updateUserVehicleInfo(params: Parking.VehicleInfopdateParams): Promise<boolean>;
     registerGuestVehicleToBuilding(params: Parking.RegisterGuestVehicleToBuildingParams): Promise<boolean>;
     registerUserVehicle(params: RegisterUserVehicleParams): Promise<boolean>;
+    sendMessage(params: Parking.SendPushNotification.Params): Promise<boolean>;
 };
 
 export type RegisterUserVehicleParams = {

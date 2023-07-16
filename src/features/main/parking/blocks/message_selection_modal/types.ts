@@ -1,4 +1,5 @@
 export type MessageSelectionModalProps = {
+    vehicleID: number;
     //selectorType: SelectorType;
 };
 
