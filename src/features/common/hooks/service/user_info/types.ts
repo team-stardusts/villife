@@ -8,7 +8,7 @@ export type UseUserInfoServiceReturns = {
     adminInfo: AdminInformation | null;
     service: IUserInfoService;
     changeSelectedBuildingOfAdmin(building?: SimpleBuildingInfo): boolean;
-    isAdmin(): boolean;
+    isAdmin(): boolean | null; // Data가 채워지기 전이면 null을 return
     clearUserInfo(): Promise<void>;
     resetUserInfo(): Promise<UserDataType | undefined>;
 };

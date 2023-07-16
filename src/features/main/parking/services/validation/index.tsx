@@ -29,7 +29,8 @@ export class TextValidator {
     }
 
     public static validatePhoneNumber = (phoneNumber: string): boolean => {
-        return this.validator.isPhoneNumber(phoneNumber);
+        console.log(this.validator.isPhoneNumber(phoneNumber, true));
+        return this.validator.isPhoneNumber(phoneNumber, true);
     };
 
     public static validateVisitingPerpose = (perpose: string): boolean => {

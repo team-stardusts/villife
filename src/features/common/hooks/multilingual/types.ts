@@ -71,6 +71,10 @@ export type MessagesByLanguage = {
                 register_guest_vehicle: string;
                 departure_management: string;
             };
+            common: {
+                registration_successful: string;
+                registration_failure: string;
+            };
         };
         complaint: {
             screen_title: string;
@@ -271,5 +275,6 @@ export type MessagesByLanguage = {
     boilerplate: {
         preparing_service: string;
         contact_the_manager: string;
+        try_again_soon: string;
     };
 };

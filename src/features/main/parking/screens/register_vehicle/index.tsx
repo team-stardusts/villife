@@ -1,4 +1,4 @@
-import { KeyboardAvoidingView, ScrollView, Text, TouchableWithoutFeedback, View } from "react-native";
+import { Alert, KeyboardAvoidingView, ScrollView, Text, TouchableWithoutFeedback, View } from "react-native";
 import NavigationView from "../../../../common/blocks/navigation";
 import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
 import RegisterVehicleScreenProps, { Vehicle } from "./types";
@@ -38,7 +38,7 @@ export default function RegisterVehicleScreen({ navigation, route }: RegisterVeh
         model: false,
     });
 
-    const handlePressRegisterBtn = () => {
+    const handlePressRegisterBtn = async () => {
         if (!valid.model && !valid.plateNumber) {
             Toast.show({
                 type: "error",
@@ -62,10 +62,29 @@ export default function RegisterVehicleScreen({ navigation, route }: RegisterVeh
 
         if (valid.model && valid.plateNumber) {
             // [TO-DO] Regsiter Service 등록
-            const result = registerUserVehicle({
+            const isSuccessful: boolean = await registerUserVehicle({
                 ...vehicle,
                 vehicleType: "4WD",
-            }).then((r) => console.log("성공?", r));
+            });
+
+            const alertTitle: string = isSuccessful
+                ? messages.messages.main.parking.common.registration_successful
+                : messages.messages.main.parking.common.registration_failure;
+            const alertMessages: string | undefined = isSuccessful
+                ? undefined
+                : messages.messages.boilerplate.try_again_soon;
+
+            Alert.alert(alertTitle, alertMessages, [
+                {
+                    onPress: () => {
+                        isSuccessful &&
+                            navigation.reset({
+                                index: 0,
+                                routes: [{ name: "parking", params: {} }],
+                            });
+                    },
+                },
+            ]);
         }
     };
 

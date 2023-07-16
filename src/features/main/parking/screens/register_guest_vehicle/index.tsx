@@ -1,4 +1,4 @@
-import { Text, View } from "react-native";
+import { Alert, Text, View } from "react-native";
 import NavigationView from "../../../../common/blocks/navigation";
 import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
 import RegisterGuestVehicleScreenProps, { GuestVehicle } from "./types";
@@ -42,7 +42,7 @@ export default function RegisterGuestVehicleScreen({ navigation, route }: Regist
     });
 
     // [TO-DO] 예외 처리가 필요함
-    const handlePressRegisterBtn = () => {
+    const handlePressRegisterBtn = async () => {
         if (!valid.phoneNumber && !valid.plateNumber) {
             Toast.show({
                 type: "error",
@@ -67,7 +67,7 @@ export default function RegisterGuestVehicleScreen({ navigation, route }: Regist
         if (valid.phoneNumber && valid.plateNumber) {
             // Regsiter Service 등록
             // [TO-DO] ETDA 컨버터 필요
-            const result = registerGuestVehicleToBuilding({
+            const isSuccessful = await registerGuestVehicleToBuilding({
                 eta: 111111,
                 etd: 111111,
                 guestPhoneNumber: guestVehicle.phoneNumber,
@@ -76,7 +76,25 @@ export default function RegisterGuestVehicleScreen({ navigation, route }: Regist
                 vehicleType: "4WD",
                 visitingPurpose: guestVehicle.visitingPerpose,
             });
-            console.log("성공?", result);
+
+            const alertTitle: string = isSuccessful
+                ? messages.messages.main.parking.common.registration_successful
+                : messages.messages.main.parking.common.registration_failure;
+            const alertMessages: string | undefined = isSuccessful
+                ? undefined
+                : messages.messages.boilerplate.try_again_soon;
+
+            Alert.alert(alertTitle, alertMessages, [
+                {
+                    onPress: () => {
+                        isSuccessful &&
+                            navigation.reset({
+                                index: 0,
+                                routes: [{ name: "parking", params: {} }],
+                            });
+                    },
+                },
+            ]);
         }
     };
 

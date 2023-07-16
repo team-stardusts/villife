@@ -23,7 +23,6 @@ export default function HomeContentFromParking({ backgroundColor }: { background
 
     const setFavoriteVehicleFromVehicles = async (): Promise<void> => {
         const userVehicles = vehicles.filter((vehicle) => vehicle.ownerType === "user");
-
         if (userVehicles.length === 0) {
             return;
         }
@@ -37,7 +36,7 @@ export default function HomeContentFromParking({ backgroundColor }: { background
     }, [vehicles]);
 
     useEffect(() => {
-        updateVehicles();
+        updateVehicles("user");
     }, []);
 
     return (

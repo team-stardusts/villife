@@ -63,6 +63,10 @@
                 "vehicle_list": "차량\n리스트",
                 "register_guest_vehicle": "방문자\n등록",
                 "departure_management": "출차\n관리"
+            },
+            "common": {
+                "registration_successful": "차량 등록이 완료되었습니다.",
+                "registration_failure": "차량 등록에 실패했습니다."
             }
         },
         "complaint": {
@@ -264,6 +268,7 @@
     },
     "boilerplate": {
         "preparing_service": "서비스 준비중입니다.",
-        "contact_the_manager": "관리자에게 문의바랍니다."
+        "contact_the_manager": "관리자에게 문의바랍니다.",
+        "try_again_soon": "잠시 후 다시 시도해주세요."
     }
 }

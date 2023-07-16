@@ -6,12 +6,11 @@ export default function useMenuButtonStyles() {
 
     const main = StyleSheet.create({
         container: {
-            flex: 0.1,
-        },
-        iconBox: {
             flex: 1,
             justifyContent: "center",
             alignItems: "flex-end",
+        },
+        iconBox: {
             paddingRight: deviceUI.moderateScale(15),
         },
         icon: {

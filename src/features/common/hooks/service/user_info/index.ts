@@ -16,9 +16,9 @@ export default function useUserInfoService(): UseUserInfoServiceReturns {
     const [userBasicInfo, setUserBasicInfo] = useRecoilState(userBasicInfoState);
     const [adminInfo, setAdminInfo] = useRecoilState(adminInfoState);
 
-    const isAdmin = useCallback((): boolean => {
+    const isAdmin = useCallback((): boolean | null => {
         //console.log(userService.basicInfo?.authority);
-        if (userBasicInfo?.authority === undefined) return false;
+        if (userBasicInfo?.authority === undefined) return null;
 
         return (
             userBasicInfo.authority === VILLIFE_AUTHORITY.ADMIN || userBasicInfo.authority === VILLIFE_AUTHORITY.OWNER
