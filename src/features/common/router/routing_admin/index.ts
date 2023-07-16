@@ -7,6 +7,7 @@ import { RouterParams } from "../types";
 import VillifeStorage from "../../../../libs/storage";
 import useUserInfoService from "../../hooks/service/user_info";
 import { VILLIFE_AUTHORITY } from "../../../../libs/rest_apis/villife/absc";
+import { Alert } from "react-native";
 
 export default function useRoutingAdministratorByLogin(): void {
     const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -66,9 +67,13 @@ export default function useRoutingAdministratorByLogin(): void {
         }
 
         // User가 임차인임과 동시에 등록한 주소가 없을 때
+        // [TO-DO] 승인 대기중인 경우 대기 스크린으로 보내야함
         if (resetResult.authority == VILLIFE_AUTHORITY.RENTER && resetResult.room_id == undefined) {
             console.log("[ONLOGIN] User has no room , navigate to Set Building Page");
-            navigation.navigate("set_building");
+            navigation.reset({
+                index: 0,
+                routes: [{ name: "set_building" }],
+            });
             return;
         }
 

@@ -7,7 +7,7 @@ import SetBuildingScreen from "../../auth/screens/set_building";
 import TermsOfServiceScreen from "../../auth/screens/terms_of_service/index.";
 import SearchAddressScreen from "../screens/search_address";
 import HomeScreen from "../../main/home/screens/home";
-import SplashScreen from "../../splash/screens/splash_screen";
+import SplashScreen from "../../splash/screens";
 import TestScreen from "../../test";
 import WelcomeScreen from "../../auth/screens/welcome";
 import { useAutoRegisterFirebaseToken } from "../hooks/firebase";

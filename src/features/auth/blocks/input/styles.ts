@@ -16,7 +16,7 @@ export default function useAuthScreenCommonInputStyles() {
             ...theme.font.researved.h4,
         },
         validatorWrapper: {
-            flex: 1,
+            height: deviceUI.moderateScale(50),
             paddingTop: deviceUI.moderateScale(4),
             flexDirection: "row",
         },

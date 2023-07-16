@@ -68,8 +68,8 @@ export default function RegisterVehicleScreen({ navigation, route }: RegisterVeh
             });
 
             const alertTitle: string = isSuccessful
-                ? messages.messages.main.parking.common.registration_successful
-                : messages.messages.main.parking.common.registration_failure;
+                ? messages.messages.main.parking.common.request_registration_successful
+                : messages.messages.main.parking.common.request_registration_failure;
             const alertMessages: string | undefined = isSuccessful
                 ? undefined
                 : messages.messages.boilerplate.try_again_soon;

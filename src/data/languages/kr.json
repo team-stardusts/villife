@@ -57,6 +57,7 @@
             },
             "home_content": {
                 "screen_title": "주차 관리",
+                "no_registed_vehicle": "등록된 차량이 없습니다.",
                 "estimated_time_of_departure": "나의 출차 예정 시간",
                 "vehicle_list": "차량\n리스트",
                 "register_guest_vehicle": "방문자\n등록",
@@ -64,7 +65,9 @@
             },
             "common": {
                 "registration_successful": "차량 등록이 완료되었습니다.",
-                "registration_failure": "차량 등록에 실패했습니다."
+                "registration_failure": "차량 등록에 실패했습니다.",
+                "request_registration_successful": "차량 등록 요청이 완료되었습니다.",
+                "request_registration_failure": "차량 등록 요청을 실패했습니다."
             }
         },
         "complaint": {

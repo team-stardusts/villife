@@ -12,6 +12,7 @@ import { Authority } from "../../../../libs/rest_apis/villife/types";
 import useStyler from "../../../common/hooks/styler/hooks";
 import useAuthService from "../../services/authentication";
 import { VILLIFE_AUTHORITY } from "../../../../libs/rest_apis/villife/absc";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 type AccountType = {
     authority: Authority["ADMIN"] | Authority["RENTER"];
@@ -64,14 +65,17 @@ export default function CreateAccountScreen({ navigation, route }: CreateAccount
     }, [isCorrectID, isCorrectPassword, isCorrectConfirmPassword]);
 
     return (
-        <SafeAreaView style={styles.Screen.topLevelBox}>
-            <KeyboardAvoidingView style={styles.Screen.screenWrapper} behavior="padding">
+        <SafeAreaView style={styles.main.container}>
+            <View style={styles.main.wrapper}>
                 <AuthScreenTitleView
                     title={messages.messages.auth.create_account.title}
                     subtitles={[messages.messages.auth.create_account.subtitle]}
                 />
-                <View style={styles.Screen.contentsWrapper}>
-                    <View style={styles.UserTypeIconSection.toplevelBox}>
+                <KeyboardAwareScrollView
+                    style={styles.main.contentWrapper}
+                    showsVerticalScrollIndicator={false} /* behavior="padding" */
+                >
+                    <View style={styles.userTypeIcon.container}>
                         <UserTypeSelectionButton
                             userType={VILLIFE_AUTHORITY.RENTER}
                             caption={messages.messages.words.renter}
@@ -97,8 +101,8 @@ export default function CreateAccountScreen({ navigation, route }: CreateAccount
                             }}
                         />
                     </View>
-                    <View style={styles.InputsSection.topLevelBox}>
-                        <View style={styles.InputsSection.inputsWrapper}>
+                    <View style={styles.input.container}>
+                        <View style={styles.input.inputBox}>
                             <AuthScreenCommonInput
                                 name="id"
                                 title={messages.messages.auth.create_account.name_input_title}
@@ -119,6 +123,8 @@ export default function CreateAccountScreen({ navigation, route }: CreateAccount
                                     }) */
                                 }
                             />
+                        </View>
+                        <View style={styles.input.inputBox}>
                             <AuthScreenCommonInput
                                 name="password"
                                 title={messages.messages.auth.create_account.password_input_title}
@@ -141,6 +147,8 @@ export default function CreateAccountScreen({ navigation, route }: CreateAccount
                                 }
                                 secureTextEntry
                             />
+                        </View>
+                        <View style={styles.input.inputBox}>
                             <AuthScreenCommonInput
                                 name="confirm_password"
                                 title={messages.messages.auth.create_account.confirm_password_input_title}
@@ -153,37 +161,30 @@ export default function CreateAccountScreen({ navigation, route }: CreateAccount
                                 inspect={{
                                     matching: account.password,
                                 }}
-                                onValidate={
-                                    (isValid: boolean) => setIsCorrectConfirmPassword(isValid)
-                                    /* setInputValidation({
-                                        ...inputValidation,
-                                        confirmPassword: isValid,
-                                    }) */
-                                }
+                                onValidate={(isValid: boolean) => setIsCorrectConfirmPassword(isValid)}
                                 secureTextEntry
                             />
-                            {host === "villife" && route.params.access_token !== undefined ? (
-                                <>
-                                    <AuthScreenCommonInput
-                                        title={messages.messages.auth.join.title_of_select_carrier_input}
-                                    />
-                                    <View style={styles.InputsSection.btnWrapper}>
-                                        <UniversialButton
-                                            title={messages.messages.auth.join.title_of_send_btn}
-                                            titleStyle={styles.InputsSection.btnTitle}
-                                            onPress={() => {}}
-                                            disabled={false}
-                                        />
-                                    </View>
-                                </>
-                            ) : (
-                                <></>
-                            )}
                         </View>
+                        {host === "villife" && route.params.access_token !== undefined ? (
+                            <View style={styles.input.inputBox}>
+                                <AuthScreenCommonInput
+                                    title={messages.messages.auth.join.title_of_select_carrier_input}
+                                />
+                                <View style={styles.input.btnBox}>
+                                    <UniversialButton
+                                        title={messages.messages.auth.join.title_of_send_btn}
+                                        //titleStyle={styles.InputsSection.btnTitle}
+                                        onPress={() => {}}
+                                        disabled={false}
+                                    />
+                                </View>
+                            </View>
+                        ) : (
+                            <></>
+                        )}
                     </View>
-                </View>
-            </KeyboardAvoidingView>
-            <View style={styles.Screen.marginView}></View>
+                </KeyboardAwareScrollView>
+            </View>
             <AuthScreenBottonButton
                 title={messages.messages.auth.create_account.next_btn_title}
                 onPress={() => {

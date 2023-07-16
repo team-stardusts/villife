@@ -64,6 +64,7 @@ export type MessagesByLanguage = {
             };
             home_content: {
                 screen_title: string;
+                no_registed_vehicle: string;
                 estimated_time_of_departure: string;
                 vehicle_list: string;
                 register_guest_vehicle: string;
@@ -72,6 +73,8 @@ export type MessagesByLanguage = {
             common: {
                 registration_successful: string;
                 registration_failure: string;
+                request_registration_successful: string;
+                request_registration_failure: string;
             };
         };
         complaint: {

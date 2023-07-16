@@ -1,51 +1,45 @@
 import { StyleSheet } from "react-native";
-import useSystemInfo from "../../../common/hooks/systeminfo/hooks";
-import useAppThemeLegacy from "../../../common/hooks/themes_legacy/hooks";
-import { CreateAccountScreenStylesType } from "./types";
 import useStyler from "../../../common/hooks/styler/hooks";
 
-export default function useCreateAccountScreenStyles(): CreateAccountScreenStylesType {
+export default function useCreateAccountScreenStyles() {
     const { deviceUI, theme } = useStyler();
 
-    const Screen = StyleSheet.create({
-        topLevelBox: {
+    const main = StyleSheet.create({
+        container: {
             flex: 1,
-            flexDirection: "column",
             backgroundColor: theme.colorFamily.white,
         },
-        screenWrapper: {
+        wrapper: {
             flex: 1,
-            paddingHorizontal: deviceUI.moderateScale(20),
+            paddingHorizontal: deviceUI.moderateScale(22),
         },
-        contentsWrapper: {
-            flex: 8,
+        contentWrapper: {
+            height: deviceUI.getScreenSize().height * 0.7,
         },
         marginView: {
             marginTop: deviceUI.moderateScale(150),
         },
     });
 
-    const UserTypeIconSection = StyleSheet.create({
-        toplevelBox: {
-            flex: 2,
+    const userTypeIcon = StyleSheet.create({
+        container: {
+            height: main.contentWrapper.height * 0.2,
             flexDirection: "row",
             justifyContent: "space-evenly",
         },
     });
 
-    const InputsSection = StyleSheet.create({
-        topLevelBox: {
-            flex: 6,
-            alignItems: "center",
-            justifyContent: "flex-start",
+    const input = StyleSheet.create({
+        container: {
+            height: main.contentWrapper.height * 0.8,
             paddingTop: deviceUI.moderateScale(10),
         },
-        inputsWrapper: {
-            //height: "80%",
-            flex: 1,
+        inputBox: {
             width: "100%",
+            height: deviceUI.moderateScale(30),
+            marginBottom: deviceUI.moderateScale(70),
         },
-        btnWrapper: {
+        btnBox: {
             flex: 3,
             marginBottom: deviceUI.moderateScale(10),
         },
@@ -57,8 +51,8 @@ export default function useCreateAccountScreenStyles(): CreateAccountScreenStyle
     });
 
     return {
-        Screen,
-        UserTypeIconSection,
-        InputsSection,
+        main,
+        userTypeIcon,
+        input,
     };
 }

@@ -19,7 +19,7 @@ import { RouterParams } from "../../../../common/router/types";
 import VehicleModifyModal from "../modify_modal";
 import useParkService from "../../services/park";
 
-function VehicleCard({ vehicle, cardWidth, updateVehicleEtda, updateVehicleInfo }: VehicleCardProps) {
+function VehicleCard({ vehicle, cardWidth }: VehicleCardProps) {
     const { deviceUI, theme } = useStyler();
     const messages = useScreenMessage();
     const [deleteAlertVisible, setDeleteAlertVisible] = useState<boolean>(false);
@@ -88,8 +88,6 @@ function VehicleCard({ vehicle, cardWidth, updateVehicleEtda, updateVehicleInfo 
                 initialVehicleInfo={vehicle}
                 modalVisible={deleteAlertVisible}
                 setModalVisible={setDeleteAlertVisible}
-                updateVehicleEtda={updateVehicleEtda}
-                updateVehicleInfo={updateVehicleInfo}
             />
         </TouchableOpacity>
     );
@@ -166,13 +164,7 @@ export default function VehicleCardView({ vehicles, cardWidth }: VehicleCardView
                 scrollEventThrottle={5}
                 onScroll={(e) => setCrrIndex(getCurrentPage(e, cardWidth))}>
                 {vehicles.map((vehicle, index) => (
-                    <VehicleCard
-                        key={index}
-                        vehicle={vehicle}
-                        cardWidth={cardWidth}
-                        updateVehicleEtda={updateUserVehicleEtda}
-                        updateVehicleInfo={updateUserVehicleInfo}
-                    />
+                    <VehicleCard key={index} vehicle={vehicle} cardWidth={cardWidth} />
                 ))}
                 <TouchableOpacity style={styles.registerCardBox} activeOpacity={0.6} onPress={handlePressRegisterBtn}>
                     {vehicles.length === 0 && (

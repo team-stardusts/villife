@@ -109,7 +109,7 @@ function PressableMenu({ type, styles, vehicle, messages }: PressableMenuProps) 
                 navigation.push("register_guest_vehicle", {});
                 return;
             default:
-                if (vehicle === null) Alert.alert("There are no vehicle.");
+                if (vehicle === null) Alert.alert(messages.no_registed_vehicle);
                 else setVisible(true);
         }
     };
