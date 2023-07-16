@@ -28,6 +28,9 @@ import ComplaintModifyScreen from "../../main/complaint/screens/modify";
 import RegisterGuestVehicleScreen from "../../main/parking/screens/register_guest_vehicle";
 import SendParkPushNotiScreen from "../../main/parking/screens/send_park_push_noti";
 import useRoutingAdministratorByLogin from "./routing_admin";
+import CommonComplaintHomeScreen from "../../main/common_complaint/screens/home";
+import CommonComplaintModifyScreen from "../../main/common_complaint/screens/modify";
+import CommonComplaintRegisterScreen from "../../main/common_complaint/screens/register";
 
 enableScreens(true);
 
@@ -80,6 +83,11 @@ export default function ScreenRouter() {
                 <Stack.Screen name={"noti_home"} component={NoticeHomeScreen} />
                 <Stack.Screen name={"noti_register"} component={NoticeRegisterScreen} />
                 <Stack.Screen name={"noti_modify"} component={NoticeModifyScreen} />
+            </Stack.Group>
+            <Stack.Group>
+                <Stack.Screen name={"common_complaint_home"} component={CommonComplaintHomeScreen} />
+                <Stack.Screen name={"common_complaint_modify"} component={CommonComplaintModifyScreen} />
+                <Stack.Screen name={"common_complaint_register"} component={CommonComplaintRegisterScreen} />
             </Stack.Group>
             <Stack.Group>
                 <Stack.Screen name={"approval_home"} component={ApprovalHomeScreen} />

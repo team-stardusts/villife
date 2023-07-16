@@ -57,6 +57,9 @@ export type VillifeStackParamList = VillifeRootStackParamList & {
         messageType: SendParkPushNotiMessageType;
     };
     my_page: {};
+    common_complaint_home: {};
+    common_complaint_modify: {};
+    common_complaint_register: {};
 };
 
 export const SEND_PARK_PUSH_NOTI_MESSAGE_TYPE = {

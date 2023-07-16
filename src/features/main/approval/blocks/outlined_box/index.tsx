@@ -24,6 +24,7 @@ function OutlinedBox(props: OutlinedBoxProps) {
             const converter = new ApprovalDataConverter(props.approvalRequest);
             const convertedData = converter.convert();
             setConvertedApprovals(convertedData);
+            console.log(convertedData);
         };
         fetchData();
     }, [props.approvalRequest]);

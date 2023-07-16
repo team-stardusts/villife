@@ -15,11 +15,11 @@ export class ApprovalDataConverter {
     convert(): ConvertedApprovalData {
         const message = useScreenMessage();
         const identifier = this.request.category * 1000 + this.request.detail_type;
-
+        console.log("this.request : ", this.request);
         switch (identifier) {
             case 1001:
                 const approvalContent1001 = JSON.parse(this.request.content) as unknown as RequestCotent1001;
-
+                console.log("approvalContent1001 : ", approvalContent1001);
                 const detailArray1001: DetailContents = [];
                 detailArray1001.push({
                     title: message.messages.main.approval.building_name,
@@ -37,6 +37,7 @@ export class ApprovalDataConverter {
                     title: message.messages.main.approval.phone_number,
                     content: approvalContent1001.phone_number,
                 });
+                console.log("detailArray1001 : ", detailArray1001);
 
                 const convertedApprovalRequest1001: ConvertedApprovalData = {
                     id: this.request.id,
@@ -51,13 +52,11 @@ export class ApprovalDataConverter {
                     detailContent: detailArray1001,
                 };
 
-                console.log("보여줘", convertedApprovalRequest1001);
-
                 return convertedApprovalRequest1001;
 
             case 2001:
-                const approvalContent2001 = this.request.content as unknown as RequestCotent2001or2002;
-
+                const approvalContent2001 = JSON.parse(this.request.content) as unknown as RequestCotent2001or2002;
+                console.log("approvalContent2001 : ", approvalContent2001.building_name);
                 const detailArray2001: DetailContents = [];
                 detailArray2001.push({
                     title: message.messages.main.approval.building_name,
@@ -69,13 +68,13 @@ export class ApprovalDataConverter {
                 });
                 detailArray2001.push({
                     title: message.messages.main.approval.vehicle_number,
-                    content: approvalContent2001.vehicle_number,
+                    content: approvalContent2001.plate_number,
                 });
                 detailArray2001.push({
                     title: message.messages.main.approval.vehicle_model,
                     content: approvalContent2001.vehicle_model,
                 });
-
+                console.log("detailArray2001 : ", detailArray2001);
                 const convertedApprovalRequest2001: ConvertedApprovalData = {
                     id: this.request.id,
                     category: this.request.category,
@@ -88,10 +87,11 @@ export class ApprovalDataConverter {
                     subTitle: message.messages.main.approval.sub_title,
                     detailContent: detailArray2001,
                 };
+                console.log("convertedApprovalRequest2001 : ", convertedApprovalRequest2001);
                 return convertedApprovalRequest2001;
 
             case 2002:
-                const approvalContent2002 = this.request.content as unknown as RequestCotent2001or2002;
+                const approvalContent2002 = JSON.parse(this.request.content) as unknown as RequestCotent2001or2002;
 
                 const detailArray2002: DetailContents = [];
                 detailArray2002.push({
@@ -104,7 +104,7 @@ export class ApprovalDataConverter {
                 });
                 detailArray2002.push({
                     title: message.messages.main.approval.vehicle_number,
-                    content: approvalContent2002.vehicle_number,
+                    content: approvalContent2002.plate_number,
                 });
                 detailArray2002.push({
                     title: message.messages.main.approval.vehicle_model,
@@ -123,6 +123,7 @@ export class ApprovalDataConverter {
                     subTitle: message.messages.main.approval.sub_title,
                     detailContent: detailArray2002,
                 };
+
                 return convertedApprovalRequest2002;
 
             default:

@@ -12,6 +12,6 @@ export type RequestCotent1001 = BasicContent & {
 };
 
 export type RequestCotent2001or2002 = BasicContent & {
-    vehicle_number: string;
+    plate_number: string;
     vehicle_model: string;
 };
