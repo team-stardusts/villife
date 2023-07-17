@@ -129,7 +129,7 @@ export default function HomeSideModal(props: HomeSideMoalProps) {
                         <View style={styles.infoWrapper}>
                             <Icon name={"person"} size={deviceUI.moderateScale(80)} color="black" />
                             <View>
-                                <Text>{userInfo.adminInfo?.selectedBuilding.id}</Text>
+                                <Text>{userInfo.adminInfo?.selectedBuilding.name}</Text>
                                 <Text>{userInfo.basicInfo?.name}</Text>
                             </View>
                         </View>
