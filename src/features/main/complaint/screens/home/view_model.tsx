@@ -41,7 +41,7 @@ export default function ComplaintHomeViewModel(): ComplaintHomeUiState {
         if (res.data?.data) {
             const concatnatedComplaints = resReceived.data?.data.concat(...res.data.data);
             if (!concatnatedComplaints) return;
-            setComplaints([]);
+            //setComplaints([]);
             setComplaints(concatnatedComplaints);
         }
     };
@@ -57,7 +57,7 @@ export default function ComplaintHomeViewModel(): ComplaintHomeUiState {
                   });
         if (!res.isSuccessful) return [];
         if (res.data?.data) {
-            setComplaints([]);
+            //setComplaints([]);
             setComplaints(res.data.data);
         }
     };
@@ -73,7 +73,7 @@ export default function ComplaintHomeViewModel(): ComplaintHomeUiState {
                   });
         if (!res.isSuccessful) return;
         if (res.data?.data) {
-            setComplaints([]);
+            //setComplaints([]);
             setComplaints(res.data.data);
         }
     };
@@ -87,9 +87,10 @@ export default function ComplaintHomeViewModel(): ComplaintHomeUiState {
                 : await service.GetUserComplaints({
                       status: "completed",
                   });
+
         if (!res.isSuccessful) return;
+
         if (res.data?.data) {
-            setComplaints([]);
             setComplaints(res.data.data);
         }
     };

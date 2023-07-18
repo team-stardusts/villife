@@ -107,6 +107,7 @@ export default function ParkingScreen({ navigation, route }: ParkingScreenProps)
         if (user.isAdmin()) {
             newVehiclesForRender.push(...vehicles);
         } else {
+            console.log(...vehicles.filter((vehicle) => vehicle.ownerType !== "user"));
             newVehiclesForRender.push(...vehicles.filter((vehicle) => vehicle.ownerType !== "user"));
         }
 

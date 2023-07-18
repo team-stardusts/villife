@@ -2,18 +2,18 @@ import { Animated, Platform, StyleSheet, View } from "react-native";
 import { ContentBoxProps } from "./types";
 import useStyler from "../../hooks/styler/hooks";
 import { useEffect, useRef } from "react";
-import { ANIMATION_DURATION_SLOW } from "../../constants";
+import { ANIMATION_DURATION_DEFAULT, ANIMATION_DURATION_SLOW } from "../../constants";
 
 export default function ContentBox({ children, backgroundColor }: ContentBoxProps) {
     const { deviceUI, theme } = useStyler();
     const opacityValue = useRef(new Animated.Value(0)).current;
-    const translateYValue = useRef(new Animated.Value(15)).current;
+    const translateYValue = useRef(new Animated.Value(12)).current;
 
     useEffect(() => {
         Animated.parallel([
             Animated.timing(opacityValue, {
                 toValue: 1,
-                duration: ANIMATION_DURATION_SLOW,
+                duration: ANIMATION_DURATION_DEFAULT,
                 useNativeDriver: true,
             }),
             Animated.timing(translateYValue, {
