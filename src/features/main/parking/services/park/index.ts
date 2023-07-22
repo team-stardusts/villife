@@ -34,15 +34,16 @@ export default function useParkService(): ParkServiceReturns {
         }
 
         if (ownerType === undefined || ownerType === "tenant") {
-            let buidingVehicles = await getVehiclesByOwnerType("tenant");
-
-            const userVehicleIds = vehicles
-                .filter((vehicle) => vehicle.ownerType === "user")
-                .map((vehicle) => vehicle.id);
-
-            if (userVehicleIds.length > 0) {
-                buidingVehicles = buidingVehicles.filter((vechile) => !userVehicleIds.includes(vechile.id));
-            }
+            // Tenant Vehicles에서 User Vehicles 삭제
+            const buidingVehicles = await getVehiclesByOwnerType("tenant").then((result) => {
+                return result.filter(
+                    (buildingVehicle) =>
+                        !vehicles
+                            .filter((vehicle) => vehicle.ownerType === "user")
+                            .map((vehicle) => vehicle.id)
+                            .includes(buildingVehicle.id)
+                );
+            });
 
             newVehicles.push(...buidingVehicles);
         } else {

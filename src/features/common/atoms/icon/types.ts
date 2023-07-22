@@ -31,7 +31,8 @@ export type IconSeries =
     | "clock-arrow"
     | "menu"
     | "round-person"
-    | "question-mark";
+    | "question-mark"
+    | "three-dots-vertical";
 
 export type ChildIconProps = CommonIconProps & {
     [key: string]: string | number | undefined;

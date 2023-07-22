@@ -19,6 +19,7 @@ import IconList from "./list";
 import IconParkingLot from "./parking";
 
 import IconQuestionMark from "./question_mark";
+import IconThreeDotsVertical from "./three_dots_vertical";
 
 export default function Icon(props: IconProps) {
     /* let iconProps: ChildIconProps = {
@@ -78,6 +79,8 @@ export default function Icon(props: IconProps) {
             return <IconRoundPerson {...iconProps} />;
         case "question-mark":
             return <IconQuestionMark {...iconProps} />;
+        case "three-dots-vertical":
+            return <IconThreeDotsVertical {...iconProps} />;
         default:
             return <IconHome {...iconProps} />;
     }

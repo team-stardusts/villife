@@ -85,6 +85,13 @@ export default function useParkingHomeScreenStyles() {
         },
         infoBox: {
             flex: 3,
+            justifyContent: "center",
+            alignItems: "flex-end",
+        },
+        moreIconBox: {},
+        moreIcon: {
+            width: deviceUI.moderateScale(50),
+            color: theme.colorFamily.white,
         },
     });
 

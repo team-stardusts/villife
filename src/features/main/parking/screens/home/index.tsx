@@ -15,9 +15,10 @@ import SimpleFuncButton from "../../../../common/blocks/button/simple_func_butto
 import VillifeToastMessage from "../../../../common/atoms/toast";
 import useUserInfoService from "../../../../common/hooks/service/user_info";
 import MessageSelectionModal from "../../blocks/message_selection_modal";
-import { Vehicle, VehicleOwnerType } from "../../services/states/types";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { Vehicle } from "../../services/states/types";
+import { useRecoilValue } from "recoil";
 import { vehiclesState } from "../../services/states";
+import IconThreeDotsVertical from "../../../../common/atoms/icon/three_dots_vertical";
 
 export default function ParkingScreen({ navigation, route }: ParkingScreenProps) {
     const messages = useScreenMessage();
@@ -200,7 +201,20 @@ function VehicleInfo({ vehicleID, ownerType, plateNumber, phoneNumber, etd }: Ve
                         </TouchableOpacity> */}
                         <MessageSelectionModal vehicleID={vehicleID} />
                     </View>
-                    <View style={styles.infoBox}></View>
+                    <View style={styles.infoBox}>
+                        <TouchableOpacity
+                            style={styles.moreIconBox}
+                            activeOpacity={0.6}
+                            // [TO-DO] 방문자 수정 Function 추가 필요
+                            onPress={() =>
+                                VillifeToastMessage.showBottomToast(
+                                    "info",
+                                    message.messages.boilerplate.preparing_service
+                                )
+                            }>
+                            <IconThreeDotsVertical size={styles.moreIcon.width} color={styles.moreIcon.color} />
+                        </TouchableOpacity>
+                    </View>
                 </View>
             </ContentBox>
         </View>
