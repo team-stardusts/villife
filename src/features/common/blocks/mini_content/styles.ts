@@ -5,10 +5,10 @@ export default function useHomeScreenContentStyles() {
     const { deviceUI, theme } = useStyler();
 
     return StyleSheet.create({
-        toplevelBox: {
+        container: {
             width: "100%",
             height: deviceUI.moderateScale(220),
-            //height: deviceUI.screenSize.height / 5,
+            marginBottom: deviceUI.moderateScale(5),
         },
         navigationBox: {
             flex: 2,

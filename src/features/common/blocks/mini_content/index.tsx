@@ -48,7 +48,7 @@ export default function MiniContent({ title, navigation, children, backgroundCol
     };
 
     return (
-        <View style={styles.toplevelBox}>
+        <View style={styles.container}>
             <TouchableOpacity
                 style={styles.navigationBox}
                 onPress={() => navigate()}

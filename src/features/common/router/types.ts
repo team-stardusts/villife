@@ -31,6 +31,7 @@ export type VillifeStackParamList = VillifeRootStackParamList & {
     };
     welcome: {
         authority: Authority["ADMIN"] | Authority["RENTER"];
+        host: HostType;
         id: string;
         password: string;
     };

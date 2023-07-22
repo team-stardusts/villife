@@ -12,6 +12,7 @@ import { HostType } from "../../../../libs/storage/tables/login/types";
 import useStyler from "../../../common/hooks/styler/hooks";
 import useAuthService from "../../services/authentication";
 import { LoginServiceParams } from "../../services/authentication/types";
+import VillifeToastMessage from "../../../common/atoms/toast";
 
 export default function LoginScreen({ navigation }: LoginScreenProps) {
     const { deviceUI } = useStyler();
@@ -47,13 +48,7 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
     };
 
     const showToast = () => {
-        Toast.show({
-            type: "success",
-            text1: messages.messages.boilerplate.preparing_service,
-            position: "bottom",
-            visibilityTime: 1500,
-            bottomOffset: deviceUI.moderateScale(40),
-        });
+        VillifeToastMessage.showBottomToast("info", messages.messages.boilerplate.preparing_service);
     };
 
     return (

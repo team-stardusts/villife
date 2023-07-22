@@ -14,80 +14,7 @@ import { MyVehicleEtdaUpdateServiceParams } from "../../services/park/types";
 import { EtdaTime } from "../etad_time_picker/types";
 import { EtdaPageProps, InfoPageProps, Page, VehicleModifyModalProps } from "./types";
 
-// [TO-DO] Initial ETDA를 받아오도록 변경
-function EtdaPage({ initialEtda, onChangeData, onToInfoPageBtnPress }: EtdaPageProps) {
-    const { deviceUI, theme } = useStyler();
-    const messages = useScreenMessage();
-    const styles = useModifyModal().etda;
-
-    const [etda, setEtda] = useState<EtdaTime>(initialEtda);
-
-    useEffect(() => {
-        onChangeData(etda);
-    }, [etda]);
-
-    return (
-        <View style={styles.container}>
-            <View style={styles.timePickerContainer}>
-                <EtdaTimePicker initialTime={initialEtda} onTimeChange={setEtda} />
-            </View>
-            <TouchableOpacity
-                style={styles.toModifyVehicleInfoContainer}
-                activeOpacity={0.6}
-                onPress={onToInfoPageBtnPress}>
-                <Text style={styles.toModifyVehicleInfoText}>
-                    {messages.messages.main.parking.home.inform_to_modify_vehicle_info}
-                </Text>
-                <Icon name={"arrow-right"} size={deviceUI.moderateScale(35)} color={theme.colorFamily.lightgrey} />
-            </TouchableOpacity>
-        </View>
-    );
-}
-
-function InfoPage({ initialVehicleInfo, onChangeData }: InfoPageProps) {
-    const styles = useModifyModal().info;
-    const opacityValue = useRef(new Animated.Value(0)).current;
-
-    const [info, setInfo] = useState<VehicleInfo>({
-        plateNumber: "",
-        model: "",
-    });
-    const [valid, setValid] = useState<VehicleValidationResult>({
-        plateNumber: false,
-        model: false,
-    });
-
-    useEffect(() => {
-        Animated.timing(opacityValue, {
-            toValue: 1,
-            duration: 800,
-            useNativeDriver: true,
-        }).start();
-    });
-
-    useEffect(() => {
-        onChangeData(info);
-    }, [info]);
-
-    return (
-        <Animated.View style={[styles.container, { opacity: opacityValue }]}>
-            <VehicleInfoInputBox
-                initialVehicleInfo={
-                    initialVehicleInfo !== null
-                        ? {
-                              plateNumber: initialVehicleInfo.plate_number,
-                              model: initialVehicleInfo.model,
-                          }
-                        : undefined
-                }
-                onValidation={setValid}
-                onChangeVehicleInfo={setInfo}
-            />
-        </Animated.View>
-    );
-}
-
-export default function VehicleModifyModal({
+export default function VehicleModifyAlert({
     initialVehicleInfo,
     modalVisible,
     setModalVisible,
@@ -209,5 +136,78 @@ export default function VehicleModifyModal({
                 )}
             </View>
         </StardustAlert>
+    );
+}
+
+// [TO-DO] Initial ETDA를 받아오도록 변경
+function EtdaPage({ initialEtda, onChangeData, onToInfoPageBtnPress }: EtdaPageProps) {
+    const { deviceUI, theme } = useStyler();
+    const messages = useScreenMessage();
+    const styles = useModifyModal().etda;
+
+    const [etda, setEtda] = useState<EtdaTime>(initialEtda);
+
+    useEffect(() => {
+        onChangeData(etda);
+    }, [etda]);
+
+    return (
+        <View style={styles.container}>
+            <View style={styles.timePickerContainer}>
+                <EtdaTimePicker initialTime={initialEtda} onTimeChange={setEtda} />
+            </View>
+            <TouchableOpacity
+                style={styles.toModifyVehicleInfoContainer}
+                activeOpacity={0.6}
+                onPress={onToInfoPageBtnPress}>
+                <Text style={styles.toModifyVehicleInfoText}>
+                    {messages.messages.main.parking.home.inform_to_modify_vehicle_info}
+                </Text>
+                <Icon name={"arrow-right"} size={deviceUI.moderateScale(35)} color={theme.colorFamily.lightgrey} />
+            </TouchableOpacity>
+        </View>
+    );
+}
+
+function InfoPage({ initialVehicleInfo, onChangeData }: InfoPageProps) {
+    const styles = useModifyModal().info;
+    const opacityValue = useRef(new Animated.Value(0)).current;
+
+    const [info, setInfo] = useState<VehicleInfo>({
+        plateNumber: "",
+        model: "",
+    });
+    const [valid, setValid] = useState<VehicleValidationResult>({
+        plateNumber: false,
+        model: false,
+    });
+
+    useEffect(() => {
+        Animated.timing(opacityValue, {
+            toValue: 1,
+            duration: 800,
+            useNativeDriver: true,
+        }).start();
+    });
+
+    useEffect(() => {
+        onChangeData(info);
+    }, [info]);
+
+    return (
+        <Animated.View style={[styles.container, { opacity: opacityValue }]}>
+            <VehicleInfoInputBox
+                initialVehicleInfo={
+                    initialVehicleInfo !== null
+                        ? {
+                              plateNumber: initialVehicleInfo.plate_number,
+                              model: initialVehicleInfo.model,
+                          }
+                        : undefined
+                }
+                onValidation={setValid}
+                onChangeVehicleInfo={setInfo}
+            />
+        </Animated.View>
     );
 }

@@ -9,7 +9,7 @@ import { RouterParams } from "../../../../common/router/types";
 import { useNavigation } from "@react-navigation/native";
 import useParkService from "../../services/park";
 import { Vehicle } from "../../services/states/types";
-import VehicleModifyModal from "../modify_modal";
+import VehicleModifyAlert from "../modify_alert";
 import { PRESSABLE_MENU_TYPE, PressableMenuProps } from "./types";
 import { useRecoilValue } from "recoil";
 import { vehiclesState } from "../../services/states";
@@ -127,7 +127,7 @@ function PressableMenu({ type, styles, vehicle, messages }: PressableMenuProps) 
                 </View>
             </TouchableOpacity>
             {vehicle !== null && (
-                <VehicleModifyModal modalVisible={visible} setModalVisible={setVisible} initialVehicleInfo={vehicle} />
+                <VehicleModifyAlert modalVisible={visible} setModalVisible={setVisible} initialVehicleInfo={vehicle} />
             )}
         </>
     );

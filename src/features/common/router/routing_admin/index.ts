@@ -77,11 +77,20 @@ export default function useRoutingAdministratorByLogin(): void {
             return;
         }
 
-        // 정상 로그인
-        navigation.reset({
-            index: 0,
-            routes: [{ name: "home" }],
-            //routes: [{ name: "test" }],
-        });
+        const routes = navigation.getState().routes;
+
+        // Default screen이 login이므로, 리프레쉬를 하더라도 0번 스택에 login이 쌓임
+        if (routes.length > 0 && routes[0].name === "login") {
+            // 정상 로그인
+            navigation.reset({
+                index: 0,
+                routes: [{ name: "home" }],
+                //routes: [{ name: "test" }],
+            });
+        }
+
+        // 이 곳에 다른 스크린으로 라우팅 하는 코드를 삽입할 경우
+        // 일정 시간이 지나 Access token이 초기화 될 시
+        // 유저가 보고 있던 스크린을 잃음
     };
 }

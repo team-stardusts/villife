@@ -7,11 +7,18 @@ import useWelcomeScreenStyles from "./styles";
 import WelcomScreenProps from "./types";
 import useSystemInfo from "../../../common/hooks/systeminfo/hooks";
 import { VILLIFE_AUTHORITY } from "../../../../libs/rest_apis/villife/absc";
+import useAuthService from "../../services/authentication";
 
-export default function WelcomeScreen({ navigation, route }: WelcomScreenProps) {
+export default function WelcomeScreen({ route }: WelcomScreenProps) {
     const styles = useWelcomeScreenStyles();
     const message = useScreenMessage();
     const sysinfo = useSystemInfo();
+    const login = useAuthService().login;
+
+    const handlePressNextBtn = () => {
+        const { host, id, password } = route.params;
+        login(host, { id, password });
+    };
 
     return (
         <SafeAreaView style={styles.Screen.topLevelBox}>
@@ -41,15 +48,7 @@ export default function WelcomeScreen({ navigation, route }: WelcomScreenProps) 
                 </View>
                 <View style={styles.BlankSection.toplevelBox} />
             </View>
-            <AuthScreenBottonButton
-                title={message.messages.auth.welcome.next_btn_title}
-                onPress={() =>
-                    navigation.navigate("set_building", {
-                        id: route.params.id,
-                        password: route.params.password,
-                    })
-                }
-            />
+            <AuthScreenBottonButton title={message.messages.auth.welcome.next_btn_title} onPress={handlePressNextBtn} />
         </SafeAreaView>
     );
 }

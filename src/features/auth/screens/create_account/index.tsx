@@ -23,7 +23,6 @@ type AccountType = {
 
 export default function CreateAccountScreen({ navigation, route }: CreateAccountScreenProps) {
     const { host, access_token } = route.params;
-    const login = useAuthService().login;
     const join = useAuthService().join;
     const messages = useScreenMessage();
     const styles = useCreateAccountScreenStyles();
@@ -51,12 +50,14 @@ export default function CreateAccountScreen({ navigation, route }: CreateAccount
             if (!result.isSuccessful) {
                 Alert.alert(result.data?.data ?? "Failed to join.");
                 return;
-            } else {
-                console.log("succeeded in sigining up");
-                login(host, { id, password });
             }
-            // [TO-DO] Welcome screen으로 이동 전에 Stack 초기화
-            navigation.navigate("welcome", { authority, id, password });
+            console.log("[CREATE_ACCOUNT]", "Succeeded in sigining up");
+
+            // Welcome screen으로 이동하며 Stack 초기화
+            navigation.reset({
+                index: 0,
+                routes: [{ name: "login", params: { host, authority, id, password } }],
+            });
         }
     };
 

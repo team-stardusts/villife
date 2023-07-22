@@ -16,7 +16,7 @@ import PageIndicators from "../../../../common/blocks/page_indicator";
 import Icon from "../../../../common/atoms/icon";
 import { useNavigation } from "@react-navigation/native";
 import { RouterParams } from "../../../../common/router/types";
-import VehicleModifyModal from "../modify_modal";
+import VehicleModifyAlert from "../modify_alert";
 import useParkService from "../../services/park";
 
 function VehicleCard({ vehicle, cardWidth }: VehicleCardProps) {
@@ -84,7 +84,7 @@ function VehicleCard({ vehicle, cardWidth }: VehicleCardProps) {
             {cardData.map((datum, index) => (
                 <CardRow key={index} rowKey={datum.rowKey} rowValue={datum.rowValue} />
             ))}
-            <VehicleModifyModal
+            <VehicleModifyAlert
                 initialVehicleInfo={vehicle}
                 modalVisible={deleteAlertVisible}
                 setModalVisible={setDeleteAlertVisible}

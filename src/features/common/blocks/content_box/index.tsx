@@ -38,7 +38,7 @@ export default function ContentBox({ children, backgroundColor }: ContentBoxProp
                     shadowOpacity: 0.3,
                     shadowRadius: deviceUI.moderateScale(2),
                     shadowOffset: {
-                        height: 6,
+                        height: 3,
                         width: 0,
                     },
                 },

@@ -19,6 +19,7 @@ import { Vehicle } from "../../services/states/types";
 import { useRecoilValue } from "recoil";
 import { vehiclesState } from "../../services/states";
 import IconThreeDotsVertical from "../../../../common/atoms/icon/three_dots_vertical";
+import VehicleDetailAlert from "../../blocks/vehicle_detail_alert";
 
 export default function ParkingScreen({ navigation, route }: ParkingScreenProps) {
     const messages = useScreenMessage();
@@ -142,11 +143,12 @@ export default function ParkingScreen({ navigation, route }: ParkingScreenProps)
                             return (
                                 <VehicleInfo
                                     key={index}
-                                    vehicleID={vehicle.id}
+                                    vehicle={vehicle}
+                                    /* vehicleID={vehicle.id}
                                     ownerType={vehicle.ownerType}
                                     plateNumber={vehicle.plate_number}
                                     phoneNumber={vehicle.phone_number}
-                                    etd={vehicle.etd}
+                                    etd={vehicle.etd} */
                                 />
                             );
                         })}
@@ -157,11 +159,12 @@ export default function ParkingScreen({ navigation, route }: ParkingScreenProps)
     );
 }
 
-function VehicleInfo({ vehicleID, ownerType, plateNumber, phoneNumber, etd }: VehicleInfoProps) {
+function VehicleInfo({ vehicle }: VehicleInfoProps) {
     const styles = useParkingHomeScreenStyles().vehicleInfo;
     const message = useScreenMessage();
-    const badgeTitle = ownerType !== "guest" ? message.messages.words.tenant : message.messages.words.guest;
-    const badgeStyle = ownerType !== "guest" ? styles.tenantBadge : styles.guestBadge;
+    const badgeTitle = vehicle.ownerType !== "guest" ? message.messages.words.tenant : message.messages.words.guest;
+    const badgeStyle = vehicle.ownerType !== "guest" ? styles.tenantBadge : styles.guestBadge;
+    const [detailAlertVisible, setDetailAlertVisible] = useState<boolean>(false);
 
     return (
         <View style={styles.container}>
@@ -174,7 +177,7 @@ function VehicleInfo({ vehicleID, ownerType, plateNumber, phoneNumber, etd }: Ve
                             color={badgeStyle.color}
                             bgColor={badgeStyle.backgroundColor}
                         />
-                        <Text style={styles.plateNumber}>{plateNumber}</Text>
+                        <Text style={styles.plateNumber}>{vehicle.plate_number}</Text>
                     </View>
                     <View style={styles.communicationFuncBox}>
                         <TouchableOpacity
@@ -199,21 +202,21 @@ function VehicleInfo({ vehicleID, ownerType, plateNumber, phoneNumber, etd }: Ve
                             }>
                             <Icon name="letter" size={styles.letterIcon.width} color={styles.letterIcon.color} />
                         </TouchableOpacity> */}
-                        <MessageSelectionModal vehicleID={vehicleID} />
+                        <MessageSelectionModal vehicleID={vehicle.id} />
                     </View>
                     <View style={styles.infoBox}>
                         <TouchableOpacity
                             style={styles.moreIconBox}
                             activeOpacity={0.6}
                             // [TO-DO] 방문자 수정 Function 추가 필요
-                            onPress={() =>
-                                VillifeToastMessage.showBottomToast(
-                                    "info",
-                                    message.messages.boilerplate.preparing_service
-                                )
-                            }>
+                            onPress={() => setDetailAlertVisible(true)}>
                             <IconThreeDotsVertical size={styles.moreIcon.width} color={styles.moreIcon.color} />
                         </TouchableOpacity>
+                        <VehicleDetailAlert
+                            visible={detailAlertVisible}
+                            setVisible={setDetailAlertVisible}
+                            vehicle={vehicle}
+                        />
                     </View>
                 </View>
             </ContentBox>
