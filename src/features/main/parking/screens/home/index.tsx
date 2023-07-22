@@ -1,7 +1,7 @@
 import { ScrollView, Text, TouchableOpacity, View } from "react-native";
 import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
 import NavigationView from "../../../../common/blocks/navigation";
-import ParkingScreenProps from "./types";
+import ParkingScreenProps, { VehicleInfoProps } from "./types";
 import useParkService from "../../services/park";
 import { useEffect, useState } from "react";
 import VehicleCardView from "../../blocks/vehicle_card";
@@ -18,65 +18,6 @@ import MessageSelectionModal from "../../blocks/message_selection_modal";
 import { Vehicle, VehicleOwnerType } from "../../services/states/types";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { vehiclesState } from "../../services/states";
-
-type VehicleInfoProps = {
-    vehicleID: number;
-    ownerType: VehicleOwnerType;
-    plateNumber: string;
-    phoneNumber: string;
-    etd: Date;
-};
-
-function VehicleInfo({ vehicleID, ownerType, plateNumber, phoneNumber, etd }: VehicleInfoProps) {
-    const styles = useParkingHomeScreenStyles().vehicleInfo;
-    const message = useScreenMessage();
-    const badgeTitle = ownerType !== "guest" ? message.messages.words.tenant : message.messages.words.guest;
-    const badgeStyle = ownerType !== "guest" ? styles.tenantBadge : styles.guestBadge;
-
-    return (
-        <View style={styles.container}>
-            <ContentBox>
-                <View style={styles.contentBox}>
-                    <View style={styles.vehicleInfoBox}>
-                        <Badge
-                            title={badgeTitle}
-                            size={badgeStyle.width}
-                            color={badgeStyle.color}
-                            bgColor={badgeStyle.backgroundColor}
-                        />
-                        <Text style={styles.plateNumber}>{plateNumber}</Text>
-                    </View>
-                    <View style={styles.communicationFuncBox}>
-                        <TouchableOpacity
-                            activeOpacity={0.6}
-                            style={styles.communicationIconBox}
-                            onPress={() =>
-                                VillifeToastMessage.showBottomToast(
-                                    "info",
-                                    message.messages.boilerplate.preparing_service
-                                )
-                            }>
-                            <Icon name="phone" size={styles.phoneIcon.width} color={styles.phoneIcon.color} />
-                        </TouchableOpacity>
-                        {/* <TouchableOpacity
-                            activeOpacity={0.6}
-                            style={styles.communicationIconBox}
-                            onPress={() =>
-                                VillifeToastMessage.showBottomToast(
-                                    "info",
-                                    message.messages.boilerplate.preparing_service
-                                )
-                            }>
-                            <Icon name="letter" size={styles.letterIcon.width} color={styles.letterIcon.color} />
-                        </TouchableOpacity> */}
-                        <MessageSelectionModal vehicleID={vehicleID} />
-                    </View>
-                    <View style={styles.infoBox}></View>
-                </View>
-            </ContentBox>
-        </View>
-    );
-}
 
 export default function ParkingScreen({ navigation, route }: ParkingScreenProps) {
     const messages = useScreenMessage();
@@ -107,7 +48,6 @@ export default function ParkingScreen({ navigation, route }: ParkingScreenProps)
         if (user.isAdmin()) {
             newVehiclesForRender.push(...vehicles);
         } else {
-            console.log(...vehicles.filter((vehicle) => vehicle.ownerType !== "user"));
             newVehiclesForRender.push(...vehicles.filter((vehicle) => vehicle.ownerType !== "user"));
         }
 
@@ -213,5 +153,56 @@ export default function ParkingScreen({ navigation, route }: ParkingScreenProps)
                 </View>
             </View>
         </NavigationView>
+    );
+}
+
+function VehicleInfo({ vehicleID, ownerType, plateNumber, phoneNumber, etd }: VehicleInfoProps) {
+    const styles = useParkingHomeScreenStyles().vehicleInfo;
+    const message = useScreenMessage();
+    const badgeTitle = ownerType !== "guest" ? message.messages.words.tenant : message.messages.words.guest;
+    const badgeStyle = ownerType !== "guest" ? styles.tenantBadge : styles.guestBadge;
+
+    return (
+        <View style={styles.container}>
+            <ContentBox>
+                <View style={styles.contentBox}>
+                    <View style={styles.vehicleInfoBox}>
+                        <Badge
+                            title={badgeTitle}
+                            size={badgeStyle.width}
+                            color={badgeStyle.color}
+                            bgColor={badgeStyle.backgroundColor}
+                        />
+                        <Text style={styles.plateNumber}>{plateNumber}</Text>
+                    </View>
+                    <View style={styles.communicationFuncBox}>
+                        <TouchableOpacity
+                            activeOpacity={0.6}
+                            style={styles.communicationIconBox}
+                            onPress={() =>
+                                VillifeToastMessage.showBottomToast(
+                                    "info",
+                                    message.messages.boilerplate.preparing_service
+                                )
+                            }>
+                            <Icon name="phone" size={styles.phoneIcon.width} color={styles.phoneIcon.color} />
+                        </TouchableOpacity>
+                        {/* <TouchableOpacity
+                            activeOpacity={0.6}
+                            style={styles.communicationIconBox}
+                            onPress={() =>
+                                VillifeToastMessage.showBottomToast(
+                                    "info",
+                                    message.messages.boilerplate.preparing_service
+                                )
+                            }>
+                            <Icon name="letter" size={styles.letterIcon.width} color={styles.letterIcon.color} />
+                        </TouchableOpacity> */}
+                        <MessageSelectionModal vehicleID={vehicleID} />
+                    </View>
+                    <View style={styles.infoBox}></View>
+                </View>
+            </ContentBox>
+        </View>
     );
 }

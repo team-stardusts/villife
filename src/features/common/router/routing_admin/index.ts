@@ -81,6 +81,7 @@ export default function useRoutingAdministratorByLogin(): void {
         navigation.reset({
             index: 0,
             routes: [{ name: "home" }],
+            //routes: [{ name: "test" }],
         });
     };
 }

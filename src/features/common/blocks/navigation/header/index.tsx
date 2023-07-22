@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { RouterParams } from "../../../router/types";
@@ -14,13 +14,13 @@ export default function NavigationViewHeader(props: NavigationViewHeaderProps) {
 
     useEffect(() => {
         setCrrNavIndex(navigation.getState().index);
-    }, [navigation.getState().index]);
+    }, [navigation]);
 
     return (
         <View style={styles.container}>
             <View style={styles.box}>
                 {crrNavIndex > 0 && (
-                    <TouchableOpacity style={styles.iconBox} onPress={() => navigation.pop()}>
+                    <TouchableOpacity style={styles.iconBox} onPress={() => navigation.pop(1)}>
                         <Icon name="arrow-left" size={styles.icon.width} color={styles.icon.color} />
                     </TouchableOpacity>
                 )}

@@ -6,6 +6,7 @@ import {
     ScrollView,
     StyleSheet,
     Text,
+    TouchableHighlight,
     TouchableOpacity,
     TouchableWithoutFeedback,
     UIManager,
@@ -24,99 +25,95 @@ export default function TestScreen() {
     const { deviceUI } = useStyler();
 
     const styles = StyleSheet.create({
-        avoidingContainer: {
-            flex: 1,
-        },
-        scrollview: {
-            flex: 1,
-            //backgroundColor: "lightgrey",
-        },
         container: {
             flex: 1,
-            width: "100%",
-            //backgroundColor: "teal",
         },
-        testButtonContainer: {
-            //flex: 1,
-        },
-        testButton: {
-            width: "100%",
-            backgroundColor: "red",
-            height: 50,
+        btn: {
+            height: "10%",
+            backgroundColor: "teal",
             justifyContent: "center",
             alignItems: "center",
         },
-        buttonText: {
-            fontSize: 20,
-        },
-        timepickerContainer: {
-            flex: 4,
-        },
-        timepickerWrapper: {
-            width: "100%",
-        },
-        inputsContainer: {
-            //flex: 9,
-        },
     });
 
-    const [touchedCoordinateY, setTouchedCoordinateY] = useState<number>(0);
+    const handleBtn = () => {
+        const a = VillifeAlert("test", "test", () => console.log("sadfsadf"));
+
+        a();
+    };
 
     return (
         <NavigationView headerOptions={{ title: "TEST" }}>
-            <KeyboardAwareScrollView enableOnAndroid={true} /* touchedCoordinateY={touchedCoordinateY} */>
-                <View style={styles.testButtonContainer}>
-                    <TouchableOpacity
-                        onPress={() => {
-                            console.log(firebaseToken);
-                        }}
-                        style={styles.testButton}>
-                        <Text style={styles.buttonText}>버튼</Text>
-                    </TouchableOpacity>
-                </View>
-                <View style={styles.inputsContainer}>
-                    <Text>a</Text>
-                    <UniversalTextInput
-                        onTouchEndCapture={(event) => {
-                            setTouchedCoordinateY(event.nativeEvent.pageY);
-                        }}
-                    />
-                    <Text>b</Text>
-                    <UniversalTextInput />
-                    <Text>c</Text>
-                    <UniversalTextInput />
-                    <Text>d</Text>
-                    <UniversalTextInput />
-                    <Text>e</Text>
-                    <UniversalTextInput />
-                    <Text>e</Text>
-                    <UniversalTextInput />
-                    <Text>e</Text>
-                    <UniversalTextInput />
-                    <Text>e</Text>
-                    <UniversalTextInput />
-                    <Text>e</Text>
-                    <UniversalTextInput />
-                    <Text>x</Text>
-                    <UniversalTextInput
-                        onTouchEndCapture={(event) => {
-                            setTouchedCoordinateY(event.nativeEvent.pageY);
-                        }}
-                    />
-                    <Text>y</Text>
-                    <UniversalTextInput
-                        onTouchEndCapture={(event) => {
-                            setTouchedCoordinateY(event.nativeEvent.pageY);
-                        }}
-                    />
-                    <Text>z</Text>
-                    <UniversalTextInput
-                        onTouchEndCapture={(event) => {
-                            setTouchedCoordinateY(event.nativeEvent.pageY);
-                        }}
-                    />
-                </View>
-            </KeyboardAwareScrollView>
+            <View style={styles.container}>
+                <TouchableHighlight
+                    style={styles.btn}
+                    activeOpacity={0.3}
+                    underlayColor={"teal"}
+                    onPress={VillifeAlert("test", "test", () => console.log("sadfsadf"))}>
+                    <Text>Button</Text>
+                </TouchableHighlight>
+            </View>
         </NavigationView>
     );
 }
+
+function VillifeAlert(title: string, message: string, onPressConfirm?: () => void) {
+    const al = (
+        <View style={styles.modalContainer}>
+            <View style={styles.innerContainer}>
+                <Text style={styles.titleText}>{title}</Text>
+                <Text style={styles.messageText}>{message}</Text>
+                <TouchableOpacity style={styles.confirmButton} onPress={onPressConfirm}>
+                    <Text style={styles.confirmButtonText}>OK</Text>
+                </TouchableOpacity>
+            </View>
+        </View>
+    );
+    return () => {
+        return al;
+    };
+}
+
+const styles = StyleSheet.create({
+    buttonContainer: {
+        backgroundColor: "#0080ff",
+        padding: 10,
+        borderRadius: 5,
+    },
+    buttonText: {
+        color: "white",
+        fontWeight: "bold",
+    },
+    modalContainer: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: "rgba(0, 0, 0, 0.2)",
+    },
+    innerContainer: {
+        width: 250,
+        backgroundColor: "white",
+        borderRadius: 5,
+        padding: 15,
+        alignItems: "center",
+    },
+    titleText: {
+        fontWeight: "bold",
+        fontSize: 16,
+        marginBottom: 10,
+    },
+    messageText: {
+        fontSize: 14,
+        marginBottom: 20,
+    },
+    confirmButton: {
+        backgroundColor: "#0080ff",
+        paddingHorizontal: 20,
+        paddingVertical: 10,
+        borderRadius: 5,
+    },
+    confirmButtonText: {
+        color: "white",
+        fontWeight: "bold",
+    },
+});

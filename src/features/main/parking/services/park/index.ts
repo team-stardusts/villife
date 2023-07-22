@@ -34,7 +34,17 @@ export default function useParkService(): ParkServiceReturns {
         }
 
         if (ownerType === undefined || ownerType === "tenant") {
-            newVehicles.push(...(await getVehiclesByOwnerType("tenant")));
+            let buidingVehicles = await getVehiclesByOwnerType("tenant");
+
+            const userVehicleIds = vehicles
+                .filter((vehicle) => vehicle.ownerType === "user")
+                .map((vehicle) => vehicle.id);
+
+            if (userVehicleIds.length > 0) {
+                buidingVehicles = buidingVehicles.filter((vechile) => !userVehicleIds.includes(vechile.id));
+            }
+
+            newVehicles.push(...buidingVehicles);
         } else {
             newVehicles.push(...vehicles.filter((vehicle) => vehicle.ownerType === "tenant"));
         }
