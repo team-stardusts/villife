@@ -1,14 +1,10 @@
-import { ScrollView, TouchableOpacity, View } from "react-native";
+import { ScrollView, View } from "react-native";
 import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
 import NavigationView from "../../../../common/blocks/navigation";
-import SimpleNavComponent from "../../../../common/blocks/navigation/header/navcomponent";
 import HomeScreenProps from "./type";
 import useHomeScreenStyles from "./styles";
 import useStyler from "../../../../common/hooks/styler/hooks";
 import HomeContentFromComplaint from "../../../complaint/blocks/home_content";
-import SimpleFuncButton from "../../../../common/blocks/button/simple_func_button";
-import HomeSideModal from "../../blocks/soide_modal";
-import Icon from "../../../../common/atoms/icon";
 import MenuButton from "../../blocks/menu_button";
 import HomeContentFromParking from "../../../parking/blocks/home_content";
 import HomeContentFromNoti from "../../../noti/blocks/home_content";

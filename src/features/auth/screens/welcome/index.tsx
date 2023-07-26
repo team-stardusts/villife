@@ -8,16 +8,17 @@ import WelcomScreenProps from "./types";
 import useSystemInfo from "../../../common/hooks/systeminfo/hooks";
 import { VILLIFE_AUTHORITY } from "../../../../libs/rest_apis/villife/absc";
 import useAuthService from "../../services/authentication";
+import { IAuthServiceProvider } from "../../services/authentication/types";
 
 export default function WelcomeScreen({ route }: WelcomScreenProps) {
     const styles = useWelcomeScreenStyles();
     const message = useScreenMessage();
     const sysinfo = useSystemInfo();
-    const login = useAuthService().login;
+    const auth: IAuthServiceProvider = useAuthService();
 
     const handlePressNextBtn = () => {
         const { host, id, password } = route.params;
-        login(host, { id, password });
+        auth.login(host, { id, password });
     };
 
     return (

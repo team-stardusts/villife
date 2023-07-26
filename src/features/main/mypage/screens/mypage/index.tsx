@@ -2,22 +2,21 @@ import { Button, View } from "react-native";
 import { useRecoilState } from "recoil";
 import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
 import { loginDataState } from "../../../../common/hooks/states/atoms/login";
-import { LoginDataStateType } from "../../../../common/hooks/states/atoms/login/types";
 import NavigationView from "../../../../common/blocks/navigation";
 import MyPageScreenProps from "./type";
 import useLogoutService from "../../services/logout";
 import useUserInfoService from "../../../../common/hooks/service/user_info";
-import VillifeStorage from "../../../../../libs/storage";
 import VillifeServer from "../../../../../libs/rest_apis/villife";
 import {
     UserResidenceValidationParams,
     VehicleResidenceValidationParams,
 } from "../../../../../libs/rest_apis/villife/building/types";
 import { VILLIFE_AUTHORITY } from "../../../../../libs/rest_apis/villife/absc";
+import { LoginDataType } from "../../../../../libs/storage/tables/login/types";
 
 export default function MyPageScreen({ navigation, route }: MyPageScreenProps) {
     const messages = useScreenMessage();
-    const [loginData] = useRecoilState<LoginDataStateType>(loginDataState);
+    const [loginData] = useRecoilState<LoginDataType | null>(loginDataState);
     const logout = useLogoutService().logout;
     const userInfo = useUserInfoService();
 

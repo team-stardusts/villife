@@ -1,28 +1,17 @@
-import {
-    Animated,
-    KeyboardAvoidingView,
-    PanResponder,
-    PanResponderInstance,
-    ScrollView,
-    StyleSheet,
-    Text,
-    TouchableHighlight,
-    TouchableOpacity,
-    TouchableWithoutFeedback,
-    UIManager,
-    View,
-} from "react-native";
+import { StyleSheet, Text, TouchableHighlight, TouchableOpacity, View } from "react-native";
 import { useGetFirebaseToken } from "../common/hooks/firebase";
 import NavigationView from "../common/blocks/navigation";
 import useStyler from "../common/hooks/styler/hooks";
-import UniversalTextInput from "../common/blocks/universial/textinput";
-import { useEffect, useRef, useState } from "react";
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-//import KeyboardAwareScrollView from "../common/blocks/keyboard_aware_scrollview";
+import useTestService from "./test_hook";
+import { useRecoilState } from "recoil";
+import { TestDataState, testDataState } from "../common/hooks/states/atoms/test";
+import { useEffect } from "react";
 
 export default function TestScreen() {
     const firebaseToken = useGetFirebaseToken();
     const { deviceUI } = useStyler();
+    const [teststate, setTeststate] = useRecoilState<TestDataState | null>(testDataState);
+    const test = useTestService();
 
     const styles = StyleSheet.create({
         container: {
@@ -36,11 +25,9 @@ export default function TestScreen() {
         },
     });
 
-    const handleBtn = () => {
-        const a = VillifeAlert("test", "test", () => console.log("sadfsadf"));
-
-        a();
-    };
+    useEffect(() => {
+        console.log(test?.name);
+    }, [test?.name]);
 
     return (
         <NavigationView headerOptions={{ title: "TEST" }}>
@@ -49,71 +36,17 @@ export default function TestScreen() {
                     style={styles.btn}
                     activeOpacity={0.3}
                     underlayColor={"teal"}
-                    onPress={VillifeAlert("test", "test", () => console.log("sadfsadf"))}>
+                    onPress={() => {
+                        if (test) test.name += "!";
+                    }}>
                     <Text>Button</Text>
                 </TouchableHighlight>
+            </View>
+            <View>
+                <Text>{test?.name}</Text>
+                <Text>{test?.age}</Text>
+                <Text>{test?.isAudult ? "성인" : "미성년자"}</Text>
             </View>
         </NavigationView>
     );
 }
-
-function VillifeAlert(title: string, message: string, onPressConfirm?: () => void) {
-    const al = (
-        <View style={styles.modalContainer}>
-            <View style={styles.innerContainer}>
-                <Text style={styles.titleText}>{title}</Text>
-                <Text style={styles.messageText}>{message}</Text>
-                <TouchableOpacity style={styles.confirmButton} onPress={onPressConfirm}>
-                    <Text style={styles.confirmButtonText}>OK</Text>
-                </TouchableOpacity>
-            </View>
-        </View>
-    );
-    return () => {
-        return al;
-    };
-}
-
-const styles = StyleSheet.create({
-    buttonContainer: {
-        backgroundColor: "#0080ff",
-        padding: 10,
-        borderRadius: 5,
-    },
-    buttonText: {
-        color: "white",
-        fontWeight: "bold",
-    },
-    modalContainer: {
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-        backgroundColor: "rgba(0, 0, 0, 0.2)",
-    },
-    innerContainer: {
-        width: 250,
-        backgroundColor: "white",
-        borderRadius: 5,
-        padding: 15,
-        alignItems: "center",
-    },
-    titleText: {
-        fontWeight: "bold",
-        fontSize: 16,
-        marginBottom: 10,
-    },
-    messageText: {
-        fontSize: 14,
-        marginBottom: 20,
-    },
-    confirmButton: {
-        backgroundColor: "#0080ff",
-        paddingHorizontal: 20,
-        paddingVertical: 10,
-        borderRadius: 5,
-    },
-    confirmButtonText: {
-        color: "white",
-        fontWeight: "bold",
-    },
-});

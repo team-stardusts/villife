@@ -7,11 +7,13 @@ import useScreenMessage from "../../../../hooks/multilingual/hooks";
 import BuildingSelectModal from "./bulidng_select_modal";
 import useUserInfoService from "../../../../hooks/service/user_info";
 import { SimpleBuildingInfo } from "../../../../../../libs/rest_apis/villife/user_info/types";
+import useUserInfoService_ from "../../../../hooks/service/_user_info";
 
 export default function BuildingSelector({}: BuildingSelectorType) {
     const message = useScreenMessage();
     const styles = useBuildingSelectorStyles();
     const user = useUserInfoService();
+    const userinfo = useUserInfoService_();
 
     const [isModalUnfold, setIsModalUnfold] = useState<boolean>(false);
 
@@ -30,7 +32,7 @@ export default function BuildingSelector({}: BuildingSelectorType) {
                 managedBuildings={user.adminInfo?.managedBuildings}
                 onBuildingPress={changeSelectedBulding}
             />
-            {user.isAdmin() && (
+            {userinfo?.isAdmin && (
                 <TouchableOpacity
                     style={styles.wrapper}
                     activeOpacity={0.4}

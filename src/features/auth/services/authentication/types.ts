@@ -39,7 +39,12 @@ export type JoinServiceParams = {
     accessToken: string;
 };
 
+export interface IAuthServiceProvider {
+    login(host: HostType, params: LoginServiceParams | undefined): Promise<void>;
+    join(host: HostType, params: JoinServiceParams | undefined): Response<SocialJoinResultType>;
+}
+
 export type AuthServicesReturn = {
-    login(host: HostType, params: LoginServiceParams | undefined): Promise<LoginServiceResult>;
+    login(host: HostType, params: LoginServiceParams | undefined): Promise<void>;
     join(host: HostType, params: JoinServiceParams | undefined): Response<SocialJoinResultType>;
 };

@@ -129,7 +129,7 @@ export class UserInfoService implements IUserInfoService {
     async fetchAndStoreUserBasicInfo() {
         try {
             console.log("[FetchAndStoreUserBasicInfo] fetching user info ...");
-            const result = await this.api.GetUserBasicInfo();
+            const result = await this.api.getUserBasicInfo();
 
             if (!result.isSuccessful) {
                 console.log("fetchAndStoreUserBasicInfo failure: ", result.data?.data);

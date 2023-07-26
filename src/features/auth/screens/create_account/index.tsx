@@ -13,6 +13,7 @@ import useStyler from "../../../common/hooks/styler/hooks";
 import useAuthService from "../../services/authentication";
 import { VILLIFE_AUTHORITY } from "../../../../libs/rest_apis/villife/absc";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import { IAuthServiceProvider } from "../../services/authentication/types";
 
 type AccountType = {
     authority: Authority["ADMIN"] | Authority["RENTER"];
@@ -23,7 +24,7 @@ type AccountType = {
 
 export default function CreateAccountScreen({ navigation, route }: CreateAccountScreenProps) {
     const { host, access_token } = route.params;
-    const join = useAuthService().join;
+    const auth: IAuthServiceProvider = useAuthService();
     const messages = useScreenMessage();
     const styles = useCreateAccountScreenStyles();
     const { deviceUI } = useStyler();
@@ -45,7 +46,7 @@ export default function CreateAccountScreen({ navigation, route }: CreateAccount
         const { authority, id, password } = account;
 
         if (id && password && access_token) {
-            const result = await join(host, { id, password, authority, accessToken: access_token });
+            const result = await auth.join(host, { id, password, authority, accessToken: access_token });
 
             if (!result.isSuccessful) {
                 Alert.alert(result.data?.data ?? "Failed to join.");

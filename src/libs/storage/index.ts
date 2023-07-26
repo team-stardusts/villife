@@ -30,8 +30,8 @@ class VillifeStorage implements IVillifeStorage, EventRegisterable {
         return this._instance || (this._instance = new this());
     }
 
-    login = new LoginTable();
-    user = new UserTable();
+    public readonly login = new LoginTable();
+    public readonly user = new UserTable();
 
     public addEventListener(key: VillifeStorageEvent, callback: StorageListenerCallback): void {
         EventRegister.addEventListener(key, callback);
