@@ -8,17 +8,16 @@ import useUserInfoService from "../../hooks/service/user_info";
 import { VILLIFE_AUTHORITY } from "../../../../libs/rest_apis/villife/absc";
 import { Alert } from "react-native";
 import { LoginDataType } from "../../../../libs/storage/tables/login/types";
-import useUserInfoService_ from "../../hooks/service/_user_info";
-import { IUserInfoProvider } from "../../hooks/service/_user_info/types";
+import useUserBasicInfo from "../../hooks/service/_user_info/basic";
 
 export default function useRoutingAdministratorByLogin(): void {
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const setLoginData = useSetRecoilState<LoginDataType | null>(loginDataState);
-    const userinfo = useUserInfoService_();
+    const userinfo = useUserBasicInfo();
     const navigation = useNavigation<RouterParams["navigation"]>();
 
     const storage = VillifeStorage.getInstance();
-    const __userinfo = useUserInfoService();
+    //const __userinfo = useUserInfoService();
 
     // Listening on change login value
     useEffect(() => {
@@ -50,7 +49,7 @@ export default function useRoutingAdministratorByLogin(): void {
     };
 
     const handleFailedToLogin = async (): Promise<void> => {
-        __userinfo.clearUserInfo();
+        //__userinfo.clearUserInfo();
         navigation.reset({
             index: 0,
             routes: [{ name: "login" }],
@@ -58,7 +57,7 @@ export default function useRoutingAdministratorByLogin(): void {
     };
 
     const handleLogin = async (): Promise<void> => {
-        const resetResult = await __userinfo.resetUserInfo();
+        //const resetResult = await __userinfo.resetUserInfo();
 
         // User 정보를 가져오는데 실패했을 때
         if (userinfo === null) {

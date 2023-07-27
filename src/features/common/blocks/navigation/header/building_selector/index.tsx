@@ -7,21 +7,24 @@ import useScreenMessage from "../../../../hooks/multilingual/hooks";
 import BuildingSelectModal from "./bulidng_select_modal";
 import useUserInfoService from "../../../../hooks/service/user_info";
 import { SimpleBuildingInfo } from "../../../../../../libs/rest_apis/villife/user_info/types";
-import useUserInfoService_ from "../../../../hooks/service/_user_info";
+import useUserBasicInfo from "../../../../hooks/service/_user_info/basic";
+import useAdminInfo from "../../../../hooks/service/_user_info/admin";
 
 export default function BuildingSelector({}: BuildingSelectorType) {
     const message = useScreenMessage();
     const styles = useBuildingSelectorStyles();
-    const user = useUserInfoService();
-    const userinfo = useUserInfoService_();
+    //const userinfo = useUserInfoService();
+    const userinfo = useUserBasicInfo();
+    const admininfo = useAdminInfo();
 
     const [isModalUnfold, setIsModalUnfold] = useState<boolean>(false);
 
     const changeSelectedBulding = (buildingInfo: SimpleBuildingInfo) => {
-        const isSuccess = user.changeSelectedBuildingOfAdmin(buildingInfo);
+        //const isSuccess = user.changeSelectedBuildingOfAdmin(buildingInfo);
+        if (admininfo !== null) admininfo.selectedBuilding = buildingInfo;
 
         console.log("Change to:", buildingInfo.name);
-        console.log(isSuccess ? "Success" : "Fail", "to change.");
+        //console.log(isSuccess ? "Success" : "Fail", "to change.");
     };
 
     return (
@@ -29,7 +32,7 @@ export default function BuildingSelector({}: BuildingSelectorType) {
             <BuildingSelectModal
                 visible={isModalUnfold}
                 setVisible={setIsModalUnfold}
-                managedBuildings={user.adminInfo?.managedBuildings}
+                managedBuildings={admininfo?.managedBuildings}
                 onBuildingPress={changeSelectedBulding}
             />
             {userinfo?.isAdmin && (
@@ -48,9 +51,9 @@ export default function BuildingSelector({}: BuildingSelectorType) {
                             minimumFontScale={0.2}
                             maxFontSizeMultiplier={1}
                             adjustsFontSizeToFit={true}>
-                            {user.adminInfo === null
+                            {admininfo === null
                                 ? message.messages.navigation.building_not_selected
-                                : user.adminInfo.selectedBuilding.name}
+                                : admininfo.selectedBuilding.name}
                         </Text>
                     </View>
                 </TouchableOpacity>
