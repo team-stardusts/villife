@@ -27,9 +27,9 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
     });
 
     const handleLogin = async (host: HostType, params: LoginServiceParams | undefined) => {
-        const result = await login(host, params);
+        const { loginData, socialAccessToken } = await login(host, params);
 
-        if (result.isSuccessful && result.data) {
+        if (loginData !== null) {
             return;
         } else {
             if (host === "villife") {
@@ -41,7 +41,7 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
                 // [TO-DO] 예기치 않은 이유로 로그인 실패 시 navigation X
                 navigation.navigate("create_account", {
                     host: host,
-                    access_token: result.socialAccessToken,
+                    access_token: socialAccessToken,
                 });
             }
         }

@@ -1,13 +1,6 @@
 import NaverLoginManager from "./social/naver";
 import VillifeLoginManager from "./villife";
-import {
-    AuthServicesReturn,
-    IAuthServiceProvider,
-    ILoginManager,
-    JoinServiceParams,
-    LoginServiceParams,
-    LoginServiceResult,
-} from "./types";
+import { IAuthServiceProvider, ILoginManager, JoinServiceParams, LoginServiceParams, LoginResult } from "./types";
 import { HostType, SocialJoinResultType } from "../../../../libs/rest_apis/villife/auth/types";
 import VillifeStorage from "../../../../libs/storage";
 import { LoginDataType } from "../../../../libs/storage/tables/login/types";
@@ -30,9 +23,8 @@ export class LoginManagerProvider {
 export default function useAuthService(): IAuthServiceProvider {
     const storage: IVillifeStorage = VillifeStorage.getInstance();
     const userApi: IVillifeUserInfoRestClient = VillifeServer.getUserInfoRestClient();
-
-    class AuthServiceProvider {
-        public async login(host: HostType, params: LoginServiceParams | undefined): Promise<void> {
+    class AuthServiceProvider implements IAuthServiceProvider {
+        public async login(host: HostType, params: LoginServiceParams | undefined): Promise<LoginResult> {
             const loginManager = LoginManagerProvider.getLoginManager(host);
 
             const loginInfo = await loginManager.login(params);
@@ -40,7 +32,10 @@ export default function useAuthService(): IAuthServiceProvider {
             if (!loginInfo.isSuccessful || loginInfo.data?.data == undefined) {
                 console.error("[AUTH_SERVICE]", "Failed to login.", "host:", host);
                 await storage.login.set(null);
-                return;
+                return {
+                    loginData: null,
+                    socialAccessToken: loginInfo.socialAccessToken,
+                };
             }
 
             // VillifeServer의 requestAuthable을 위해 임시로 로그인 데이터 세팅
@@ -60,16 +55,26 @@ export default function useAuthService(): IAuthServiceProvider {
             if (!userInfo.isSuccessful || userInfo.data?.data == undefined) {
                 console.error("[AUTH_SERVICE]", "Failed to get user information.");
                 await storage.login.set(null);
-                return;
+                return {
+                    loginData: null,
+                    socialAccessToken: loginInfo.socialAccessToken,
+                };
             }
 
-            await storage.login.set({
+            const loginData = {
                 host: host,
                 accessToken: loginInfo.data.data.access_token,
                 accessTokenExpiresAt: loginInfo.data.data.expire_at,
                 refreshToken: loginInfo.data.data.refresh_token,
                 ...userInfo.data.data,
-            });
+            };
+
+            await storage.login.set(loginData);
+
+            return {
+                loginData,
+                socialAccessToken: loginInfo.socialAccessToken,
+            };
         }
 
         public async join(host: HostType, params: JoinServiceParams): Response<SocialJoinResultType> {
