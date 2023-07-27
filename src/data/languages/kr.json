@@ -230,6 +230,9 @@
     "splash": {
         "screen_title": "splash"
     },
+    "image_detail": {
+        "title": "이미지 자세히 보기"
+    },
     "words": {
         "admin": "관리자",
         "renter": "임차인",
