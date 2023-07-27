@@ -31,6 +31,7 @@ import useRoutingAdministratorByLogin from "./routing_admin";
 import CommonComplaintHomeScreen from "../../main/common_complaint/screens/home";
 import CommonComplaintModifyScreen from "../../main/common_complaint/screens/modify";
 import CommonComplaintRegisterScreen from "../../main/common_complaint/screens/register";
+import ImageDetailView from "../screens/image_detail_view";
 
 enableScreens(true);
 
@@ -75,6 +76,7 @@ export default function ScreenRouter() {
             </Stack.Group>
             <Stack.Group screenOptions={{ presentation: "modal" }}>
                 <Stack.Screen name={"search_address"} component={SearchAddressScreen} />
+                <Stack.Screen name={"image_detail_view"} component={ImageDetailView} />
             </Stack.Group>
             <Stack.Group>
                 <Stack.Screen name={"test"} component={TestScreen} />

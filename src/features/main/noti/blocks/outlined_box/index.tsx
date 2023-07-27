@@ -10,9 +10,10 @@ import { EditIcon } from "../../../../common/atoms/icon/edit";
 import useNotiOutlinedBoxStyles from "./style";
 import AutoHeightWebView from "react-native-autoheight-webview";
 import RemoteCSS from "../../../../../libs/themes/remote_css";
-import { VILLIFE_AUTHORITY } from "../../../../../libs/rest_apis/villife/absc";
 import useStyler from "../../../../common/hooks/styler/hooks";
 import useUserBasicInfo from "../../../../common/hooks/service/_user_info";
+import { useNavigation } from "@react-navigation/native";
+import { VillifeNavigation } from "../../../../common/router/types";
 
 /**
  * @param OutlinedBoxProp
@@ -26,10 +27,9 @@ function OutlinedBox(props: OutlinedBoxProps) {
     const [unfold, setUnfold] = React.useState(false);
     const [editModalVisible, setEditModalVisible] = React.useState(false);
     const [loading, setLoading] = React.useState(false);
-
+    const navigation = useNavigation<VillifeNavigation>();
     useEffect(() => {
         return () => {
-            console.log("unmount", props.title);
             setEditModalVisible(false);
         };
     }, []);
@@ -52,13 +52,13 @@ function OutlinedBox(props: OutlinedBoxProps) {
     return (
         <>
             <NotiBottomEditModal visible={editModalVisible} setVisible={setEditModalVisible} noticeInfo={props} />
-            <Pressable
-                onPressOut={() => {
-                    if (!unfold) onPress();
-                }}
-                style={styles.container}>
+            <View style={styles.container}>
                 <View style={styles.innerBox}>
-                    <View style={[styles.innerTitleSection, { borderBottomWidth: !unfold ? 0 : 2 }]}>
+                    <Pressable
+                        onPressOut={() => {
+                            setUnfold(!unfold);
+                        }}
+                        style={[styles.innerTitleSection, { borderBottomWidth: !unfold ? 0 : 2 }]}>
                         <View style={styles.contentBox}>
                             <NotiLable priority={props.priority} />
                             <View style={styles.titleTextBox}>
@@ -88,7 +88,7 @@ function OutlinedBox(props: OutlinedBoxProps) {
                                 </View>
                             </View>
                         </View>
-                    </View>
+                    </Pressable>
 
                     {unfold && (
                         <AutoHeightWebView
@@ -101,7 +101,6 @@ function OutlinedBox(props: OutlinedBoxProps) {
                                 );
                             }}
                             style={styles.foldedContainer}
-                            // [TO-DO] : 글꼴이랑 색상 양식에 맞게 변경
                             customStyle={`${RemoteCSS.getPretendardRegular()}
                                         body {
                                           font-size: 14px;
@@ -119,11 +118,30 @@ function OutlinedBox(props: OutlinedBoxProps) {
                                             border-radius: 15px;
                                           }`}
                             source={{ html: props.content }}
+                            cacheEnabled={false}
+                            customScript={`
+                                    try {
+                                        const images = document.getElementsByTagName('img'); 
+                                        for (const image of images) {
+                                            image.addEventListener('click', () => {
+                                                const src = image.src
+                                                window.ReactNativeWebView.postMessage(JSON.stringify(src));
+                                            });
+                                        }
+                                    }catch(e){
+                                        window.ReactNativeWebView.postMessage(JSON.stringify("error"));    
+                                    }
+                                `}
+                            javaScriptEnabled={true}
+                            onMessage={(event) => {
+                                const imageUri = JSON.parse(event.nativeEvent.data);
+                                navigation.navigate("image_detail_view", { uri: imageUri });
+                            }}
                             scalesPageToFit={false}
                             viewportContent={"width=device-width, user-scalable=no"}></AutoHeightWebView>
                     )}
                 </View>
-            </Pressable>
+            </View>
         </>
     );
 }

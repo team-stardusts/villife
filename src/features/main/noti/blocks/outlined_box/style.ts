@@ -51,6 +51,7 @@ export default function useNotiOutlinedBoxStyles(): UseNotiOutLinedBoxListStyles
         foldedContainer: {
             marginVertical: deviceUI.moderateScale(25),
             width: deviceUI.getScreenSize().width * 0.8,
+            zIndex: 6,
         },
         titleText: {
             ...theme.font.researved.h3,

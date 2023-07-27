@@ -61,6 +61,9 @@ export type VillifeStackParamList = VillifeRootStackParamList & {
     common_complaint_home: {};
     common_complaint_modify: {};
     common_complaint_register: {};
+    image_detail_view: {
+        uri: string;
+    };
 };
 
 export const SEND_PARK_PUSH_NOTI_MESSAGE_TYPE = {
