@@ -237,6 +237,9 @@ export type MessagesByLanguage = {
     splash: {
         screen_title: string;
     };
+    image_detail: {
+        title: string;
+    };
     words: {
         admin: string;
         renter: string;
