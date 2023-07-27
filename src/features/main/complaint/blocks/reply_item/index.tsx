@@ -5,11 +5,14 @@ import { IconPerson } from "../../../../common/atoms/icon/human";
 import IconMoreHorizontal from "../../../../common/atoms/icon/more_horizontal";
 import React from "react";
 import ComplaintReplyEditModal from "../reply_bottom_edit";
+import { useNavigation } from "@react-navigation/native";
+import { VillifeNavigation } from "../../../../common/router/types";
 
 function ComplaintReplyItem(props: ComplaintReplyItemProps) {
     const styles = useComplaintRegisterButtonStyle();
     const [sanitizedURIs, setSanitizedURIs] = React.useState<Array<string>>([]);
     const [editModalVisible, setEditModalVisible] = React.useState(false);
+    const navigation = useNavigation<VillifeNavigation>();
 
     React.useEffect(() => {
         const appropriateURIs = props.data.image_uris.split(",").filter((uri) => {
@@ -45,7 +48,9 @@ function ComplaintReplyItem(props: ComplaintReplyItemProps) {
                     }}
                     renderItem={(info) => {
                         return (
-                            <Pressable style={styles.image}>
+                            <Pressable
+                                onPress={() => navigation.navigate("image_detail_view", { uri: info.item })}
+                                style={styles.image}>
                                 <Image
                                     source={{ uri: info.item }}
                                     style={{

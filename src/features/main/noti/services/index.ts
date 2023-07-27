@@ -32,7 +32,7 @@ class NoticeService implements INoticeService {
         try {
             const result = await this.mImageUploader.pickOneAndUpload();
             ref.current?.insertHTML(
-                `<div><img src="${result.uri}" alt="My Image" style="width: 25vh; height:25vh; object-fit:cover; border-radius: 10px;" ></div>`
+                `<div><img src="${result.uri}" alt="My Image" style="width: 40vw; height:40vw; object-fit:cover; border-radius: 10px;" ></div>`
             );
             console.log(ref);
         } catch (err) {

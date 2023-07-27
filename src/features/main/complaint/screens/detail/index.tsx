@@ -100,6 +100,25 @@ export default function ComplaintDetailScreen({ navigation, route }: ComplaintDe
                         border-radius: 15px;
                       }`}
                     source={{ html: uiState.complaint.content }}
+                    cacheEnabled={false}
+                    customScript={`
+                    try {
+                        const images = document.getElementsByTagName('img'); 
+                        for (const image of images) {
+                            image.addEventListener('click', () => {
+                                const src = image.src
+                                window.ReactNativeWebView.postMessage(JSON.stringify(src));
+                            });
+                        }
+                    }catch(e){
+                        window.ReactNativeWebView.postMessage(JSON.stringify("error"));    
+                    }
+                    `}
+                    javaScriptEnabled={true}
+                    onMessage={(event) => {
+                        const imageUri = JSON.parse(event.nativeEvent.data);
+                        navigation.navigate("image_detail_view", { uri: imageUri });
+                    }}
                     scalesPageToFit={false}
                     viewportContent={"width=device-width, user-scalable=no"}></AutoHeightWebView>
                 {uiState.replies.length > 0 ? (
