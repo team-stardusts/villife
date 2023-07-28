@@ -13,18 +13,18 @@ import ContentBox from "../../../../common/blocks/content_box";
 import Icon from "../../../../common/atoms/icon";
 import SimpleFuncButton from "../../../../common/blocks/button/simple_func_button";
 import VillifeToastMessage from "../../../../common/atoms/toast";
-import useUserInfoService from "../../../../common/hooks/service/user_info";
 import MessageSelectionModal from "../../blocks/message_selection_modal";
 import { Vehicle } from "../../services/states/types";
 import { useRecoilValue } from "recoil";
 import { vehiclesState } from "../../services/states";
 import IconThreeDotsVertical from "../../../../common/atoms/icon/three_dots_vertical";
 import VehicleDetailAlert from "../../blocks/vehicle_detail_alert";
+import useUserBasicInfo from "../../../../common/hooks/service/_user_info";
 
 export default function ParkingScreen({ navigation, route }: ParkingScreenProps) {
     const messages = useScreenMessage();
     const { deviceUI } = useStyler();
-    const user = useUserInfoService();
+    const user = useUserBasicInfo();
     const styles = useParkingHomeScreenStyles().screen;
     const { updateVehicles } = useParkService();
     const vehicles = useRecoilValue<Vehicle[]>(vehiclesState);
@@ -47,7 +47,7 @@ export default function ParkingScreen({ navigation, route }: ParkingScreenProps)
     const sortAndSetVehiclesForRender = (): void => {
         const newVehiclesForRender: Vehicle[] = [];
 
-        if (user.isAdmin()) {
+        if (user?.isAdmin) {
             newVehiclesForRender.push(...vehicles);
         } else {
             newVehiclesForRender.push(...vehicles.filter((vehicle) => vehicle.ownerType !== "user"));
@@ -110,7 +110,7 @@ export default function ParkingScreen({ navigation, route }: ParkingScreenProps)
                 title: messages.messages.main.parking.home.screen_title,
             }}>
             <View style={styles.container}>
-                {!user.isAdmin() && (
+                {!user?.isAdmin && (
                     <View style={styles.myVehicleCardViewBox}>
                         <View style={styles.contentTitleBox}>
                             <Text style={styles.contentTitle}>

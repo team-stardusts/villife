@@ -6,7 +6,6 @@ import { ScrollView, Text, TouchableOpacity, View } from "react-native";
 import React from "react";
 import RemoteCSS from "../../../../../libs/themes/remote_css";
 import AutoHeightWebView from "react-native-autoheight-webview";
-import useUserInfoService from "../../../../common/hooks/service/user_info";
 import ComplaintStatusLable from "../../blocks/status_lable";
 import IconBuilding from "../../../../common/atoms/icon/building";
 import { IconPerson } from "../../../../common/atoms/icon/human";
@@ -18,12 +17,13 @@ import ComplaintDetailEditModal from "../../blocks/detail_bottom_edit";
 import ComplaintProgressEditModal from "../../blocks/progress_edit";
 import { VILLIFE_AUTHORITY } from "../../../../../libs/rest_apis/villife/absc";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import useUserBasicInfo from "../../../../common/hooks/service/_user_info";
 
 export default function ComplaintDetailScreen({ navigation, route }: ComplaintDetailScreenProps) {
     const messages = useScreenMessage();
     const styles = useComplaintDetailSecreenStyle();
     const uiState = useComplaintDetailViewModel(route.params);
-    const userInfoService = useUserInfoService();
+    const user = useUserBasicInfo();
     const [editModalVisible, setEditModalVisible] = React.useState(false);
     const [progressEditModalVisible, setProgressEditModalVisible] = React.useState(false);
 
@@ -55,7 +55,7 @@ export default function ComplaintDetailScreen({ navigation, route }: ComplaintDe
                             <TouchableOpacity
                                 style={styles.editButton}
                                 onPress={() => {
-                                    if (userInfoService.basicInfo?.authority == VILLIFE_AUTHORITY.ADMIN) {
+                                    if (user?.isAdmin) {
                                         setProgressEditModalVisible(true);
                                         return;
                                     }
@@ -63,7 +63,7 @@ export default function ComplaintDetailScreen({ navigation, route }: ComplaintDe
                                 }}>
                                 <IconPencil size={(styles.iconSize.width as number) * 3} />
                                 <Text style={styles.registerButtonText}>
-                                    {userInfoService.basicInfo?.authority == VILLIFE_AUTHORITY.ADMIN
+                                    {user?.isAdmin
                                         ? messages.messages.main.complaint.progress_status
                                         : messages.messages.words.edit}
                                 </Text>

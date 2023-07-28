@@ -1,14 +1,11 @@
 import { useEffect, useState } from "react";
-import { useRecoilState, useSetRecoilState } from "recoil";
+import { useSetRecoilState } from "recoil";
 import { loginDataState } from "../../hooks/states/atoms/login";
 import { useNavigation } from "@react-navigation/native";
 import { RouterParams } from "../types";
 import VillifeStorage from "../../../../libs/storage";
-import useUserInfoService from "../../hooks/service/user_info";
-import { VILLIFE_AUTHORITY } from "../../../../libs/rest_apis/villife/absc";
-import { Alert } from "react-native";
 import { LoginDataType } from "../../../../libs/storage/tables/login/types";
-import useUserBasicInfo from "../../hooks/service/_user_info/basic";
+import useUserBasicInfo from "../../hooks/service/_user_info";
 
 export default function useRoutingAdministratorByLogin(): void {
     const [isLoading, setIsLoading] = useState<boolean>(true);

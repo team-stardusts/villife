@@ -7,15 +7,15 @@ import useBottomEditModalStyles from "./styles";
 import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
 import useStyler from "../../../../common/hooks/styler/hooks";
 import useNoticeService from "../../services";
-import useUserInfoService from "../../../../common/hooks/service/user_info";
 import { ContentPriority } from "../noti_label.tsx/type";
 import { CreateNoticeParams } from "../../../../../libs/rest_apis/villife/notice/types";
 import NavigationWithProps from "./type";
+import useUserBasicInfo from "../../../../common/hooks/service/_user_info";
 
 export default function NotiRegisterModal(props: NavigationWithProps) {
     const message = useScreenMessage();
     const styles = useBottomEditModalStyles();
-    const userInfo = useUserInfoService();
+    const user = useUserBasicInfo();
     const service = useNoticeService();
     const { deviceUI, theme } = useStyler();
 
@@ -23,12 +23,12 @@ export default function NotiRegisterModal(props: NavigationWithProps) {
         props.setVisible(false);
         console.log(priority);
 
-        if (priority && userInfo.adminInfo?.selectedBuilding.id) {
+        if (priority && user?.adminInfomation?.selectedBuilding.id) {
             const param: CreateNoticeParams = {
                 title: props.title,
                 content: props.content,
                 priority: priority,
-                building_id: userInfo.adminInfo?.selectedBuilding.id,
+                building_id: user.adminInfomation.selectedBuilding.id,
             };
             const result = await service.registerNotice(param);
 

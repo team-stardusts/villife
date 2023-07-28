@@ -1,29 +1,31 @@
+import { SimpleBuildingInfo } from "../../../../../libs/rest_apis/villife/user_info/types";
 import { LoginDataType } from "../../../../../libs/storage/tables/login/types";
 import { AdminInformation } from "../../states/atoms/user/admin_only/type";
 
-export interface IUserInfoProvidable<T> {
+interface IInfoProvidable<T> {
     readonly rawdata: T;
 }
 
-export interface IUserInfoProvider extends IUserInfoProvidable<LoginDataType> {
+interface IUserInfoProvidable {
     host: LoginDataType["host"];
     name: LoginDataType["name"];
     authority: LoginDataType["authority"];
     roomID: LoginDataType["room_id"];
     buildingID: LoginDataType["building_id"];
+}
+
+interface IAdminInfoProvidable {
+    adminInfomation: AdminInformation | null;
+    changeAdminSelectedBuilding(building: SimpleBuildingInfo): void;
+}
+
+export interface IUserInfoProvider extends IInfoProvidable<LoginDataType>, IUserInfoProvidable, IAdminInfoProvidable {
     isRenter: boolean;
     isOwner: boolean;
     isAdmin: boolean;
     isSiteAdmin: boolean;
-    /* accessToken: LoginDataType["accessToken"];
-    refreshToken: LoginDataType["refreshToken"]; */
 }
+/* accessToken: LoginDataType["accessToken"];
+refreshToken: LoginDataType["refreshToken"]; */
 
-export interface IAdminInfoProvider extends IUserInfoProvidable<AdminInformation> {
-    selectedBuilding: AdminInformation["selectedBuilding"];
-    managedBuildings: AdminInformation["managedBuildings"];
-}
-
-export type UseUserBasicInfoReturns = IUserInfoProvider | null;
-
-export type UseAdminInfoReturns = IAdminInfoProvider | null;
+export type UseUserInfoReturns = IUserInfoProvider | null;

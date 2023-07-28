@@ -1,15 +1,15 @@
-import React, { useEffect } from "react";
+import React from "react";
 import useComplaintService from "../../services";
-import useUserInfoService from "../../../../common/hooks/service/user_info";
 import { ComplaintInfo } from "../../services/type";
 import { ComplaintHomeDisplayMode } from "./types";
 import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
 import { ComplaintListUpatedEventListener } from "../../services/event";
 import { VILLIFE_AUTHORITY } from "../../../../../libs/rest_apis/villife/absc";
+import useUserBasicInfo from "../../../../common/hooks/service/_user_info";
 
 export default function ComplaintHomeViewModel(): ComplaintHomeUiState {
     const service = useComplaintService();
-    const userInfo = useUserInfoService();
+    const user = useUserBasicInfo();
     const messages = useScreenMessage();
     const [complaints, setComplaints] = React.useState<Array<ComplaintInfo>>([]);
     const [displayMode, setDisplayMode] = React.useState<ComplaintHomeDisplayMode>("received_and_in_progress");
@@ -18,25 +18,23 @@ export default function ComplaintHomeViewModel(): ComplaintHomeUiState {
     );
 
     const fetchReceivedAndInProgressComplaint = async () => {
-        const resReceived =
-            userInfo.basicInfo?.authority == VILLIFE_AUTHORITY.ADMIN
-                ? await service.GetBuildingComplaints({
-                      building_id: userInfo.adminInfo?.selectedBuilding.id || 0,
-                      status: "received",
-                  })
-                : await service.GetUserComplaints({
-                      status: "received",
-                  });
+        const resReceived = user?.isAdmin
+            ? await service.GetBuildingComplaints({
+                  building_id: user.adminInfomation?.selectedBuilding.id || 0,
+                  status: "received",
+              })
+            : await service.GetUserComplaints({
+                  status: "received",
+              });
         if (!resReceived.isSuccessful) return [];
-        const res =
-            userInfo.basicInfo?.authority == VILLIFE_AUTHORITY.ADMIN
-                ? await service.GetBuildingComplaints({
-                      building_id: userInfo.adminInfo?.selectedBuilding.id || 0,
-                      status: "in_progress",
-                  })
-                : await service.GetUserComplaints({
-                      status: "in_progress",
-                  });
+        const res = user?.isAdmin
+            ? await service.GetBuildingComplaints({
+                  building_id: user.adminInfomation?.selectedBuilding.id || 0,
+                  status: "in_progress",
+              })
+            : await service.GetUserComplaints({
+                  status: "in_progress",
+              });
         if (!res.isSuccessful) return;
         if (res.data?.data) {
             const concatnatedComplaints = resReceived.data?.data.concat(...res.data.data);
@@ -46,15 +44,14 @@ export default function ComplaintHomeViewModel(): ComplaintHomeUiState {
         }
     };
     const fetchReceivedComplaint = async () => {
-        const res =
-            userInfo.basicInfo?.authority == VILLIFE_AUTHORITY.ADMIN
-                ? await service.GetBuildingComplaints({
-                      building_id: userInfo.adminInfo?.selectedBuilding.id || 0,
-                      status: "received",
-                  })
-                : await service.GetUserComplaints({
-                      status: "received",
-                  });
+        const res = user?.isAdmin
+            ? await service.GetBuildingComplaints({
+                  building_id: user.adminInfomation?.selectedBuilding.id || 0,
+                  status: "received",
+              })
+            : await service.GetUserComplaints({
+                  status: "received",
+              });
         if (!res.isSuccessful) return [];
         if (res.data?.data) {
             //setComplaints([]);
@@ -62,15 +59,14 @@ export default function ComplaintHomeViewModel(): ComplaintHomeUiState {
         }
     };
     const fetchInProgressComplaint = async () => {
-        const res =
-            userInfo.basicInfo?.authority == VILLIFE_AUTHORITY.ADMIN
-                ? await service.GetBuildingComplaints({
-                      building_id: userInfo.adminInfo?.selectedBuilding.id || 0,
-                      status: "in_progress",
-                  })
-                : await service.GetUserComplaints({
-                      status: "in_progress",
-                  });
+        const res = user?.isAdmin
+            ? await service.GetBuildingComplaints({
+                  building_id: user.adminInfomation?.selectedBuilding.id || 0,
+                  status: "in_progress",
+              })
+            : await service.GetUserComplaints({
+                  status: "in_progress",
+              });
         if (!res.isSuccessful) return;
         if (res.data?.data) {
             //setComplaints([]);
@@ -78,15 +74,14 @@ export default function ComplaintHomeViewModel(): ComplaintHomeUiState {
         }
     };
     const fetchCompletedComplaint = async () => {
-        const res =
-            userInfo.basicInfo?.authority == VILLIFE_AUTHORITY.ADMIN
-                ? await service.GetBuildingComplaints({
-                      building_id: userInfo.adminInfo?.selectedBuilding.id || 0,
-                      status: "completed",
-                  })
-                : await service.GetUserComplaints({
-                      status: "completed",
-                  });
+        const res = user?.isAdmin
+            ? await service.GetBuildingComplaints({
+                  building_id: user.adminInfomation?.selectedBuilding.id || 0,
+                  status: "completed",
+              })
+            : await service.GetUserComplaints({
+                  status: "completed",
+              });
 
         if (!res.isSuccessful) return;
 
@@ -119,7 +114,7 @@ export default function ComplaintHomeViewModel(): ComplaintHomeUiState {
     React.useEffect(() => {
         fetchComplaintByDisplayMode();
         console.info("[ComplaintHomeViewModel] fetchComplaintsByDisplayMode()");
-    }, [displayMode, userInfo.adminInfo?.selectedBuilding]);
+    }, [displayMode, user?.adminInfomation?.selectedBuilding]);
 
     React.useEffect(() => {
         const listener = new ComplaintListUpatedEventListener();
