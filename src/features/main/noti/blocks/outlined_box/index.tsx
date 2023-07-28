@@ -14,6 +14,7 @@ import useStyler from "../../../../common/hooks/styler/hooks";
 import useUserBasicInfo from "../../../../common/hooks/service/_user_info";
 import { useNavigation } from "@react-navigation/native";
 import { VillifeNavigation } from "../../../../common/router/types";
+import useUserBasicInfo from "../../../../common/hooks/service/_user_info";
 
 /**
  * @param OutlinedBoxProp
