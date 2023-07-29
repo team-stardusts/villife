@@ -6,11 +6,11 @@ import { Vehicle, VehicleOwnerType } from "../states/types";
 import { vehiclesState } from "../states";
 import { useEffect } from "react";
 import StardustDateParser from "../../../../../libs/date_parser";
-import useUserInfoService from "../../../../common/hooks/service/user_info";
+import useUserInformation from "../../../../common/hooks/service/user_info";
 
 export default function useParkService(): ParkServiceReturns {
     const [vehicles, setVehicles] = useRecoilState<Vehicle[]>(vehiclesState);
-    const user = useUserInfoService();
+    const user = useUserInformation();
     const parkManager: IVillifeParkingManager = VillifeServer.getParkingManager();
 
     /* useEffect(() => {
@@ -18,16 +18,15 @@ export default function useParkService(): ParkServiceReturns {
     }, []); */
 
     useEffect(() => {
-        if (user.adminInfo === null) return;
-        if (user.adminInfo?.selectedBuilding === undefined) return;
+        if (!user?.isAdmin || user.adminInfomation === null) return;
 
         updateVehicles();
-    }, [user.adminInfo?.selectedBuilding]);
+    }, [user?.adminInfomation?.selectedBuilding]);
 
     const updateVehicles = async (ownerType?: VehicleOwnerType) => {
         const newVehicles: Vehicle[] = [];
 
-        if (ownerType === undefined || (!user.isAdmin() && ownerType === "user")) {
+        if (ownerType === undefined || (!user?.isAdmin && ownerType === "user")) {
             newVehicles.push(...(await getVehiclesByOwnerType("user")));
         } else {
             newVehicles.push(...vehicles.filter((vehicle) => vehicle.ownerType === "user"));
@@ -62,7 +61,7 @@ export default function useParkService(): ParkServiceReturns {
     const getVehiclesByOwnerType = async (ownerType: VehicleOwnerType): Promise<Vehicle[]> => {
         let result = null;
 
-        const buildingID = user.isAdmin() ? user.adminInfo?.selectedBuilding.id : user.basicInfo?.building_id;
+        const buildingID = user?.isAdmin ? user?.adminInfomation?.selectedBuilding.id : user?.buildingID;
 
         if (buildingID === undefined) {
             console.log("ParkingService:", "There are no building ID in user information.");

@@ -1,13 +1,13 @@
 import React from "react";
 import useSystemInfo from "../systeminfo/hooks";
-import { useRecoilState } from "recoil";
-import { LoginDataStateType } from "../states/atoms/login/types";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { loginDataState } from "../states/atoms/login";
 import AndroidFirebaseModule from "./android";
 import IosFirebaseModule from "./ios";
 import { Platform } from "react-native";
 import VillifeServer from "../../../../libs/rest_apis/villife";
 import IVillifeAuthManager from "../../../../libs/rest_apis/villife/auth/types";
+import { LoginDataType } from "../../../../libs/storage/tables/login/types";
 
 export function useGetFirebaseToken(): string {
     const [token, setToken] = React.useState("");
@@ -49,7 +49,7 @@ export function useGetFirebaseToken(): string {
  */
 export function useAutoRegisterFirebaseToken() {
     const firebaseToken = useGetFirebaseToken();
-    const [loginData] = useRecoilState<LoginDataStateType>(loginDataState);
+    const loginData = useRecoilValue<LoginDataType | null>(loginDataState);
     const villife: IVillifeAuthManager = VillifeServer.getAuthenticator();
 
     React.useEffect(() => {
@@ -73,5 +73,5 @@ export function useAutoRegisterFirebaseToken() {
                     console.log("Register firebase result token", r.data?.data);
                 });
         }
-    }, [loginData, firebaseToken]);
+    }, [loginData?.accessToken, firebaseToken]);
 }

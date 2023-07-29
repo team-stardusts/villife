@@ -6,14 +6,14 @@ import HomeSideMoalProps from "./type";
 import useStyler from "../../../../common/hooks/styler/hooks";
 import Icon from "../../../../common/atoms/icon";
 import { IconSeries } from "../../../../common/atoms/icon/types";
-import useUserInfoService from "../../../../common/hooks/service/user_info";
 import { useNavigation } from "@react-navigation/native";
 import { VillifeNavigation } from "../../../../common/router/types";
 import VillifeToastMessage from "../../../../common/atoms/toast";
+import useUserInformation from "../../../../common/hooks/service/user_info";
 
 export default function HomeSideModal(props: HomeSideMoalProps) {
     const message = useScreenMessage();
-    const userInfo = useUserInfoService();
+    const user = useUserInformation();
     const { deviceUI, theme } = useStyler();
     const styles = useBottomEditModalStyles();
     const navigation = useNavigation<VillifeNavigation>();
@@ -129,13 +129,13 @@ export default function HomeSideModal(props: HomeSideMoalProps) {
                         <View style={styles.infoWrapper}>
                             <Icon name={"person"} size={deviceUI.moderateScale(80)} color="black" />
                             <View>
-                                <Text>{userInfo.adminInfo?.selectedBuilding.name}</Text>
-                                <Text>{userInfo.basicInfo?.name}</Text>
+                                <Text>{user?.adminInfomation?.selectedBuilding.name}</Text>
+                                <Text>{user?.name}</Text>
                             </View>
                         </View>
                     </View>
                     <View style={styles.menuContainer}>
-                        {userInfo.basicInfo?.authority !== undefined && userInfo.basicInfo?.authority == 1
+                        {user?.isRenter
                             ? renterData.map((item, index) => (
                                   <TouchableOpacity key={index} onPress={() => item.onPress()}>
                                       <View style={styles.menu}>

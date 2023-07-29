@@ -4,7 +4,7 @@ import AVillifeServerModule from "../absc";
 import { SimpleBuildingInfo, IVillifeUserInfoRestClient } from "./types";
 
 class VillifeUserInfoRestClient extends AVillifeServerModule implements IVillifeUserInfoRestClient {
-    async GetUserBasicInfo(): Response<UserDataType> {
+    async getUserBasicInfo(): Response<UserDataType> {
         let route: string = this.routes.userInfo.getUserBasicInfo;
 
         return await this.requestAuthable<any, UserDataType>({

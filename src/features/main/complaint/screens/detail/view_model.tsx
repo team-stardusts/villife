@@ -12,7 +12,7 @@ export function useComplaintDetailViewModel(complaintInfo: Complaint): Complaint
     useEffect(() => {
         LayoutAnimation.configureNext(LayoutAnimation.Presets.spring);
 
-        service.GetReplies(complaintInfo.id).then((r) => {
+        service.getReplies(complaintInfo.id).then((r) => {
             if (!r.isSuccessful) return;
             const resData = r.data?.data as GetRepliesResult;
             if (resData == null || resData == undefined) return;
@@ -22,14 +22,14 @@ export function useComplaintDetailViewModel(complaintInfo: Complaint): Complaint
 
         listener.subscribe(() => {
             console.log("[ComplaintDetailViewModel] Refreshing complaint contents...");
-            service.GetOneComplaint(complaintInfo.id).then((r) => {
+            service.getOneComplaint(complaintInfo.id).then((r) => {
                 console.log("[ComplaintDetailViewModel] Refreshed complaint contents successfully");
                 if (r.isSuccessful) {
                     if (r.data?.data) setComplaint(r.data?.data);
                 }
             });
 
-            service.GetReplies(complaintInfo.id).then((r) => {
+            service.getReplies(complaintInfo.id).then((r) => {
                 if (!r.isSuccessful) return;
                 const resData = r.data?.data as GetRepliesResult;
                 if (resData == null || resData == undefined) {

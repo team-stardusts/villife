@@ -9,12 +9,12 @@ import { UpdateNoticeParams } from "../../../../../libs/rest_apis/villife/notice
 import useNoticeService from "../../services";
 import VillifeToastMessage from "../../../../common/atoms/toast";
 import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
-import useUserInfoService from "../../../../common/hooks/service/user_info";
 import CommonComplaintModifyScreenProps from "./type";
+import useUserInformation from "../../../../common/hooks/service/user_info";
 
 export default function CommonComplaintModifyScreen(props: CommonComplaintModifyScreenProps) {
     const styles = useNoticeModifyScreenStyles();
-    const userInfo = useUserInfoService();
+    const user = useUserInformation();
     const service = useNoticeService();
     const message = useScreenMessage();
 
@@ -29,12 +29,12 @@ export default function CommonComplaintModifyScreen(props: CommonComplaintModify
             setLoading(false);
             return VillifeToastMessage.showBottomToast("info", message.messages.main.noti.noti_title_error);
         }
-        if (userInfo.adminInfo?.selectedBuilding.id) {
+        if (user?.adminInfomation?.selectedBuilding.id) {
             const param: UpdateNoticeParams = {
                 title: title.current,
                 content: content.current,
                 priority: props.route.params.priority,
-                building_id: userInfo.adminInfo?.selectedBuilding.id,
+                building_id: user.adminInfomation?.selectedBuilding.id,
                 notice_id: props.route.params.notiID,
             };
             setLoading(false);

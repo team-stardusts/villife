@@ -1,25 +1,20 @@
 import { Button, View } from "react-native";
-import { useRecoilState } from "recoil";
 import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
-import { loginDataState } from "../../../../common/hooks/states/atoms/login";
-import { LoginDataStateType } from "../../../../common/hooks/states/atoms/login/types";
 import NavigationView from "../../../../common/blocks/navigation";
 import MyPageScreenProps from "./type";
 import useLogoutService from "../../services/logout";
-import useUserInfoService from "../../../../common/hooks/service/user_info";
-import VillifeStorage from "../../../../../libs/storage";
 import VillifeServer from "../../../../../libs/rest_apis/villife";
 import {
     UserResidenceValidationParams,
     VehicleResidenceValidationParams,
 } from "../../../../../libs/rest_apis/villife/building/types";
 import { VILLIFE_AUTHORITY } from "../../../../../libs/rest_apis/villife/absc";
+import useUserInformation from "../../../../common/hooks/service/user_info";
 
 export default function MyPageScreen({ navigation, route }: MyPageScreenProps) {
     const messages = useScreenMessage();
-    const [loginData] = useRecoilState<LoginDataStateType>(loginDataState);
     const logout = useLogoutService().logout;
-    const userInfo = useUserInfoService();
+    const user = useUserInformation();
 
     return (
         <NavigationView
@@ -40,7 +35,7 @@ export default function MyPageScreen({ navigation, route }: MyPageScreenProps) {
                     aria-label="Decrement value"
                     title="마이페이지"
                 />
-                {userInfo.basicInfo?.authority == VILLIFE_AUTHORITY.ADMIN ? (
+                {user?.isAdmin ? (
                     <Button
                         onPress={() => navigation.navigate("approval_home", { id: "", password: "" })}
                         aria-label="Decrement value"
@@ -51,17 +46,11 @@ export default function MyPageScreen({ navigation, route }: MyPageScreenProps) {
                 )}
                 <Button
                     onPress={() => {
-                        userInfo.service.resetUserBasicInfo();
-                    }}
-                    aria-label="Decrement value"
-                    title="유저 인포 갱신"
-                />
-                <Button
-                    onPress={() => {
-                        if (userInfo.changeSelectedBuildingOfAdmin(userInfo.adminInfo?.managedBuildings[2]))
-                            console.log("changed");
+                        if (user?.adminInfomation) {
+                            user?.changeAdminSelectedBuilding(user?.adminInfomation?.managedBuildings[2]);
+                        }
 
-                        console.log(userInfo.adminInfo);
+                        console.log(user?.adminInfomation);
                     }}
                     aria-label="Decrement value"
                     title="admin 건물변경"

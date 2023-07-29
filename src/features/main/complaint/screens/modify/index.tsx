@@ -24,7 +24,7 @@ export default function ComplaintModifyScreen({ navigation, route }: ComplaintMo
             return VillifeToastMessage.showBottomToast("info", "제목 또는 내용을 입력해주세요");
         }
         setLoading(false);
-        const result = await service.UpdateComplaint({
+        const result = await service.updateComplaint({
             complaint_id: route.params.id,
             content: content.current,
             status: route.params.status,

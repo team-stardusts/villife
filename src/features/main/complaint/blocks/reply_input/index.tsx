@@ -37,7 +37,7 @@ function ReplyInputSection(props: RelpyInputProps) {
 
     const onPressImageIcon = async () => {
         try {
-            const result = await service.PickAndUploadImage();
+            const result = await service.pickAndUploadImage();
             const newArray = [...imageUris, result.uri];
             setImageUris(newArray);
         } catch (e) {
@@ -59,7 +59,7 @@ function ReplyInputSection(props: RelpyInputProps) {
         if (modifyMode) {
             // when this distribution ends
             if (!replyWhenModify.current?.id) return;
-            const result = await service.UpdateReply(replyWhenModify.current.id, replyContent, imageUris);
+            const result = await service.updateReply(replyWhenModify.current.id, replyContent, imageUris);
 
             if (result.isSuccessful) {
                 new ComplaintEventEmitter().emitListUpdatedEvent();
@@ -71,7 +71,7 @@ function ReplyInputSection(props: RelpyInputProps) {
             return setIsLoading(false);
         }
 
-        const res = await service.CreateReply(props.complaintID, replyContent, imageUris);
+        const res = await service.createReply(props.complaintID, replyContent, imageUris);
 
         if (replyContent == "") {
             VillifeToastMessage.showBottomToast("error", "댓글을 입력해 주세요");

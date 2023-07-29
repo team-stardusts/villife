@@ -7,15 +7,14 @@ import useNotiOutLinedBoxListStyles from "./style";
 import { useNavigation } from "@react-navigation/native";
 import { VillifeNavigation } from "../../../../common/router/types";
 import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
-import IconPlus from "../../../../common/atoms/icon/plus";
-import useUserInfoService from "../../../../common/hooks/service/user_info";
+import useUserInformation from "../../../../common/hooks/service/user_info";
 
 function FlatListOutlinedContentsBox() {
     const styles = useNotiOutLinedBoxListStyles();
     const viewModel = useNotiViewModel();
     const navigation = useNavigation<VillifeNavigation>();
     const messages = useScreenMessage();
-    const userInfo = useUserInfoService();
+    const user = useUserInformation();
 
     return (
         <FlatList
@@ -31,7 +30,7 @@ function FlatListOutlinedContentsBox() {
                             navigation.navigate("noti_register", {});
                         }}>
                         <Text style={styles.whenEmptyCardText}>
-                            {userInfo.isAdmin()
+                            {user?.isAdmin
                                 ? messages.messages.main.noti.when_noti_empty_admin
                                 : messages.messages.main.noti.when_noti_empty}
                         </Text>

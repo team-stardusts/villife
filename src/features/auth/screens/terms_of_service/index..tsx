@@ -88,7 +88,7 @@ export default function TermsOfServiceScreen({ navigation, route }: TermsOfServi
 
             <AuthScreenBottonButton
                 title={Messages.messages.auth.create_account.next_btn_title}
-                onPress={() => console.log("TLQKF")}
+                onPress={() => console.log("NOT IMPLEMENTED")}
                 disabled={!isAllGranted}
             />
         </SafeAreaView>

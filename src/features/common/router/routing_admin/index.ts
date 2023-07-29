@@ -1,21 +1,21 @@
 import { useEffect, useState } from "react";
-import { useRecoilState } from "recoil";
-import { LoginDataStateType } from "../../hooks/states/atoms/login/types";
+import { useSetRecoilState } from "recoil";
 import { loginDataState } from "../../hooks/states/atoms/login";
 import { useNavigation } from "@react-navigation/native";
 import { RouterParams } from "../types";
 import VillifeStorage from "../../../../libs/storage";
-import useUserInfoService from "../../hooks/service/user_info";
-import { VILLIFE_AUTHORITY } from "../../../../libs/rest_apis/villife/absc";
-import { Alert } from "react-native";
+import { LoginDataType } from "../../../../libs/storage/tables/login/types";
+import useUserInformation from "../../hooks/service/user_info";
+import useAdminInfoService from "../../hooks/service/user_info/service";
 
 export default function useRoutingAdministratorByLogin(): void {
+    const adminService = useAdminInfoService();
     const [isLoading, setIsLoading] = useState<boolean>(true);
-    const [loginData, setLoginData] = useRecoilState<LoginDataStateType>(loginDataState);
+    const setLoginData = useSetRecoilState<LoginDataType | null>(loginDataState);
+    const userinfo = useUserInformation();
     const navigation = useNavigation<RouterParams["navigation"]>();
 
     const storage = VillifeStorage.getInstance();
-    const userinfo = useUserInfoService();
 
     // Listening on change login value
     useEffect(() => {
@@ -36,8 +36,8 @@ export default function useRoutingAdministratorByLogin(): void {
     useEffect(() => {
         if (isLoading) return;
 
-        loginData === null ? handleFailedToLogin() : handleLogin();
-    }, [loginData, isLoading]);
+        userinfo === null ? handleFailedToLogin() : handleLogin();
+    }, [userinfo?.rawdata, isLoading]);
 
     const handleAccessToApp = async (): Promise<void> => {
         await storage.login.get().then((data) => {
@@ -47,7 +47,6 @@ export default function useRoutingAdministratorByLogin(): void {
     };
 
     const handleFailedToLogin = async (): Promise<void> => {
-        userinfo.clearUserInfo();
         navigation.reset({
             index: 0,
             routes: [{ name: "login" }],
@@ -55,10 +54,8 @@ export default function useRoutingAdministratorByLogin(): void {
     };
 
     const handleLogin = async (): Promise<void> => {
-        const resetResult = await userinfo.resetUserInfo();
-
         // User 정보를 가져오는데 실패했을 때
-        if (resetResult === undefined) {
+        if (userinfo === null) {
             navigation.reset({
                 index: 0,
                 routes: [{ name: "login" }],
@@ -66,14 +63,19 @@ export default function useRoutingAdministratorByLogin(): void {
             return;
         }
 
+        if (userinfo.isAdmin) {
+            await adminService.initializeAdminInformation();
+        }
+
         // User가 임차인임과 동시에 등록한 주소가 없을 때
         // [TO-DO] 승인 대기중인 경우 대기 스크린으로 보내야함
-        if (resetResult.authority == VILLIFE_AUTHORITY.RENTER && resetResult.room_id == undefined) {
+        if (userinfo.isRenter && userinfo.roomID === undefined) {
             console.log("[ONLOGIN] User has no room , navigate to Set Building Page");
             navigation.reset({
                 index: 0,
                 routes: [{ name: "set_building" }],
             });
+
             return;
         }
 

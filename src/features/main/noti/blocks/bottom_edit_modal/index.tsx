@@ -13,10 +13,10 @@ import { EditIcon } from "../../../../common/atoms/icon/edit";
 import { TrashCanIcon } from "../../../../common/atoms/icon/trash_can";
 import useStyler from "../../../../common/hooks/styler/hooks";
 import useNoticeService from "../../services";
-import useUserInfoService from "../../../../common/hooks/service/user_info";
+import useUserInformation from "../../../../common/hooks/service/user_info";
 
 export default function NotiBottomEditModal(props: BottomEditModalProps) {
-    const userInfo = useUserInfoService();
+    const user = useUserInformation();
     const styles = useBottomEditModalStyles();
     const messages = useScreenMessage();
     const service = useNoticeService();
@@ -29,10 +29,10 @@ export default function NotiBottomEditModal(props: BottomEditModalProps) {
     }, []);
 
     const onDeleteButtonPress = async () => {
-        console.log(userInfo);
-        if (userInfo.adminInfo?.selectedBuilding.id && userInfo.basicInfo?.authority) {
+        console.log(user);
+        if (user?.isAdmin && user.adminInfomation?.selectedBuilding.id) {
             const result = await service.deleteNotice({
-                building_id: userInfo.adminInfo?.selectedBuilding.id,
+                building_id: user.adminInfomation?.selectedBuilding.id,
                 notice_id: props.noticeInfo.id,
             });
             console.log("delete : ", result);

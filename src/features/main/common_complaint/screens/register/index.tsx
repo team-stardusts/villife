@@ -7,12 +7,10 @@ import NotiEditor from "../../blocks/noti_editor";
 import useNoticeService from "../../services";
 import VillifeToastMessage from "../../../../common/atoms/toast";
 import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
-import useUserInfoService from "../../../../common/hooks/service/user_info";
 import NotiRegisterModal from "../../blocks/noti_register_modal";
 import CommonComplaintRegisterScreenProps from "./type";
 
 export default function CommonComplaintRegisterScreen(props: CommonComplaintRegisterScreenProps) {
-    const userInfo = useUserInfoService();
     const message = useScreenMessage();
     const content = useRef("");
     const title = useRef("");

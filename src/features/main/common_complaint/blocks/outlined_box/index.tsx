@@ -10,10 +10,10 @@ import { EditIcon } from "../../../../common/atoms/icon/edit";
 import useNotiOutlinedBoxStyles from "./style";
 import AutoHeightWebView from "react-native-autoheight-webview";
 import RemoteCSS from "../../../../../libs/themes/remote_css";
-import useUserInfoService from "../../../../common/hooks/service/user_info";
 import { VILLIFE_AUTHORITY } from "../../../../../libs/rest_apis/villife/absc";
 import { Polygon } from "react-native-svg";
 import useStyler from "../../../../common/hooks/styler/hooks";
+import useUserInformation from "../../../../common/hooks/service/user_info";
 
 /**
  * @param OutlinedBoxProp
@@ -21,7 +21,7 @@ import useStyler from "../../../../common/hooks/styler/hooks";
  */
 function OutlinedBox(props: OutlinedBoxProps) {
     const styles = useNotiOutlinedBoxStyles();
-    const userInfo = useUserInfoService();
+    const user = useUserInformation();
     const { theme } = useStyler();
 
     const [unfold, setUnfold] = React.useState(false);
@@ -68,7 +68,7 @@ function OutlinedBox(props: OutlinedBoxProps) {
                             </View>
                             <View style={styles.absoluteWrapper}>
                                 <View style={styles.iconBox}>
-                                    {unfold && userInfo.basicInfo?.authority == VILLIFE_AUTHORITY.ADMIN ? (
+                                    {unfold && user?.isAdmin ? (
                                         <TouchableOpacity
                                             style={styles.editButton}
                                             onPress={() => {

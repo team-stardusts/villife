@@ -35,7 +35,7 @@ export default function ComplaintDetailEditModal(props: DetailEditModalProps) {
         props.setVisible(false);
     };
     const onDeleteButtonPress = async () => {
-        const result = await service.DeleteComplaint({ complaint_id: props.ComplaintInfo.id });
+        const result = await service.deleteComplaint({ complaint_id: props.ComplaintInfo.id });
         if (!result.isSuccessful) {
             VillifeToastMessage.showBottomToast("error", "민원 삭제에 실패했습니다");
             setDeleteAlertVisible(false);

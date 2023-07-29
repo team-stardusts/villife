@@ -1,25 +1,27 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 import { BuildingSelectorType } from "./types";
 import Icon from "../../../../atoms/icon";
 import useBuildingSelectorStyles from "./styles";
 import useScreenMessage from "../../../../hooks/multilingual/hooks";
 import BuildingSelectModal from "./bulidng_select_modal";
-import useUserInfoService from "../../../../hooks/service/user_info";
 import { SimpleBuildingInfo } from "../../../../../../libs/rest_apis/villife/user_info/types";
+import useUserInformation from "../../../../hooks/service/user_info";
 
 export default function BuildingSelector({}: BuildingSelectorType) {
     const message = useScreenMessage();
     const styles = useBuildingSelectorStyles();
-    const user = useUserInfoService();
+    const userinfo = useUserInformation();
 
     const [isModalUnfold, setIsModalUnfold] = useState<boolean>(false);
 
     const changeSelectedBulding = (buildingInfo: SimpleBuildingInfo) => {
-        const isSuccess = user.changeSelectedBuildingOfAdmin(buildingInfo);
+        //const isSuccess = user.changeSelectedBuildingOfAdmin(buildingInfo);
+        //if (admininfo !== null) admininfo.selectedBuilding = buildingInfo;
+        userinfo?.changeAdminSelectedBuilding(buildingInfo);
 
         console.log("Change to:", buildingInfo.name);
-        console.log(isSuccess ? "Success" : "Fail", "to change.");
+        //console.log(isSuccess ? "Success" : "Fail", "to change.");
     };
 
     return (
@@ -27,10 +29,10 @@ export default function BuildingSelector({}: BuildingSelectorType) {
             <BuildingSelectModal
                 visible={isModalUnfold}
                 setVisible={setIsModalUnfold}
-                managedBuildings={user.adminInfo?.managedBuildings}
+                managedBuildings={userinfo?.adminInfomation?.managedBuildings}
                 onBuildingPress={changeSelectedBulding}
             />
-            {user.isAdmin() && (
+            {userinfo?.isAdmin && (
                 <TouchableOpacity
                     style={styles.wrapper}
                     activeOpacity={0.4}
@@ -46,9 +48,9 @@ export default function BuildingSelector({}: BuildingSelectorType) {
                             minimumFontScale={0.2}
                             maxFontSizeMultiplier={1}
                             adjustsFontSizeToFit={true}>
-                            {user.adminInfo === null
+                            {userinfo === null
                                 ? message.messages.navigation.building_not_selected
-                                : user.adminInfo.selectedBuilding.name}
+                                : userinfo.adminInfomation?.selectedBuilding.name}
                         </Text>
                     </View>
                 </TouchableOpacity>
