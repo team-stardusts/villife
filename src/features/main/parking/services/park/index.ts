@@ -6,11 +6,11 @@ import { Vehicle, VehicleOwnerType } from "../states/types";
 import { vehiclesState } from "../states";
 import { useEffect } from "react";
 import StardustDateParser from "../../../../../libs/date_parser";
-import useUserBasicInfo from "../../../../common/hooks/service/_user_info";
+import useUserInformation from "../../../../common/hooks/service/user_info";
 
 export default function useParkService(): ParkServiceReturns {
     const [vehicles, setVehicles] = useRecoilState<Vehicle[]>(vehiclesState);
-    const user = useUserBasicInfo();
+    const user = useUserInformation();
     const parkManager: IVillifeParkingManager = VillifeServer.getParkingManager();
 
     /* useEffect(() => {

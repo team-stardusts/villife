@@ -17,13 +17,13 @@ import ComplaintDetailEditModal from "../../blocks/detail_bottom_edit";
 import ComplaintProgressEditModal from "../../blocks/progress_edit";
 import { VILLIFE_AUTHORITY } from "../../../../../libs/rest_apis/villife/absc";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import useUserBasicInfo from "../../../../common/hooks/service/_user_info";
+import useUserInformation from "../../../../common/hooks/service/user_info";
 
 export default function ComplaintDetailScreen({ navigation, route }: ComplaintDetailScreenProps) {
     const messages = useScreenMessage();
     const styles = useComplaintDetailSecreenStyle();
     const uiState = useComplaintDetailViewModel(route.params);
-    const user = useUserBasicInfo();
+    const user = useUserInformation();
     const [editModalVisible, setEditModalVisible] = React.useState(false);
     const [progressEditModalVisible, setProgressEditModalVisible] = React.useState(false);
 

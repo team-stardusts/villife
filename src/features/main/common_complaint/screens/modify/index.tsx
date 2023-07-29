@@ -10,11 +10,11 @@ import useNoticeService from "../../services";
 import VillifeToastMessage from "../../../../common/atoms/toast";
 import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
 import CommonComplaintModifyScreenProps from "./type";
-import useUserBasicInfo from "../../../../common/hooks/service/_user_info";
+import useUserInformation from "../../../../common/hooks/service/user_info";
 
 export default function CommonComplaintModifyScreen(props: CommonComplaintModifyScreenProps) {
     const styles = useNoticeModifyScreenStyles();
-    const user = useUserBasicInfo();
+    const user = useUserInformation();
     const service = useNoticeService();
     const message = useScreenMessage();
 

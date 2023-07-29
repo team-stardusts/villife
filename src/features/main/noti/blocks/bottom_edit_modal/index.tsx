@@ -13,10 +13,10 @@ import { EditIcon } from "../../../../common/atoms/icon/edit";
 import { TrashCanIcon } from "../../../../common/atoms/icon/trash_can";
 import useStyler from "../../../../common/hooks/styler/hooks";
 import useNoticeService from "../../services";
-import useUserBasicInfo from "../../../../common/hooks/service/_user_info";
+import useUserInformation from "../../../../common/hooks/service/user_info";
 
 export default function NotiBottomEditModal(props: BottomEditModalProps) {
-    const user = useUserBasicInfo();
+    const user = useUserInformation();
     const styles = useBottomEditModalStyles();
     const messages = useScreenMessage();
     const service = useNoticeService();

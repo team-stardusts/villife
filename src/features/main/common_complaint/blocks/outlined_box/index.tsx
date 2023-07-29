@@ -13,7 +13,7 @@ import RemoteCSS from "../../../../../libs/themes/remote_css";
 import { VILLIFE_AUTHORITY } from "../../../../../libs/rest_apis/villife/absc";
 import { Polygon } from "react-native-svg";
 import useStyler from "../../../../common/hooks/styler/hooks";
-import useUserBasicInfo from "../../../../common/hooks/service/_user_info";
+import useUserInformation from "../../../../common/hooks/service/user_info";
 
 /**
  * @param OutlinedBoxProp
@@ -21,7 +21,7 @@ import useUserBasicInfo from "../../../../common/hooks/service/_user_info";
  */
 function OutlinedBox(props: OutlinedBoxProps) {
     const styles = useNotiOutlinedBoxStyles();
-    const user = useUserBasicInfo();
+    const user = useUserInformation();
     const { theme } = useStyler();
 
     const [unfold, setUnfold] = React.useState(false);

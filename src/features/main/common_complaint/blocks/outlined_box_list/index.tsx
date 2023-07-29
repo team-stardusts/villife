@@ -7,14 +7,14 @@ import useNotiOutLinedBoxListStyles from "./style";
 import { useNavigation } from "@react-navigation/native";
 import { VillifeNavigation } from "../../../../common/router/types";
 import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
-import useUserBasicInfo from "../../../../common/hooks/service/_user_info";
+import useUserInformation from "../../../../common/hooks/service/user_info";
 
 function FlatListOutlinedContentsBox() {
     const styles = useNotiOutLinedBoxListStyles();
     const viewModel = useNotiViewModel();
     const navigation = useNavigation<VillifeNavigation>();
     const messages = useScreenMessage();
-    const user = useUserBasicInfo();
+    const user = useUserInformation();
 
     return (
         <FlatList

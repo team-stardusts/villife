@@ -8,14 +8,14 @@ import { VillifeNavigation } from "../../../../common/router/types";
 import ColorLable from "../../../../common/blocks/universial/color_label.tsx";
 import useStyler from "../../../../common/hooks/styler/hooks";
 import { ComplaintStatus } from "../../../../../libs/rest_apis/villife/complaint/types";
-import useUserBasicInfo from "../../../../common/hooks/service/_user_info";
+import useUserInformation from "../../../../common/hooks/service/user_info";
 
 export default function HomeContentFromComplaint({ backgroundColor }: { backgroundColor: string }) {
     const messages = useScreenMessage();
     const viewModel = ComplaintHomeViewModel();
     const style = useHomeContentCardStyle();
     const message = useScreenMessage();
-    const user = useUserBasicInfo();
+    const user = useUserInformation();
     const navigation = useNavigation<VillifeNavigation>();
     const { theme } = useStyler();
 

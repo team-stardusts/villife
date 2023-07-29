@@ -5,11 +5,11 @@ import { ComplaintHomeDisplayMode } from "./types";
 import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
 import { ComplaintListUpatedEventListener } from "../../services/event";
 import { VILLIFE_AUTHORITY } from "../../../../../libs/rest_apis/villife/absc";
-import useUserBasicInfo from "../../../../common/hooks/service/_user_info";
+import useUserInformation from "../../../../common/hooks/service/user_info";
 
 export default function ComplaintHomeViewModel(): ComplaintHomeUiState {
     const service = useComplaintService();
-    const user = useUserBasicInfo();
+    const user = useUserInformation();
     const messages = useScreenMessage();
     const [complaints, setComplaints] = React.useState<Array<ComplaintInfo>>([]);
     const [displayMode, setDisplayMode] = React.useState<ComplaintHomeDisplayMode>("received_and_in_progress");
@@ -74,7 +74,6 @@ export default function ComplaintHomeViewModel(): ComplaintHomeUiState {
         }
     };
     const fetchCompletedComplaint = async () => {
-        console.log(4);
         const res = user?.isAdmin
             ? await service.getBuildingComplaints({
                   building_id: user.adminInfomation?.selectedBuilding.id || 0,

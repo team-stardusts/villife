@@ -5,16 +5,17 @@ import { useNavigation } from "@react-navigation/native";
 import { RouterParams } from "../types";
 import VillifeStorage from "../../../../libs/storage";
 import { LoginDataType } from "../../../../libs/storage/tables/login/types";
-import useUserBasicInfo from "../../hooks/service/_user_info";
+import useUserInformation from "../../hooks/service/user_info";
+import useAdminInfoService from "../../hooks/service/user_info/service";
 
 export default function useRoutingAdministratorByLogin(): void {
+    const adminService = useAdminInfoService();
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const setLoginData = useSetRecoilState<LoginDataType | null>(loginDataState);
-    const userinfo = useUserBasicInfo();
+    const userinfo = useUserInformation();
     const navigation = useNavigation<RouterParams["navigation"]>();
 
     const storage = VillifeStorage.getInstance();
-    //const __userinfo = useUserInfoService();
 
     // Listening on change login value
     useEffect(() => {
@@ -46,7 +47,6 @@ export default function useRoutingAdministratorByLogin(): void {
     };
 
     const handleFailedToLogin = async (): Promise<void> => {
-        //__userinfo.clearUserInfo();
         navigation.reset({
             index: 0,
             routes: [{ name: "login" }],
@@ -54,8 +54,6 @@ export default function useRoutingAdministratorByLogin(): void {
     };
 
     const handleLogin = async (): Promise<void> => {
-        //const resetResult = await __userinfo.resetUserInfo();
-
         // User 정보를 가져오는데 실패했을 때
         if (userinfo === null) {
             navigation.reset({
@@ -63,6 +61,10 @@ export default function useRoutingAdministratorByLogin(): void {
                 routes: [{ name: "login" }],
             });
             return;
+        }
+
+        if (userinfo.isAdmin) {
+            await adminService.initializeAdminInformation();
         }
 
         // User가 임차인임과 동시에 등록한 주소가 없을 때

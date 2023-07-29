@@ -10,12 +10,12 @@ import useNoticeService from "../../services";
 import { ContentPriority } from "../noti_label.tsx/type";
 import { CreateNoticeParams } from "../../../../../libs/rest_apis/villife/notice/types";
 import NavigationWithProps from "./type";
-import useUserBasicInfo from "../../../../common/hooks/service/_user_info";
+import useUserInformation from "../../../../common/hooks/service/user_info";
 
 export default function NotiRegisterModal(props: NavigationWithProps) {
     const message = useScreenMessage();
     const styles = useBottomEditModalStyles();
-    const user = useUserBasicInfo();
+    const user = useUserInformation();
     const service = useNoticeService();
     const { deviceUI, theme } = useStyler();
 

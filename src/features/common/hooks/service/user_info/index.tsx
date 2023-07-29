@@ -1,50 +1,20 @@
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilValue } from "recoil";
 import { loginDataState } from "../../states/atoms/login";
 import { LoginDataType } from "../../../../../libs/storage/tables/login/types";
 import { VILLIFE_AUTHORITY } from "../../../../../libs/rest_apis/villife/absc";
 import { IUserInfoProvider, UseUserInfoReturns } from "./types";
 import { AdminInformation } from "../../states/atoms/user/admin_only/type";
 import { adminInfoState } from "../../states/atoms/user/admin_only";
-import { IVillifeUserInfoRestClient, SimpleBuildingInfo } from "../../../../../libs/rest_apis/villife/user_info/types";
-import VillifeServer from "../../../../../libs/rest_apis/villife";
-import { Response } from "../../../../../libs/rest_apis/types";
-import { useEffect } from "react";
+import { SimpleBuildingInfo } from "../../../../../libs/rest_apis/villife/user_info/types";
+import useAdminInfoService from "./service";
 
-export default function useUserBasicInfo(): UseUserInfoReturns {
+export default function useUserInformation(): UseUserInfoReturns {
+    const adminService = useAdminInfoService();
     const loginData = useRecoilValue<LoginDataType | null>(loginDataState);
-    const [adminInfo, setAdminInfo] = useRecoilState<AdminInformation | null>(adminInfoState);
+    const adminInfo = useRecoilValue<AdminInformation | null>(adminInfoState);
 
     if (loginData === null) return null;
     if (loginData.building_id === 99999999) return null;
-
-    class AdminInfoService {
-        private static readonly api: IVillifeUserInfoRestClient = VillifeServer.getUserInfoRestClient();
-
-        public static async initializeAdminInformation(): Promise<void> {
-            const _admininfo = await this.fetchBuildingsManagedByAdmin();
-
-            if (_admininfo.isSuccessful && _admininfo.data?.data !== undefined) {
-                // 초기화 시 Managed buildings 중 첫 번째 Building으로 선택
-                setAdminInfo({
-                    ...adminInfo,
-                    selectedBuilding: _admininfo.data.data[0],
-                    managedBuildings: _admininfo.data.data,
-                });
-            } else {
-                console.error("[ADMIN_INFO_SERVICE]", "Can not get admin info.");
-            }
-        }
-
-        public static changeSelectedBulding(building: SimpleBuildingInfo) {
-            if (adminInfo !== null) {
-                setAdminInfo({ ...adminInfo, selectedBuilding: building });
-            }
-        }
-
-        private static async fetchBuildingsManagedByAdmin(): Response<Array<SimpleBuildingInfo>> {
-            return await this.api.getBuildingsManagedByAdmin();
-        }
-    }
 
     class UserInfoProvider implements IUserInfoProvider {
         public readonly rawdata: LoginDataType;
@@ -53,10 +23,6 @@ export default function useUserBasicInfo(): UseUserInfoReturns {
         public constructor(loginData: LoginDataType, adminInfo: AdminInformation | null) {
             this.rawdata = loginData;
             this.adminInfo = adminInfo;
-
-            if (this.isAdmin && adminInfo === null) {
-                AdminInfoService.initializeAdminInformation();
-            }
         }
 
         get host(): LoginDataType["host"] {
@@ -100,7 +66,7 @@ export default function useUserBasicInfo(): UseUserInfoReturns {
         }
 
         public changeAdminSelectedBuilding(building: SimpleBuildingInfo): void {
-            return AdminInfoService.changeSelectedBulding(building);
+            return adminService.changeSelectedBulding(building);
         }
     }
 

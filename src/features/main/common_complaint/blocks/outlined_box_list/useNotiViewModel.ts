@@ -2,11 +2,11 @@ import React from "react";
 import { NoticeListUpatedEventListener } from "./event";
 import { GetNoticesResult } from "../../../../../libs/rest_apis/villife/notice/types";
 import useNoticeService from "../../services";
-import useUserBasicInfo from "../../../../common/hooks/service/_user_info";
+import useUserInformation from "../../../../common/hooks/service/user_info";
 
 export default function useCommonViewModel() {
     const service = useNoticeService();
-    const user = useUserBasicInfo();
+    const user = useUserInformation();
     const [notices, setNotices] = React.useState<GetNoticesResult>();
     const [refresh, setRefresh] = React.useState({});
 
@@ -41,7 +41,6 @@ export default function useCommonViewModel() {
     }, []);
 
     React.useEffect(() => {
-        console.log("[]", user?.adminInfomation?.selectedBuilding);
         getNotices();
     }, [refresh, user?.adminInfomation?.selectedBuilding]);
 

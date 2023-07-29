@@ -9,11 +9,11 @@ import { IconSeries } from "../../../../common/atoms/icon/types";
 import { useNavigation } from "@react-navigation/native";
 import { VillifeNavigation } from "../../../../common/router/types";
 import VillifeToastMessage from "../../../../common/atoms/toast";
-import useUserBasicInfo from "../../../../common/hooks/service/_user_info";
+import useUserInformation from "../../../../common/hooks/service/user_info";
 
 export default function HomeSideModal(props: HomeSideMoalProps) {
     const message = useScreenMessage();
-    const user = useUserBasicInfo();
+    const user = useUserInformation();
     const { deviceUI, theme } = useStyler();
     const styles = useBottomEditModalStyles();
     const navigation = useNavigation<VillifeNavigation>();

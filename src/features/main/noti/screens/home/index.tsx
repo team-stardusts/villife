@@ -4,11 +4,11 @@ import NavigationView from "../../../../common/blocks/navigation";
 import WriteButton from "../../blocks/write_button";
 import FlatListOutlinedContentsBox from "../../blocks/outlined_box_list";
 import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
-import useUserBasicInfo from "../../../../common/hooks/service/_user_info";
+import useUserInformation from "../../../../common/hooks/service/user_info";
 
 export default function NoticeHomeScreen(props: NoticeHomeScreenProps) {
     const message = useScreenMessage();
-    const user = useUserBasicInfo();
+    const user = useUserInformation();
 
     return (
         <NavigationView

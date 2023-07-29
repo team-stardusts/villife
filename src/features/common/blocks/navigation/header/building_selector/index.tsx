@@ -6,12 +6,12 @@ import useBuildingSelectorStyles from "./styles";
 import useScreenMessage from "../../../../hooks/multilingual/hooks";
 import BuildingSelectModal from "./bulidng_select_modal";
 import { SimpleBuildingInfo } from "../../../../../../libs/rest_apis/villife/user_info/types";
-import useUserBasicInfo from "../../../../hooks/service/_user_info";
+import useUserInformation from "../../../../hooks/service/user_info";
 
 export default function BuildingSelector({}: BuildingSelectorType) {
     const message = useScreenMessage();
     const styles = useBuildingSelectorStyles();
-    const userinfo = useUserBasicInfo();
+    const userinfo = useUserInformation();
 
     const [isModalUnfold, setIsModalUnfold] = useState<boolean>(false);
 

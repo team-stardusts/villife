@@ -7,13 +7,13 @@ import ColorLable from "../../../../common/blocks/universial/color_label.tsx";
 import useStyler from "../../../../common/hooks/styler/hooks";
 import useHomeContentCardStyle from "./styles";
 import useNotiViewModel from "../outlined_box_list/useNotiViewModel";
-import useUserBasicInfo from "../../../../common/hooks/service/_user_info";
+import useUserInformation from "../../../../common/hooks/service/user_info";
 
 export default function HomeContentFromNoti({ backgroundColor }: { backgroundColor: string }) {
     const messages = useScreenMessage();
     const style = useHomeContentCardStyle();
     const message = useScreenMessage();
-    const user = useUserBasicInfo();
+    const user = useUserInformation();
     const viewModel = useNotiViewModel();
     const navigation = useNavigation<VillifeNavigation>();
     const { theme, deviceUI } = useStyler();

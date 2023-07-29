@@ -9,12 +9,12 @@ import {
     VehicleResidenceValidationParams,
 } from "../../../../../libs/rest_apis/villife/building/types";
 import { VILLIFE_AUTHORITY } from "../../../../../libs/rest_apis/villife/absc";
-import useUserBasicInfo from "../../../../common/hooks/service/_user_info";
+import useUserInformation from "../../../../common/hooks/service/user_info";
 
 export default function MyPageScreen({ navigation, route }: MyPageScreenProps) {
     const messages = useScreenMessage();
     const logout = useLogoutService().logout;
-    const user = useUserBasicInfo();
+    const user = useUserInformation();
 
     return (
         <NavigationView

@@ -8,11 +8,11 @@ import { UpdateNoticeParams } from "../../../../../libs/rest_apis/villife/notice
 import useNoticeService from "../../services";
 import VillifeToastMessage from "../../../../common/atoms/toast";
 import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
-import useUserBasicInfo from "../../../../common/hooks/service/_user_info";
+import useUserInformation from "../../../../common/hooks/service/user_info";
 
 export default function NoticeModifyScreen(props: NoticeModifyScreenProps) {
     const styles = useNoticeModifyScreenStyles();
-    const user = useUserBasicInfo();
+    const user = useUserInformation();
     const service = useNoticeService();
     const message = useScreenMessage();
 

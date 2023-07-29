@@ -11,10 +11,9 @@ import useNotiOutlinedBoxStyles from "./style";
 import AutoHeightWebView from "react-native-autoheight-webview";
 import RemoteCSS from "../../../../../libs/themes/remote_css";
 import useStyler from "../../../../common/hooks/styler/hooks";
-import useUserBasicInfo from "../../../../common/hooks/service/_user_info";
 import { useNavigation } from "@react-navigation/native";
 import { VillifeNavigation } from "../../../../common/router/types";
-import useUserBasicInfo from "../../../../common/hooks/service/_user_info";
+import useUserInformation from "../../../../common/hooks/service/user_info";
 
 /**
  * @param OutlinedBoxProp
@@ -22,7 +21,7 @@ import useUserBasicInfo from "../../../../common/hooks/service/_user_info";
  */
 function OutlinedBox(props: OutlinedBoxProps) {
     const styles = useNotiOutlinedBoxStyles();
-    const user = useUserBasicInfo();
+    const user = useUserInformation();
     const { theme } = useStyler();
 
     const [unfold, setUnfold] = React.useState(false);

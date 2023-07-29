@@ -19,12 +19,12 @@ import { useRecoilValue } from "recoil";
 import { vehiclesState } from "../../services/states";
 import IconThreeDotsVertical from "../../../../common/atoms/icon/three_dots_vertical";
 import VehicleDetailAlert from "../../blocks/vehicle_detail_alert";
-import useUserBasicInfo from "../../../../common/hooks/service/_user_info";
+import useUserInformation from "../../../../common/hooks/service/user_info";
 
 export default function ParkingScreen({ navigation, route }: ParkingScreenProps) {
     const messages = useScreenMessage();
     const { deviceUI } = useStyler();
-    const user = useUserBasicInfo();
+    const user = useUserInformation();
     const styles = useParkingHomeScreenStyles().screen;
     const { updateVehicles } = useParkService();
     const vehicles = useRecoilValue<Vehicle[]>(vehiclesState);
