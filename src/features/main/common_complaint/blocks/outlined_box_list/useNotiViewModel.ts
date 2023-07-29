@@ -41,6 +41,7 @@ export default function useCommonViewModel() {
     }, []);
 
     React.useEffect(() => {
+        console.log("[]", user?.adminInfomation?.selectedBuilding);
         getNotices();
     }, [refresh, user?.adminInfomation?.selectedBuilding]);
 

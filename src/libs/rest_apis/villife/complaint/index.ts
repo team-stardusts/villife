@@ -17,7 +17,7 @@ import {
 } from "./types";
 
 class VillifeComplaintRestClient extends AVillifeServerModule implements IVillifeComplaintRestClient {
-    async CreateComplaint(params: CreateComplaintParams): Response<string> {
+    async createComplaint(params: CreateComplaintParams): Response<string> {
         let route: string = this.routes.complaint.createComplaint;
 
         return await this.requestAuthable<any, string>({
@@ -26,14 +26,14 @@ class VillifeComplaintRestClient extends AVillifeServerModule implements IVillif
             data: params,
         });
     }
-    async GetOneComplaint(complaintID: number): Response<Complaint> {
+    async getOneComplaint(complaintID: number): Response<Complaint> {
         let route: string = this.routes.complaint.getOneComplaint + `?complaint_id=${complaintID}`;
         return await this.requestAuthable<any, Complaint>({
             method: "get",
             url: route,
         });
     }
-    async GetUserComplaints(params: GetUserComplaintsParams): Response<GetComplaintsResult> {
+    async getUserComplaints(params: GetUserComplaintsParams): Response<GetComplaintsResult> {
         const qurey = `?status=${params.status}`;
         let route: string = this.routes.complaint.getUserComplaints + qurey;
 
@@ -42,7 +42,7 @@ class VillifeComplaintRestClient extends AVillifeServerModule implements IVillif
             url: route,
         });
     }
-    async GetBuildingComplaints(params: GetBuildingComplaintsParams): Response<GetComplaintsResult> {
+    async getBuildingComplaints(params: GetBuildingComplaintsParams): Response<GetComplaintsResult> {
         const qurey = `?status=${params.status}&building_id=${params.building_id}`;
         let route: string = this.routes.complaint.getBuildingComplaints + qurey;
 
@@ -51,7 +51,7 @@ class VillifeComplaintRestClient extends AVillifeServerModule implements IVillif
             url: route,
         });
     }
-    async UpdateComplaint(params: UpdateComplaintParams): Response<string> {
+    async updateComplaint(params: UpdateComplaintParams): Response<string> {
         let route: string = this.routes.complaint.updateComplaint;
 
         return await this.requestAuthable<any, string>({
@@ -60,7 +60,7 @@ class VillifeComplaintRestClient extends AVillifeServerModule implements IVillif
             data: params,
         });
     }
-    async DeleteComplaint(params: DeleteComplaintParams): Response<string> {
+    async deleteComplaint(params: DeleteComplaintParams): Response<string> {
         let route: string = this.routes.complaint.deleteComplaint;
 
         return await this.requestAuthable<any, string>({
@@ -70,7 +70,7 @@ class VillifeComplaintRestClient extends AVillifeServerModule implements IVillif
         });
     }
 
-    async CreateReply(params: CreateReplyReqParams): Response<string> {
+    async createReply(params: CreateReplyReqParams): Response<string> {
         let route: string = this.routes.complaint.reply;
 
         var stringUris = "";
@@ -89,7 +89,7 @@ class VillifeComplaintRestClient extends AVillifeServerModule implements IVillif
         });
     }
 
-    async GetReplies(complaintID: number): Response<GetRepliesResult> {
+    async getReplies(complaintID: number): Response<GetRepliesResult> {
         const query = `?complaint_id=${complaintID}`;
         let route: string = this.routes.complaint.reply + query;
 
@@ -99,7 +99,7 @@ class VillifeComplaintRestClient extends AVillifeServerModule implements IVillif
         });
     }
 
-    async UpdateReply(params: UpdateReplyReqParams): Response<string> {
+    async updateReply(params: UpdateReplyReqParams): Response<string> {
         let route: string = this.routes.complaint.reply;
 
         var stringUris = "";
@@ -118,7 +118,7 @@ class VillifeComplaintRestClient extends AVillifeServerModule implements IVillif
         });
     }
 
-    async DeleteReply(replyID: number): Response<string> {
+    async deleteReply(replyID: number): Response<string> {
         const query = `?reply_id=${replyID}`;
         let route: string = this.routes.complaint.reply + query;
 

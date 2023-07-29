@@ -19,20 +19,20 @@ export default function ComplaintHomeViewModel(): ComplaintHomeUiState {
 
     const fetchReceivedAndInProgressComplaint = async () => {
         const resReceived = user?.isAdmin
-            ? await service.GetBuildingComplaints({
+            ? await service.getBuildingComplaints({
                   building_id: user.adminInfomation?.selectedBuilding.id || 0,
                   status: "received",
               })
-            : await service.GetUserComplaints({
+            : await service.getUserComplaints({
                   status: "received",
               });
         if (!resReceived.isSuccessful) return [];
         const res = user?.isAdmin
-            ? await service.GetBuildingComplaints({
+            ? await service.getBuildingComplaints({
                   building_id: user.adminInfomation?.selectedBuilding.id || 0,
                   status: "in_progress",
               })
-            : await service.GetUserComplaints({
+            : await service.getUserComplaints({
                   status: "in_progress",
               });
         if (!res.isSuccessful) return;
@@ -45,11 +45,11 @@ export default function ComplaintHomeViewModel(): ComplaintHomeUiState {
     };
     const fetchReceivedComplaint = async () => {
         const res = user?.isAdmin
-            ? await service.GetBuildingComplaints({
+            ? await service.getBuildingComplaints({
                   building_id: user.adminInfomation?.selectedBuilding.id || 0,
                   status: "received",
               })
-            : await service.GetUserComplaints({
+            : await service.getUserComplaints({
                   status: "received",
               });
         if (!res.isSuccessful) return [];
@@ -60,11 +60,11 @@ export default function ComplaintHomeViewModel(): ComplaintHomeUiState {
     };
     const fetchInProgressComplaint = async () => {
         const res = user?.isAdmin
-            ? await service.GetBuildingComplaints({
+            ? await service.getBuildingComplaints({
                   building_id: user.adminInfomation?.selectedBuilding.id || 0,
                   status: "in_progress",
               })
-            : await service.GetUserComplaints({
+            : await service.getUserComplaints({
                   status: "in_progress",
               });
         if (!res.isSuccessful) return;
@@ -74,12 +74,13 @@ export default function ComplaintHomeViewModel(): ComplaintHomeUiState {
         }
     };
     const fetchCompletedComplaint = async () => {
+        console.log(4);
         const res = user?.isAdmin
-            ? await service.GetBuildingComplaints({
+            ? await service.getBuildingComplaints({
                   building_id: user.adminInfomation?.selectedBuilding.id || 0,
                   status: "completed",
               })
-            : await service.GetUserComplaints({
+            : await service.getUserComplaints({
                   status: "completed",
               });
 

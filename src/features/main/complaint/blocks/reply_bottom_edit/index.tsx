@@ -34,7 +34,7 @@ export default function ComplaintReplyEditModal(props: ReplyEditModalProps) {
         props.setVisible(false);
     };
     const onDeleteButtonPress = async () => {
-        const result = await service.DeleteReply(props.replyInfo.id);
+        const result = await service.deleteReply(props.replyInfo.id);
         if (!result.isSuccessful) {
             VillifeToastMessage.showBottomToast("error", "답글 삭제에 실패했습니다");
             setDeleteAlertVisible(false);

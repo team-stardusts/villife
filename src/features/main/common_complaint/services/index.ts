@@ -71,7 +71,7 @@ class NoticeService implements INoticeService {
         return await this.mApi.deleteNotice(params);
     }
     async getNotices(buildingId: number): Response<GetNoticesResult> {
-        if (buildingId == 0) throw new Error("invalid building id");
+        if (buildingId == 0) throw new Error("[getNotices_common] invalid building id");
         return await this.mApi.getNotices(buildingId);
     }
 }

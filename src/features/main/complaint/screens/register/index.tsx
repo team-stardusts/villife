@@ -24,7 +24,7 @@ export default function ComplaintRegisterScreen({ navigation, route }: Complaint
             return VillifeToastMessage.showBottomToast("info", "제목 또는 내용을 입력해주세요");
         }
         setLoading(false);
-        const result = await service.RegisterComplaint(content.current, title.current);
+        const result = await service.registerComplaint(content.current, title.current);
         if (result.isSuccessful) {
             new ComplaintEventEmitter().emitListUpdatedEvent();
             navigation.goBack();

@@ -8,6 +8,7 @@ import { adminInfoState } from "../../states/atoms/user/admin_only";
 import { IVillifeUserInfoRestClient, SimpleBuildingInfo } from "../../../../../libs/rest_apis/villife/user_info/types";
 import VillifeServer from "../../../../../libs/rest_apis/villife";
 import { Response } from "../../../../../libs/rest_apis/types";
+import { useEffect } from "react";
 
 export default function useUserBasicInfo(): UseUserInfoReturns {
     const loginData = useRecoilValue<LoginDataType | null>(loginDataState);
@@ -49,13 +50,13 @@ export default function useUserBasicInfo(): UseUserInfoReturns {
         public readonly rawdata: LoginDataType;
         private readonly adminInfo: AdminInformation | null;
 
-        constructor(loginData: LoginDataType, adminInfo: AdminInformation | null) {
+        public constructor(loginData: LoginDataType, adminInfo: AdminInformation | null) {
             this.rawdata = loginData;
             this.adminInfo = adminInfo;
 
-            /* if (this.isAdmin && this.adminInfo === null) {
+            if (this.isAdmin && adminInfo === null) {
                 AdminInfoService.initializeAdminInformation();
-            } */
+            }
         }
 
         get host(): LoginDataType["host"] {

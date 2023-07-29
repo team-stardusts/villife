@@ -63,7 +63,7 @@ function ComplaintEditor(props: ComplaintEditorProps) {
                 selectedIconTint={"#2095F2"}
                 disabledIconTint={"#bfbfbf"}
                 onPressAddImage={() => {
-                    service.UploadAndInsertImage(richText);
+                    service.uploadAndInsertImage(richText);
                 }}
                 actions={[
                     actions.heading1,

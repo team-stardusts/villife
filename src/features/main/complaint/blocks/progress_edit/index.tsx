@@ -15,7 +15,7 @@ export default function ComplaintProgressEditModal(props: ComplaintProgressEditM
 
     const onPressModifyButton = async () => {
         if (!updatedStatus.current) return VillifeToastMessage.showBottomToast("error", "상태를 변경하지 않으셨어요");
-        const result = await service.UpdateComplaint({
+        const result = await service.updateComplaint({
             complaint_id: props.complaint.id,
             content: props.complaint.content,
             status: updatedStatus.current,

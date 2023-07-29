@@ -39,16 +39,16 @@ export type GetComplaintsResult = Array<Complaint>;
 export type ComplaintStatus = "received" | "in_progress" | "completed";
 
 export interface IVillifeComplaintRestClient {
-    CreateComplaint(params: CreateComplaintParams): Response<string>;
-    GetOneComplaint(complaintID: number): Response<Complaint>;
-    GetUserComplaints(params: GetUserComplaintsParams): Response<GetComplaintsResult>;
-    GetBuildingComplaints(params: GetBuildingComplaintsParams): Response<GetComplaintsResult>;
-    UpdateComplaint(params: UpdateComplaintParams): Response<string>;
-    DeleteComplaint(params: DeleteComplaintParams): Response<string>;
-    CreateReply(params: CreateReplyReqParams): Response<string>;
-    GetReplies(complaintID: number): Response<GetRepliesResult>;
-    UpdateReply(params: UpdateReplyReqParams): Response<string>;
-    DeleteReply(replyID: number): Response<string>;
+    createComplaint(params: CreateComplaintParams): Response<string>;
+    getOneComplaint(complaintID: number): Response<Complaint>;
+    getUserComplaints(params: GetUserComplaintsParams): Response<GetComplaintsResult>;
+    getBuildingComplaints(params: GetBuildingComplaintsParams): Response<GetComplaintsResult>;
+    updateComplaint(params: UpdateComplaintParams): Response<string>;
+    deleteComplaint(params: DeleteComplaintParams): Response<string>;
+    createReply(params: CreateReplyReqParams): Response<string>;
+    getReplies(complaintID: number): Response<GetRepliesResult>;
+    updateReply(params: UpdateReplyReqParams): Response<string>;
+    deleteReply(replyID: number): Response<string>;
 }
 
 export type CreateReplyReqParams = {
