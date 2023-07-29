@@ -30,37 +30,41 @@ export default function NavigationViewBottom() {
 
     return (
         <View style={styles.container}>
-            {rootLinks.map((link, index) => (
-                <TouchableOpacity
-                    key={index}
-                    activeOpacity={1}
-                    style={styles.wrapper}
-                    onPress={() => handleLinkPress(link)}>
-                    <View style={styles.iconBox}>
-                        <Icon
-                            name={link.icon}
-                            size={styles.icon.width}
-                            color={
-                                currentRootScreen === link.screen.name ? styles.selected.color : styles.unselected.color
-                            }
-                        />
-                    </View>
-                    <View style={styles.captionBox}>
-                        <Text
-                            style={[
-                                styles.caption,
-                                {
-                                    color:
-                                        currentRootScreen === link.screen.name
-                                            ? styles.selected.color
-                                            : styles.unselected.color,
-                                },
-                            ]}>
-                            {link.caption}
-                        </Text>
-                    </View>
-                </TouchableOpacity>
-            ))}
+            <View style={styles.menuBox}>
+                {rootLinks.map((link, index) => (
+                    <TouchableOpacity
+                        key={index}
+                        activeOpacity={1}
+                        style={styles.wrapper}
+                        onPress={() => handleLinkPress(link)}>
+                        <View style={styles.iconBox}>
+                            <Icon
+                                name={link.icon}
+                                size={styles.icon.width}
+                                color={
+                                    currentRootScreen === link.screen.name
+                                        ? styles.selected.color
+                                        : styles.unselected.color
+                                }
+                            />
+                        </View>
+                        <View style={styles.captionBox}>
+                            <Text
+                                style={[
+                                    styles.caption,
+                                    {
+                                        color:
+                                            currentRootScreen === link.screen.name
+                                                ? styles.selected.color
+                                                : styles.unselected.color,
+                                    },
+                                ]}>
+                                {link.caption}
+                            </Text>
+                        </View>
+                    </TouchableOpacity>
+                ))}
+            </View>
         </View>
     );
 }

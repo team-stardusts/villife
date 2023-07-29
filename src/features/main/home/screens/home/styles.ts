@@ -5,9 +5,9 @@ export default function useHomeScreenStyles() {
     const { deviceUI, theme } = useStyler();
 
     return StyleSheet.create({
-        toplevelBox: {
+        container: {
             flex: 1,
-            backgroundColor: theme.colorFamily.white,
+            paddingTop: deviceUI.moderateScale(10),
         },
         contentsScrollBox: {
             flex: 1,

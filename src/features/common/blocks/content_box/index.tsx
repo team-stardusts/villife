@@ -34,16 +34,17 @@ export default function ContentBox({ children, backgroundColor }: ContentBoxProp
             backgroundColor: backgroundColor ?? theme.colorFamily.blue,
             ...Platform.select({
                 ios: {
-                    shadowColor: theme.colorFamily.darkgrey,
-                    shadowOpacity: 0.3,
+                    /* shadowColor: theme.colorFamily.darkgrey,
+                    shadowOpacity: 0.2,
                     shadowRadius: deviceUI.moderateScale(2),
                     shadowOffset: {
-                        height: 3,
+                        height: 2,
                         width: 0,
-                    },
+                    }, */
+                    elevation: 2,
                 },
                 android: {
-                    elevation: 5,
+                    elevation: 2,
                 },
             }),
         },

@@ -9,7 +9,7 @@ import ContentBox from "../content_box";
 import { useEffect, useRef } from "react";
 import { ANIMATION_DURATION_SLOW } from "../../constants";
 
-export default function MiniContent({ title, navigation, children, backgroundColor }: MiniContentProps) {
+export default function MiniContent({ title, navigation, children }: MiniContentProps) {
     const { deviceUI, theme } = useStyler();
     const styles = useHomeScreenContentStyles();
     const nav = useNavigation<VillifeNavigation>();
@@ -49,27 +49,33 @@ export default function MiniContent({ title, navigation, children, backgroundCol
 
     return (
         <View style={styles.container}>
-            <TouchableOpacity
-                style={styles.navigationBox}
-                onPress={() => navigate()}
-                disabled={navigation === undefined}>
-                <Animated.View
-                    style={[
-                        styles.navigationWrapper,
-                        {
-                            opacity: opacityValue,
-                            transform: [{ translateY: translateYValue }],
-                        },
-                    ]}>
-                    <Text style={styles.navigationTitle}>{title}</Text>
-                    {navigation && (
-                        <Icon name="arrow-right" size={deviceUI.moderateScale(40)} color={theme.colorFamily.grey} />
-                    )}
-                </Animated.View>
-            </TouchableOpacity>
-            <View style={styles.contentWrapper}>
-                <ContentBox backgroundColor={backgroundColor}>{children}</ContentBox>
-            </View>
+            <ContentBox backgroundColor={theme.colorFamily.white}>
+                <View style={styles.contentsContatainer}>
+                    <TouchableOpacity
+                        style={styles.navigationBox}
+                        onPress={() => navigate()}
+                        disabled={navigation === undefined}>
+                        {/* <Animated.View
+                        style={[
+                            styles.navigationWrapper,
+                            {
+                                opacity: opacityValue,
+                                transform: [{ translateY: translateYValue }],
+                            },
+                        ]}>
+                        <Text style={styles.navigationTitle}>{title}</Text>
+                        {navigation && (
+                            <Icon name="arrow-right" size={deviceUI.moderateScale(40)} color={theme.colorFamily.grey} />
+                        )}
+                    </Animated.View> */}
+                        <Text style={styles.navigationTitle}>{title}</Text>
+                        {navigation && (
+                            <Icon name="arrow-right" size={styles.linkIcon.width} color={styles.linkIcon.color} />
+                        )}
+                    </TouchableOpacity>
+                    <View style={styles.childrenBox}>{children}</View>
+                </View>
+            </ContentBox>
         </View>
     );
 }

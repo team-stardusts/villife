@@ -1,10 +1,10 @@
 import { VillifeStackParamList } from "../../router/types";
-import { ContentBoxProps } from "../content_box/types";
 
-export type MiniContentProps = ContentBoxProps & {
+export type MiniContentProps = {
     title: string;
     navigation?: {
         to: keyof VillifeStackParamList;
         params?: any; //VillifeStackParamList[MiniContentProps["navigation"]["to"]];
     };
+    children?: React.ReactNode;
 };

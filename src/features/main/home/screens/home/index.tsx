@@ -17,12 +17,6 @@ export default function HomeScreen({ navigation, route }: HomeScreenProps) {
     console.log("[HomeScreen] onCreate");
     const contents = [HomeContentFromComplaint, HomeContentFromNoti, HomeContentFromParking];
 
-    const getBgColor = (index: number) => {
-        const colors = [theme.colorFamily.blue, theme.colorFamily.lightblue, theme.colorFamily.green];
-
-        return colors[index % 3];
-    };
-
     return (
         <NavigationView
             headerOptions={{
@@ -35,12 +29,16 @@ export default function HomeScreen({ navigation, route }: HomeScreenProps) {
                         navigation.navigate("noti_home");
                     },
                 }, */
+            }}
+            bodyOptions={{
+                applyDefaultHorizontalPadding: true,
+                applyDefaultVerticalPadding: false,
             }}>
-            <View style={styles.toplevelBox}>
+            <View style={styles.container}>
                 {/* <MenuButton /> */}
                 <ScrollView style={styles.contentsScrollBox} showsVerticalScrollIndicator={false}>
                     {contents.map((Content, index) => (
-                        <Content key={index} backgroundColor={getBgColor(index)} />
+                        <Content key={index} />
                     ))}
                 </ScrollView>
             </View>

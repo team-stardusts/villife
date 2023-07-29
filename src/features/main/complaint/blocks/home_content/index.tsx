@@ -10,7 +10,7 @@ import useStyler from "../../../../common/hooks/styler/hooks";
 import { ComplaintStatus } from "../../../../../libs/rest_apis/villife/complaint/types";
 import useUserInformation from "../../../../common/hooks/service/user_info";
 
-export default function HomeContentFromComplaint({ backgroundColor }: { backgroundColor: string }) {
+export default function HomeContentFromComplaint() {
     const messages = useScreenMessage();
     const viewModel = ComplaintHomeViewModel();
     const style = useHomeContentCardStyle();
@@ -32,8 +32,7 @@ export default function HomeContentFromComplaint({ backgroundColor }: { backgrou
     return (
         <MiniContent
             title={messages.messages.main.complaint.renter_home_content_title}
-            navigation={{ to: "complaint" }}
-            backgroundColor={backgroundColor}>
+            navigation={{ to: "complaint" }}>
             {viewModel.uiState.complaintsWillBeDisplayed.length == 0 ? (
                 <Pressable
                     onPress={() => {

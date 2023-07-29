@@ -11,7 +11,7 @@ import useNotiViewModel from "../outlined_box_list/useNotiViewModel";
 import IconPlus from "../../../../common/atoms/icon/plus";
 import useUserInformation from "../../../../common/hooks/service/user_info";
 
-export default function HomeContentFromNoti({ backgroundColor }: { backgroundColor: string }) {
+export default function HomeContentFromNoti() {
     const messages = useScreenMessage();
     const style = useHomeContentCardStyle();
     const message = useScreenMessage();
@@ -21,10 +21,7 @@ export default function HomeContentFromNoti({ backgroundColor }: { backgroundCol
     const { theme, deviceUI } = useStyler();
 
     return (
-        <MiniContent
-            title={messages.messages.main.noti.screen_title}
-            navigation={{ to: "noti_home" }}
-            backgroundColor={backgroundColor}>
+        <MiniContent title={messages.messages.main.noti.screen_title} navigation={{ to: "noti_home" }}>
             {viewModel?.length == 0 ? (
                 <TouchableOpacity
                     style={style.whenEmptyContainer}
@@ -55,8 +52,12 @@ export default function HomeContentFromNoti({ backgroundColor }: { backgroundCol
                                     <Text style={style.text}>{noti.Title}</Text>
                                     <ColorLable
                                         text={message.messages.main.noti.required_reading}
-                                        backgroundColor={noti.Priority == 1 ? theme.colorFamily.red : backgroundColor}
-                                        textColor={noti.Priority == 1 ? theme.colorFamily.white : backgroundColor}
+                                        backgroundColor={
+                                            /* noti.Priority == 1 ? theme.colorFamily.red : backgroundColor */ "red"
+                                        }
+                                        textColor={
+                                            /* noti.Priority == 1 ? theme.colorFamily.white : backgroundColor */ "white"
+                                        }
                                     />
                                 </TouchableOpacity>
                             );

@@ -14,7 +14,7 @@ import { PRESSABLE_MENU_TYPE, PressableMenuProps } from "./types";
 import { useRecoilValue } from "recoil";
 import { vehiclesState } from "../../services/states";
 
-export default function HomeContentFromParking({ backgroundColor }: { backgroundColor: string }) {
+export default function HomeContentFromParking() {
     const messages = useScreenMessage().messages;
     const [favoritVehicle, setFavoriteVehicle] = useState<Vehicle | null>(null);
     const styles = useHomeContentFromParkingStyles(favoritVehicle !== null);
@@ -40,7 +40,7 @@ export default function HomeContentFromParking({ backgroundColor }: { background
     }, []);
 
     return (
-        <MiniContent title={messages.main.parking.home_content.screen_title} backgroundColor={backgroundColor}>
+        <MiniContent title={messages.main.parking.home_content.screen_title}>
             <View style={styles.main.container}>
                 {favoritVehicle && (
                     <View style={styles.main.textBox}>

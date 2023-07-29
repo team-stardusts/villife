@@ -7,12 +7,23 @@ export default function useNavigationViewBottomStyles() {
     return StyleSheet.create({
         container: {
             flex: 1,
+            backgroundColor: theme.colorFamily.lightgrey,
+            alignItems: "center",
+        },
+        menuBox: {
+            width: "101%",
+            height: "100%",
+            position: "absolute",
+            bottom: -1,
             flexDirection: "row",
             alignItems: "center",
             justifyContent: "center",
             backgroundColor: theme.colorFamily.white,
-            borderTopColor: theme.colorFamily.lightgrey,
-            borderTopWidth: deviceUI.moderateScale(2),
+            borderColor: theme.colorFamily.darkgrey,
+            borderWidth: deviceUI.moderateScale(1),
+            borderBottomWidth: 0,
+            borderTopLeftRadius: deviceUI.moderateScale(15),
+            borderTopRightRadius: deviceUI.moderateScale(15),
         },
         wrapper: {
             width: "18%",
