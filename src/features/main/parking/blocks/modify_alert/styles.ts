@@ -29,7 +29,7 @@ export default function useModifyModal() {
         },
         toModifyVehicleInfoText: {
             marginRight: deviceUI.moderateScale(2),
-            color: theme.colorFamily.blue,
+            color: theme.color.specified.blue,
             ...theme.font.researved.h5,
         },
     });

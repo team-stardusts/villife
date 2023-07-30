@@ -26,13 +26,13 @@ export default function useHomeScreenContentStyles() {
         navigationTitle: {
             fontFamily: theme.font.fontFamilies.pretendard.bold,
             fontSize: deviceUI.moderateScale(28),
-            color: theme.colorFamily.black,
+            color: theme.color.specified.black,
             //marginBottom: deviceUI.moderateScale(5),
             //...theme.font.researved.h2,
         },
         linkIcon: {
             width: deviceUI.moderateScale(50),
-            color: theme.colorFamily.black,
+            color: theme.color.specified.black,
         },
         childrenBox: {
             flex: 7,

@@ -9,7 +9,7 @@ export default function useLoginScreenStyles(): LoginScreenStylesType {
         topLevelBox: {
             flex: 1,
             flexDirection: "column",
-            backgroundColor: theme.colorFamily.white,
+            backgroundColor: theme.color.specified.white,
         },
         contentsBox: {
             flex: 1,
@@ -30,12 +30,12 @@ export default function useLoginScreenStyles(): LoginScreenStylesType {
             marginBottom: deviceUI.moderateScale(8),
         },
         inputIdentifier: {
-            color: theme.colorFamily.black,
+            color: theme.color.specified.black,
             paddingBottom: deviceUI.moderateScale(4),
             ...theme.font.researved.h3,
         },
         input: {
-            backgroundColor: theme.colorFamily.white,
+            backgroundColor: theme.color.specified.white,
             borderRadius: deviceUI.moderateScale(8),
             margin: 0,
             paddingVertical: deviceUI.moderateScale(4),
@@ -46,7 +46,7 @@ export default function useLoginScreenStyles(): LoginScreenStylesType {
             marginBottom: deviceUI.moderateScale(8),
         },
         btnTitle: {
-            color: theme.colorFamily.white,
+            color: theme.color.specified.white,
             fontWeight: "bold",
             ...theme.font.researved.h5,
         },

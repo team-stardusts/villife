@@ -11,7 +11,7 @@ export default function useNotiLableStyles(): UseNotiLabelStylesType {
             borderRadius: deviceUI.moderateScale(15),
             justifyContent: "center",
             alignItems: "center",
-            backgroundColor: theme.colorFamily.red,
+            backgroundColor: theme.color.specified.red,
         },
         containerGreen: {
             width: deviceUI.getScreenSize().width * 0.13,
@@ -19,7 +19,7 @@ export default function useNotiLableStyles(): UseNotiLabelStylesType {
             borderRadius: deviceUI.moderateScale(15),
             justifyContent: "center",
             alignItems: "center",
-            backgroundColor: theme.colorFamily.green,
+            backgroundColor: theme.color.specified.green,
         },
         containerGray: {
             width: deviceUI.getScreenSize().width * 0.13,
@@ -27,7 +27,7 @@ export default function useNotiLableStyles(): UseNotiLabelStylesType {
             borderRadius: deviceUI.moderateScale(15),
             justifyContent: "center",
             alignItems: "center",
-            backgroundColor: theme.colorFamily.grey,
+            backgroundColor: theme.color.specified.grey,
         },
         textStyle: {
             ...theme.font.researved.h4,

@@ -7,7 +7,7 @@ export default function useCreateAccountScreenStyles() {
     const main = StyleSheet.create({
         container: {
             flex: 1,
-            backgroundColor: theme.colorFamily.white,
+            backgroundColor: theme.color.specified.white,
         },
         wrapper: {
             flex: 1,
@@ -46,7 +46,7 @@ export default function useCreateAccountScreenStyles() {
         btnDisabled: {
             flex: 1,
             borderRadius: deviceUI.moderateScale(10),
-            backgroundColor: theme.colorFamily.grey,
+            backgroundColor: theme.color.specified.grey,
         },
     });
 

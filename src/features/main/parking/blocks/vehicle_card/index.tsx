@@ -40,7 +40,7 @@ function VehicleCard({ vehicle, cardWidth }: VehicleCardProps) {
             paddingHorizontal: deviceUI.moderateScale(15),
         },
         rowText: {
-            color: theme.colorFamily.white,
+            color: theme.color.specified.white,
             fontWeight: "bold",
             ...theme.font.researved.h4,
         },
@@ -122,15 +122,15 @@ export default function VehicleCardView({ vehicles, cardWidth }: VehicleCardView
             marginBottom: deviceUI.moderateScale(10),
         },
         registerCardTitle: {
-            color: theme.colorFamily.white,
+            color: theme.color.specified.white,
             ...theme.font.researved.h3,
         },
         registerCardSubtitle: {
-            color: theme.colorFamily.white,
+            color: theme.color.specified.white,
             ...theme.font.researved.h5,
         },
         registerIcon: {
-            color: theme.colorFamily.white,
+            color: theme.color.specified.white,
             width: deviceUI.moderateScale(80),
         },
     });

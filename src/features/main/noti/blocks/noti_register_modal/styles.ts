@@ -31,7 +31,7 @@ export default function useBottomEditModalStyles(): useBottomEditModalStylesType
             fontFamily: theme.font.fontFamilies.pretendard.bold,
             fontSize: deviceUI.moderateScale(14),
             marginLeft: deviceUI.moderateScale(8),
-            color: theme.colorFamily.black,
+            color: theme.color.specified.black,
         },
     });
 }

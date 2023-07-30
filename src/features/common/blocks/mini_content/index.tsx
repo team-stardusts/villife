@@ -49,7 +49,7 @@ export default function MiniContent({ title, navigation, children }: MiniContent
 
     return (
         <View style={styles.container}>
-            <ContentBox backgroundColor={theme.colorFamily.white}>
+            <ContentBox backgroundColor={theme.color.specified.white}>
                 <View style={styles.contentsContatainer}>
                     <TouchableOpacity
                         style={styles.navigationBox}

@@ -29,10 +29,10 @@ export default function useSendParkPushNotiScreenStyles() {
             marginVertical: deviceUI.moderateScale(15),
         },
         timeFocused: {
-            color: theme.colorFamily.blue,
+            color: theme.color.specified.blue,
         },
         timeUnfocused: {
-            color: theme.colorFamily.lightblue,
+            color: theme.color.specified.lightblue,
         },
         message: {
             ...theme.font.researved.h2,
@@ -41,7 +41,7 @@ export default function useSendParkPushNotiScreenStyles() {
             marginRight: deviceUI.moderateScale(10),
         },
         pressableMessage: {
-            color: theme.colorFamily.blue,
+            color: theme.color.specified.blue,
             ...theme.font.researved.h2,
         },
         timeSelector: {

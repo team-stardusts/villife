@@ -8,7 +8,7 @@ export default function useNavigationViewHeaderStyles(crrNavIndex: number) {
         container: {
             flex: 0.7,
             flexDirection: "row",
-            backgroundColor: theme.colorFamily.white,
+            backgroundColor: theme.color.specified.white,
             borderBottomColor: "#F0F2F5", //theme.colorFamily.lightgrey,
             borderBottomWidth: deviceUI.moderateScale(2),
         },
@@ -25,7 +25,7 @@ export default function useNavigationViewHeaderStyles(crrNavIndex: number) {
         },
         icon: {
             width: deviceUI.moderateScale(65),
-            color: theme.colorFamily.black,
+            color: theme.color.specified.black,
         },
         titleBox: {
             flex: 7.5,
@@ -45,7 +45,7 @@ export default function useNavigationViewHeaderStyles(crrNavIndex: number) {
             justifyContent: "center",
         },
         title: {
-            color: theme.colorFamily.black,
+            color: theme.color.specified.black,
             paddingLeft: crrNavIndex === 0 ? deviceUI.moderateScale(20) : deviceUI.moderateScale(3),
             marginRight: deviceUI.moderateScale(5),
             fontFamily: theme.font.fontFamilies.pretendard.bold,

@@ -13,12 +13,12 @@ export default function ParkingScreenGuide({ title, subtitle }: ParkingScreenGui
             alignItems: "flex-start",
         },
         title: {
-            color: theme.colorFamily.blue,
+            color: theme.color.specified.blue,
             marginBottom: deviceUI.moderateScale(10),
             ...theme.font.researved.h2,
         },
         subtitle: {
-            color: theme.colorFamily.black,
+            color: theme.color.specified.black,
             ...theme.font.researved.h5,
         },
     });

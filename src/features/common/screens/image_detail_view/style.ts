@@ -8,7 +8,7 @@ export default function useImageDetailViewScreenStyles() {
         topLevelBox: {
             flex: 1,
             flexDirection: "column",
-            backgroundColor: theme.colorFamily.white,
+            backgroundColor: theme.color.specified.white,
         },
     });
 

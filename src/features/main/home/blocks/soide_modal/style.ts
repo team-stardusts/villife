@@ -16,7 +16,7 @@ export default function useHomeSideMoalStyles(): UseHomeSideMoalStylesType {
             right: 0,
             height: deviceUI.screenSize.height,
             width: deviceUI.screenSize.width,
-            backgroundColor: theme.colorFamily.lightgrey,
+            backgroundColor: theme.color.specified.lightgrey,
             opacity: 0.6,
             zIndex: -1,
         },

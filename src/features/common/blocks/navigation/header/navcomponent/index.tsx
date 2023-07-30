@@ -30,7 +30,7 @@ export default function SimpleNavComponent(props: SimpleNavComponentProps) {
                 props.iconName !== undefined
                     ? theme.font.fontFamilies.pretendard.regular
                     : theme.font.fontFamilies.pretendard.bold,
-            color: theme.colorFamily.black,
+            color: theme.color.specified.black,
         },
     });
 
@@ -39,7 +39,11 @@ export default function SimpleNavComponent(props: SimpleNavComponentProps) {
             <TouchableOpacity style={styles.contentsWrapper} onPress={props.onPress}>
                 {props.iconName && (
                     <View style={styles.atomBox}>
-                        <Icon name={props.iconName} size={deviceUI.moderateScale(45)} color={theme.colorFamily.black} />
+                        <Icon
+                            name={props.iconName}
+                            size={deviceUI.moderateScale(45)}
+                            color={theme.color.specified.black}
+                        />
                     </View>
                 )}
                 <View style={styles.atomBox}>

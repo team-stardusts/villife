@@ -80,12 +80,12 @@ export default function GuestVehicleInfoInputBox({
                     }
                     highlightColor={
                         guestVehicleInfo.plateNumber !== "" && !guestVehicleValid.plateNumber
-                            ? theme.colorFamily.red
+                            ? theme.color.specified.red
                             : undefined
                     }
                     lowlightColor={
                         guestVehicleInfo.plateNumber !== "" && !guestVehicleValid.plateNumber
-                            ? theme.colorFamily.red
+                            ? theme.color.specified.red
                             : undefined
                     }
                     onChangeText={(text, name) => {
@@ -112,12 +112,12 @@ export default function GuestVehicleInfoInputBox({
                     placeholder={messages.messages.main.parking.register_guest_vehicle.phone_number_input_placeholder}
                     highlightColor={
                         guestVehicleInfo.phoneNumber !== "" && !guestVehicleValid.phoneNumber
-                            ? theme.colorFamily.red
+                            ? theme.color.specified.red
                             : undefined
                     }
                     lowlightColor={
                         guestVehicleInfo.phoneNumber !== "" && !guestVehicleValid.phoneNumber
-                            ? theme.colorFamily.red
+                            ? theme.color.specified.red
                             : undefined
                     }
                     onChangeText={(text, name) => {
@@ -148,12 +148,12 @@ export default function GuestVehicleInfoInputBox({
                     }
                     highlightColor={
                         guestVehicleInfo.visitingPerpose !== "" && !guestVehicleValid.visitingPerpose
-                            ? theme.colorFamily.red
+                            ? theme.color.specified.red
                             : undefined
                     }
                     lowlightColor={
                         guestVehicleInfo.visitingPerpose !== "" && !guestVehicleValid.visitingPerpose
-                            ? theme.colorFamily.red
+                            ? theme.color.specified.red
                             : undefined
                     }
                     onChangeText={(text, name) => {

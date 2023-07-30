@@ -22,7 +22,7 @@ function Indicator({ isOn, size }: IndicatorProps) {
     const styles = StyleSheet.create({
         indicator: {
             marginHorizontal: size * 0.3,
-            backgroundColor: isOn ? theme.colorFamily.white : theme.colorFamily.lightblue,
+            backgroundColor: isOn ? theme.color.specified.white : theme.color.specified.lightblue,
             width: size,
             height: size,
             borderRadius: size,

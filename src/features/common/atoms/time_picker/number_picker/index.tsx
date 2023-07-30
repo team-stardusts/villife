@@ -178,8 +178,8 @@ export default function NumberPicker({
                     isFocused={number === crrValue}
                     isBiggerThanFocusedNode={(number as number) >= crrValue}
                     value={number}
-                    focusedcolor={focusedcolor || theme.colorFamily.black}
-                    unFocusedColor={unFocusedColor || theme.colorFamily.grey}
+                    focusedcolor={focusedcolor || theme.color.specified.black}
+                    unFocusedColor={unFocusedColor || theme.color.specified.grey}
                 />
             ))}
         </ScrollView>

@@ -17,7 +17,7 @@ export default function useApprovalRequiredModalStyles(): UseApprovalRequiredMod
             left: 0,
             height: deviceUI.screenSize.height,
             width: deviceUI.screenSize.width,
-            backgroundColor: theme.colorFamily.lightgrey,
+            backgroundColor: theme.color.specified.lightgrey,
             opacity: 0.6,
             zIndex: -1,
         },
@@ -58,22 +58,22 @@ export default function useApprovalRequiredModalStyles(): UseApprovalRequiredMod
             marginBottom: deviceUI.moderateScale(20),
         },
         title: {
-            color: theme.colorFamily.black,
+            color: theme.color.specified.black,
             textAlign: "center",
             ...theme.font.researved.h3,
         },
         subtitle: {
             marginTop: deviceUI.moderateScale(5),
-            color: theme.colorFamily.grey,
+            color: theme.color.specified.grey,
             textAlign: "center",
             ...theme.font.researved.h5,
         },
         leftButtonText: {
-            color: theme.colorFamily.black,
+            color: theme.color.specified.black,
             ...theme.font.researved.h5,
         },
         rightButtonText: {
-            color: theme.colorFamily.white,
+            color: theme.color.specified.white,
             ...theme.font.researved.h5,
         },
         leftButton: {
@@ -83,14 +83,14 @@ export default function useApprovalRequiredModalStyles(): UseApprovalRequiredMod
             alignItems: "center",
             borderRadius: deviceUI.moderateScale(8),
             marginRight: deviceUI.moderateScale(10),
-            backgroundColor: theme.colorFamily.lightgrey,
+            backgroundColor: theme.color.specified.lightgrey,
         },
         rightButton: {
             height: "80%",
             width: "40%",
             justifyContent: "center",
             alignItems: "center",
-            backgroundColor: theme.colorFamily.blue,
+            backgroundColor: theme.color.specified.blue,
             borderRadius: deviceUI.moderateScale(8),
         },
     });

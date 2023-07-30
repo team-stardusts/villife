@@ -12,7 +12,7 @@ export default function UserTypeSelectionButton({
     onPress,
 }: UserTypeSelectionButtonProps) {
     const { theme } = useStyler();
-    const color: string = selected ? theme.colorFamily.blue : theme.colorFamily.lightgrey;
+    const color: string = selected ? theme.color.specified.blue : theme.color.specified.lightgrey;
 
     let Icon = null;
 
@@ -33,10 +33,10 @@ export default function UserTypeSelectionButton({
             borderColor: color,
             borderRadius: size * 0.2,
             borderWidth: size * 0.05,
-            backgroundColor: theme.colorFamily.white,
+            backgroundColor: theme.color.specified.white,
             ...Platform.select({
                 ios: {
-                    shadowColor: theme.colorFamily.darkgrey,
+                    shadowColor: theme.color.specified.darkgrey,
                     shadowOpacity: 0.4,
                     shadowRadius: size * 0.025,
                     shadowOffset: {

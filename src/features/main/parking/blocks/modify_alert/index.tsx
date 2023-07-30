@@ -163,7 +163,7 @@ function EtdaPage({ initialEtda, onChangeData, onToInfoPageBtnPress }: EtdaPageP
                 <Text style={styles.toModifyVehicleInfoText}>
                     {messages.messages.main.parking.home.inform_to_modify_vehicle_info}
                 </Text>
-                <Icon name={"arrow-right"} size={deviceUI.moderateScale(35)} color={theme.colorFamily.lightgrey} />
+                <Icon name={"arrow-right"} size={deviceUI.moderateScale(35)} color={theme.color.specified.lightgrey} />
             </TouchableOpacity>
         </View>
     );

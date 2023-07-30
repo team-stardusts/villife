@@ -16,7 +16,7 @@ export default function useMessageSelectorStyles() {
         },
         icon: {
             width: deviceUI.moderateScale(50),
-            color: theme.colorFamily.white,
+            color: theme.color.specified.white,
         },
     });
 
@@ -55,7 +55,7 @@ export default function useMessageSelectorStyles() {
         },
         icon: {
             width: deviceUI.moderateScale(50),
-            color: theme.colorFamily.black,
+            color: theme.color.specified.black,
         },
         text: {
             fontWeight: "bold",

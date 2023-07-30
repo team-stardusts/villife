@@ -17,8 +17,8 @@ export default function useNavigationViewBottomStyles() {
             flexDirection: "row",
             alignItems: "flex-start",
             justifyContent: "center",
-            backgroundColor: theme.colorFamily.white,
-            borderColor: theme.colorFamily.darkgrey,
+            backgroundColor: theme.color.specified.white,
+            borderColor: theme.color.specified.darkgrey,
             borderWidth: deviceUI.moderateScale(1),
             borderBottomWidth: 0,
             borderTopLeftRadius: deviceUI.moderateScale(15),
@@ -37,10 +37,10 @@ export default function useNavigationViewBottomStyles() {
             width: deviceUI.moderateScale(50),
         },
         selected: {
-            color: theme.colorFamily.black,
+            color: theme.color.specified.black,
         },
         unselected: {
-            color: theme.colorFamily.lightgrey,
+            color: theme.color.specified.lightgrey,
         },
         captionBox: {
             flex: deviceUI.getPlatform() === "ios" ? 6 : 5,

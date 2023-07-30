@@ -16,7 +16,7 @@ export default function useComplaintEditButtonStyle(): ComplaintEditButtonStyles
         text: {
             fontSize: deviceUI.moderateScale(14),
             fontFamily: theme.font.fontFamilies.pretendard.bold,
-            color: theme.colorFamily.black,
+            color: theme.color.specified.black,
         },
     });
     return Style;

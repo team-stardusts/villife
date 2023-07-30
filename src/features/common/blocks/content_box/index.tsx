@@ -31,7 +31,7 @@ export default function ContentBox({ children, backgroundColor }: ContentBoxProp
             alignItems: "center",
             borderRadius: deviceUI.moderateScale(15),
             marginBottom: deviceUI.moderateScale(15),
-            backgroundColor: backgroundColor ?? theme.colorFamily.blue,
+            backgroundColor: backgroundColor ?? theme.color.specified.blue,
             ...Platform.select({
                 ios: {
                     /* shadowColor: theme.colorFamily.darkgrey,

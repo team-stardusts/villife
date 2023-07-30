@@ -9,7 +9,7 @@ export default function useNavigationViewStyles(bodyOptions?: BodyOptions) {
     const styles = StyleSheet.create({
         container: {
             flex: 1,
-            backgroundColor: theme.colorFamily.white,
+            backgroundColor: theme.color.specified.white,
         },
         headerAndBodyContainer: {
             height: "90%",

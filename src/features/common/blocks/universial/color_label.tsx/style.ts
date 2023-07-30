@@ -11,7 +11,7 @@ export default function useColorLableStyle(): UseColorLableStylesType {
             borderRadius: deviceUI.moderateScale(15),
             justifyContent: "center",
             alignItems: "center",
-            backgroundColor: theme.colorFamily.red,
+            backgroundColor: theme.color.specified.red,
         },
 
         textStyle: {

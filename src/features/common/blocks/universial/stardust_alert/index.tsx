@@ -76,7 +76,7 @@ function useStyles() {
             left: 0,
             height: deviceUI.screenSize.height,
             width: deviceUI.screenSize.width,
-            backgroundColor: theme.colorFamily.lightgrey,
+            backgroundColor: theme.color.specified.lightgrey,
             opacity: 0.6,
             zIndex: -1,
         },
@@ -111,22 +111,22 @@ function useStyles() {
             flexDirection: "row",
         },
         title: {
-            color: theme.colorFamily.black,
+            color: theme.color.specified.black,
             textAlign: "center",
             ...theme.font.researved.h3,
         },
         subtitle: {
             marginTop: deviceUI.moderateScale(5),
-            color: theme.colorFamily.grey,
+            color: theme.color.specified.grey,
             textAlign: "center",
             ...theme.font.researved.h5,
         },
         leftButtonText: {
-            color: theme.colorFamily.black,
+            color: theme.color.specified.black,
             ...theme.font.researved.h5,
         },
         rightButtonText: {
-            color: theme.colorFamily.white,
+            color: theme.color.specified.white,
             ...theme.font.researved.h5,
         },
         leftButton: {
@@ -143,7 +143,7 @@ function useStyles() {
             width: "40%",
             justifyContent: "center",
             alignItems: "center",
-            backgroundColor: theme.colorFamily.blue,
+            backgroundColor: theme.color.specified.blue,
             borderRadius: deviceUI.moderateScale(8),
         },
     });

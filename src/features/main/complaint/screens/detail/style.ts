@@ -10,13 +10,13 @@ export default function useComplaintDetailSecreenStyle(): ComplaintDetailScreenS
         topLevelBox: {
             flex: 1,
             flexDirection: "column",
-            backgroundColor: theme.colorFamily.white,
+            backgroundColor: theme.color.specified.white,
         },
         registerButtonText: {
             marginLeft: "5%",
             fontSize: deviceUI.moderateScale(12),
             fontFamily: theme.font.fontFamilies.pretendard.bold,
-            color: theme.colorFamily.white,
+            color: theme.color.specified.white,
         },
         statusBarSection: {
             flexDirection: "row",
@@ -34,14 +34,14 @@ export default function useComplaintDetailSecreenStyle(): ComplaintDetailScreenS
             fontSize: deviceUI.moderateScale(24),
             fontFamily: theme.font.fontFamilies.pretendard.bold,
             marginLeft: leftMargin,
-            color: theme.colorFamily.black,
+            color: theme.color.specified.black,
             marginTop: deviceUI.moderateScale(15),
             marginBottom: deviceUI.moderateScale(10),
         },
         editButton: {
             height: deviceUI.moderateScale(26),
             width: deviceUI.moderateScale(80),
-            backgroundColor: theme.colorFamily.lightblue,
+            backgroundColor: theme.color.specified.lightblue,
             flexDirection: "row",
             alignItems: "center",
             justifyContent: "center",
@@ -58,11 +58,11 @@ export default function useComplaintDetailSecreenStyle(): ComplaintDetailScreenS
             fontSize: deviceUI.moderateScale(16),
             marginLeft: leftMargin,
             fontFamily: "Pretendard-Bold",
-            color: theme.colorFamily.black,
+            color: theme.color.specified.black,
         },
         horizontalLine: {
             borderBottomWidth: deviceUI.moderateScale(1),
-            borderBottomColor: theme.colorFamily.blue,
+            borderBottomColor: theme.color.specified.blue,
             marginVertical: 10,
         },
         iconSize: {
@@ -78,7 +78,7 @@ export default function useComplaintDetailSecreenStyle(): ComplaintDetailScreenS
         blockWithIconText: {
             fontSize: deviceUI.moderateScale(10),
             fontFamily: theme.font.fontFamilies.pretendard.regular,
-            color: theme.colorFamily.black,
+            color: theme.color.specified.black,
         },
         replyItem: {
             marginBottom: deviceUI.moderateScale(20),

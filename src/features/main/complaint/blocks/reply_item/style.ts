@@ -13,7 +13,7 @@ export default function useComplaintReplyItemStyle(): ComplaintReplyItemStylesTy
         contentText: {
             fontSize: deviceUI.moderateScale(12),
             fontFamily: theme.font.fontFamilies.pretendard.bold,
-            color: theme.colorFamily.black,
+            color: theme.color.specified.black,
             marginBottom: deviceUI.moderateScale(10),
         },
         profile: {
@@ -31,7 +31,7 @@ export default function useComplaintReplyItemStyle(): ComplaintReplyItemStylesTy
         writterText: {
             fontSize: deviceUI.moderateScale(10),
             fontFamily: theme.font.fontFamilies.pretendard.regular,
-            color: theme.colorFamily.black,
+            color: theme.color.specified.black,
             marginRight: deviceUI.moderateScale(5),
             marginTop: deviceUI.moderateScale(10),
         },
@@ -46,7 +46,7 @@ export default function useComplaintReplyItemStyle(): ComplaintReplyItemStylesTy
         },
         verticalLine: {
             borderLeftWidth: deviceUI.moderateScale(1),
-            borderLeftColor: theme.colorFamily.black,
+            borderLeftColor: theme.color.specified.black,
             height: deviceUI.moderateScale(10),
             marginTop: deviceUI.moderateScale(12),
             marginRight: deviceUI.moderateScale(5),

@@ -36,7 +36,7 @@ export default function useBuildingSelectModalStyles() {
         },
         icon: {
             width: deviceUI.moderateScale(25),
-            color: theme.colorFamily.black,
+            color: theme.color.specified.black,
         },
         textBox: {
             width: "85%",
@@ -44,7 +44,7 @@ export default function useBuildingSelectModalStyles() {
             justifyContent: "center",
         },
         buidlingName: {
-            color: theme.colorFamily.black,
+            color: theme.color.specified.black,
             ...theme.font.researved.h4,
         },
     });

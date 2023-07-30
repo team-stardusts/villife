@@ -10,7 +10,7 @@ export default function useSetBuildingScreenStyles() {
         container: {
             flex: 1,
             flexDirection: "column",
-            backgroundColor: theme.colorFamily.white,
+            backgroundColor: theme.color.specified.white,
         },
         screenWrapper: {
             flex: 1,
@@ -40,19 +40,19 @@ export default function useSetBuildingScreenStyles() {
         },
         validBadge: {
             width: deviceUI.moderateScale(14),
-            color: theme.colorFamily.white,
-            backgroundColor: theme.colorFamily.blue,
+            color: theme.color.specified.white,
+            backgroundColor: theme.color.specified.blue,
         },
         invalidBadge: {
-            color: theme.colorFamily.grey,
-            backgroundColor: theme.colorFamily.lightgrey,
+            color: theme.color.specified.grey,
+            backgroundColor: theme.color.specified.lightgrey,
         },
         btnWrapper: {
             flex: 3,
             marginBottom: deviceUI.getScreenSize().width * 0.02,
         },
         btnTitle: {
-            color: theme.colorFamily.white,
+            color: theme.color.specified.white,
             fontSize: deviceUI.getScreenSize().width * 0.04,
             fontWeight: "700",
         },

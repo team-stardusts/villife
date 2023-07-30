@@ -20,7 +20,7 @@ export default function SimpleFuncButton({ icon, title, titleStyle, onPress }: S
         touchBox: {
             width: "100%",
             flexDirection: "row",
-            backgroundColor: theme.colorFamily.lightblue,
+            backgroundColor: theme.color.specified.lightblue,
             borderRadius: deviceUI.moderateScale(8),
             paddingHorizontal: deviceUI.moderateScale(5),
             paddingVertical: deviceUI.moderateScale(5),
@@ -28,7 +28,7 @@ export default function SimpleFuncButton({ icon, title, titleStyle, onPress }: S
             alignItems: "center",
         },
         title: {
-            color: theme.colorFamily.white,
+            color: theme.color.specified.white,
             fontWeight: "bold",
             ...theme.font.researved.h5,
         },
@@ -41,7 +41,7 @@ export default function SimpleFuncButton({ icon, title, titleStyle, onPress }: S
             onPress={(event) => {
                 if (onPress !== undefined) onPress(event);
             }}>
-            {icon && <Icon name={icon.name} size={icon.size} color={theme.colorFamily.white} />}
+            {icon && <Icon name={icon.name} size={icon.size} color={theme.color.specified.white} />}
             <Text
                 style={titleStyle ?? styles.title}
                 ellipsizeMode="tail"

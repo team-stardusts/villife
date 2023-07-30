@@ -8,7 +8,7 @@ export default function useNotiOutlinedBoxStyles(): UseNotiOutLinedBoxListStyles
     return StyleSheet.create({
         container: {
             borderWidth: deviceUI.moderateScale(2),
-            borderColor: theme.colorFamily.blue,
+            borderColor: theme.color.specified.blue,
             marginVertical: deviceUI.getScreenSize().height * 0.008,
             borderRadius: deviceUI.moderateScale(15),
             minHeight: deviceUI.getScreenSize().height * 0.08,
@@ -20,7 +20,7 @@ export default function useNotiOutlinedBoxStyles(): UseNotiOutLinedBoxListStyles
         },
         innerTitleSection: {
             width: "90%",
-            borderColor: theme.colorFamily.blue,
+            borderColor: theme.color.specified.blue,
         },
         contentBox: {
             alignItems: "center",
@@ -54,11 +54,11 @@ export default function useNotiOutlinedBoxStyles(): UseNotiOutLinedBoxListStyles
         },
         titleText: {
             ...theme.font.researved.h3,
-            color: theme.colorFamily.black,
+            color: theme.color.specified.black,
         },
         subTitleText: {
             ...theme.font.researved.h5,
-            color: theme.colorFamily.black,
+            color: theme.color.specified.black,
         },
     });
 }

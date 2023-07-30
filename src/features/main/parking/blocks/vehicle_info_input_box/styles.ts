@@ -16,7 +16,7 @@ export default function useVehicleInfoInputBoxStyles() {
         vehicleInfoInputTitle: {
             ...theme.font.researved.h4,
             fontFamily: theme.font.fontFamilies.pretendard.bold,
-            color: theme.colorFamily.blue,
+            color: theme.color.specified.blue,
             marginBottom: deviceUI.moderateScale(5),
         },
     });

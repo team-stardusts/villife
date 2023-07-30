@@ -45,14 +45,14 @@ export default function EtdaTimePicker({ initialTime, onTimeChange }: EtdaTimePi
             justifyContent: "space-between",
             alignItems: "center",
             paddingHorizontal: deviceUI.moderateScale(5),
-            borderColor: theme.colorFamily.white,
+            borderColor: theme.color.specified.white,
             borderBottomWidth: deviceUI.moderateScale(1),
         },
         headerContainer: {
             marginHorizontal: deviceUI.moderateScale(5),
         },
         header: {
-            color: theme.colorFamily.white,
+            color: theme.color.specified.white,
             fontFamily: theme.font.fontFamilies.pretendard.bold,
             fontSize: deviceUI.moderateScale(15),
         },
@@ -71,7 +71,7 @@ export default function EtdaTimePicker({ initialTime, onTimeChange }: EtdaTimePi
         },
         icon: {
             width: deviceUI.moderateScale(50),
-            color: theme.colorFamily.white,
+            color: theme.color.specified.white,
         },
     });
 
@@ -96,8 +96,8 @@ export default function EtdaTimePicker({ initialTime, onTimeChange }: EtdaTimePi
                             <TimePicker
                                 initialTime={initialTime?.etd}
                                 height={timepickerHeight}
-                                focusedcolor={theme.colorFamily.white}
-                                unFocusedColor={theme.colorFamily.lightblue}
+                                focusedcolor={theme.color.specified.white}
+                                unFocusedColor={theme.color.specified.lightblue}
                                 onTimeChange={(etd: TimePickerTime) => setEtda({ ...etda, etd })}
                             />
                         </View>
@@ -108,8 +108,8 @@ export default function EtdaTimePicker({ initialTime, onTimeChange }: EtdaTimePi
                             <TimePicker
                                 initialTime={initialTime?.eta}
                                 height={timepickerHeight}
-                                focusedcolor={theme.colorFamily.white}
-                                unFocusedColor={theme.colorFamily.lightblue}
+                                focusedcolor={theme.color.specified.white}
+                                unFocusedColor={theme.color.specified.lightblue}
                                 onTimeChange={(eta: TimePickerTime) => setEtda({ ...etda, eta })}
                             />
                         </View>

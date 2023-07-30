@@ -28,10 +28,10 @@ export default function useBuildingSelectorStyles() {
         },
         icon: {
             width: deviceUI.moderateScale(18),
-            color: theme.colorFamily.black,
+            color: theme.color.specified.black,
         },
         buildingName: {
-            color: theme.colorFamily.black,
+            color: theme.color.specified.black,
             ...theme.font.researved.h4,
         },
     });

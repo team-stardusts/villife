@@ -18,10 +18,10 @@ export default function useComplaintContentCardStyles(): ComplaintContentCardSty
             borderRadius: deviceUI.moderateScale(15),
         },
         contentBoxCompleted: {
-            backgroundColor: theme.colorFamily.lightgrey,
+            backgroundColor: theme.color.specified.lightgrey,
         },
         contentBoxInProgress: {
-            backgroundColor: theme.colorFamily.blue,
+            backgroundColor: theme.color.specified.blue,
         },
         titleSection: {
             width: "90%",
@@ -33,12 +33,12 @@ export default function useComplaintContentCardStyles(): ComplaintContentCardSty
         titleText: {
             fontSize: deviceUI.moderateScale(14),
             fontFamily: theme.font.fontFamilies.pretendard.bold,
-            color: theme.colorFamily.white,
+            color: theme.color.specified.white,
         },
         dateTimeText: {
             fontSize: deviceUI.moderateScale(12),
             fontFamily: theme.font.fontFamilies.pretendard.bold,
-            color: theme.colorFamily.white,
+            color: theme.color.specified.white,
         },
         statusSection: {
             width: "100%",
@@ -67,10 +67,10 @@ export default function useComplaintContentCardStyles(): ComplaintContentCardSty
         statusText: {
             fontSize: deviceUI.moderateScale(12),
             fontFamily: theme.font.fontFamilies.pretendard.bold,
-            color: theme.colorFamily.white,
+            color: theme.color.specified.white,
         },
         outerCircle: {
-            backgroundColor: theme.colorFamily.white,
+            backgroundColor: theme.color.specified.white,
             width: deviceUI.moderateScale(30),
             height: deviceUI.moderateScale(30),
             borderRadius: deviceUI.moderateScale(15),
@@ -99,7 +99,7 @@ export default function useComplaintContentCardStyles(): ComplaintContentCardSty
         },
         outerCircleInnerBorderCompleted: {
             borderWidth: deviceUI.moderateScale(3),
-            borderColor: theme.colorFamily.darkgrey,
+            borderColor: theme.color.specified.darkgrey,
             width: deviceUI.moderateScale(30),
             height: deviceUI.moderateScale(30),
             borderRadius: deviceUI.moderateScale(15),
@@ -110,7 +110,7 @@ export default function useComplaintContentCardStyles(): ComplaintContentCardSty
             width: deviceUI.moderateScale(15),
             height: deviceUI.moderateScale(15),
             borderRadius: deviceUI.moderateScale(15),
-            backgroundColor: theme.colorFamily.darkgrey,
+            backgroundColor: theme.color.specified.darkgrey,
         },
         middleLine: {
             height: deviceUI.moderateScale(3),
@@ -121,14 +121,14 @@ export default function useComplaintContentCardStyles(): ComplaintContentCardSty
         middleLineCompleted: {
             width: deviceUI.screenSize.width * 0.75,
             height: deviceUI.moderateScale(3),
-            backgroundColor: theme.colorFamily.darkgrey,
+            backgroundColor: theme.color.specified.darkgrey,
             marginLeft: deviceUI.moderateScale(15),
             borderRadius: deviceUI.moderateScale(5),
         },
         middleLineCompletedWhenEdit: {
             width: deviceUI.screenSize.width * 0.65,
             height: deviceUI.moderateScale(3),
-            backgroundColor: theme.colorFamily.darkgrey,
+            backgroundColor: theme.color.specified.darkgrey,
             marginLeft: deviceUI.moderateScale(15),
             borderRadius: deviceUI.moderateScale(5),
         },

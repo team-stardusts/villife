@@ -3,9 +3,9 @@ import { ColorFamily, ColorScheme } from "./types";
 
 abstract class ATheme {
     static readonly scheme: ColorScheme;
-    static readonly colorFamily: ColorFamily;
+    static readonly color: ColorFamily;
 
-    private static fontFamilies = {
+    private static fontFamily = {
         pretendard: {
             regular: "Pretendard-Regular",
             extraBold: "Pretendard-ExtraBold",
@@ -15,30 +15,30 @@ abstract class ATheme {
     };
 
     static readonly font = {
-        fontFamilies: this.fontFamilies,
+        fontFamilies: this.fontFamily,
         researved: {
             h1: {
-                fontFamily: this.fontFamilies.pretendard.extraBold,
+                fontFamily: this.fontFamily.pretendard.extraBold,
                 fontSize: DeviceUiInfo.moderateScale(32),
             },
             h2: {
-                fontFamily: this.fontFamilies.pretendard.bold,
+                fontFamily: this.fontFamily.pretendard.bold,
                 fontSize: DeviceUiInfo.moderateScale(24),
             },
             h3: {
-                fontFamily: this.fontFamilies.pretendard.bold,
+                fontFamily: this.fontFamily.pretendard.bold,
                 fontSize: DeviceUiInfo.moderateScale(18.72),
             },
             h4: {
-                fontFamily: this.fontFamilies.pretendard.regular,
+                fontFamily: this.fontFamily.pretendard.regular,
                 fontSize: DeviceUiInfo.moderateScale(16),
             },
             h5: {
-                fontFamily: this.fontFamilies.pretendard.regular,
+                fontFamily: this.fontFamily.pretendard.regular,
                 fontSize: DeviceUiInfo.moderateScale(13.28),
             },
             h6: {
-                fontFamily: this.fontFamilies.pretendard.regular,
+                fontFamily: this.fontFamily.pretendard.regular,
                 fontSize: DeviceUiInfo.moderateScale(10.72),
             },
         },

@@ -15,7 +15,7 @@ export default function useSplashScreenStyles() {
         },
         indicator: {
             //width: deviceUI.moderateScale(150),
-            color: theme.colorFamily.blue,
+            color: theme.color.specified.blue,
         },
     });
 }

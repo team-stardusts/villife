@@ -28,14 +28,14 @@ export default function UniversalTextInput(props: UniversalTextInputProps) {
         container: {
             borderRadius: deviceUI.moderateScale(8),
             borderColor: isFocusing
-                ? highlightColor ?? theme.colorFamily.blue
-                : lowlightColor ?? theme.colorFamily.lightgrey,
+                ? highlightColor ?? theme.color.specified.blue
+                : lowlightColor ?? theme.color.specified.lightgrey,
             ...theme.font.researved.h5,
             padding: 1,
         },
         input: {
             borderRadius: deviceUI.moderateScale(8),
-            backgroundColor: theme.colorFamily.white,
+            backgroundColor: theme.color.specified.white,
             height: deviceUI.moderateScale(26),
             paddingVertical: deviceUI.moderateScale(2),
             paddingHorizontal: deviceUI.moderateScale(4),

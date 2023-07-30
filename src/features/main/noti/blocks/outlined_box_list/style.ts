@@ -7,7 +7,7 @@ export default function useNotiOutLinedBoxListStyles(): UseNotiOutLinedBoxListSt
     return StyleSheet.create({
         contentContainer: { alignItems: "center", width: "100%" },
         whenEmptyCard: {
-            backgroundColor: theme.colorFamily.blue,
+            backgroundColor: theme.color.specified.blue,
             width: deviceUI.screenSize.width * 0.9,
             height: deviceUI.screenSize.height * 0.16,
             borderRadius: deviceUI.moderateScale(15),
@@ -18,7 +18,7 @@ export default function useNotiOutLinedBoxListStyles(): UseNotiOutLinedBoxListSt
         whenEmptyCardText: {
             fontSize: deviceUI.moderateScale(16),
             fontFamily: theme.font.fontFamilies.pretendard.bold,
-            color: theme.colorFamily.white,
+            color: theme.color.specified.white,
             marginBottom: deviceUI.moderateScale(10),
         },
     });

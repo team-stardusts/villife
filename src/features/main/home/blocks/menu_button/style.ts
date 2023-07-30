@@ -15,7 +15,7 @@ export default function useMenuButtonStyles() {
         },
         icon: {
             width: deviceUI.moderateScale(70),
-            color: theme.colorFamily.black,
+            color: theme.color.specified.black,
         },
     });
     return { main };

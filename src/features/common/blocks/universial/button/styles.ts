@@ -16,19 +16,19 @@ export default function useUniversialButtonStyles(
             flex: 1,
             width: "100%",
             borderColor: props.disabled
-                ? props.disabledButtonColor ?? theme.colorFamily.lightblue
+                ? props.disabledButtonColor ?? theme.color.specified.lightblue
                 : props.isPressing
-                ? props.pressedButtonColor ?? theme.colorFamily.lightblue
-                : props.buttonColor ?? theme.colorFamily.blue,
+                ? props.pressedButtonColor ?? theme.color.specified.lightblue
+                : props.buttonColor ?? theme.color.specified.blue,
             backgroundColor: props.disabled
-                ? props.disabledButtonColor ?? theme.colorFamily.lightblue
+                ? props.disabledButtonColor ?? theme.color.specified.lightblue
                 : props.isPressing
-                ? props.pressedButtonColor ?? theme.colorFamily.lightblue
-                : props.buttonColor ?? theme.colorFamily.blue,
+                ? props.pressedButtonColor ?? theme.color.specified.lightblue
+                : props.buttonColor ?? theme.color.specified.blue,
             borderWidth: props.isPressing ? deviceUI.moderateScale(16) : deviceUI.moderateScale(8),
         },
         text: {
-            color: theme.colorFamily.white,
+            color: theme.color.specified.white,
             ...theme.font.researved.h4,
             fontWeight: "bold",
         },

@@ -96,7 +96,7 @@ function OutlinedBox(props: OutlinedBoxProps) {
                             renderLoading={() => {
                                 return (
                                     <View style={{ justifyContent: "center", marginBottom: 50 }}>
-                                        <ActivityIndicator size="large" color={theme.colorFamily.grey} />
+                                        <ActivityIndicator size="large" color={theme.color.specified.grey} />
                                     </View>
                                 );
                             }}
@@ -107,7 +107,7 @@ function OutlinedBox(props: OutlinedBoxProps) {
                                           font-family:"Pretendard-Regular";
                                         }
                                         div {
-                                          color: ${theme.colorFamily.black}; 
+                                          color: ${theme.color.specified.black}; 
                                           
                                         }
                                         img {

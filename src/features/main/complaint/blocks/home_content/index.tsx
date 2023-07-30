@@ -59,8 +59,8 @@ export default function HomeContentFromComplaint() {
                                 <Text style={style.text}>{complaint.title}</Text>
                                 <ColorLable
                                     text={translateLableText(complaint.status)}
-                                    backgroundColor={theme.colorFamily.green}
-                                    textColor={theme.colorFamily.black}
+                                    backgroundColor={theme.color.specified.green}
+                                    textColor={theme.color.specified.black}
                                 />
                             </TouchableOpacity>
                         );

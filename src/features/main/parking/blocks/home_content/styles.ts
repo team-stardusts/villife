@@ -29,7 +29,7 @@ export default function useHomeContentFromParkingStyles(didGetFavoritVehilce: bo
             alignItems: "flex-end",
         },
         text: {
-            color: theme.colorFamily.black,
+            color: theme.color.specified.black,
             fontWeight: "bold",
             ...theme.font.researved.h4,
         },
@@ -46,12 +46,12 @@ export default function useHomeContentFromParkingStyles(didGetFavoritVehilce: bo
             height: "100%",
             marginHorizontal: deviceUI.moderateScale(10),
             borderRadius: deviceUI.moderateScale(13),
-            backgroundColor: theme.colorFamily.white,
+            backgroundColor: theme.color.specified.white,
             justifyContent: "center",
             alignItems: "center",
             ...Platform.select({
                 ios: {
-                    shadowColor: theme.colorFamily.darkgrey,
+                    shadowColor: theme.color.specified.darkgrey,
                     shadowOpacity: 0.2,
                     shadowRadius: deviceUI.moderateScale(3),
                     shadowOffset: {
@@ -60,7 +60,7 @@ export default function useHomeContentFromParkingStyles(didGetFavoritVehilce: bo
                     },
                 },
                 android: {
-                    shadowColor: theme.colorFamily.darkgrey,
+                    shadowColor: theme.color.specified.darkgrey,
                     elevation: 3,
                 },
             }),
@@ -73,7 +73,7 @@ export default function useHomeContentFromParkingStyles(didGetFavoritVehilce: bo
         },
         icon: {
             width: deviceUI.moderateScale(45),
-            color: theme.colorFamily.black,
+            color: theme.color.specified.black,
         },
         textBox: {
             flex: 6,
@@ -82,7 +82,7 @@ export default function useHomeContentFromParkingStyles(didGetFavoritVehilce: bo
         },
         text: {
             textAlign: "center",
-            color: theme.colorFamily.black,
+            color: theme.color.specified.black,
             ...theme.font.researved.h3,
         },
     });

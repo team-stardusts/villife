@@ -36,7 +36,7 @@ export default function TimePicker({
             alignItems: "center",
         },
         timeIsolationText: {
-            color: focusedcolor || theme.colorFamily.black,
+            color: focusedcolor || theme.color.specified.black,
             paddingBottom: deviceUI.moderateScale(10),
             ...theme.font.researved.h2,
         },

@@ -7,7 +7,7 @@ export default function useParkingHomeScreenStyles() {
     const screen = StyleSheet.create({
         container: {
             flex: 1,
-            backgroundColor: theme.colorFamily.white,
+            backgroundColor: theme.color.specified.white,
         },
         myVehicleCardViewBox: {
             flex: 3.5,
@@ -51,17 +51,17 @@ export default function useParkingHomeScreenStyles() {
         },
         tenantBadge: {
             width: deviceUI.moderateScale(13),
-            color: theme.colorFamily.white,
-            backgroundColor: theme.colorFamily.grey,
+            color: theme.color.specified.white,
+            backgroundColor: theme.color.specified.grey,
         },
         guestBadge: {
             width: deviceUI.moderateScale(13),
-            color: theme.colorFamily.black,
-            backgroundColor: theme.colorFamily.green,
+            color: theme.color.specified.black,
+            backgroundColor: theme.color.specified.green,
         },
         plateNumber: {
             marginLeft: deviceUI.moderateScale(10),
-            color: theme.colorFamily.white,
+            color: theme.color.specified.white,
             fontWeight: "bold",
             ...theme.font.researved.h4,
         },
@@ -77,11 +77,11 @@ export default function useParkingHomeScreenStyles() {
         },
         phoneIcon: {
             width: deviceUI.moderateScale(40),
-            color: theme.colorFamily.green,
+            color: theme.color.specified.green,
         },
         letterIcon: {
             width: deviceUI.moderateScale(50),
-            color: theme.colorFamily.white,
+            color: theme.color.specified.white,
         },
         infoBox: {
             flex: 3,
@@ -91,7 +91,7 @@ export default function useParkingHomeScreenStyles() {
         moreIconBox: {},
         moreIcon: {
             width: deviceUI.moderateScale(50),
-            color: theme.colorFamily.white,
+            color: theme.color.specified.white,
         },
     });
 

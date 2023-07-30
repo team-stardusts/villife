@@ -7,18 +7,18 @@ export default function useReplyInputStyle(): RelplyInputStylesType {
 
     const Style = StyleSheet.create({
         replyInputContainer: {
-            backgroundColor: theme.colorFamily.white,
+            backgroundColor: theme.color.specified.white,
         },
         replyImageSection: {
-            borderTopColor: theme.colorFamily.blue,
+            borderTopColor: theme.color.specified.blue,
             borderTopWidth: deviceUI.moderateScale(1),
             flexDirection: "row",
         },
         replyInputSection: {
             flexDirection: "row",
             alignItems: "center",
-            backgroundColor: theme.colorFamily.white,
-            borderColor: theme.colorFamily.blue,
+            backgroundColor: theme.color.specified.white,
+            borderColor: theme.color.specified.blue,
             borderWidth: deviceUI.moderateScale(1),
         },
         image: {
@@ -41,13 +41,13 @@ export default function useReplyInputStyle(): RelplyInputStylesType {
             alignItems: "center",
         },
         verticalLine: {
-            borderLeftColor: theme.colorFamily.blue,
+            borderLeftColor: theme.color.specified.blue,
             borderLeftWidth: deviceUI.moderateScale(1),
             height: "80%",
             width: deviceUI.moderateScale(1),
         },
         replySubmitText: {
-            color: theme.colorFamily.black,
+            color: theme.color.specified.black,
             fontFamily: theme.font.fontFamilies.pretendard.regular,
             fontSize: deviceUI.moderateScale(10),
         },
@@ -57,14 +57,14 @@ export default function useReplyInputStyle(): RelplyInputStylesType {
             right: deviceUI.moderateScale(3),
             width: deviceUI.moderateScale(70),
             height: deviceUI.moderateScale(30),
-            backgroundColor: theme.colorFamily.red,
+            backgroundColor: theme.color.specified.red,
             justifyContent: "center",
             alignItems: "center",
             borderRadius: deviceUI.moderateScale(10),
         },
         modifyCancleButtonText: {
             fontFamily: theme.font.fontFamilies.pretendard.bold,
-            color: theme.colorFamily.black,
+            color: theme.color.specified.black,
         },
     });
     return Style;

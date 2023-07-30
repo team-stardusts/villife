@@ -59,10 +59,14 @@ export default function VehicleInfoInputBox({
                     value={vehicleInfo.plateNumber}
                     placeholder={messages.messages.main.parking.register_vehicle.vehicle_plate_number_input_placeholder}
                     highlightColor={
-                        vehicleInfo.plateNumber !== "" && !vehicleValid.plateNumber ? theme.colorFamily.red : undefined
+                        vehicleInfo.plateNumber !== "" && !vehicleValid.plateNumber
+                            ? theme.color.specified.red
+                            : undefined
                     }
                     lowlightColor={
-                        vehicleInfo.plateNumber !== "" && !vehicleValid.plateNumber ? theme.colorFamily.red : undefined
+                        vehicleInfo.plateNumber !== "" && !vehicleValid.plateNumber
+                            ? theme.color.specified.red
+                            : undefined
                     }
                     onChangeText={(text, name) => {
                         setVehicleValid({
@@ -86,8 +90,12 @@ export default function VehicleInfoInputBox({
                     name="model"
                     value={vehicleInfo.model}
                     placeholder={messages.messages.main.parking.register_vehicle.vehicle_model_number_input_placeholder}
-                    highlightColor={vehicleInfo.model !== "" && !vehicleValid.model ? theme.colorFamily.red : undefined}
-                    lowlightColor={vehicleInfo.model !== "" && !vehicleValid.model ? theme.colorFamily.red : undefined}
+                    highlightColor={
+                        vehicleInfo.model !== "" && !vehicleValid.model ? theme.color.specified.red : undefined
+                    }
+                    lowlightColor={
+                        vehicleInfo.model !== "" && !vehicleValid.model ? theme.color.specified.red : undefined
+                    }
                     onChangeText={(text, name) => {
                         setVehicleValid({
                             ...vehicleValid,

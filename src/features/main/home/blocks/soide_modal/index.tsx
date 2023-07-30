@@ -23,7 +23,7 @@ export default function HomeSideModal(props: HomeSideMoalProps) {
         {
             name: "speaker",
             size: deviceUI.moderateScale(40),
-            color: theme.colorFamily.black,
+            color: theme.color.specified.black,
             title: message.messages.main.noti.screen_title,
             onPress: () => {
                 setVisible(false);
@@ -33,7 +33,7 @@ export default function HomeSideModal(props: HomeSideMoalProps) {
         {
             name: "question-mark",
             size: deviceUI.moderateScale(40),
-            color: theme.colorFamily.black,
+            color: theme.color.specified.black,
             title: message.messages.main.complaint.frequently_reported_complaints,
             onPress: () => {
                 setVisible(false);
@@ -43,7 +43,7 @@ export default function HomeSideModal(props: HomeSideMoalProps) {
         {
             name: "building",
             size: deviceUI.moderateScale(20),
-            color: theme.colorFamily.black,
+            color: theme.color.specified.black,
             title: message.messages.main.home.building_info,
             onPress: () => {
                 setVisible(false);
@@ -53,7 +53,7 @@ export default function HomeSideModal(props: HomeSideMoalProps) {
         {
             name: "round-person",
             size: deviceUI.moderateScale(35),
-            color: theme.colorFamily.black,
+            color: theme.color.specified.black,
             title: message.messages.main.home.user_info,
             onPress: () => {
                 setVisible(false);
@@ -66,7 +66,7 @@ export default function HomeSideModal(props: HomeSideMoalProps) {
         {
             name: "speaker",
             size: deviceUI.moderateScale(40),
-            color: theme.colorFamily.black,
+            color: theme.color.specified.black,
             title: message.messages.main.noti.screen_title,
             onPress: () => {
                 setVisible(false);
@@ -76,7 +76,7 @@ export default function HomeSideModal(props: HomeSideMoalProps) {
         {
             name: "letter",
             size: deviceUI.moderateScale(40),
-            color: theme.colorFamily.black,
+            color: theme.color.specified.black,
             title: message.messages.main.approval.screen_title,
             onPress: () => {
                 setVisible(false);
@@ -86,7 +86,7 @@ export default function HomeSideModal(props: HomeSideMoalProps) {
         {
             name: "question-mark",
             size: deviceUI.moderateScale(40),
-            color: theme.colorFamily.black,
+            color: theme.color.specified.black,
             title: message.messages.main.complaint.frequently_reported_complaints,
             onPress: () => {
                 setVisible(false);
@@ -96,7 +96,7 @@ export default function HomeSideModal(props: HomeSideMoalProps) {
         {
             name: "building",
             size: deviceUI.moderateScale(20),
-            color: theme.colorFamily.black,
+            color: theme.color.specified.black,
             title: message.messages.main.home.building_info,
             onPress: () => {
                 setVisible(false);
@@ -106,7 +106,7 @@ export default function HomeSideModal(props: HomeSideMoalProps) {
         {
             name: "round-person",
             size: deviceUI.moderateScale(35),
-            color: theme.colorFamily.black,
+            color: theme.color.specified.black,
             title: message.messages.main.home.user_info,
             onPress: () => {
                 setVisible(false);

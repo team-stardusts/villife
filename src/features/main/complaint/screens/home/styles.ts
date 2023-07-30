@@ -9,12 +9,12 @@ export default function useComplaintHomeSecreenStyle(): ComplaintHomeScreenStyle
         topLevelBox: {
             flex: 1,
             flexDirection: "column",
-            backgroundColor: theme.colorFamily.white,
+            backgroundColor: theme.color.specified.white,
         },
         FAQContainer: {
             width: "100%",
             height: deviceUI.screenSize.height * 0.07,
-            backgroundColor: theme.colorFamily.lightblue,
+            backgroundColor: theme.color.specified.lightblue,
             alignItems: "center",
             justifyContent: "center",
             flexDirection: "row",
@@ -31,12 +31,12 @@ export default function useComplaintHomeSecreenStyle(): ComplaintHomeScreenStyle
         FAQTitle: {
             fontSize: deviceUI.moderateScale(14),
             fontFamily: theme.font.fontFamilies.pretendard.bold,
-            color: theme.colorFamily.white,
+            color: theme.color.specified.white,
         },
         FAQContent: {
             fontSize: deviceUI.moderateScale(10),
             fontFamily: theme.font.fontFamilies.pretendard.regular,
-            color: theme.colorFamily.white,
+            color: theme.color.specified.white,
         },
 
         menuContainer: {
@@ -53,7 +53,7 @@ export default function useComplaintHomeSecreenStyle(): ComplaintHomeScreenStyle
         menuTitleText: {
             fontSize: deviceUI.moderateScale(24),
             fontFamily: theme.font.fontFamilies.pretendard.bold,
-            color: theme.colorFamily.black,
+            color: theme.color.specified.black,
         },
         vectorIconSize: {
             height: deviceUI.moderateScale(18),
@@ -68,7 +68,7 @@ export default function useComplaintHomeSecreenStyle(): ComplaintHomeScreenStyle
         registerButton: {
             height: deviceUI.moderateScale(26),
             width: deviceUI.moderateScale(80),
-            backgroundColor: theme.colorFamily.lightblue,
+            backgroundColor: theme.color.specified.lightblue,
             flexDirection: "row",
             alignItems: "center",
             justifyContent: "center",
@@ -78,7 +78,7 @@ export default function useComplaintHomeSecreenStyle(): ComplaintHomeScreenStyle
             marginLeft: "5%",
             fontSize: deviceUI.moderateScale(12),
             fontFamily: theme.font.fontFamilies.pretendard.bold,
-            color: theme.colorFamily.white,
+            color: theme.color.specified.white,
         },
         plusIconSize: {
             width: deviceUI.moderateScale(40),
@@ -91,7 +91,7 @@ export default function useComplaintHomeSecreenStyle(): ComplaintHomeScreenStyle
             alignItems: "center",
         },
         whenEmptyCard: {
-            backgroundColor: theme.colorFamily.blue,
+            backgroundColor: theme.color.specified.blue,
             width: deviceUI.screenSize.width * 0.9,
             height: deviceUI.screenSize.height * 0.16,
             borderRadius: deviceUI.moderateScale(15),
@@ -101,7 +101,7 @@ export default function useComplaintHomeSecreenStyle(): ComplaintHomeScreenStyle
         whenEmptyCardText: {
             fontSize: deviceUI.moderateScale(16),
             fontFamily: theme.font.fontFamilies.pretendard.bold,
-            color: theme.colorFamily.white,
+            color: theme.color.specified.white,
             marginBottom: deviceUI.moderateScale(10),
         },
     });
