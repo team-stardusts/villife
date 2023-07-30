@@ -14,14 +14,15 @@ export default function useBuildingSelectorStyles() {
             flex: 1,
             width: "90%",
             flexDirection: "row",
-        },
-        iconBox: {
-            flex: 3,
             alignItems: "center",
             justifyContent: "center",
         },
+        iconBox: {
+            alignItems: "center",
+            justifyContent: "center",
+            marginRight: deviceUI.moderateScale(10),
+        },
         textBox: {
-            flex: 7,
             alignItems: "flex-start",
             justifyContent: "center",
         },

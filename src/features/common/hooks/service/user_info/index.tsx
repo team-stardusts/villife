@@ -14,7 +14,7 @@ export default function useUserInformation(): UseUserInfoReturns {
     const adminInfo = useRecoilValue<AdminInformation | null>(adminInfoState);
 
     if (loginData === null) return null;
-    if (loginData.building_id === 99999999) return null;
+    if (loginData.building_id === 0) return null;
 
     class UserInfoProvider implements IUserInfoProvider {
         public readonly rawdata: LoginDataType;

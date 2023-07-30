@@ -23,13 +23,17 @@ export default function NavigationView({
     const styles = useNavigationViewStyles(bodyOptions);
     const navigation = useNavigation<RouterParams["navigation"]>();
 
-    const headerShown: boolean = headerOptions?.shown ?? true;
+    const headerBackGroundColor = headerOptions.backgroundColor ?? styles.container.backgroundColor;
+    const bodyBackGroundColor = bodyOptions.backgroundColor ?? styles.container.backgroundColor;
+    const headerShown: boolean = headerOptions.shown ?? true;
     const bottomNavShown: boolean = bottomNavOptions?.shown ?? true;
     const statusBarContent = theme.scheme === "light" ? "dark-content" : "light-content";
 
     // Navigation child에 props를 넣어주기 위함
     let navComponentProps = headerOptions.navComponentProps;
     navComponentProps = navComponentProps !== undefined ? navComponentProps : {};
+
+    if (bodyOptions.backgroundColor === undefined) bodyOptions.backgroundColor = styles.bodyBox.backgroundColor;
 
     // Android back button 대비 코드
     useFocusEffect(
@@ -59,17 +63,13 @@ export default function NavigationView({
     );
 
     return (
-        <SafeAreaView style={styles.container}>
-            <StatusBar barStyle={statusBarContent} backgroundColor={theme.colorFamily.white} />
-            {headerShown && (
-                <NavigationViewHeader
-                    title={headerOptions.title}
-                    navComponent={headerOptions.navComponent}
-                    navComponentProps={headerOptions.navComponentProps}
-                />
-            )}
-            <View style={styles.bodyBox} children={children} />
+        <>
+            <SafeAreaView style={[styles.container, { backgroundColor: headerBackGroundColor }]}>
+                <StatusBar barStyle={statusBarContent} backgroundColor={headerBackGroundColor} />
+                {headerShown && <NavigationViewHeader {...headerOptions} />}
+                <View style={[styles.bodyBox, { backgroundColor: bodyBackGroundColor }]} children={children} />
+            </SafeAreaView>
             {bottomNavShown && <NavigationViewBottom />}
-        </SafeAreaView>
+        </>
     );
 }

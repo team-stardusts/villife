@@ -10,6 +10,7 @@ export default function ImageDetailView({ navigation, route }: ImageDetailViewPr
     return (
         <NavigationView
             headerOptions={{
+                shown: false,
                 title: message.messages.image_detail.title,
             }}
             bodyOptions={{

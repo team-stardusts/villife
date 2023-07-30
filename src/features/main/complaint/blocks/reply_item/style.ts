@@ -51,7 +51,6 @@ export default function useComplaintReplyItemStyle(): ComplaintReplyItemStylesTy
             marginTop: deviceUI.moderateScale(12),
             marginRight: deviceUI.moderateScale(5),
         },
-     
     });
     return Style;
 }

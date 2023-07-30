@@ -11,13 +11,14 @@ export default function NavigationViewHeader(props: NavigationViewHeaderProps) {
     const [crrNavIndex, setCrrNavIndex] = useState<number>(0);
     const navigation = useNavigation<RouterParams["navigation"]>();
     const styles = useNavigationViewHeaderStyles(crrNavIndex);
+    const backgroundColor = props.backgroundColor ?? styles.container.backgroundColor;
 
     useEffect(() => {
         setCrrNavIndex(navigation.getState().index);
     }, [navigation]);
 
     return (
-        <View style={styles.container}>
+        <View style={[styles.container, { backgroundColor: backgroundColor }]}>
             <View style={styles.box}>
                 {crrNavIndex > 0 && (
                     <TouchableOpacity style={styles.iconBox} onPress={() => navigation.pop(1)}>

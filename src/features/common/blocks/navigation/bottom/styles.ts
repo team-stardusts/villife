@@ -6,8 +6,7 @@ export default function useNavigationViewBottomStyles() {
 
     return StyleSheet.create({
         container: {
-            flex: 1,
-            backgroundColor: theme.colorFamily.lightgrey,
+            height: deviceUI.getPlatform() === "ios" ? "13%" : "10%",
             alignItems: "center",
         },
         menuBox: {
@@ -16,7 +15,7 @@ export default function useNavigationViewBottomStyles() {
             position: "absolute",
             bottom: -1,
             flexDirection: "row",
-            alignItems: "center",
+            alignItems: "flex-start",
             justifyContent: "center",
             backgroundColor: theme.colorFamily.white,
             borderColor: theme.colorFamily.darkgrey,
@@ -30,7 +29,7 @@ export default function useNavigationViewBottomStyles() {
             alignItems: "center",
         },
         iconBox: {
-            flex: 5,
+            flex: deviceUI.getPlatform() === "ios" ? 4 : 5,
             justifyContent: "flex-end",
             paddingBottom: deviceUI.horizontalScale(0.05),
         },
@@ -44,7 +43,7 @@ export default function useNavigationViewBottomStyles() {
             color: theme.colorFamily.lightgrey,
         },
         captionBox: {
-            flex: 5,
+            flex: deviceUI.getPlatform() === "ios" ? 6 : 5,
         },
         caption: {
             ...theme.font.researved.h5,

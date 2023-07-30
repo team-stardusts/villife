@@ -1,4 +1,5 @@
 import { FunctionComponent } from "react";
+import { ColorValue } from "react-native";
 
 export type NavigationViewHeaderProps = {
     title: string;
@@ -6,4 +7,5 @@ export type NavigationViewHeaderProps = {
     navComponentProps?: {
         [key: string]: any;
     };
+    backgroundColor?: ColorValue;
 };

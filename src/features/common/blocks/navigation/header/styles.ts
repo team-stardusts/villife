@@ -9,7 +9,7 @@ export default function useNavigationViewHeaderStyles(crrNavIndex: number) {
             flex: 0.7,
             flexDirection: "row",
             backgroundColor: theme.colorFamily.white,
-            borderBottomColor: theme.colorFamily.lightgrey,
+            borderBottomColor: "#F0F2F5", //theme.colorFamily.lightgrey,
             borderBottomWidth: deviceUI.moderateScale(2),
         },
         box: {

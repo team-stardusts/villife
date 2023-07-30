@@ -2,12 +2,14 @@ import React from "react";
 import { IconSeries } from "../../atoms/icon/types";
 import { VillifeRootStackParamList } from "../../router/types";
 import { NavigationViewHeaderProps } from "./header/types";
+import { ColorValue } from "react-native";
 
 export type HeaderOptions = NavigationViewHeaderProps & {
     shown?: boolean;
 };
 
 export type BodyOptions = {
+    backgroundColor?: ColorValue;
     applyDefaultHorizontalPadding?: boolean;
     applyDefaultVerticalPadding?: boolean;
 };

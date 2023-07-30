@@ -13,7 +13,7 @@ export default function useHomeContentCardStyle(): HomeContentCardStyle {
         },
         itemContainer: {
             width: "100%",
-            paddingHorizontal: deviceUI.moderateScale(20),
+            //paddingHorizontal: deviceUI.moderateScale(20),
             paddingVertical: deviceUI.moderateScale(5),
             justifyContent: "space-between",
             flexDirection: "row",
@@ -22,7 +22,7 @@ export default function useHomeContentCardStyle(): HomeContentCardStyle {
         text: {
             fontSize: deviceUI.moderateScale(16),
             fontFamily: theme.font.fontFamilies.pretendard.bold,
-            color: theme.colorFamily.white,
+            color: theme.colorFamily.black,
         },
     });
     return Style;

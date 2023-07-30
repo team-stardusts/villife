@@ -52,15 +52,16 @@ export default function useHomeContentFromParkingStyles(didGetFavoritVehilce: bo
             ...Platform.select({
                 ios: {
                     shadowColor: theme.colorFamily.darkgrey,
-                    shadowOpacity: 0.4,
+                    shadowOpacity: 0.2,
                     shadowRadius: deviceUI.moderateScale(3),
                     shadowOffset: {
-                        height: 3,
+                        height: 0,
                         width: 0,
                     },
                 },
                 android: {
-                    elevation: 15,
+                    shadowColor: theme.colorFamily.darkgrey,
+                    elevation: 3,
                 },
             }),
         },

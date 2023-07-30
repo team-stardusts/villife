@@ -47,7 +47,7 @@ export default function useAuthService(): IAuthServiceProvider {
                 name: "",
                 authority: 1,
                 room_id: undefined,
-                building_id: 99999999,
+                building_id: 0,
             });
 
             const userInfo = await userApi.getUserBasicInfo();

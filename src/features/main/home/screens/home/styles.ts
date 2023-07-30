@@ -7,7 +7,7 @@ export default function useHomeScreenStyles() {
     return StyleSheet.create({
         container: {
             flex: 1,
-            paddingTop: deviceUI.moderateScale(10),
+            paddingTop: deviceUI.moderateScale(5),
         },
         contentsScrollBox: {
             flex: 1,

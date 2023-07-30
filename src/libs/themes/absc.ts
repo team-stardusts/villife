@@ -9,6 +9,7 @@ abstract class ATheme {
         pretendard: {
             regular: "Pretendard-Regular",
             extraBold: "Pretendard-ExtraBold",
+            medium: "Pretendard-Medium",
             bold: "Pretendard-Bold",
         },
     };
