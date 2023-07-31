@@ -73,16 +73,17 @@ export default function useVehicleCardViewStyles(isEditmode?: boolean) {
         scrollview: {
             height: "100%",
         },
-        noCardBox: {
-            justifyContent: "flex-start",
+        noCardContainer: {
+            justifyContent: "center",
             alignItems: "center",
         },
-        noCardTitleWrapper: {
+        noCardTitleBox: {
             justifyContent: "center",
             alignItems: "center",
             marginBottom: deviceUI.moderateScale(10),
         },
         noCardTitle: {
+            marginBottom: deviceUI.moderateScale(5),
             color: theme.color.specified.black,
             ...theme.font.researved.h3,
         },

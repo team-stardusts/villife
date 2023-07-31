@@ -4,10 +4,10 @@ import useVehicleCardViewStyles from "./styles";
 
 export type VehicleCardViewProps = {
     vehicles: Vehicle[];
-    onIntoEditmode(isEditmode: boolean): void;
 };
 
 export type VehicleCardHeaderProps = {
+    numberOfVehicle: number;
     styles: ReturnType<typeof useVehicleCardViewStyles>["header"];
     onIntoEditmode(isEditmode: boolean): void;
 };

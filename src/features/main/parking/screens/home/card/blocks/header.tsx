@@ -3,7 +3,7 @@ import useScreenMessage from "../../../../../../common/hooks/multilingual/hooks"
 import { VehicleCardHeaderProps } from "../types";
 import { useEffect, useState } from "react";
 
-export default function VehicleCardHeader({ styles, onIntoEditmode }: VehicleCardHeaderProps) {
+export default function VehicleCardHeader({ styles, numberOfVehicle, onIntoEditmode }: VehicleCardHeaderProps) {
     const messages = useScreenMessage().messages;
     const [editmode, setEditmode] = useState<boolean>(false);
 
@@ -16,9 +16,13 @@ export default function VehicleCardHeader({ styles, onIntoEditmode }: VehicleCar
             <View style={styles.titleBox}>
                 <Text style={styles.title}>{messages.main.parking.home.my_vehicle_info}</Text>
             </View>
-            <TouchableOpacity style={styles.modifyBtn} activeOpacity={0.5} onPress={() => setEditmode(!editmode)}>
-                <Text style={styles.modifyBtnTitle}>{editmode ? messages.words.cancle : messages.words.modified}</Text>
-            </TouchableOpacity>
+            {numberOfVehicle > 0 && (
+                <TouchableOpacity style={styles.modifyBtn} activeOpacity={0.5} onPress={() => setEditmode(!editmode)}>
+                    <Text style={styles.modifyBtnTitle}>
+                        {editmode ? messages.words.cancle : messages.words.modified}
+                    </Text>
+                </TouchableOpacity>
+            )}
         </View>
     );
 }

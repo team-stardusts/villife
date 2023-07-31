@@ -12,11 +12,10 @@ export default function useMessageSelectorStyles() {
             flex: 1,
             justifyContent: "center",
             alignItems: "center",
-            paddingHorizontal: deviceUI.moderateScale(5),
         },
         icon: {
             width: deviceUI.moderateScale(50),
-            color: theme.color.specified.white,
+            color: theme.color.specified.black,
         },
     });
 

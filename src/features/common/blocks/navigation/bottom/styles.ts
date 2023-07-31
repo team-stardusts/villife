@@ -3,7 +3,6 @@ import useStyler from "../../../hooks/styler/hooks";
 
 export default function useNavigationViewBottomStyles() {
     const { deviceUI, theme } = useStyler();
-
     return StyleSheet.create({
         container: {
             height: deviceUI.getScreenSize().height * 0.09 + deviceUI.getBottomSpace(), //deviceUI.getPlatform() === "ios" ? "13%" : "10%",

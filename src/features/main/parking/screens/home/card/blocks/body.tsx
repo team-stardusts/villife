@@ -59,8 +59,8 @@ export default function VehicleCardBody({ styles, cardWidth, vehicles, isEditmod
                     />
                 ))}
                 {vehicles.length === 0 && (
-                    <View style={[styles.noCardBox, { width: cardWidth }]}>
-                        <View style={styles.noCardTitleWrapper}>
+                    <View style={[styles.noCardContainer, { width: cardWidth }]}>
+                        <View style={styles.noCardTitleBox}>
                             <Text style={styles.noCardTitle}>{messages.main.parking.home.say_no_vehicle_info}</Text>
                             <Text style={styles.noCardSubtitle}>
                                 {messages.main.parking.home.induce_to_register_own_vehicle}

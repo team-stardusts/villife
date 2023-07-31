@@ -2,7 +2,7 @@ import { StyleSheet } from "react-native";
 import useStyler from "../../../../common/hooks/styler/hooks";
 
 export default function useVehicleModifyModalStyles() {
-    const { deviceUI } = useStyler();
+    const { deviceUI, theme } = useStyler();
 
     return StyleSheet.create({
         container: {
@@ -18,6 +18,12 @@ export default function useVehicleModifyModalStyles() {
         infoContianer: {
             width: "90%",
             height: "95%",
+        },
+        etdaModifyBtn: {
+            color: theme.color.status.success,
+        },
+        infoModifyBtn: {
+            color: theme.color.status.warning,
         },
     });
 }

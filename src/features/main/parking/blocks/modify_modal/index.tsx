@@ -43,6 +43,7 @@ export default function VehicleModifyModal(props: VehicleModifyModalProps) {
             subtitle={messages.messages.main.parking.home.request_to_modify_etda}
             leftButtonText={messages.messages.words.cancle}
             rightButtonText={messages.messages.words.modified}
+            rightButtonColor={props.modifyType === "etda" ? styles.etdaModifyBtn.color : styles.infoModifyBtn.color}
             onPressVoidSpace={() => props.setVisible(false)}
             onPressLeftBtn={() => props.setVisible(false)}
             onPressRightBtn={handlePressModifyBtn}>

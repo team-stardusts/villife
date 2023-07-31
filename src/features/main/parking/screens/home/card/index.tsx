@@ -9,7 +9,7 @@ import VehicleCardBody from "./blocks/body";
 import DeviceUiInfo from "../../../../../../libs/device";
 import { SCREEN_PADDING_HORIZONTAL_STANDARD_VALUE } from "../../../../../common/constants";
 
-export default function VehicleCardView({ vehicles, onIntoEditmode }: VehicleCardViewProps) {
+export default function VehicleCardView({ vehicles }: VehicleCardViewProps) {
     const innerPadding = DeviceUiInfo.moderateScale(40);
     const screenPadding = SCREEN_PADDING_HORIZONTAL_STANDARD_VALUE * 2;
 
@@ -20,16 +20,16 @@ export default function VehicleCardView({ vehicles, onIntoEditmode }: VehicleCar
 
     const styles = useVehicleCardViewStyles(editmode);
 
-    useEffect(() => {
-        onIntoEditmode(editmode);
-    }, [editmode]);
-
     return (
         <View style={styles.main.container}>
             <ContentBox backgroundColor={styles.main.contentBox.backgroundColor}>
                 <View style={styles.main.wrapper}>
                     <View style={styles.main.headerContainer}>
-                        <VehicleCardHeader styles={styles.header} onIntoEditmode={setEditmode} />
+                        <VehicleCardHeader
+                            styles={styles.header}
+                            numberOfVehicle={vehicles.length}
+                            onIntoEditmode={setEditmode}
+                        />
                     </View>
                     <View style={styles.main.bodyContainer}>
                         <VehicleCardBody

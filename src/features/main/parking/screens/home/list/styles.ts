@@ -70,16 +70,21 @@ export default function useVehicleListStyles() {
     const body = StyleSheet.create({
         container: {
             width: "100%",
-            justifyContent: "center",
-            alignItems: "flex-start",
-            marginBottom: deviceUI.moderateScale(20),
+            paddingTop: deviceUI.moderateScale(5),
+            paddingBottom: deviceUI.moderateScale(20),
         },
-        vehicleInfoBox: {
-            flex: 5.4,
+        vehicleInfoContainer: {
+            width: "100%",
             flexDirection: "row",
             justifyContent: "flex-start",
             alignItems: "center",
-            marginTop: deviceUI.moderateScale(15),
+        },
+        vehicleInfoBox: {
+            width: "55%",
+            flexDirection: "row",
+            justifyContent: "flex-start",
+            alignItems: "center",
+            marginVertical: deviceUI.moderateScale(15),
         },
         tenantBadge: {
             width: deviceUI.moderateScale(16),
@@ -96,6 +101,33 @@ export default function useVehicleListStyles() {
             color: theme.color.specified.black,
             fontWeight: "bold",
             ...theme.font.researved.h4,
+        },
+        communicationFuncContainer: {
+            flexDirection: "row",
+            justifyContent: "flex-start",
+        },
+        communicationIconBox: {
+            marginRight: deviceUI.moderateScale(12),
+        },
+        phoneIcon: {
+            width: deviceUI.moderateScale(40),
+            color: theme.color.specified.black,
+        },
+        letterIcon: {
+            width: deviceUI.moderateScale(50),
+            color: theme.color.specified.black,
+        },
+        detailFuncContainer: {
+            position: "absolute",
+            right: deviceUI.moderateScale(3),
+            justifyContent: "flex-end",
+        },
+        detailIconBox: {
+            //backgroundColor: "teal",
+        },
+        detailIcon: {
+            width: deviceUI.moderateScale(50),
+            color: theme.color.specified.black,
         },
     });
 
