@@ -8,13 +8,13 @@ export default function useComplaintContentCardStyles(): ComplaintContentCardSty
     const Style = StyleSheet.create({
         topLevelBox: {
             //backgroundColor: theme.colorFamily.blue,
-            width: deviceUI.screenSize.width * 0.9,
-            height: deviceUI.screenSize.height * 0.16,
+            width: deviceUI.getScreenSize().width * 0.9,
+            height: deviceUI.getScreenSize().height * 0.16,
             borderRadius: deviceUI.moderateScale(15),
         },
         editModeTopLevelBox: {
-            width: deviceUI.screenSize.width * 0.8,
-            height: deviceUI.screenSize.height * 0.16,
+            width: deviceUI.getScreenSize().width * 0.8,
+            height: deviceUI.getScreenSize().height * 0.16,
             borderRadius: deviceUI.moderateScale(15),
         },
         contentBoxCompleted: {
@@ -32,12 +32,12 @@ export default function useComplaintContentCardStyles(): ComplaintContentCardSty
         },
         titleText: {
             fontSize: deviceUI.moderateScale(14),
-            fontFamily: theme.font.fontFamilies.pretendard.bold,
+            fontFamily: theme.font.fontFamily.pretendard.bold,
             color: theme.color.specified.white,
         },
         dateTimeText: {
             fontSize: deviceUI.moderateScale(12),
-            fontFamily: theme.font.fontFamilies.pretendard.bold,
+            fontFamily: theme.font.fontFamily.pretendard.bold,
             color: theme.color.specified.white,
         },
         statusSection: {
@@ -66,7 +66,7 @@ export default function useComplaintContentCardStyles(): ComplaintContentCardSty
         },
         statusText: {
             fontSize: deviceUI.moderateScale(12),
-            fontFamily: theme.font.fontFamilies.pretendard.bold,
+            fontFamily: theme.font.fontFamily.pretendard.bold,
             color: theme.color.specified.white,
         },
         outerCircle: {
@@ -119,14 +119,14 @@ export default function useComplaintContentCardStyles(): ComplaintContentCardSty
             borderRadius: deviceUI.moderateScale(5),
         },
         middleLineCompleted: {
-            width: deviceUI.screenSize.width * 0.75,
+            width: deviceUI.getScreenSize().width * 0.75,
             height: deviceUI.moderateScale(3),
             backgroundColor: theme.color.specified.darkgrey,
             marginLeft: deviceUI.moderateScale(15),
             borderRadius: deviceUI.moderateScale(5),
         },
         middleLineCompletedWhenEdit: {
-            width: deviceUI.screenSize.width * 0.65,
+            width: deviceUI.getScreenSize().width * 0.65,
             height: deviceUI.moderateScale(3),
             backgroundColor: theme.color.specified.darkgrey,
             marginLeft: deviceUI.moderateScale(15),

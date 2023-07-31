@@ -28,8 +28,8 @@ export default function SimpleNavComponent(props: SimpleNavComponentProps) {
         title: {
             fontFamily:
                 props.iconName !== undefined
-                    ? theme.font.fontFamilies.pretendard.regular
-                    : theme.font.fontFamilies.pretendard.bold,
+                    ? theme.font.fontFamily.pretendard.regular
+                    : theme.font.fontFamily.pretendard.bold,
             color: theme.color.specified.black,
         },
     });

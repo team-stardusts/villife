@@ -29,12 +29,12 @@ export default function useApprovalOutlinedBoxStyle(): ApprovalOutlinedBoxStyles
         },
         titleText: {
             fontSize: deviceUI.moderateScale(16),
-            fontFamily: theme.font.fontFamilies.pretendard.bold,
+            fontFamily: theme.font.fontFamily.pretendard.bold,
             color: theme.color.specified.black,
         },
         subText: {
             fontSize: deviceUI.moderateScale(12),
-            fontFamily: theme.font.fontFamilies.pretendard.regular,
+            fontFamily: theme.font.fontFamily.pretendard.regular,
             color: theme.color.specified.black,
         },
         subContainerBox: { flexDirection: "row", marginTop: "3%" },

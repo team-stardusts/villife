@@ -6,7 +6,7 @@ export default function useNavigationViewBottomStyles() {
 
     return StyleSheet.create({
         container: {
-            height: deviceUI.getPlatform() === "ios" ? "13%" : "10%",
+            height: deviceUI.getScreenSize().height * 0.09 + deviceUI.getBottomSpace(), //deviceUI.getPlatform() === "ios" ? "13%" : "10%",
             alignItems: "center",
         },
         menuBox: {

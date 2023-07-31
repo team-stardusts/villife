@@ -8,8 +8,8 @@ export default function useNotiOutLinedBoxListStyles(): UseNotiOutLinedBoxListSt
         contentContainer: { alignItems: "center", width: "100%" },
         whenEmptyCard: {
             backgroundColor: theme.color.specified.blue,
-            width: deviceUI.screenSize.width * 0.9,
-            height: deviceUI.screenSize.height * 0.16,
+            width: deviceUI.getScreenSize().width * 0.9,
+            height: deviceUI.getScreenSize().height * 0.16,
             borderRadius: deviceUI.moderateScale(15),
             justifyContent: "center",
             alignItems: "center",
@@ -17,7 +17,7 @@ export default function useNotiOutLinedBoxListStyles(): UseNotiOutLinedBoxListSt
         },
         whenEmptyCardText: {
             fontSize: deviceUI.moderateScale(16),
-            fontFamily: theme.font.fontFamilies.pretendard.bold,
+            fontFamily: theme.font.fontFamily.pretendard.bold,
             color: theme.color.specified.white,
             marginBottom: deviceUI.moderateScale(10),
         },

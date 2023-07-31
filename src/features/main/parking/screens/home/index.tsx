@@ -4,7 +4,7 @@ import NavigationView from "../../../../common/blocks/navigation";
 import ParkingScreenProps, { VehicleInfoProps } from "./types";
 import useParkService from "../../services/park";
 import { useEffect, useState } from "react";
-import VehicleCardView from "../../blocks/vehicle_card";
+import VehicleCardView from "./card";
 import useStyler from "../../../../common/hooks/styler/hooks";
 import { SCREEN_PADDING_HORIZONTAL_STANDARD_VALUE } from "../../../../common/constants";
 import useParkingHomeScreenStyles from "./styles";
@@ -20,6 +20,7 @@ import { vehiclesState } from "../../services/states";
 import IconThreeDotsVertical from "../../../../common/atoms/icon/three_dots_vertical";
 import VehicleDetailAlert from "../../blocks/vehicle_detail_alert";
 import useUserInformation from "../../../../common/hooks/service/user_info";
+import VehicleListView from "./list";
 
 export default function ParkingScreen({ navigation, route }: ParkingScreenProps) {
     const messages = useScreenMessage();
@@ -28,12 +29,13 @@ export default function ParkingScreen({ navigation, route }: ParkingScreenProps)
     const styles = useParkingHomeScreenStyles().screen;
     const { updateVehicles } = useParkService();
     const vehicles = useRecoilValue<Vehicle[]>(vehiclesState);
+    const [isVehicleEditmode, setIsVehicleEditmode] = useState<boolean>(false);
     const [vehiclesForRender, setVehiclesForRender] = useState<Vehicle[]>([]);
 
     const screenPadding: number = deviceUI.moderateScale(SCREEN_PADDING_HORIZONTAL_STANDARD_VALUE);
 
     // Card에서 ScrollView를 사용하므로, 가변적인 카드를 만들기 위해서 Width 지정이 필요함
-    const cardWidth: number = deviceUI.screenSize.width - (screenPadding + deviceUI.moderateScale(20));
+    const cardWidth: number = deviceUI.getScreenSize().width - (screenPadding + deviceUI.moderateScale(20));
     console.log("[ParkHomeScreen] onCreate");
 
     useEffect(() => {
@@ -108,22 +110,20 @@ export default function ParkingScreen({ navigation, route }: ParkingScreenProps)
         <NavigationView
             headerOptions={{
                 title: messages.messages.main.parking.home.screen_title,
+            }}
+            bodyOptions={{
+                applyDefaultHorizontalPadding: true,
+                applyDefaultVerticalPadding: false,
             }}>
-            <View style={styles.container}>
+            <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
                 {!user?.isAdmin && (
-                    <View style={styles.myVehicleCardViewBox}>
-                        <View style={styles.contentTitleBox}>
-                            <Text style={styles.contentTitle}>
-                                {messages.messages.main.parking.home.my_vehicle_info}
-                            </Text>
-                        </View>
-                        <VehicleCardView
-                            vehicles={vehicles.filter((vehicle) => vehicle.ownerType === "user")}
-                            cardWidth={cardWidth}
-                        />
-                    </View>
+                    <VehicleCardView
+                        vehicles={vehicles.filter((vehicle) => vehicle.ownerType === "user")}
+                        onIntoEditmode={setIsVehicleEditmode}
+                    />
                 )}
-                <View style={styles.buildingVehiclesViewBox}>
+                <VehicleListView vehicles={vehicles} />
+                {/* <View style={styles.buildingVehiclesViewBox}>
                     <View style={styles.contentTitleBox}>
                         <Text style={styles.contentTitle}>
                             {messages.messages.main.parking.home.villa_vehicle_info}
@@ -144,17 +144,12 @@ export default function ParkingScreen({ navigation, route }: ParkingScreenProps)
                                 <VehicleInfo
                                     key={index}
                                     vehicle={vehicle}
-                                    /* vehicleID={vehicle.id}
-                                    ownerType={vehicle.ownerType}
-                                    plateNumber={vehicle.plate_number}
-                                    phoneNumber={vehicle.phone_number}
-                                    etd={vehicle.etd} */
                                 />
                             );
                         })}
                     </ScrollView>
-                </View>
-            </View>
+                </View> */}
+            </ScrollView>
         </NavigationView>
     );
 }

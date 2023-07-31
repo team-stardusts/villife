@@ -146,7 +146,7 @@ export default function NumberPicker({
     };
 
     const scrollViewPosionSettingFunction =
-        deviceUI.platform === "android" ? androidPositionSettingFunction : iosPositionSettingFunction;
+        deviceUI.getPlatform() === "android" ? androidPositionSettingFunction : iosPositionSettingFunction;
 
     const styles = StyleSheet.create({
         container: {

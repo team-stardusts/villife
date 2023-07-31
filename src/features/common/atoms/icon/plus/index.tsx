@@ -1,4 +1,4 @@
-import { Defs, G, Path, Rect, Svg } from "react-native-svg";
+import { Path, Svg } from "react-native-svg";
 import { CommonIconProps } from "../types";
 
 const ICON_DEFAULT_COLOR: string = "#E4E4E4" as const;
@@ -12,7 +12,7 @@ export default function IconPlus(props: CommonIconProps) {
         <Svg width={size * widthRatio} height={size * heightRatio} viewBox="0 0 20 20" fill="none">
             <Path
                 d="M10 4.16663V15.8333"
-                stroke="white"
+                stroke={color ?? ICON_DEFAULT_COLOR}
                 strokeWidth={2}
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -20,7 +20,7 @@ export default function IconPlus(props: CommonIconProps) {
             />
             <Path
                 d="M4.16663 10H15.8333"
-                stroke="white"
+                stroke={color ?? ICON_DEFAULT_COLOR}
                 strokeWidth={2}
                 strokeLinecap="round"
                 strokeLinejoin="round"

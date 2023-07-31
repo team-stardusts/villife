@@ -33,8 +33,6 @@ export default function NavigationView({
     let navComponentProps = headerOptions.navComponentProps;
     navComponentProps = navComponentProps !== undefined ? navComponentProps : {};
 
-    if (bodyOptions.backgroundColor === undefined) bodyOptions.backgroundColor = styles.bodyBox.backgroundColor;
-
     // Android back button 대비 코드
     useFocusEffect(
         useCallback(() => {

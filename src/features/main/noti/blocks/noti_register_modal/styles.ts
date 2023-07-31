@@ -28,7 +28,7 @@ export default function useBottomEditModalStyles(): useBottomEditModalStylesType
             paddingBottom: "5%",
         },
         editModalMenuText: {
-            fontFamily: theme.font.fontFamilies.pretendard.bold,
+            fontFamily: theme.font.fontFamily.pretendard.bold,
             fontSize: deviceUI.moderateScale(14),
             marginLeft: deviceUI.moderateScale(8),
             color: theme.color.specified.black,

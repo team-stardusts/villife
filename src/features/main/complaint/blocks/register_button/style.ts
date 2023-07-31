@@ -15,7 +15,7 @@ export default function useComplaintRegisterButtonStyle(): ComplaintRegisterButt
         },
         text: {
             fontSize: deviceUI.moderateScale(14),
-            fontFamily: theme.font.fontFamilies.pretendard.bold,
+            fontFamily: theme.font.fontFamily.pretendard.bold,
             color: theme.color.specified.black,
         },
     });

@@ -61,7 +61,7 @@ export default function UserTypeSelectionButton({
         },
         caption: {
             color: color,
-            fontFamily: theme.font.fontFamilies.pretendard.extraBold,
+            fontFamily: theme.font.fontFamily.pretendard.extraBold,
             fontSize: size * 0.2,
         },
     });
