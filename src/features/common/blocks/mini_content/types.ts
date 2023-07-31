@@ -7,4 +7,5 @@ export type MiniContentProps = {
         params?: any; //VillifeStackParamList[MiniContentProps["navigation"]["to"]];
     };
     children?: React.ReactNode;
+    eanbleShadow?: boolean;
 };

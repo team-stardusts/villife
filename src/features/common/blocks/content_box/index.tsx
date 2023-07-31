@@ -4,10 +4,27 @@ import useStyler from "../../hooks/styler/hooks";
 import { useEffect, useRef } from "react";
 import { ANIMATION_DURATION_DEFAULT, ANIMATION_DURATION_SLOW } from "../../constants";
 
-export default function ContentBox({ children, backgroundColor }: ContentBoxProps) {
+export default function ContentBox({ children, backgroundColor, eanbleShadow }: ContentBoxProps) {
     const { deviceUI, theme } = useStyler();
     const opacityValue = useRef(new Animated.Value(0)).current;
     const translateYValue = useRef(new Animated.Value(12)).current;
+    const shadow = eanbleShadow
+        ? Platform.select({
+              ios: {
+                  shadowColor: theme.color.specified.grey,
+                  shadowOpacity: 0.2,
+                  shadowRadius: deviceUI.moderateScale(3),
+                  shadowOffset: {
+                      height: 1,
+                      width: 0,
+                  },
+              },
+              android: {
+                  shadowColor: theme.color.specified.grey,
+                  elevation: 2,
+              },
+          })
+        : {};
 
     useEffect(() => {
         Animated.parallel([
@@ -32,21 +49,7 @@ export default function ContentBox({ children, backgroundColor }: ContentBoxProp
             borderRadius: deviceUI.moderateScale(15),
             marginBottom: deviceUI.moderateScale(15),
             backgroundColor: backgroundColor ?? theme.color.specified.blue,
-            ...Platform.select({
-                ios: {
-                    /* shadowColor: theme.colorFamily.darkgrey,
-                    shadowOpacity: 0.2,
-                    shadowRadius: deviceUI.moderateScale(2),
-                    shadowOffset: {
-                        height: 2,
-                        width: 0,
-                    }, */
-                    elevation: 2,
-                },
-                android: {
-                    elevation: 2,
-                },
-            }),
+            ...shadow,
         },
     });
     return (

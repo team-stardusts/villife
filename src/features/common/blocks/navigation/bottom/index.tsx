@@ -6,12 +6,12 @@ import useRootLinks from "../root_links";
 import { useNavigation } from "@react-navigation/native";
 import { RouterParams, VillifeStackParamList } from "../../../router/types";
 import { RootLink } from "../types";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export default function NavigationViewBottom() {
     const navigation = useNavigation<RouterParams["navigation"]>();
     const styles = useNavigationViewBottomStyles();
     const rootLinks = useRootLinks();
-
     const [currentRootScreen, setCurrentRootScreen] = useState<keyof VillifeStackParamList>("home");
 
     const handleLinkPress = (link: RootLink) => {

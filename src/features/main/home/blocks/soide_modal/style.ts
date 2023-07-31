@@ -14,8 +14,8 @@ export default function useHomeSideMoalStyles(): UseHomeSideMoalStylesType {
             position: "absolute",
             top: 0,
             right: 0,
-            height: deviceUI.screenSize.height,
-            width: deviceUI.screenSize.width,
+            height: deviceUI.getScreenSize().height,
+            width: deviceUI.getScreenSize().width,
             backgroundColor: theme.color.specified.lightgrey,
             opacity: 0.6,
             zIndex: -1,
@@ -24,12 +24,12 @@ export default function useHomeSideMoalStyles(): UseHomeSideMoalStylesType {
         content: {
             backgroundColor: "white",
             position: "absolute",
-            height: deviceUI.screenSize.height,
-            width: deviceUI.screenSize.width * 0.6,
+            height: deviceUI.getScreenSize().height,
+            width: deviceUI.getScreenSize().width * 0.6,
             right: 0,
         },
         infoContainer: {
-            height: deviceUI.screenSize.height * 0.15,
+            height: deviceUI.getScreenSize().height * 0.15,
             justifyContent: "flex-end",
         },
         infoWrapper: {
@@ -37,7 +37,7 @@ export default function useHomeSideMoalStyles(): UseHomeSideMoalStylesType {
             marginLeft: deviceUI.moderateScale(30),
         },
         menuContainer: {
-            height: deviceUI.screenSize.height * 0.85,
+            height: deviceUI.getScreenSize().height * 0.85,
         },
         menu: {
             flexDirection: "row",

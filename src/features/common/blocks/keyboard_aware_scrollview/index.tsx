@@ -17,7 +17,7 @@ export default function KeyboardAwareScrollView({
 
     useOnKeyboardEvent({
         onShow(keyboardHeight) {
-            const safetyHeight: number = deviceUI.screenSize.height - keyboardHeight;
+            const safetyHeight: number = deviceUI.getScreenSize().height - keyboardHeight;
 
             if (safetyHeight < touchedCoordinateY) scollRef.current?.scrollToEnd({ animated: true });
             else scollRef.current?.scrollTo({ y: 0, animated: true });

@@ -7,14 +7,16 @@ export default function useParkingHomeScreenStyles() {
     const screen = StyleSheet.create({
         container: {
             flex: 1,
-            backgroundColor: theme.color.specified.white,
+            backgroundColor: theme.color.series.grey.level1,
         },
         myVehicleCardViewBox: {
-            flex: 3.5,
+            height: "45%",
+            width: "100%",
             paddingBottom: deviceUI.moderateScale(10),
         },
         buildingVehiclesViewBox: {
-            flex: 6.5,
+            minHeight: "50%",
+            width: "100%",
         },
         contentTitle: {
             ...theme.font.researved.h2,

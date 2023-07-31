@@ -1,4 +1,5 @@
 import React from "react";
+import { ColorValue } from "react-native";
 
 export type StardustAlertProps = {
     modalVisible: boolean;
@@ -7,6 +8,8 @@ export type StardustAlertProps = {
     subtitle?: string;
     leftButtonText: string;
     rightButtonText: string;
+    leftButtonColor?: ColorValue;
+    rightButtonColor?: ColorValue;
     onPressLeftBtn: () => void;
     onPressRightBtn: () => void;
     onPressVoidSpace?: () => void;

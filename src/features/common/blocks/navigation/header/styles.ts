@@ -8,8 +8,8 @@ export default function useNavigationViewHeaderStyles(crrNavIndex: number) {
         container: {
             flex: 0.7,
             flexDirection: "row",
-            backgroundColor: theme.color.specified.white,
-            borderBottomColor: "#F0F2F5", //theme.colorFamily.lightgrey,
+            backgroundColor: theme.color.series.grey.level1,
+            borderBottomColor: theme.color.series.grey.level1,
             borderBottomWidth: deviceUI.moderateScale(2),
         },
         box: {
@@ -48,7 +48,7 @@ export default function useNavigationViewHeaderStyles(crrNavIndex: number) {
             color: theme.color.specified.black,
             paddingLeft: crrNavIndex === 0 ? deviceUI.moderateScale(20) : deviceUI.moderateScale(3),
             marginRight: deviceUI.moderateScale(5),
-            fontFamily: theme.font.fontFamilies.pretendard.bold,
+            fontFamily: theme.font.fontFamily.pretendard.bold,
             fontSize: deviceUI.moderateScale(17),
         },
     });

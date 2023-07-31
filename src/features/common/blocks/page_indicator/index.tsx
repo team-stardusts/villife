@@ -3,7 +3,7 @@ import useStyler from "../../hooks/styler/hooks";
 import { useEffect, useRef } from "react";
 import { IndicatorProps, PageIndicatorsProps } from "./types";
 
-function Indicator({ isOn, size }: IndicatorProps) {
+function Indicator({ isOn, size, activeColor, deactiveColor }: IndicatorProps) {
     const { theme } = useStyler();
     const SCALE_INITIAL_VALUE: number = 1;
     const DURATION: number = 200;
@@ -22,7 +22,7 @@ function Indicator({ isOn, size }: IndicatorProps) {
     const styles = StyleSheet.create({
         indicator: {
             marginHorizontal: size * 0.3,
-            backgroundColor: isOn ? theme.color.specified.white : theme.color.specified.lightblue,
+            backgroundColor: isOn ? activeColor : deactiveColor,
             width: size,
             height: size,
             borderRadius: size,
@@ -41,7 +41,7 @@ function Indicator({ isOn, size }: IndicatorProps) {
     );
 }
 
-export default function PageIndicators({ length, currentIndex, size }: PageIndicatorsProps) {
+export default function PageIndicator({ length, currentIndex, size, activeColor, deactiveColor }: PageIndicatorsProps) {
     const styles = StyleSheet.create({
         indicatorsBox: {
             flexDirection: "row",
@@ -56,7 +56,13 @@ export default function PageIndicators({ length, currentIndex, size }: PageIndic
             {Array(length)
                 .fill(null)
                 .map((value, index) => (
-                    <Indicator key={index} isOn={index === currentIndex} size={size} />
+                    <Indicator
+                        key={index}
+                        isOn={index === currentIndex}
+                        size={size}
+                        activeColor={activeColor}
+                        deactiveColor={deactiveColor}
+                    />
                 ))}
         </View>
     );

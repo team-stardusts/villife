@@ -13,7 +13,7 @@ export default function useComplaintHomeSecreenStyle(): ComplaintHomeScreenStyle
         },
         FAQContainer: {
             width: "100%",
-            height: deviceUI.screenSize.height * 0.07,
+            height: deviceUI.getScreenSize().height * 0.07,
             backgroundColor: theme.color.specified.lightblue,
             alignItems: "center",
             justifyContent: "center",
@@ -30,18 +30,18 @@ export default function useComplaintHomeSecreenStyle(): ComplaintHomeScreenStyle
         },
         FAQTitle: {
             fontSize: deviceUI.moderateScale(14),
-            fontFamily: theme.font.fontFamilies.pretendard.bold,
+            fontFamily: theme.font.fontFamily.pretendard.bold,
             color: theme.color.specified.white,
         },
         FAQContent: {
             fontSize: deviceUI.moderateScale(10),
-            fontFamily: theme.font.fontFamilies.pretendard.regular,
+            fontFamily: theme.font.fontFamily.pretendard.regular,
             color: theme.color.specified.white,
         },
 
         menuContainer: {
             width: "100%",
-            height: deviceUI.screenSize.height * 0.07,
+            height: deviceUI.getScreenSize().height * 0.07,
             alignItems: "center",
             flexDirection: "row",
         },
@@ -52,7 +52,7 @@ export default function useComplaintHomeSecreenStyle(): ComplaintHomeScreenStyle
         },
         menuTitleText: {
             fontSize: deviceUI.moderateScale(24),
-            fontFamily: theme.font.fontFamilies.pretendard.bold,
+            fontFamily: theme.font.fontFamily.pretendard.bold,
             color: theme.color.specified.black,
         },
         vectorIconSize: {
@@ -77,14 +77,14 @@ export default function useComplaintHomeSecreenStyle(): ComplaintHomeScreenStyle
         registerButtonText: {
             marginLeft: "5%",
             fontSize: deviceUI.moderateScale(12),
-            fontFamily: theme.font.fontFamilies.pretendard.bold,
+            fontFamily: theme.font.fontFamily.pretendard.bold,
             color: theme.color.specified.white,
         },
         plusIconSize: {
             width: deviceUI.moderateScale(40),
         },
         flatList: {
-            height: deviceUI.screenSize.height * 0.28 + 8,
+            height: deviceUI.getScreenSize().height * 0.28 + 8,
         },
         flatListContainer: {
             justifyContent: "center",
@@ -92,15 +92,15 @@ export default function useComplaintHomeSecreenStyle(): ComplaintHomeScreenStyle
         },
         whenEmptyCard: {
             backgroundColor: theme.color.specified.blue,
-            width: deviceUI.screenSize.width * 0.9,
-            height: deviceUI.screenSize.height * 0.16,
+            width: deviceUI.getScreenSize().width * 0.9,
+            height: deviceUI.getScreenSize().height * 0.16,
             borderRadius: deviceUI.moderateScale(15),
             justifyContent: "center",
             alignItems: "center",
         },
         whenEmptyCardText: {
             fontSize: deviceUI.moderateScale(16),
-            fontFamily: theme.font.fontFamilies.pretendard.bold,
+            fontFamily: theme.font.fontFamily.pretendard.bold,
             color: theme.color.specified.white,
             marginBottom: deviceUI.moderateScale(10),
         },

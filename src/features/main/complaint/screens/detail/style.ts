@@ -15,7 +15,7 @@ export default function useComplaintDetailSecreenStyle(): ComplaintDetailScreenS
         registerButtonText: {
             marginLeft: "5%",
             fontSize: deviceUI.moderateScale(12),
-            fontFamily: theme.font.fontFamilies.pretendard.bold,
+            fontFamily: theme.font.fontFamily.pretendard.bold,
             color: theme.color.specified.white,
         },
         statusBarSection: {
@@ -32,7 +32,7 @@ export default function useComplaintDetailSecreenStyle(): ComplaintDetailScreenS
         },
         title: {
             fontSize: deviceUI.moderateScale(24),
-            fontFamily: theme.font.fontFamilies.pretendard.bold,
+            fontFamily: theme.font.fontFamily.pretendard.bold,
             marginLeft: leftMargin,
             color: theme.color.specified.black,
             marginTop: deviceUI.moderateScale(15),
@@ -77,7 +77,7 @@ export default function useComplaintDetailSecreenStyle(): ComplaintDetailScreenS
         },
         blockWithIconText: {
             fontSize: deviceUI.moderateScale(10),
-            fontFamily: theme.font.fontFamilies.pretendard.regular,
+            fontFamily: theme.font.fontFamily.pretendard.regular,
             color: theme.color.specified.black,
         },
         replyItem: {

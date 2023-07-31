@@ -13,7 +13,7 @@ export default function useMyPageHomeScreenStyles(): UseMyPageHomeScreenStylesTy
         },
         infoContainer: {
             width: "100%",
-            height: deviceUI.screenSize.height * 0.2,
+            height: deviceUI.getScreenSize().height * 0.2,
             backgroundColor: theme.color.specified.blue,
             alignItems: "center",
             justifyContent: "space-between",
@@ -31,7 +31,7 @@ export default function useMyPageHomeScreenStyles(): UseMyPageHomeScreenStylesTy
         buttonContainerText: { color: theme.color.specified.white },
         rightContainer: {
             alignItems: "flex-end",
-            height: deviceUI.screenSize.height * 0.15,
+            height: deviceUI.getScreenSize().height * 0.15,
             justifyContent: "space-around",
             paddingRight: deviceUI.moderateScale(30),
         },
@@ -45,7 +45,7 @@ export default function useMyPageHomeScreenStyles(): UseMyPageHomeScreenStylesTy
             fontFamily: theme.font.researved.h4.fontFamily,
             fontSize: theme.font.researved.h5.fontSize,
         },
-        serviceContainer: { marginLeft: deviceUI.screenSize.width * 0.05 },
+        serviceContainer: { marginLeft: deviceUI.getScreenSize().width * 0.05 },
         serviceContainerText: {
             color: theme.color.specified.black,
             fontFamily: theme.font.researved.h3.fontFamily,

@@ -29,7 +29,7 @@ export default function useReplyInputStyle(): RelplyInputStylesType {
         replyTextInput: {
             width: "75%",
             paddingLeft: deviceUI.moderateScale(10),
-            fontFamily: theme.font.fontFamilies.pretendard.bold,
+            fontFamily: theme.font.fontFamily.pretendard.bold,
         },
         replyImageIconSize: {
             width: deviceUI.moderateScale(24),
@@ -48,7 +48,7 @@ export default function useReplyInputStyle(): RelplyInputStylesType {
         },
         replySubmitText: {
             color: theme.color.specified.black,
-            fontFamily: theme.font.fontFamilies.pretendard.regular,
+            fontFamily: theme.font.fontFamily.pretendard.regular,
             fontSize: deviceUI.moderateScale(10),
         },
         modifyCancleButton: {
@@ -63,7 +63,7 @@ export default function useReplyInputStyle(): RelplyInputStylesType {
             borderRadius: deviceUI.moderateScale(10),
         },
         modifyCancleButtonText: {
-            fontFamily: theme.font.fontFamilies.pretendard.bold,
+            fontFamily: theme.font.fontFamily.pretendard.bold,
             color: theme.color.specified.black,
         },
     });

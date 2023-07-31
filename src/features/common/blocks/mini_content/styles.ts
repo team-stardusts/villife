@@ -24,7 +24,7 @@ export default function useHomeScreenContentStyles() {
             alignItems: "center",
         },
         navigationTitle: {
-            fontFamily: theme.font.fontFamilies.pretendard.bold,
+            fontFamily: theme.font.fontFamily.pretendard.bold,
             fontSize: deviceUI.moderateScale(28),
             color: theme.color.specified.black,
             //marginBottom: deviceUI.moderateScale(5),

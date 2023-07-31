@@ -9,7 +9,7 @@ import ContentBox from "../content_box";
 import { useEffect, useRef } from "react";
 import { ANIMATION_DURATION_SLOW } from "../../constants";
 
-export default function MiniContent({ title, navigation, children }: MiniContentProps) {
+export default function MiniContent({ title, navigation, children, eanbleShadow }: MiniContentProps) {
     const { deviceUI, theme } = useStyler();
     const styles = useHomeScreenContentStyles();
     const nav = useNavigation<VillifeNavigation>();
@@ -49,7 +49,7 @@ export default function MiniContent({ title, navigation, children }: MiniContent
 
     return (
         <View style={styles.container}>
-            <ContentBox backgroundColor={theme.color.specified.white}>
+            <ContentBox backgroundColor={theme.color.specified.white} eanbleShadow>
                 <View style={styles.contentsContatainer}>
                     <TouchableOpacity
                         style={styles.navigationBox}

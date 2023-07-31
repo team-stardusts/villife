@@ -24,6 +24,9 @@ export type MessagesByLanguage = {
                 request_to_modify_etda: string;
                 request_to_modify_vehicle_info: string;
                 inform_to_modify_vehicle_info: string;
+                register_own_car: string;
+                edit_etda: string;
+                edit_info: string;
             };
             register_vehicle: {
                 screen_title: string;
@@ -263,6 +266,7 @@ export type MessagesByLanguage = {
         modify: string;
         tenant: string;
         guest: string;
+        visit: string;
         etd: string;
         eta: string;
         plate_number: string;

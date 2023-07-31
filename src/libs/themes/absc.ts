@@ -15,7 +15,7 @@ abstract class ATheme {
     };
 
     static readonly font = {
-        fontFamilies: this.fontFamily,
+        fontFamily: this.fontFamily,
         researved: {
             h1: {
                 fontFamily: this.fontFamily.pretendard.extraBold,

@@ -1,11 +1,21 @@
 import React, { Children } from "react";
-import { Modal, StyleSheet, View, Text, TouchableOpacity, Image, Dimensions, Pressable } from "react-native";
+import {
+    Modal,
+    StyleSheet,
+    View,
+    Text,
+    TouchableOpacity,
+    Image,
+    Dimensions,
+    Pressable,
+    ColorValue,
+} from "react-native";
 import { StardustAlertProps } from "./type";
 import useStyler from "../../../hooks/styler/hooks";
 
 export default function StardustAlert(props: StardustAlertProps) {
     const screenSize = Dimensions.get("window");
-    const styles = useStyles();
+    const styles = useStyles(props.leftButtonColor, props.rightButtonColor);
 
     return (
         <Modal
@@ -60,7 +70,7 @@ export default function StardustAlert(props: StardustAlertProps) {
     );
 }
 
-function useStyles() {
+function useStyles(leftButtonColor?: ColorValue, rightButtonColor?: ColorValue) {
     const { deviceUI, theme } = useStyler();
 
     return StyleSheet.create({
@@ -74,8 +84,8 @@ function useStyles() {
             position: "absolute",
             top: 0,
             left: 0,
-            height: deviceUI.screenSize.height,
-            width: deviceUI.screenSize.width,
+            height: deviceUI.getScreenSize().height,
+            width: deviceUI.getScreenSize().width,
             backgroundColor: theme.color.specified.lightgrey,
             opacity: 0.6,
             zIndex: -1,
@@ -134,7 +144,7 @@ function useStyles() {
             width: "40%",
             justifyContent: "center",
             alignItems: "center",
-            backgroundColor: "#EEEEEE",
+            backgroundColor: leftButtonColor ?? theme.color.series.grey.level1,
             borderRadius: deviceUI.moderateScale(8),
             marginRight: deviceUI.moderateScale(10),
         },
@@ -143,7 +153,7 @@ function useStyles() {
             width: "40%",
             justifyContent: "center",
             alignItems: "center",
-            backgroundColor: theme.color.specified.blue,
+            backgroundColor: rightButtonColor ?? theme.color.specified.blue,
             borderRadius: deviceUI.moderateScale(8),
         },
     });

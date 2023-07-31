@@ -1,0 +1,25 @@
+import { Vehicle } from "../../services/states/types";
+import { EtdaTime } from "../etad_time_picker/types";
+import { VehicleInfo } from "../vehicle_info_input_box/types";
+import useVehicleModifyModalStyles from "./styles";
+
+export type VehicleModifyModalProps = {
+    modifyType: VehicleModifyType;
+    vehilce: Vehicle;
+    visible: boolean;
+    setVisible: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+export type VehicleModifyType = "etda" | "info";
+
+export type EtdaEditViewProps = {
+    styles: ReturnType<typeof useVehicleModifyModalStyles>;
+    initialEtda: EtdaTime;
+    onChangeEtda(data: EtdaTime): void;
+};
+
+export type InfoEditViewProps = {
+    styles: ReturnType<typeof useVehicleModifyModalStyles>;
+    initialnfo: VehicleInfo;
+    onChangeInfo(data: VehicleInfo): void;
+};

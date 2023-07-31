@@ -9,15 +9,14 @@ export default function useNavigationViewStyles(bodyOptions?: BodyOptions) {
     const styles = StyleSheet.create({
         container: {
             flex: 1,
-            backgroundColor: theme.color.specified.white,
+            backgroundColor: theme.color.series.grey.level1,
         },
         headerAndBodyContainer: {
             height: "90%",
         },
         bodyBox: {
             flex: 8.3,
-            //backgroundColor: theme.colorFamily.lightgrey,
-            backgroundColor: "#F0F2F5",
+            //backgroundColor: theme.color.series.grey.level1,
             // Default padding은 index.tsx에서 조정
             paddingHorizontal: bodyOptions?.applyDefaultHorizontalPadding
                 ? deviceUI.moderateScale(SCREEN_PADDING_HORIZONTAL_STANDARD_VALUE)
