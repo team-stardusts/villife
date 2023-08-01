@@ -6,7 +6,7 @@ export default function useNavigationViewHeaderStyles(crrNavIndex: number) {
 
     return StyleSheet.create({
         container: {
-            flex: 0.7,
+            flex: 1,
             flexDirection: "row",
             backgroundColor: theme.color.series.grey.level1,
             borderBottomColor: theme.color.series.grey.level1,

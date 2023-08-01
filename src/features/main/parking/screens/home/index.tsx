@@ -6,7 +6,6 @@ import useParkService from "../../services/park";
 import { useEffect, useState } from "react";
 import VehicleCardView from "./card";
 import useStyler from "../../../../common/hooks/styler/hooks";
-import { SCREEN_PADDING_HORIZONTAL_STANDARD_VALUE } from "../../../../common/constants";
 import useParkingHomeScreenStyles from "./styles";
 import { Vehicle } from "../../services/states/types";
 import { useRecoilValue } from "recoil";
@@ -16,7 +15,6 @@ import VehicleListView from "./list";
 
 export default function ParkingScreen({ navigation, route }: ParkingScreenProps) {
     const messages = useScreenMessage();
-    const { deviceUI } = useStyler();
     const user = useUserInformation();
     const styles = useParkingHomeScreenStyles().screen;
     const { updateVehicles } = useParkService();

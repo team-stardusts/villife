@@ -11,12 +11,11 @@ export default function useNavigationViewStyles(bodyOptions?: BodyOptions) {
             flex: 1,
             backgroundColor: theme.color.series.grey.level1,
         },
-        headerAndBodyContainer: {
-            height: "90%",
+        HeaderConatiner: {
+            flex: 0.07,
         },
-        bodyBox: {
-            flex: 8.3,
-            //backgroundColor: theme.color.series.grey.level1,
+        bodyContainer: {
+            flex: 0.83,
             // Default padding은 index.tsx에서 조정
             paddingHorizontal: bodyOptions?.applyDefaultHorizontalPadding
                 ? deviceUI.moderateScale(SCREEN_PADDING_HORIZONTAL_STANDARD_VALUE)
@@ -24,6 +23,9 @@ export default function useNavigationViewStyles(bodyOptions?: BodyOptions) {
             paddingVertical: bodyOptions?.applyDefaultVerticalPadding
                 ? deviceUI.moderateScale(SCREEN_PADDING_VERTICAL_STANDARD_VALUE)
                 : 0,
+        },
+        bottomContainer: {
+            flex: 0.1,
         },
         /* bottomNavBox: {
             flex: 1,

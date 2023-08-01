@@ -5,5 +5,5 @@ import ATheme from "../../../../libs/themes/absc";
 export type StylerReturnType = {
     deviceUI: typeof DeviceUiInfo;
     theme: typeof ATheme;
-    safetyArea: EdgeInsets;
+    safetyEdgeSize: EdgeInsets;
 };

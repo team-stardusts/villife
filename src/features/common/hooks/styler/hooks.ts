@@ -5,7 +5,7 @@ import { StylerReturnType } from "./types";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export default function useStyler(): StylerReturnType {
-    const safetyArea = useSafeAreaInsets();
+    const safetyEdgeSize = useSafeAreaInsets();
     const colorScheme = useColorScheme();
     let Theme;
 
@@ -20,6 +20,6 @@ export default function useStyler(): StylerReturnType {
     return {
         deviceUI: DeviceUiInfo,
         theme: Theme,
-        safetyArea,
+        safetyEdgeSize,
     };
 }

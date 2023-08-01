@@ -65,6 +65,7 @@ export default function NavigationViewBottom() {
                     </TouchableOpacity>
                 ))}
             </View>
+            <View style={styles.dummyView} />
         </View>
     );
 }

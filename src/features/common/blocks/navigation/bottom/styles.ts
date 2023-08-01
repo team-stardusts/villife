@@ -3,16 +3,24 @@ import useStyler from "../../../hooks/styler/hooks";
 
 export default function useNavigationViewBottomStyles() {
     const { deviceUI, theme } = useStyler();
+
     return StyleSheet.create({
         container: {
-            height: deviceUI.getScreenSize().height * 0.09 + deviceUI.getBottomSpace(), //deviceUI.getPlatform() === "ios" ? "13%" : "10%",
+            flex: 1,
             alignItems: "center",
+        },
+        // SafetyAreaView의 backgroundColor로 인해
+        // 커버되지 않는 구간을 커버하기 위함
+        dummyView: {
+            position: "absolute",
+            width: "100%",
+            height: deviceUI.getScreenSize().height * 0.3,
+            bottom: deviceUI.getScreenSize().height * -0.3 + 1,
+            backgroundColor: "white",
         },
         menuBox: {
             width: "101%",
             height: "100%",
-            position: "absolute",
-            bottom: -1,
             flexDirection: "row",
             alignItems: "flex-start",
             justifyContent: "center",
@@ -28,7 +36,7 @@ export default function useNavigationViewBottomStyles() {
             alignItems: "center",
         },
         iconBox: {
-            flex: deviceUI.getPlatform() === "ios" ? 4 : 5,
+            flex: 5, //deviceUI.getPlatform() === "ios" ? 4 : 5,
             justifyContent: "flex-end",
             paddingBottom: deviceUI.horizontalScale(0.05),
         },
@@ -42,7 +50,7 @@ export default function useNavigationViewBottomStyles() {
             color: theme.color.specified.lightgrey,
         },
         captionBox: {
-            flex: deviceUI.getPlatform() === "ios" ? 6 : 5,
+            flex: 5, //deviceUI.getPlatform() === "ios" ? 6 : 5,
         },
         caption: {
             ...theme.font.researved.h5,

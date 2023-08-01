@@ -61,13 +61,19 @@ export default function NavigationView({
     );
 
     return (
-        <>
-            <SafeAreaView style={[styles.container, { backgroundColor: headerBackGroundColor }]}>
-                <StatusBar barStyle={statusBarContent} backgroundColor={headerBackGroundColor} />
-                {headerShown && <NavigationViewHeader {...headerOptions} />}
-                <View style={[styles.bodyBox, { backgroundColor: bodyBackGroundColor }]} children={children} />
-            </SafeAreaView>
-            {bottomNavShown && <NavigationViewBottom />}
-        </>
+        <SafeAreaView style={[styles.container, { backgroundColor: headerBackGroundColor }]}>
+            <StatusBar barStyle={statusBarContent} backgroundColor={headerBackGroundColor} />
+            {headerShown && (
+                <View style={styles.HeaderConatiner}>
+                    <NavigationViewHeader {...headerOptions} />
+                </View>
+            )}
+            <View style={[styles.bodyContainer, { backgroundColor: bodyBackGroundColor }]} children={children} />
+            {bottomNavShown && (
+                <View style={styles.bottomContainer}>
+                    <NavigationViewBottom />
+                </View>
+            )}
+        </SafeAreaView>
     );
 }
