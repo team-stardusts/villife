@@ -57,7 +57,7 @@ export default function CreateAccountScreen({ navigation, route }: CreateAccount
             // Welcome screen으로 이동하며 Stack 초기화
             navigation.reset({
                 index: 0,
-                routes: [{ name: "login", params: { host, authority, id, password } }],
+                routes: [{ name: "welcome", params: { host, authority, id, password } }],
             });
         }
     };

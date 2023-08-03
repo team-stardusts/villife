@@ -69,7 +69,7 @@ export default function useRoutingAdministratorByLogin(): void {
 
         // User가 임차인임과 동시에 등록한 주소가 없을 때
         // [TO-DO] 승인 대기중인 경우 대기 스크린으로 보내야함
-        if (userinfo.isRenter && userinfo.roomID === undefined) {
+        if (userinfo.isRenter && (userinfo.roomID === 0 || userinfo.roomID === undefined)) {
             console.log("[ONLOGIN] User has no room , navigate to Set Building Page");
             navigation.reset({
                 index: 0,

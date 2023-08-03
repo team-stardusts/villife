@@ -24,6 +24,7 @@ export interface IUserInfoProvider extends IInfoProvidable<LoginDataType>, IUser
     isOwner: boolean;
     isAdmin: boolean;
     isSiteAdmin: boolean;
+    setResidence(buildingID: number, roomID: number): void;
 }
 /* accessToken: LoginDataType["accessToken"];
 refreshToken: LoginDataType["refreshToken"]; */

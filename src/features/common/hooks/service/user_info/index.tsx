@@ -7,6 +7,7 @@ import { AdminInformation } from "../../states/atoms/user/admin_only/type";
 import { adminInfoState } from "../../states/atoms/user/admin_only";
 import { SimpleBuildingInfo } from "../../../../../libs/rest_apis/villife/user_info/types";
 import useAdminInfoService from "./service";
+import { LOGIN_BUILDING_ID_TEMP } from "../../../../auth/services/authentication";
 
 export default function useUserInformation(): UseUserInfoReturns {
     const adminService = useAdminInfoService();
@@ -14,7 +15,7 @@ export default function useUserInformation(): UseUserInfoReturns {
     const adminInfo = useRecoilValue<AdminInformation | null>(adminInfoState);
 
     if (loginData === null) return null;
-    if (loginData.building_id === 0) return null;
+    if (loginData.building_id === LOGIN_BUILDING_ID_TEMP) return null;
 
     class UserInfoProvider implements IUserInfoProvider {
         public readonly rawdata: LoginDataType;
@@ -64,6 +65,8 @@ export default function useUserInformation(): UseUserInfoReturns {
         get adminInfomation(): AdminInformation | null {
             return this.adminInfo;
         }
+
+        public setResidence(buildingID: number, roomID: number) {}
 
         public changeAdminSelectedBuilding(building: SimpleBuildingInfo): void {
             return adminService.changeSelectedBulding(building);

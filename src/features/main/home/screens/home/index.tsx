@@ -18,7 +18,6 @@ export default function HomeScreen({ navigation, route }: HomeScreenProps) {
     return (
         <NavigationView
             headerOptions={{
-                backgroundColor: "#F0F2F5",
                 title: messages.messages.main.home.screen_title,
                 navComponent: MenuButton,
                 /* navComponentProps: {
@@ -30,7 +29,6 @@ export default function HomeScreen({ navigation, route }: HomeScreenProps) {
                 }, */
             }}
             bodyOptions={{
-                backgroundColor: "#F0F2F5",
                 applyDefaultHorizontalPadding: true,
                 applyDefaultVerticalPadding: false,
             }}>

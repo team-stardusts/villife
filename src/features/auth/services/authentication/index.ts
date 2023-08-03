@@ -20,6 +20,8 @@ export class LoginManagerProvider {
     }
 }
 
+export const LOGIN_BUILDING_ID_TEMP: number = 999999999;
+
 export default function useAuthService(): IAuthServiceProvider {
     const storage: IVillifeStorage = VillifeStorage.getInstance();
     const userApi: IVillifeUserInfoRestClient = VillifeServer.getUserInfoRestClient();
@@ -47,7 +49,7 @@ export default function useAuthService(): IAuthServiceProvider {
                 name: "",
                 authority: 1,
                 room_id: undefined,
-                building_id: 0,
+                building_id: LOGIN_BUILDING_ID_TEMP,
             });
 
             const userInfo = await userApi.getUserBasicInfo();
