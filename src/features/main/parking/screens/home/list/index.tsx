@@ -1,13 +1,9 @@
-import { Text, View } from "react-native";
+import { View } from "react-native";
 import ContentBox from "../../../../../common/blocks/content_box";
 import useVehicleListStyles from "./styles";
 import VehicleListHeaderView from "./blocks/header";
-import { Vehicle } from "../../../services/states/types";
 import VehicleListBodyView from "./blocks/body";
-
-type VehicleListViewProps = {
-    vehicles: Vehicle[];
-};
+import { VehicleListViewProps } from "./types";
 
 export default function VehicleListView(props: VehicleListViewProps) {
     const styles = useVehicleListStyles();

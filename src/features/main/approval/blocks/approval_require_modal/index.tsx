@@ -1,7 +1,7 @@
 import { Dimensions, Modal, Pressable, Text, TouchableOpacity, View } from "react-native";
 import React, { useEffect, useState } from "react";
 import Toast from "react-native-toast-message";
-import StardustAlert from "../../../../common/blocks/universial/stardust_alert";
+import StardustModal from "../../../../common/blocks/universial/stardust_modal";
 import useBottomEditModalStyles from "./style";
 import ApprovalRequiredModalProps from "./type";
 import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
@@ -107,7 +107,7 @@ export default function ApprovalRequiredModal(props: ApprovalRequiredModalProps)
                             style={styles.leftButton}>
                             <Text style={styles.leftButtonText}>{messages.messages.main.approval.reject}</Text>
                         </TouchableOpacity>
-                        <StardustAlert
+                        <StardustModal
                             modalVisible={deleteAlertVisible}
                             setModalVisible={setDeleteAlertVisible}
                             title={messages.messages.main.approval.reject_title}

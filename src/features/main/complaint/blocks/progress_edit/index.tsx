@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import StardustAlert from "../../../../common/blocks/universial/stardust_alert";
+import StardustModal from "../../../../common/blocks/universial/stardust_modal";
 import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
 import useComplaintService from "../../services";
 import ComplaintContentCard from "../content_card";
@@ -29,7 +29,7 @@ export default function ComplaintProgressEditModal(props: ComplaintProgressEditM
     };
 
     return (
-        <StardustAlert
+        <StardustModal
             title={message.messages.main.complaint.edit_progress_status}
             subtitle={message.messages.main.complaint.edit_progress_status_guide}
             modalVisible={props.modalVisible}

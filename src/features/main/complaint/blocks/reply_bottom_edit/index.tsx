@@ -8,7 +8,7 @@ import { DeleteNoticeParams } from "../../../../../libs/rest_apis/villife/notice
 import { VillifeNavigation } from "../../../../common/router/types";
 import BottomSlidableModal from "../../../../common/blocks/universial/slidemodal_bottom";
 
-import StardustAlert from "../../../../common/blocks/universial/stardust_alert";
+import StardustModal from "../../../../common/blocks/universial/stardust_modal";
 import ReplyEditModalProps from "./type";
 import useBottomEditModalStyles from "./style";
 import { ComplaintEventEmitter } from "../../services/event";
@@ -71,7 +71,7 @@ export default function ComplaintReplyEditModal(props: ReplyEditModalProps) {
                     {/* font scaling 필요*/}
                 </TouchableOpacity>
 
-                <StardustAlert
+                <StardustModal
                     modalVisible={deleteAlertVisible}
                     setModalVisible={setDeleteAlertVisible}
                     title="정말 삭제 하시겠어요?"

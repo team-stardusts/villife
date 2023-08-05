@@ -1,5 +1,5 @@
 import { useState } from "react";
-import StardustAlert from "../../../../common/blocks/universial/stardust_alert";
+import StardustModal from "../../../../common/blocks/universial/stardust_modal";
 import { Text, View } from "react-native";
 import { Vehicle } from "../../services/states/types";
 
@@ -11,7 +11,7 @@ type VehicleDetailAlertProps = {
 
 export default function VehicleDetailAlert(props: VehicleDetailAlertProps) {
     return (
-        <StardustAlert
+        <StardustModal
             modalVisible={props.visible}
             setModalVisible={props.setVisible}
             title={props.vehicle.ownerType === "guest" ? "방문자 정보" : "거주자 정보"}
@@ -25,6 +25,6 @@ export default function VehicleDetailAlert(props: VehicleDetailAlertProps) {
                 <Text>{props.vehicle.model}</Text>
                 <Text>{props.vehicle.plate_number}</Text>
             </View>
-        </StardustAlert>
+        </StardustModal>
     );
 }

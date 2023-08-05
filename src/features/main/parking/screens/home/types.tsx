@@ -13,4 +13,8 @@ export type VehicleInfoProps = {
     vehicle: Vehicle;
 };
 
+export type ParkingScreenContentType = {
+    minHeight: number;
+};
+
 export default ParkingScreenProps;

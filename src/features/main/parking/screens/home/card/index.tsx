@@ -11,7 +11,7 @@ import { SCREEN_PADDING_HORIZONTAL_STANDARD_VALUE } from "../../../../../common/
 
 export default function VehicleCardView({ vehicles }: VehicleCardViewProps) {
     const innerPadding = DeviceUiInfo.moderateScale(40);
-    const screenPadding = SCREEN_PADDING_HORIZONTAL_STANDARD_VALUE * 2;
+    const screenPadding = DeviceUiInfo.moderateScale(SCREEN_PADDING_HORIZONTAL_STANDARD_VALUE) * 2;
 
     const cardWidth: number = DeviceUiInfo.getScreenSize().width - (screenPadding + innerPadding);
 

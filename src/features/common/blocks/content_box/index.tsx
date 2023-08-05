@@ -4,7 +4,7 @@ import useStyler from "../../hooks/styler/hooks";
 import { useEffect, useRef } from "react";
 import { ANIMATION_DURATION_DEFAULT, ANIMATION_DURATION_SLOW } from "../../constants";
 
-export default function ContentBox({ children, backgroundColor, eanbleShadow }: ContentBoxProps) {
+export default function ContentBox({ children, backgroundColor, enableShadow: eanbleShadow }: ContentBoxProps) {
     const { deviceUI, theme } = useStyler();
     const opacityValue = useRef(new Animated.Value(0)).current;
     const translateYValue = useRef(new Animated.Value(12)).current;
@@ -47,7 +47,7 @@ export default function ContentBox({ children, backgroundColor, eanbleShadow }: 
             justifyContent: "center",
             alignItems: "center",
             borderRadius: deviceUI.moderateScale(15),
-            marginBottom: deviceUI.moderateScale(15),
+            //marginBottom: deviceUI.moderateScale(15),
             backgroundColor: backgroundColor ?? theme.color.specified.blue,
             ...shadow,
         },

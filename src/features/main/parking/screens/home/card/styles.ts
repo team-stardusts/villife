@@ -1,12 +1,21 @@
 import { StyleSheet } from "react-native";
 import useStyler from "../../../../../common/hooks/styler/hooks";
+import useNavigationViewSpace from "../../../../../common/blocks/navigation/service";
 
 export default function useVehicleCardViewStyles(isEditmode?: boolean) {
     const { deviceUI, theme } = useStyler();
 
+    const space = useNavigationViewSpace({
+        isHeaderShown: true,
+        isBottomNavShown: true,
+        applyDefaultHorizontalPadding: true,
+        applyDefaultVerticalPadding: false,
+    });
+
     const main = StyleSheet.create({
         container: {
-            height: deviceUI.getScreenSize().height * (isEditmode ? 0.4 : 0.35),
+            height: space.height * (isEditmode ? 0.4 : 0.35),
+            marginBottom: deviceUI.moderateScale(15),
         },
         contentBox: {
             backgroundColor: theme.color.specified.white,
@@ -142,13 +151,17 @@ export default function useVehicleCardViewStyles(isEditmode?: boolean) {
             fontFamily: theme.font.fontFamily.pretendard.regular,
             fontSize: deviceUI.moderateScale(16),
         },
-        editBtnWrapper: {
+        editBtnsBox: {
             width: "100%",
-            height: "26%",
+            height: "26%", //deviceUI.moderateScale(20),
             flexDirection: "row",
             justifyContent: "space-between",
             marginTop: deviceUI.moderateScale(10),
             paddingHorizontal: deviceUI.moderateScale(10),
+        },
+        editBtnWrapper: {
+            //width: "100%",
+            height: "100%",
         },
         editBtn: {
             height: "100%",

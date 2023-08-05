@@ -1,12 +1,21 @@
 import { StyleSheet } from "react-native";
 import useStyler from "../../../../../common/hooks/styler/hooks";
+import useNavigationViewSpace from "../../../../../common/blocks/navigation/service";
 
 export default function useVehicleListStyles() {
     const { deviceUI, theme } = useStyler();
 
+    const space = useNavigationViewSpace({
+        isHeaderShown: true,
+        isBottomNavShown: true,
+        applyDefaultHorizontalPadding: true,
+        applyDefaultVerticalPadding: false,
+    });
+
     const main = StyleSheet.create({
         container: {
-            minHeight: deviceUI.getScreenSize().height * 0.4,
+            minHeight: space.height * 0.58,
+            marginBottom: deviceUI.moderateScale(15),
         },
         contentBox: {
             backgroundColor: theme.color.specified.white,

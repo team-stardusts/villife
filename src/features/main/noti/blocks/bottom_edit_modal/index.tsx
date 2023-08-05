@@ -5,7 +5,7 @@ import { NoticeEventEmitter } from "../outlined_box_list/event";
 import { useNavigation } from "@react-navigation/native";
 import { VillifeNavigation } from "../../../../common/router/types";
 import BottomSlidableModal from "../../../../common/blocks/universial/slidemodal_bottom";
-import StardustAlert from "../../../../common/blocks/universial/stardust_alert";
+import StardustModal from "../../../../common/blocks/universial/stardust_modal";
 import BottomEditModalProps from "./type";
 import useBottomEditModalStyles from "./style";
 import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
@@ -87,7 +87,7 @@ export default function NotiBottomEditModal(props: BottomEditModalProps) {
                     <Text style={styles.editModalMenuText}>{messages.messages.main.noti.delete}</Text>
                 </TouchableOpacity>
 
-                <StardustAlert
+                <StardustModal
                     modalVisible={deleteAlertVisible}
                     setModalVisible={setDeleteAlertVisible}
                     title={messages.messages.main.noti.delete_title}

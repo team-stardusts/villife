@@ -4,6 +4,7 @@ import { ISpaceSize, SafetyScreenSize, UseNavigationViewSpaceProps } from "./typ
 
 export default function useNavigationViewSpace(props: UseNavigationViewSpaceProps): ISpaceSize {
     const { deviceUI, safetyEdgeSize } = useStyler();
+
     const navViewStyles = useNavigationViewStyles({
         applyDefaultHorizontalPadding: props.applyDefaultHorizontalPadding,
         applyDefaultVerticalPadding: props.applyDefaultVerticalPadding,
@@ -27,8 +28,8 @@ export default function useNavigationViewSpace(props: UseNavigationViewSpaceProp
         get height(): number {
             let _height = this._safetySpace.height;
 
-            if (this._options.isHeaderShown) _height - this._safetySpace.height * this._headerRatio;
-            if (this._options.isBottomNavShown) _height - this._safetySpace.height * this._bottomRatio;
+            if (this._options.isHeaderShown) _height -= this._safetySpace.height * this._headerRatio;
+            if (this._options.isBottomNavShown) _height -= this._safetySpace.height * this._bottomRatio;
 
             // Vertical Padding이기 때문에 2를 곱함
             return _height - navViewStyles.bodyContainer.paddingVertical * 2;

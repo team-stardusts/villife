@@ -1,5 +1,5 @@
 import { View } from "react-native";
-import StardustAlert from "../../../../common/blocks/universial/stardust_alert";
+import StardustModal from "../../../../common/blocks/universial/stardust_modal";
 import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
 import { Vehicle } from "../../services/states/types";
 import { EtdaTime } from "../etad_time_picker/types";
@@ -36,7 +36,7 @@ export default function VehicleModifyModal(props: VehicleModifyModalProps) {
     };
 
     return (
-        <StardustAlert
+        <StardustModal
             modalVisible={props.visible}
             setModalVisible={props.setVisible}
             title={messages.messages.main.parking.home.modify_vehicle_info}
@@ -61,7 +61,7 @@ export default function VehicleModifyModal(props: VehicleModifyModalProps) {
                     />
                 )}
             </View>
-        </StardustAlert>
+        </StardustModal>
     );
 }
 

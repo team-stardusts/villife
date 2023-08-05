@@ -1,15 +1,14 @@
 import useScreenMessage from "../../../../../../common/hooks/multilingual/hooks";
 import { VehicleCardProps } from "../types";
-import { Text, TouchableOpacity, View } from "react-native";
+import { Animated, Text, TouchableOpacity, View } from "react-native";
 import useVehicleCardViewStyles from "../styles";
-import { useNavigation } from "@react-navigation/native";
-import { RouterParams } from "../../../../../../common/router/types";
 import { VehicleModifyType } from "../../../../blocks/modify_modal/types";
+import { useEffect, useRef } from "react";
+import { ANIMATION_DURATION_FAST } from "../../../../../../common/constants";
 
 export default function VehicleCard({ vehicle, cardWidth, isEditmode, onPressEditBtn }: VehicleCardProps) {
     const messages = useScreenMessage();
     const styles = useVehicleCardViewStyles(isEditmode).card;
-    const navigation = useNavigation<RouterParams["navigation"]>();
 
     const etdHour = vehicle.etd.getHours().toString();
     const etdMin = vehicle.etd.getMinutes().toString();
@@ -50,7 +49,7 @@ export default function VehicleCard({ vehicle, cardWidth, isEditmode, onPressEdi
                 ))}
             </View>
             {isEditmode ? (
-                <View style={styles.editBtnWrapper}>
+                <View style={styles.editBtnsBox}>
                     <EditButton styles={styles} type={"etda"} onPress={handlePressEditBtn} />
                     <EditButton styles={styles} type={"info"} onPress={handlePressEditBtn} />
                 </View>
@@ -88,9 +87,27 @@ function EditButton({
     onPress(type: VehicleModifyType): void;
 }) {
     const messages = useScreenMessage().messages.main.parking.home;
+    const opacityValue = useRef(new Animated.Value(0)).current;
+
+    useEffect(() => {
+        Animated.timing(opacityValue, {
+            toValue: 1,
+            duration: ANIMATION_DURATION_FAST,
+            useNativeDriver: true,
+        }).start();
+    }, [opacityValue]);
+
     return (
-        <TouchableOpacity style={styles.editBtn} activeOpacity={0.5} onPress={() => onPress(type)}>
-            <Text style={styles.editBtnTitle}>{type === "etda" ? messages.edit_etda : messages.edit_info}</Text>
-        </TouchableOpacity>
+        <Animated.View
+            style={[
+                styles.editBtnWrapper,
+                {
+                    opacity: opacityValue,
+                },
+            ]}>
+            <TouchableOpacity style={styles.editBtn} activeOpacity={0.5} onPress={() => onPress(type)}>
+                <Text style={styles.editBtnTitle}>{type === "etda" ? messages.edit_etda : messages.edit_info}</Text>
+            </TouchableOpacity>
+        </Animated.View>
     );
 }

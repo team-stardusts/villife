@@ -7,5 +7,6 @@ export type EtdaTime = {
 
 export type EtdaTimePickerProps = {
     initialTime?: EtdaTime;
+    enableShadow?: boolean;
     onTimeChange?(etdaTime: EtdaTime): void;
 };

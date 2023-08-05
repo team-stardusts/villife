@@ -13,7 +13,7 @@ import {
 import { StardustAlertProps } from "./type";
 import useStyler from "../../../hooks/styler/hooks";
 
-export default function StardustAlert(props: StardustAlertProps) {
+export default function StardustModal(props: StardustAlertProps) {
     const screenSize = Dimensions.get("window");
     const styles = useStyles(props.leftButtonColor, props.rightButtonColor);
 

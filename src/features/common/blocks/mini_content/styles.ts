@@ -8,7 +8,7 @@ export default function useHomeScreenContentStyles() {
         container: {
             width: "100%",
             height: deviceUI.moderateScale(240),
-            //marginBottom: deviceUI.moderateScale(5),
+            marginBottom: deviceUI.moderateScale(15),
         },
         contentsContatainer: {
             width: "100%",

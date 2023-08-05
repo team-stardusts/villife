@@ -8,7 +8,7 @@ import Icon from "../../../../common/atoms/icon";
 import { EtdaTime, EtdaTimePickerProps } from "./types";
 import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
 
-export default function EtdaTimePicker({ initialTime, onTimeChange }: EtdaTimePickerProps) {
+export default function EtdaTimePicker({ initialTime, enableShadow, onTimeChange }: EtdaTimePickerProps) {
     const { deviceUI, theme } = useStyler();
     const messages = useScreenMessage();
     const height: number = deviceUI.moderateScale(150);
@@ -82,7 +82,7 @@ export default function EtdaTimePicker({ initialTime, onTimeChange }: EtdaTimePi
 
     return (
         <View style={styles.container}>
-            <ContentBox backgroundColor={theme.color.specified.white} eanbleShadow>
+            <ContentBox backgroundColor={theme.color.specified.white} enableShadow={enableShadow}>
                 <View style={styles.contentsContainer}>
                     <View style={styles.headersContainer}>
                         <View style={styles.headerContainer}>
