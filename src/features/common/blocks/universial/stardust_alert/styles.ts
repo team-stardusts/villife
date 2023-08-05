@@ -35,7 +35,7 @@ export default function useStardustAlertStyles(enterMessage: boolean) {
         },
         header: {
             width: "100%",
-            height: deviceUI.moderateScale(enterMessage ? 40 : 90),
+            height: deviceUI.moderateScale(40),
         },
         body: {
             width: "100%",
@@ -51,7 +51,8 @@ export default function useStardustAlertStyles(enterMessage: boolean) {
         container: {
             flex: 1,
             justifyContent: "center",
-            alignItems: "center",
+            alignItems: enterMessage ? "center" : "flex-start",
+            paddingLeft: enterMessage ? 0 : deviceUI.moderateScale(10),
         },
         title: {
             ...theme.font.researved.h4,

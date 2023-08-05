@@ -8,6 +8,7 @@ export type StardustModalProps = {
     subtitle?: string;
     leftButtonText: string;
     rightButtonText: string;
+    rightBtnDisabled?: boolean;
     leftButtonColor?: ColorValue;
     rightButtonColor?: ColorValue;
     onPressLeftBtn: () => void;

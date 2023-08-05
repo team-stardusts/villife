@@ -282,5 +282,11 @@
         "try_again_soon": "잠시 후 다시 시도해주세요.",
         "succeed_to_send_message": "메세지를 보냈습니다.",
         "fail_to_send_message": "메세지를 보내지 못했습니다."
+    },
+    "status": {
+        "info": "정보",
+        "success": "성공",
+        "warning": "경고",
+        "error": "오류"
     }
 }

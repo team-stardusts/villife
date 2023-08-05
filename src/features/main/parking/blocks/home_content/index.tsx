@@ -1,4 +1,4 @@
-import { Alert, Text, TouchableOpacity, View } from "react-native";
+import { Alert, Text, TouchableHighlight, TouchableOpacity, View } from "react-native";
 import MiniContent from "../../../../common/blocks/mini_content";
 import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
 import useHomeContentFromParkingStyles from "./styles";
@@ -116,16 +116,22 @@ function PressableMenu({ type, styles, vehicle, messages }: PressableMenuProps) 
 
     return (
         <>
-            <TouchableOpacity style={styles.container} activeOpacity={0.7} onPress={handlePress}>
-                <View style={styles.iconBox}>
-                    <Icon name={iconName} size={styles.icon.width} color={styles.icon.color} />
-                </View>
-                <View style={styles.textBox}>
-                    <Text style={styles.text} numberOfLines={2}>
-                        {text}
-                    </Text>
-                </View>
-            </TouchableOpacity>
+            <TouchableHighlight
+                style={styles.container}
+                underlayColor={styles.iconBoxPressed.backgroundColor}
+                activeOpacity={0.7}
+                onPress={handlePress}>
+                <>
+                    <View style={styles.iconBox}>
+                        <Icon name={iconName} size={styles.icon.width} color={styles.icon.color} />
+                    </View>
+                    <View style={styles.textBox}>
+                        <Text style={styles.text} numberOfLines={2}>
+                            {text}
+                        </Text>
+                    </View>
+                </>
+            </TouchableHighlight>
             {vehicle !== null && (
                 <VehicleModifyModal modifyType={"etda"} visible={visible} setVisible={setVisible} vehilce={vehicle} />
             )}

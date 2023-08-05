@@ -54,6 +54,7 @@ export default function StardustModal(props: StardustModalProps) {
                             onPress={() => {
                                 if (props.onPressRightBtn) props.onPressRightBtn();
                             }}
+                            disabled={props.rightBtnDisabled}
                             style={styles.rightButton}>
                             <Text style={styles.rightButtonText}> {props.rightButtonText}</Text>
                         </TouchableOpacity>

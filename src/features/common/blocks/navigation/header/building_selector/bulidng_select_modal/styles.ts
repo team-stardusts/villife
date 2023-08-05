@@ -35,7 +35,7 @@ export default function useBuildingSelectModalStyles() {
             justifyContent: "center",
         },
         icon: {
-            width: deviceUI.moderateScale(25),
+            width: deviceUI.moderateScale(40),
             color: theme.color.specified.black,
         },
         textBox: {

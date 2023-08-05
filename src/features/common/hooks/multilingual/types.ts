@@ -289,4 +289,10 @@ export type MessagesByLanguage = {
         succeed_to_send_message: string;
         fail_to_send_message: string;
     };
+    status: {
+        info: string;
+        success: string;
+        warning: string;
+        error: string;
+    };
 };

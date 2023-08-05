@@ -27,7 +27,7 @@ export default function useBuildingSelectorStyles() {
             justifyContent: "center",
         },
         icon: {
-            width: deviceUI.moderateScale(18),
+            width: deviceUI.moderateScale(40),
             color: theme.color.specified.black,
         },
         buildingName: {

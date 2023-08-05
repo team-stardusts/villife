@@ -12,6 +12,7 @@ export type VillifeRootStackParamList = {
     parking?: {};
     payment?: {};
     mypage?: {};
+    building_management?: {};
 };
 
 export const VILLIFE_ROOT_STACK_PARAMS: Array<keyof VillifeRootStackParamList> = [
@@ -22,6 +23,7 @@ export const VILLIFE_ROOT_STACK_PARAMS: Array<keyof VillifeRootStackParamList> =
     "parking",
     "payment",
     "mypage",
+    "building_management",
 ];
 
 export type VillifeStackParamList = VillifeRootStackParamList & {
@@ -64,6 +66,7 @@ export type VillifeStackParamList = VillifeRootStackParamList & {
     image_detail_view: {
         uri: string;
     };
+    //building: {};
 };
 
 export const SEND_PARK_PUSH_NOTI_MESSAGE_TYPE = {

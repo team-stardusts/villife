@@ -8,14 +8,14 @@ export default function useHomeContentFromParkingStyles(didGetFavoritVehilce: bo
         container: {
             flex: 1,
             alignItems: "center",
-            paddingVertical: didGetFavoritVehilce ? deviceUI.moderateScale(8) : deviceUI.moderateScale(15),
+            //paddingVertical: didGetFavoritVehilce ? deviceUI.moderateScale(8) : deviceUI.moderateScale(15),
         },
         textBox: {
             flex: 2,
             width: "100%",
             flexDirection: "row",
             alignItems: "center",
-            paddingHorizontal: deviceUI.moderateScale(20),
+            //paddingHorizontal: deviceUI.moderateScale(20),
             marginBottom: deviceUI.moderateScale(4),
         },
         printWrapper: {
@@ -35,24 +35,26 @@ export default function useHomeContentFromParkingStyles(didGetFavoritVehilce: bo
         },
         btnBox: {
             flex: 8,
+            width: "100%",
             flexDirection: "row",
-            paddingHorizontal: deviceUI.moderateScale(5),
+            justifyContent: "space-between",
+            //paddingHorizontal: deviceUI.moderateScale(5),
         },
     });
 
     const menu = StyleSheet.create({
         container: {
-            flex: 1,
             height: "100%",
-            marginHorizontal: deviceUI.moderateScale(10),
-            borderRadius: deviceUI.moderateScale(13),
+            width: "30%",
+            //marginHorizontal: deviceUI.moderateScale(10),
+            borderRadius: deviceUI.moderateScale(10),
             backgroundColor: theme.color.specified.white,
             justifyContent: "center",
             alignItems: "center",
             ...Platform.select({
                 ios: {
                     shadowColor: theme.color.specified.darkgrey,
-                    shadowOpacity: 0.2,
+                    shadowOpacity: 0.1,
                     shadowRadius: deviceUI.moderateScale(3),
                     shadowOffset: {
                         height: 0,
@@ -61,7 +63,7 @@ export default function useHomeContentFromParkingStyles(didGetFavoritVehilce: bo
                 },
                 android: {
                     shadowColor: theme.color.specified.darkgrey,
-                    elevation: 3,
+                    elevation: 2,
                 },
             }),
         },
@@ -70,6 +72,9 @@ export default function useHomeContentFromParkingStyles(didGetFavoritVehilce: bo
             marginBottom: deviceUI.moderateScale(10),
             justifyContent: "flex-end",
             alignItems: "center",
+        },
+        iconBoxPressed: {
+            backgroundColor: theme.color.series.grey.level1,
         },
         icon: {
             width: deviceUI.moderateScale(45),

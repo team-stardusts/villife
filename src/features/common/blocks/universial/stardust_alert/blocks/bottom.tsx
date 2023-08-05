@@ -4,8 +4,8 @@ import { useEffect } from "react";
 import { AlertButton, StardustAlertProps } from "../types";
 
 type StardustAlertBottomProps = {
-    setVisiable: StardustAlertProps["setVisible"];
     buttons?: StardustAlertProps["buttons"];
+    setAlert: StardustAlertProps["setAlert"];
     styles: ReturnType<typeof useStardustAlertStyles>["bottom"];
 };
 
@@ -34,7 +34,12 @@ export default function StardustAlertBottom(props: StardustAlertBottomProps) {
                     styles={props.styles}
                     index={-1}
                     text="OK"
-                    onPress={() => props.setVisiable(false)}
+                    onPress={() =>
+                        props.setAlert({
+                            visible: false,
+                            title: "",
+                        })
+                    }
                 />
             )}
         </View>

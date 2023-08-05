@@ -7,11 +7,13 @@ import { useNavigation } from "@react-navigation/native";
 import { RouterParams, VillifeStackParamList } from "../../../router/types";
 import { RootLink } from "../types";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import useUserInformation from "../../../hooks/service/user_info";
 
 export default function NavigationViewBottom() {
     const navigation = useNavigation<RouterParams["navigation"]>();
     const styles = useNavigationViewBottomStyles();
     const rootLinks = useRootLinks();
+    const user = useUserInformation();
     const [currentRootScreen, setCurrentRootScreen] = useState<keyof VillifeStackParamList>("home");
 
     const handleLinkPress = (link: RootLink) => {
@@ -31,39 +33,47 @@ export default function NavigationViewBottom() {
     return (
         <View style={styles.container}>
             <View style={styles.menuBox}>
-                {rootLinks.map((link, index) => (
-                    <TouchableOpacity
-                        key={index}
-                        activeOpacity={1}
-                        style={styles.wrapper}
-                        onPress={() => handleLinkPress(link)}>
-                        <View style={styles.iconBox}>
-                            <Icon
-                                name={link.icon}
-                                size={styles.icon.width}
-                                color={
-                                    currentRootScreen === link.screen.name
-                                        ? styles.selected.color
-                                        : styles.unselected.color
-                                }
-                            />
-                        </View>
-                        <View style={styles.captionBox}>
-                            <Text
-                                style={[
-                                    styles.caption,
-                                    {
-                                        color:
-                                            currentRootScreen === link.screen.name
-                                                ? styles.selected.color
-                                                : styles.unselected.color,
-                                    },
-                                ]}>
-                                {link.caption}
-                            </Text>
-                        </View>
-                    </TouchableOpacity>
-                ))}
+                {rootLinks.map((link, index) => {
+                    if (user?.isAdmin && link.screen.name === "parking") {
+                        return;
+                    } else if (user?.isRenter && link.screen.name === "building_management") {
+                        return;
+                    }
+
+                    return (
+                        <TouchableOpacity
+                            key={index}
+                            activeOpacity={1}
+                            style={styles.wrapper}
+                            onPress={() => handleLinkPress(link)}>
+                            <View style={styles.iconBox}>
+                                <Icon
+                                    name={link.icon}
+                                    size={styles.icon.width}
+                                    color={
+                                        currentRootScreen === link.screen.name
+                                            ? styles.selected.color
+                                            : styles.unselected.color
+                                    }
+                                />
+                            </View>
+                            <View style={styles.captionBox}>
+                                <Text
+                                    style={[
+                                        styles.caption,
+                                        {
+                                            color:
+                                                currentRootScreen === link.screen.name
+                                                    ? styles.selected.color
+                                                    : styles.unselected.color,
+                                        },
+                                    ]}>
+                                    {link.caption}
+                                </Text>
+                            </View>
+                        </TouchableOpacity>
+                    );
+                })}
             </View>
             <View style={styles.dummyView} />
         </View>

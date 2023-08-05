@@ -13,6 +13,14 @@ export default function useRootLinks(): RootLink[] {
             },
         },
         {
+            icon: "building",
+            caption: "건물", //message.messages.main.parking.home.screen_title,
+            screen: {
+                name: "building_management",
+                params: {},
+            },
+        },
+        {
             icon: "car",
             caption: message.messages.main.parking.home.screen_title,
             screen: {

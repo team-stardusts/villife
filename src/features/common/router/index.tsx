@@ -32,6 +32,7 @@ import CommonComplaintHomeScreen from "../../main/common_complaint/screens/home"
 import CommonComplaintModifyScreen from "../../main/common_complaint/screens/modify";
 import CommonComplaintRegisterScreen from "../../main/common_complaint/screens/register";
 import ImageDetailView from "../screens/image_detail_view";
+import BuildingManagementScreen from "../../main/buliding_management/screens/home";
 
 enableScreens(true);
 
@@ -53,6 +54,9 @@ export default function ScreenRouter() {
             </Stack.Group>
             <Stack.Group>
                 <Stack.Screen name={"home"} component={HomeScreen} />
+            </Stack.Group>
+            <Stack.Group>
+                <Stack.Screen name={"building_management"} component={BuildingManagementScreen} />
             </Stack.Group>
             <Stack.Group>
                 <Stack.Screen name={"parking"} component={ParkingScreen} />

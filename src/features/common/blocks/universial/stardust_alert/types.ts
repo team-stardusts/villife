@@ -1,12 +1,15 @@
 import { AlertOptions } from "react-native";
 
-export type StardustAlertProps = {
+export type StardustAlertContent = {
     visible: boolean;
-    setVisible: React.Dispatch<React.SetStateAction<boolean>>;
     title: string;
     type?: AlertType;
     message?: string;
     buttons?: AlertButton[];
+};
+
+export type StardustAlertProps = StardustAlertContent & {
+    setAlert: React.Dispatch<React.SetStateAction<StardustAlertContent>>;
 };
 
 export type AlertType = "info" | "success" | "warning" | "error";

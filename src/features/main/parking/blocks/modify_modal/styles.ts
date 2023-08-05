@@ -19,11 +19,14 @@ export default function useVehicleModifyModalStyles() {
             width: "90%",
             height: "95%",
         },
-        etdaModifyBtn: {
+        successBtn: {
             color: theme.color.status.success,
         },
-        infoModifyBtn: {
+        warningBtn: {
             color: theme.color.status.warning,
+        },
+        disabledBtn: {
+            color: theme.color.status.secondary,
         },
     });
 }
