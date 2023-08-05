@@ -1,0 +1,109 @@
+import { StyleSheet } from "react-native";
+import useStyler from "../../../hooks/styler/hooks";
+
+export default function useStardustAlertStyles(enterMessage: boolean) {
+    const { deviceUI, theme } = useStyler();
+
+    const main = StyleSheet.create({
+        modal: {
+            position: "absolute",
+            top: 0,
+            left: 0,
+            backgroundColor: theme.color.specified.lightgrey,
+            ...deviceUI.getScreenSize(),
+        },
+        bgwrapper: {
+            position: "absolute",
+            top: 0,
+            left: 0,
+            backgroundColor: theme.color.specified.lightgrey,
+            opacity: 0.6,
+            zIndex: -1,
+            ...deviceUI.getScreenSize(),
+        },
+        container: {
+            flex: 1,
+            justifyContent: "center",
+            alignItems: "center",
+        },
+        alert: {
+            width: "80%",
+            //height: "20%",
+            backgroundColor: theme.color.specified.white,
+            borderRadius: deviceUI.moderateScale(15),
+            overflow: "hidden",
+        },
+        header: {
+            width: "100%",
+            height: deviceUI.moderateScale(enterMessage ? 40 : 90),
+        },
+        body: {
+            width: "100%",
+            height: deviceUI.moderateScale(90),
+        },
+        bottom: {
+            width: "100%",
+            height: deviceUI.moderateScale(50),
+        },
+    });
+
+    const header = StyleSheet.create({
+        container: {
+            flex: 1,
+            justifyContent: "center",
+            alignItems: "center",
+        },
+        title: {
+            ...theme.font.researved.h4,
+            color: theme.color.specified.white,
+            fontFamily: theme.font.fontFamily.pretendard.bold,
+        },
+    });
+
+    const body = StyleSheet.create({
+        container: {
+            flex: 1,
+            justifyContent: "center",
+            alignItems: "flex-start",
+            paddingVertical: deviceUI.moderateScale(5),
+            paddingHorizontal: deviceUI.moderateScale(10),
+        },
+        message: {
+            color: theme.color.specified.black,
+            ...theme.font.researved.h4,
+        },
+    });
+
+    const bottom = StyleSheet.create({
+        container: {
+            flex: 1,
+            borderTopWidth: 1,
+            borderColor: theme.color.series.grey.level1,
+            borderBottomLeftRadius: main.alert.borderRadius,
+            borderBottomEndtRadius: main.alert.borderRadius,
+            flexDirection: "row",
+        },
+        button: {
+            flex: 1,
+            justifyContent: "center",
+            alignItems: "center",
+        },
+        buttonOption: {
+            backgroundColor: theme.color.series.grey.level1,
+            borderRightWidth: 1,
+            borderColor: theme.color.series.grey.level1,
+        },
+        text: {
+            fontSize: deviceUI.moderateScale(18),
+            fontFamily: theme.font.fontFamily.pretendard.medium,
+            color: theme.color.specified.black,
+        },
+    });
+
+    return {
+        main,
+        header,
+        body,
+        bottom,
+    };
+}

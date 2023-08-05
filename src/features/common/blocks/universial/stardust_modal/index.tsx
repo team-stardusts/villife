@@ -10,10 +10,10 @@ import {
     Pressable,
     ColorValue,
 } from "react-native";
-import { StardustAlertProps } from "./type";
+import { StardustModalProps } from "./type";
 import useStyler from "../../../hooks/styler/hooks";
 
-export default function StardustModal(props: StardustAlertProps) {
+export default function StardustModal(props: StardustModalProps) {
     const screenSize = Dimensions.get("window");
     const styles = useStyles(props.leftButtonColor, props.rightButtonColor);
 

@@ -10,6 +10,8 @@ import InfoEditView from "./blocks/info";
 import { VehicleInfo } from "../vehicle_info_input_box/types";
 import useParkService from "../../services/park";
 import { useState } from "react";
+import StardustAlert from "../../../../common/blocks/universial/stardust_alert";
+import { StardustAlertProps } from "../../../../common/blocks/universial/stardust_alert/types";
 
 export default function VehicleModifyModal(props: VehicleModifyModalProps) {
     const messages = useScreenMessage();
@@ -18,21 +20,23 @@ export default function VehicleModifyModal(props: VehicleModifyModalProps) {
     const { updateUserVehicleEtda, updateUserVehicleInfo } = useParkService();
     const [etda, setEtda] = useState<EtdaTime | null>(null);
     const [info, setInfo] = useState<VehicleInfo | null>(null);
+    const [alertVisiable, setAlertVisible] = useState<boolean>(false);
 
-    const handlePressModifyBtn = () => {
+    const handlePressModifyBtn = async () => {
         if (props.modifyType === "etda" && etda !== null) {
-            updateUserVehicleEtda({
+            const isSuccessful = await updateUserVehicleEtda({
                 vehicleID: props.vehilce.id,
                 etda: etda,
             });
+
+            setAlertVisible(true);
         } else if (info !== null) {
             updateUserVehicleInfo({
                 vehicleID: props.vehilce.id,
                 ...info,
             });
         }
-
-        props.setVisible(false);
+        //props.setVisible(false);
     };
 
     return (
@@ -61,6 +65,13 @@ export default function VehicleModifyModal(props: VehicleModifyModalProps) {
                     />
                 )}
             </View>
+            <StardustAlert
+                visible={alertVisiable}
+                setVisible={setAlertVisible}
+                title={"abc"}
+                message="test"
+                buttons={[{ text: "확인", onPress: () => props.setVisible(false) }]}
+            />
         </StardustModal>
     );
 }

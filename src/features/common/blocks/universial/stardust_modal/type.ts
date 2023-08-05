@@ -1,7 +1,7 @@
 import React from "react";
 import { ColorValue } from "react-native";
 
-export type StardustAlertProps = {
+export type StardustModalProps = {
     modalVisible: boolean;
     setModalVisible: React.Dispatch<React.SetStateAction<boolean>>;
     title: string;
