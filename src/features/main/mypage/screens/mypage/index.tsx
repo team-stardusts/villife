@@ -59,7 +59,7 @@ export default function MyPageScreen({ navigation, route }: MyPageScreenProps) {
                     onPress={async () => {
                         const buildingManager = VillifeServer.getBuildingManager();
                         const param: UserResidenceValidationParams = { building_id: 7, room_number: 501 };
-                        const result = await buildingManager.RequestValidationOfUserRegidence(param);
+                        const result = await buildingManager.requestValidationOfUserRegidence(param);
                         if (result.isSuccessful) {
                             console.log("approval data :", result.data);
                         }
@@ -77,7 +77,7 @@ export default function MyPageScreen({ navigation, route }: MyPageScreenProps) {
                             plate_number: "22나 2222",
                             vehicle_type: "4WD",
                         };
-                        const result = await buildingManager.ValidateVehicleResidenceForTest(param);
+                        const result = await buildingManager.validateVehicleResidenceForTest(param);
                         if (result.isSuccessful) {
                             console.log("vehicle data :", result.data);
                         }

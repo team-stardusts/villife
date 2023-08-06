@@ -15,7 +15,7 @@ export default function ContentBox({ children, backgroundColor, enableShadow: ea
                   shadowOpacity: 0.2,
                   shadowRadius: deviceUI.moderateScale(3),
                   shadowOffset: {
-                      height: 1,
+                      height: 0,
                       width: 0,
                   },
               },

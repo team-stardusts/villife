@@ -30,6 +30,7 @@ export type IconSeries =
     | "letter"
     | "clock-arrow"
     | "menu"
+    | "matrix"
     | "round-person"
     | "question-mark"
     | "three-dots-vertical";

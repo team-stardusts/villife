@@ -14,7 +14,7 @@ export default function useRootLinks(): RootLink[] {
         },
         {
             icon: "building",
-            caption: "건물", //message.messages.main.parking.home.screen_title,
+            caption: message.messages.main.building_management.home.screen_title,
             screen: {
                 name: "building_management",
                 params: {},

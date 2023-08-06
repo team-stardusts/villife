@@ -20,6 +20,7 @@ import IconParkingLot from "./parking";
 
 import IconQuestionMark from "./question_mark";
 import IconThreeDotsVertical from "./three_dots_vertical";
+import IconMatrix from "./matrix";
 
 export default function Icon(props: IconProps) {
     /* let iconProps: ChildIconProps = {
@@ -75,6 +76,8 @@ export default function Icon(props: IconProps) {
             return <IconClockArrow {...iconProps} />;
         case "menu":
             return <IconMenu {...iconProps} />;
+        case "matrix":
+            return <IconMatrix {...iconProps} />;
         case "round-person":
             return <IconRoundPerson {...iconProps} />;
         case "question-mark":

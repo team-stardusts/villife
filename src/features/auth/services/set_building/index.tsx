@@ -17,7 +17,7 @@ class ValidateResidenceService implements IValidateResidenceService {
     private approvalRestClient: IVillifeApprovalManager = VillifeServer.getApprovalManager();
 
     async ValidateUserResidenceForTest(params: UserResidenceValidationParams) {
-        const result = await this.buildingRestClient.ValidateUserResidenceForTest(params);
+        const result = await this.buildingRestClient.validateUserResidenceForTest(params);
 
         if (!result.isSuccessful) {
             console.log("API Error Log:", result.data?.status);
@@ -38,7 +38,7 @@ class ValidateResidenceService implements IValidateResidenceService {
         return result.data.data;
     }
     async RequestValidationOfUserRegidence(params: UserResidenceValidationParams) {
-        const result = await this.buildingRestClient.RequestValidationOfUserRegidence(params);
+        const result = await this.buildingRestClient.requestValidationOfUserRegidence(params);
 
         if (!result.isSuccessful) {
             console.log("API Error Log:", result.data?.status);

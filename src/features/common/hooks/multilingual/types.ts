@@ -12,6 +12,11 @@ export type MessagesByLanguage = {
             building_info: string;
             user_info: string;
         };
+        building_management: {
+            home: {
+                screen_title: string;
+            };
+        };
         parking: {
             home: {
                 screen_title: string;
@@ -276,6 +281,11 @@ export type MessagesByLanguage = {
         guest_phone_number: string;
         hour: string;
         minute: string;
+        floor: string;
+        contract: string;
+        status: string;
+        expiration: string;
+        close_to_expiration: string;
     };
     navigation: {
         say_wait: string;

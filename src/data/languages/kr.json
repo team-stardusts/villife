@@ -5,6 +5,11 @@
             "building_info": "건물 정보",
             "user_info": "개인 정보"
         },
+        "building_management": {
+            "home": {
+                "screen_title": "건물"
+            }
+        },
         "parking": {
             "home": {
                 "screen_title": "주차",
@@ -269,7 +274,12 @@
         "visiting_perpose": "방문 목적",
         "guest_phone_number": "방문 차량 연락처",
         "hour": "시",
-        "minute": "분"
+        "minute": "분",
+        "floor": "층",
+        "contract": "계약",
+        "status": "상태",
+        "expiration": "만료",
+        "close_to_expiration": "만료 임박"
     },
     "navigation": {
         "say_wait": "잠시만요!",
