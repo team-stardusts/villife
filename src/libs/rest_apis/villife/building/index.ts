@@ -1,6 +1,6 @@
 import { Response, ResponseForTest } from "../../types";
 import AVillifeServerModule from "../absc";
-import { generateTestTenantData } from "./dummy";
+import generateDummyTenantData from "./dummy";
 import IVillifeBuildingManager, { Building } from "./types";
 
 class VillifeBuildingManager extends AVillifeServerModule implements IVillifeBuildingManager {
@@ -35,7 +35,7 @@ class VillifeBuildingManager extends AVillifeServerModule implements IVillifeBui
     public async getTenantsTest(params: Building.GetTentants.Params): ResponseForTest<Building.GetTentants.Returns> {
         let route = "test";
 
-        return await this.requestForTest<Building.GetTentants.Returns>(generateTestTenantData());
+        return await this.requestForTest<Building.GetTentants.Returns>(generateDummyTenantData());
     }
 }
 

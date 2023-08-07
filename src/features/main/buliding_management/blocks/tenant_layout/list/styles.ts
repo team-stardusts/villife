@@ -14,8 +14,8 @@ export default function useBuildingTenantListViewStyles() {
     const tenant = StyleSheet.create({
         container: {
             width: "100%",
-            height: deviceUI.moderateScale(60),
-            marginBottom: deviceUI.moderateScale(15),
+            height: deviceUI.moderateScale(55),
+            marginBottom: deviceUI.moderateScale(20),
             alignItems: "center",
         },
         wrapper: {
@@ -40,14 +40,26 @@ export default function useBuildingTenantListViewStyles() {
                 },
             }),
         },
-        badgeSection: {
-            flex: 0.2,
+        infoSection: {
+            flex: 0.5,
+            flexDirection: "row",
+            justifyContent: "flex-start",
+            alignItems: "center",
+            paddingLeft: deviceUI.moderateScale(10),
         },
-        roomNumberSection: {
-            flex: 0.2,
+        badge: {
+            width: deviceUI.moderateScale(50),
+            height: deviceUI.moderateScale(25),
+            borderRadius: deviceUI.moderateScale(20),
+            backgroundColor: theme.color.specified.blue,
+            justifyContent: "center",
+            alignItems: "center",
         },
-        contractSection: {
-            flex: 0.2,
+        expirationNotiSection: {
+            flex: 0.4,
+        },
+        functionSection: {
+            flex: 0.1,
         },
     });
 

@@ -9,15 +9,34 @@ class BuildingManagementService implements IBuildingManagementService {
     public async getTentants(buildingID: number): Promise<BuildingTenant[]> {
         const tenants = await this.getTentantsFromServer(buildingID);
         return tenants.map((tenant) => {
-            return {
-                floor: Math.floor(tenant.room_number / 100),
-                roomNumber: tenant.room_number,
-                roomType: tenant.room_type,
-                contractType: tenant.contract_type,
-                contractStartedAt: StardustDateParser.deserialize(tenant.contract_started_at),
-                contractEndedAt: StardustDateParser.deserialize(tenant.contract_ended_at),
-            };
+            return this.convertTenantDataForUse(tenant);
         });
+    }
+
+    private convertTenantDataForUse(tenant: Building.Tenant): BuildingTenant {
+        const contract = tenant.contract
+            ? {
+                  rent_type: tenant.contract.rent_type,
+                  deposit: tenant.contract.deposit,
+                  monthlyRent: tenant.contract.monthly_rent,
+                  managementFee: tenant.contract.management_fee,
+                  startDate: StardustDateParser.deserialize(tenant.contract.start_date),
+                  expirationDate: StardustDateParser.deserialize(tenant.contract.expiration_date),
+                  createdAt: StardustDateParser.deserialize(tenant.contract.created_at),
+                  updatedAt: StardustDateParser.deserialize(tenant.contract.updated_at),
+              }
+            : undefined;
+
+        return {
+            floor: tenant.floor,
+            roomNumber: tenant.room_number,
+            roomState: tenant.room_state,
+            contractStatus: tenant.contract_status,
+            residentID: tenant.resident_id,
+            residentName: tenant.resident_name,
+            residentPhoneNumber: tenant.resident_phone_number,
+            contract,
+        };
     }
 
     private async getTentantsFromServer(buildingID: number): Promise<Building.Tenant[]> {

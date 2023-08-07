@@ -7,11 +7,24 @@ interface BuildingTenantsGetable {
 
 export type BuildingTenant = {
     floor: number;
-    roomType: Building.Tenant["room_type"];
-    contractType: Building.Tenant["contract_type"];
     roomNumber: number;
-    contractStartedAt: Date;
-    contractEndedAt: Date;
+    roomState: Building.Tenant["room_state"];
+    contractStatus: Building.Tenant["contract_status"];
+    contract?: TenantContract;
+    residentID?: string;
+    residentName?: string;
+    residentPhoneNumber?: string;
+};
+
+export type TenantContract = {
+    rent_type: Building.Contract["rent_type"];
+    deposit: number;
+    monthlyRent: number;
+    managementFee: number;
+    startDate: Date;
+    expirationDate: Date;
+    createdAt: Date;
+    updatedAt: Date;
 };
 
 export interface IBuildingManagementService extends BuildingTenantsGetable {}
