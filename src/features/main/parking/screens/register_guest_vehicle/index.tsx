@@ -107,6 +107,12 @@ export default function RegisterGuestVehicleScreen({ navigation, route }: Regist
                     title: messages.messages.words.register,
                     onPress: handlePressRegisterBtn,
                 },
+                backgroundColor: styles.navView.backgroundColor,
+            }}
+            bodyOptions={{
+                applyDefaultHorizontalPadding: true,
+                applyDefaultVerticalPadding: true,
+                backgroundColor: styles.navView.backgroundColor,
             }}>
             <KeyboardAwareScrollView
                 style={styles.container}
@@ -123,6 +129,7 @@ export default function RegisterGuestVehicleScreen({ navigation, route }: Regist
                             onTimeChange={(time) => {
                                 setGuestVehicle({ ...guestVehicle, ...time });
                             }}
+                            enableShadow
                         />
                     </View>
                     <View style={styles.vehicleInfoInputsContainer}>

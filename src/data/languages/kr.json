@@ -8,6 +8,9 @@
         "building_management": {
             "home": {
                 "screen_title": "건물"
+            },
+            "send_message_to_building_tenant": {
+                "screen_title": "알림 보내기"
             }
         },
         "parking": {
@@ -279,7 +282,16 @@
         "contract": "계약",
         "status": "상태",
         "expiration": "만료",
-        "close_to_expiration": "만료 임박"
+        "close_to_expiration": "만료 임박",
+        "select_all": "전체선택",
+        "app_signed_state": "가입",
+        "app_unsigned_state": "미가입",
+        "empty_room": "공실",
+        "lump_sum_deposit": "전세",
+        "partial_lump_sum_deposit": "반전세",
+        "monthly_rent": "월세",
+        "not_registed": "미등록",
+        "next": "다음"
     },
     "navigation": {
         "say_wait": "잠시만요!",

@@ -11,6 +11,7 @@ export type IconSeries =
     | "arrow-right-with-midline"
     | "building"
     | "car"
+    | "check"
     | "clock-arrow"
     | "home"
     | "menu"

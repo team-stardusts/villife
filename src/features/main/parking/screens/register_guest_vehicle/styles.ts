@@ -8,6 +8,9 @@ export default function useRegisterVehicleScreenStyles() {
         container: {
             flex: 1,
         },
+        navView: {
+            backgroundColor: theme.color.specified.white,
+        },
         etdaPickerContainer: {
             height: deviceUI.moderateScale(170),
         },

@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import useStyler from "../../../../common/hooks/styler/hooks";
+import useStyler from "../../../../../../common/hooks/styler/hooks";
 
 export default function useBuildingTentantMessageStyles() {
     const { deviceUI, theme } = useStyler();
@@ -17,9 +17,10 @@ export default function useBuildingTentantMessageStyles() {
             justifyContent: "center",
             marginRight: deviceUI.moderateScale(20),
         },
-        icon: {
-            width: deviceUI.moderateScale(45),
-            color: theme.color.specified.black,
+        text: {
+            fontFamily: theme.font.fontFamily.pretendard.bold,
+            fontSize: deviceUI.moderateScale(15),
+            color: theme.color.specified.blue,
         },
     });
 }

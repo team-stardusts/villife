@@ -3,6 +3,7 @@ import { ColorValue } from "react-native";
 
 export type NavigationViewHeaderProps = {
     title: string;
+    hideBuidingSelector?: boolean;
     navComponent?: FunctionComponent<any>;
     navComponentProps?: {
         [key: string]: any;

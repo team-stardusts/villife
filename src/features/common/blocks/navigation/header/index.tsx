@@ -37,9 +37,7 @@ export default function NavigationViewHeader(props: NavigationViewHeaderProps) {
                     </Text>
                 </View>
             </View>
-            <View style={styles.centerReactFuncBox}>
-                <BuildingSelector />
-            </View>
+            <View style={styles.centerReactFuncBox}>{!props.hideBuidingSelector && <BuildingSelector />}</View>
             <View style={styles.rightReactFuncBox}>
                 {props.navComponent !== undefined && <props.navComponent {...props.navComponentProps} />}
             </View>

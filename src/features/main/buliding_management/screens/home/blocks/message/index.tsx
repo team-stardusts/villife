@@ -1,13 +1,15 @@
 import { TouchableOpacity, View } from "react-native";
-import Icon from "../../../../common/atoms/icon";
+import Icon from "../../../../../../common/atoms/icon";
 import useBuildingTentantMessageStyles from "./styles";
+import { BuildingTentantMessageProps } from "./types";
+import { useState } from "react";
 
-export default function BuildingTentantMessage() {
+export default function BuildingTentantMessage({ onPress }: BuildingTentantMessageProps) {
     const styles = useBuildingTentantMessageStyles();
 
     return (
         <View style={styles.container}>
-            <TouchableOpacity style={styles.button} activeOpacity={0.6}>
+            <TouchableOpacity style={styles.button} activeOpacity={0.6} onPress={() => onPress()}>
                 <Icon name="letter" size={styles.icon.width} color={styles.icon.color} />
             </TouchableOpacity>
         </View>

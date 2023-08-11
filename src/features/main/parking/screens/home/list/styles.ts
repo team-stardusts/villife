@@ -1,9 +1,11 @@
 import { StyleSheet } from "react-native";
 import useStyler from "../../../../../common/hooks/styler/hooks";
 import useNavigationViewSpace from "../../../../../common/blocks/navigation/service";
+import useUserInformation from "../../../../../common/hooks/service/user_info";
 
 export default function useVehicleListStyles() {
     const { deviceUI, theme } = useStyler();
+    const user = useUserInformation();
 
     const space = useNavigationViewSpace({
         isHeaderShown: true,
@@ -14,7 +16,7 @@ export default function useVehicleListStyles() {
 
     const main = StyleSheet.create({
         container: {
-            minHeight: space.height * 0.58,
+            minHeight: space.height * (user?.isAdmin ? 0.98 : 0.58),
             marginBottom: deviceUI.moderateScale(15),
         },
         contentBox: {

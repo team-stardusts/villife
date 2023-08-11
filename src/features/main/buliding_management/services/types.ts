@@ -17,7 +17,7 @@ export type BuildingTenant = {
 };
 
 export type TenantContract = {
-    rent_type: Building.Contract["rent_type"];
+    rentType: Building.Contract["rent_type"];
     deposit: number;
     monthlyRent: number;
     managementFee: number;

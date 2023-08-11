@@ -33,6 +33,7 @@ import CommonComplaintModifyScreen from "../../main/common_complaint/screens/mod
 import CommonComplaintRegisterScreen from "../../main/common_complaint/screens/register";
 import ImageDetailView from "../screens/image_detail_view";
 import BuildingManagementScreen from "../../main/buliding_management/screens/home";
+import BuildingSendMessageScreen from "../../main/buliding_management/screens/send_message";
 
 enableScreens(true);
 
@@ -57,6 +58,11 @@ export default function ScreenRouter() {
             </Stack.Group>
             <Stack.Group>
                 <Stack.Screen name={"building_management"} component={BuildingManagementScreen} />
+                <Stack.Screen
+                    options={{ presentation: "modal" }}
+                    name={"send_message_to_building_tenants"}
+                    component={BuildingSendMessageScreen}
+                />
             </Stack.Group>
             <Stack.Group>
                 <Stack.Screen name={"parking"} component={ParkingScreen} />

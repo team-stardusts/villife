@@ -16,7 +16,7 @@ class BuildingManagementService implements IBuildingManagementService {
     private convertTenantDataForUse(tenant: Building.Tenant): BuildingTenant {
         const contract = tenant.contract
             ? {
-                  rent_type: tenant.contract.rent_type,
+                  rentType: tenant.contract.rent_type,
                   deposit: tenant.contract.deposit,
                   monthlyRent: tenant.contract.monthly_rent,
                   managementFee: tenant.contract.management_fee,

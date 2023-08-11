@@ -16,7 +16,7 @@ import VehicleListView from "./list";
 export default function ParkingScreen({ navigation, route }: ParkingScreenProps) {
     const messages = useScreenMessage();
     const user = useUserInformation();
-    const styles = useParkingHomeScreenStyles().screen;
+    const styles = useParkingHomeScreenStyles();
     const { updateVehicles } = useParkService();
     const vehicles = useRecoilValue<Vehicle[]>(vehiclesState);
     const [vehiclesForRender, setVehiclesForRender] = useState<Vehicle[]>([]);

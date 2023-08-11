@@ -2,6 +2,8 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { Authority } from "../../../libs/rest_apis/villife/types";
 import { HostType } from "../../../libs/rest_apis/villife/auth/types";
 import { Complaint } from "../../../libs/rest_apis/villife/complaint/types";
+import { BuildingTenant } from "../../main/buliding_management/services/types";
+import { LayoutType } from "../../main/buliding_management/blocks/filter/blocks/layout_selector";
 
 export type VillifeRootStackParamList = {
     login?: {};
@@ -65,6 +67,10 @@ export type VillifeStackParamList = VillifeRootStackParamList & {
     common_complaint_register: {};
     image_detail_view: {
         uri: string;
+    };
+    send_message_to_building_tenants: {
+        layout: LayoutType;
+        tenants: string; //BuildingTenant[];
     };
     //building: {};
 };

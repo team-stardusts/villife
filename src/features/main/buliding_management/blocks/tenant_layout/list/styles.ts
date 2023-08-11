@@ -48,18 +48,92 @@ export default function useBuildingTenantListViewStyles() {
             paddingLeft: deviceUI.moderateScale(10),
         },
         badge: {
-            width: deviceUI.moderateScale(50),
+            width: deviceUI.moderateScale(55),
             height: deviceUI.moderateScale(25),
             borderRadius: deviceUI.moderateScale(20),
-            backgroundColor: theme.color.specified.blue,
             justifyContent: "center",
             alignItems: "center",
         },
+        emptyBadge: {
+            backgroundColor: theme.color.status.secondary,
+            color: theme.color.specified.black,
+            fontFamily: theme.font.fontFamily.pretendard.bold,
+            fontSize: deviceUI.moderateScale(13),
+        },
+        signedBadge: {
+            backgroundColor: theme.color.status.primary,
+            color: theme.color.specified.white,
+            fontFamily: theme.font.fontFamily.pretendard.bold,
+            fontSize: deviceUI.moderateScale(13),
+        },
+        unsignedBadge: {
+            backgroundColor: theme.color.status.danger,
+            color: theme.color.specified.white,
+            fontFamily: theme.font.fontFamily.pretendard.bold,
+            fontSize: deviceUI.moderateScale(13),
+        },
+        elementWrapper: {
+            marginLeft: deviceUI.moderateScale(10),
+            justifyContent: "center",
+            alignItems: "center",
+        },
+        roomNumber: {
+            color: theme.color.specified.black,
+            fontFamily: theme.font.fontFamily.pretendard.bold,
+            fontSize: deviceUI.moderateScale(15),
+        },
+        contractType: {
+            color: theme.color.specified.black,
+            fontFamily: theme.font.fontFamily.pretendard.medium,
+            fontSize: deviceUI.moderateScale(15),
+        },
         expirationNotiSection: {
-            flex: 0.4,
+            flex: 0.3,
+            justifyContent: "center",
+            alignItems: "flex-end",
+        },
+        expirationNoti: {
+            fontFamily: theme.font.fontFamily.pretendard.bold,
+            fontSize: deviceUI.moderateScale(14),
+        },
+        expiration: {
+            color: theme.color.status.danger,
+        },
+        imminentExpiration: {
+            color: theme.color.status.warning,
         },
         functionSection: {
-            flex: 0.1,
+            flex: 0.2,
+            justifyContent: "center",
+            alignItems: "center",
+        },
+        checkRadio: {
+            width: deviceUI.moderateScale(20),
+            height: deviceUI.moderateScale(20),
+            borderRadius: deviceUI.moderateScale(20),
+            borderWidth: deviceUI.moderateScale(2),
+            borderColor: theme.color.specified.black,
+            justifyContent: "center",
+            alignItems: "center",
+        },
+        disabledCheckRadio: {
+            borderColor: theme.color.specified.lightgrey,
+        },
+        checkRadioIcon: {
+            width: deviceUI.moderateScale(20),
+            color: theme.color.specified.white,
+        },
+        checkedCheckRadio: {
+            borderWidth: 0,
+            backgroundColor: theme.color.status.primary,
+        },
+        detailBtnWrapper: {
+            justifyContent: "center",
+            alignItems: "center",
+        },
+        detailIcon: {
+            width: deviceUI.moderateScale(50),
+            color: theme.color.specified.black,
         },
     });
 

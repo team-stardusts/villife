@@ -21,6 +21,7 @@ import IconParkingLot from "./parking";
 import IconQuestionMark from "./question_mark";
 import IconThreeDotsVertical from "./three_dots_vertical";
 import IconMatrix from "./matrix";
+import IconCheck from "./check";
 
 export default function Icon(props: IconProps) {
     /* let iconProps: ChildIconProps = {
@@ -48,6 +49,8 @@ export default function Icon(props: IconProps) {
             return <IconBuilding {...iconProps} />;
         case "car":
             return <IconCar {...iconProps} />;
+        case "check":
+            return <IconCheck {...iconProps} />;
         case "messenger":
             return <IconMessenger {...iconProps} />;
         case "speaker":

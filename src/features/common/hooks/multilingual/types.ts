@@ -16,6 +16,9 @@ export type MessagesByLanguage = {
             home: {
                 screen_title: string;
             };
+            send_message_to_building_tenant: {
+                screen_title: string;
+            };
         };
         parking: {
             home: {
@@ -286,6 +289,15 @@ export type MessagesByLanguage = {
         status: string;
         expiration: string;
         close_to_expiration: string;
+        select_all: string;
+        app_signed_state: string;
+        app_unsigned_state: string;
+        empty_room: string;
+        lump_sum_deposit: string;
+        partial_lump_sum_deposit: string;
+        monthly_rent: string;
+        not_registed: string;
+        next: string;
     };
     navigation: {
         say_wait: string;
