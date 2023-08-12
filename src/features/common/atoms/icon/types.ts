@@ -1,5 +1,7 @@
+import { ColorValue } from "react-native";
+
 export type CommonIconProps = {
-    color?: string;
+    color?: ColorValue;
     size: number;
 };
 

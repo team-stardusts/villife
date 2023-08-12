@@ -291,7 +291,8 @@
         "partial_lump_sum_deposit": "반전세",
         "monthly_rent": "월세",
         "not_registed": "미등록",
-        "next": "다음"
+        "next": "다음",
+        "room_postfix": "호"
     },
     "navigation": {
         "say_wait": "잠시만요!",

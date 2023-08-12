@@ -5,6 +5,7 @@ import BuildingTenantListView from "./list";
 import { useEffect, useState } from "react";
 import Icon from "../../../../common/atoms/icon";
 import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
+import BuildingTenantMatrixView from "./matrix";
 
 export default function TentantLayout(props: TentantLayoutProps) {
     const styles = useTentantLayoutStyles();
@@ -59,7 +60,7 @@ export default function TentantLayout(props: TentantLayoutProps) {
             {props.layout === "list" ? (
                 <BuildingTenantListView {...props} onCheckTarget={setTargets} selectAllStatus={selectAllStatus} />
             ) : (
-                <></>
+                <BuildingTenantMatrixView {...props} onCheckTarget={setTargets} selectAllStatus={selectAllStatus} />
             )}
         </View>
     );

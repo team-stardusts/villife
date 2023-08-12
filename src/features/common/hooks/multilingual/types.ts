@@ -298,6 +298,7 @@ export type MessagesByLanguage = {
         monthly_rent: string;
         not_registed: string;
         next: string;
+        room_postfix: string;
     };
     navigation: {
         say_wait: string;

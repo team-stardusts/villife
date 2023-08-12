@@ -1,12 +1,10 @@
-import { ColorValue, ScrollView, Text, TouchableOpacity, View } from "react-native";
+import { ScrollView, Text, TouchableOpacity, View } from "react-native";
 import useBuildingTenantListViewStyles from "./styles";
-import { BuildingTenant } from "../../../services/types";
-import { BuildingTenantListViewProps } from "./types";
+import { BuildingTenantListViewProps, BuildingTenantProps, TenantRoomStateBadgeType } from "./types";
 import { useEffect, useState } from "react";
 import Icon from "../../../../../common/atoms/icon";
 import useScreenMessage from "../../../../../common/hooks/multilingual/hooks";
 import VillifeToastMessage from "../../../../../common/atoms/toast";
-import { SelectAllStatus } from "../types";
 
 export default function BuildingTenantListView(props: BuildingTenantListViewProps) {
     const styles = useBuildingTenantListViewStyles();
@@ -49,7 +47,7 @@ export default function BuildingTenantListView(props: BuildingTenantListViewProp
     };
 
     return (
-        <ScrollView style={styles.main.container}>
+        <ScrollView style={styles.main.container} showsVerticalScrollIndicator={false}>
             {props.tenants.map((tenant, index) => (
                 <BuildingTenantView
                     key={index}
@@ -154,7 +152,10 @@ function BuildingTenantView(props: BuildingTenantProps) {
                         <Text style={{ ...badge.style }}>{badge.status}</Text>
                     </View>
                     <View style={props.styles.elementWrapper}>
-                        <Text style={props.styles.roomNumber}>{props.tenant.roomNumber}호</Text>
+                        <Text style={props.styles.roomNumber}>
+                            {props.tenant.roomNumber}
+                            {props.messages.words.room_postfix}
+                        </Text>
                     </View>
                     <View style={props.styles.elementWrapper}>
                         <Text style={props.styles.contractType}>{switchContractType()}</Text>
@@ -217,21 +218,3 @@ function BuildingTenantView(props: BuildingTenantProps) {
         </View>
     );
 }
-
-type BuildingTenantProps = {
-    index: number;
-    styles: ReturnType<typeof useBuildingTenantListViewStyles>["tenant"];
-    tenant: BuildingTenant;
-    targetCheckMode: boolean;
-    onCheck(isCheck: boolean, tenantIndex: number): void;
-    messages: ReturnType<typeof useScreenMessage>["messages"];
-    selectAllStatus: SelectAllStatus;
-};
-
-type TenantRoomStateBadgeType = {
-    status: string;
-    style: {
-        backgroundColor: ColorValue;
-        color: ColorValue;
-    };
-};

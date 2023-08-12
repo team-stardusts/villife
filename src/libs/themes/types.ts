@@ -9,15 +9,15 @@ export type ColorFamily = {
 };
 
 export type SpecifiedColor = {
-    blue: string;
-    lightblue: string;
-    lightgrey: string;
-    grey: string;
-    darkgrey: string;
-    green: string;
-    red: string;
-    white: string;
-    black: string;
+    blue: ColorValue;
+    lightblue: ColorValue;
+    lightgrey: ColorValue;
+    grey: ColorValue;
+    darkgrey: ColorValue;
+    green: ColorValue;
+    red: ColorValue;
+    white: ColorValue;
+    black: ColorValue;
 };
 
 export type StatusColor = {
