@@ -9,9 +9,10 @@ export default function useBuildngManagementFilterViewModel(): BuildingTenant[] 
     const service = new BuildingManagementService();
 
     useEffect(() => {
-        if (!user?.adminInfomation?.selectedBuilding) return;
+        /* if (!user?.adminInfomation?.selectedBuilding) return;
 
-        service.getTentants(user.adminInfomation.selectedBuilding.id).then(setTenants);
+        service.getTentants(user.adminInfomation.selectedBuilding.id).then(setTenants); */
+        service.getTentants(0).then(setTenants);
     }, [user?.adminInfomation?.selectedBuilding]);
 
     return tenants ?? [];

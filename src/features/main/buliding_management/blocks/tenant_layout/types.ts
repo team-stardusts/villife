@@ -9,7 +9,7 @@ export type TentantLayoutProps = TentantLayoutDefaultProps & {
 };
 
 export type TenantLayoutViewProps = TentantLayoutDefaultProps & {
-    isSelectAll: boolean;
+    selectAllStatus: SelectAllStatus;
     onCheckTarget(tenantsIndex: number[]): void;
 };
 
@@ -18,3 +18,11 @@ export type TentantLayoutDefaultProps = {
     layout: LayoutType;
     checkmode: boolean;
 };
+
+export type SelectAllStatus = "select_all" | "unselect_all" | "unselect_element";
+
+/*
+1. 전체 선택
+    - Press btn
+    - 상태
+*/

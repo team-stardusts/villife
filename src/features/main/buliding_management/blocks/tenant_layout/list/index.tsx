@@ -6,39 +6,47 @@ import { useEffect, useState } from "react";
 import Icon from "../../../../../common/atoms/icon";
 import useScreenMessage from "../../../../../common/hooks/multilingual/hooks";
 import VillifeToastMessage from "../../../../../common/atoms/toast";
+import { SelectAllStatus } from "../types";
 
 export default function BuildingTenantListView(props: BuildingTenantListViewProps) {
     const styles = useBuildingTenantListViewStyles();
     const messages = useScreenMessage().messages;
     const [messagingTargets, setMessagingTargets] = useState<number[]>([]);
 
-    const handleOnCheck = (isCheck: boolean, index: number) => {
-        if (isCheck) {
-            setMessagingTargets([...messagingTargets, index]);
-
-            return;
-        }
-
-        const findedIndex = messagingTargets.findIndex((value) => value === index);
-
-        if (findedIndex === -1) {
-            return;
-        }
-
-        setMessagingTargets(messagingTargets.filter((value) => value !== messagingTargets[findedIndex]));
-    };
-
     useEffect(() => {
         props.onCheckTarget(messagingTargets);
     }, [messagingTargets]);
 
     useEffect(() => {
-        if (props.isSelectAll) {
+        if (props.selectAllStatus === "select_all") {
             setMessagingTargets(props.tenants.map((_, index) => index));
-        } else {
+        } else if (props.selectAllStatus === "unselect_all") {
             setMessagingTargets([]);
         }
-    }, [props.isSelectAll]);
+    }, [props.selectAllStatus]);
+
+    const handleOnCheck = (isCheck: boolean, index: number) => {
+        // Check 시 대상 어레이에 없는 경우 추가
+        if (isCheck && messagingTargets.find((target) => target === index) === undefined) {
+            setMessagingTargets([...messagingTargets, index]);
+
+            return;
+        }
+
+        // Check 했는데 대상 어레이에 없는 경우 return
+        if (isCheck) return;
+
+        // 대상 어레이에서 삭제하기 위해 index searching
+        const findedIndex = messagingTargets.findIndex((value) => value === index);
+
+        // 대상 어레이에 없는 경우 return
+        if (findedIndex === -1) {
+            return;
+        }
+
+        // 찾아낸 index의 값을 제외하고 reset
+        setMessagingTargets([...messagingTargets.filter((target) => target !== messagingTargets[findedIndex])]);
+    };
 
     return (
         <ScrollView style={styles.main.container}>
@@ -51,7 +59,7 @@ export default function BuildingTenantListView(props: BuildingTenantListViewProp
                     targetCheckMode={props.checkmode}
                     onCheck={handleOnCheck}
                     messages={messages}
-                    isSelectAll={props.isSelectAll}
+                    selectAllStatus={props.selectAllStatus}
                 />
             ))}
         </ScrollView>
@@ -60,7 +68,7 @@ export default function BuildingTenantListView(props: BuildingTenantListViewProp
 
 function BuildingTenantView(props: BuildingTenantProps) {
     const [badge, setBadge] = useState<TenantRoomStateBadgeType>({
-        status: "공실",
+        status: props.messages.words.empty_room,
         style: props.styles.emptyBadge,
     });
     const [isCheck, setIsCheck] = useState<boolean>(false);
@@ -70,9 +78,19 @@ function BuildingTenantView(props: BuildingTenantProps) {
     }, []);
 
     useEffect(() => {
-        if (props.isSelectAll && props.tenant.roomState === "signed") setIsCheck(true);
-        else setIsCheck(false);
-    }, [props.isSelectAll]);
+        if (props.tenant.roomState !== "signed") return;
+
+        switch (props.selectAllStatus) {
+            case "select_all":
+                setIsCheck(true);
+                return;
+            case "unselect_all":
+                setIsCheck(false);
+                return;
+            case "unselect_element":
+                return;
+        }
+    }, [props.selectAllStatus]);
 
     useEffect(() => {
         props.onCheck(isCheck, props.index);
@@ -207,7 +225,7 @@ type BuildingTenantProps = {
     targetCheckMode: boolean;
     onCheck(isCheck: boolean, tenantIndex: number): void;
     messages: ReturnType<typeof useScreenMessage>["messages"];
-    isSelectAll: boolean;
+    selectAllStatus: SelectAllStatus;
 };
 
 type TenantRoomStateBadgeType = {

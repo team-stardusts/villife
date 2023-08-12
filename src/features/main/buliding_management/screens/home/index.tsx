@@ -16,6 +16,7 @@ export default function BuildingManagementScreen({ navigation, route }: Building
     const styles = useBuildingManagementScreenStyles();
     const [layout, setLayout] = useState<LayoutType>("list");
     const [tenants, setTenants] = useState<BuildingTenant[]>([]);
+    console.log("[BUILDING_MANAGEMENT_SCREEN]", "On Create");
 
     return (
         <NavigationView
