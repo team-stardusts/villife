@@ -39,6 +39,9 @@ export default function useBuildingTenantMatrixViewStyles() {
                 },
             }),
         },
+        disabledTenantBox: {
+            backgroundColor: theme.color.series.grey.level1,
+        },
         emptyStatus: {
             shadowColor: theme.color.series.grey.level6,
         },

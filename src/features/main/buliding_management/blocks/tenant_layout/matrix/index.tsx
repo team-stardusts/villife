@@ -1,5 +1,10 @@
 import { ScrollView, Text, TouchableOpacity, View } from "react-native";
-import { BuildingTenantFloorViewProps, BuildingTenantMatrixViewProps, BuildingTenantProps } from "./types";
+import {
+    BuildingTenantFloorViewProps,
+    BuildingTenantMatrixViewProps,
+    BuildingTenantProps,
+    OnBuildingTenantCheck,
+} from "./types";
 import useBuildingTenantMatrixViewStyles from "./styles";
 import { useEffect, useState } from "react";
 import useScreenMessage from "../../../../../common/hooks/multilingual/hooks";
@@ -9,6 +14,7 @@ export default function BuildingTenantMatrixView(props: BuildingTenantMatrixView
     const messages = useScreenMessage()["messages"];
     const styles = useBuildingTenantMatrixViewStyles();
     const [floors, setFloors] = useState<number[]>([]);
+    const [messagingTargets, setMessagingTargets] = useState<number[]>([]);
 
     useEffect(() => {
         let _floors: number[] = [];
@@ -21,16 +27,54 @@ export default function BuildingTenantMatrixView(props: BuildingTenantMatrixView
         setFloors(_floors.sort());
     }, [props.tenants]);
 
+    useEffect(() => {
+        props.onCheckTarget(messagingTargets);
+    }, [messagingTargets]);
+
+    useEffect(() => {
+        if (props.selectAllStatus === "select_all") {
+            setMessagingTargets(props.tenants.map((_, index) => index));
+        } else if (props.selectAllStatus === "unselect_all") {
+            setMessagingTargets([]);
+        }
+    }, [props.selectAllStatus]);
+
+    const handleOnCheck = ({ isCheck, tenant }: OnBuildingTenantCheck) => {
+        // Check 시 대상 어레이에 없는 경우 추가
+        const tenantIndex = props.tenants.findIndex((value) => value.roomNumber === tenant.roomNumber);
+
+        if (isCheck && messagingTargets.find((target) => target === tenantIndex) === undefined) {
+            setMessagingTargets([...messagingTargets, tenantIndex]);
+
+            return;
+        }
+
+        // Check 했는데 대상 어레이에 없는 경우 return
+        if (isCheck) return;
+
+        // 대상 어레이에서 삭제하기 위해 index searching
+        const findedIndex = messagingTargets.findIndex((value) => value === tenantIndex);
+
+        // 대상 어레이에 없는 경우 return
+        if (findedIndex === -1) {
+            return;
+        }
+
+        // 찾아낸 index의 값을 제외하고 reset
+        setMessagingTargets([...messagingTargets.filter((target) => target !== messagingTargets[findedIndex])]);
+    };
+
     return (
         <ScrollView style={styles.main.container} showsVerticalScrollIndicator={false}>
-            {floors.map((_, index) => (
+            {floors.map((floor, index) => (
                 <BuildingTenantFloorView
                     key={index}
                     styles={styles.floor}
                     messages={messages}
-                    tenants={props.tenants}
+                    tenants={props.tenants.filter((tenant) => tenant.floor === floor)}
                     targetCheckMode={props.checkmode}
                     selectAllStatus={props.selectAllStatus}
+                    onCheck={handleOnCheck}
                 />
             ))}
         </ScrollView>
@@ -38,18 +82,30 @@ export default function BuildingTenantMatrixView(props: BuildingTenantMatrixView
 }
 
 function BuildingTenantFloorView(props: BuildingTenantFloorViewProps) {
+    const [check, setCheck] = useState<OnBuildingTenantCheck | null>(null);
+
+    useEffect(() => {
+        if (check === null) return;
+        props.onCheck(check);
+    }, [check]);
+
     return (
         <ScrollView style={props.styles.container} showsHorizontalScrollIndicator={false} horizontal>
             {props.tenants.map((tenant, index) => (
                 <BuildingTenant
                     key={index}
-                    index={index}
                     styles={props.styles}
                     messages={props.messages}
                     tenant={tenant}
                     targetCheckMode={props.targetCheckMode}
                     selectAllStatus={props.selectAllStatus}
-                    onCheck={console.log}
+                    onCheck={({ isCheck, tenant }) =>
+                        setCheck({
+                            ...check,
+                            isCheck,
+                            tenant,
+                        })
+                    }
                 />
             ))}
         </ScrollView>
@@ -58,6 +114,25 @@ function BuildingTenantFloorView(props: BuildingTenantFloorViewProps) {
 
 function BuildingTenant(props: BuildingTenantProps) {
     const [isCheck, setIsCheck] = useState<boolean>(false);
+
+    useEffect(() => {
+        props.onCheck({ isCheck, tenant: props.tenant });
+    }, [isCheck]);
+
+    useEffect(() => {
+        if (props.tenant.roomState !== "signed") return;
+
+        switch (props.selectAllStatus) {
+            case "select_all":
+                setIsCheck(true);
+                return;
+            case "unselect_all":
+                setIsCheck(false);
+                return;
+            case "unselect_element":
+                return;
+        }
+    }, [props.selectAllStatus]);
 
     const setContainerShadow = () => {
         switch (props.tenant.roomState) {
@@ -69,12 +144,17 @@ function BuildingTenant(props: BuildingTenantProps) {
                 return props.styles.unsignedStatus;
         }
     };
+
     return (
         <TouchableOpacity
-            style={[props.styles.tenantBox, setContainerShadow()]}
+            style={[
+                props.styles.tenantBox,
+                setContainerShadow(),
+                props.targetCheckMode && props.tenant.roomState !== "signed" ? props.styles.disabledTenantBox : {},
+            ]}
             activeOpacity={0.5}
             onPress={() => setIsCheck(!isCheck)}
-            disabled={!props.targetCheckMode}>
+            disabled={!props.targetCheckMode || props.tenant.roomState !== "signed"}>
             <Text>
                 {props.tenant.roomNumber}
                 {props.messages.words.room_postfix}

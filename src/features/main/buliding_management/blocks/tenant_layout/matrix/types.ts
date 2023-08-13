@@ -13,14 +13,19 @@ export type BuildingTenantFloorViewProps = {
     styles: ReturnType<typeof useBuildingTenantMatrixViewStyles>["floor"];
     targetCheckMode: boolean;
     selectAllStatus: SelectAllStatus;
+    onCheck(props: OnBuildingTenantCheck): void;
 };
 
 export type BuildingTenantProps = {
-    index: number;
     messages: ReturnType<typeof useScreenMessage>["messages"];
     styles: ReturnType<typeof useBuildingTenantMatrixViewStyles>["floor"];
     tenant: BuildingTenant;
     targetCheckMode: boolean;
     selectAllStatus: SelectAllStatus;
-    onCheck(isCheck: boolean, tenantIndex: number): void;
+    onCheck(props: OnBuildingTenantCheck): void;
+};
+
+export type OnBuildingTenantCheck = {
+    isCheck: boolean;
+    tenant: BuildingTenant;
 };
