@@ -34,10 +34,9 @@ function OutlinedBox(props: OutlinedBoxProps) {
         };
     }, []);
 
-    const onPress = () => {
+    const onPress = (position: number) => {
         if (!loading) {
             setLoading(true);
-            console.log(props);
             setUnfold(!unfold);
             LayoutAnimation.configureNext({
                 duration: 50,
@@ -45,6 +44,9 @@ function OutlinedBox(props: OutlinedBoxProps) {
                     type: LayoutAnimation.Types.linear,
                 },
             });
+            setTimeout(() => {
+                props.flatListRef.current?.scrollToIndex({ index: position });
+            }, 600);
         }
         setLoading(false);
     };
@@ -62,7 +64,9 @@ function OutlinedBox(props: OutlinedBoxProps) {
                         <View style={styles.contentBox}>
                             <NotiLable priority={props.priority} />
                             <View style={styles.titleTextBox}>
-                                <Text style={styles.titleText}>{props.title}</Text>
+                                <Text style={props.title.length < 12 ? styles.titleText : styles.titleTextSmall}>
+                                    {props.title}
+                                </Text>
                                 <Text style={styles.subTitleText}>{props.wroteAt}</Text>
                             </View>
                             <View style={styles.absoluteWrapper}>
@@ -80,7 +84,7 @@ function OutlinedBox(props: OutlinedBoxProps) {
                                     )}
                                     <PressableVectorIcon
                                         onPress={() => {
-                                            onPress();
+                                            onPress(props.position);
                                         }}
                                         providerName={unfold ? "up" : "down"}
                                         diameter={styles.iconVectorSize.width as number}

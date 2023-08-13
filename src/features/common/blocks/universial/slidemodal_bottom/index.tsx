@@ -1,15 +1,23 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { StyleSheet, Modal, Animated, PanResponder, Dimensions, View, Text } from "react-native";
-
 import { Pressable } from "react-native";
 import { BottomSlidableModalProps } from "./type";
 import useStyler from "../../../hooks/styler/hooks";
 
 const BottomSlidableModal = (props: BottomSlidableModalProps) => {
-    const panY = React.useRef(new Animated.Value(0)).current;
     const screenSize = useStyler().deviceUI.getScreenSize();
 
     const conSize = props.height || screenSize.height * 0.35;
+    const panY = React.useRef(new Animated.Value(0)).current;
+
+    useEffect(() => {
+        panY.setValue(conSize * 0.99);
+        Animated.timing(panY, {
+            toValue: 0,
+            duration: 500,
+            useNativeDriver: true,
+        }).start();
+    }, [props.modalVisible]);
 
     const panResponder = PanResponder.create({
         onStartShouldSetPanResponder: () => {
@@ -35,18 +43,14 @@ const BottomSlidableModal = (props: BottomSlidableModalProps) => {
 
     return (
         <Modal
-            animationType="slide"
+            animationType="fade"
             transparent
             visible={props.modalVisible}
             onRequestClose={() => {
                 props.setModalVisible(false);
             }}
             style={[{ width: screenSize.width, height: screenSize.height }, localStyle.wrapper]}>
-            <Pressable
-                style={{ flex: 1, backgroundColor: "rgba(255,255,255,0.5)" }}
-                onPress={() => {
-                    props.setModalVisible(false);
-                }}></Pressable>
+            <NoAnimationModalComponent setModalVisible={props.setModalVisible} />
             <Animated.View
                 {...panResponder.panHandlers}
                 style={[localStyle.container, { height: conSize, transform: [{ translateY: panY }] }]}>
@@ -60,6 +64,30 @@ const BottomSlidableModal = (props: BottomSlidableModalProps) => {
 };
 
 export default BottomSlidableModal;
+
+export const NoAnimationModalComponent = ({
+    setModalVisible,
+}: {
+    setModalVisible: React.Dispatch<React.SetStateAction<boolean>>;
+}) => {
+    const screenSize = useStyler().deviceUI.getScreenSize();
+    return (
+        <View
+            style={{
+                position: "absolute",
+                width: screenSize.width,
+                height: screenSize.height,
+                backgroundColor: "rgba(255,255,255,0.5)",
+            }}>
+            <Pressable
+                style={{ flex: 1 }}
+                onPress={() => {
+                    setModalVisible(false);
+                }}
+            />
+        </View>
+    );
+};
 
 const localStyle = StyleSheet.create({
     wrapper: {

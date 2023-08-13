@@ -57,6 +57,11 @@ export default function useNotiOutlinedBoxStyles(): UseNotiOutLinedBoxListStyles
             ...theme.font.researved.h3,
             color: theme.color.specified.black,
         },
+        titleTextSmall: {
+            ...theme.font.researved.h3,
+            fontSize: deviceUI.moderateScale(14.5),
+            color: theme.color.specified.black,
+        },
         subTitleText: {
             ...theme.font.researved.h5,
             color: theme.color.specified.black,

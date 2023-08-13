@@ -1,5 +1,5 @@
 import { FlatList, ListRenderItemInfo, Text, TouchableOpacity } from "react-native";
-import React from "react";
+import React, { useRef } from "react";
 import OutlinedBox from "../outlined_box";
 import useNotiViewModel from "./useNotiViewModel";
 import { Notice } from "../../../../../libs/rest_apis/villife/notice/types";
@@ -15,9 +15,25 @@ function FlatListOutlinedContentsBox() {
     const navigation = useNavigation<VillifeNavigation>();
     const messages = useScreenMessage();
     const user = useUserInformation();
+    const flatListRef = useRef<FlatList<Notice>>(null);
+
+    const OutlinedBoxRenderItem = (props: ListRenderItemInfo<Notice>) => {
+        return (
+            <OutlinedBox
+                id={props.item.ID}
+                priority={props.item.Priority}
+                title={props.item.Title}
+                content={props.item.Content}
+                wroteAt={props.item.UpdatedAt ? props.item.UpdatedAt.slice(0, 10) : props.item.CreatedAt.slice(0, 10)}
+                position={props.index}
+                flatListRef={flatListRef}
+            />
+        );
+    };
 
     return (
         <FlatList
+            ref={flatListRef}
             contentContainerStyle={styles.contentContainer}
             data={viewModel}
             keyExtractor={(item, index) => `${index}${item}`}
@@ -37,18 +53,6 @@ function FlatListOutlinedContentsBox() {
                     </TouchableOpacity>
                 );
             }}
-        />
-    );
-}
-
-function OutlinedBoxRenderItem(props: ListRenderItemInfo<Notice>) {
-    return (
-        <OutlinedBox
-            id={props.item.ID}
-            priority={props.item.Priority}
-            title={props.item.Title}
-            content={props.item.Content}
-            wroteAt={props.item.UpdatedAt ? props.item.UpdatedAt.slice(0, 10) : props.item.CreatedAt.slice(0, 10)}
         />
     );
 }

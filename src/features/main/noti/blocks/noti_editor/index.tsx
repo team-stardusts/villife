@@ -27,6 +27,7 @@ export default function NotiEditor(props: NotiEditorProps) {
                 onChangeText={(text) => {
                     props.titleRef.current = text;
                 }}
+                maxLength={14}
                 placeholder="제목을 입력하세요"
             />
             <KeyboardAwareScrollView
