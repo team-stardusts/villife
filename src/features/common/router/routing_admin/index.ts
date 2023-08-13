@@ -58,8 +58,8 @@ export default function useRoutingAdministratorByLogin(): void {
         if (userinfo === null) {
             navigation.reset({
                 index: 0,
-                //routes: [{ name: "login" }],
-                routes: [{ name: "building_management" }],
+                routes: [{ name: "login" }],
+                //routes: [{ name: "building_management" }],
             });
             return;
         }
@@ -87,8 +87,8 @@ export default function useRoutingAdministratorByLogin(): void {
             // 정상 로그인
             navigation.reset({
                 index: 0,
-                //routes: [{ name: "home" }],
-                routes: [{ name: "building_management" }],
+                routes: [{ name: "home" }],
+                //routes: [{ name: "building_management" }],
             });
         }
 
