@@ -5,3 +5,5 @@ export type BuildingTenantFilterProps = {
     onLayoutChange(layout: LayoutType): void;
     onFilterChange(tenants: BuildingTenant[]): void;
 };
+
+export type MenuType = "floor" | "contract" | "status" | "expiration";

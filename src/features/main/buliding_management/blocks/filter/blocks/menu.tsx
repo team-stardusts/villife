@@ -1,6 +1,7 @@
 import { Text, TouchableOpacity, View } from "react-native";
 import useBuildingTenantFilterStyles from "../styles";
 import useScreenMessage from "../../../../../common/hooks/multilingual/hooks";
+import { MenuType } from "../types";
 
 export default function Menu(props: MenuProps) {
     const messages = useScreenMessage().messages.words;
@@ -37,5 +38,3 @@ type MenuProps = {
     isSelected: boolean;
     onMenuPress(type: MenuType): void;
 };
-
-export type MenuType = "floor" | "contract" | "status" | "expiration";
