@@ -253,6 +253,7 @@ export type MessagesByLanguage = {
     };
     words: {
         admin: string;
+        all: string;
         renter: string;
         landlord: string;
         siteAdmin: string;

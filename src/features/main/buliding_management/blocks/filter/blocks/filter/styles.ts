@@ -4,12 +4,6 @@ import useStyler from "../../../../../../common/hooks/styler/hooks";
 export default function useFilterStyles() {
     const { deviceUI, theme } = useStyler();
 
-    const main = StyleSheet.create({
-        container: {
-            flex: 1,
-        },
-    });
-
     const horizontalFilter = StyleSheet.create({
         container: {
             flex: 1,
@@ -27,12 +21,22 @@ export default function useFilterStyles() {
             alignItems: "center",
             borderRadius: deviceUI.moderateScale(6),
             backgroundColor: theme.color.specified.white,
+            ...Platform.select({
+                ios: {
+                    shadowOpacity: 0.2,
+                    shadowOffset: {
+                        height: 0,
+                        width: 0,
+                    },
+                },
+                android: {
+                    elevation: 3,
+                },
+            }),
         },
         seletedItemBox: {
             borderColor: theme.color.specified.black,
             borderWidth: 1.5,
-        },
-        unselectedItemBox: {
             ...Platform.select({
                 ios: {
                     shadowOpacity: 0.2,
@@ -54,7 +58,6 @@ export default function useFilterStyles() {
     });
 
     return {
-        main,
         horizontalFilter,
     };
 }

@@ -1,19 +1,24 @@
 import { ScrollView, Text, TouchableOpacity, View } from "react-native";
 import useFilterStyles from "../styles";
 import { useEffect, useState } from "react";
+import useScreenMessage from "../../../../../../../common/hooks/multilingual/hooks";
 
 export default function HorizontalFilter(props: HorizontalFilterProps) {
+    const messages = useScreenMessage().messages.words;
     const styles = useFilterStyles().horizontalFilter;
     const [items, setItems] = useState<string[]>([]);
     const [selectedItems, setSelectedItems] = useState<string[]>([]);
 
     useEffect(() => {
         let _items;
+
         if (props.useSelectAll) {
-            _items = ["전체", ...props.items];
+            _items = [messages.all, ...props.items];
+            setSelectedItems([messages.all]);
         } else {
             _items = props.items;
         }
+
         setItems(_items);
     }, [props.items]);
 
@@ -23,7 +28,7 @@ export default function HorizontalFilter(props: HorizontalFilterProps) {
 
     const handlePressItem = (item: string) => {
         // "전체" 옵션을 사용하는 경우
-        if (props.useSelectAll && item === "전체") {
+        if (props.useSelectAll && item === messages.all) {
             // Item이 "전체"만 있는 경우 선택 취소. (최소한 하나는 선택해놔야 함)
             if (selectedItems.find((value) => value === item) && selectedItems.length === 1) {
                 return;
@@ -36,26 +41,29 @@ export default function HorizontalFilter(props: HorizontalFilterProps) {
             }
         }
 
+        let _selectedItems = selectedItems;
+
         // item이 있는 경우 선택 해제에 해당하므로 selectedItems에서 삭제함
         if (selectedItems.find((value) => value === item)) {
-            setSelectedItems(selectedItems.filter((value) => value !== item));
+            _selectedItems = _selectedItems.filter((value) => value !== item);
+        } else {
+            _selectedItems.push(item);
+        }
 
-            // "전체" 옵션을 사용하는 경우
-        } else if (props.useSelectAll) {
-            /* // 선택된 item이 없는 경우 전체 선택으로 변경
+        // "전체" 옵션을 사용하는 경우
+        if (props.useSelectAll) {
+            // 선택된 item이 없는 경우 전체 선택으로 변경
             // 1인 이유는 아직 삭제하기 전이기 때문
-            if (selectedItems.length === 1 && selectedItems[0] !== "전체") {
-                console.log("Asdfdfs");
-                setSelectedItems(["전체"]);
+            if (_selectedItems.length === 0) {
+                _selectedItems = [messages.all];
             }
             // item이 추가 될 시 "전체"를 삭제함
             else {
-                setSelectedItems([...selectedItems.filter((value) => value !== "전체"), item]);
-            } */
-            setSelectedItems([...selectedItems.filter((value) => value !== "전체"), item]);
-        } else {
-            setSelectedItems([...selectedItems, item]);
+                _selectedItems = _selectedItems.filter((value) => value !== messages.all);
+            }
         }
+
+        setSelectedItems(_selectedItems);
     };
 
     return (
@@ -65,9 +73,7 @@ export default function HorizontalFilter(props: HorizontalFilterProps) {
                     <TouchableOpacity
                         style={[
                             styles.itemBox,
-                            selectedItems.find((value) => value === item) !== undefined
-                                ? styles.seletedItemBox
-                                : styles.unselectedItemBox,
+                            selectedItems.find((value) => value === item) !== undefined && styles.seletedItemBox,
                         ]}
                         activeOpacity={0.6}
                         onPress={() => handlePressItem(item)}>

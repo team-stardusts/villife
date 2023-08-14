@@ -17,11 +17,3 @@ export type BuildingTenantProps = {
     selectAllStatus: SelectAllStatus;
     onCheck(isCheck: boolean, tenantIndex: number): void;
 };
-
-export type TenantRoomStateBadgeType = {
-    status: string;
-    style: {
-        backgroundColor: ColorValue;
-        color: ColorValue;
-    };
-};

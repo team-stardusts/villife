@@ -7,7 +7,7 @@ export default function useBuildingTenantListViewStyles() {
     const main = StyleSheet.create({
         container: {
             flex: 1,
-            paddingTop: deviceUI.moderateScale(3),
+            paddingTop: deviceUI.moderateScale(20),
         },
     });
 
@@ -46,31 +46,6 @@ export default function useBuildingTenantListViewStyles() {
             justifyContent: "flex-start",
             alignItems: "center",
             paddingLeft: deviceUI.moderateScale(10),
-        },
-        badge: {
-            width: deviceUI.moderateScale(55),
-            height: deviceUI.moderateScale(25),
-            borderRadius: deviceUI.moderateScale(20),
-            justifyContent: "center",
-            alignItems: "center",
-        },
-        emptyBadge: {
-            backgroundColor: theme.color.status.secondary,
-            color: theme.color.specified.black,
-            fontFamily: theme.font.fontFamily.pretendard.bold,
-            fontSize: deviceUI.moderateScale(13),
-        },
-        signedBadge: {
-            backgroundColor: theme.color.status.primary,
-            color: theme.color.specified.white,
-            fontFamily: theme.font.fontFamily.pretendard.bold,
-            fontSize: deviceUI.moderateScale(13),
-        },
-        unsignedBadge: {
-            backgroundColor: theme.color.status.danger,
-            color: theme.color.specified.white,
-            fontFamily: theme.font.fontFamily.pretendard.bold,
-            fontSize: deviceUI.moderateScale(13),
         },
         elementWrapper: {
             marginLeft: deviceUI.moderateScale(10),

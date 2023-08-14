@@ -1,10 +1,11 @@
 import { ScrollView, Text, TouchableOpacity, View } from "react-native";
 import useBuildingTenantListViewStyles from "./styles";
-import { BuildingTenantListViewProps, BuildingTenantProps, TenantRoomStateBadgeType } from "./types";
+import { BuildingTenantListViewProps, BuildingTenantProps } from "./types";
 import { useEffect, useState } from "react";
 import Icon from "../../../../../common/atoms/icon";
 import useScreenMessage from "../../../../../common/hooks/multilingual/hooks";
 import VillifeToastMessage from "../../../../../common/atoms/toast";
+import TenantRoomStateLabel from "../blocks/status_label";
 
 export default function BuildingTenantListView(props: BuildingTenantListViewProps) {
     const styles = useBuildingTenantListViewStyles();
@@ -65,15 +66,7 @@ export default function BuildingTenantListView(props: BuildingTenantListViewProp
 }
 
 function BuildingTenantView(props: BuildingTenantProps) {
-    const [badge, setBadge] = useState<TenantRoomStateBadgeType>({
-        status: props.messages.words.empty_room,
-        style: props.styles.emptyBadge,
-    });
     const [isCheck, setIsCheck] = useState<boolean>(false);
-
-    useEffect(() => {
-        setBadgeStatus();
-    }, []);
 
     useEffect(() => {
         if (props.tenant.roomState !== "signed") return;
@@ -93,32 +86,6 @@ function BuildingTenantView(props: BuildingTenantProps) {
     useEffect(() => {
         props.onCheck(isCheck, props.index);
     }, [isCheck]);
-
-    const setBadgeStatus = () => {
-        switch (props.tenant.roomState) {
-            case "empty":
-                setBadge({
-                    ...badge,
-                    status: props.messages.words.empty_room,
-                    style: props.styles.emptyBadge,
-                });
-                break;
-            case "signed":
-                setBadge({
-                    ...badge,
-                    status: props.messages.words.app_signed_state,
-                    style: props.styles.signedBadge,
-                });
-                break;
-            case "unsigned":
-                setBadge({
-                    ...badge,
-                    status: props.messages.words.app_unsigned_state,
-                    style: props.styles.unsignedBadge,
-                });
-                break;
-        }
-    };
 
     const switchContractType = () => {
         switch (props.tenant.contract?.rentType) {
@@ -148,8 +115,8 @@ function BuildingTenantView(props: BuildingTenantProps) {
         <View style={props.styles.container}>
             <View style={props.styles.wrapper}>
                 <View style={props.styles.infoSection}>
-                    <View style={[props.styles.badge, { backgroundColor: badge.style.backgroundColor }]}>
-                        <Text style={{ ...badge.style }}>{badge.status}</Text>
+                    <View>
+                        <TenantRoomStateLabel roomState={props.tenant.roomState} />
                     </View>
                     <View style={props.styles.elementWrapper}>
                         <Text style={props.styles.roomNumber}>

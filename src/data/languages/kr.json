@@ -246,6 +246,8 @@
     },
     "words": {
         "admin": "관리자",
+        "all": "전체",
+        "correction": "수정",
         "renter": "임차인",
         "landlord": "임대인",
         "siteAdmin": "사이트관리자",
@@ -263,7 +265,6 @@
         "reject": "거절",
         "accept": "수락",
         "edit": "편집하기",
-        "correction": "수정",
         "modified": "수정",
         "modify": "수정하기",
         "tenant": "거주자",
@@ -276,9 +277,9 @@
         "vehicle_model": "차량 모델",
         "visiting_perpose": "방문 목적",
         "guest_phone_number": "방문 차량 연락처",
+        "next": "다음",
         "hour": "시",
         "minute": "분",
-        "floor": "층",
         "contract": "계약",
         "status": "상태",
         "expiration": "만료",
@@ -291,7 +292,7 @@
         "partial_lump_sum_deposit": "반전세",
         "monthly_rent": "월세",
         "not_registed": "미등록",
-        "next": "다음",
+        "floor": "층",
         "room_postfix": "호"
     },
     "navigation": {
