@@ -8,23 +8,21 @@ export default function useComplaintContentCardStyles(): ComplaintContentCardSty
     const Style = StyleSheet.create({
         topLevelBox: {
             width: deviceUI.getScreenSize().width,
-            paddingHorizontal: deviceUI.moderateScale(32),
             height: deviceUI.moderateScale(104),
+            paddingHorizontal: deviceUI.moderateScale(32),
             borderRadius: deviceUI.moderateScale(15),
             marginBottom: deviceUI.moderateScale(16),
         },
-        editModeTopLevelBox: {
-            width: deviceUI.getScreenSize().width * 0.8,
-            height: deviceUI.getScreenSize().height * 0.16,
-            borderRadius: deviceUI.moderateScale(15),
+        contentBoxContainer: {
+            width: "100%",
+            height: "100%",
         },
         titleSection: {
-            width: "100%",
             flexDirection: "row",
             justifyContent: "space-between",
-            backgroundColor: "blue",
-            paddingLeft: deviceUI.moderateScale(24),
-            paddingRight: deviceUI.moderateScale(24),
+            alignItems: "center",
+            marginTop: deviceUI.moderateScale(16),
+            paddingHorizontal: deviceUI.moderateScale(16),
         },
         titleText: {
             fontSize: deviceUI.moderateScale(18),
@@ -38,9 +36,8 @@ export default function useComplaintContentCardStyles(): ComplaintContentCardSty
         },
         statusSection: {
             width: "100%",
-            paddingTop: deviceUI.moderateScale(8),
-            backgroundColor: "red",
-            justifyContent: "center",
+            marginTop: deviceUI.moderateScale(8),
+            justifyContent: "space-between",
             alignItems: "center",
         },
         progressBarSection: {
