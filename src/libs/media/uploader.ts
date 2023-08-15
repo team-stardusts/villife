@@ -24,7 +24,7 @@ export default class ImageUploader implements MediaUploader {
         const res = await this.mApi.uploadImage(formData);
         if (!res.data) return Promise.reject(new Error("upload failed err"));
         const result = res.data.data;
-        result.uri = VillifeServer.getBaseURL() + result.uri;
+        result.uri = result.uri;
         return result;
     }
 
