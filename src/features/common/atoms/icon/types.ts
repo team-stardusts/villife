@@ -36,7 +36,8 @@ export type IconSeries =
     | "matrix"
     | "round-person"
     | "question-mark"
-    | "three-dots-vertical";
+    | "three-dots-vertical"
+    | "filter-setting";
 
 export type ChildIconProps = CommonIconProps & {
     [key: string]: string | number | undefined;

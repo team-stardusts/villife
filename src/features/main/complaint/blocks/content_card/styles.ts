@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import { Platform, StyleSheet } from "react-native";
 import useStyler from "../../../../common/hooks/styler/hooks";
 import { ComplaintContentCardStylesType } from "./types";
 
@@ -7,42 +7,39 @@ export default function useComplaintContentCardStyles(): ComplaintContentCardSty
 
     const Style = StyleSheet.create({
         topLevelBox: {
-            //backgroundColor: theme.colorFamily.blue,
-            width: deviceUI.getScreenSize().width * 0.9,
-            height: deviceUI.getScreenSize().height * 0.16,
+            width: deviceUI.getScreenSize().width,
+            paddingHorizontal: deviceUI.moderateScale(32),
+            height: deviceUI.moderateScale(104),
             borderRadius: deviceUI.moderateScale(15),
+            marginBottom: deviceUI.moderateScale(16),
         },
         editModeTopLevelBox: {
             width: deviceUI.getScreenSize().width * 0.8,
             height: deviceUI.getScreenSize().height * 0.16,
             borderRadius: deviceUI.moderateScale(15),
         },
-        contentBoxCompleted: {
-            backgroundColor: theme.color.specified.lightgrey,
-        },
-        contentBoxInProgress: {
-            backgroundColor: theme.color.specified.blue,
-        },
         titleSection: {
-            width: "90%",
+            width: "100%",
             flexDirection: "row",
             justifyContent: "space-between",
-            alignItems: "center",
-            marginHorizontal: "5%",
+            backgroundColor: "blue",
+            paddingLeft: deviceUI.moderateScale(24),
+            paddingRight: deviceUI.moderateScale(24),
         },
         titleText: {
-            fontSize: deviceUI.moderateScale(14),
+            fontSize: deviceUI.moderateScale(18),
             fontFamily: theme.font.fontFamily.pretendard.bold,
-            color: theme.color.specified.white,
+            color: theme.color.specified.black,
         },
         dateTimeText: {
             fontSize: deviceUI.moderateScale(12),
-            fontFamily: theme.font.fontFamily.pretendard.bold,
-            color: theme.color.specified.white,
+            fontFamily: theme.font.fontFamily.pretendard.regular,
+            color: theme.color.specified.black,
         },
         statusSection: {
             width: "100%",
-            height: "50%",
+            paddingTop: deviceUI.moderateScale(8),
+            backgroundColor: "red",
             justifyContent: "center",
             alignItems: "center",
         },
@@ -67,7 +64,7 @@ export default function useComplaintContentCardStyles(): ComplaintContentCardSty
         statusText: {
             fontSize: deviceUI.moderateScale(12),
             fontFamily: theme.font.fontFamily.pretendard.bold,
-            color: theme.color.specified.white,
+            color: theme.color.specified.black,
         },
         outerCircle: {
             backgroundColor: theme.color.specified.white,

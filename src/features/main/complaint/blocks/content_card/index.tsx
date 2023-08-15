@@ -64,12 +64,7 @@ function ComplaintContentCard(props: ComplaintContentCardProps) {
 
     return (
         <View style={props.editMode ? styles.editModeTopLevelBox : styles.topLevelBox}>
-            <ContentBox
-                backgroundColor={
-                    status == "completed"
-                        ? styles.contentBoxCompleted.backgroundColor
-                        : styles.contentBoxInProgress.backgroundColor
-                }>
+            <ContentBox backgroundColor={"white"} enableShadow>
                 <View style={styles.titleSection}>
                     <Text style={styles.titleText}>{props.info.title}</Text>
                     <Text style={styles.dateTimeText}>

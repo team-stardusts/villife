@@ -22,6 +22,7 @@ import IconQuestionMark from "./question_mark";
 import IconThreeDotsVertical from "./three_dots_vertical";
 import IconMatrix from "./matrix";
 import IconCheck from "./check";
+import IconFilterSetting from "./filter_setting";
 
 export default function Icon(props: IconProps) {
     /* let iconProps: ChildIconProps = {
@@ -87,6 +88,8 @@ export default function Icon(props: IconProps) {
             return <IconQuestionMark {...iconProps} />;
         case "three-dots-vertical":
             return <IconThreeDotsVertical {...iconProps} />;
+        case "filter-setting":
+            return <IconFilterSetting {...iconProps} />;
         default:
             return <IconHome {...iconProps} />;
     }

@@ -10,6 +10,8 @@ import ComplaintContentCard from "../../blocks/content_card";
 import ComplaintHomeViewModel from "./view_model";
 import React from "react";
 import ComplaintHomeEditModal from "../../blocks/home_bottom_edit";
+import IconArrow from "../../../../common/atoms/icon/arrow";
+import IconFilterSetting from "../../../../common/atoms/icon/filter_setting";
 
 export default function ComplaintHomeScreen({ navigation, route }: ComplaintHomeScreenProps) {
     const messages = useScreenMessage();
@@ -27,42 +29,42 @@ export default function ComplaintHomeScreen({ navigation, route }: ComplaintHome
                 setVisible={setEditModalVisible}
                 setDisplayMode={viewModel.setDisplayMode}
             />
-
-            <View style={styles.topLevelBox}>
-                <TouchableOpacity onPress={() => navigation.navigate("noti_home", {})}>
-                    <View style={styles.FAQContainer}>
-                        <IconQuestionMark size={styles.questionMarkIconSize.width as number} />
-                        <View style={styles.FAQTextContainer}>
-                            <Text style={styles.FAQTitle}>
-                                {messages.messages.main.complaint.frequently_reported_complaints}
-                            </Text>
-                            <Text style={styles.FAQContent}>
-                                {messages.messages.main.complaint.frequently_reported_complaints_guide}
-                            </Text>
-                        </View>
+            <TouchableOpacity onPress={() => navigation.navigate("noti_home", {})}>
+                <View style={styles.FAQContainer}>
+                    <View style={styles.FAQTextContainer}>
+                        <Text style={styles.FAQTitle}>
+                            {messages.messages.main.complaint.frequently_reported_complaints}
+                        </Text>
+                        <IconArrow
+                            direction="right"
+                            size={styles.arrowIcon.width as number}
+                            color={styles.arrowIcon.backgroundColor}
+                        />
                     </View>
-                </TouchableOpacity>
+                </View>
+            </TouchableOpacity>
+            <TouchableOpacity
+                style={styles.registerContainer}
+                onPress={() => {
+                    navigation.navigate("complaint_register", {});
+                }}>
+                <View style={styles.registerTextContainer}>
+                    <Text style={styles.registerTitle}>{messages.messages.main.complaint.register}</Text>
+                    <IconPlus size={styles.plusIcon.width as number} color={styles.plusIcon.borderColor} />
+                </View>
+            </TouchableOpacity>
+            <View style={styles.topLevelBox}>
                 <View style={styles.menuContainer}>
+                    <Text style={styles.menuTitleText}>{viewModel.uiState.menuTitle}</Text>
                     <TouchableOpacity
-                        style={styles.menuTitleBox}
                         onPress={() => {
                             setEditModalVisible(true);
                         }}>
-                        <Text style={styles.menuTitleText}>{viewModel.uiState.menuTitle}</Text>
-                        <PressableVectorIcon
-                            providerName={"right"}
-                            diameter={styles.vectorIconSize.height as number}></PressableVectorIcon>
+                        <IconFilterSetting
+                            size={styles.filterIcon.width as number}
+                            color={styles.filterIcon.borderColor}
+                        />
                     </TouchableOpacity>
-                    <View style={styles.registerButtonWrapper}>
-                        <TouchableOpacity
-                            style={styles.registerButton}
-                            onPress={() => {
-                                navigation.navigate("complaint_register", {});
-                            }}>
-                            <IconPlus size={styles.plusIconSize.width as number} />
-                            <Text style={styles.registerButtonText}>{messages.messages.main.complaint.register}</Text>
-                        </TouchableOpacity>
-                    </View>
                 </View>
                 <FlatList
                     style={styles.flatList}
@@ -78,7 +80,10 @@ export default function ComplaintHomeScreen({ navigation, route }: ComplaintHome
                                 <Text style={styles.whenEmptyCardText}>
                                     {messages.messages.main.complaint.when_complaint_empty}
                                 </Text>
-                                <IconPlus size={styles.plusIconSize.width as number} />
+                                <IconPlus
+                                    size={(styles.plusIcon.width as number) * 2}
+                                    color={styles.plusIcon.borderColor}
+                                />
                             </TouchableOpacity>
                         );
                     }}

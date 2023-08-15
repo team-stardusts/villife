@@ -6,104 +6,98 @@ export default function useComplaintHomeSecreenStyle(): ComplaintHomeScreenStyle
     const { deviceUI, theme } = useStyler();
 
     const Style = StyleSheet.create({
+        FAQContainer: {
+            width: "100%",
+            height: deviceUI.getScreenSize().height * 0.07,
+            backgroundColor: theme.color.specified.white,
+            marginBottom: deviceUI.moderateScale(16),
+            borderRadius: deviceUI.moderateScale(15),
+        },
+        arrowIcon: {
+            width: deviceUI.moderateScale(45),
+            backgroundColor: theme.color.specified.black,
+        },
+        FAQTextContainer: {
+            height: "100%",
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "space-between",
+            paddingLeft: deviceUI.moderateScale(16),
+            paddingRight: deviceUI.moderateScale(16),
+        },
+        FAQTitle: {
+            ...theme.font.researved.h2,
+            fontFamily: theme.font.fontFamily.pretendard.bold,
+            color: theme.color.specified.black,
+        },
+        registerContainer: {
+            width: "100%",
+            height: deviceUI.getScreenSize().height * 0.07,
+            backgroundColor: theme.color.specified.white,
+            marginBottom: deviceUI.moderateScale(16),
+            borderRadius: deviceUI.moderateScale(15),
+        },
+        registerTitle: {
+            ...theme.font.researved.h2,
+            fontFamily: theme.font.fontFamily.pretendard.bold,
+            color: theme.color.specified.black,
+        },
+        registerTextContainer: {
+            height: "100%",
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "space-between",
+            paddingLeft: deviceUI.moderateScale(16),
+            paddingRight: deviceUI.moderateScale(16),
+        },
+        plusIcon: {
+            width: deviceUI.moderateScale(40),
+            borderColor: theme.color.specified.black,
+        },
         topLevelBox: {
             flex: 1,
             flexDirection: "column",
             backgroundColor: theme.color.specified.white,
+            borderRadius: deviceUI.moderateScale(15),
         },
-        FAQContainer: {
-            width: "100%",
-            height: deviceUI.getScreenSize().height * 0.07,
-            backgroundColor: theme.color.specified.lightblue,
-            alignItems: "center",
-            justifyContent: "center",
-            flexDirection: "row",
-            borderRadius: deviceUI.moderateScale(10),
-        },
-        questionMarkIconSize: {
-            width: deviceUI.moderateScale(45),
-        },
-        FAQTextContainer: {
-            height: "100%",
-            justifyContent: "center",
-            marginLeft: deviceUI.moderateScale(10),
-        },
-        FAQTitle: {
-            fontSize: deviceUI.moderateScale(14),
-            fontFamily: theme.font.fontFamily.pretendard.bold,
-            color: theme.color.specified.white,
-        },
-        FAQContent: {
-            fontSize: deviceUI.moderateScale(10),
-            fontFamily: theme.font.fontFamily.pretendard.regular,
-            color: theme.color.specified.white,
-        },
-
         menuContainer: {
             width: "100%",
+            paddingLeft: deviceUI.moderateScale(16),
+            paddingRight: deviceUI.moderateScale(16),
             height: deviceUI.getScreenSize().height * 0.07,
             alignItems: "center",
             flexDirection: "row",
-        },
-        menuTitleBox: {
-            alignItems: "center",
-            flexDirection: "row",
-            zIndex: 5,
+            justifyContent: "space-between",
         },
         menuTitleText: {
             fontSize: deviceUI.moderateScale(24),
             fontFamily: theme.font.fontFamily.pretendard.bold,
             color: theme.color.specified.black,
         },
-        vectorIconSize: {
-            height: deviceUI.moderateScale(18),
-        },
-        registerButtonWrapper: {
-            position: "absolute",
-            width: "100%",
-            height: "100%",
-            justifyContent: "center",
-            alignItems: "flex-end",
-        },
-        registerButton: {
-            height: deviceUI.moderateScale(26),
-            width: deviceUI.moderateScale(80),
-            backgroundColor: theme.color.specified.lightblue,
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "center",
-            borderRadius: deviceUI.moderateScale(8),
-        },
-        registerButtonText: {
-            marginLeft: "5%",
-            fontSize: deviceUI.moderateScale(12),
-            fontFamily: theme.font.fontFamily.pretendard.bold,
-            color: theme.color.specified.white,
-        },
-        plusIconSize: {
+        filterIcon: {
             width: deviceUI.moderateScale(40),
+            borderColor: theme.color.specified.black,
         },
         flatList: {
-            height: deviceUI.getScreenSize().height * 0.28 + 8,
+            height: deviceUI.getScreenSize().height * 0.1,
         },
         flatListContainer: {
             justifyContent: "center",
             alignItems: "center",
         },
         whenEmptyCard: {
-            backgroundColor: theme.color.specified.blue,
-            width: deviceUI.getScreenSize().width * 0.9,
-            height: deviceUI.getScreenSize().height * 0.16,
-            borderRadius: deviceUI.moderateScale(15),
+            paddingVertical: deviceUI.moderateScale(120),
+            paddingHorizontal: deviceUI.moderateScale(16),
             justifyContent: "center",
             alignItems: "center",
         },
         whenEmptyCardText: {
             fontSize: deviceUI.moderateScale(16),
             fontFamily: theme.font.fontFamily.pretendard.bold,
-            color: theme.color.specified.white,
-            marginBottom: deviceUI.moderateScale(10),
+            color: theme.color.specified.black,
+            marginBottom: deviceUI.moderateScale(24),
         },
     });
+
     return Style;
 }
