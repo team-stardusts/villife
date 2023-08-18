@@ -8,16 +8,31 @@ import { Vehicle } from "../../../../services/states/types";
 import VillifeToastMessage from "../../../../../../common/atoms/toast";
 import Icon from "../../../../../../common/atoms/icon";
 import MessageSelectionModal from "../../../../blocks/message_selection_modal";
-import VehicleDetailAlert from "../../../../blocks/vehicle_detail_alert";
+import VehicleDetailModal from "../../../../blocks/vehicle_detail_modal";
 import { useState } from "react";
+import useUserInformation from "../../../../../../common/hooks/service/user_info";
 
 export default function VehicleListBodyView(props: VehicleListBodyViewProps) {
     const messages = useScreenMessage().messages;
+    const user = useUserInformation();
+
+    // [TO-DO] Room number를 가져오는 function이 필요함
+    const getUserRoomNumber = (): number => {
+        return 101;
+    };
 
     return (
         <View style={props.styles.container}>
             {props.vehicles.map((vehicle, index) => {
-                return <VehicleInfoRow key={index} styles={props.styles} messages={messages} vehicle={vehicle} />;
+                return (
+                    <VehicleInfoRow
+                        userRoomNumber={getUserRoomNumber()}
+                        key={index}
+                        styles={props.styles}
+                        messages={messages}
+                        vehicle={vehicle}
+                    />
+                );
             })}
         </View>
     );
@@ -65,7 +80,12 @@ function VehicleInfoRow(props: VehicleInfoRowProps) {
                         color={props.styles.detailIcon.color}
                     />
                 </TouchableOpacity>
-                <VehicleDetailAlert visible={detailVisible} setVisible={setDetailVisible} vehicle={props.vehicle} />
+                <VehicleDetailModal
+                    userRoomNumber={props.userRoomNumber}
+                    visible={detailVisible}
+                    setVisible={setDetailVisible}
+                    vehicle={props.vehicle}
+                />
             </View>
         </View>
     );
@@ -75,4 +95,5 @@ type VehicleInfoRowProps = {
     styles: ReturnType<typeof useVehicleListStyles>["body"];
     messages: MultilingualMessage["messages"];
     vehicle: Vehicle;
+    userRoomNumber: number | undefined;
 };

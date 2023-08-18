@@ -13,6 +13,7 @@ export default function useRegisterVehicleScreenStyles() {
         },
         etdaPickerContainer: {
             height: deviceUI.moderateScale(170),
+            paddingHorizontal: deviceUI.moderateScale(2),
         },
         vehicleInfoInputsContainer: {
             height: deviceUI.moderateScale(250),

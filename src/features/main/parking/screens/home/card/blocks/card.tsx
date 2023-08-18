@@ -25,11 +25,11 @@ export default function VehicleCard({ vehicle, cardWidth, isEditmode, onPressEdi
             rowValue: vehicle.model,
         },
         {
-            rowKey: messages.messages.words.etd,
+            rowKey: messages.messages.words.vehicle_departure_time,
             rowValue: `${etdHour.length === 1 ? 0 + etdHour : etdHour}:${etdMin.length === 1 ? 0 + etdMin : etdMin}`,
         },
         {
-            rowKey: messages.messages.words.eta,
+            rowKey: messages.messages.words.vehicle_arrival_time,
             rowValue: `${etaHour.length === 1 ? 0 + etaHour : etaHour}:${etaMin.length === 1 ? 0 + etaMin : etaMin}`,
         },
     ];

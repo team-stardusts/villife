@@ -261,6 +261,7 @@ export type MessagesByLanguage = {
         use_english_only_smallcase: string;
         use_number: string;
         use_special_char: string;
+        time: string;
         tokens_for_4to10: string;
         tokens_for_8to20: string;
         matching_password: string;
@@ -276,8 +277,9 @@ export type MessagesByLanguage = {
         tenant: string;
         guest: string;
         visit: string;
-        etd: string;
-        eta: string;
+        vehicle_departure_date: string;
+        vehicle_departure_time: string;
+        vehicle_arrival_time: string;
         plate_number: string;
         vehicle_info: string;
         vehicle_model: string;
@@ -300,6 +302,10 @@ export type MessagesByLanguage = {
         not_registed: string;
         next: string;
         room_postfix: string;
+        visiting_time: string;
+        visiting_date: string;
+        visiting_room_number: string;
+        info: string;
     };
     navigation: {
         say_wait: string;

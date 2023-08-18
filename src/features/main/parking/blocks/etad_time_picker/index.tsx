@@ -86,10 +86,10 @@ export default function EtdaTimePicker({ initialTime, enableShadow, onTimeChange
                 <View style={styles.contentsContainer}>
                     <View style={styles.headersContainer}>
                         <View style={styles.headerContainer}>
-                            <Text style={styles.header}>{messages.messages.words.etd}</Text>
+                            <Text style={styles.header}>{messages.messages.words.vehicle_departure_time}</Text>
                         </View>
                         <View style={styles.headerContainer}>
-                            <Text style={styles.header}>{messages.messages.words.eta}</Text>
+                            <Text style={styles.header}>{messages.messages.words.vehicle_arrival_time}</Text>
                         </View>
                     </View>
                     <View style={styles.etdaSettingContainer}>

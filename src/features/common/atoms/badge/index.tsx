@@ -1,10 +1,10 @@
-import { StyleSheet, Text, View } from "react-native";
+import { ColorValue, StyleSheet, Text, View } from "react-native";
 
 type BadgeProps = {
     title: string;
     size?: number;
-    color?: string;
-    bgColor?: string;
+    color?: ColorValue;
+    bgColor?: ColorValue;
 };
 
 export default function Badge({ size, color, title, bgColor }: BadgeProps) {
