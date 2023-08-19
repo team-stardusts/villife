@@ -107,6 +107,10 @@ export type MessagesByLanguage = {
             complaint_received_and_in_progress: string;
             when_complaint_empty: string;
             when_complaint_empty_admin: string;
+            complaint_received_and_in_progress_menu: string;
+            complaint_received_menu: string;
+            complaint_in_progress_menu: string;
+            complaint_done_menu: string;
         };
         payment: {
             screen_title: string;

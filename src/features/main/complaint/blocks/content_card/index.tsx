@@ -113,14 +113,6 @@ function ComplaintContentCard(props: ComplaintContentCardProps) {
                                         <View style={styles.innerCircleCompleted}></View>
                                     </Animated.View>
                                 </Pressable>
-                                <Pressable style={styles.absoluteWrapper}>
-                                    <Animated.View
-                                        style={[
-                                            props.editMode
-                                                ? styles.middleLineCompletedWhenEdit
-                                                : styles.middleLineCompleted,
-                                        ]}></Animated.View>
-                                </Pressable>
                             </View>
                         ) : (
                             <View style={styles.progressBarSection}>

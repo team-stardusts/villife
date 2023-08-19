@@ -4,10 +4,12 @@ import BottomSlidableModal from "../../../../common/blocks/universial/slidemodal
 import ReplyEditModalProps from "./type";
 import useBottomEditModalStyles from "./style";
 import IconTag from "../../../../common/atoms/icon/tag";
+import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
 
 export default function ComplaintHomeEditModal(props: ReplyEditModalProps) {
     const styles = useBottomEditModalStyles();
     const screenSize = Dimensions.get("window");
+    const messages = useScreenMessage();
 
     return (
         <BottomSlidableModal
@@ -22,7 +24,9 @@ export default function ComplaintHomeEditModal(props: ReplyEditModalProps) {
                     }}
                     style={styles.editModalMenu}>
                     <IconTag size={24} />
-                    <Text style={[styles.editModalMenuText]}>진행중인 민원 보기 (접수,처리중)</Text>
+                    <Text style={[styles.editModalMenuText]}>
+                        {messages.messages.main.complaint.complaint_received_and_in_progress_menu}
+                    </Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                     onPress={() => {
@@ -31,7 +35,9 @@ export default function ComplaintHomeEditModal(props: ReplyEditModalProps) {
                     }}
                     style={styles.editModalMenu}>
                     <IconTag size={24} />
-                    <Text style={[styles.editModalMenuText]}>접수된 민원만 보기</Text>
+                    <Text style={[styles.editModalMenuText]}>
+                        {messages.messages.main.complaint.complaint_received_menu}
+                    </Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                     onPress={() => {
@@ -40,7 +46,9 @@ export default function ComplaintHomeEditModal(props: ReplyEditModalProps) {
                     }}
                     style={styles.editModalMenu}>
                     <IconTag size={24} />
-                    <Text style={[styles.editModalMenuText]}>처리중인 민원만 보기</Text>
+                    <Text style={[styles.editModalMenuText]}>
+                        {messages.messages.main.complaint.complaint_in_progress_menu}
+                    </Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                     onPress={() => {
@@ -49,7 +57,9 @@ export default function ComplaintHomeEditModal(props: ReplyEditModalProps) {
                     }}
                     style={styles.editModalMenu}>
                     <IconTag size={24} />
-                    <Text style={[styles.editModalMenuText]}>완료된 민원보기</Text>
+                    <Text style={[styles.editModalMenuText]}>
+                        {messages.messages.main.complaint.complaint_done_menu}
+                    </Text>
                 </TouchableOpacity>
             </View>
         </BottomSlidableModal>

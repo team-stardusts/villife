@@ -8,7 +8,7 @@ export default function useComplaintContentCardStyles(): ComplaintContentCardSty
     const Style = StyleSheet.create({
         topLevelBox: {
             width: deviceUI.getScreenSize().width,
-            height: deviceUI.moderateScale(104),
+
             paddingHorizontal: deviceUI.moderateScale(32),
             borderRadius: deviceUI.moderateScale(15),
             marginBottom: deviceUI.moderateScale(16),
@@ -21,6 +21,7 @@ export default function useComplaintContentCardStyles(): ComplaintContentCardSty
             flexDirection: "row",
             justifyContent: "space-between",
             alignItems: "center",
+
             marginTop: deviceUI.moderateScale(16),
             paddingHorizontal: deviceUI.moderateScale(16),
         },
@@ -39,6 +40,7 @@ export default function useComplaintContentCardStyles(): ComplaintContentCardSty
             marginTop: deviceUI.moderateScale(8),
             justifyContent: "space-between",
             alignItems: "center",
+            paddingBottom: deviceUI.moderateScale(16),
         },
         progressBarSection: {
             width: "90%",
@@ -78,7 +80,7 @@ export default function useComplaintContentCardStyles(): ComplaintContentCardSty
         },
         outerCircleInnerBorder: {
             borderWidth: deviceUI.moderateScale(3),
-            borderColor: "#52F21A",
+            borderColor: theme.color.specified.blue,
             width: deviceUI.moderateScale(30),
             height: deviceUI.moderateScale(30),
             borderRadius: deviceUI.moderateScale(15),
@@ -89,7 +91,7 @@ export default function useComplaintContentCardStyles(): ComplaintContentCardSty
             width: deviceUI.moderateScale(15),
             height: deviceUI.moderateScale(15),
             borderRadius: deviceUI.moderateScale(15),
-            backgroundColor: "#52F21A",
+            backgroundColor: theme.color.specified.blue,
         },
         outerCircleInnerBorderCompleted: {
             borderWidth: deviceUI.moderateScale(3),
@@ -105,26 +107,6 @@ export default function useComplaintContentCardStyles(): ComplaintContentCardSty
             height: deviceUI.moderateScale(15),
             borderRadius: deviceUI.moderateScale(15),
             backgroundColor: theme.color.specified.darkgrey,
-        },
-        middleLine: {
-            height: deviceUI.moderateScale(3),
-            backgroundColor: "#52F21A",
-            marginLeft: deviceUI.moderateScale(15),
-            borderRadius: deviceUI.moderateScale(5),
-        },
-        middleLineCompleted: {
-            width: deviceUI.getScreenSize().width * 0.75,
-            height: deviceUI.moderateScale(3),
-            backgroundColor: theme.color.specified.darkgrey,
-            marginLeft: deviceUI.moderateScale(15),
-            borderRadius: deviceUI.moderateScale(5),
-        },
-        middleLineCompletedWhenEdit: {
-            width: deviceUI.getScreenSize().width * 0.65,
-            height: deviceUI.moderateScale(3),
-            backgroundColor: theme.color.specified.darkgrey,
-            marginLeft: deviceUI.moderateScale(15),
-            borderRadius: deviceUI.moderateScale(5),
         },
     });
     return Style;

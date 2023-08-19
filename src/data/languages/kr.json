@@ -99,7 +99,11 @@
             "edit_progress_status_guide": "진행 상황에 맞게 편집해주세요",
             "complaint_received_and_in_progress": "진행중인 민원",
             "when_complaint_empty": "여기를 눌러 새로운 민원을 등록해주세요.",
-            "when_complaint_empty_admin": "등록된 민원이 없습니다."
+            "when_complaint_empty_admin": "등록된 민원이 없습니다.",
+            "complaint_received_and_in_progress_menu": "진행중인 민원 보기 (접수,처리중)",
+            "complaint_received_menu": "접수된 민원만 보기",
+            "complaint_in_progress_menu": "처리중인 민원만 보기",
+            "complaint_done_menu": "완료된 민원보기"
         },
         "payment": {
             "screen_title": "관리비"

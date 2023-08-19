@@ -6,6 +6,11 @@ export default function useComplaintHomeSecreenStyle(): ComplaintHomeScreenStyle
     const { deviceUI, theme } = useStyler();
 
     const Style = StyleSheet.create({
+        topLevelContainer: {
+            flex: 1,
+            flexDirection: "column",
+            marginHorizontal: deviceUI.moderateScale(16),
+        },
         FAQContainer: {
             width: "100%",
             height: deviceUI.getScreenSize().height * 0.07,
@@ -54,7 +59,7 @@ export default function useComplaintHomeSecreenStyle(): ComplaintHomeScreenStyle
             width: deviceUI.moderateScale(40),
             borderColor: theme.color.specified.black,
         },
-        topLevelBox: {
+        complaintBox: {
             flex: 1,
             flexDirection: "column",
             backgroundColor: theme.color.specified.white,
@@ -79,7 +84,7 @@ export default function useComplaintHomeSecreenStyle(): ComplaintHomeScreenStyle
             borderColor: theme.color.specified.black,
         },
         flatList: {
-            height: deviceUI.getScreenSize().height * 0.1,
+            height: deviceUI.getScreenSize().height * 0.5,
         },
         flatListContainer: {
             justifyContent: "center",
