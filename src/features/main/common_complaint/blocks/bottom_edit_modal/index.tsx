@@ -92,14 +92,16 @@ export default function NotiBottomEditModal(props: BottomEditModalProps) {
                     modalVisible={deleteAlertVisible}
                     setModalVisible={setDeleteAlertVisible}
                     title={messages.messages.main.noti.delete_title}
-                    leftButtonText={messages.messages.words.cancle}
-                    rightButtonText={messages.messages.words.delete}
-                    onPressLeftBtn={() => {
-                        setDeleteAlertVisible(false);
-                    }}
-                    onPressRightBtn={() => {
-                        onDeleteButtonPress();
-                    }}
+                    buttons={[
+                        {
+                            text: messages.messages.words.cancle,
+                            onPress: () => setDeleteAlertVisible(false),
+                        },
+                        {
+                            text: messages.messages.words.delete,
+                            onPress: () => onDeleteButtonPress,
+                        },
+                    ]}
                 />
             </View>
         </BottomSlidableModal>

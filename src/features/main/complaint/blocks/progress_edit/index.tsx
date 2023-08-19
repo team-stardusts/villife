@@ -9,7 +9,7 @@ import VillifeToastMessage from "../../../../common/atoms/toast";
 import { ComplaintEventEmitter } from "../../services/event";
 
 export default function ComplaintProgressEditModal(props: ComplaintProgressEditModalProps) {
-    const message = useScreenMessage();
+    const messages = useScreenMessage();
     const service = useComplaintService();
     const updatedStatus = useRef<ComplaintStatus>();
 
@@ -30,18 +30,20 @@ export default function ComplaintProgressEditModal(props: ComplaintProgressEditM
 
     return (
         <StardustModal
-            title={message.messages.main.complaint.edit_progress_status}
-            subtitle={message.messages.main.complaint.edit_progress_status_guide}
+            title={messages.messages.main.complaint.edit_progress_status}
+            subtitle={messages.messages.main.complaint.edit_progress_status_guide}
             modalVisible={props.modalVisible}
             setModalVisible={props.setModalVisible}
-            leftButtonText={message.messages.words.cancle}
-            onPressLeftBtn={() => {
-                props.setModalVisible(false);
-            }}
-            rightButtonText={message.messages.words.edit}
-            onPressRightBtn={() => {
-                onPressModifyButton();
-            }}
+            buttons={[
+                {
+                    text: messages.messages.words.cancle,
+                    onPress: () => props.setModalVisible(false),
+                },
+                {
+                    text: messages.messages.words.edit,
+                    onPress: () => onPressModifyButton(),
+                },
+            ]}
             children={<ComplaintContentCard info={props.complaint} editMode={true} updatedStatus={updatedStatus} />}
         />
     );

@@ -80,11 +80,13 @@ export default function VehicleDetailModal(props: VehicleDetailAlertProps) {
             modalVisible={props.visible}
             setModalVisible={props.setVisible}
             title={title}
-            leftButtonText={messages.words.cancle}
-            rightButtonText={messages.words.okay}
-            onPressVoidSpace={() => props.setVisible(false)}
-            onPressLeftBtn={() => props.setVisible(false)}
-            onPressRightBtn={() => console.log("right")}>
+            buttons={[
+                {
+                    text: messages.words.okay,
+                    onPress: () => props.setVisible(false),
+                },
+            ]}
+            onPressVoidSpace={() => props.setVisible(false)}>
             <View style={styles.container}>
                 {makeVehicleKeyValuePairs().map((pair, index) => {
                     return (

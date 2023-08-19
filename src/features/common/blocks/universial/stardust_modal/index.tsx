@@ -1,21 +1,42 @@
-import React, { Children } from "react";
-import {
-    Modal,
-    StyleSheet,
-    View,
-    Text,
-    TouchableOpacity,
-    Image,
-    Dimensions,
-    Pressable,
-    ColorValue,
-} from "react-native";
-import { StardustModalProps } from "./type";
-import useStyler from "../../../hooks/styler/hooks";
+import React from "react";
+import { Modal, View, Text, TouchableOpacity, Image, Dimensions, Pressable, ColorValue } from "react-native";
+import { StardustModalProps } from "./types";
+import useStardustModalStyles from "./styles";
+
+type ButtonColor = {
+    backgroundColor: ColorValue;
+    color: ColorValue;
+};
 
 export default function StardustModal(props: StardustModalProps) {
     const screenSize = Dimensions.get("window");
-    const styles = useStyles(props.leftButtonColor, props.rightButtonColor);
+    const { styles, theme } = useStardustModalStyles();
+
+    if (props.buttons.length > 3) {
+        console.error("[StartdustModal]", "he maximum number of buttons is 3.");
+    }
+
+    const setButtonColor = (index: number): ButtonColor => {
+        const btns = props.buttons.length;
+        const witchBtn = index + 1;
+        const btnColor: ButtonColor = {
+            backgroundColor: "",
+            color: "",
+        };
+
+        if (witchBtn === btns) {
+            btnColor.backgroundColor = theme.color.status.primary;
+            btnColor.color = theme.color.specified.white;
+        } else if (witchBtn === 1) {
+            btnColor.backgroundColor = theme.color.series.grey.level1;
+            btnColor.color = theme.color.specified.black;
+        } else {
+            btnColor.backgroundColor = theme.color.status.info;
+            btnColor.color = theme.color.specified.white;
+        }
+
+        return btnColor;
+    };
 
     return (
         <Modal
@@ -50,23 +71,23 @@ export default function StardustModal(props: StardustModalProps) {
                     )}
                     {props.children && <View style={styles.childrenSection}>{props.children}</View>}
                     <View style={[styles.buttonSection, { height: screenSize.height * 0.07, marginBottom: 20 }]}>
-                        <TouchableOpacity
-                            activeOpacity={0.7}
-                            onPress={() => {
-                                if (props.onPressLeftBtn) props.onPressLeftBtn();
-                            }}
-                            style={styles.leftButton}>
-                            <Text style={styles.leftButtonText}>{props.leftButtonText}</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            activeOpacity={0.7}
-                            onPress={() => {
-                                if (props.onPressRightBtn) props.onPressRightBtn();
-                            }}
-                            disabled={props.rightBtnDisabled}
-                            style={styles.rightButton}>
-                            <Text style={styles.rightButtonText}> {props.rightButtonText}</Text>
-                        </TouchableOpacity>
+                        {props.buttons.map((button, index) => {
+                            const btnColor = setButtonColor(index);
+                            return (
+                                <TouchableOpacity
+                                    key={index}
+                                    style={[
+                                        styles.button,
+                                        { backgroundColor: button.color ?? btnColor.backgroundColor },
+                                    ]}
+                                    activeOpacity={0.7}
+                                    onPress={() => button.onPress && button.onPress()}>
+                                    <Text style={[styles.buttonText, { color: button.textColor ?? btnColor.color }]}>
+                                        {button.text}
+                                    </Text>
+                                </TouchableOpacity>
+                            );
+                        })}
                     </View>
                 </View>
                 <Pressable
@@ -78,93 +99,4 @@ export default function StardustModal(props: StardustModalProps) {
             </View>
         </Modal>
     );
-}
-
-function useStyles(leftButtonColor?: ColorValue, rightButtonColor?: ColorValue) {
-    const { deviceUI, theme } = useStyler();
-
-    return StyleSheet.create({
-        container: {
-            justifyContent: "center",
-            alignItems: "center",
-            flex: 1,
-            //backgroundColor: "rgba(255,255,255,0.6)",
-        },
-        wrapper: {
-            position: "absolute",
-            top: 0,
-            left: 0,
-            height: deviceUI.getScreenSize().height,
-            width: deviceUI.getScreenSize().width,
-            backgroundColor: theme.color.specified.lightgrey,
-            opacity: 0.6,
-            zIndex: -1,
-        },
-        content: {
-            width: "88%",
-            backgroundColor: "white",
-            flex: 0,
-            borderRadius: deviceUI.moderateScale(15),
-            overflow: "hidden",
-            elevation: 5, // Android only
-            shadowColor: "#000",
-            shadowOffset: { width: 0, height: 2 },
-            shadowOpacity: 0.3,
-            shadowRadius: 2,
-        },
-        textSection: {
-            justifyContent: "center",
-            alignItems: "center",
-        },
-        imageSection: {
-            width: "80%",
-            justifyContent: "center",
-            alignItems: "center",
-        },
-        childrenSection: {
-            justifyContent: "center",
-            alignItems: "center",
-        },
-        buttonSection: {
-            justifyContent: "center",
-            alignItems: "center",
-            flexDirection: "row",
-        },
-        title: {
-            color: theme.color.specified.black,
-            textAlign: "center",
-            ...theme.font.researved.h3,
-        },
-        subtitle: {
-            marginTop: deviceUI.moderateScale(5),
-            color: theme.color.specified.grey,
-            textAlign: "center",
-            ...theme.font.researved.h5,
-        },
-        leftButtonText: {
-            color: theme.color.specified.black,
-            ...theme.font.researved.h5,
-        },
-        rightButtonText: {
-            color: theme.color.specified.white,
-            ...theme.font.researved.h5,
-        },
-        leftButton: {
-            height: "80%",
-            width: "40%",
-            justifyContent: "center",
-            alignItems: "center",
-            backgroundColor: leftButtonColor ?? theme.color.series.grey.level1,
-            borderRadius: deviceUI.moderateScale(8),
-            marginRight: deviceUI.moderateScale(10),
-        },
-        rightButton: {
-            height: "80%",
-            width: "40%",
-            justifyContent: "center",
-            alignItems: "center",
-            backgroundColor: rightButtonColor ?? theme.color.specified.blue,
-            borderRadius: deviceUI.moderateScale(8),
-        },
-    });
 }

@@ -1,4 +1,4 @@
-import { ColorValue, View } from "react-native";
+import { View } from "react-native";
 import StardustModal from "../../../../common/blocks/universial/stardust_modal";
 import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
 import { Vehicle } from "../../services/states/types";
@@ -9,7 +9,7 @@ import useVehicleModifyModalStyles from "./styles";
 import InfoEditView from "./blocks/info";
 import { VehicleInfo } from "../vehicle_info_input_box/types";
 import useParkService from "../../services/park";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import StardustAlert from "../../../../common/blocks/universial/stardust_alert";
 import { StardustAlertContent } from "../../../../common/blocks/universial/stardust_alert/types";
 
@@ -72,12 +72,18 @@ export default function VehicleModifyModal(props: VehicleModifyModalProps) {
                 setModalVisible={props.setVisible}
                 title={messages.messages.main.parking.home.modify_vehicle_info}
                 subtitle={messages.messages.main.parking.home.request_to_modify_etda}
-                leftButtonText={messages.messages.words.cancle}
-                rightButtonText={messages.messages.words.modified}
-                rightButtonColor={selectModifyBtnColor()}
-                onPressVoidSpace={() => props.setVisible(false)}
-                onPressLeftBtn={() => props.setVisible(false)}
-                onPressRightBtn={handlePressModifyBtn}>
+                buttons={[
+                    {
+                        text: messages.messages.words.cancle,
+                        onPress: () => props.setVisible(false),
+                    },
+                    {
+                        text: messages.messages.words.modified,
+                        color: selectModifyBtnColor(),
+                        onPress: () => handlePressModifyBtn(),
+                    },
+                ]}
+                onPressVoidSpace={() => props.setVisible(false)}>
                 <View style={styles.container}>
                     {props.modifyType === "etda" ? (
                         <EtdaEditView styles={styles} initialEtda={initialEtda} onChangeEtda={setEtda} />

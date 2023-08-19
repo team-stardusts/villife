@@ -1,10 +1,6 @@
-import { Dimensions, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Dimensions, Text, TouchableOpacity, View } from "react-native";
 import React from "react";
-import VillifeServer from "../../../../../libs/rest_apis/villife";
-import Toast from "react-native-toast-message";
-import { NoticeEventEmitter } from "../../../noti/blocks/outlined_box_list/event";
 import { useNavigation } from "@react-navigation/native";
-import { DeleteNoticeParams } from "../../../../../libs/rest_apis/villife/notice/types";
 import { VillifeNavigation } from "../../../../common/router/types";
 import BottomSlidableModal from "../../../../common/blocks/universial/slidemodal_bottom";
 
@@ -16,10 +12,11 @@ import useComplaintService from "../../services";
 import VillifeToastMessage from "../../../../common/atoms/toast";
 import { EditIcon } from "../../../../common/atoms/icon/edit";
 import { TrashCanIcon } from "../../../../common/atoms/icon/trash_can";
+import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
 
 export default function ComplaintDetailEditModal(props: DetailEditModalProps) {
     const styles = useBottomEditModalStyles();
-
+    const messages = useScreenMessage();
     const screenSize = Dimensions.get("window");
     const [deleteAlertVisible, setDeleteAlertVisible] = React.useState(false);
     const service = useComplaintService();
@@ -77,14 +74,16 @@ export default function ComplaintDetailEditModal(props: DetailEditModalProps) {
                     modalVisible={deleteAlertVisible}
                     setModalVisible={setDeleteAlertVisible}
                     title="정말 삭제 하시겠어요?"
-                    leftButtonText="취소"
-                    rightButtonText="삭제"
-                    onPressLeftBtn={() => {
-                        setDeleteAlertVisible(false);
-                    }}
-                    onPressRightBtn={() => {
-                        onDeleteButtonPress();
-                    }}
+                    buttons={[
+                        {
+                            text: messages.messages.words.cancle,
+                            onPress: () => setDeleteAlertVisible(false),
+                        },
+                        {
+                            text: messages.messages.words.delete,
+                            onPress: () => onDeleteButtonPress,
+                        },
+                    ]}
                 />
             </View>
         </BottomSlidableModal>

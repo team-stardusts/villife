@@ -111,14 +111,16 @@ export default function ApprovalRequiredModal(props: ApprovalRequiredModalProps)
                             modalVisible={deleteAlertVisible}
                             setModalVisible={setDeleteAlertVisible}
                             title={messages.messages.main.approval.reject_title}
-                            leftButtonText={messages.messages.words.cancle}
-                            rightButtonText={messages.messages.main.approval.reject}
-                            onPressLeftBtn={() => {
-                                setDeleteAlertVisible(false);
-                            }}
-                            onPressRightBtn={() => {
-                                onRejectButtonPress();
-                            }}
+                            buttons={[
+                                {
+                                    text: messages.messages.words.cancle,
+                                    onPress: () => setDeleteAlertVisible(false),
+                                },
+                                {
+                                    text: messages.messages.main.approval.reject,
+                                    onPress: () => onRejectButtonPress,
+                                },
+                            ]}
                         />
                         <TouchableOpacity
                             activeOpacity={0.7}
