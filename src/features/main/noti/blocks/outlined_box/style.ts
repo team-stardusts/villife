@@ -7,12 +7,11 @@ export default function useNotiOutlinedBoxStyles(): UseNotiOutLinedBoxListStyles
 
     return StyleSheet.create({
         container: {
-            borderWidth: deviceUI.moderateScale(2),
-            borderColor: theme.color.specified.blue,
-            marginVertical: deviceUI.getScreenSize().height * 0.008,
+            marginBottom: deviceUI.moderateScale(16),
             borderRadius: deviceUI.moderateScale(15),
-            minHeight: deviceUI.getScreenSize().height * 0.08,
             width: deviceUI.getScreenSize().width * 0.9,
+
+            borderColor: "rgba(0, 0, 0, 0)",
         },
         innerBox: {
             alignItems: "center",

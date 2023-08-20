@@ -14,6 +14,7 @@ import useStyler from "../../../../common/hooks/styler/hooks";
 import { useNavigation } from "@react-navigation/native";
 import { VillifeNavigation } from "../../../../common/router/types";
 import useUserInformation from "../../../../common/hooks/service/user_info";
+import { Shadow } from "react-native-shadow-2";
 
 /**
  * @param OutlinedBoxProp
@@ -54,7 +55,8 @@ function OutlinedBox(props: OutlinedBoxProps) {
     return (
         <>
             <NotiBottomEditModal visible={editModalVisible} setVisible={setEditModalVisible} noticeInfo={props} />
-            <View style={styles.container}>
+
+            <Shadow style={styles.container} distance={4}>
                 <View style={styles.innerBox}>
                     <Pressable
                         onPressOut={() => {
@@ -111,7 +113,7 @@ function OutlinedBox(props: OutlinedBoxProps) {
                                           font-family:"Pretendard-Regular";
                                         }
                                         div {
-                                          color: ${theme.color.specified.black}; 
+                                          color: ${theme.color.specified.black.toString()}; 
                                           
                                         }
                                         img {
@@ -145,7 +147,7 @@ function OutlinedBox(props: OutlinedBoxProps) {
                             viewportContent={"width=device-width, user-scalable=no"}></AutoHeightWebView>
                     )}
                 </View>
-            </View>
+            </Shadow>
         </>
     );
 }
