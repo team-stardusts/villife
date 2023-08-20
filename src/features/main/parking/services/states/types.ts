@@ -12,5 +12,5 @@ export type Vehicle = {
     vehicle_type: Parking.TenantVehicle["vehicle_type"];
     etd: Date;
     eta: Date;
-    visiting_perpose?: Parking.GuestVehicle["visiting_perpose"];
+    visiting_purpose?: Parking.GuestVehicle["visiting_purpose"];
 };

@@ -1,7 +1,6 @@
 import { View } from "react-native";
 import NavigationView from "../../../../common/blocks/navigation";
 import BuildingManagementScreenProps from "./types";
-import { Text } from "react-native-svg";
 import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
 import useBuildingManagementScreenStyles from "./styles";
 import BuildingTentantMessage from "./blocks/message";

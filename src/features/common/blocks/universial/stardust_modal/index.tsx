@@ -2,6 +2,7 @@ import React from "react";
 import { Modal, View, Text, TouchableOpacity, Image, Dimensions, Pressable, ColorValue } from "react-native";
 import { StardustModalProps } from "./types";
 import useStardustModalStyles from "./styles";
+import Icon from "../../../atoms/icon";
 
 type ButtonColor = {
     backgroundColor: ColorValue;
@@ -50,17 +51,26 @@ export default function StardustModal(props: StardustModalProps) {
             <View style={styles.container}>
                 <View style={styles.content}>
                     <View style={[styles.textSection, { height: screenSize.height * 0.1 }]}>
-                        {/* <View
-                            style={{
-                                position: "absolute",
-                                right: 0,
-                                width: 10,
-                                height: 10,
-                                borderRadius: 10,
-                                backgroundColor: "red",
-                            }}></View> */}
-                        <Text style={styles.title}>{props.title}</Text>
-                        {props.subtitle && <Text style={styles.subtitle}>{props.subtitle}</Text>}
+                        <View style={styles.titleBox}>
+                            {props?.upperRightFunc && (
+                                <TouchableOpacity
+                                    style={styles.upperRightFuncBox}
+                                    activeOpacity={0.6}
+                                    onPress={() => props.upperRightFunc?.onPress && props.upperRightFunc.onPress()}>
+                                    <Icon
+                                        name={props.upperRightFunc.icon}
+                                        size={styles.upperRightIcon.width}
+                                        color={props.upperRightFunc.color ?? styles.upperRightIcon.color}
+                                    />
+                                </TouchableOpacity>
+                            )}
+                            <Text style={styles.title}>{props.title}</Text>
+                        </View>
+                        {props.subtitle && (
+                            <View style={styles.titleBox}>
+                                <Text style={styles.subtitle}>{props.subtitle}</Text>
+                            </View>
+                        )}
                     </View>
                     {props.image ? (
                         <View style={[styles.imageSection, { height: screenSize.height * 0.1 }]}>

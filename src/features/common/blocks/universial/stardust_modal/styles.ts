@@ -46,6 +46,21 @@ export default function useStardustModalStyles() {
             justifyContent: "center",
             alignItems: "center",
         },
+        titleBox: {
+            width: "100%",
+            justifyContent: "center",
+            alignItems: "center",
+        },
+        upperRightFuncBox: {
+            position: "absolute",
+            justifyContent: "center",
+            alignItems: "center",
+            right: deviceUI.moderateScale(25),
+        },
+        upperRightIcon: {
+            width: deviceUI.moderateScale(25),
+            color: theme.color.specified.black,
+        },
         title: {
             color: theme.color.specified.black,
             textAlign: "center",
@@ -55,7 +70,8 @@ export default function useStardustModalStyles() {
             marginTop: deviceUI.moderateScale(5),
             color: theme.color.specified.grey,
             textAlign: "center",
-            ...theme.font.researved.h5,
+            fontFamily: theme.font.fontFamily.pretendard.regular,
+            fontSize: deviceUI.moderateScale(13),
         },
         buttonSection: {
             justifyContent: "center",
@@ -64,11 +80,11 @@ export default function useStardustModalStyles() {
             paddingHorizontal: deviceUI.moderateScale(5),
         },
         buttonText: {
-            ...theme.font.researved.h5,
+            fontFamily: theme.font.fontFamily.pretendard.bold,
+            fontSize: deviceUI.moderateScale(13),
         },
         button: {
             height: "80%",
-            //width: "40%",
             flex: 1,
             justifyContent: "center",
             alignItems: "center",

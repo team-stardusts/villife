@@ -144,12 +144,12 @@ export default function useVehicleCardViewStyles(isEditmode?: boolean) {
         rowKey: {
             color: theme.color.specified.black,
             fontFamily: theme.font.fontFamily.pretendard.medium,
-            fontSize: deviceUI.moderateScale(18),
+            fontSize: deviceUI.moderateScale(17),
         },
         rowValue: {
             color: theme.color.specified.black,
             fontFamily: theme.font.fontFamily.pretendard.regular,
-            fontSize: deviceUI.moderateScale(16),
+            fontSize: deviceUI.moderateScale(15),
         },
         editBtnsBox: {
             width: "100%",

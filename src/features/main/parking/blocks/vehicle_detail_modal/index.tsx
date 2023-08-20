@@ -34,51 +34,55 @@ export default function VehicleDetailModal(props: VehicleDetailAlertProps) {
     };
 
     const makeVehicleKeyValuePairs = (): VehicleKeyValuePair[] => {
-        const pairs: VehicleKeyValuePair[] = [];
-
         if (props.vehicle.ownerType === "guest") {
-            pairs.push({
-                key: messages.words.visiting_date,
-                value: makeVehicleDetailModalDate(props.vehicle.eta).date,
-            });
-            pairs.push({
-                key: messages.words.visiting_time,
-                value: makeVehicleDetailModalDate(props.vehicle.eta).time,
-            });
-            pairs.push({
-                key: messages.words.vehicle_departure_date,
-                value: makeVehicleDetailModalDate(props.vehicle.etd).date,
-            });
-            pairs.push({
-                key: messages.words.vehicle_departure_time,
-                value: makeVehicleDetailModalDate(props.vehicle.etd).time,
-            });
-            pairs.push({ key: messages.words.plate_number, value: props.vehicle.plate_number });
-            pairs.push({
-                key: messages.words.visiting_room_number,
-                value: props.vehicle.room_number.toString() + messages.words.room_postfix,
-            });
-            pairs.push({ key: messages.words.visiting_perpose, value: props.vehicle?.visiting_perpose || "-" });
+            return [
+                {
+                    key: messages.words.visiting_date,
+                    value: makeVehicleDetailModalDate(props.vehicle.eta).date,
+                },
+                {
+                    key: messages.words.visiting_time,
+                    value: makeVehicleDetailModalDate(props.vehicle.eta).time,
+                },
+                {
+                    key: messages.words.vehicle_departure_date,
+                    value: makeVehicleDetailModalDate(props.vehicle.etd).date,
+                },
+                {
+                    key: messages.words.vehicle_departure_time,
+                    value: makeVehicleDetailModalDate(props.vehicle.etd).time,
+                },
+                { key: messages.words.plate_number, value: props.vehicle.plate_number },
+                {
+                    key: messages.words.visiting_room_number,
+                    value: props.vehicle.room_number.toString() + messages.words.room_postfix,
+                },
+                { key: messages.words.visiting_perpose, value: props.vehicle?.visiting_purpose || "-" },
+            ];
         } else {
-            pairs.push({ key: messages.words.plate_number, value: props.vehicle.plate_number });
-            pairs.push({ key: messages.words.vehicle_model, value: props.vehicle.model });
-            pairs.push({
-                key: messages.words.vehicle_departure_time,
-                value: makeVehicleDetailModalDate(props.vehicle.etd).time,
-            });
-            pairs.push({
-                key: messages.words.vehicle_arrival_time,
-                value: makeVehicleDetailModalDate(props.vehicle.eta).time,
-            });
+            return [
+                { key: messages.words.plate_number, value: props.vehicle.plate_number },
+                { key: messages.words.vehicle_model, value: props.vehicle.model },
+                {
+                    key: messages.words.vehicle_departure_time,
+                    value: makeVehicleDetailModalDate(props.vehicle.etd).time,
+                },
+                {
+                    key: messages.words.vehicle_arrival_time,
+                    value: makeVehicleDetailModalDate(props.vehicle.eta).time,
+                },
+            ];
         }
-
-        return pairs;
     };
 
     return (
         <StardustModal
             modalVisible={props.visible}
             setModalVisible={props.setVisible}
+            upperRightFunc={{
+                icon: "trash-can",
+                onPress: () => console.log("HEY"),
+            }}
             title={title}
             buttons={[
                 {

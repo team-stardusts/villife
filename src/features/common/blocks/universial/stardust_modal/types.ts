@@ -1,11 +1,17 @@
 import React from "react";
 import { ColorValue } from "react-native";
+import { IconSeries } from "../../../atoms/icon/types";
 
 export type StardustModalProps = {
     modalVisible: boolean;
     setModalVisible: React.Dispatch<React.SetStateAction<boolean>>;
     title: string;
     subtitle?: string;
+    upperRightFunc?: {
+        icon: IconSeries;
+        color?: ColorValue;
+        onPress?(): void;
+    };
     buttons: StardustModalButton[];
     onPressVoidSpace?: () => void;
     image?: any; //must use require()

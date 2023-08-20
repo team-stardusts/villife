@@ -15,7 +15,7 @@ import { ComplaintEventEmitter } from "../../services/event";
 import useComplaintService from "../../services";
 import VillifeToastMessage from "../../../../common/atoms/toast";
 import { EditIcon } from "../../../../common/atoms/icon/edit";
-import { TrashCanIcon } from "../../../../common/atoms/icon/trash_can";
+import { IconTrashCan } from "../../../../common/atoms/icon/trash_can";
 import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
 
 export default function ComplaintReplyEditModal(props: ReplyEditModalProps) {
@@ -67,7 +67,7 @@ export default function ComplaintReplyEditModal(props: ReplyEditModalProps) {
                         setDeleteAlertVisible(true);
                     }}
                     style={styles.editModalMenu}>
-                    <TrashCanIcon size={30} />
+                    <IconTrashCan size={30} />
                     <Text style={[styles.editModalMenuText, { fontSize: 20 }]}>삭제하기</Text>
                     {/* font scaling 필요*/}
                 </TouchableOpacity>

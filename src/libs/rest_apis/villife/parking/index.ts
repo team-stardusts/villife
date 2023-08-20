@@ -100,7 +100,7 @@ const guests: Parking.GuestVehicle[] = [
         etd: 253396944000,
         eta: 253396944000,
         vehicle_type: "4WD",
-        visiting_perpose: "Hello!!!",
+        visiting_purpose: "Hello!!!",
     },
     {
         id: 2,
@@ -111,7 +111,7 @@ const guests: Parking.GuestVehicle[] = [
         etd: 253396944000,
         eta: 253396944000,
         vehicle_type: "4WD",
-        visiting_perpose: "World!!!",
+        visiting_purpose: "World!!!",
     },
 ];
 

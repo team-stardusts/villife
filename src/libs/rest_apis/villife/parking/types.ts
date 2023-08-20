@@ -110,7 +110,7 @@ export namespace Parking {
     };
 
     export type GuestVehicle = TenantVehicle & {
-        visiting_perpose: string;
+        visiting_purpose: string;
     };
 
     export type VehicleEtdaUpdateParams = {

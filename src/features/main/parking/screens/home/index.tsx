@@ -49,9 +49,9 @@ export default function ParkingScreen({ navigation, route }: ParkingScreenProps)
             })
             // 방문자 -> 거주자
             .sort((vehicleA, vehicleB) => {
-                if ("visiting_purpose" in vehicleA && "visiting_purpose" in vehicleB) {
+                if (vehicleA.ownerType === "guest" && vehicleB.ownerType === "guest") {
                     return 0;
-                } else if ("visiting_purpose" in vehicleA) {
+                } else if (vehicleA.ownerType === "guest") {
                     return -1;
                 }
 

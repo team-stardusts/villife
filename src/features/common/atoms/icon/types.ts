@@ -37,10 +37,11 @@ export type IconSeries =
     | "round-person"
     | "question-mark"
     | "three-dots-vertical"
+    | "trash-can"
     | "filter-setting";
 
 export type ChildIconProps = CommonIconProps & {
-    [key: string]: string | number | undefined;
+    [key: string]: ColorValue | string | number | undefined;
 };
 
 type IconProps = CommonIconProps & {

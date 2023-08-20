@@ -10,7 +10,7 @@ import BottomEditModalProps from "./type";
 import useBottomEditModalStyles from "./style";
 import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
 import { EditIcon } from "../../../../common/atoms/icon/edit";
-import { TrashCanIcon } from "../../../../common/atoms/icon/trash_can";
+import { IconTrashCan } from "../../../../common/atoms/icon/trash_can";
 import useStyler from "../../../../common/hooks/styler/hooks";
 import useNoticeService from "../../services";
 import useUserInformation from "../../../../common/hooks/service/user_info";
@@ -84,7 +84,7 @@ export default function NotiBottomEditModal(props: BottomEditModalProps) {
                         setDeleteAlertVisible(true);
                     }}
                     style={styles.editModalMenu}>
-                    <TrashCanIcon size={styles.iconSize.width as number} />
+                    <IconTrashCan size={styles.iconSize.width as number} />
                     <Text style={styles.editModalMenuText}>{messages.messages.main.noti.delete}</Text>
                 </TouchableOpacity>
 
