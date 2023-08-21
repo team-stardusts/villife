@@ -34,10 +34,12 @@ export default function useStardustModalStyles() {
             shadowRadius: 2,
         },
         textSection: {
+            height: deviceUI.getScreenSize().height * 0.1,
             justifyContent: "center",
             alignItems: "center",
         },
         imageSection: {
+            height: deviceUI.getScreenSize().height * 0.1,
             width: "80%",
             justifyContent: "center",
             alignItems: "center",
@@ -74,6 +76,8 @@ export default function useStardustModalStyles() {
             fontSize: deviceUI.moderateScale(13),
         },
         buttonSection: {
+            height: deviceUI.getScreenSize().height * 0.07,
+            marginBottom: 20,
             justifyContent: "center",
             alignItems: "center",
             flexDirection: "row",

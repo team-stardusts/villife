@@ -10,7 +10,6 @@ type ButtonColor = {
 };
 
 export default function StardustModal(props: StardustModalProps) {
-    const screenSize = Dimensions.get("window");
     const { styles, theme } = useStardustModalStyles();
 
     if (props.buttons.length > 3) {
@@ -47,10 +46,10 @@ export default function StardustModal(props: StardustModalProps) {
             onRequestClose={() => {
                 props.setModalVisible(!props.modalVisible);
             }}
-            style={[{ width: screenSize.width, height: screenSize.height }, styles.wrapper]}>
+            style={styles.wrapper}>
             <View style={styles.container}>
                 <View style={styles.content}>
-                    <View style={[styles.textSection, { height: screenSize.height * 0.1 }]}>
+                    <View style={styles.textSection}>
                         <View style={styles.titleBox}>
                             {props?.upperRightFunc && (
                                 <TouchableOpacity
@@ -73,14 +72,14 @@ export default function StardustModal(props: StardustModalProps) {
                         )}
                     </View>
                     {props.image ? (
-                        <View style={[styles.imageSection, { height: screenSize.height * 0.1 }]}>
+                        <View style={styles.imageSection}>
                             <Image source={props.image} resizeMode="cover" />
                         </View>
                     ) : (
                         <></>
                     )}
                     {props.children && <View style={styles.childrenSection}>{props.children}</View>}
-                    <View style={[styles.buttonSection, { height: screenSize.height * 0.07, marginBottom: 20 }]}>
+                    <View style={styles.buttonSection}>
                         {props.buttons.map((button, index) => {
                             const btnColor = setButtonColor(index);
                             return (
@@ -88,10 +87,14 @@ export default function StardustModal(props: StardustModalProps) {
                                     key={index}
                                     style={[
                                         styles.button,
-                                        { backgroundColor: button.color ?? btnColor.backgroundColor },
+                                        {
+                                            backgroundColor: button.color ?? btnColor.backgroundColor,
+                                            opacity: button.disabled ? 0.6 : 1,
+                                        },
                                     ]}
-                                    activeOpacity={0.7}
-                                    onPress={() => button.onPress && button.onPress()}>
+                                    activeOpacity={0.6}
+                                    onPress={() => button.onPress && button.onPress()}
+                                    disabled={button.disabled}>
                                     <Text style={[styles.buttonText, { color: button.textColor ?? btnColor.color }]}>
                                         {button.text}
                                     </Text>

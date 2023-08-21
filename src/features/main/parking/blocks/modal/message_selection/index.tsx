@@ -3,7 +3,7 @@ import BottomMessageSelectionModal from "./modal";
 import { useState } from "react";
 import useMessageSelectorStyles from "./styles";
 import { MessageSelectionModalProps } from "./types";
-import Icon from "../../../../common/atoms/icon";
+import Icon from "../../../../../common/atoms/icon";
 
 export default function MessageSelectionModal(props: MessageSelectionModalProps) {
     const styles = useMessageSelectorStyles().main;

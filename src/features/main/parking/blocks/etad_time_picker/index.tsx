@@ -45,8 +45,9 @@ export default function EtdaTimePicker({ initialTime, enableShadow, onTimeChange
             justifyContent: "space-between",
             alignItems: "center",
             paddingHorizontal: deviceUI.moderateScale(5),
-            borderColor: theme.color.series.grey.level1,
-            borderBottomWidth: deviceUI.moderateScale(3),
+            //borderColor: theme.color.series.grey.level1,\
+            borderColor: theme.color.specified.black,
+            borderBottomWidth: deviceUI.moderateScale(2),
         },
         headerContainer: {
             marginHorizontal: deviceUI.moderateScale(5),

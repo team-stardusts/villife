@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import useStyler from "../../../../common/hooks/styler/hooks";
+import useStyler from "../../../../../common/hooks/styler/hooks";
 
 export default function useVehicleModifyModalStyles() {
     const { deviceUI, theme } = useStyler();
@@ -11,8 +11,8 @@ export default function useVehicleModifyModalStyles() {
             justifyContent: "center",
             alignItems: "center",
         },
-        editContianer: {
-            width: "90%",
+        etdaContianer: {
+            width: deviceUI.getScreenSize().width * 0.85,
             height: "95%",
         },
         infoContianer: {

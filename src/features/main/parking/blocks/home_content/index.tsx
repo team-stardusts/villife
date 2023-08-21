@@ -12,7 +12,7 @@ import { Vehicle } from "../../services/states/types";
 import { PRESSABLE_MENU_TYPE, PressableMenuProps } from "./types";
 import { useRecoilValue } from "recoil";
 import { vehiclesState } from "../../services/states";
-import VehicleModifyModal from "../modify_modal";
+import VehicleModifyModal from "../modal/modify";
 
 export default function HomeContentFromParking() {
     const messages = useScreenMessage().messages;

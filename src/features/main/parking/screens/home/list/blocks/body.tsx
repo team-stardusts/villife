@@ -7,8 +7,8 @@ import MultilingualMessage from "../../../../../../common/hooks/multilingual";
 import { Vehicle } from "../../../../services/states/types";
 import VillifeToastMessage from "../../../../../../common/atoms/toast";
 import Icon from "../../../../../../common/atoms/icon";
-import MessageSelectionModal from "../../../../blocks/message_selection_modal";
-import VehicleDetailModal from "../../../../blocks/vehicle_detail_modal";
+import MessageSelectionModal from "../../../../blocks/modal/message_selection";
+import VehicleDetailModal from "../../../../blocks/modal/detail";
 import { useState } from "react";
 import useUserInformation from "../../../../../../common/hooks/service/user_info";
 

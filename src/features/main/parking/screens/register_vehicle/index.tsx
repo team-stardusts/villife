@@ -10,8 +10,8 @@ import SimpleNavComponent from "../../../../common/blocks/navigation/header/navc
 import { Toast } from "react-native-toast-message/lib/src/Toast";
 import { TOAST_DEFAULT_OFFSET, TOAST_DEFAULT_VISIBILITY_TIME } from "../../../../common/constants";
 import VillifeToastMessage from "../../../../common/atoms/toast";
-import VehicleInfoInputBox from "../../blocks/vehicle_info_input_box";
-import { VehicleValidationResult } from "../../blocks/vehicle_info_input_box/types";
+import VehicleInfoInputBox from "../../blocks/info_input_box";
+import { VehicleValidationResult } from "../../blocks/info_input_box/types";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import useParkService from "../../services/park";
 

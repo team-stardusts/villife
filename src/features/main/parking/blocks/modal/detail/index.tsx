@@ -1,8 +1,9 @@
-import StardustModal from "../../../../common/blocks/universial/stardust_modal";
+import StardustModal from "../../../../../common/blocks/universial/stardust_modal";
 import { Text, View } from "react-native";
-import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
+import useScreenMessage from "../../../../../common/hooks/multilingual/hooks";
 import useVehicleDetailModalStyles from "./styles";
 import { VehicleDetailAlertProps, VehicleDetailModalDate, VehicleKeyValuePair } from "./types";
+import { StardustModalButton } from "../../../../../common/blocks/universial/stardust_modal/types";
 
 export default function VehicleDetailModal(props: VehicleDetailAlertProps) {
     const messages = useScreenMessage().messages;
@@ -11,8 +12,7 @@ export default function VehicleDetailModal(props: VehicleDetailAlertProps) {
         props.vehicle.ownerType === "guest"
             ? `${messages.words.guest} ${messages.words.info}`
             : `${messages.words.tenant} ${messages.words.info}`;
-    /* const subtitle = props.vehicle.ownerType === "guest" && props.vehicle.room_number === props.userRoomNumber ? 
-    "정보 확인 후 " */
+    const isMyGuest = props.vehicle.ownerType === "guest" && props.vehicle.room_number === props.userRoomNumber;
 
     const makeVehicleDetailModalDate = (date: Date): VehicleDetailModalDate => {
         const keepDoubleDigits = (num: number): string => {
@@ -75,21 +75,44 @@ export default function VehicleDetailModal(props: VehicleDetailAlertProps) {
         }
     };
 
+    const setButtons = (): StardustModalButton[] => {
+        const buttons: StardustModalButton[] = [];
+
+        if (isMyGuest) {
+            buttons.push(
+                {
+                    text: messages.words.cancle,
+                    onPress: () => props.setVisible(false),
+                },
+                {
+                    text: messages.words.modify,
+                    onPress: () => props.setVisible(false),
+                }
+            );
+        } else {
+            buttons.push({
+                text: messages.words.okay,
+                onPress: () => props.setVisible(false),
+            });
+        }
+
+        return buttons;
+    };
+
     return (
         <StardustModal
             modalVisible={props.visible}
             setModalVisible={props.setVisible}
-            upperRightFunc={{
-                icon: "trash-can",
-                onPress: () => console.log("HEY"),
-            }}
+            upperRightFunc={
+                isMyGuest
+                    ? {
+                          icon: "trash-can",
+                          onPress: () => console.log("HEY"),
+                      }
+                    : undefined
+            }
             title={title}
-            buttons={[
-                {
-                    text: messages.words.okay,
-                    onPress: () => props.setVisible(false),
-                },
-            ]}
+            buttons={setButtons()}
             onPressVoidSpace={() => props.setVisible(false)}>
             <View style={styles.container}>
                 {makeVehicleKeyValuePairs().map((pair, index) => {

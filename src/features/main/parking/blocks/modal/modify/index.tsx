@@ -1,17 +1,17 @@
 import { View } from "react-native";
-import StardustModal from "../../../../common/blocks/universial/stardust_modal";
-import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
-import { Vehicle } from "../../services/states/types";
-import { EtdaTime } from "../etad_time_picker/types";
+import StardustModal from "../../../../../common/blocks/universial/stardust_modal";
+import useScreenMessage from "../../../../../common/hooks/multilingual/hooks";
+import { Vehicle } from "../../../services/states/types";
+import { EtdaTime } from "../../etad_time_picker/types";
 import { VehicleModifyModalProps } from "./types";
 import EtdaEditView from "./blocks/etda";
 import useVehicleModifyModalStyles from "./styles";
 import InfoEditView from "./blocks/info";
-import { VehicleInfo } from "../vehicle_info_input_box/types";
-import useParkService from "../../services/park";
+import { VehicleInfo } from "../../info_input_box/types";
+import useParkService from "../../../services/park";
 import { useCallback, useState } from "react";
-import StardustAlert from "../../../../common/blocks/universial/stardust_alert";
-import { StardustAlertContent } from "../../../../common/blocks/universial/stardust_alert/types";
+import StardustAlert from "../../../../../common/blocks/universial/stardust_alert";
+import { StardustAlertContent } from "../../../../../common/blocks/universial/stardust_alert/types";
 
 export default function VehicleModifyModal(props: VehicleModifyModalProps) {
     const messages = useScreenMessage();

@@ -61,6 +61,8 @@ function NumberNode({
             color: isFocused ? focusedcolor : unFocusedColor,
             fontWeight: "bold",
             ...theme.font.researved.h5,
+            /* fontFamily: theme.font.fontFamily.pretendard.bold,
+            fontSize: viewHeight * 0.5, */
         },
     });
     return (

@@ -2,9 +2,9 @@ import { NativeScrollEvent, NativeSyntheticEvent, ScrollView, Text, View } from 
 import { VehicleCardBodyProps, VehicleCardInfoForEdit } from "../types";
 import VehicleCard from "./card";
 import useScreenMessage from "../../../../../../common/hooks/multilingual/hooks";
-import VehicleModifyModal from "../../../../blocks/modify_modal";
+import VehicleModifyModal from "../../../../blocks/modal/modify";
 import { useEffect, useState } from "react";
-import { VehicleModifyType } from "../../../../blocks/modify_modal/types";
+import { VehicleModifyType } from "../../../../blocks/modal/modify/types";
 import { Vehicle } from "../../../../services/states/types";
 
 export default function VehicleCardBody({ styles, cardWidth, vehicles, isEditmode, onFlip }: VehicleCardBodyProps) {

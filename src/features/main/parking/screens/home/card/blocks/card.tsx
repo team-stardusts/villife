@@ -2,7 +2,7 @@ import useScreenMessage from "../../../../../../common/hooks/multilingual/hooks"
 import { VehicleCardProps } from "../types";
 import { Animated, Text, TouchableOpacity, View } from "react-native";
 import useVehicleCardViewStyles from "../styles";
-import { VehicleModifyType } from "../../../../blocks/modify_modal/types";
+import { VehicleModifyType } from "../../../../blocks/modal/modify/types";
 import { useEffect, useRef } from "react";
 import { ANIMATION_DURATION_FAST } from "../../../../../../common/constants";
 

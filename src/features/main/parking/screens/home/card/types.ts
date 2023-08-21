@@ -1,5 +1,5 @@
 import { Vehicle } from "../../../services/states/types";
-import { VehicleModifyType } from "../../../blocks/modify_modal/types";
+import { VehicleModifyType } from "../../../blocks/modal/modify/types";
 import useVehicleCardViewStyles from "./styles";
 
 export type VehicleCardViewProps = {

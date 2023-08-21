@@ -1,16 +1,11 @@
-import { StyleSheet, Text, TouchableHighlight, TouchableOpacity, View } from "react-native";
-import { useGetFirebaseToken } from "../common/hooks/firebase";
+import { StyleSheet } from "react-native";
 import NavigationView from "../common/blocks/navigation";
-import useStyler from "../common/hooks/styler/hooks";
 import useTestService from "./test_hook";
-import { useRecoilState } from "recoil";
-import { TestDataState, testDataState } from "../common/hooks/states/atoms/test";
 import { useEffect } from "react";
+import { View } from "react-native";
+import CalendarDatePicker from "../common/blocks/calendar_picker";
 
 export default function TestScreen() {
-    const firebaseToken = useGetFirebaseToken();
-    const { deviceUI } = useStyler();
-    const [teststate, setTeststate] = useRecoilState<TestDataState | null>(testDataState);
     const test = useTestService();
 
     const styles = StyleSheet.create({
@@ -31,21 +26,8 @@ export default function TestScreen() {
 
     return (
         <NavigationView headerOptions={{ title: "TEST" }}>
-            <View style={styles.container}>
-                <TouchableHighlight
-                    style={styles.btn}
-                    activeOpacity={0.3}
-                    underlayColor={"teal"}
-                    onPress={() => {
-                        if (test) test.name += "!";
-                    }}>
-                    <Text>Button</Text>
-                </TouchableHighlight>
-            </View>
             <View>
-                <Text>{test?.name}</Text>
-                <Text>{test?.age}</Text>
-                <Text>{test?.isAudult ? "성인" : "미성년자"}</Text>
+                <CalendarDatePicker initialDate={new Date("2023-08-11")} onDateChange={console.log} />
             </View>
         </NavigationView>
     );

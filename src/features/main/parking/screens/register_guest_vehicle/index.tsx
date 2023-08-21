@@ -1,10 +1,9 @@
-import { Alert, Text, View } from "react-native";
+import { Alert, View } from "react-native";
 import NavigationView from "../../../../common/blocks/navigation";
 import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
 import RegisterGuestVehicleScreenProps, { GuestVehicle } from "./types";
 import useRegisterVehicleScreenStyles from "./styles";
 import ParkingScreenGuide from "../../blocks/screen_guide";
-import EtdaTimePicker from "../../blocks/etad_time_picker";
 import { useState } from "react";
 import SimpleNavComponent from "../../../../common/blocks/navigation/header/navcomponent";
 import { Toast } from "react-native-toast-message/lib/src/Toast";
@@ -14,21 +13,15 @@ import GuestVehicleInfoInputBox from "../../blocks/guest_vehicle_info_input_box 
 import { GuestVehicleValidationResult } from "../../blocks/guest_vehicle_info_input_box copy/types";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import useParkService from "../../services/park";
+import DateRangePicker from "./blocks/date_etda_picker";
+import type { DateTimeRange } from "../../blocks/modal/date_selection/types";
 
 export default function RegisterGuestVehicleScreen({ navigation, route }: RegisterGuestVehicleScreenProps) {
     const messages = useScreenMessage();
     const styles = useRegisterVehicleScreenStyles();
     const { registerGuestVehicleToBuilding } = useParkService();
-
+    const [dateTimeRange, setDateTimeRange] = useState<DateTimeRange | null>(null);
     const [guestVehicle, setGuestVehicle] = useState<GuestVehicle>({
-        eta: {
-            hour: 0,
-            minute: 0,
-        },
-        etd: {
-            hour: 0,
-            minute: 0,
-        },
         model: "guest_test",
         phoneNumber: "",
         plateNumber: "",
@@ -125,12 +118,13 @@ export default function RegisterGuestVehicleScreen({ navigation, route }: Regist
                         subtitle={messages.messages.main.parking.register_guest_vehicle.request_input_vehicle_info}
                     />
                     <View style={styles.etdaPickerContainer}>
-                        <EtdaTimePicker
+                        {/* <EtdaTimePicker
                             onTimeChange={(time) => {
                                 setGuestVehicle({ ...guestVehicle, ...time });
                             }}
                             enableShadow
-                        />
+                        /> */}
+                        <DateRangePicker onChangeDateTimeRange={setDateTimeRange} />
                     </View>
                     <View style={styles.vehicleInfoInputsContainer}>
                         <GuestVehicleInfoInputBox

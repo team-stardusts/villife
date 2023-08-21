@@ -1,4 +1,4 @@
-import { SendParkPushNotiMessageType } from "../../../../../common/router/types";
+import { SendParkPushNotiMessageType } from "../../../../../../common/router/types";
 
 export type BottomMessageSelectionModalProps = {
     vehicleID: number;

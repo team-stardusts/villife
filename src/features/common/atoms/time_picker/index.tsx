@@ -39,6 +39,8 @@ export default function TimePicker({
             color: focusedcolor || theme.color.specified.black,
             paddingBottom: deviceUI.moderateScale(10),
             ...theme.font.researved.h2,
+            /* fontFamily: theme.font.fontFamily.pretendard.bold,
+            fontSize: height * 0.28, */
         },
     });
 

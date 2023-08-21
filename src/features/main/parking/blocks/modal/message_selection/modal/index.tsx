@@ -1,11 +1,11 @@
 import { Text, TouchableOpacity, View } from "react-native";
-import Icon from "../../../../../common/atoms/icon";
-import BottomSlidableModal from "../../../../../common/blocks/universial/slidemodal_bottom";
+import Icon from "../../../../../../common/atoms/icon";
+import BottomSlidableModal from "../../../../../../common/blocks/universial/slidemodal_bottom";
 import useMessageSelectorStyles from "../styles";
 import { BottomMessageSelectionModalProps, MessageTypeComponentProps } from "./types";
-import useScreenMessage from "../../../../../common/hooks/multilingual/hooks";
+import useScreenMessage from "../../../../../../common/hooks/multilingual/hooks";
 import { useNavigation } from "@react-navigation/native";
-import { RouterParams, SEND_PARK_PUSH_NOTI_MESSAGE_TYPE } from "../../../../../common/router/types";
+import { RouterParams, SEND_PARK_PUSH_NOTI_MESSAGE_TYPE } from "../../../../../../common/router/types";
 
 export default function BottomMessageSelectionModal(props: BottomMessageSelectionModalProps) {
     const styles = useMessageSelectorStyles().modal;
