@@ -14,13 +14,14 @@ import { GuestVehicleValidationResult } from "../../blocks/guest_vehicle_info_in
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import useParkService from "../../services/park";
 import DateRangePicker from "./blocks/date_etda_picker";
-import type { DateTimeRange } from "../../blocks/modal/date_selection/types";
+import type { DateRange } from "../../blocks/modal/date_selection/types";
+import StardustDateParser from "../../../../../libs/date_parser";
 
 export default function RegisterGuestVehicleScreen({ navigation, route }: RegisterGuestVehicleScreenProps) {
     const messages = useScreenMessage();
     const styles = useRegisterVehicleScreenStyles();
     const { registerGuestVehicleToBuilding } = useParkService();
-    const [dateTimeRange, setDateTimeRange] = useState<DateTimeRange | null>(null);
+    const [dateTimeRange, setDateTimeRange] = useState<DateRange | null>(null);
     const [guestVehicle, setGuestVehicle] = useState<GuestVehicle>({
         model: "guest_test",
         phoneNumber: "",
@@ -36,6 +37,10 @@ export default function RegisterGuestVehicleScreen({ navigation, route }: Regist
 
     // [TO-DO] 예외 처리가 필요함
     const handlePressRegisterBtn = async () => {
+        if (dateTimeRange === null) {
+            return;
+        }
+
         if (!valid.phoneNumber && !valid.plateNumber) {
             Toast.show({
                 type: "error",
@@ -58,11 +63,9 @@ export default function RegisterGuestVehicleScreen({ navigation, route }: Regist
             VillifeToastMessage.showBottomToast("error", messages.messages.main.parking.register_vehicle.invalid_model);
 
         if (valid.phoneNumber && valid.plateNumber) {
-            // Regsiter Service 등록
-            // [TO-DO] ETDA 컨버터 필요
             const isSuccessful = await registerGuestVehicleToBuilding({
-                eta: 111111,
-                etd: 111111,
+                eta: StardustDateParser.serialize(dateTimeRange.startDate),
+                etd: StardustDateParser.serialize(dateTimeRange.endDate),
                 guestPhoneNumber: guestVehicle.phoneNumber,
                 model: guestVehicle.model,
                 plateNumber: guestVehicle.plateNumber,
@@ -118,12 +121,6 @@ export default function RegisterGuestVehicleScreen({ navigation, route }: Regist
                         subtitle={messages.messages.main.parking.register_guest_vehicle.request_input_vehicle_info}
                     />
                     <View style={styles.etdaPickerContainer}>
-                        {/* <EtdaTimePicker
-                            onTimeChange={(time) => {
-                                setGuestVehicle({ ...guestVehicle, ...time });
-                            }}
-                            enableShadow
-                        /> */}
                         <DateRangePicker onChangeDateTimeRange={setDateTimeRange} />
                     </View>
                     <View style={styles.vehicleInfoInputsContainer}>

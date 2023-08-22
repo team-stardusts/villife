@@ -16,7 +16,6 @@ export default function CalendarDatePicker(props: CalendarDatePickerProps) {
 
     useEffect(() => {
         if (dates.endDate === null) return;
-
         props.onDateChange && props.onDateChange(dates as Dates);
     }, [dates]);
 
@@ -30,6 +29,8 @@ export default function CalendarDatePicker(props: CalendarDatePickerProps) {
     };
 
     const onDateChange: DateChangedCallback = (date, type): void => {
+        if (date === null) return;
+
         if (type === "START_DATE") {
             setDates({
                 ...dates,
@@ -41,7 +42,7 @@ export default function CalendarDatePicker(props: CalendarDatePickerProps) {
 
         setDates({
             ...dates,
-            endDate: date?.toDate(),
+            endDate: date.toDate(),
         });
     };
 

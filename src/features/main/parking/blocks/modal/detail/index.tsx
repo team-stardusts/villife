@@ -4,6 +4,7 @@ import useScreenMessage from "../../../../../common/hooks/multilingual/hooks";
 import useVehicleDetailModalStyles from "./styles";
 import { VehicleDetailAlertProps, VehicleDetailModalDate, VehicleKeyValuePair } from "./types";
 import { StardustModalButton } from "../../../../../common/blocks/universial/stardust_modal/types";
+import StardustDateParser from "../../../../../../libs/date_parser";
 
 export default function VehicleDetailModal(props: VehicleDetailAlertProps) {
     const messages = useScreenMessage().messages;
@@ -22,10 +23,12 @@ export default function VehicleDetailModal(props: VehicleDetailAlertProps) {
 
             return "0" + num.toString();
         };
-        const months = keepDoubleDigits(date.getMonth());
-        const days = keepDoubleDigits(date.getDay());
-        const hours = keepDoubleDigits(date.getHours());
-        const mins = keepDoubleDigits(date.getMinutes());
+
+        // getUCT*로 시작하지 않을 시 GMT+9로 변환됨. 이미 변환된 상태라 변환되면 안됨
+        const months = keepDoubleDigits(date.getUTCMonth() + 1); // month는 0부터 시작
+        const days = keepDoubleDigits(date.getUTCDate());
+        const hours = keepDoubleDigits(date.getUTCHours());
+        const mins = keepDoubleDigits(date.getUTCMinutes());
 
         return {
             date: `${months}-${days}`,

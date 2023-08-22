@@ -3,14 +3,22 @@ import ContentBox from "../../../../../../common/blocks/content_box";
 import useStyler from "../../../../../../common/hooks/styler/hooks";
 import useScreenMessage from "../../../../../../common/hooks/multilingual/hooks";
 import Icon from "../../../../../../common/atoms/icon";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import GuestVehicleDateSelectionModal from "../../../../blocks/modal/date_selection";
 import type { DateEtdaPickerProps } from "./types";
+import { DateRange } from "../../../../blocks/modal/date_selection/types";
 
 export default function DateRangePicker(props: DateEtdaPickerProps) {
     const messages = useScreenMessage();
     const styles = useDateEtdaPickerStyles();
     const [visible, setVisible] = useState<boolean>(false);
+    const [dates, setDates] = useState<DateRange | null>(null);
+
+    useEffect(() => {
+        if (dates === null) return;
+
+        props.onChangeDateTimeRange(dates);
+    }, [dates]);
 
     return (
         <TouchableOpacity style={styles.container} activeOpacity={0.6} onPress={() => setVisible(true)}>
@@ -26,22 +34,18 @@ export default function DateRangePicker(props: DateEtdaPickerProps) {
                     </View>
                     <View style={styles.dateDisplayContainer}>
                         <View style={styles.dateAndTimeContainer}>
-                            <DisplayDate styles={styles} direction="left" />
+                            <DisplayDate styles={styles} direction="left" date={dates?.startDate} />
                         </View>
                         <View style={styles.dateIsolationContainer}>
                             <Icon name="arrow-right-with-midline" size={styles.icon.width} color={styles.icon.color} />
                         </View>
                         <View style={styles.dateAndTimeContainer}>
-                            <DisplayDate styles={styles} direction="right" />
+                            <DisplayDate styles={styles} direction="right" date={dates?.endDate} />
                         </View>
                     </View>
                 </View>
             </ContentBox>
-            <GuestVehicleDateSelectionModal
-                visible={visible}
-                setVisible={setVisible}
-                onChangeDate={props.onChangeDateTimeRange}
-            />
+            <GuestVehicleDateSelectionModal visible={visible} setVisible={setVisible} onChangeDate={setDates} />
         </TouchableOpacity>
     );
 }
@@ -49,9 +53,40 @@ export default function DateRangePicker(props: DateEtdaPickerProps) {
 type DisplayDateProps = {
     styles: ReturnType<typeof useDateEtdaPickerStyles>;
     direction: "left" | "right";
+    date: Date | undefined;
 };
 
-function DisplayDate({ styles, direction }: DisplayDateProps) {
+function DisplayDate({ styles, direction, date }: DisplayDateProps) {
+    const initialDateString = "00/00/00";
+    const initialTimeString = "00 : 00";
+
+    const getDateString = () => {
+        if (!date) return;
+
+        const years = keepDoubleDigits(date.getUTCFullYear()).substring(2);
+        const months = keepDoubleDigits(date.getUTCMonth() + 1);
+        const days = keepDoubleDigits(date.getUTCDate());
+
+        return `${years}/${months}/${days}`;
+    };
+
+    const getTimeString = () => {
+        if (!date) return;
+
+        const hours = keepDoubleDigits(date.getUTCHours());
+        const mins = keepDoubleDigits(date.getUTCMinutes());
+
+        return `${hours} : ${mins}`;
+    };
+
+    const keepDoubleDigits = (num: number): string => {
+        if (num >= 10) {
+            return num.toString();
+        }
+
+        return "0" + num.toString();
+    };
+
     return (
         <View style={styles.dateContainer}>
             <View
@@ -61,7 +96,7 @@ function DisplayDate({ styles, direction }: DisplayDateProps) {
                         alignItems: direction === "left" ? "flex-start" : "flex-end",
                     },
                 ]}>
-                <Text style={styles.date}>23/08/11</Text>
+                <Text style={styles.date}>{date ? getDateString() : initialDateString}</Text>
             </View>
             <View
                 style={[
@@ -70,7 +105,7 @@ function DisplayDate({ styles, direction }: DisplayDateProps) {
                         justifyContent: direction === "left" ? "flex-start" : "flex-end",
                     },
                 ]}>
-                <Text style={styles.time}>00 : 00</Text>
+                <Text style={styles.time}>{date ? getTimeString() : initialTimeString}</Text>
             </View>
         </View>
     );
