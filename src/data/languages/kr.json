@@ -66,6 +66,10 @@
                 "double_parking": "이중주차 알림",
                 "change_request": "변경요청 알림"
             },
+            "detail_modal": {
+                "success_to_delete": "방문자 정보를 삭제했습니다.",
+                "failed_to_delete": "방문자 정보를 삭제하지 못했습니다."
+            },
             "home_content": {
                 "screen_title": "주차 관리",
                 "no_registed_vehicle": "등록된 차량이 없습니다.",
@@ -311,6 +315,8 @@
         "building_not_selected": "빌딩을 선택해주세요."
     },
     "boilerplate": {
+        "are_you_sure_to_delete": "정말로 삭제하시겠습니까?",
+        "deleted_info_cant_be_recovered": "삭제된 정보는 복구할 수 없습니다.",
         "preparing_service": "서비스 준비중입니다.",
         "contact_the_manager": "관리자에게 문의바랍니다.",
         "try_again_soon": "잠시 후 다시 시도해주세요.",

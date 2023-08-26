@@ -32,7 +32,8 @@ export default function HomeContentFromComplaint() {
     return (
         <MiniContent
             title={messages.messages.main.complaint.renter_home_content_title}
-            navigation={{ to: "complaint" }}>
+            navigation={{ to: "complaint" }}
+            eanbleShadow={false}>
             {viewModel.uiState.complaintsWillBeDisplayed.length == 0 ? (
                 <Pressable
                     onPress={() => {
@@ -59,8 +60,8 @@ export default function HomeContentFromComplaint() {
                                 <Text style={style.text}>{complaint.title}</Text>
                                 <ColorLable
                                     text={translateLableText(complaint.status)}
-                                    backgroundColor={theme.color.specified.green}
-                                    textColor={theme.color.specified.black}
+                                    backgroundColor={theme.color.specified.green as string}
+                                    textColor={theme.color.specified.black as string}
                                 />
                             </TouchableOpacity>
                         );

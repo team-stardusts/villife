@@ -63,6 +63,10 @@ export type MessagesByLanguage = {
                 request_noti_to_go_out_first: string;
                 request_to_change_the_parking_spot: string;
             };
+            detail_modal: {
+                success_to_delete: string;
+                failed_to_delete: string;
+            };
             modify_modal: {
                 succed_to_change_etda: string;
                 fail_to_change_etda: string;
@@ -317,6 +321,8 @@ export type MessagesByLanguage = {
         building_not_selected: string;
     };
     boilerplate: {
+        are_you_sure_to_delete: string;
+        deleted_info_cant_be_recovered: string;
         preparing_service: string;
         contact_the_manager: string;
         try_again_soon: string;

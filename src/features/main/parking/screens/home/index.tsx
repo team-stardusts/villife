@@ -2,64 +2,61 @@ import { ScrollView } from "react-native";
 import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
 import NavigationView from "../../../../common/blocks/navigation";
 import ParkingScreenProps from "./types";
-import useParkService from "../../services/park";
-import { useEffect, useState } from "react";
+import useParkingLot from "../../services/park";
+import { useCallback, useEffect } from "react";
 import VehicleCardView from "./card";
-import useStyler from "../../../../common/hooks/styler/hooks";
 import useParkingHomeScreenStyles from "./styles";
 import { Vehicle } from "../../services/states/types";
-import { useRecoilValue } from "recoil";
-import { vehiclesState } from "../../services/states";
 import useUserInformation from "../../../../common/hooks/service/user_info";
 import VehicleListView from "./list";
 
 export default function ParkingScreen({ navigation, route }: ParkingScreenProps) {
     const messages = useScreenMessage();
-    const user = useUserInformation();
     const styles = useParkingHomeScreenStyles();
-    const { updateVehicles } = useParkService();
-    const vehicles = useRecoilValue<Vehicle[]>(vehiclesState);
-    const [vehiclesForRender, setVehiclesForRender] = useState<Vehicle[]>([]);
+    const user = useUserInformation();
+    const parkingLot = useParkingLot();
 
     useEffect(() => {
-        updateVehicles();
-    }, []);
+        parkingLot.updateVehicles();
+    }, [user?.adminInfomation?.selectedBuilding]);
 
     useEffect(() => {
         sortAndSetVehiclesForRender();
-    }, [vehicles]);
+    }, [parkingLot.vehicles]);
 
-    const sortAndSetVehiclesForRender = (): void => {
+    const sortAndSetVehiclesForRender = useCallback((): Vehicle[] => {
         const newVehiclesForRender: Vehicle[] = [];
 
         if (user?.isAdmin) {
-            newVehiclesForRender.push(...vehicles);
+            newVehiclesForRender.push(...parkingLot.vehicles);
         } else {
-            newVehiclesForRender.push(...vehicles.filter((vehicle) => vehicle.ownerType !== "user"));
+            newVehiclesForRender.push(...parkingLot.vehicles.filter((vehicle) => vehicle.ownerType !== "user"));
         }
 
-        newVehiclesForRender
-            // 차량번호 1 -> 2
-            .sort((vehicleA, vehicleB) => {
-                try {
-                    return parseInt(vehicleA.plate_number.slice(0, 2)) - parseInt(vehicleB.plate_number.slice(0, 2));
-                } catch {
-                    return 0;
-                }
-            })
-            // 방문자 -> 거주자
-            .sort((vehicleA, vehicleB) => {
-                if (vehicleA.ownerType === "guest" && vehicleB.ownerType === "guest") {
-                    return 0;
-                } else if (vehicleA.ownerType === "guest") {
-                    return -1;
-                }
+        return (
+            newVehiclesForRender
+                // 차량번호 1 -> 2
+                .sort((vehicleA, vehicleB) => {
+                    try {
+                        return (
+                            parseInt(vehicleA.plate_number.slice(0, 2)) - parseInt(vehicleB.plate_number.slice(0, 2))
+                        );
+                    } catch {
+                        return 0;
+                    }
+                })
+                // 방문자 -> 거주자
+                .sort((vehicleA, vehicleB) => {
+                    if (vehicleA.ownerType === "guest" && vehicleB.ownerType === "guest") {
+                        return 0;
+                    } else if (vehicleA.ownerType === "guest") {
+                        return -1;
+                    }
 
-                return 1;
-            });
-
-        setVehiclesForRender(newVehiclesForRender);
-    };
+                    return 1;
+                })
+        );
+    }, [parkingLot.vehicles]);
 
     /* // Vehicles 목록을 딜레이를 줘서 렌더링하기 위함.
     const [vehiclesForRendering, setVehiclesForRendering] = useState<Vehicle[]>([]);
@@ -99,10 +96,8 @@ export default function ParkingScreen({ navigation, route }: ParkingScreenProps)
                 applyDefaultVerticalPadding: false,
             }}>
             <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
-                {!user?.isAdmin && (
-                    <VehicleCardView vehicles={vehicles.filter((vehicle) => vehicle.ownerType === "user")} />
-                )}
-                <VehicleListView vehicles={vehiclesForRender} />
+                {!user?.isAdmin && <VehicleCardView vehicles={parkingLot.userVehicles} />}
+                <VehicleListView vehicles={sortAndSetVehiclesForRender()} />
             </ScrollView>
         </NavigationView>
     );

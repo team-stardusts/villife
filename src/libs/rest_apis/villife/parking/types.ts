@@ -1,28 +1,43 @@
 import { Response, ResponseForTest } from "../../types";
 
 // [TO-DO] 서버 API 적용 완료 후 Test interface 변경
-export default interface IVillifeParkingManager extends Parking.IVehicleGettable {}
+export default interface IVillifeParkingManager
+    extends Parking.IVehicleGettable,
+        Parking.IVehicleUpdatable,
+        Parking.IVehicleRegisterable,
+        Parking.IVehicleNoticable,
+        Parking.IVehicleDeletable {}
 
 export namespace Parking {
     export interface IVehicleGettable {
         getVehicles(buildingID?: number): Response<TenantVehicle[]>;
         getGuestVehiclesOfBuilding(buildingID: number): Response<GuestVehicle[]>;
+    }
+
+    export interface IVehicleUpdatable {
         updateUserVehicleEtda(params: VehicleEtdaUpdateParams): Response<VehicleInfoUpdateReturn>;
         updateUserVehicleInfo(params: VehicleInfopdateParams): Response<VehicleInfoUpdateReturn>;
+    }
+
+    export interface IVehicleRegisterable {
         registerGuestVehicleToBuilding(params: RegisterGuestVehicleToBuildingParams): Response<GuestVehicle>;
         registerUserVehicle(params: RegisterUserVehicle.Params): Response<RegisterUserVehicle.Return>;
+    }
+
+    export interface IVehicleNoticable {
         sendPushNotification(params: SendPushNotification.Params): Response<SendPushNotification.Return>;
     }
 
-    /* export interface ITestVehicleGettable {
-        getMyVehicles(): ResponseForTest<TenantVehicle[]>;
-        getBuildingRegistedVehicles(): ResponseForTest<TenantVehicle[]>;
-        getBuildingGuestVehicles(): ResponseForTest<GuestVehicle[]>;
-        updateMyVehicleEtda(params: Parking.VehicleEtdaUpdateParams): ResponseForTest<VehicleInfoUpdateReturnType>;
-        updateMyVehicleInfo(params: Parking.VehicleInfopdateParams): ResponseForTest<VehicleInfoUpdateReturnType>;
-    } */
+    export interface IVehicleDeletable {
+        deleteUserVehicle(vehicleID: number): Response<DeleteVehicle.Return>;
+        deleteGuestVehicle(vehicleID: number): Response<DeleteVehicle.Return>;
+    }
 
     type VehicleType = "4WD" | "2WD";
+
+    export namespace DeleteVehicle {
+        export type Return = string;
+    }
 
     export namespace SendPushNotification {
         export type Params = {
@@ -126,4 +141,12 @@ export namespace Parking {
     };
 
     export type VehicleInfoUpdateReturn = string;
+
+    /* export interface ITestVehicleGettable {
+        getMyVehicles(): ResponseForTest<TenantVehicle[]>;
+        getBuildingRegistedVehicles(): ResponseForTest<TenantVehicle[]>;
+        getBuildingGuestVehicles(): ResponseForTest<GuestVehicle[]>;
+        updateMyVehicleEtda(params: Parking.VehicleEtdaUpdateParams): ResponseForTest<VehicleInfoUpdateReturnType>;
+        updateMyVehicleInfo(params: Parking.VehicleInfopdateParams): ResponseForTest<VehicleInfoUpdateReturnType>;
+    } */
 }

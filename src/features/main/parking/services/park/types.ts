@@ -1,28 +1,23 @@
-import { Parking } from "../../../../../libs/rest_apis/villife/parking/types";
-import { TimePickerTime } from "../../../../common/atoms/time_picker/types";
-import { EtdaTime } from "../../blocks/etad_time_picker/types";
 import { Vehicle, VehicleOwnerType } from "../states/types";
+import {
+    MyVehicleEtdaUpdateParams,
+    MyVehicleInfoUpdateParams,
+    RegisterGuestVehicleParams,
+    RegisterUserVehicleParams,
+    SendMessageParams,
+    DeleteVehicleParams,
+} from "./service/types";
 
-export type ParkServiceReturns = {
-    // vehicles: Vehicle[];
-    getVehiclesByOwnerType(ownerType: VehicleOwnerType): Promise<Vehicle[]>;
+export interface IParkingLot {
+    vehicles: Vehicle[];
+    userVehicles: Vehicle[];
+    guestVehicles: Vehicle[];
+    tenantVehicles: Vehicle[];
     updateVehicles(ownerType?: VehicleOwnerType): Promise<void>;
-    updateUserVehicleEtda(params: MyVehicleEtdaUpdateServiceParams): Promise<boolean>;
-    updateUserVehicleInfo(params: Parking.VehicleInfopdateParams): Promise<boolean>;
-    registerGuestVehicleToBuilding(params: Parking.RegisterGuestVehicleToBuildingParams): Promise<boolean>;
+    updateUserVehicleEtda(params: MyVehicleEtdaUpdateParams): Promise<boolean>;
+    updateUserVehicleInfo(params: MyVehicleInfoUpdateParams): Promise<boolean>;
     registerUserVehicle(params: RegisterUserVehicleParams): Promise<boolean>;
-    sendMessage(params: Parking.SendPushNotification.Params): Promise<boolean>;
-};
-
-export type RegisterUserVehicleParams = {
-    eta: TimePickerTime;
-    etd: TimePickerTime;
-    model: Parking.RegisterUserVehicle.Params["model"];
-    plateNumber: Parking.RegisterUserVehicle.Params["plateNumber"];
-    vehicleType: Parking.RegisterUserVehicle.Params["vehicleType"];
-};
-
-export type MyVehicleEtdaUpdateServiceParams = {
-    vehicleID: Parking.VehicleEtdaUpdateParams["vehicleID"];
-    etda: EtdaTime;
-};
+    registerGuestVehicle(params: RegisterGuestVehicleParams): Promise<boolean>;
+    deleteVehicle(params: DeleteVehicleParams): Promise<boolean>;
+    sendMessage(params: SendMessageParams): Promise<boolean>;
+}

@@ -51,13 +51,15 @@ export default function useStardustAlertStyles(enterMessage: boolean) {
         container: {
             flex: 1,
             justifyContent: "center",
-            alignItems: enterMessage ? "center" : "flex-start",
-            paddingLeft: enterMessage ? 0 : deviceUI.moderateScale(10),
+            /* alignItems: enterMessage ? "center" : "flex-start",
+            paddingLeft: enterMessage ? 0 : deviceUI.moderateScale(10), */
+            alignItems: "flex-start",
+            paddingLeft: deviceUI.moderateScale(10),
         },
         title: {
-            ...theme.font.researved.h4,
-            color: theme.color.specified.white,
             fontFamily: theme.font.fontFamily.pretendard.bold,
+            fontSize: deviceUI.moderateScale(16),
+            color: theme.color.specified.white,
         },
     });
 
@@ -71,7 +73,8 @@ export default function useStardustAlertStyles(enterMessage: boolean) {
         },
         message: {
             color: theme.color.specified.black,
-            ...theme.font.researved.h4,
+            fontFamily: theme.font.fontFamily.pretendard.regular,
+            fontSize: deviceUI.moderateScale(14),
         },
     });
 
@@ -95,7 +98,7 @@ export default function useStardustAlertStyles(enterMessage: boolean) {
             borderColor: theme.color.series.grey.level1,
         },
         text: {
-            fontSize: deviceUI.moderateScale(18),
+            fontSize: deviceUI.moderateScale(14),
             fontFamily: theme.font.fontFamily.pretendard.medium,
             color: theme.color.specified.black,
         },

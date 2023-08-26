@@ -21,7 +21,10 @@ export default function HomeContentFromNoti() {
     const { theme, deviceUI } = useStyler();
 
     return (
-        <MiniContent title={messages.messages.main.noti.screen_title} navigation={{ to: "noti_home" }}>
+        <MiniContent
+            title={messages.messages.main.noti.screen_title}
+            navigation={{ to: "noti_home" }}
+            eanbleShadow={false}>
             {viewModel?.length == 0 ? (
                 <TouchableOpacity
                     style={style.whenEmptyContainer}

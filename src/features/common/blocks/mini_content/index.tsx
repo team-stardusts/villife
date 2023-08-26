@@ -49,7 +49,7 @@ export default function MiniContent({ title, navigation, children, eanbleShadow 
 
     return (
         <View style={styles.container}>
-            <ContentBox backgroundColor={theme.color.specified.white} enableShadow>
+            <ContentBox backgroundColor={theme.color.specified.white} enableShadow={eanbleShadow}>
                 <View style={styles.contentsContatainer}>
                     <TouchableOpacity
                         style={styles.navigationBox}

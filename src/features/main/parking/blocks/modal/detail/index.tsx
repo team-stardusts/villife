@@ -4,11 +4,33 @@ import useScreenMessage from "../../../../../common/hooks/multilingual/hooks";
 import useVehicleDetailModalStyles from "./styles";
 import { VehicleDetailAlertProps, VehicleDetailModalDate, VehicleKeyValuePair } from "./types";
 import { StardustModalButton } from "../../../../../common/blocks/universial/stardust_modal/types";
-import StardustDateParser from "../../../../../../libs/date_parser";
+import useParkingLot from "../../../services/park";
+import VillifeToastMessage from "../../../../../common/atoms/toast";
+import StardustAlert from "../../../../../common/blocks/universial/stardust_alert";
+import { useState } from "react";
+import { StardustAlertContent } from "../../../../../common/blocks/universial/stardust_alert/types";
 
 export default function VehicleDetailModal(props: VehicleDetailAlertProps) {
     const messages = useScreenMessage().messages;
     const styles = useVehicleDetailModalStyles();
+    const parkingLot = useParkingLot();
+    const [deleteAlert, setDeleteAlert] = useState<StardustAlertContent>({
+        visible: false,
+        title: messages.boilerplate.are_you_sure_to_delete,
+        message: messages.boilerplate.deleted_info_cant_be_recovered,
+        type: "warning",
+        buttons: [
+            {
+                text: messages.words.cancle,
+                onPress: (): void => setDeleteAlert({ ...deleteAlert, visible: false }),
+            },
+            {
+                text: messages.words.delete,
+                onPress: (): Promise<void> => deleteVehicle(),
+            },
+        ],
+    });
+
     const title =
         props.vehicle.ownerType === "guest"
             ? `${messages.words.guest} ${messages.words.info}`
@@ -102,6 +124,22 @@ export default function VehicleDetailModal(props: VehicleDetailAlertProps) {
         return buttons;
     };
 
+    const deleteVehicle = async () => {
+        const isSuccessful = await parkingLot.deleteVehicle({
+            type: "guest",
+            vehicleID: props.vehicle.id,
+        });
+
+        props.setVisible(false);
+
+        VillifeToastMessage.showBottomToast(
+            isSuccessful ? "info" : "error",
+            isSuccessful
+                ? messages.main.parking.detail_modal.success_to_delete
+                : messages.main.parking.detail_modal.failed_to_delete
+        );
+    };
+
     return (
         <StardustModal
             modalVisible={props.visible}
@@ -110,7 +148,7 @@ export default function VehicleDetailModal(props: VehicleDetailAlertProps) {
                 isMyGuest
                     ? {
                           icon: "trash-can",
-                          onPress: () => console.log("HEY"),
+                          onPress: () => setDeleteAlert({ ...deleteAlert, visible: true }),
                       }
                     : undefined
             }
@@ -127,6 +165,7 @@ export default function VehicleDetailModal(props: VehicleDetailAlertProps) {
                     );
                 })}
             </View>
+            <StardustAlert {...deleteAlert} setAlert={setDeleteAlert} />
         </StardustModal>
     );
 }

@@ -32,7 +32,6 @@ export default function NavigationView({
     // Navigation child에 props를 넣어주기 위함
     let navComponentProps = headerOptions.navComponentProps;
     navComponentProps = navComponentProps !== undefined ? navComponentProps : {};
-
     // Android back button 대비 코드
     useFocusEffect(
         useCallback(() => {

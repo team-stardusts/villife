@@ -7,40 +7,37 @@ import { IconSeries } from "../../../../common/atoms/icon/types";
 import Icon from "../../../../common/atoms/icon";
 import { RouterParams } from "../../../../common/router/types";
 import { useNavigation } from "@react-navigation/native";
-import useParkService from "../../services/park";
+import useParkingLot from "../../services/park";
 import { Vehicle } from "../../services/states/types";
 import { PRESSABLE_MENU_TYPE, PressableMenuProps } from "./types";
-import { useRecoilValue } from "recoil";
-import { vehiclesState } from "../../services/states";
 import VehicleModifyModal from "../modal/modify";
 
 export default function HomeContentFromParking() {
     const messages = useScreenMessage().messages;
     const [favoritVehicle, setFavoriteVehicle] = useState<Vehicle | null>(null);
     const styles = useHomeContentFromParkingStyles(favoritVehicle !== null);
-    const vehicles = useRecoilValue<Vehicle[]>(vehiclesState);
-    const updateVehicles = useParkService().updateVehicles;
+    const parkingLot = useParkingLot();
 
     const setFavoriteVehicleFromVehicles = async (): Promise<void> => {
-        const userVehicles = vehicles.filter((vehicle) => vehicle.ownerType === "user");
-        if (userVehicles.length === 0) {
+        if (parkingLot.userVehicles.length === 0) {
             return;
         }
 
         // [TO-DO] 차량 즐겨찾기 기능을 추가하여 즐겨찾는 차량이 선택되도록 변경해야함
-        setFavoriteVehicle(userVehicles[0]);
+        setFavoriteVehicle(parkingLot.userVehicles[0]);
     };
 
     useEffect(() => {
         setFavoriteVehicleFromVehicles();
-    }, [vehicles]);
+    }, [parkingLot.vehicles]);
 
     useEffect(() => {
-        updateVehicles("user");
+        //updateVehicles("user");
+        parkingLot.updateVehicles("user");
     }, []);
 
     return (
-        <MiniContent title={messages.main.parking.home_content.screen_title}>
+        <MiniContent title={messages.main.parking.home_content.screen_title} eanbleShadow={false}>
             <View style={styles.main.container}>
                 {favoritVehicle && (
                     <View style={styles.main.textBox}>

@@ -121,7 +121,7 @@ class VillifeParkginManager extends AVillifeServerModule implements IVillifePark
      * @param {number} buildingID If this parameter is not entered, return vehicles of user.
      * @returns {Parking.TenantVehicle[]}
      */
-    public async getVehicles(buildingID?: number): Response<Parking.TenantVehicle[]> {
+    public async getVehicles(buildingID?: number | undefined): Response<Parking.TenantVehicle[]> {
         const route: string = this.routes.parking.handleVechile;
         const params: Parking.GetVehiclesRequestParam =
             buildingID === undefined
@@ -250,6 +250,32 @@ class VillifeParkginManager extends AVillifeServerModule implements IVillifePark
             method: "post",
             url: route,
             data,
+        });
+    }
+
+    public async deleteUserVehicle(vehicleID: number): Response<Parking.DeleteVehicle.Return> {
+        const route: string = this.routes.parking.handleVechile;
+        const params = {
+            vehicle_id: vehicleID,
+        };
+
+        return await this.requestAuthable<any, Parking.DeleteVehicle.Return>({
+            method: "delete",
+            url: route,
+            params,
+        });
+    }
+
+    public async deleteGuestVehicle(vehicleID: number): Response<Parking.DeleteVehicle.Return> {
+        const route: string = this.routes.parking.handleGuestVehicle;
+        const params = {
+            vehicle_id: vehicleID,
+        };
+
+        return await this.requestAuthable<any, Parking.DeleteVehicle.Return>({
+            method: "delete",
+            url: route,
+            params,
         });
     }
 }

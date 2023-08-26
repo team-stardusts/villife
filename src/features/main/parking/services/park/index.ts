@@ -1,199 +1,123 @@
-import VillifeServer from "../../../../../libs/rest_apis/villife";
-import IVillifeParkingManager, { Parking } from "../../../../../libs/rest_apis/villife/parking/types";
-import { MyVehicleEtdaUpdateServiceParams, ParkServiceReturns, RegisterUserVehicleParams } from "./types";
+import { Parking } from "../../../../../libs/rest_apis/villife/parking/types";
 import { useRecoilState } from "recoil";
 import { Vehicle, VehicleOwnerType } from "../states/types";
 import { vehiclesState } from "../states";
-import { useEffect } from "react";
-import StardustDateParser from "../../../../../libs/date_parser";
 import useUserInformation from "../../../../common/hooks/service/user_info";
+import ParkingServiceProvider from "./service";
+import type {
+    DeleteVehicleParams,
+    IParkingServiceProvider,
+    MyVehicleEtdaUpdateParams,
+    MyVehicleInfoUpdateParams,
+    RegisterGuestVehicleParams,
+    RegisterUserVehicleParams,
+} from "./service/types";
+import type { IParkingLot } from "./types";
 
-export default function useParkService(): ParkServiceReturns {
+export default function useParkingLot(): IParkingLot {
     const [vehicles, setVehicles] = useRecoilState<Vehicle[]>(vehiclesState);
     const user = useUserInformation();
-    const parkManager: IVillifeParkingManager = VillifeServer.getParkingManager();
+    const service: IParkingServiceProvider = new ParkingServiceProvider();
 
-    /* useEffect(() => {
-        updateVehicles();
-    }, []); */
+    class ParkingLot implements IParkingLot {
+        public readonly vehicles: Vehicle[] = vehicles;
 
-    useEffect(() => {
-        if (!user?.isAdmin || user.adminInfomation === null) return;
-
-        updateVehicles();
-    }, [user?.adminInfomation?.selectedBuilding]);
-
-    const updateVehicles = async (ownerType?: VehicleOwnerType) => {
-        const newVehicles: Vehicle[] = [];
-
-        if (ownerType === undefined || (!user?.isAdmin && ownerType === "user")) {
-            newVehicles.push(...(await getVehiclesByOwnerType("user")));
-        } else {
-            newVehicles.push(...vehicles.filter((vehicle) => vehicle.ownerType === "user"));
+        get userVehicles(): Vehicle[] {
+            return vehicles.filter((vehicle) => vehicle.ownerType === "user");
         }
 
-        if (ownerType === undefined || ownerType === "tenant") {
-            // Tenant Vehicles에서 User Vehicles 삭제
-            const buidingVehicles = await getVehiclesByOwnerType("tenant").then((result) => {
-                return result.filter(
-                    (buildingVehicle) =>
-                        !vehicles
-                            .filter((vehicle) => vehicle.ownerType === "user")
-                            .map((vehicle) => vehicle.id)
-                            .includes(buildingVehicle.id)
-                );
-            });
-
-            newVehicles.push(...buidingVehicles);
-        } else {
-            newVehicles.push(...vehicles.filter((vehicle) => vehicle.ownerType === "tenant"));
+        get guestVehicles(): Vehicle[] {
+            return vehicles.filter((vehicle) => vehicle.ownerType === "guest");
         }
 
-        if (ownerType === undefined || ownerType === "guest") {
-            newVehicles.push(...(await getVehiclesByOwnerType("guest")));
-        } else {
-            newVehicles.push(...vehicles.filter((vehicle) => vehicle.ownerType === "guest"));
+        get tenantVehicles(): Vehicle[] {
+            return vehicles.filter((vehicle) => vehicle.ownerType === "tenant");
         }
 
-        setVehicles(newVehicles);
-    };
+        public async updateVehicles(ownerType?: VehicleOwnerType): Promise<void> {
+            if (ownerType !== undefined) {
+                if (ownerType === "user" && user?.isAdmin) return;
 
-    const getVehiclesByOwnerType = async (ownerType: VehicleOwnerType): Promise<Vehicle[]> => {
-        let result = null;
+                setVehicles([
+                    ...vehicles.filter((vehicle) => vehicle.ownerType !== ownerType),
+                    ...(await service.getVehicles(ownerType)),
+                ]);
 
-        const buildingID = user?.isAdmin ? user?.adminInfomation?.selectedBuilding.id : user?.buildingID;
-
-        if (buildingID === undefined) {
-            console.log("ParkingService:", "There are no building ID in user information.");
-            return [];
-        }
-
-        switch (ownerType) {
-            case "user":
-                result = await parkManager.getVehicles();
-                break;
-
-            case "tenant":
-                result = await parkManager.getVehicles(buildingID);
-                break;
-
-            case "guest":
-                result = await parkManager.getGuestVehiclesOfBuilding(buildingID);
-                break;
-        }
-
-        if (!result.isSuccessful || result.data?.data === undefined) {
-            console.log(
-                "[PARKING_SERVICE]",
-                `Received an unexpected return while retrieving vehicle list of ${ownerType} vehicles.`
-            );
-            return [];
-        }
-
-        if (result.data.data.length > 0) {
-            const dataArray: Vehicle[] = [];
-
-            for (let i = 0; i < result.data.data.length; i++) {
-                dataArray.push({
-                    ...result.data.data[i],
-                    ownerType: ownerType,
-                    eta: StardustDateParser.deserialize(result.data.data[i].eta),
-                    etd: StardustDateParser.deserialize(result.data.data[i].etd),
-                });
+                return;
             }
 
-            return dataArray;
+            const newVehicles: Vehicle[] = [];
+            const buildingID = user?.isAdmin ? user?.adminInfomation?.selectedBuilding.id : user?.buildingID;
+
+            if (buildingID === undefined) {
+                console.log("[PARKING_LOT]:", "There are no building ID in user information.");
+                return;
+            }
+
+            if (!user?.isAdmin) {
+                newVehicles.push(...(await service.getVehicles("user")));
+            }
+
+            try {
+                newVehicles.push(...(await service.getVehicles("tenant", buildingID)));
+                newVehicles.push(...(await service.getVehicles("guest", buildingID)));
+            } catch (e) {
+                console.log(e);
+            }
+
+            setVehicles(newVehicles);
         }
 
-        return [];
-    };
+        public async updateUserVehicleEtda(params: MyVehicleEtdaUpdateParams): Promise<boolean> {
+            const isSuccessful = await service.updateUserVehicleETDA(params);
 
-    const updateUserVehicleEtda = async (params: MyVehicleEtdaUpdateServiceParams): Promise<boolean> => {
-        const _params = {
-            vehicleID: params.vehicleID,
-            etd: StardustDateParser.serialize(new Date(`9999-12-31T${params.etda.etd.hour}:${params.etda.etd.minute}`)),
-            eta: StardustDateParser.serialize(new Date(`9999-12-31T${params.etda.eta.hour}:${params.etda.eta.minute}`)),
-        };
+            isSuccessful && this.updateVehicles("user");
 
-        const isSuccessful: boolean = (await parkManager.updateUserVehicleEtda(_params)).isSuccessful;
+            return isSuccessful;
+        }
 
-        isSuccessful && updateVehicles("user");
+        public async updateUserVehicleInfo(params: MyVehicleInfoUpdateParams): Promise<boolean> {
+            const isSuccessful = await service.updateUserVehicleInfo(params);
 
-        return isSuccessful;
-    };
+            isSuccessful && this.updateVehicles("user");
 
-    const updateUserVehicleInfo = async (params: Parking.VehicleInfopdateParams): Promise<boolean> => {
-        const isSuccessful: boolean = (await parkManager.updateUserVehicleInfo(params)).isSuccessful;
+            return isSuccessful;
+        }
 
-        isSuccessful && updateVehicles("user");
+        public async registerUserVehicle(params: RegisterUserVehicleParams): Promise<boolean> {
+            const vehicle = await service.registerUserVehicle(params);
 
-        return isSuccessful;
-    };
+            if (vehicle === null) {
+                return false;
+            }
 
-    const registerGuestVehicleToBuilding = async (
-        params: Parking.RegisterGuestVehicleToBuildingParams
-    ): Promise<boolean> => {
-        const result = await parkManager.registerGuestVehicleToBuilding(params);
-
-        if (result.isSuccessful && result.data?.data !== undefined) {
-            setVehicles([
-                ...vehicles,
-                {
-                    ...result.data.data,
-                    ownerType: "guest",
-                    eta: StardustDateParser.deserialize(result.data.data.eta),
-                    etd: StardustDateParser.deserialize(result.data.data.etd),
-                },
-            ]);
-
+            setVehicles([...vehicles, vehicle]);
             return true;
         }
 
-        return false;
-    };
+        public async registerGuestVehicle(params: RegisterGuestVehicleParams): Promise<boolean> {
+            const vehicle = await service.registerGuestVehicle(params);
 
-    const registerUserVehicle = async (params: RegisterUserVehicleParams): Promise<boolean> => {
-        const DEFAULT_DATE = "9999-12-31";
-        const dateOfETA = new Date(`${DEFAULT_DATE}T${params.eta.hour}:${params.eta.minute}`);
-        const dateOfETD = new Date(`${DEFAULT_DATE}T${params.etd.hour}:${params.etd.minute}`);
+            if (vehicle === null) {
+                return false;
+            }
 
-        const result = await parkManager.registerUserVehicle({
-            ...params,
-            eta: StardustDateParser.serialize(dateOfETA),
-            etd: StardustDateParser.serialize(dateOfETD),
-        });
-
-        if (result.isSuccessful && result.data?.data !== undefined) {
-            setVehicles([
-                ...vehicles,
-                {
-                    ...result.data.data,
-                    ownerType: "user",
-                    eta: StardustDateParser.deserialize(result.data.data.eta),
-                    etd: StardustDateParser.deserialize(result.data.data.etd),
-                },
-            ]);
-
+            setVehicles([...vehicles, vehicle]);
             return true;
         }
 
-        return false;
-    };
+        public async deleteVehicle(params: DeleteVehicleParams): Promise<boolean> {
+            const isSuccessful = await service.deleteVehicle(params);
 
-    const sendMessage = async (params: Parking.SendPushNotification.Params): Promise<boolean> => {
-        const result = await parkManager.sendPushNotification(params);
+            isSuccessful && setVehicles([...vehicles.filter((vehicle) => vehicle.id !== params.vehicleID)]);
 
-        return result.isSuccessful;
-    };
+            return isSuccessful;
+        }
 
-    return {
-        //vehicles,
-        getVehiclesByOwnerType,
-        updateVehicles,
-        updateUserVehicleEtda,
-        updateUserVehicleInfo,
-        registerGuestVehicleToBuilding,
-        registerUserVehicle,
-        sendMessage,
-    };
+        public async sendMessage(params: Parking.SendPushNotification.Params): Promise<boolean> {
+            return await service.sendMessage(params);
+        }
+    }
+
+    return new ParkingLot();
 }

@@ -8,7 +8,7 @@ import EtdaEditView from "./blocks/etda";
 import useVehicleModifyModalStyles from "./styles";
 import InfoEditView from "./blocks/info";
 import { VehicleInfo } from "../../info_input_box/types";
-import useParkService from "../../../services/park";
+import useParkingLot from "../../../services/park";
 import { useCallback, useState } from "react";
 import StardustAlert from "../../../../../common/blocks/universial/stardust_alert";
 import { StardustAlertContent } from "../../../../../common/blocks/universial/stardust_alert/types";
@@ -17,7 +17,7 @@ export default function VehicleModifyModal(props: VehicleModifyModalProps) {
     const messages = useScreenMessage();
     const initialEtda = convertVehicleEtdaToEtdaTime(props.vehilce);
     const styles = useVehicleModifyModalStyles();
-    const { updateUserVehicleEtda, updateUserVehicleInfo } = useParkService();
+    const parkingLot = useParkingLot();
     const [etda, setEtda] = useState<EtdaTime | null>(null);
     const [info, setInfo] = useState<VehicleInfo | null>(null);
     const [alert, setAlert] = useState<StardustAlertContent>({
@@ -29,7 +29,7 @@ export default function VehicleModifyModal(props: VehicleModifyModalProps) {
 
     const handlePressModifyBtn = useCallback(async () => {
         if (props.modifyType === "etda" && etda !== null) {
-            const isSuccessful = await updateUserVehicleEtda({
+            const isSuccessful = await parkingLot.updateUserVehicleEtda({
                 vehicleID: props.vehilce.id,
                 etda: etda,
             });
@@ -43,7 +43,7 @@ export default function VehicleModifyModal(props: VehicleModifyModalProps) {
                 type: isSuccessful ? "info" : "error",
             });
         } else if (info !== null) {
-            const isSuccessful = await updateUserVehicleInfo({
+            const isSuccessful = await parkingLot.updateUserVehicleInfo({
                 vehicleID: props.vehilce.id,
                 ...info,
             });

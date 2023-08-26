@@ -12,7 +12,7 @@ import VillifeToastMessage from "../../../../common/atoms/toast";
 import GuestVehicleInfoInputBox from "../../blocks/guest_vehicle_info_input_box copy";
 import { GuestVehicleValidationResult } from "../../blocks/guest_vehicle_info_input_box copy/types";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import useParkService from "../../services/park";
+import useParkingLot from "../../services/park";
 import DateRangePicker from "./blocks/date_etda_picker";
 import type { DateRange } from "../../blocks/modal/date_selection/types";
 import StardustDateParser from "../../../../../libs/date_parser";
@@ -20,7 +20,7 @@ import StardustDateParser from "../../../../../libs/date_parser";
 export default function RegisterGuestVehicleScreen({ navigation, route }: RegisterGuestVehicleScreenProps) {
     const messages = useScreenMessage();
     const styles = useRegisterVehicleScreenStyles();
-    const { registerGuestVehicleToBuilding } = useParkService();
+    const parkingLot = useParkingLot();
     const [dateTimeRange, setDateTimeRange] = useState<DateRange | null>(null);
     const [guestVehicle, setGuestVehicle] = useState<GuestVehicle>({
         model: "guest_test",
@@ -63,7 +63,7 @@ export default function RegisterGuestVehicleScreen({ navigation, route }: Regist
             VillifeToastMessage.showBottomToast("error", messages.messages.main.parking.register_vehicle.invalid_model);
 
         if (valid.phoneNumber && valid.plateNumber) {
-            const isSuccessful = await registerGuestVehicleToBuilding({
+            const isSuccessful = await parkingLot.registerGuestVehicle({
                 eta: StardustDateParser.serialize(dateTimeRange.startDate),
                 etd: StardustDateParser.serialize(dateTimeRange.endDate),
                 guestPhoneNumber: guestVehicle.phoneNumber,

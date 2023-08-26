@@ -8,11 +8,11 @@ import { TimePickerTime } from "../../../../common/atoms/time_picker/types";
 import { useEffect, useState } from "react";
 import useSendParkPushNotiScreenStyles from "./styles";
 import TimePicker from "../../../../common/atoms/time_picker";
-import useParkService from "../../services/park";
+import useParkingLot from "../../services/park";
 
 export default function SendParkPushNotiScreen({ navigation, route }: SendParkPushNotiScreenProps) {
     const messages = useScreenMessage().messages;
-    const { sendMessage } = useParkService();
+    const parkingLot = useParkingLot();
     const styles = useSendParkPushNotiScreenStyles();
     const [content, setContent] = useState<string>("");
 
@@ -25,7 +25,7 @@ export default function SendParkPushNotiScreen({ navigation, route }: SendParkPu
                     title: messages.words.register,
                     onPress: async () => {
                         console.log("[SEND_PARK_PUSH_NOTI]", route.params.vehicleID);
-                        const isSuccessful: boolean = await sendMessage({
+                        const isSuccessful: boolean = await parkingLot.sendMessage({
                             vehicleID: route.params.vehicleID,
                             title: messages.main.parking.send_park_push_noti.screen_title,
                             content: content,

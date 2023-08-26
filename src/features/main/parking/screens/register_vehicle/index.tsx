@@ -13,12 +13,12 @@ import VillifeToastMessage from "../../../../common/atoms/toast";
 import VehicleInfoInputBox from "../../blocks/info_input_box";
 import { VehicleValidationResult } from "../../blocks/info_input_box/types";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import useParkService from "../../services/park";
+import useParkingLot from "../../services/park";
 
 export default function RegisterVehicleScreen({ navigation, route }: RegisterVehicleScreenProps) {
     const messages = useScreenMessage();
     const styles = useRegisterVehicleScreenStyles();
-    const { registerUserVehicle } = useParkService();
+    const parkingLot = useParkingLot();
 
     const [vehicle, setVehicle] = useState<Vehicle>({
         plateNumber: "",
@@ -62,7 +62,7 @@ export default function RegisterVehicleScreen({ navigation, route }: RegisterVeh
 
         if (valid.model && valid.plateNumber) {
             // [TO-DO] Regsiter Service 등록
-            const isSuccessful: boolean = await registerUserVehicle({
+            const isSuccessful: boolean = await parkingLot.registerUserVehicle({
                 ...vehicle,
                 vehicleType: "4WD",
             });

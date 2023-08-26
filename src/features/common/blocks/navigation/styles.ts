@@ -12,10 +12,10 @@ export default function useNavigationViewStyles(bodyOptions?: BodyOptions) {
             backgroundColor: theme.color.series.grey.level1,
         },
         HeaderConatiner: {
-            flex: 0.07,
+            flex: 0.7,
         },
         bodyContainer: {
-            flex: 0.83,
+            flex: 8.3,
             // Default padding은 index.tsx에서 조정
             paddingHorizontal: bodyOptions?.applyDefaultHorizontalPadding
                 ? deviceUI.moderateScale(SCREEN_PADDING_HORIZONTAL_STANDARD_VALUE)
@@ -25,33 +25,8 @@ export default function useNavigationViewStyles(bodyOptions?: BodyOptions) {
                 : 0,
         },
         bottomContainer: {
-            flex: 0.1,
-        },
-        /* bottomNavBox: {
             flex: 1,
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "center",
-            backgroundColor: theme.colorFamily.white,
-            borderTopColor: theme.colorFamily.lightgrey,
-            borderTopWidth: deviceUI.moderateScale(2),
         },
-        bottomNavWrapper: {
-            width: "18%",
-            alignItems: "center",
-        },
-        bottomNavIconBox: {
-            flex: 5,
-            justifyContent: "flex-end",
-            paddingBottom: deviceUI.horizontalScale(0.05),
-        },
-        bottomNavCaptionBox: {
-            flex: 5,
-        },
-        bottomNavCaption: {
-            ...theme.font.researved.h5,
-            fontSize: deviceUI.moderateScale(12),
-        }, */
     });
 
     return styles;

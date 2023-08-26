@@ -1,9 +1,9 @@
-import { StyleSheet } from "react-native";
+import { ColorValue, StyleSheet } from "react-native";
 
 export type ContentLableProps = {
     text: string;
-    backgroundColor: string;
-    textColor: string;
+    backgroundColor: ColorValue;
+    textColor: ColorValue;
 };
 
 export type UseColorLableStylesType = ReturnType<typeof StyleSheet.create>;
