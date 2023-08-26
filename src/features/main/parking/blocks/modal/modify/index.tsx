@@ -12,6 +12,7 @@ import useParkingLot from "../../../services/park";
 import { useCallback, useState } from "react";
 import StardustAlert from "../../../../../common/blocks/universial/stardust_alert";
 import { StardustAlertContent } from "../../../../../common/blocks/universial/stardust_alert/types";
+import VillifeToastMessage from "../../../../../common/atoms/toast";
 
 export default function VehicleModifyModal(props: VehicleModifyModalProps) {
     const messages = useScreenMessage();
@@ -20,11 +21,21 @@ export default function VehicleModifyModal(props: VehicleModifyModalProps) {
     const parkingLot = useParkingLot();
     const [etda, setEtda] = useState<EtdaTime | null>(null);
     const [info, setInfo] = useState<VehicleInfo | null>(null);
-    const [alert, setAlert] = useState<StardustAlertContent>({
+    const [deleteAlert, setDeleteAlert] = useState<StardustAlertContent>({
         visible: false,
-        //setVisible: setAlertVisible,
-        title: "",
-        buttons: [{ text: messages.messages.words.okay, onPress: () => props.setVisible(false) }],
+        title: messages.messages.boilerplate.are_you_sure_to_delete,
+        message: messages.messages.boilerplate.deleted_info_cant_be_recovered,
+        type: "warning",
+        buttons: [
+            {
+                text: messages.messages.words.cancle,
+                onPress: (): void => setDeleteAlert({ ...deleteAlert, visible: false }),
+            },
+            {
+                text: messages.messages.words.delete,
+                onPress: (): Promise<void> => deleteVehicle(),
+            },
+        ],
     });
 
     const handlePressModifyBtn = useCallback(async () => {
@@ -34,42 +45,67 @@ export default function VehicleModifyModal(props: VehicleModifyModalProps) {
                 etda: etda,
             });
 
-            setAlert({
-                ...alert,
-                visible: true,
-                title: isSuccessful
+            props.setVisible(false);
+
+            VillifeToastMessage.showBottomToast(
+                isSuccessful ? "success" : "error",
+                isSuccessful
                     ? messages.messages.main.parking.modify_modal.succed_to_change_etda
-                    : messages.messages.main.parking.modify_modal.fail_to_change_etda,
-                type: isSuccessful ? "info" : "error",
-            });
+                    : messages.messages.main.parking.modify_modal.fail_to_change_etda
+            );
         } else if (info !== null) {
             const isSuccessful = await parkingLot.updateUserVehicleInfo({
                 vehicleID: props.vehilce.id,
                 ...info,
             });
 
-            setAlert({
-                ...alert,
-                visible: true,
-                title: isSuccessful
+            props.setVisible(false);
+
+            VillifeToastMessage.showBottomToast(
+                isSuccessful ? "success" : "error",
+                isSuccessful
                     ? messages.messages.main.parking.modify_modal.succed_to_change_info
-                    : messages.messages.main.parking.modify_modal.fail_to_change_info,
-                type: isSuccessful ? "info" : "error",
-            });
+                    : messages.messages.main.parking.modify_modal.fail_to_change_info
+            );
         }
     }, [etda, info]);
 
-    const selectModifyBtnColor = useCallback(() => {
+    /* const selectModifyBtnColor = useCallback(() => {
         if (props.modifyType === "etda") return styles.successBtn.color;
 
         return styles.warningBtn.color;
-    }, [etda, info]);
+    }, [etda, info]); */
+
+    const deleteVehicle = async (): Promise<void> => {
+        const isSuccessful = await parkingLot.deleteVehicle({
+            type: "user",
+            vehicleID: props.vehilce.id,
+        });
+
+        props.setVisible(false);
+        setDeleteAlert({ ...deleteAlert, visible: false });
+
+        VillifeToastMessage.showBottomToast(
+            isSuccessful ? "success" : "error",
+            isSuccessful
+                ? messages.messages.main.parking.modify_modal.success_to_delete
+                : messages.messages.main.parking.modify_modal.failed_to_delete
+        );
+    };
 
     return (
         <>
             <StardustModal
                 modalVisible={props.visible}
                 setModalVisible={props.setVisible}
+                upperRightFunc={
+                    props.modifyType === "info"
+                        ? {
+                              icon: "trash-can",
+                              onPress: () => setDeleteAlert({ ...deleteAlert, visible: true }),
+                          }
+                        : undefined
+                }
                 title={messages.messages.main.parking.home.modify_vehicle_info}
                 subtitle={messages.messages.main.parking.home.request_to_modify_etda}
                 buttons={[
@@ -79,7 +115,7 @@ export default function VehicleModifyModal(props: VehicleModifyModalProps) {
                     },
                     {
                         text: messages.messages.words.modified,
-                        color: selectModifyBtnColor(),
+                        color: styles.modifyBtn.color,
                         onPress: () => handlePressModifyBtn(),
                     },
                 ]}
@@ -98,7 +134,7 @@ export default function VehicleModifyModal(props: VehicleModifyModalProps) {
                         />
                     )}
                 </View>
-                <StardustAlert setAlert={setAlert} {...alert} />
+                <StardustAlert setAlert={setDeleteAlert} {...deleteAlert} />
             </StardustModal>
         </>
     );

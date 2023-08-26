@@ -60,7 +60,9 @@
                 "succed_to_change_etda": "입출차 시간을 변경했습니다.",
                 "fail_to_change_etda": "입출차 시간을 변경하지 못했습니다.",
                 "succed_to_change_info": "차량 정보를 변경했습니다.",
-                "fail_to_change_info": "차량 정보를 변경하지 못했습니다."
+                "fail_to_change_info": "차량 정보를 변경하지 못했습니다.",
+                "success_to_delete": "차량 정보를 삭제했습니다.",
+                "failed_to_delete": "차량 정보를 삭제하지 못했습니다."
             },
             "message_selection_modal": {
                 "double_parking": "이중주차 알림",

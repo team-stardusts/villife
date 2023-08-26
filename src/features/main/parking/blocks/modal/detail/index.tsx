@@ -133,7 +133,7 @@ export default function VehicleDetailModal(props: VehicleDetailAlertProps) {
         props.setVisible(false);
 
         VillifeToastMessage.showBottomToast(
-            isSuccessful ? "info" : "error",
+            isSuccessful ? "success" : "error",
             isSuccessful
                 ? messages.main.parking.detail_modal.success_to_delete
                 : messages.main.parking.detail_modal.failed_to_delete

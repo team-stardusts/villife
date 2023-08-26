@@ -55,11 +55,19 @@ export default function useParkingLot(): IParkingLot {
             }
 
             if (!user?.isAdmin) {
+                // 유저 차량 리스트 불러오기
                 newVehicles.push(...(await service.getVehicles("user")));
             }
 
             try {
-                newVehicles.push(...(await service.getVehicles("tenant", buildingID)));
+                // 거주자 차량 리스트 불러오기
+                // UserVehicles에 있는 Vehicle이 있는 경우 Filtering.
+                newVehicles.push(
+                    ...(await service.getVehicles("tenant", buildingID)).filter(
+                        (vehicle) => !this.userVehicles.map((userVehicle) => userVehicle.id).includes(vehicle.id)
+                    )
+                );
+                // 방문자 차량 리스트 불러오기
                 newVehicles.push(...(await service.getVehicles("guest", buildingID)));
             } catch (e) {
                 console.log(e);

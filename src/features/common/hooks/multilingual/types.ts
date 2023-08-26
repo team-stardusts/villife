@@ -72,6 +72,8 @@ export type MessagesByLanguage = {
                 fail_to_change_etda: string;
                 succed_to_change_info: string;
                 fail_to_change_info: string;
+                success_to_delete: string;
+                failed_to_delete: string;
             };
             message_selection_modal: {
                 double_parking: string;

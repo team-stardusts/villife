@@ -25,6 +25,9 @@ export default function useVehicleModifyModalStyles() {
         warningBtn: {
             color: theme.color.status.warning,
         },
+        modifyBtn: {
+            color: theme.color.status.primary,
+        },
         disabledBtn: {
             color: theme.color.status.secondary,
         },

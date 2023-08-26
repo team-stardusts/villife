@@ -6,9 +6,11 @@ import { useNavigation } from "@react-navigation/native";
 import { RouterParams } from "../../../../../../common/router/types";
 import { useState } from "react";
 import StardustAlert from "../../../../../../common/blocks/universial/stardust_alert";
+import useUserInformation from "../../../../../../common/hooks/service/user_info";
 
 export default function VehicleListHeaderView({ styles }: VehicleListHeaderViewProps) {
     const messages = useScreenMessage().messages;
+    const user = useUserInformation();
     const navigation = useNavigation<RouterParams["navigation"]>();
 
     const handlePressRegisterBtn = (type: VehicleRegisterBtnProps["type"]) => {
@@ -22,7 +24,14 @@ export default function VehicleListHeaderView({ styles }: VehicleListHeaderViewP
                 <Text style={styles.title}>{messages.main.parking.home.villa_vehicle_info}</Text>
             </View>
             <View style={styles.modifyBox}>
-                <VehicleRegisterBtn styles={styles} messages={messages} type="own" onPress={handlePressRegisterBtn} />
+                {!user?.isAdmin && (
+                    <VehicleRegisterBtn
+                        styles={styles}
+                        messages={messages}
+                        type="own"
+                        onPress={handlePressRegisterBtn}
+                    />
+                )}
                 <VehicleRegisterBtn styles={styles} messages={messages} type="guest" onPress={handlePressRegisterBtn} />
             </View>
         </View>

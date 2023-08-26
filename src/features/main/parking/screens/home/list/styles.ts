@@ -16,7 +16,7 @@ export default function useVehicleListStyles() {
 
     const main = StyleSheet.create({
         container: {
-            minHeight: space.height * (user?.isAdmin ? 0.98 : 0.58),
+            minHeight: space.height * (user?.isAdmin ? 0.95 : 0.58),
             marginBottom: deviceUI.moderateScale(15),
         },
         contentBox: {

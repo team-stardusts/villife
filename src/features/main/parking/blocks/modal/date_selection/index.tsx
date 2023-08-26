@@ -8,6 +8,7 @@ import { EtdaTime } from "../../etad_time_picker/types";
 import type { GuestVehicleDateSelectionModalProps } from "./types";
 import type { Dates } from "../../../../../common/blocks/calendar_picker/types";
 import StardustDateParser from "../../../../../../libs/date_parser";
+import useGuestVehicleDateSelectionModalStyles from "./styles";
 
 const PICK_DATE_PAGE = 1;
 const PICK_TIME_PAGE = 2;
@@ -93,23 +94,4 @@ export default function GuestVehicleDateSelectionModal(props: GuestVehicleDateSe
             </View>
         </StardustModal>
     );
-}
-
-function useGuestVehicleDateSelectionModalStyles() {
-    const { deviceUI, theme } = useStyler();
-
-    return StyleSheet.create({
-        container: {
-            paddingVertical: deviceUI.moderateScale(10),
-            justifyContent: "center",
-            alignItems: "center",
-        },
-        datePicker: {
-            width: deviceUI.getScreenSize().width * 0.9,
-        },
-        etdaPicker: {
-            width: deviceUI.getScreenSize().width * 0.85,
-            //height: deviceUI.moderateScale(135),
-        },
-    });
 }
