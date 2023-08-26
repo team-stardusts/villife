@@ -1,5 +1,4 @@
 import { ActivityIndicator, Image, Pressable, Text, TextInput, TouchableOpacity, View } from "react-native";
-import useOnKeyboardEvent from "../../../../common/hooks/keyboard";
 import IconImage from "../../../../common/atoms/icon/image";
 import useReplyInputStyle from "./style";
 import { RelpyInputProps } from "./type";
@@ -10,8 +9,7 @@ import { ComplaintEventEmitter, ComplaintReplyModificationEventListener } from "
 import { Reply } from "../../services/type";
 import IconXButton from "../../../../common/atoms/icon/x_button";
 
-function ReplyInputSection(props: RelpyInputProps) {
-    const keyboardHeight = useOnKeyboardEvent({});
+export default function ReplyInputSection(props: RelpyInputProps) {
     const styles = useReplyInputStyle();
     const [imageUris, setImageUris] = React.useState<Array<string>>([]);
     const [replyContent, setReplyContent] = React.useState<string>("");
@@ -91,7 +89,7 @@ function ReplyInputSection(props: RelpyInputProps) {
     };
 
     return (
-        <View style={[styles.replyInputContainer, { bottom: keyboardHeight }]}>
+        <View style={styles.replyInputContainer}>
             {imageUris.length > 0 ? (
                 <View style={styles.replyImageSection}>
                     {imageUris.map((uri) => {
@@ -189,5 +187,3 @@ function ReplyInputSection(props: RelpyInputProps) {
         </View>
     );
 }
-
-export default ReplyInputSection;

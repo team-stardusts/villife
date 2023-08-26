@@ -4,8 +4,6 @@ import useScreenMessage from "../../../../../../common/hooks/multilingual/hooks"
 import MultilingualMessage from "../../../../../../common/hooks/multilingual";
 import { useNavigation } from "@react-navigation/native";
 import { RouterParams } from "../../../../../../common/router/types";
-import { useState } from "react";
-import StardustAlert from "../../../../../../common/blocks/universial/stardust_alert";
 import useUserInformation from "../../../../../../common/hooks/service/user_info";
 
 export default function VehicleListHeaderView({ styles }: VehicleListHeaderViewProps) {

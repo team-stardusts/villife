@@ -1,12 +1,19 @@
 import { StyleSheet } from "react-native";
 import useStyler from "../../../../common/hooks/styler/hooks";
-import { RelplyInputStylesType } from "./type";
+import useOnKeyboardEvent from "../../../../common/hooks/keyboard";
+import { useState } from "react";
 
-export default function useReplyInputStyle(): RelplyInputStylesType {
-    const { deviceUI, theme } = useStyler();
+export default function useReplyInputStyle() {
+    const { deviceUI, theme, safetyEdgeSize } = useStyler();
+    const [isKeyboardFold, setIsKeyboardFold] = useState<boolean>();
+    const keyboardHeight = useOnKeyboardEvent({
+        onShow: () => setIsKeyboardFold(false),
+        onHide: () => setIsKeyboardFold(true),
+    });
 
-    const Style = StyleSheet.create({
+    const styles = StyleSheet.create({
         replyInputContainer: {
+            bottom: isKeyboardFold ? 0 : keyboardHeight - safetyEdgeSize.bottom,
             backgroundColor: theme.color.specified.white,
         },
         replyImageSection: {
@@ -67,5 +74,5 @@ export default function useReplyInputStyle(): RelplyInputStylesType {
             color: theme.color.specified.black,
         },
     });
-    return Style;
+    return styles;
 }

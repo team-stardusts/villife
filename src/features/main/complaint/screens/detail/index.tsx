@@ -2,7 +2,7 @@ import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
 import NavigationView from "../../../../common/blocks/navigation";
 import ComplaintDetailScreenProps from "./type";
 import useComplaintDetailSecreenStyle from "./style";
-import { ScrollView, Text, TouchableOpacity, View } from "react-native";
+import { Text, TouchableOpacity, View } from "react-native";
 import React from "react";
 import RemoteCSS from "../../../../../libs/themes/remote_css";
 import AutoHeightWebView from "react-native-autoheight-webview";
@@ -15,7 +15,6 @@ import { useComplaintDetailViewModel } from "./view_model";
 import IconPencil from "../../../../common/atoms/icon/pencil";
 import ComplaintDetailEditModal from "../../blocks/detail_bottom_edit";
 import ComplaintProgressEditModal from "../../blocks/progress_edit";
-import { VILLIFE_AUTHORITY } from "../../../../../libs/rest_apis/villife/absc";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import useUserInformation from "../../../../common/hooks/service/user_info";
 

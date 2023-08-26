@@ -3,7 +3,7 @@ import { Responsable } from "../../../../../../libs/rest_apis/types";
 import VillifeServer from "../../../../../../libs/rest_apis/villife";
 import { Parking } from "../../../../../../libs/rest_apis/villife/parking/types";
 import { Vehicle, VehicleOwnerType } from "../../states/types";
-import {
+import type {
     IParkingServiceProvider,
     MyVehicleEtdaUpdateParams,
     MyVehicleInfoUpdateParams,
@@ -38,7 +38,7 @@ class ParkingServiceProvider implements IParkingServiceProvider {
         let vehicles: Vehicle[] = [];
 
         if (!result.isSuccessful || result.data?.data === undefined) {
-            this.printWhyFailed(result.data);
+            this.printWhyFailed(result.data, `Failed to get ${ownerType} vehicle list.`);
 
             return vehicles;
         }
@@ -79,7 +79,7 @@ class ParkingServiceProvider implements IParkingServiceProvider {
         const result = await this._api.registerUserVehicle(_params);
 
         if (!result.isSuccessful || result.data?.data === undefined) {
-            this.printWhyFailed(result.data);
+            this.printWhyFailed(result.data, "User's vehicle registration failed.");
 
             return null;
         }
@@ -91,7 +91,7 @@ class ParkingServiceProvider implements IParkingServiceProvider {
         const result = await this._api.registerGuestVehicleToBuilding(params);
 
         if (!result.isSuccessful || result.data?.data === undefined) {
-            this.printWhyFailed(result.data);
+            this.printWhyFailed(result.data, "Guest's vehicle registration failed.");
 
             return null;
         }
@@ -103,7 +103,7 @@ class ParkingServiceProvider implements IParkingServiceProvider {
         const result = await this._api.sendPushNotification(params);
 
         if (!result.isSuccessful || result.data?.data === undefined) {
-            this.printWhyFailed(result.data);
+            this.printWhyFailed(result.data, `Failed to send message to the vehicle number ${params.vehicleID}.`);
 
             return false;
         }
@@ -121,7 +121,7 @@ class ParkingServiceProvider implements IParkingServiceProvider {
         }
 
         if (!result.isSuccessful || result.data?.data === undefined) {
-            this.printWhyFailed(result.data);
+            this.printWhyFailed(result.data, `Failed to delete ${params.type} vehicle.`);
 
             return false;
         }
@@ -141,13 +141,8 @@ class ParkingServiceProvider implements IParkingServiceProvider {
         };
     }
 
-    private printWhyFailed(response: Responsable<any>["data"]) {
-        console.error(
-            "[PARKING_SERVICE]",
-            response?.status,
-            "The registration of user vehicle failed.",
-            `\nReason: ${response?.data}`
-        );
+    private printWhyFailed(response: Responsable<any>["data"], message?: string) {
+        console.error("[PARKING_SERVICE]", response?.status, message && message, `\n\tReason: ${response?.data}`);
     }
 }
 
