@@ -10,7 +10,6 @@ export default function useNotiOutlinedBoxStyles(): UseNotiOutLinedBoxListStyles
             marginBottom: deviceUI.moderateScale(16),
             borderRadius: deviceUI.moderateScale(15),
             width: deviceUI.getScreenSize().width * 0.9,
-
             borderColor: "rgba(0, 0, 0, 0)",
         },
         innerBox: {

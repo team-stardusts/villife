@@ -5,7 +5,11 @@ import useStyler from "../../../../common/hooks/styler/hooks";
 export default function useNotiOutLinedBoxListStyles(): UseNotiOutLinedBoxListStylesType {
     const { deviceUI, theme } = useStyler();
     return StyleSheet.create({
-        contentContainer: { alignItems: "center", width: "100%" },
+        contentContainer: {
+            alignItems: "center",
+            width: "100%",
+            paddingVertical: deviceUI.moderateScale(10),
+        },
         whenEmptyCard: {
             backgroundColor: theme.color.specified.blue,
             width: deviceUI.getScreenSize().width * 0.9,

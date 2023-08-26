@@ -1,12 +1,14 @@
 import { StyleSheet } from "react-native";
 import useStyler from "../../../../common/hooks/styler/hooks";
-import { ComplaintDetailScreenStylesType } from "./type";
 
-export default function useComplaintDetailSecreenStyle(): ComplaintDetailScreenStylesType {
+export default function useComplaintDetailSecreenStyle() {
     const { deviceUI, theme } = useStyler();
 
     const leftMargin = deviceUI.moderateScale(15);
-    const Style = StyleSheet.create({
+    const styles = StyleSheet.create({
+        navContainer: {
+            backgroundColor: theme.color.specified.white,
+        },
         topLevelBox: {
             flex: 1,
             flexDirection: "column",
@@ -88,5 +90,5 @@ export default function useComplaintDetailSecreenStyle(): ComplaintDetailScreenS
             height: "100%",
         },
     });
-    return Style;
+    return styles;
 }

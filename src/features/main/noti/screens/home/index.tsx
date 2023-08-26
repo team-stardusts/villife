@@ -6,7 +6,6 @@ import FlatListOutlinedContentsBox from "../../blocks/outlined_box_list";
 import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
 import useUserInformation from "../../../../common/hooks/service/user_info";
 import useNoticeHomeScreenStyles from "./style";
-import { View } from "react-native";
 
 export default function NoticeHomeScreen(props: NoticeHomeScreenProps) {
     const message = useScreenMessage();
@@ -19,8 +18,13 @@ export default function NoticeHomeScreen(props: NoticeHomeScreenProps) {
                 title: message.messages.main.noti.screen_title,
                 shown: true,
                 navComponent: user?.isAdmin ? WriteButton : undefined,
+                backgroundColor: styles.navContainer.backgroundColor,
             }}
-            bodyOptions={{ applyDefaultHorizontalPadding: false, applyDefaultVerticalPadding: false }}
+            bodyOptions={{
+                applyDefaultHorizontalPadding: false,
+                applyDefaultVerticalPadding: true,
+                backgroundColor: styles.navContainer.backgroundColor,
+            }}
             bottomNavOptions={{ shown: false }}>
             <FlatListOutlinedContentsBox />
         </NavigationView>

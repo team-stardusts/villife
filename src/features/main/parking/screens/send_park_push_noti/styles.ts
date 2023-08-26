@@ -5,6 +5,9 @@ export default function useSendParkPushNotiScreenStyles() {
     const { deviceUI, theme } = useStyler();
 
     const main = StyleSheet.create({
+        navContainer: {
+            backgroundColor: theme.color.specified.white,
+        },
         container: {
             flex: 1,
         },

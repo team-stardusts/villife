@@ -38,6 +38,7 @@ function FlatListOutlinedContentsBox() {
             data={viewModel}
             keyExtractor={(item, index) => `${index}${item}`}
             renderItem={OutlinedBoxRenderItem}
+            showsVerticalScrollIndicator={false}
             ListEmptyComponent={() => {
                 return (
                     <TouchableOpacity
