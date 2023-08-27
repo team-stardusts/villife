@@ -3,6 +3,7 @@ import { StyleSheet, Modal, Animated, PanResponder, Dimensions, View, Text } fro
 import { Pressable } from "react-native";
 import { BottomSlidableModalProps } from "./type";
 import useStyler from "../../../hooks/styler/hooks";
+import { ANIMATION_DURATION_FAST } from "../../../constants";
 
 const BottomSlidableModal = (props: BottomSlidableModalProps) => {
     const screenSize = useStyler().deviceUI.getScreenSize();
@@ -14,7 +15,7 @@ const BottomSlidableModal = (props: BottomSlidableModalProps) => {
         panY.setValue(conSize * 0.99);
         Animated.timing(panY, {
             toValue: 0,
-            duration: 500,
+            duration: ANIMATION_DURATION_FAST,
             useNativeDriver: true,
         }).start();
     }, [props.modalVisible]);

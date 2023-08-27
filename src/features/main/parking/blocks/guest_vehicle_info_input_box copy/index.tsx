@@ -72,107 +72,116 @@ export default function GuestVehicleInfoInputBox({
         <View style={styles.container}>
             <View style={styles.vehicleInfoInputContainer}>
                 <Text style={styles.vehicleInfoInputTitle}>{messages.messages.words.plate_number}</Text>
-                <UniversalTextInput
-                    name="plateNumber"
-                    value={guestVehicleInfo.plateNumber}
-                    placeholder={
-                        messages.messages.main.parking.register_guest_vehicle.vehicle_plate_number_input_placeholder
-                    }
-                    highlightColor={
-                        guestVehicleInfo.plateNumber !== "" && !guestVehicleValid.plateNumber
-                            ? theme.color.specified.red
-                            : undefined
-                    }
-                    lowlightColor={
-                        guestVehicleInfo.plateNumber !== "" && !guestVehicleValid.plateNumber
-                            ? theme.color.specified.red
-                            : undefined
-                    }
-                    onChangeText={(text, name) => {
-                        setGuestVehicleValid({
-                            ...guestVehicleValid,
-                            [name as keyof GuestVehicleValidationResult]: TextValidator.validatePlateNumber(text),
-                        });
-                        setGuestVehicleInfo({ ...guestVehicleInfo, [name as keyof GuestVehicleInfo]: text });
-                    }}
-                    onTouchEndCapture={(event) =>
-                        setTouchedCoordinate({
-                            ...touchedCoordinate,
-                            x: event.nativeEvent.pageX,
-                            y: event.nativeEvent.pageY,
-                        })
-                    }
-                />
+                <View style={styles.vehicleInfoInput}>
+                    <UniversalTextInput
+                        name="plateNumber"
+                        value={guestVehicleInfo.plateNumber}
+                        placeholder={
+                            messages.messages.main.parking.register_guest_vehicle.vehicle_plate_number_input_placeholder
+                        }
+                        highlightColor={
+                            guestVehicleInfo.plateNumber !== "" && !guestVehicleValid.plateNumber
+                                ? (theme.color.specified.red as string)
+                                : undefined
+                        }
+                        lowlightColor={
+                            guestVehicleInfo.plateNumber !== "" && !guestVehicleValid.plateNumber
+                                ? (theme.color.specified.red as string)
+                                : undefined
+                        }
+                        onChangeText={(text, name) => {
+                            setGuestVehicleValid({
+                                ...guestVehicleValid,
+                                [name as keyof GuestVehicleValidationResult]: TextValidator.validatePlateNumber(text),
+                            });
+                            setGuestVehicleInfo({ ...guestVehicleInfo, [name as keyof GuestVehicleInfo]: text });
+                        }}
+                        onTouchEndCapture={(event) =>
+                            setTouchedCoordinate({
+                                ...touchedCoordinate,
+                                x: event.nativeEvent.pageX,
+                                y: event.nativeEvent.pageY,
+                            })
+                        }
+                    />
+                </View>
             </View>
             <View style={styles.vehicleInfoInputContainer}>
                 <Text style={styles.vehicleInfoInputTitle}>{messages.messages.words.guest_phone_number}</Text>
-                <UniversalTextInput
-                    name="phoneNumber"
-                    value={guestVehicleInfo.phoneNumber}
-                    placeholder={messages.messages.main.parking.register_guest_vehicle.phone_number_input_placeholder}
-                    highlightColor={
-                        guestVehicleInfo.phoneNumber !== "" && !guestVehicleValid.phoneNumber
-                            ? theme.color.specified.red
-                            : undefined
-                    }
-                    lowlightColor={
-                        guestVehicleInfo.phoneNumber !== "" && !guestVehicleValid.phoneNumber
-                            ? theme.color.specified.red
-                            : undefined
-                    }
-                    onChangeText={(text, name) => {
-                        if (text.length > 13) return;
+                <View style={styles.vehicleInfoInput}>
+                    <UniversalTextInput
+                        name="phoneNumber"
+                        value={guestVehicleInfo.phoneNumber}
+                        placeholder={
+                            messages.messages.main.parking.register_guest_vehicle.phone_number_input_placeholder
+                        }
+                        highlightColor={
+                            guestVehicleInfo.phoneNumber !== "" && !guestVehicleValid.phoneNumber
+                                ? (theme.color.specified.red as string)
+                                : undefined
+                        }
+                        lowlightColor={
+                            guestVehicleInfo.phoneNumber !== "" && !guestVehicleValid.phoneNumber
+                                ? (theme.color.specified.red as string)
+                                : undefined
+                        }
+                        onChangeText={(text, name) => {
+                            if (text.length > 13) return;
 
-                        setGuestVehicleValid({
-                            ...guestVehicleValid,
-                            [name as keyof GuestVehicleValidationResult]: TextValidator.validatePhoneNumber(text),
-                        });
-                        setGuestVehicleInfo({ ...guestVehicleInfo, [name as keyof GuestVehicleInfo]: text });
-                    }}
-                    onTouchEndCapture={(event) =>
-                        setTouchedCoordinate({
-                            ...touchedCoordinate,
-                            x: event.nativeEvent.pageX,
-                            y: event.nativeEvent.pageY,
-                        })
-                    }
-                />
+                            setGuestVehicleValid({
+                                ...guestVehicleValid,
+                                [name as keyof GuestVehicleValidationResult]: TextValidator.validatePhoneNumber(text),
+                            });
+                            setGuestVehicleInfo({ ...guestVehicleInfo, [name as keyof GuestVehicleInfo]: text });
+                        }}
+                        onTouchEndCapture={(event) =>
+                            setTouchedCoordinate({
+                                ...touchedCoordinate,
+                                x: event.nativeEvent.pageX,
+                                y: event.nativeEvent.pageY,
+                            })
+                        }
+                    />
+                </View>
             </View>
             <View style={styles.vehicleInfoInputContainer}>
                 <Text style={styles.vehicleInfoInputTitle}>{messages.messages.words.visiting_perpose}</Text>
-                <UniversalTextInput
-                    name="visitingPerpose"
-                    value={guestVehicleInfo.visitingPerpose}
-                    placeholder={
-                        messages.messages.main.parking.register_guest_vehicle.visiting_perpose_input_placeholder
-                    }
-                    highlightColor={
-                        guestVehicleInfo.visitingPerpose !== "" && !guestVehicleValid.visitingPerpose
-                            ? theme.color.specified.red
-                            : undefined
-                    }
-                    lowlightColor={
-                        guestVehicleInfo.visitingPerpose !== "" && !guestVehicleValid.visitingPerpose
-                            ? theme.color.specified.red
-                            : undefined
-                    }
-                    onChangeText={(text, name) => {
-                        if (text.length > VISITING_PERPOSE_MAX_LENGTH) return;
+                <View style={styles.vehicleInfoInput}>
+                    <UniversalTextInput
+                        name="visitingPerpose"
+                        value={guestVehicleInfo.visitingPerpose}
+                        placeholder={
+                            messages.messages.main.parking.register_guest_vehicle.visiting_perpose_input_placeholder
+                        }
+                        highlightColor={
+                            guestVehicleInfo.visitingPerpose !== "" && !guestVehicleValid.visitingPerpose
+                                ? (theme.color.specified.red as string)
+                                : undefined
+                        }
+                        lowlightColor={
+                            guestVehicleInfo.visitingPerpose !== "" && !guestVehicleValid.visitingPerpose
+                                ? (theme.color.specified.red as string)
+                                : undefined
+                        }
+                        onChangeText={(text, name) => {
+                            if (text.length > VISITING_PERPOSE_MAX_LENGTH) return;
 
-                        setGuestVehicleValid({
-                            ...guestVehicleValid,
-                            [name as keyof GuestVehicleValidationResult]: TextValidator.validateVisitingPerpose(text),
-                        });
-                        setGuestVehicleInfo({ ...guestVehicleInfo, [name as keyof GuestVehicleInfo]: text });
-                    }}
-                    onTouchEndCapture={(event) =>
-                        setTouchedCoordinate({
-                            ...touchedCoordinate,
-                            x: event.nativeEvent.pageX,
-                            y: event.nativeEvent.pageY,
-                        })
-                    }
-                />
+                            setGuestVehicleValid({
+                                ...guestVehicleValid,
+                                [name as keyof GuestVehicleValidationResult]:
+                                    TextValidator.validateVisitingPerpose(text),
+                            });
+                            setGuestVehicleInfo({ ...guestVehicleInfo, [name as keyof GuestVehicleInfo]: text });
+                        }}
+                        onTouchEndCapture={(event) =>
+                            setTouchedCoordinate({
+                                ...touchedCoordinate,
+                                x: event.nativeEvent.pageX,
+                                y: event.nativeEvent.pageY,
+                            })
+                        }
+                    />
+                </View>
             </View>
         </View>
     );

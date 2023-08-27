@@ -16,6 +16,7 @@ export type IconSeries =
     | "check"
     | "clock-arrow"
     | "home"
+    | "magnifier"
     | "menu"
     | "messenger"
     | "letter"

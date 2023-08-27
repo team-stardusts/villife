@@ -54,63 +54,75 @@ export default function VehicleInfoInputBox({
         <View style={styles.container}>
             <View style={styles.vehicleInfoInputContainer}>
                 <Text style={styles.vehicleInfoInputTitle}>{messages.messages.words.plate_number}</Text>
-                <UniversalTextInput
-                    name="plateNumber"
-                    value={vehicleInfo.plateNumber}
-                    placeholder={messages.messages.main.parking.register_vehicle.vehicle_plate_number_input_placeholder}
-                    highlightColor={
-                        vehicleInfo.plateNumber !== "" && !vehicleValid.plateNumber
-                            ? theme.color.specified.red
-                            : undefined
-                    }
-                    lowlightColor={
-                        vehicleInfo.plateNumber !== "" && !vehicleValid.plateNumber
-                            ? theme.color.specified.red
-                            : undefined
-                    }
-                    onChangeText={(text, name) => {
-                        setVehicleValid({
-                            ...vehicleValid,
-                            [name as keyof VehicleValidationResult]: TextValidator.validatePlateNumber(text),
-                        });
-                        setVehicleInfo({ ...vehicleInfo, [name as keyof VehicleInfo]: text });
-                    }}
-                    onTouchEndCapture={(event) =>
-                        setTouchedCoordinate({
-                            ...touchedCoordinate,
-                            x: event.nativeEvent.pageX,
-                            y: event.nativeEvent.pageY,
-                        })
-                    }
-                />
+                <View style={styles.vehicleInfoInput}>
+                    <UniversalTextInput
+                        name="plateNumber"
+                        value={vehicleInfo.plateNumber}
+                        placeholder={
+                            messages.messages.main.parking.register_vehicle.vehicle_plate_number_input_placeholder
+                        }
+                        highlightColor={
+                            vehicleInfo.plateNumber !== "" && !vehicleValid.plateNumber
+                                ? (theme.color.specified.red as string)
+                                : undefined
+                        }
+                        lowlightColor={
+                            vehicleInfo.plateNumber !== "" && !vehicleValid.plateNumber
+                                ? (theme.color.specified.red as string)
+                                : undefined
+                        }
+                        onChangeText={(text, name) => {
+                            setVehicleValid({
+                                ...vehicleValid,
+                                [name as keyof VehicleValidationResult]: TextValidator.validatePlateNumber(text),
+                            });
+                            setVehicleInfo({ ...vehicleInfo, [name as keyof VehicleInfo]: text });
+                        }}
+                        onTouchEndCapture={(event) =>
+                            setTouchedCoordinate({
+                                ...touchedCoordinate,
+                                x: event.nativeEvent.pageX,
+                                y: event.nativeEvent.pageY,
+                            })
+                        }
+                    />
+                </View>
             </View>
             <View style={styles.vehicleInfoInputContainer}>
                 <Text style={styles.vehicleInfoInputTitle}>{messages.messages.words.vehicle_model}</Text>
-                <UniversalTextInput
-                    name="model"
-                    value={vehicleInfo.model}
-                    placeholder={messages.messages.main.parking.register_vehicle.vehicle_model_number_input_placeholder}
-                    highlightColor={
-                        vehicleInfo.model !== "" && !vehicleValid.model ? theme.color.specified.red : undefined
-                    }
-                    lowlightColor={
-                        vehicleInfo.model !== "" && !vehicleValid.model ? theme.color.specified.red : undefined
-                    }
-                    onChangeText={(text, name) => {
-                        setVehicleValid({
-                            ...vehicleValid,
-                            [name as keyof VehicleValidationResult]: TextValidator.validateModel(text),
-                        });
-                        setVehicleInfo({ ...vehicleInfo, [name as keyof VehicleInfo]: text });
-                    }}
-                    onTouchEndCapture={(event) =>
-                        setTouchedCoordinate({
-                            ...touchedCoordinate,
-                            x: event.nativeEvent.pageX,
-                            y: event.nativeEvent.pageY,
-                        })
-                    }
-                />
+                <View style={styles.vehicleInfoInput}>
+                    <UniversalTextInput
+                        name="model"
+                        value={vehicleInfo.model}
+                        placeholder={
+                            messages.messages.main.parking.register_vehicle.vehicle_model_number_input_placeholder
+                        }
+                        highlightColor={
+                            vehicleInfo.model !== "" && !vehicleValid.model
+                                ? (theme.color.specified.red as string)
+                                : undefined
+                        }
+                        lowlightColor={
+                            vehicleInfo.model !== "" && !vehicleValid.model
+                                ? (theme.color.specified.red as string)
+                                : undefined
+                        }
+                        onChangeText={(text, name) => {
+                            setVehicleValid({
+                                ...vehicleValid,
+                                [name as keyof VehicleValidationResult]: TextValidator.validateModel(text),
+                            });
+                            setVehicleInfo({ ...vehicleInfo, [name as keyof VehicleInfo]: text });
+                        }}
+                        onTouchEndCapture={(event) =>
+                            setTouchedCoordinate({
+                                ...touchedCoordinate,
+                                x: event.nativeEvent.pageX,
+                                y: event.nativeEvent.pageY,
+                            })
+                        }
+                    />
+                </View>
             </View>
         </View>
     );

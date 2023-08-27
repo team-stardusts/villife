@@ -20,5 +20,8 @@ export default function useGuestVehicleInfoInputBoxStyles() {
             color: theme.color.specified.blue,
             marginBottom: deviceUI.moderateScale(5),
         },
+        vehicleInfoInput: {
+            height: "50%",
+        },
     });
 }

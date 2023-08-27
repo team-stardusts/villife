@@ -24,6 +24,7 @@ import IconMatrix from "./matrix";
 import IconCheck from "./check";
 import IconFilterSetting from "./filter_setting";
 import { IconTrashCan } from "./trash_can";
+import IconMagnifier from "./magnifier";
 
 export default function Icon(props: IconProps) {
     /* let iconProps: ChildIconProps = {
@@ -53,6 +54,8 @@ export default function Icon(props: IconProps) {
             return <IconCar {...iconProps} />;
         case "check":
             return <IconCheck {...iconProps} />;
+        case "magnifier":
+            return <IconMagnifier {...iconProps} />;
         case "messenger":
             return <IconMessenger {...iconProps} />;
         case "speaker":
