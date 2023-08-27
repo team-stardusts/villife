@@ -1,39 +1,40 @@
 import { enableScreens } from "react-native-screens";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { VillifeStackParamList } from "./types";
-import LoginScreen from "../../auth/screens/login";
-import CreateAccountScreen from "../../auth/screens/create_account";
-import SetBuildingScreen from "../../auth/screens/set_building";
-import TermsOfServiceScreen from "../../auth/screens/terms_of_service/index.";
-import SearchAddressScreen from "../screens/search_address";
-import HomeScreen from "../../main/home/screens/home";
-import SplashScreen from "../../splash/screens";
-import TestScreen from "../../test";
-import WelcomeScreen from "../../auth/screens/welcome";
 import { useAutoRegisterFirebaseToken } from "../hooks/firebase";
-import NoticeRegisterScreen from "../../main/noti/screens/register";
-import NoticeHomeScreen from "../../main/noti/screens/home";
-import PermissionRequestScreen from "../../auth/screens/permission_request";
-import NoticeModifyScreen from "../../main/noti/screens/modify";
-import MyPageScreen from "../../main/mypage/screens/mypage";
-import ParkingScreen from "../../main/parking/screens/home";
-import PaymentScreen from "../../main/payment/screens";
-import ComplaintHomeScreen from "../../main/complaint/screens/home";
-import ComplaintRegisterScreen from "../../main/complaint/screens/register";
 import ApprovalHomeScreen from "../../main/approval/screens/home";
-import ComplaintDetailScreen from "../../main/complaint/screens/detail";
-import RegisterVehicleScreen from "../../main/parking/screens/register_vehicle";
-import MyPageHomeScreen from "../../main/mypage/screens/home";
-import ComplaintModifyScreen from "../../main/complaint/screens/modify";
-import RegisterGuestVehicleScreen from "../../main/parking/screens/register_guest_vehicle";
-import SendParkPushNotiScreen from "../../main/parking/screens/send_park_push_noti";
-import useRoutingAdministratorByLogin from "./routing_admin";
+import BuildingManagementScreen from "../../main/buliding_management/screens/home";
+import BuildingSendMessageScreen from "../../main/buliding_management/screens/send_message";
 import CommonComplaintHomeScreen from "../../main/common_complaint/screens/home";
 import CommonComplaintModifyScreen from "../../main/common_complaint/screens/modify";
 import CommonComplaintRegisterScreen from "../../main/common_complaint/screens/register";
+import ComplaintHomeScreen from "../../main/complaint/screens/home";
+import ComplaintRegisterScreen from "../../main/complaint/screens/register";
+import ComplaintDetailScreen from "../../main/complaint/screens/detail";
+import ComplaintModifyScreen from "../../main/complaint/screens/modify";
+import CreateAccountScreen from "../../auth/screens/create_account";
+import HomeScreen from "../../main/home/screens/home";
 import ImageDetailView from "../screens/image_detail_view";
-import BuildingManagementScreen from "../../main/buliding_management/screens/home";
-import BuildingSendMessageScreen from "../../main/buliding_management/screens/send_message";
+import LoginScreen from "../../auth/screens/login";
+import MyPageScreen from "../../main/mypage/screens/mypage";
+import MyPageHomeScreen from "../../main/mypage/screens/home";
+import NoticeRegisterScreen from "../../main/noti/screens/register";
+import NoticeHomeScreen from "../../main/noti/screens/home";
+import NoticeModifyScreen from "../../main/noti/screens/modify";
+import ParkingScreen from "../../main/parking/screens/home";
+import PaymentScreen from "../../main/payment/screens";
+import PermissionRequestScreen from "../../auth/screens/permission_request";
+import RegisterVehicleScreen from "../../main/parking/screens/register_vehicle";
+import RegisterGuestVehicleScreen from "../../main/parking/screens/register_guest_vehicle";
+import RegisterBuildingScreen from "../../main/buliding_management/screens/register_building";
+import SendParkPushNotiScreen from "../../main/parking/screens/send_park_push_noti";
+import SplashScreen from "../../splash/screens";
+import SetBuildingScreen from "../../auth/screens/set_building";
+import SearchAddressScreen from "../screens/search_address";
+import TermsOfServiceScreen from "../../auth/screens/terms_of_service/index.";
+import TestScreen from "../../test";
+import useRoutingAdministratorByLogin from "./routing_admin";
+import WelcomeScreen from "../../auth/screens/welcome";
 
 enableScreens(true);
 
@@ -58,6 +59,7 @@ export default function ScreenRouter() {
             </Stack.Group>
             <Stack.Group>
                 <Stack.Screen name={"building_management"} component={BuildingManagementScreen} />
+                <Stack.Screen name={"register_building"} component={RegisterBuildingScreen} />
                 <Stack.Screen
                     options={{ presentation: "modal" }}
                     name={"send_message_to_building_tenants"}

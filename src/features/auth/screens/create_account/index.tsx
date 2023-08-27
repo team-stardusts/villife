@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import { Alert, KeyboardAvoidingView, SafeAreaView, View } from "react-native";
+import { Alert, SafeAreaView, View } from "react-native";
 import useScreenMessage from "../../../common/hooks/multilingual/hooks";
 import UniversialButton from "../../../common/blocks/universial/button";
 import useCreateAccountScreenStyles from "./styles";
-import AuthScreenTitleView from "../../blocks/title_view";
+import ScreenTitleView from "../../../common/blocks/title_view";
 import AuthScreenBottonButton from "../../blocks/bottom_button";
 import CreateAccountScreenProps from "./types";
 import AuthScreenCommonInput from "../../blocks/input";
@@ -68,20 +68,18 @@ export default function CreateAccountScreen({ navigation, route }: CreateAccount
 
     return (
         <SafeAreaView style={styles.main.container}>
-            <View style={styles.main.wrapper}>
-                <AuthScreenTitleView
-                    title={messages.messages.auth.create_account.title}
-                    subtitles={[messages.messages.auth.create_account.subtitle]}
-                />
+            <ScreenTitleView
+                titles={[messages.messages.auth.create_account.title]}
+                subtitles={[messages.messages.auth.create_account.subtitle]}>
                 <KeyboardAwareScrollView
-                    style={styles.main.contentWrapper}
+                    style={styles.main.contents}
                     showsVerticalScrollIndicator={false} /* behavior="padding" */
                 >
                     <View style={styles.userTypeIcon.container}>
                         <UserTypeSelectionButton
                             userType={VILLIFE_AUTHORITY.RENTER}
                             caption={messages.messages.words.renter}
-                            size={deviceUI.verticalScale(80)}
+                            size={styles.userTypeIcon.container.height * 0.65}
                             selected={account.authority === VILLIFE_AUTHORITY.RENTER}
                             onPress={() => {
                                 setAccount({
@@ -93,7 +91,7 @@ export default function CreateAccountScreen({ navigation, route }: CreateAccount
                         <UserTypeSelectionButton
                             userType={VILLIFE_AUTHORITY.ADMIN}
                             caption={messages.messages.words.admin}
-                            size={deviceUI.verticalScale(80)}
+                            size={styles.userTypeIcon.container.height * 0.65}
                             selected={account.authority === VILLIFE_AUTHORITY.ADMIN}
                             onPress={() => {
                                 setAccount({
@@ -186,7 +184,7 @@ export default function CreateAccountScreen({ navigation, route }: CreateAccount
                         )}
                     </View>
                 </KeyboardAwareScrollView>
-            </View>
+            </ScreenTitleView>
             <AuthScreenBottonButton
                 title={messages.messages.auth.create_account.next_btn_title}
                 onPress={() => {

@@ -2,19 +2,16 @@ import { StyleSheet } from "react-native";
 import useStyler from "../../../common/hooks/styler/hooks";
 
 export default function useCreateAccountScreenStyles() {
-    const { deviceUI, theme } = useStyler();
+    const { deviceUI, theme, safetyEdgeSize } = useStyler();
 
     const main = StyleSheet.create({
         container: {
             flex: 1,
             backgroundColor: theme.color.specified.white,
         },
-        wrapper: {
+        contents: {
             flex: 1,
-            paddingHorizontal: deviceUI.moderateScale(22),
-        },
-        contentWrapper: {
-            height: deviceUI.getScreenSize().height * 0.7,
+            //height: deviceUI.getScreenSize().height - (safetyEdgeSize.top + safetyEdgeSize.bottom),
         },
         marginView: {
             marginTop: deviceUI.moderateScale(150),
@@ -23,28 +20,23 @@ export default function useCreateAccountScreenStyles() {
 
     const userTypeIcon = StyleSheet.create({
         container: {
-            height: main.contentWrapper.height * 0.2,
+            height: deviceUI.moderateScale(130),
             flexDirection: "row",
             justifyContent: "space-evenly",
+            marginBottom: deviceUI.moderateScale(5),
         },
     });
 
     const input = StyleSheet.create({
-        container: {
-            height: main.contentWrapper.height * 0.8,
-            paddingTop: deviceUI.moderateScale(10),
-        },
+        container: {},
         inputBox: {
-            width: "100%",
-            height: deviceUI.moderateScale(30),
-            marginBottom: deviceUI.moderateScale(70),
+            height: deviceUI.moderateScale(85),
+            marginBottom: deviceUI.moderateScale(10),
         },
         btnBox: {
-            flex: 3,
             marginBottom: deviceUI.moderateScale(10),
         },
         btnDisabled: {
-            flex: 1,
             borderRadius: deviceUI.moderateScale(10),
             backgroundColor: theme.color.specified.grey,
         },

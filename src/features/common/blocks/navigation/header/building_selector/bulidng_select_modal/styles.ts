@@ -14,7 +14,7 @@ export default function useBuildingSelectModalStyles() {
             marginBottom: 30,
         },
         buildingComponent: {
-            height: deviceUI.moderateScale(70),
+            height: deviceUI.moderateScale(55),
             margin: deviceUI.moderateScale(15),
         },
     });
@@ -35,7 +35,7 @@ export default function useBuildingSelectModalStyles() {
             justifyContent: "center",
         },
         icon: {
-            width: deviceUI.moderateScale(40),
+            width: deviceUI.moderateScale(45),
             color: theme.color.specified.black,
         },
         textBox: {
@@ -43,9 +43,10 @@ export default function useBuildingSelectModalStyles() {
             alignItems: "flex-start",
             justifyContent: "center",
         },
-        buidlingName: {
+        text: {
             color: theme.color.specified.black,
-            ...theme.font.researved.h4,
+            fontFamily: theme.font.fontFamily.pretendard.medium,
+            fontSize: deviceUI.moderateScale(16),
         },
     });
 

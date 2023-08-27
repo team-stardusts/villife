@@ -3,7 +3,7 @@ import { SafeAreaView, View, Text, LogBox, Alert } from "react-native";
 import useScreenMessage from "../../../common/hooks/multilingual/hooks";
 import AuthScreenBottonButton from "../../blocks/bottom_button";
 import AuthScreenCommonInput from "../../blocks/input";
-import AuthScreenTitleView from "../../blocks/title_view";
+import ScreenTitleView from "../../../common/blocks/title_view";
 import useSetBuildingScreenStyles from "./styles";
 import SetBuildingScreenProps from "./types";
 import SelectedAddressStateType from "../../../common/hooks/states/atoms/address/selected_address/types";
@@ -103,67 +103,63 @@ export default function SetBuildingScreen({ navigation, route }: SetBuildingScre
 
     return (
         <SafeAreaView style={styles.main.container}>
-            <View style={styles.main.screenWrapper}>
-                <AuthScreenTitleView
-                    title={messages.messages.auth.set_building.title}
-                    subtitles={[messages.messages.auth.set_building.subtitle]}
-                />
-                <View style={styles.main.contentsWrapper}>
-                    <View style={styles.input.container}>
-                        <View style={styles.input.inputBox}>
-                            <AuthScreenCommonInput
-                                title={messages.messages.auth.set_building.adress_input_title}
-                                placeholder={messages.messages.auth.set_building.adress_input_placeholder}
-                                name="address"
-                                onPressIn={() => navigation.navigate("search_address", {})}
-                                value={address?.roadAddress ?? ""}
-                            />
-                        </View>
-                        <View style={styles.input.addressBadgeBox}>
-                            <Badge
-                                title={addressBadgeStatus.title}
-                                color={
-                                    addressBadgeStatus.isValid
-                                        ? styles.input.validBadge.color
-                                        : styles.input.invalidBadge.color
-                                }
-                                bgColor={
-                                    addressBadgeStatus.isValid
-                                        ? styles.input.validBadge.backgroundColor
-                                        : styles.input.invalidBadge.backgroundColor
-                                }
-                                size={styles.input.validBadge.width}
-                            />
-                        </View>
-                        <View style={styles.input.inputBox}>
-                            <AuthScreenCommonInput
-                                title={messages.messages.auth.set_building.room_number_input_title}
-                                placeholder={messages.messages.auth.set_building.room_number_input_placeholder}
-                                name="room_number"
-                                onChangeText={(text, name) => {
-                                    setRoomNumber(text);
-                                }}
-                            />
-                        </View>
-                        <View style={styles.input.roomNumberBadgeBox}>
-                            <Badge
-                                title={roomNumberBadgeStatus.title}
-                                color={
-                                    roomNumberBadgeStatus.isValid
-                                        ? styles.input.validBadge.color
-                                        : styles.input.invalidBadge.color
-                                }
-                                bgColor={
-                                    roomNumberBadgeStatus.isValid
-                                        ? styles.input.validBadge.backgroundColor
-                                        : styles.input.invalidBadge.backgroundColor
-                                }
-                                size={styles.input.validBadge.width}
-                            />
-                        </View>
+            <ScreenTitleView
+                titles={[messages.messages.auth.set_building.title]}
+                subtitles={[messages.messages.auth.set_building.subtitle]}>
+                <View style={styles.input.container}>
+                    <View style={styles.input.inputBox}>
+                        <AuthScreenCommonInput
+                            title={messages.messages.auth.set_building.adress_input_title}
+                            placeholder={messages.messages.auth.set_building.adress_input_placeholder}
+                            name="address"
+                            onPressIn={() => navigation.navigate("search_address", {})}
+                            value={address?.roadAddress ?? ""}
+                        />
+                    </View>
+                    <View style={styles.input.addressBadgeBox}>
+                        <Badge
+                            title={addressBadgeStatus.title}
+                            color={
+                                addressBadgeStatus.isValid
+                                    ? styles.input.validBadge.color
+                                    : styles.input.invalidBadge.color
+                            }
+                            bgColor={
+                                addressBadgeStatus.isValid
+                                    ? styles.input.validBadge.backgroundColor
+                                    : styles.input.invalidBadge.backgroundColor
+                            }
+                            size={styles.input.validBadge.width}
+                        />
+                    </View>
+                    <View style={styles.input.inputBox}>
+                        <AuthScreenCommonInput
+                            title={messages.messages.auth.set_building.room_number_input_title}
+                            placeholder={messages.messages.auth.set_building.room_number_input_placeholder}
+                            name="room_number"
+                            onChangeText={(text, name) => {
+                                setRoomNumber(text);
+                            }}
+                        />
+                    </View>
+                    <View style={styles.input.roomNumberBadgeBox}>
+                        <Badge
+                            title={roomNumberBadgeStatus.title}
+                            color={
+                                roomNumberBadgeStatus.isValid
+                                    ? styles.input.validBadge.color
+                                    : styles.input.invalidBadge.color
+                            }
+                            bgColor={
+                                roomNumberBadgeStatus.isValid
+                                    ? styles.input.validBadge.backgroundColor
+                                    : styles.input.invalidBadge.backgroundColor
+                            }
+                            size={styles.input.validBadge.width}
+                        />
                     </View>
                 </View>
-            </View>
+            </ScreenTitleView>
             <AuthScreenBottonButton
                 title={
                     IsEditMode

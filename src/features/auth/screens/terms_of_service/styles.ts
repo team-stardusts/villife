@@ -1,29 +1,24 @@
 import { StyleSheet } from "react-native";
 import useSystemInfo from "../../../common/hooks/systeminfo/hooks";
 import useAppThemeLegacy from "../../../common/hooks/themes_legacy/hooks";
-import { TermsOfServiceScreenStylesType } from "./types";
 
-export default function useTermsOfServiceScreenStyles(): TermsOfServiceScreenStylesType {
+export default function useTermsOfServiceScreenStyles() {
     const Theme = useAppThemeLegacy();
     const SystemInfo = useSystemInfo();
 
-    const Screen = StyleSheet.create({
-        topLevelBox: {
+    const main = StyleSheet.create({
+        container: {
             flex: 1,
             flexDirection: "column",
             backgroundColor: Theme.colors.colorFamily.white,
-        },
-        screenWrapper: {
-            flex: 1,
-            paddingHorizontal: SystemInfo.window.width * 0.068,
         },
         contentsWrapper: {
             flex: 8,
         },
     });
 
-    const InputsSection = StyleSheet.create({
-        topLevelBox: {
+    const input = StyleSheet.create({
+        container: {
             flex: 6,
         },
         horizontalLine: {
@@ -46,15 +41,15 @@ export default function useTermsOfServiceScreenStyles(): TermsOfServiceScreenSty
         switchButton: {},
     });
 
-    const BlankSection = StyleSheet.create({
-        topLevelBox: {
+    const blank = StyleSheet.create({
+        container: {
             flex: 2,
         },
     });
 
     return {
-        Screen,
-        InputsSection,
-        BlankSection,
+        main,
+        input,
+        blank,
     };
 }

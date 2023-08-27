@@ -12,13 +12,6 @@ export default function useSetBuildingScreenStyles() {
             flexDirection: "column",
             backgroundColor: theme.color.specified.white,
         },
-        screenWrapper: {
-            flex: 1,
-            paddingHorizontal: deviceUI.getScreenSize().width * 0.06,
-        },
-        contentsWrapper: {
-            flex: 8,
-        },
     });
 
     const input = StyleSheet.create({
@@ -27,8 +20,8 @@ export default function useSetBuildingScreenStyles() {
             paddingTop: deviceUI.moderateScale(20),
         },
         inputBox: {
-            height: deviceUI.moderateScale(30),
-            marginBottom: deviceUI.moderateScale(30),
+            height: deviceUI.moderateScale(50),
+            marginBottom: deviceUI.moderateScale(7),
         },
         addressBadgeBox: {
             maxWidth: deviceUI.moderateScale(100),

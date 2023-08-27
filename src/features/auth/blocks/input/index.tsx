@@ -21,7 +21,7 @@ export default function AuthScreenCommonInput(props: AuthScreenCommonInputProps)
     const [validateResults, setValidateResults] = useState<ValidateResults[]>([]);
     const [isValid, setIsValid] = useState<boolean>(false);
 
-    const _titleStyle = titleStyle ?? styles.inputTitle;
+    const _titleStyle = titleStyle ?? styles.title;
 
     const onChangeText = (text: string) => {
         if (props.onChangeText) {
@@ -85,10 +85,14 @@ export default function AuthScreenCommonInput(props: AuthScreenCommonInputProps)
 
     return (
         <View style={styles.container}>
-            <Text style={_titleStyle}>{title}</Text>
-            <UniversalTextInput style={[props.style, { height: "100%" }]} {...props} onChangeText={onChangeText} />
+            <View style={styles.titleBox}>
+                <Text style={_titleStyle}>{title}</Text>
+            </View>
+            <View style={styles.inputBox}>
+                <UniversalTextInput {...props} onChangeText={onChangeText} />
+            </View>
             {inspect && (
-                <View style={styles.validatorWrapper}>
+                <View style={styles.validatorBox}>
                     {inspect?.isNumber && (
                         <TextInputValidators
                             title={message.messages.words.use_english}

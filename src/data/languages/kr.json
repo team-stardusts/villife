@@ -256,10 +256,13 @@
     },
     "words": {
         "accept": "수락",
+        "added": "추가",
+        "add": "추가하기",
         "admin": "관리자",
         "all": "전체",
         "app_signed_state": "가입",
         "app_unsigned_state": "미가입",
+        "building": "건물",
         "cancle": "취소",
         "correction": "수정",
         "delete": "삭제",

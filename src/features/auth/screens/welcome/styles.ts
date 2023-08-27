@@ -1,46 +1,22 @@
 import { StyleSheet } from "react-native";
-import useSystemInfo from "../../../common/hooks/systeminfo/hooks";
-import useAppThemeLegacy from "../../../common/hooks/themes_legacy/hooks";
+import useStyler from "../../../common/hooks/styler/hooks";
 
 export default function useWelcomeScreenStyles() {
-    const Theme = useAppThemeLegacy();
-    const SystemInfo = useSystemInfo();
+    const { deviceUI, theme } = useStyler();
 
-    const Screen = StyleSheet.create({
-        topLevelBox: {
+    return StyleSheet.create({
+        container: {
             flex: 1,
-            flexDirection: "column",
-            backgroundColor: Theme.colors.colorFamily.white,
+            backgroundColor: theme.color.specified.white,
         },
-        screenWrapper: {
-            flex: 1,
-            paddingHorizontal: SystemInfo.window.width * 0.06,
-        },
-    });
-
-    const ContentsSection = StyleSheet.create({
-        toplevelBox: {
-            flex: 6,
-            alignItems: "center",
-        },
-        iconBox: {
-            flex: 6,
+        userIconBox: {
+            flex: 3,
             justifyContent: "flex-end",
+            alignItems: "center",
+            marginBottom: deviceUI.moderateScale(20),
         },
-        titleViewBox: {
-            flex: 4,
-        },
-    });
-
-    const BlankSection = StyleSheet.create({
-        toplevelBox: {
-            flex: 4,
+        greetingBox: {
+            flex: 7,
         },
     });
-
-    return {
-        Screen,
-        ContentsSection,
-        BlankSection,
-    };
 }

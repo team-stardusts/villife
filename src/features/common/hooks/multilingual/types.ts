@@ -262,8 +262,11 @@ export type MessagesByLanguage = {
         title: string;
     };
     words: {
+        added: string;
+        add: string;
         admin: string;
         all: string;
+        building: string;
         renter: string;
         landlord: string;
         siteAdmin: string;

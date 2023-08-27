@@ -29,19 +29,21 @@ export const VILLIFE_ROOT_STACK_PARAMS: Array<keyof VillifeRootStackParamList> =
 ];
 
 export type VillifeStackParamList = VillifeRootStackParamList & {
+    approval_home: {};
+    common_complaint_home: {};
+    common_complaint_modify: {};
+    common_complaint_register: {};
+    complaint_register: {};
+    complaint_modify: Complaint;
+    complaint_detail: Complaint;
     create_account: {
         host: HostType;
         access_token: string | undefined;
     };
-    welcome: {
-        authority: Authority["ADMIN"] | Authority["RENTER"];
-        host: HostType;
-        id: string;
-        password: string;
+    image_detail_view: {
+        uri: string;
     };
-    set_building?: {};
-    search_address?: {};
-    terms_of_service?: {};
+    my_page: {};
     noti_home?: {};
     noti_register?: {};
     noti_modify: {
@@ -50,28 +52,27 @@ export type VillifeStackParamList = VillifeRootStackParamList & {
         notiID: number;
         priority: number;
     };
-    permission_request?: {};
-    complaint_register: {};
-    complaint_modify: Complaint;
-    approval_home: {};
-    complaint_detail: Complaint;
-    register_vehicle?: {};
-    register_guest_vehicle?: {};
-    send_park_push_noti: {
-        vehicleID: number;
-        messageType: SendParkPushNotiMessageType;
-    };
-    my_page: {};
-    common_complaint_home: {};
-    common_complaint_modify: {};
-    common_complaint_register: {};
-    image_detail_view: {
-        uri: string;
-    };
+    set_building?: {};
+    search_address?: {};
     send_message_to_building_tenants: {
         layout: LayoutType;
         tenants: string; //BuildingTenant[];
     };
+    send_park_push_noti: {
+        vehicleID: number;
+        messageType: SendParkPushNotiMessageType;
+    };
+    welcome: {
+        authority: Authority["ADMIN"] | Authority["RENTER"];
+        host: HostType;
+        id: string;
+        password: string;
+    };
+    permission_request?: {};
+    register_vehicle?: {};
+    register_guest_vehicle?: {};
+    register_building?: {};
+    terms_of_service?: {};
     //building: {};
 };
 

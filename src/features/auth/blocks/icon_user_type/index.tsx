@@ -1,4 +1,4 @@
-import { StyleSheet, View, Text, Platform, Pressable } from "react-native";
+import { StyleSheet, View, Text, Platform, Pressable, ColorValue } from "react-native";
 import { IconRoundPeople, IconRoundPerson } from "../../../common/atoms/icon/human";
 import { UserTypeSelectionButtonProps } from "./types";
 import useStyler from "../../../common/hooks/styler/hooks";
@@ -12,7 +12,7 @@ export default function UserTypeSelectionButton({
     onPress,
 }: UserTypeSelectionButtonProps) {
     const { theme } = useStyler();
-    const color: string = selected ? theme.color.specified.blue : theme.color.specified.lightgrey;
+    const color: ColorValue = selected ? theme.color.specified.blue : theme.color.specified.lightgrey;
 
     let Icon = null;
 

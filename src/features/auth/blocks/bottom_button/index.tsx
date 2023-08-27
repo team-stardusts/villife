@@ -5,11 +5,11 @@ import useAuthScreenBottomButtonStyles from "./styles";
 import AuthScreenBottonButtonProps from "./types";
 
 export default function AuthScreenBottonButton(props: AuthScreenBottonButtonProps): JSX.Element {
-    const Styles = useAuthScreenBottomButtonStyles();
+    const styles = useAuthScreenBottomButtonStyles();
     const Theme = useAppThemeLegacy();
 
     return (
-        <View style={Styles.topLevelBox}>
+        <View style={styles.topLevelBox}>
             <UniversialButton
                 title={props.title}
                 onPress={props.onPress}

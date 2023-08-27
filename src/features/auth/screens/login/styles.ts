@@ -1,31 +1,26 @@
 import { StyleSheet } from "react-native";
-import { LoginScreenStylesType } from "./types";
 import useStyler from "../../../common/hooks/styler/hooks";
 
-export default function useLoginScreenStyles(): LoginScreenStylesType {
+export default function useLoginScreenStyles() {
     const { deviceUI, theme } = useStyler();
 
-    const Screen = StyleSheet.create({
-        topLevelBox: {
+    const main = StyleSheet.create({
+        container: {
             flex: 1,
             flexDirection: "column",
             backgroundColor: theme.color.specified.white,
         },
-        contentsBox: {
-            flex: 1,
-            paddingHorizontal: deviceUI.moderateScale(22),
-        },
     });
 
-    const LoginInputSection = StyleSheet.create({
-        topLevelBox: {
+    const input = StyleSheet.create({
+        container: {
             flex: 3.5,
         },
-        attrWrapper: {
+        contents: {
             flex: 1,
             paddingTop: deviceUI.moderateScale(20),
         },
-        inputWrapper: {
+        inputBox: {
             flex: 4,
             marginBottom: deviceUI.moderateScale(8),
         },
@@ -35,11 +30,7 @@ export default function useLoginScreenStyles(): LoginScreenStylesType {
             ...theme.font.researved.h3,
         },
         input: {
-            backgroundColor: theme.color.specified.white,
-            borderRadius: deviceUI.moderateScale(8),
-            margin: 0,
-            paddingVertical: deviceUI.moderateScale(4),
-            paddingHorizontal: deviceUI.moderateScale(8),
+            height: "45%",
         },
         btnWrapper: {
             flex: 3,
@@ -65,8 +56,8 @@ export default function useLoginScreenStyles(): LoginScreenStylesType {
         },
     });
 
-    const JoinLinkSection = StyleSheet.create({
-        topLevelBox: {
+    const joinLink = StyleSheet.create({
+        container: {
             flex: 3.5,
         },
         textWrapper: {
@@ -81,8 +72,8 @@ export default function useLoginScreenStyles(): LoginScreenStylesType {
     });
 
     return {
-        Screen,
-        LoginInputSection,
-        JoinLinkSection,
+        main,
+        input,
+        joinLink,
     } as const;
 }

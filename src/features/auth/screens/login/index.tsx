@@ -6,7 +6,7 @@ import UniversalTextInput from "../../../common/blocks/universial/textinput";
 import UniversialButton from "../../../common/blocks/universial/button";
 import { useState } from "react";
 import SocialLoginIcon from "../../../common/blocks/icon/login";
-import AuthScreenTitleView from "../../blocks/title_view";
+import ScreenTitleView from "../../../common/blocks/title_view";
 import { Toast } from "react-native-toast-message/lib/src/Toast";
 import { HostType } from "../../../../libs/storage/tables/login/types";
 import useStyler from "../../../common/hooks/styler/hooks";
@@ -52,62 +52,67 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
     };
 
     return (
-        <SafeAreaView style={styles.Screen.topLevelBox}>
-            <View style={styles.Screen.contentsBox}>
-                <AuthScreenTitleView
-                    title={`${messages.messages.auth.login.request_login.line_1}\n${messages.messages.auth.login.request_login.line_2}`}
-                />
-                <View style={styles.LoginInputSection.topLevelBox}>
-                    <View style={styles.LoginInputSection.attrWrapper}>
-                        <View style={styles.LoginInputSection.inputWrapper}>
-                            <Text style={styles.LoginInputSection.inputIdentifier}>
+        <SafeAreaView style={styles.main.container}>
+            <ScreenTitleView
+                titles={[
+                    messages.messages.auth.login.request_login.line_1,
+                    messages.messages.auth.login.request_login.line_2,
+                ]}>
+                <View style={styles.input.container}>
+                    <View style={styles.input.contents}>
+                        <View style={styles.input.inputBox}>
+                            <Text style={styles.input.inputIdentifier}>
                                 {messages.messages.auth.login.title_of_id_input}
                             </Text>
-                            <UniversalTextInput
-                                name="id"
-                                onChangeText={(text, name) => {
-                                    if (name === "id") setAccount({ ...account, [name]: text });
-                                }}
-                            />
+                            <View style={styles.input.input}>
+                                <UniversalTextInput
+                                    name="id"
+                                    onChangeText={(text, name) => {
+                                        if (name === "id") setAccount({ ...account, [name]: text });
+                                    }}
+                                />
+                            </View>
                         </View>
-                        <View style={styles.LoginInputSection.inputWrapper}>
-                            <Text style={styles.LoginInputSection.inputIdentifier}>
+                        <View style={styles.input.inputBox}>
+                            <Text style={styles.input.inputIdentifier}>
                                 {messages.messages.auth.login.title_of_password_input}
                             </Text>
-                            <UniversalTextInput
-                                name="password"
-                                onChangeText={(text, name) => {
-                                    if (name === "password") setAccount({ ...account, [name]: text });
-                                }}
-                                secureTextEntry
-                            />
+                            <View style={styles.input.input}>
+                                <UniversalTextInput
+                                    name="password"
+                                    onChangeText={(text, name) => {
+                                        if (name === "password") setAccount({ ...account, [name]: text });
+                                    }}
+                                    secureTextEntry
+                                />
+                            </View>
                         </View>
-                        <View style={styles.LoginInputSection.btnWrapper}>
+                        <View style={styles.input.btnWrapper}>
                             <UniversialButton
                                 title={messages.messages.auth.login.title_of_login_btn}
-                                titleStyle={styles.LoginInputSection.btnTitle}
+                                titleStyle={styles.input.btnTitle}
                                 onPress={() => handleLogin("villife", account)}
                                 disabled={false}
                             />
                         </View>
                         <TouchableOpacity
-                            style={styles.LoginInputSection.socialLoginBtn}
+                            style={styles.input.socialLoginBtn}
                             activeOpacity={0.8}
                             onPress={() => handleLogin("naver", account)}
                             //onPressIn={() => setIsSocialLoginButtonPressed(true)}
                             //onPressOut={() => setIsSocialLoginButtonPressed(false)}
                         >
-                            <View style={styles.LoginInputSection.socialLoginBtnIconWrapper}>
+                            <View style={styles.input.socialLoginBtnIconWrapper}>
                                 <SocialLoginIcon providerName="naver" diameter={iconDiameter} />
                             </View>
-                            <Text style={styles.LoginInputSection.btnTitle}>
+                            <Text style={styles.input.btnTitle}>
                                 {messages.messages.auth.login.title_of_naver_social_login_btn}
                             </Text>
                         </TouchableOpacity>
                     </View>
                 </View>
-                <View style={styles.JoinLinkSection.topLevelBox}>
-                    <View style={styles.JoinLinkSection.textWrapper}>
+                <View style={styles.joinLink.container}>
+                    <View style={styles.joinLink.textWrapper}>
                         <TouchableOpacity
                             activeOpacity={0.4}
                             onPress={() => {
@@ -116,15 +121,11 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
                                     access_token: undefined,
                                 });
                             }}>
-                            <Text style={styles.JoinLinkSection.text}>{messages.messages.auth.login.join}</Text>
+                            <Text style={styles.joinLink.text}>{messages.messages.auth.login.join}</Text>
                         </TouchableOpacity>
-                        <Text style={[{ marginHorizontal: deviceUI.moderateScale(8) }, styles.JoinLinkSection.text]}>
-                            |
-                        </Text>
+                        <Text style={[{ marginHorizontal: deviceUI.moderateScale(8) }, styles.joinLink.text]}>|</Text>
                         <TouchableOpacity activeOpacity={0.4} onPress={showToast}>
-                            <Text style={styles.JoinLinkSection.text}>
-                                {messages.messages.auth.login.reset_password}
-                            </Text>
+                            <Text style={styles.joinLink.text}>{messages.messages.auth.login.reset_password}</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
@@ -149,7 +150,7 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
                         </View>
                     </View>
                 */}
-            </View>
+            </ScreenTitleView>
         </SafeAreaView>
     );
 }

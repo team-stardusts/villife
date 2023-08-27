@@ -1,18 +1,19 @@
 import { StyleSheet } from "react-native";
-import { UseAuthScreenTitleViewStylesType } from "./types";
-import useStyler from "../../../common/hooks/styler/hooks";
+import useStyler from "../../hooks/styler/hooks";
 
-export default function useAuthScreenTtitleViewStyles(): UseAuthScreenTitleViewStylesType {
+export default function useScreenTtitleViewStyles() {
     const { deviceUI, theme } = useStyler();
 
     return StyleSheet.create({
-        topLevelBox: {
-            flex: 2,
-            display: "flex",
-            alignItems: "flex-start",
+        container: {
+            flex: 1,
             justifyContent: "center",
+            paddingHorizontal: deviceUI.moderateScale(18),
         },
-        textWrapper: {
+        titleBox: {
+            flex: 1.8,
+            //alignItems: "center",
+            justifyContent: "center",
             textAlign: "left",
             paddingTop: deviceUI.moderateScale(16),
         },
@@ -24,6 +25,9 @@ export default function useAuthScreenTtitleViewStyles(): UseAuthScreenTitleViewS
         subtitle: {
             color: theme.color.specified.black,
             ...theme.font.researved.h5,
+        },
+        children: {
+            flex: 8.2,
         },
     });
 }

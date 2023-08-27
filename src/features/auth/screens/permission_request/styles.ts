@@ -12,10 +12,6 @@ export default function PermissionRequestScreenStyle() {
             flexDirection: "column",
             backgroundColor: Theme.colors.colorFamily.white,
         },
-        screenWrapper: {
-            flex: 1,
-            paddingHorizontal: SystemInfo.window.width * 0.068,
-        },
         contentsWrapper: {
             flex: 8,
         },

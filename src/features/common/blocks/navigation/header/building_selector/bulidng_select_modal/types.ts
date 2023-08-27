@@ -7,6 +7,11 @@ export type BuildingSelectModalProps = {
     onBuildingPress(buidingInfo: SimpleBuildingInfo): void;
 };
 
+export type AddBuildingComponentProps = {
+    height: number;
+    onPress(): void;
+};
+
 export type BuildingComponentProps = {
     height: number;
     buidingInfo: SimpleBuildingInfo;

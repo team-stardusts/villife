@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { NativeSyntheticEvent, TextInputChangeEventData, TextInputFocusEventData } from "react-native/types";
 import TextInput from "../../../atoms/textinput";
-import useUniversialTextinputStyles from "./styles";
 import UniversalTextInputProps from "./types";
 import { StyleSheet } from "react-native";
 import useStyler from "../../../hooks/styler/hooks";
@@ -26,19 +25,22 @@ export default function UniversalTextInput(props: UniversalTextInputProps) {
 
     const styles = StyleSheet.create({
         container: {
+            flex: 1,
             borderRadius: deviceUI.moderateScale(8),
             borderColor: isFocusing
                 ? highlightColor ?? theme.color.specified.blue
                 : lowlightColor ?? theme.color.specified.lightgrey,
-            ...theme.font.researved.h5,
-            padding: 1,
+            justifyContent: "center",
+            paddingVertical: deviceUI.moderateScale(1),
+            paddingHorizontal: deviceUI.moderateScale(1),
         },
         input: {
-            borderRadius: deviceUI.moderateScale(8),
+            flex: 1,
             backgroundColor: theme.color.specified.white,
-            height: deviceUI.moderateScale(26),
+            borderRadius: deviceUI.moderateScale(8),
             paddingVertical: deviceUI.moderateScale(2),
-            paddingHorizontal: deviceUI.moderateScale(4),
+            paddingHorizontal: deviceUI.moderateScale(5),
+            //...theme.font.researved.h5,
         },
     });
     //const styles = useUniversialTextinputStyles({ isFocusing, highlightColor, lowlightColor });
