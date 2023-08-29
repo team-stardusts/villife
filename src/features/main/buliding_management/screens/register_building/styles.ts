@@ -67,10 +67,16 @@ export default function useBuildingManagementScreenStyles() {
             flex: 1,
         },
         titleBox: {
-            flex: 2,
+            flex: 1,
+            justifyContent: "center",
+        },
+        title: {
+            color: theme.color.specified.blue,
+            fontFamily: theme.font.fontFamily.pretendard.bold,
+            fontSize: deviceUI.moderateScale(20),
         },
         contentContainer: {
-            flex: 8,
+            flex: 9,
         },
         rowContaier: {
             height: deviceUI.moderateScale(30),

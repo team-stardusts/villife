@@ -1,61 +1,70 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { FloorSetterRowProps } from "../types";
-import { ScrollView, Text, TouchableOpacity, View } from "react-native";
-import BottomSlidableModal from "../../../../../../../common/blocks/universial/slidemodal_bottom";
-import NumberPicker from "../../../../../../../common/atoms/time_picker/number_picker";
+import { Animated, Text, TouchableOpacity, View } from "react-native";
 import Icon from "../../../../../../../common/atoms/icon";
+import { ANIMATION_DURATION_FAST } from "../../../../../../../common/constants";
+import RoomsSettingModal from "./modal";
 
-export default function FloorSetterRow({ styles, floor }: FloorSetterRowProps) {
-    const [rooms, setRooms] = useState<number>(0);
+export default function FloorSetterRow(props: FloorSetterRowProps) {
+    const [rooms, setRooms] = useState<number>(props.rooms);
     const [visible, setVisible] = useState<boolean>(false);
+    const opacityValue = useRef(new Animated.Value(0)).current;
+    const translateYValue = useRef(new Animated.Value(8)).current;
+
+    useEffect(() => {
+        if (visible === false) {
+            props.onChangeRoomCount(rooms);
+        }
+    }, [visible]);
+
+    useEffect(() => {
+        Animated.parallel([
+            Animated.timing(opacityValue, {
+                toValue: 1,
+                duration: ANIMATION_DURATION_FAST,
+                useNativeDriver: true,
+            }),
+            Animated.timing(translateYValue, {
+                toValue: 0,
+                duration: ANIMATION_DURATION_FAST,
+                useNativeDriver: true,
+            }),
+        ]).start();
+    }, [opacityValue, translateYValue]);
 
     return (
-        <View style={styles.rowContaier}>
-            <RoomsSettingModal modalVisible={visible} setModalVisible={setVisible} />
-            <View style={styles.floorBox}>
-                <Text style={styles.rowText}>{floor}층</Text>
+        <Animated.View
+            style={[props.styles.rowContaier, { opacity: opacityValue, transform: [{ translateY: translateYValue }] }]}>
+            <RoomsSettingModal
+                initialRooms={props.rooms}
+                modalVisible={visible}
+                setModalVisible={setVisible}
+                onChangeRoomCount={setRooms}
+            />
+            <View style={props.styles.floorBox}>
+                <Text style={props.styles.rowText}>{props.floor === 0 ? "반지하" : `${props.floor} 층`}</Text>
             </View>
-            <View style={styles.roomBox}>
-                <View style={styles.roomsWrapper}>
-                    <Text style={styles.rowText}>{rooms}호</Text>
+            <View style={props.styles.roomBox}>
+                <View style={props.styles.roomsWrapper}>
+                    <Text style={props.styles.rowText}>{rooms}호</Text>
                 </View>
             </View>
-            <View style={styles.blankBox}>
-                <View style={styles.roomsSettingBtnWrapper}>
+            <View style={props.styles.blankBox}>
+                <View style={props.styles.roomsSettingBtnWrapper}>
                     <TouchableOpacity
-                        style={styles.roomsSettingBtn}
+                        style={props.styles.roomsSettingBtn}
                         activeOpacity={0.5}
                         onPress={() => {
-                            console.log("SET");
                             setVisible(true);
                         }}>
                         <Icon
                             name="arrow-down"
-                            size={styles.roomsSettingIcon.width}
-                            color={styles.roomsSettingIcon.color}
+                            size={props.styles.roomsSettingIcon.width}
+                            color={props.styles.roomsSettingIcon.color}
                         />
                     </TouchableOpacity>
                 </View>
             </View>
-        </View>
-    );
-}
-
-type RoomsSettingModalProps = {
-    modalVisible: boolean;
-    setModalVisible: React.Dispatch<React.SetStateAction<boolean>>;
-};
-
-function RoomsSettingModal(props: RoomsSettingModalProps) {
-    return (
-        <BottomSlidableModal modalVisible={props.modalVisible} setModalVisible={props.setModalVisible} height={300}>
-            <ScrollView style={{ marginBottom: 30, width: "100%" }} onTouchEnd={() => console.log("sadf")}>
-                {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14].map((num) => (
-                    <TouchableOpacity key={num} style={{ marginHorizontal: 20, height: 50, alignItems: "center" }}>
-                        <Text>{num}</Text>
-                    </TouchableOpacity>
-                ))}
-            </ScrollView>
-        </BottomSlidableModal>
+        </Animated.View>
     );
 }
