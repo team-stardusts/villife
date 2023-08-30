@@ -3,7 +3,7 @@ import { useRecoilState } from "recoil";
 import { Vehicle, VehicleOwnerType } from "../states/types";
 import { vehiclesState } from "../states";
 import useUserInformation from "../../../../common/hooks/service/user_info";
-import ParkingServiceProvider from "./service";
+import ParkingServiceProvider from "./provider";
 import type {
     DeleteVehicleParams,
     IParkingServiceProvider,
@@ -11,7 +11,7 @@ import type {
     MyVehicleInfoUpdateParams,
     RegisterGuestVehicleParams,
     RegisterUserVehicleParams,
-} from "./service/types";
+} from "./provider/types";
 import type { IParkingLot } from "./types";
 
 export default function useParkingLot(): IParkingLot {

@@ -5,7 +5,6 @@ import ScreenTitleView from "../../../common/blocks/title_view";
 import useTermsOfServiceScreenStyles from "./styles";
 import TermsOfServiceScreenProps from "./types";
 import AuthScreenSwitchButton from "../../blocks/switch_button";
-import AuthScreenBottonButton from "../../blocks/bottom_button";
 import PressableVectorIcon from "../../../common/blocks/icon/vector";
 import useSystemInfo from "../../../common/hooks/systeminfo/hooks";
 
@@ -42,7 +41,12 @@ export default function TermsOfServiceScreen({ navigation, route }: TermsOfServi
         <SafeAreaView style={Styles.main.container}>
             <ScreenTitleView
                 titles={[messages.messages.auth.terms_of_service.title]}
-                subtitles={[messages.messages.auth.terms_of_service.subtitle]}>
+                subtitles={[messages.messages.auth.terms_of_service.subtitle]}
+                bottomButton={{
+                    title: messages.messages.auth.create_account.next_btn_title,
+                    onPress: () => console.log("NOT IMPLEMENTED"),
+                    disabled: !isAllGranted,
+                }}>
                 <View style={Styles.main.contentsWrapper}>
                     <View style={Styles.input.barSort}>
                         <AuthScreenSwitchButton
@@ -83,12 +87,6 @@ export default function TermsOfServiceScreen({ navigation, route }: TermsOfServi
                     </View>
                 </View>
             </ScreenTitleView>
-
-            <AuthScreenBottonButton
-                title={messages.messages.auth.create_account.next_btn_title}
-                onPress={() => console.log("NOT IMPLEMENTED")}
-                disabled={!isAllGranted}
-            />
         </SafeAreaView>
     );
 }

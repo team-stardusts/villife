@@ -1,7 +1,6 @@
-import { useEffect, useRef, useState } from "react";
-import { SafeAreaView, View, Text, LogBox, Alert } from "react-native";
+import { useEffect, useState } from "react";
+import { SafeAreaView, View, LogBox, Alert } from "react-native";
 import useScreenMessage from "../../../common/hooks/multilingual/hooks";
-import AuthScreenBottonButton from "../../blocks/bottom_button";
 import AuthScreenCommonInput from "../../blocks/input";
 import ScreenTitleView from "../../../common/blocks/title_view";
 import useSetBuildingScreenStyles from "./styles";
@@ -105,7 +104,20 @@ export default function SetBuildingScreen({ navigation, route }: SetBuildingScre
         <SafeAreaView style={styles.main.container}>
             <ScreenTitleView
                 titles={[messages.messages.auth.set_building.title]}
-                subtitles={[messages.messages.auth.set_building.subtitle]}>
+                subtitles={[messages.messages.auth.set_building.subtitle]}
+                bottomButton={{
+                    title: IsEditMode
+                        ? messages.messages.auth.set_building.next_btn_title
+                        : messages.messages.auth.set_building.next_btn_title_when_change_next,
+                    onPress: () => {
+                        IsEditMode
+                            ? onPressNextButton()
+                            : navigation.reset({
+                                  index: 0,
+                                  routes: [{ name: "home" }],
+                              });
+                    },
+                }}>
                 <View style={styles.input.container}>
                     <View style={styles.input.inputBox}>
                         <AuthScreenCommonInput
@@ -160,22 +172,6 @@ export default function SetBuildingScreen({ navigation, route }: SetBuildingScre
                     </View>
                 </View>
             </ScreenTitleView>
-            <AuthScreenBottonButton
-                title={
-                    IsEditMode
-                        ? messages.messages.auth.set_building.next_btn_title
-                        : messages.messages.auth.set_building.next_btn_title_when_change_next
-                }
-                onPress={() => {
-                    IsEditMode
-                        ? onPressNextButton()
-                        : navigation.reset({
-                              index: 0,
-                              routes: [{ name: "home" }],
-                              //routes: [{ name: "test" }],
-                          });
-                }}
-            />
         </SafeAreaView>
     );
 }

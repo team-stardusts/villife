@@ -2,6 +2,7 @@ import type useRegisterBuildingScreenStyles from "../../styles";
 
 export type RoomCountSetterProps = {
     styles: ReturnType<typeof useRegisterBuildingScreenStyles>["room"];
+    onChangeRoomCount(floors: BuildingFloors): void;
 };
 
 export type BuildingFloors = (number | null)[];

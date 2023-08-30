@@ -19,6 +19,8 @@ class StringValidator implements IStringValidator {
         // 공백 반드시 포함
         vehiclePlateNumber: /^(([0-9]{2,3})|([가-힣]{2,3}))[가-힣]{1}[\s\u3000]\d{4}$/,
         // 공백 포함 미포함 : /^(([0-9]{2,3})|([가-힣]{2,3}))[\s\u3000]?[가-힣]{1}[\s\u3000]?\d{4}$/,
+        vowels: /^[ㅏㅑㅓㅕㅗㅛㅜㅠㅡㅣ]*$/,
+        consonants: /^[ㄱ-ㅎ]*$/,
     };
 
     public isNumber(text: string): boolean {
@@ -77,6 +79,14 @@ class StringValidator implements IStringValidator {
 
     public isCorrectVehiclePlateNumber(plateNumber: string): boolean {
         return this.regExps.vehiclePlateNumber.test(plateNumber);
+    }
+
+    public isOnlyVowels(text: string): boolean {
+        return this.regExps.vowels.test(text);
+    }
+
+    public isOnlyConsonant(text: string): boolean {
+        return this.regExps.consonants.test(text);
     }
 }
 

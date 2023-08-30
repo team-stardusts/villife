@@ -18,6 +18,7 @@ export type NodeProps = {
     focusedcolor: ColorValue;
     unFocusedColor: ColorValue;
     styles: ReturnType<typeof useElementPickerStyles>["node"];
+    onTapToSelect(value: NodeProps["value"]): void;
 };
 
 export type Node = string | number;

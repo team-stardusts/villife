@@ -4,12 +4,10 @@ import useScreenMessage from "../../../common/hooks/multilingual/hooks";
 import UniversialButton from "../../../common/blocks/universial/button";
 import useCreateAccountScreenStyles from "./styles";
 import ScreenTitleView from "../../../common/blocks/title_view";
-import AuthScreenBottonButton from "../../blocks/bottom_button";
 import CreateAccountScreenProps from "./types";
 import AuthScreenCommonInput from "../../blocks/input";
 import UserTypeSelectionButton from "../../blocks/icon_user_type";
 import { Authority } from "../../../../libs/rest_apis/villife/types";
-import useStyler from "../../../common/hooks/styler/hooks";
 import useAuthService from "../../services/authentication";
 import { VILLIFE_AUTHORITY } from "../../../../libs/rest_apis/villife/absc";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
@@ -27,7 +25,6 @@ export default function CreateAccountScreen({ navigation, route }: CreateAccount
     const auth: IAuthServiceProvider = useAuthService();
     const messages = useScreenMessage();
     const styles = useCreateAccountScreenStyles();
-    const { deviceUI } = useStyler();
 
     const [account, setAccount] = useState<AccountType>({
         authority: VILLIFE_AUTHORITY.RENTER,
@@ -70,7 +67,14 @@ export default function CreateAccountScreen({ navigation, route }: CreateAccount
         <SafeAreaView style={styles.main.container}>
             <ScreenTitleView
                 titles={[messages.messages.auth.create_account.title]}
-                subtitles={[messages.messages.auth.create_account.subtitle]}>
+                subtitles={[messages.messages.auth.create_account.subtitle]}
+                bottomButton={{
+                    title: messages.messages.auth.create_account.next_btn_title,
+                    onPress: () => {
+                        handleJoin();
+                    },
+                    disabled: !isDone,
+                }}>
                 <KeyboardAwareScrollView
                     style={styles.main.contents}
                     showsVerticalScrollIndicator={false} /* behavior="padding" */
@@ -185,13 +189,6 @@ export default function CreateAccountScreen({ navigation, route }: CreateAccount
                     </View>
                 </KeyboardAwareScrollView>
             </ScreenTitleView>
-            <AuthScreenBottonButton
-                title={messages.messages.auth.create_account.next_btn_title}
-                onPress={() => {
-                    handleJoin();
-                }}
-                disabled={!isDone}
-            />
         </SafeAreaView>
     );
 }

@@ -1,6 +1,7 @@
 import { View, Text } from "react-native";
 import useScreenTtitleViewStyles from "./styles";
 import ScreenTitleViewProps from "./types";
+import ScreenBottonButton from "./bottom_button";
 
 export default function ScreenTitleView(props: ScreenTitleViewProps): JSX.Element {
     const styles = useScreenTtitleViewStyles();
@@ -21,6 +22,11 @@ export default function ScreenTitleView(props: ScreenTitleViewProps): JSX.Elemen
                     ))}
             </View>
             <View style={styles.children} children={props.children} />
+            {props.bottomButton && (
+                <View style={styles.btnBox}>
+                    <ScreenBottonButton {...props.bottomButton} />
+                </View>
+            )}
         </View>
     );
 }

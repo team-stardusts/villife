@@ -6,7 +6,7 @@ import {
     RegisterUserVehicleParams,
     SendMessageParams,
     DeleteVehicleParams,
-} from "./service/types";
+} from "./provider/types";
 
 export interface IParkingLot {
     vehicles: Vehicle[];

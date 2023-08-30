@@ -2,12 +2,12 @@ import {
     VerifyBuildingAddressParams,
     VerifyBuildingAddressResult,
 } from "../../../../libs/rest_apis/villife/approval/types";
-import { UserResidenceValidationParams } from "../../../../libs/rest_apis/villife/building/types";
+import { Building } from "../../../../libs/rest_apis/villife/building/types";
 
 export interface IValidateResidenceService {
-    ValidateUserResidenceForTest(params: UserResidenceValidationParams): Promise<string>;
+    ValidateUserResidenceForTest(params: Building.UserResidenceValidation.Params): Promise<string>;
     VerifyBuildingAddress(params: VerifyBuildingAddressParams): Promise<VerifyBuildingAddressResult>;
-    RequestValidationOfUserRegidence(params: UserResidenceValidationParams): Promise<string>;
+    RequestValidationOfUserRegidence(params: Building.UserResidenceValidation.Params): Promise<string>;
 }
 
 export type BuildingInfo = VerifyBuildingAddressResult;

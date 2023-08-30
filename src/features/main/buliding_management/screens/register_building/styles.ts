@@ -13,10 +13,11 @@ export default function useBuildingManagementScreenStyles() {
             flex: 1,
         },
         searchingContainer: {
-            flex: 2,
+            flex: 3.5,
+            marginBottom: deviceUI.moderateScale(30),
         },
         roomSettingContainer: {
-            flex: 8,
+            flex: 6.5,
         },
     });
 
@@ -25,20 +26,27 @@ export default function useBuildingManagementScreenStyles() {
             flex: 1,
         },
         titleBox: {
-            height: "20%",
+            height: "15%",
+        },
+        villaTitleBox: {
+            height: "15%",
+            marginTop: deviceUI.moderateScale(13),
         },
         title: {
             color: theme.color.specified.blue,
             fontFamily: theme.font.fontFamily.pretendard.bold,
             fontSize: deviceUI.moderateScale(17),
         },
-        searcherBox: {
-            height: "30%",
+        inputBox: {
+            height: "22%",
             justifyContent: "center",
             marginVertical: deviceUI.moderateScale(5),
         },
-        searcher: {
+        inputWrapper: {
             height: "90%",
+        },
+        villaNameInputInvalid: {
+            color: theme.color.specified.red,
         },
         magnifierBox: {
             position: "absolute",
@@ -54,11 +62,18 @@ export default function useBuildingManagementScreenStyles() {
             color: theme.color.specified.black,
         },
         badgeBox: {
-            height: "30%",
             width: "30%",
         },
         badge: {
             width: deviceUI.moderateScale(13),
+        },
+        registedBadge: {
+            color: theme.color.specified.white,
+            backgroundColor: theme.color.specified.blue,
+        },
+        unregistedBadge: {
+            color: theme.color.specified.black,
+            backgroundColor: theme.color.series.grey.level2,
         },
     });
 

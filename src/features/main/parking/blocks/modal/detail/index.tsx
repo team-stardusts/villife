@@ -3,7 +3,6 @@ import { Text, View } from "react-native";
 import useScreenMessage from "../../../../../common/hooks/multilingual/hooks";
 import useVehicleDetailModalStyles from "./styles";
 import { VehicleDetailAlertProps, VehicleDetailModalDate, VehicleKeyValuePair } from "./types";
-import { StardustModalButton } from "../../../../../common/blocks/universial/stardust_modal/types";
 import useParkingLot from "../../../services/park";
 import VillifeToastMessage from "../../../../../common/atoms/toast";
 import StardustAlert from "../../../../../common/blocks/universial/stardust_alert";
@@ -100,30 +99,6 @@ export default function VehicleDetailModal(props: VehicleDetailAlertProps) {
         }
     };
 
-    const setButtons = (): StardustModalButton[] => {
-        const buttons: StardustModalButton[] = [];
-
-        if (isMyGuest) {
-            buttons.push(
-                {
-                    text: messages.words.cancle,
-                    onPress: () => props.setVisible(false),
-                },
-                {
-                    text: messages.words.modify,
-                    onPress: () => props.setVisible(false),
-                }
-            );
-        } else {
-            buttons.push({
-                text: messages.words.okay,
-                onPress: () => props.setVisible(false),
-            });
-        }
-
-        return buttons;
-    };
-
     const deleteVehicle = async () => {
         const isSuccessful = await parkingLot.deleteVehicle({
             type: "guest",
@@ -153,7 +128,12 @@ export default function VehicleDetailModal(props: VehicleDetailAlertProps) {
                     : undefined
             }
             title={title}
-            buttons={setButtons()}
+            buttons={[
+                {
+                    text: messages.words.okay,
+                    onPress: () => props.setVisible(false),
+                },
+            ]}
             onPressVoidSpace={() => props.setVisible(false)}>
             <View style={styles.container}>
                 {makeVehicleKeyValuePairs().map((pair, index) => {

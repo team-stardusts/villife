@@ -2,7 +2,7 @@ import { StyleSheet } from "react-native";
 import useStyler from "../../hooks/styler/hooks";
 
 export default function useScreenTtitleViewStyles() {
-    const { deviceUI, theme } = useStyler();
+    const { deviceUI, theme, safetyEdgeSize } = useStyler();
 
     return StyleSheet.create({
         container: {
@@ -12,7 +12,6 @@ export default function useScreenTtitleViewStyles() {
         },
         titleBox: {
             flex: 1.8,
-            //alignItems: "center",
             justifyContent: "center",
             textAlign: "left",
             paddingTop: deviceUI.moderateScale(16),
@@ -27,7 +26,13 @@ export default function useScreenTtitleViewStyles() {
             ...theme.font.researved.h5,
         },
         children: {
-            flex: 8.2,
+            flex: 7.4,
+        },
+        btnBox: {
+            flex: 0.8,
+            position: "relative",
+            marginTop: deviceUI.moderateScale(20),
+            left: -deviceUI.moderateScale(18),
         },
     });
 }

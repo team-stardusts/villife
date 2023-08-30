@@ -1,9 +1,11 @@
-type SelectedAddressStateType = {
+export type SelectedAddressStateType = SelectedAddressType | null;
+
+export type SelectedAddressType = {
     roadAddress: string;
     jibunAddress: string;
     buildingCode: number;
     buildingName: string;
     zonecode: number;
-} | null;
+};
 
 export default SelectedAddressStateType;

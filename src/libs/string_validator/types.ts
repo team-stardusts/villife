@@ -18,4 +18,6 @@ export default interface IStringValidator {
     isPhoneNumber(phoneNumber: string, doesItContainHypen: boolean): boolean;
     isEmail(email: string): boolean;
     isCorrectVehiclePlateNumber(plateNumber: string): boolean;
+    isOnlyVowels(text: string): boolean;
+    isOnlyConsonant(text: string): boolean;
 }

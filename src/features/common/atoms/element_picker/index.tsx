@@ -10,6 +10,7 @@ export default function ElementPicker(props: ElementPickerProps) {
         return <></>;
     }
 
+    // numberOfElementsToShows는 반드시 홀수여야함
     const numberOfElementsToShow =
         props.numberOfElementsToShow % 2 === 0 ? props.numberOfElementsToShow - 1 : props.numberOfElementsToShow;
     const scrollViewInnerWidth = props.width * 0.9;
@@ -32,6 +33,19 @@ export default function ElementPicker(props: ElementPickerProps) {
         props.onNodeChange && props.onNodeChange(crrNodeValue);
     }, [crrNodeValue]);
 
+    const handleScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
+        Animated.event([{ nativeEvent: { contentOffset: { x: scrollValue } } }], {
+            useNativeDriver: false,
+        });
+        const chunk = getCenterPosition(event);
+        setCrrNodeValue(props.nodes[chunk.index]);
+    };
+
+    const handleScrollEndDrag = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
+        const chunk = getCenterPosition(event);
+        scrollVewRef.current?.scrollTo({ x: chunk.offsetX, animated: true });
+    };
+
     const getCenterPosition = (event: NativeSyntheticEvent<NativeScrollEvent>): { index: number; offsetX: number } => {
         const offsetX: number = event.nativeEvent.contentOffset.x;
 
@@ -50,20 +64,6 @@ export default function ElementPicker(props: ElementPickerProps) {
             offsetX: correctOffsetX,
         };
     };
-
-    const handleScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
-        Animated.event([{ nativeEvent: { contentOffset: { x: scrollValue } } }], {
-            useNativeDriver: false,
-        });
-        const chunk = getCenterPosition(event);
-        setCrrNodeValue(props.nodes[chunk.index]);
-    };
-
-    const handleScrollEndDrag = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
-        const chunk = getCenterPosition(event);
-        scrollVewRef.current?.scrollTo({ x: chunk.offsetX, animated: true });
-    };
-
     return (
         <ScrollView
             ref={scrollVewRef}
@@ -92,7 +92,14 @@ export default function ElementPicker(props: ElementPickerProps) {
                     isFocused={node === crrNodeValue}
                     value={node}
                     focusedcolor={props.focusedcolor || styles.main.focused.color}
-                    unFocusedColor={props.unFocusedColor || styles.main.unfocused.color}></ElementNode>
+                    unFocusedColor={props.unFocusedColor || styles.main.unfocused.color}
+                    onTapToSelect={(node) => {
+                        if (node) setCrrNodeValue(node);
+                        const toIndex = _nodes.indexOf(node) - nulls.length;
+                        if (toIndex < 0) return;
+                        scrollVewRef.current?.scrollTo({ x: nodeViewWidth * toIndex, animated: true });
+                    }}
+                />
             ))}
         </ScrollView>
     );
@@ -119,6 +126,9 @@ function ElementNode(props: NodeProps) {
     return (
         <Pressable
             //disabled
+            onPress={() => {
+                props.onTapToSelect(props.value);
+            }}
             style={[
                 props.styles.container,
                 {

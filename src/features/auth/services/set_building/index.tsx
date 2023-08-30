@@ -1,8 +1,6 @@
 import React from "react";
 import { IValidateResidenceService } from "./type";
-import IVillifeBuildingManager, {
-    UserResidenceValidationParams,
-} from "../../../../libs/rest_apis/villife/building/types";
+import IVillifeBuildingManager, { Building } from "../../../../libs/rest_apis/villife/building/types";
 import VillifeServer from "../../../../libs/rest_apis/villife";
 import IVillifeApprovalManager, {
     VerifyBuildingAddressParams,
@@ -16,7 +14,7 @@ class ValidateResidenceService implements IValidateResidenceService {
     private buildingRestClient: IVillifeBuildingManager = VillifeServer.getBuildingManager();
     private approvalRestClient: IVillifeApprovalManager = VillifeServer.getApprovalManager();
 
-    async ValidateUserResidenceForTest(params: UserResidenceValidationParams) {
+    async ValidateUserResidenceForTest(params: Building.UserResidenceValidation.Params) {
         const result = await this.buildingRestClient.validateUserResidenceForTest(params);
 
         if (!result.isSuccessful) {
@@ -37,7 +35,7 @@ class ValidateResidenceService implements IValidateResidenceService {
         if (!result.data?.data) throw new Error("cannot get data from api result");
         return result.data.data;
     }
-    async RequestValidationOfUserRegidence(params: UserResidenceValidationParams) {
+    async RequestValidationOfUserRegidence(params: Building.UserResidenceValidation.Params) {
         const result = await this.buildingRestClient.requestValidationOfUserRegidence(params);
 
         if (!result.isSuccessful) {

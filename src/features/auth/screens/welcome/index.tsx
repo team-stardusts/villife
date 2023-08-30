@@ -1,6 +1,5 @@
 import { SafeAreaView, View } from "react-native";
 import useScreenMessage from "../../../common/hooks/multilingual/hooks";
-import AuthScreenBottonButton from "../../blocks/bottom_button";
 import ScreenTitleView from "../../../common/blocks/title_view";
 import UserTypeSelectionButton from "../../blocks/icon_user_type";
 import useWelcomeScreenStyles from "./styles";
@@ -39,10 +38,13 @@ export default function WelcomeScreen({ route }: WelcomScreenProps) {
                 <ScreenTitleView
                     titles={[message.messages.auth.welcome.title]}
                     subtitles={[message.messages.auth.welcome.subtitle_1, message.messages.auth.welcome.subtitle_2]}
+                    bottomButton={{
+                        title: message.messages.auth.welcome.next_btn_title,
+                        onPress: () => handlePressNextBtn(),
+                    }}
                     children={<View />}
                 />
             </View>
-            <AuthScreenBottonButton title={message.messages.auth.welcome.next_btn_title} onPress={handlePressNextBtn} />
         </SafeAreaView>
     );
 }

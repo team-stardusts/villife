@@ -1,20 +1,24 @@
 import { SafeAreaView, View, Text } from "react-native";
 import useScreenMessage from "../../../common/hooks/multilingual/hooks";
-import AuthScreenBottonButton from "../../blocks/bottom_button";
 import ScreenTitleView from "../../../common/blocks/title_view";
 import useWelcomeScreenStyles from "./styles";
-import useSystemInfo from "../../../common/hooks/systeminfo/hooks";
 import PermissionRequestScreenProps from "./types";
 import PermissionScreenView from "../../blocks/permission_view";
 
 export default function PermissionRequestScreen({ navigation, route }: PermissionRequestScreenProps) {
     const styles = useWelcomeScreenStyles();
     const messages = useScreenMessage();
-    const sysinfo: number = useSystemInfo().window.width * 0.5;
 
     return (
         <SafeAreaView style={styles.Screen.topLevelBox}>
-            <ScreenTitleView titles={[messages.messages.auth.permission_request.title]}>
+            <ScreenTitleView
+                titles={[messages.messages.auth.permission_request.title]}
+                bottomButton={{
+                    title: "확인",
+                    onPress: () => {
+                        return console.log("확인");
+                    },
+                }}>
                 <View style={styles.ContentsSection.topLevelBox}>
                     <View style={{ alignContent: "center", flex: 1 }}>
                         <Text>{messages.messages.auth.permission_request.subtitle_1}</Text>
@@ -52,22 +56,6 @@ export default function PermissionRequestScreen({ navigation, route }: Permissio
                 </View>
                 <View style={styles.BlankSection.topLevelBox} />
             </ScreenTitleView>
-            <View style={{ width: sysinfo }}>
-                <AuthScreenBottonButton
-                    title="종료"
-                    onPress={() => {
-                        return console.log("종료");
-                    }}
-                />
-            </View>
-            <View style={{ width: sysinfo, marginLeft: sysinfo }}>
-                <AuthScreenBottonButton
-                    title="확인"
-                    onPress={() => {
-                        return console.log("확인");
-                    }}
-                />
-            </View>
         </SafeAreaView>
     );
 }
