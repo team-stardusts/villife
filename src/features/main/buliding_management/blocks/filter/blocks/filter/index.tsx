@@ -1,18 +1,18 @@
 import { FilterConditions, TenantFilterProps } from "./types";
 import useBuildngManagementFilterViewModel from "./view_model";
 import { useEffect, useState } from "react";
-import { BuildingTenant } from "../../../../services/types";
 import useScreenMessage from "../../../../../../common/hooks/multilingual/hooks";
 import { MenuType } from "../../types";
 import FloorFilter from "./blocks/floor";
 import ContractFilter from "./blocks/contract";
 import StatusFilter from "./blocks/status";
+import { BuildingRoomInfo } from "../../../../services/provider/types";
 
 export default function TenantFilter(props: TenantFilterProps) {
     const messages = useScreenMessage().messages;
     const tenants = useBuildngManagementFilterViewModel();
     const expirations = ["expired", "imminent-expiration"];
-    const [filteredTenants, setFilteredTenants] = useState<BuildingTenant[]>([]);
+    const [filteredTenants, setFilteredTenants] = useState<BuildingRoomInfo[]>([]);
     const [floors, setFloors] = useState<number[]>([]);
     const [conditions, setConditions] = useState<FilterConditions>({
         floor: null,
@@ -43,13 +43,14 @@ export default function TenantFilter(props: TenantFilterProps) {
 
     useEffect(() => {
         let _tenants = tenants;
+        //console.log(tenants);
 
         if (conditions.floor !== null) {
             _tenants = _tenants.filter((tenant) => conditions.floor?.find((cndt) => cndt === tenant.floor.toString()));
         }
         if (conditions.contract !== null) {
             _tenants = _tenants.filter((tenant) =>
-                conditions.contract?.find((cdnt) => cdnt === tenant.contract?.rentType)
+                conditions.contract?.find((cdnt) => cdnt == tenant.contractInfo?.rentType)
             );
         }
         if (conditions.status !== null) {
@@ -57,7 +58,7 @@ export default function TenantFilter(props: TenantFilterProps) {
         }
         if (conditions.expiration !== null) {
             _tenants = _tenants.filter((tenant) =>
-                conditions.expiration?.find((cdnt) => cdnt === tenant.contractStatus)
+                conditions.expiration?.find((cdnt) => cdnt === tenant.contractState)
             );
         }
 
@@ -110,8 +111,8 @@ export default function TenantFilter(props: TenantFilterProps) {
             return <ContractFilter messages={messages} onChangeFilterCondition={handleChangeFilter} />;
         case "status":
             return <StatusFilter messages={messages} onChangeFilterCondition={handleChangeFilter} />;
-        case "expiration":
-            return <></>;
+        /* case "expiration":
+            return <></>; */
         default:
             return <></>;
     }

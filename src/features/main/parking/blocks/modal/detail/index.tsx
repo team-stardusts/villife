@@ -3,7 +3,7 @@ import { Text, View } from "react-native";
 import useScreenMessage from "../../../../../common/hooks/multilingual/hooks";
 import useVehicleDetailModalStyles from "./styles";
 import { VehicleDetailAlertProps, VehicleDetailModalDate, VehicleKeyValuePair } from "./types";
-import useParkingLot from "../../../services/park";
+import useParkingLot from "../../../services/parking_lot";
 import VillifeToastMessage from "../../../../../common/atoms/toast";
 import StardustAlert from "../../../../../common/blocks/universial/stardust_alert";
 import { useState } from "react";

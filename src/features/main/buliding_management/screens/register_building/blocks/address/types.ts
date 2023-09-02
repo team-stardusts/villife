@@ -7,7 +7,6 @@ export type AddressSetterProps = {
     onChangeBuildingInfo(buildingInfo: BuildingInfo | null): void;
 };
 
-export type BuildingType = VerifyBuildingAddress.Returns | null;
 export type BuildingInfo = {
     address: SelectedAddressType;
     name: string;

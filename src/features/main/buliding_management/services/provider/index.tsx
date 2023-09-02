@@ -3,17 +3,41 @@ import { Responsable } from "../../../../../libs/rest_apis/types";
 import VillifeServer from "../../../../../libs/rest_apis/villife";
 import IVillifeApprovalManager from "../../../../../libs/rest_apis/villife/approval/types";
 import IVillifeBuildingManager, { Building } from "../../../../../libs/rest_apis/villife/building/types";
-import { BuildingTenant, IBuildingManagementServiceProvider, VerifyBuildingAddress } from "./types";
+import { BuildingRoomInfo, IBuildingManagementServiceProvider, RegisterBuilding, VerifyBuildingAddress } from "./types";
 
 class BuildingManagementServiceProvider implements IBuildingManagementServiceProvider {
     private readonly _buildingApi: IVillifeBuildingManager = VillifeServer.getBuildingManager();
     private readonly _approvalApi: IVillifeApprovalManager = VillifeServer.getApprovalManager();
 
-    public async getTentants(buildingID: number): Promise<BuildingTenant[]> {
-        const tenants = await this.getTentantsFromServer(buildingID);
+    public async getRoomInfos(buildingID: number): Promise<BuildingRoomInfo[]> {
+        const tenants = await this.getRoomInfosFromServer(buildingID);
+
         return tenants.map((tenant) => {
-            return this.convertTenantDataForUse(tenant);
+            return this.convertRoomInfoForUse(tenant);
         });
+    }
+
+    public async registerBuilding(params: RegisterBuilding.Params): Promise<RegisterBuilding.Returns> {
+        const basementRoomInfo = params.basementInfo || 0;
+
+        const result = await this._buildingApi.registerBuildng({
+            basement_info: basementRoomInfo,
+            building_name: params.buildingName,
+            owner_name: params.ownerName,
+            road_addr: params.roadAddress,
+            room_info: params.roomsInfo,
+        });
+
+        if (!result.isSuccessful || result.data?.data === undefined) {
+            this.printWhyFailed(result.data, "Failed to verify the address.");
+
+            return null;
+        }
+
+        return {
+            buildingID: result.data.data.building_id,
+            roadAddress: result.data.data.road_addr,
+        };
     }
 
     public async verifyBuildingAddress(params: VerifyBuildingAddress.Params): Promise<VerifyBuildingAddress.Returns> {
@@ -35,37 +59,40 @@ class BuildingManagementServiceProvider implements IBuildingManagementServicePro
         };
     }
 
-    private convertTenantDataForUse(tenant: Building.Tenant): BuildingTenant {
-        const contract = tenant.contract
+    private convertRoomInfoForUse(tenant: Building.RoomInfo): BuildingRoomInfo {
+        const contractInfo = tenant.contract_info
             ? {
-                  rentType: tenant.contract.rent_type,
-                  deposit: tenant.contract.deposit,
-                  monthlyRent: tenant.contract.monthly_rent,
-                  managementFee: tenant.contract.management_fee,
-                  startDate: StardustDateParser.deserialize(tenant.contract.start_date),
-                  expirationDate: StardustDateParser.deserialize(tenant.contract.expiration_date),
-                  createdAt: StardustDateParser.deserialize(tenant.contract.created_at),
-                  updatedAt: StardustDateParser.deserialize(tenant.contract.updated_at),
+                  contractID: tenant.contract_info.contract_id,
+                  rentType: tenant.contract_info.rent_type,
+                  deposit: tenant.contract_info.deposit,
+                  monthlyRent: tenant.contract_info.monthly_rent,
+                  managementFee: tenant.contract_info.management_fee,
+                  startDate: StardustDateParser.deserialize(tenant.contract_info.start_date),
+                  expirationDate: StardustDateParser.deserialize(tenant.contract_info.expiration_date),
+                  //createdAt: StardustDateParser.deserialize(tenant.contract_info.created_at),
+                  //updatedAt: StardustDateParser.deserialize(tenant.contract_info.updated_at),
               }
             : undefined;
 
         return {
+            contractInfo: contractInfo,
+            contractState: tenant.contract_state,
             floor: tenant.floor,
-            roomNumber: tenant.room_number,
-            roomState: tenant.room_state,
-            contractStatus: tenant.contract_status,
-            residentID: tenant.resident_id,
             residentName: tenant.resident_name,
             residentPhoneNumber: tenant.resident_phone_number,
-            contract,
+            roomNumber: tenant.room_number,
+            roomID: tenant.room_id,
+            roomState: tenant.room_state,
         };
     }
 
-    private async getTentantsFromServer(buildingID: number): Promise<Building.Tenant[]> {
-        const result = await this._buildingApi.getTenantsTest({ buildingID });
+    private async getRoomInfosFromServer(buildingID: number): Promise<Building.RoomInfo[]> {
+        const result = await this._buildingApi.getRoomInfosInBuilding({ building_id: buildingID });
 
         if (!result.isSuccessful || result.data?.data === undefined) {
-            throw new Error("[BuildingManagementService] There was a problem getting a list of building residents.");
+            this.printWhyFailed(result.data);
+
+            throw new Error("[BUILDING_MANAGEMENT_SERVICE] There was a problem getting a list of building residents.");
         }
 
         return result.data.data;

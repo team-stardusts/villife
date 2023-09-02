@@ -2,15 +2,37 @@ import type { VerifyBuildingAddressResult } from "../../../../../libs/rest_apis/
 import type { Building } from "../../../../../libs/rest_apis/villife/building/types";
 import { SelectedAddressType } from "../../../../common/hooks/states/atoms/address/selected_address/types";
 
-export interface IBuildingManagementServiceProvider extends IBuildingTenantsGetable, IBuildingVerifiable {}
+export interface IBuildingManagementServiceProvider
+    extends IRoomInfosOnBuildingGetable,
+        IBuildingVerifiable,
+        IBuildingRegistable {}
 
-interface IBuildingTenantsGetable {
+interface IRoomInfosOnBuildingGetable {
     //getTentantsFromServer(buildingID: number): Promise<Building.Tenant[]>;
-    getTentants(buildingID: number): Promise<BuildingTenant[]>;
+    getRoomInfos(buildingID: number): Promise<BuildingRoomInfo[]>;
 }
 
 interface IBuildingVerifiable {
     verifyBuildingAddress(params: VerifyBuildingAddress.Params): Promise<VerifyBuildingAddress.Returns>;
+}
+
+interface IBuildingRegistable {
+    registerBuilding(params: RegisterBuilding.Params): Promise<RegisterBuilding.Returns>;
+}
+
+export namespace RegisterBuilding {
+    export type Params = {
+        basementInfo: number | null;
+        buildingName: string;
+        ownerName: string;
+        roadAddress: string;
+        roomsInfo: number[];
+    };
+
+    export type Returns = {
+        buildingID: number;
+        roadAddress: string;
+    } | null;
 }
 
 export namespace VerifyBuildingAddress {
@@ -21,24 +43,25 @@ export namespace VerifyBuildingAddress {
     } | null;
 }
 
-export type BuildingTenant = {
+export type BuildingRoomInfo = {
+    contractInfo?: BuildingRoomContract;
+    contractState: Building.RoomInfo["contract_state"];
     floor: number;
-    roomNumber: number;
-    roomState: Building.Tenant["room_state"];
-    contractStatus: Building.Tenant["contract_status"];
-    contract?: TenantContract;
-    residentID?: string;
     residentName?: string;
     residentPhoneNumber?: string;
+    roomNumber: number;
+    roomID?: number;
+    roomState: Building.RoomInfo["room_state"];
 };
 
-export type TenantContract = {
-    rentType: Building.Contract["rent_type"];
+export type BuildingRoomContract = {
+    contractID: Building.Contract["contract_id"];
     deposit: number;
-    monthlyRent: number;
-    managementFee: number;
-    startDate: Date;
     expirationDate: Date;
-    createdAt: Date;
-    updatedAt: Date;
+    managementFee: number;
+    monthlyRent: number;
+    rentType: Building.Contract["rent_type"];
+    startDate: Date;
+    //createdAt: Date;
+    //updatedAt: Date;
 };

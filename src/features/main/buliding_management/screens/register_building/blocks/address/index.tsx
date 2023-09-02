@@ -1,5 +1,5 @@
 import { useNavigation } from "@react-navigation/native";
-import { RouterParams } from "../../../../../../common/router/types";
+import { VillifeRouterParams } from "../../../../../../common/router/types";
 import { useRecoilState } from "recoil";
 import SelectedAddressStateType from "../../../../../../common/hooks/states/atoms/address/selected_address/types";
 import selectedAddressState from "../../../../../../common/hooks/states/atoms/address/selected_address";
@@ -8,45 +8,67 @@ import { View, Text } from "react-native";
 import UniversalTextInput from "../../../../../../common/blocks/universial/textinput";
 import Icon from "../../../../../../common/atoms/icon";
 import Badge from "../../../../../../common/atoms/badge";
-import type { AddressSetterProps, BuildingType } from "./types";
+import type { AddressSetterProps } from "./types";
 import BuildingManagementServiceProvider from "../../../../services/provider";
 import StringValidator from "../../../../../../../libs/string_validator";
 import VillifeToastMessage from "../../../../../../common/atoms/toast";
+import { StardustAlertContent } from "../../../../../../common/blocks/universial/stardust_alert/types";
+import StardustAlert from "../../../../../../common/blocks/universial/stardust_alert";
 
 export default function AddressSetter(props: AddressSetterProps) {
     const manager = new BuildingManagementServiceProvider();
-    const navigation = useNavigation<RouterParams["navigation"]>();
+    const navigation = useNavigation<VillifeRouterParams["navigation"]>();
     const validator = new StringValidator();
     const [address, setAddress] = useRecoilState<SelectedAddressStateType | null>(selectedAddressState);
-    const [building, setBuilding] = useState<BuildingType>(null);
+    const [buildingName, setBuildingName] = useState<string | null>(null);
     const [isBuildingNameOkay, setIsBuildingNameOkay] = useState<boolean>(false);
+    const [alert, setAlert] = useState<StardustAlertContent>({
+        visible: false,
+        title: "이미 등록되어 있는 빌라입니다.",
+        message: "관리자 정정이 필요한 경우 빌라이프에 문의해주세요.",
+        type: "warning",
+    });
 
     useEffect(() => {
         setAddress(null);
+
+        return () => {
+            setAddress(null);
+        };
     }, []);
 
     useEffect(() => {
-        if (address === null || building === null || !isBuildingNameOkay) {
+        if (address === null || buildingName === null || !isBuildingNameOkay) {
             props.onChangeBuildingInfo(null);
             return;
         }
 
         props.onChangeBuildingInfo({
             address,
-            name: building.name,
+            name: buildingName,
         });
-    }, [address, building, isBuildingNameOkay]);
+    }, [address, buildingName, isBuildingNameOkay]);
 
     useEffect(() => {
-        if (address === null) return;
+        if (address === null) {
+            setBuildingName(null);
+            setIsBuildingNameOkay(false);
+            return;
+        }
 
-        manager.verifyBuildingAddress(address).then(setBuilding);
+        manager.verifyBuildingAddress(address).then((result) => {
+            if (result === null) return;
+
+            setAddress(null);
+            setBuildingName(null);
+            setAlert({ ...alert, visible: true });
+        });
     }, [address]);
 
     const handleChangeBuidingName = (name: string) => {
         // Input의 문자열을 모두 지울 시
         if (name === "") {
-            setBuilding(null);
+            setBuildingName(null);
             setIsBuildingNameOkay(false);
             return;
         }
@@ -67,18 +89,15 @@ export default function AddressSetter(props: AddressSetterProps) {
             }
         }
 
+        if (name.length < 3) _isBuildingNameOkay = false;
+
         setIsBuildingNameOkay(_isBuildingNameOkay);
 
-        setBuilding({
-            ...{
-                id: building?.id ?? 0,
-                name,
-            },
-        });
+        setBuildingName(name);
     };
 
     const handleEndEditingBuildingName = () => {
-        if (building === null) {
+        if (buildingName === null) {
             VillifeToastMessage.showBottomToast("error", "빌라 이름을 입력해주세요.");
             setIsBuildingNameOkay(false);
             return;
@@ -91,6 +110,7 @@ export default function AddressSetter(props: AddressSetterProps) {
 
     return (
         <View style={props.styles.container}>
+            <StardustAlert {...alert} setAlert={setAlert} />
             <View style={props.styles.titleBox}>
                 <Text style={props.styles.title}>주소</Text>
             </View>
@@ -98,7 +118,7 @@ export default function AddressSetter(props: AddressSetterProps) {
                 <View style={props.styles.inputWrapper}>
                     <UniversalTextInput
                         placeholder="빌라 이름을 검색해주세요."
-                        value={address?.roadAddress && address.roadAddress}
+                        value={address?.roadAddress ? address.roadAddress : ""}
                         onPressIn={() => navigation.navigate("search_address")}
                     />
                     <View style={props.styles.magnifierBox}>
@@ -111,20 +131,20 @@ export default function AddressSetter(props: AddressSetterProps) {
                 </View>
             </View>
 
-            {address && (
+            {/* {address && (
                 <View style={props.styles.badgeBox}>
                     <Badge
-                        title={building ? "등록된 빌라" : "미등록 빌라"}
+                        title={buildingName ? "등록된 빌라" : "미등록 빌라"}
                         size={props.styles.badge.width}
-                        color={building ? props.styles.registedBadge.color : props.styles.unregistedBadge.color}
+                        color={buildingName ? props.styles.registedBadge.color : props.styles.unregistedBadge.color}
                         bgColor={
-                            building
+                            buildingName
                                 ? props.styles.registedBadge.backgroundColor
                                 : props.styles.unregistedBadge.backgroundColor
                         }
                     />
                 </View>
-            )}
+            )} */}
 
             <View style={props.styles.villaTitleBox}>
                 <Text style={props.styles.title}>빌라 이름</Text>
@@ -132,18 +152,18 @@ export default function AddressSetter(props: AddressSetterProps) {
             <View style={props.styles.inputBox}>
                 <View style={props.styles.inputWrapper}>
                     <UniversalTextInput
-                        placeholder="빌라 이름을 입력해주세요."
-                        value={address ? (building ? building.name : "") : ""}
+                        placeholder="빌라 이름을 세 글자 이상 입력해주세요."
+                        value={address ? (buildingName ? buildingName : "") : ""}
                         onChangeText={(text) => handleChangeBuidingName(text)}
                         onEndEditing={() => handleEndEditingBuildingName()}
                         editable={address !== null}
                         lowlightColor={
-                            isBuildingNameOkay || building === null
+                            address === null || isBuildingNameOkay
                                 ? undefined
                                 : props.styles.villaNameInputInvalid.color
                         }
                         highlightColor={
-                            isBuildingNameOkay || building === null
+                            address === null || isBuildingNameOkay
                                 ? undefined
                                 : props.styles.villaNameInputInvalid.color
                         }

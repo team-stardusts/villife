@@ -1,7 +1,7 @@
 import { Response, ResponseForTest } from "../../types";
 
 // Interface of VillifeBuildingManager
-export default interface IVillifeBuildingManager extends IBuildingVerifiable {}
+export default interface IVillifeBuildingManager extends IBuildingVerifiable, IBuildingRegistable {}
 
 interface IBuildingVerifiable {
     validateUserResidenceForTest(
@@ -13,10 +13,31 @@ interface IBuildingVerifiable {
     requestValidationOfUserRegidence(
         params: Building.UserResidenceValidation.Params
     ): Response<Building.UserResidenceValidation.Returns>;
-    getTenantsTest(params: Building.GetTentants.Params): ResponseForTest<Building.GetTentants.Returns>;
+    getRoomInfosInBuilding(
+        params: Building.GetRoomInfosInBuilding.Params
+    ): Response<Building.GetRoomInfosInBuilding.Returns>;
+}
+
+interface IBuildingRegistable {
+    registerBuildng(params: Building.RegisterBuildng.Params): Response<Building.RegisterBuildng.Returns>;
 }
 
 export namespace Building {
+    export namespace RegisterBuildng {
+        export type Params = {
+            basement_info: number;
+            building_name: string;
+            owner_name: string;
+            road_addr: string;
+            room_info: number[];
+        };
+
+        export type Returns = {
+            building_id: number;
+            road_addr: string;
+        };
+    }
+
     export namespace UserResidenceValidation {
         export type Params = {
             building_id: number;
@@ -38,38 +59,40 @@ export namespace Building {
         export type Returns = string;
     }
 
-    export namespace GetTentants {
+    export namespace GetRoomInfosInBuilding {
         export type Params = {
-            buildingID: number;
+            building_id: number;
         };
 
-        export type Returns = Tenant[];
+        export type Returns = RoomInfo[];
     }
 
-    export type Tenant = {
+    export type RoomInfo = {
+        contract_info?: Contract;
+        contract_state: ContractStatus;
         floor: number;
-        room_number: number;
-        room_state: RoomState;
-        contract_status: ContractStatus;
-        contract?: Contract;
-        resident_id?: string;
         resident_name?: string;
         resident_phone_number?: string;
+        room_number: number;
+        room_id: number;
+        room_state: RoomState;
+        //resident_id?: string;
     };
 
     export type Contract = {
-        rent_type: RentType;
+        contract_id: number;
         deposit: number;
-        monthly_rent: number;
-        management_fee: number;
-        start_date: number;
         expiration_date: number;
-        created_at: number;
-        updated_at: number;
+        management_fee: number;
+        monthly_rent: number;
+        rent_type: RentType;
+        start_date: number;
+        //created_at: number;
+        //updated_at: number;
     };
 
     // 만료 / 만료 임박 / 없음 / 정상
     export type ContractStatus = "expired" | "imminent-expiration" | "absense" | "normal";
     export type RoomState = "empty" | "signed" | "unsigned";
-    export type RentType = "lump-sum-deposit" | "partial-lump-sum-deposit" | "monthly-rent";
+    export type RentType = "" | "lump-sum-deposit" | "partial-lump-sum-deposit" | "monthly-rent";
 }

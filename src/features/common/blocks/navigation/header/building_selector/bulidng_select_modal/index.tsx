@@ -5,12 +5,12 @@ import Icon from "../../../../../atoms/icon";
 import useBuildingSelectModalStyles from "./styles";
 import useScreenMessage from "../../../../../hooks/multilingual/hooks";
 import { useNavigation } from "@react-navigation/native";
-import { RouterParams } from "../../../../../router/types";
+import { VillifeRouterParams } from "../../../../../router/types";
 import type { AddBuildingComponentProps, BuildingComponentProps, BuildingSelectModalProps } from "./types";
 
 export default function BuildingSelectModal(props: BuildingSelectModalProps) {
     const styles = useBuildingSelectModalStyles().modal;
-    const navigation = useNavigation<RouterParams["navigation"]>();
+    const navigation = useNavigation<VillifeRouterParams["navigation"]>();
 
     const handleBuildingPress = (buidingInfo: SimpleBuildingInfo) => {
         // Modal이 너무 빠르게 닫히는 감이 있어서 100ms의 Delay를 줌.

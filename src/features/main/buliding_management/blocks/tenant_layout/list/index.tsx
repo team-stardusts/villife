@@ -6,6 +6,8 @@ import Icon from "../../../../../common/atoms/icon";
 import useScreenMessage from "../../../../../common/hooks/multilingual/hooks";
 import VillifeToastMessage from "../../../../../common/atoms/toast";
 import TenantRoomStateLabel from "../blocks/status_label";
+import { useNavigation } from "@react-navigation/native";
+import { VillifeRouterParams } from "../../../../../common/router/types";
 
 export default function BuildingTenantListView(props: BuildingTenantListViewProps) {
     const styles = useBuildingTenantListViewStyles();
@@ -66,6 +68,7 @@ export default function BuildingTenantListView(props: BuildingTenantListViewProp
 }
 
 function BuildingTenantView(props: BuildingTenantProps) {
+    const navigation = useNavigation<VillifeRouterParams["navigation"]>();
     const [isCheck, setIsCheck] = useState<boolean>(false);
 
     useEffect(() => {
@@ -88,7 +91,7 @@ function BuildingTenantView(props: BuildingTenantProps) {
     }, [isCheck]);
 
     const switchContractType = () => {
-        switch (props.tenant.contract?.rentType) {
+        switch (props.tenant.contractInfo?.rentType) {
             case "lump-sum-deposit":
                 return props.messages.words.lump_sum_deposit;
             case "partial-lump-sum-deposit":
@@ -101,7 +104,7 @@ function BuildingTenantView(props: BuildingTenantProps) {
     };
 
     const switchTheRemainer = () => {
-        switch (props.tenant.contractStatus) {
+        switch (props.tenant.contractState) {
             case "expired":
                 return props.messages.words.expiration;
             case "imminent-expiration":
@@ -134,7 +137,7 @@ function BuildingTenantView(props: BuildingTenantProps) {
                             props.styles.expirationNoti,
                             {
                                 color:
-                                    props.tenant.contractStatus === "expired"
+                                    props.tenant.contractState === "expired"
                                         ? props.styles.expiration.color
                                         : props.styles.imminentExpiration.color,
                             },
@@ -168,10 +171,9 @@ function BuildingTenantView(props: BuildingTenantProps) {
                             style={props.styles.detailBtnWrapper}
                             activeOpacity={0.3}
                             onPress={() => {
-                                VillifeToastMessage.showBottomToast(
-                                    "info",
-                                    props.messages.boilerplate.preparing_service
-                                );
+                                navigation.navigate("tenant_detail", {
+                                    roomInfo: JSON.stringify(props.tenant),
+                                });
                             }}>
                             <Icon
                                 name="three-dots-vertical"

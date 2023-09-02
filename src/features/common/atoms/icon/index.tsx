@@ -23,7 +23,7 @@ import IconThreeDotsVertical from "./three_dots_vertical";
 import IconMatrix from "./matrix";
 import IconCheck from "./check";
 import IconFilterSetting from "./filter_setting";
-import { IconTrashCan } from "./trash_can";
+import IconTrashCan from "./trash_can";
 import IconMagnifier from "./magnifier";
 
 export default function Icon(props: IconProps) {

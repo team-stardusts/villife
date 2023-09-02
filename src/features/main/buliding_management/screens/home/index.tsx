@@ -3,18 +3,18 @@ import NavigationView from "../../../../common/blocks/navigation";
 import BuildingManagementScreenProps from "./types";
 import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
 import useBuildingManagementScreenStyles from "./styles";
-import BuildingTentantMessage from "./blocks/message";
+import BuildingTentantMessage from "../../blocks/message";
 import BuildingTenantFilter from "../../blocks/filter";
 import { useState } from "react";
-import { BuildingTenant } from "../../services/types";
 import { LayoutType } from "../../blocks/filter/blocks/layout_selector";
 import TentantLayout from "../../blocks/tenant_layout";
+import { BuildingRoomInfo } from "../../services/provider/types";
 
 export default function BuildingManagementScreen({ navigation, route }: BuildingManagementScreenProps) {
     const messages = useScreenMessage().messages;
     const styles = useBuildingManagementScreenStyles();
     const [layout, setLayout] = useState<LayoutType>("list");
-    const [tenants, setTenants] = useState<BuildingTenant[]>([]);
+    const [roomInfos, setRoomInfos] = useState<BuildingRoomInfo[]>([]);
     console.log("[BUILDING_MANAGEMENT_SCREEN]", "On Create");
 
     return (
@@ -27,7 +27,7 @@ export default function BuildingManagementScreen({ navigation, route }: Building
                     onPress: () => {
                         navigation.navigate("send_message_to_building_tenants", {
                             layout,
-                            tenants: JSON.stringify(tenants),
+                            tenants: JSON.stringify(roomInfos),
                         });
                     },
                 },
@@ -39,10 +39,10 @@ export default function BuildingManagementScreen({ navigation, route }: Building
             }}>
             <View style={styles.container}>
                 <View style={styles.filter}>
-                    <BuildingTenantFilter onFilterChange={setTenants} onLayoutChange={setLayout} />
+                    <BuildingTenantFilter onFilterChange={setRoomInfos} onLayoutChange={setLayout} />
                 </View>
                 <View style={styles.listView}>
-                    <TentantLayout layout={layout} tenants={tenants} checkmode={false} />
+                    <TentantLayout layout={layout} tenants={roomInfos} checkmode={false} />
                 </View>
             </View>
         </NavigationView>

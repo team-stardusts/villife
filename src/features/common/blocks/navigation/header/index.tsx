@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { RouterParams } from "../../../router/types";
+import { VillifeRouterParams } from "../../../router/types";
 import Icon from "../../../atoms/icon";
 import useNavigationViewHeaderStyles from "./styles";
 import { NavigationViewHeaderProps } from "./types";
@@ -9,7 +9,7 @@ import BuildingSelector from "./building_selector";
 
 export default function NavigationViewHeader(props: NavigationViewHeaderProps) {
     const [crrNavIndex, setCrrNavIndex] = useState<number>(0);
-    const navigation = useNavigation<RouterParams["navigation"]>();
+    const navigation = useNavigation<VillifeRouterParams["navigation"]>();
     const styles = useNavigationViewHeaderStyles(crrNavIndex);
     const backgroundColor = props.backgroundColor ?? styles.container.backgroundColor;
 

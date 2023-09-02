@@ -9,6 +9,8 @@ import useBuildingTenantMatrixViewStyles from "./styles";
 import { useEffect, useState } from "react";
 import useScreenMessage from "../../../../../common/hooks/multilingual/hooks";
 import Icon from "../../../../../common/atoms/icon";
+import { useNavigation } from "@react-navigation/native";
+import { VillifeRouterParams } from "../../../../../common/router/types";
 
 export default function BuildingTenantMatrixView(props: BuildingTenantMatrixViewProps) {
     const messages = useScreenMessage()["messages"];
@@ -114,6 +116,7 @@ function BuildingTenantFloorView(props: BuildingTenantFloorViewProps) {
 
 function BuildingTenant(props: BuildingTenantProps) {
     const [isCheck, setIsCheck] = useState<boolean>(false);
+    const navigation = useNavigation<VillifeRouterParams["navigation"]>();
 
     useEffect(() => {
         props.onCheck({ isCheck, tenant: props.tenant });
@@ -153,8 +156,18 @@ function BuildingTenant(props: BuildingTenantProps) {
                 props.targetCheckMode && props.tenant.roomState !== "signed" ? props.styles.disabledTenantBox : {},
             ]}
             activeOpacity={0.5}
-            onPress={() => setIsCheck(!isCheck)}
-            disabled={!props.targetCheckMode || props.tenant.roomState !== "signed"}>
+            onPress={() => {
+                if (props.targetCheckMode) {
+                    setIsCheck(!isCheck);
+                } else {
+                    navigation.navigate("tenant_detail", {
+                        roomInfo: JSON.stringify(props.tenant),
+                    });
+                }
+            }}
+            disabled={props.targetCheckMode && props.tenant.roomState !== "signed"}
+            //disabled={!props.targetCheckMode || props.tenant.roomState !== "signed"}
+        >
             <Text>
                 {props.tenant.roomNumber}
                 {props.messages.words.room_postfix}

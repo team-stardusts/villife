@@ -8,7 +8,7 @@ import { TimePickerTime } from "../../../../common/atoms/time_picker/types";
 import { useEffect, useState } from "react";
 import useSendParkPushNotiScreenStyles from "./styles";
 import TimePicker from "../../../../common/atoms/time_picker";
-import useParkingLot from "../../services/park";
+import useParkingLot from "../../services/parking_lot";
 
 export default function SendParkPushNotiScreen({ navigation, route }: SendParkPushNotiScreenProps) {
     const messages = useScreenMessage().messages;

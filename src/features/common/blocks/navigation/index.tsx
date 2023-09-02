@@ -5,7 +5,7 @@ import useScreenMessage from "../../hooks/multilingual/hooks";
 import useNavigationViewStyles from "./styles";
 import NavigationViewProps from "./types";
 import useStyler from "../../hooks/styler/hooks";
-import { RouterParams } from "../../router/types";
+import { VillifeRouterParams } from "../../router/types";
 import NavigationViewHeader from "./header";
 import NavigationViewBottom from "./bottom";
 
@@ -21,7 +21,7 @@ export default function NavigationView({
     const { theme } = useStyler();
     const message = useScreenMessage();
     const styles = useNavigationViewStyles(bodyOptions);
-    const navigation = useNavigation<RouterParams["navigation"]>();
+    const navigation = useNavigation<VillifeRouterParams["navigation"]>();
 
     const headerBackGroundColor = headerOptions.backgroundColor ?? styles.container.backgroundColor;
     const bodyBackGroundColor = bodyOptions.backgroundColor ?? styles.container.backgroundColor;

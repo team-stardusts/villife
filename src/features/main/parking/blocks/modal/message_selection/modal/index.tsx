@@ -5,7 +5,7 @@ import useMessageSelectorStyles from "../styles";
 import { BottomMessageSelectionModalProps, MessageTypeComponentProps } from "./types";
 import useScreenMessage from "../../../../../../common/hooks/multilingual/hooks";
 import { useNavigation } from "@react-navigation/native";
-import { RouterParams, SEND_PARK_PUSH_NOTI_MESSAGE_TYPE } from "../../../../../../common/router/types";
+import { VillifeRouterParams, SEND_PARK_PUSH_NOTI_MESSAGE_TYPE } from "../../../../../../common/router/types";
 
 export default function BottomMessageSelectionModal(props: BottomMessageSelectionModalProps) {
     const styles = useMessageSelectorStyles().modal;
@@ -31,7 +31,7 @@ export default function BottomMessageSelectionModal(props: BottomMessageSelectio
 }
 
 function MessageTypeComponent(props: MessageTypeComponentProps) {
-    const navigation = useNavigation<RouterParams["navigation"]>();
+    const navigation = useNavigation<VillifeRouterParams["navigation"]>();
     const styles = useMessageSelectorStyles().modalElement;
     const messages = useScreenMessage();
 

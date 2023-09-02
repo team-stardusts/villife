@@ -7,6 +7,7 @@ namespace Routes {
         loginRefresh: string;
         verifyBuilding: string;
     };
+
     export type Approval = {
         approvalDecision: string;
         getApprovalRequests: string;
@@ -14,6 +15,13 @@ namespace Routes {
         decideApprovalRequest: string;
         residenceValidation: string;
     };
+
+    export type BuildingAndContract = {
+        building: string;
+        contract: string;
+        totalInfo: string;
+    };
+
     export type Complaint = {
         createComplaint: string;
         getOneComplaint: string;
@@ -56,6 +64,7 @@ namespace Routes {
 export type RoutesType = {
     auth: Routes.Auth;
     approval: Routes.Approval;
+    budilingAndContract: Routes.BuildingAndContract;
     complaint: Routes.Complaint;
     media: Routes.Media;
     notice: Routes.Notice;

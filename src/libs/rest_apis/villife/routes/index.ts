@@ -19,6 +19,11 @@ const routes: RoutesType = {
         //request_id
         // decision : approval or reject
     },
+    budilingAndContract: {
+        building: "building-and-contract/building",
+        contract: "building-and-contract/contract",
+        totalInfo: "building-and-contract/total-info",
+    },
     complaint: {
         createComplaint: "complaint/create",
         getOneComplaint: "complaint/get/one",
