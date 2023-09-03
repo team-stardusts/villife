@@ -8,7 +8,7 @@ import BuildingTenantFilter from "../../blocks/filter";
 import { useState } from "react";
 import { LayoutType } from "../../blocks/filter/blocks/layout_selector";
 import TentantLayout from "../../blocks/tenant_layout";
-import { BuildingRoomInfo } from "../../services/provider/types";
+import { BuildingRoomInfo } from "../../services/building_rooms/provider/types";
 
 export default function BuildingManagementScreen({ navigation, route }: BuildingManagementScreenProps) {
     const messages = useScreenMessage().messages;

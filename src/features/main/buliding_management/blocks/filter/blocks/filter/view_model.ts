@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import BuildingManagementServiceProvider from "../../../../services/provider";
+import BuildingManagementServiceProvider from "../../../../services/building_rooms/provider";
 import useUserInformation from "../../../../../../common/hooks/service/user_info";
-import { BuildingRoomInfo } from "../../../../services/provider/types";
+import { BuildingRoomInfo } from "../../../../services/building_rooms/provider/types";
 
 export default function useBuildngManagementFilterViewModel(): BuildingRoomInfo[] {
     const [tenants, setTenants] = useState<BuildingRoomInfo[] | null>(null);

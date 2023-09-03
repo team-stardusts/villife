@@ -6,7 +6,7 @@ import { MenuType } from "../../types";
 import FloorFilter from "./blocks/floor";
 import ContractFilter from "./blocks/contract";
 import StatusFilter from "./blocks/status";
-import { BuildingRoomInfo } from "../../../../services/provider/types";
+import { BuildingRoomInfo } from "../../../../services/building_rooms/provider/types";
 
 export default function TenantFilter(props: TenantFilterProps) {
     const messages = useScreenMessage().messages;

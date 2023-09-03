@@ -9,7 +9,7 @@ import UniversalTextInput from "../../../../../../common/blocks/universial/texti
 import Icon from "../../../../../../common/atoms/icon";
 import Badge from "../../../../../../common/atoms/badge";
 import type { AddressSetterProps } from "./types";
-import BuildingManagementServiceProvider from "../../../../services/provider";
+import BuildingManagementServiceProvider from "../../../../services/building_rooms/provider";
 import StringValidator from "../../../../../../../libs/string_validator";
 import VillifeToastMessage from "../../../../../../common/atoms/toast";
 import { StardustAlertContent } from "../../../../../../common/blocks/universial/stardust_alert/types";

@@ -1,4 +1,4 @@
-import { BuildingRoomInfo } from "../../services/provider/types";
+import { BuildingRoomInfo } from "../../services/building_rooms/provider/types";
 import { LayoutType } from "./blocks/layout_selector";
 
 export type BuildingTenantFilterProps = {

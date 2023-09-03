@@ -1,5 +1,5 @@
 import useScreenMessage from "../../../../../../common/hooks/multilingual/hooks";
-import { BuildingRoomInfo } from "../../../../services/provider/types";
+import { BuildingRoomInfo } from "../../../../services/building_rooms/provider/types";
 import { MenuType } from "../../types";
 
 export type TenantFilterProps = {

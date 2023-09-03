@@ -56,7 +56,7 @@ export default function BuildingTenantListView(props: BuildingTenantListViewProp
                     key={index}
                     index={index}
                     styles={styles.tenant}
-                    tenant={tenant}
+                    roomInfo={tenant}
                     targetCheckMode={props.checkmode}
                     onCheck={handleOnCheck}
                     messages={messages}
@@ -72,7 +72,7 @@ function BuildingTenantView(props: BuildingTenantProps) {
     const [isCheck, setIsCheck] = useState<boolean>(false);
 
     useEffect(() => {
-        if (props.tenant.roomState !== "signed") return;
+        if (props.roomInfo.roomState !== "signed") return;
 
         switch (props.selectAllStatus) {
             case "select_all":
@@ -91,7 +91,7 @@ function BuildingTenantView(props: BuildingTenantProps) {
     }, [isCheck]);
 
     const switchContractType = () => {
-        switch (props.tenant.contractInfo?.rentType) {
+        switch (props.roomInfo.contractInfo?.rentType) {
             case "lump-sum-deposit":
                 return props.messages.words.lump_sum_deposit;
             case "partial-lump-sum-deposit":
@@ -104,7 +104,7 @@ function BuildingTenantView(props: BuildingTenantProps) {
     };
 
     const switchTheRemainer = () => {
-        switch (props.tenant.contractState) {
+        switch (props.roomInfo.contractState) {
             case "expired":
                 return props.messages.words.expiration;
             case "imminent-expiration":
@@ -119,11 +119,11 @@ function BuildingTenantView(props: BuildingTenantProps) {
             <View style={props.styles.wrapper}>
                 <View style={props.styles.infoSection}>
                     <View>
-                        <TenantRoomStateLabel roomState={props.tenant.roomState} />
+                        <TenantRoomStateLabel roomState={props.roomInfo.roomState} />
                     </View>
                     <View style={props.styles.elementWrapper}>
                         <Text style={props.styles.roomNumber}>
-                            {props.tenant.roomNumber}
+                            {props.roomInfo.roomNumber}
                             {props.messages.words.room_postfix}
                         </Text>
                     </View>
@@ -137,7 +137,7 @@ function BuildingTenantView(props: BuildingTenantProps) {
                             props.styles.expirationNoti,
                             {
                                 color:
-                                    props.tenant.contractState === "expired"
+                                    props.roomInfo.contractState === "expired"
                                         ? props.styles.expiration.color
                                         : props.styles.imminentExpiration.color,
                             },
@@ -150,12 +150,12 @@ function BuildingTenantView(props: BuildingTenantProps) {
                         <TouchableOpacity
                             style={[
                                 props.styles.checkRadio,
-                                props.tenant.roomState !== "signed" ? props.styles.disabledCheckRadio : {},
+                                props.roomInfo.roomState !== "signed" ? props.styles.disabledCheckRadio : {},
                                 isCheck ? props.styles.checkedCheckRadio : {},
                             ]}
                             activeOpacity={0.3}
                             onPress={() => setIsCheck(!isCheck)}
-                            disabled={props.tenant.roomState !== "signed"}>
+                            disabled={props.roomInfo.roomState !== "signed"}>
                             {isCheck ? (
                                 <Icon
                                     name="check"
@@ -171,9 +171,16 @@ function BuildingTenantView(props: BuildingTenantProps) {
                             style={props.styles.detailBtnWrapper}
                             activeOpacity={0.3}
                             onPress={() => {
-                                navigation.navigate("tenant_detail", {
-                                    roomInfo: JSON.stringify(props.tenant),
-                                });
+                                if (props.roomInfo.roomState === "empty" && props.roomInfo.roomID !== undefined) {
+                                    navigation.navigate("tenant_setting", {
+                                        type: "addtion",
+                                        roomID: props.roomInfo.roomID,
+                                    });
+                                } else {
+                                    navigation.navigate("tenant_detail", {
+                                        roomInfo: JSON.stringify(props.roomInfo),
+                                    });
+                                }
                             }}>
                             <Icon
                                 name="three-dots-vertical"

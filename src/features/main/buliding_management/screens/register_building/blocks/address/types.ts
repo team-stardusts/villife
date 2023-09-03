@@ -1,5 +1,5 @@
 import { SelectedAddressType } from "../../../../../../common/hooks/states/atoms/address/selected_address/types";
-import { VerifyBuildingAddress } from "../../../../services/provider/types";
+import { VerifyBuildingAddress } from "../../../../services/building_rooms/provider/types";
 import type useRegisterBuildingScreenStyles from "../../styles";
 
 export type AddressSetterProps = {

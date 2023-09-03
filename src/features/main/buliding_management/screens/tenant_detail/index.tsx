@@ -4,10 +4,11 @@ import BuildingTentantMessage from "../../blocks/message";
 import useTenantDetailScreenStyles from "./styles";
 import TenantDetailScreenProps from "./types";
 import { useEffect, useState } from "react";
-import { BuildingRoomInfo } from "../../services/provider/types";
+import { BuildingRoomInfo } from "../../services/building_rooms/provider/types";
 import TenantInfo from "./blocks/tenant_info";
 import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
-import TenantBottomSlidableModal, { ModalFeature } from "./blocks/tenant_bottom_slidable_modal";
+import ListBottomSlidableModal from "../../../../common/blocks/bottom_list_modal";
+import { ModalFeature } from "../../../../common/blocks/bottom_list_modal/types";
 
 export default function TenantDetailScreen({ navigation, route }: TenantDetailScreenProps) {
     const styles = useTenantDetailScreenStyles();
@@ -68,7 +69,7 @@ export default function TenantDetailScreen({ navigation, route }: TenantDetailSc
                     </TitleCard>
                 </View> */}
             </ScrollView>
-            <TenantBottomSlidableModal
+            <ListBottomSlidableModal
                 modalVisible={noticeModalVisible}
                 setModalVisible={setNoticeModalVisible}
                 features={notiModalFeatures}

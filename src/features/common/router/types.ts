@@ -3,7 +3,7 @@ import { Authority } from "../../../libs/rest_apis/villife/types";
 import { HostType } from "../../../libs/rest_apis/villife/auth/types";
 import { Complaint } from "../../../libs/rest_apis/villife/complaint/types";
 import { LayoutType } from "../../main/buliding_management/blocks/filter/blocks/layout_selector";
-import { BuildingRoomInfo } from "../../main/buliding_management/services/provider/types";
+import { BuildingRoomInfo } from "../../main/buliding_management/services/building_rooms/provider/types";
 
 export type VillifeRootStackParamList = {
     login?: {};
@@ -75,7 +75,10 @@ export type VillifeStackParamList = VillifeRootStackParamList & {
     tenant_detail: {
         roomInfo: string; //BuildingRoomInfo;
     };
-    tenant_setting?: {};
+    tenant_setting: {
+        type: "addtion" | "edit";
+        roomID: number;
+    };
     terms_of_service?: {};
 
     //building: {};

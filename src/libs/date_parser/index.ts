@@ -6,7 +6,7 @@ class StardustDateParser {
     }
 
     public static serialize(date: Date): number {
-        return date.getTime() / this.ALIGN_WITH_SERVER;
+        return Math.round(date.getTime() / this.ALIGN_WITH_SERVER);
     }
 
     public static changeGMT(date: Date, GMT: ByGmtType): Date {

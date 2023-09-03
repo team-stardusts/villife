@@ -9,7 +9,7 @@ import AddressSetter from "./blocks/address";
 import { BuildingFloors } from "./blocks/room/types";
 import { useState } from "react";
 import { BuildingInfo } from "./blocks/address/types";
-import BuildingManagementServiceProvider from "../../services/provider";
+import BuildingManagementServiceProvider from "../../services/building_rooms/provider";
 import useUserInformation from "../../../../common/hooks/service/user_info";
 import VillifeToastMessage from "../../../../common/atoms/toast";
 import useAdminInfoService from "../../../../common/hooks/service/user_info/service";

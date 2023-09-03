@@ -1,11 +1,11 @@
-import type { VerifyBuildingAddressResult } from "../../../../../libs/rest_apis/villife/approval/types";
-import type { Building } from "../../../../../libs/rest_apis/villife/building/types";
-import { SelectedAddressType } from "../../../../common/hooks/states/atoms/address/selected_address/types";
+import type { VerifyBuildingAddressResult } from "../../../../../../libs/rest_apis/villife/approval/types";
+import type { Building } from "../../../../../../libs/rest_apis/villife/building/types";
+import { SelectedAddressType } from "../../../../../common/hooks/states/atoms/address/selected_address/types";
 
 export interface IBuildingManagementServiceProvider
     extends IRoomInfosOnBuildingGetable,
         IBuildingVerifiable,
-        IBuildingRegistable {}
+        IBuildingAdministrable {}
 
 interface IRoomInfosOnBuildingGetable {
     //getTentantsFromServer(buildingID: number): Promise<Building.Tenant[]>;
@@ -16,8 +16,32 @@ interface IBuildingVerifiable {
     verifyBuildingAddress(params: VerifyBuildingAddress.Params): Promise<VerifyBuildingAddress.Returns>;
 }
 
-interface IBuildingRegistable {
+interface IBuildingAdministrable {
     registerBuilding(params: RegisterBuilding.Params): Promise<RegisterBuilding.Returns>;
+    registerContract(params: RegisterContract.Params): Promise<boolean>;
+    modifyContract(params: ModifyContract.Params): Promise<boolean>;
+    deleteContract(contractID: DeleteContract.Params): Promise<boolean>;
+}
+
+export namespace RegisterContract {
+    export type Params = {
+        contractorName: Building.RegisterContract.Params["contractor_name"];
+        deposit: Building.RegisterContract.Params["deposit"];
+        managementFee: Building.RegisterContract.Params["management_fee"];
+        monthlyRent: Building.RegisterContract.Params["monthly_rent"];
+        rentType: Building.RegisterContract.Params["rent_type"];
+        roomId: Building.RegisterContract.Params["room_id"];
+        expirationDate: Date;
+        startDate: Date;
+    };
+}
+
+export namespace ModifyContract {
+    export type Params = RegisterContract.Params;
+}
+
+export namespace DeleteContract {
+    export type Params = number;
 }
 
 export namespace RegisterBuilding {

@@ -1,7 +1,7 @@
 import { Response, ResponseForTest } from "../../types";
 
 // Interface of VillifeBuildingManager
-export default interface IVillifeBuildingManager extends IBuildingVerifiable, IBuildingRegistable {}
+export default interface IVillifeBuildingManager extends IBuildingVerifiable, IBuildingAdministrable {}
 
 interface IBuildingVerifiable {
     validateUserResidenceForTest(
@@ -18,8 +18,11 @@ interface IBuildingVerifiable {
     ): Response<Building.GetRoomInfosInBuilding.Returns>;
 }
 
-interface IBuildingRegistable {
+interface IBuildingAdministrable {
     registerBuildng(params: Building.RegisterBuildng.Params): Response<Building.RegisterBuildng.Returns>;
+    registerContract(params: Building.RegisterContract.Params): Response<Building.RegisterContract.Returns>;
+    modifyContract(params: Building.ModifyContract.Params): Response<Building.ModifyContract.Returns>;
+    deleteContract(params: Building.DeleteContract.Params): Response<Building.DeleteContract.Returns>;
 }
 
 export namespace Building {
@@ -90,6 +93,34 @@ export namespace Building {
         //created_at: number;
         //updated_at: number;
     };
+
+    export namespace RegisterContract {
+        export type Params = {
+            contractor_name: string;
+            deposit: Contract["deposit"];
+            expiration_date: Contract["expiration_date"];
+            management_fee: Contract["management_fee"];
+            monthly_rent: Contract["monthly_rent"];
+            rent_type: Contract["rent_type"];
+            room_id: RoomInfo["room_id"];
+            start_date: Contract["start_date"];
+        };
+
+        export type Returns = string;
+    }
+
+    export namespace DeleteContract {
+        export type Params = {
+            contract_id: Contract["contract_id"];
+        };
+
+        export type Returns = string;
+    }
+
+    export namespace ModifyContract {
+        export type Params = RegisterContract.Params;
+        export type Returns = string;
+    }
 
     // 만료 / 만료 임박 / 없음 / 정상
     export type ContractStatus = "expired" | "imminent-expiration" | "absense" | "normal";

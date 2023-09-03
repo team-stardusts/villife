@@ -1,9 +1,15 @@
-import StardustDateParser from "../../../../../libs/date_parser";
-import { Responsable } from "../../../../../libs/rest_apis/types";
-import VillifeServer from "../../../../../libs/rest_apis/villife";
-import IVillifeApprovalManager from "../../../../../libs/rest_apis/villife/approval/types";
-import IVillifeBuildingManager, { Building } from "../../../../../libs/rest_apis/villife/building/types";
-import { BuildingRoomInfo, IBuildingManagementServiceProvider, RegisterBuilding, VerifyBuildingAddress } from "./types";
+import StardustDateParser from "../../../../../../libs/date_parser";
+import { Responsable } from "../../../../../../libs/rest_apis/types";
+import VillifeServer from "../../../../../../libs/rest_apis/villife";
+import IVillifeApprovalManager from "../../../../../../libs/rest_apis/villife/approval/types";
+import IVillifeBuildingManager, { Building } from "../../../../../../libs/rest_apis/villife/building/types";
+import {
+    BuildingRoomInfo,
+    IBuildingManagementServiceProvider,
+    RegisterBuilding,
+    RegisterContract,
+    VerifyBuildingAddress,
+} from "./types";
 
 class BuildingManagementServiceProvider implements IBuildingManagementServiceProvider {
     private readonly _buildingApi: IVillifeBuildingManager = VillifeServer.getBuildingManager();
@@ -38,6 +44,61 @@ class BuildingManagementServiceProvider implements IBuildingManagementServicePro
             buildingID: result.data.data.building_id,
             roadAddress: result.data.data.road_addr,
         };
+    }
+
+    public async registerContract(params: RegisterContract.Params): Promise<boolean> {
+        console.log(params);
+        const result = await this._buildingApi.registerContract({
+            contractor_name: params.contractorName,
+            deposit: params.deposit,
+            expiration_date: StardustDateParser.serialize(params.expirationDate),
+            management_fee: params.managementFee,
+            monthly_rent: params.monthlyRent,
+            rent_type: params.rentType,
+            room_id: params.roomId,
+            start_date: StardustDateParser.serialize(params.startDate),
+        });
+
+        if (!result.isSuccessful || result.data?.data === undefined) {
+            this.printWhyFailed(result.data, "Failed to register the contract.");
+
+            return false;
+        }
+
+        return true;
+    }
+
+    public async modifyContract(params: RegisterContract.Params): Promise<boolean> {
+        const result = await this._buildingApi.modifyContract({
+            contractor_name: params.contractorName,
+            deposit: params.deposit,
+            expiration_date: StardustDateParser.serialize(params.expirationDate),
+            management_fee: params.managementFee,
+            monthly_rent: params.monthlyRent,
+            rent_type: params.rentType,
+            room_id: params.roomId,
+            start_date: StardustDateParser.serialize(params.startDate),
+        });
+
+        if (!result.isSuccessful || result.data?.data === undefined) {
+            this.printWhyFailed(result.data, "Failed to modify the contract.");
+
+            return false;
+        }
+
+        return true;
+    }
+
+    public async deleteContract(contractID: number): Promise<boolean> {
+        const result = await this._buildingApi.deleteContract({ contract_id: contractID });
+
+        if (!result.isSuccessful || result.data?.data === undefined) {
+            this.printWhyFailed(result.data, "Failed to delete the contract.");
+
+            return false;
+        }
+
+        return true;
     }
 
     public async verifyBuildingAddress(params: VerifyBuildingAddress.Params): Promise<VerifyBuildingAddress.Returns> {
