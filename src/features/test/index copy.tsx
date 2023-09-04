@@ -39,12 +39,6 @@ export default function TestScreen() {
                 <TouchableOpacity onPress={openWebView}>
                     <Text>결제 테스트 하기</Text>
                 </TouchableOpacity>
-
-                <WebView
-                    style={styles.container}
-                    source={{
-                        uri: `${env.api.villife.REST_API_BASE_URL}payment/widget?order_unique_id=eebf17a2_5151_4019_a2fa_b4d7426783292023_09_03_00_46_22`,
-                    }}></WebView>
             </View>
         </NavigationView>
     );
