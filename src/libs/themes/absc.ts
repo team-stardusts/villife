@@ -11,6 +11,7 @@ abstract class ATheme {
             extraBold: "Pretendard-ExtraBold",
             medium: "Pretendard-Medium",
             bold: "Pretendard-Bold",
+            semiBold: "Pretendard-SemiBold",
         },
     };
 

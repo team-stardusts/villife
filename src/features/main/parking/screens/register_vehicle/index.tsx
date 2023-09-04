@@ -13,7 +13,7 @@ import VillifeToastMessage from "../../../../common/atoms/toast";
 import VehicleInfoInputBox from "../../blocks/info_input_box";
 import { VehicleValidationResult } from "../../blocks/info_input_box/types";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import useParkingLot from "../../services/park";
+import useParkingLot from "../../services/parking_lot";
 
 export default function RegisterVehicleScreen({ navigation, route }: RegisterVehicleScreenProps) {
     const messages = useScreenMessage();

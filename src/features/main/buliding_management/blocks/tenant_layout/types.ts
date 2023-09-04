@@ -1,11 +1,11 @@
-import { BuildingTenant } from "../../services/types";
+import { BuildingRoomInfo } from "../../services/building_rooms/provider/types";
 import { LayoutType } from "../filter/blocks/layout_selector";
 
 export type TentantLayoutProps = TentantLayoutDefaultProps & {
-    tenants: BuildingTenant[];
+    tenants: BuildingRoomInfo[];
     layout: LayoutType;
     checkmode: boolean;
-    onCheckTarget?(tenants: BuildingTenant[]): void;
+    onCheckTarget?(tenants: BuildingRoomInfo[]): void;
 };
 
 export type TenantLayoutViewProps = TentantLayoutDefaultProps & {
@@ -14,7 +14,7 @@ export type TenantLayoutViewProps = TentantLayoutDefaultProps & {
 };
 
 export type TentantLayoutDefaultProps = {
-    tenants: BuildingTenant[];
+    tenants: BuildingRoomInfo[];
     layout: LayoutType;
     checkmode: boolean;
 };

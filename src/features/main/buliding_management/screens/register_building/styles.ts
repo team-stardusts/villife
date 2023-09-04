@@ -61,12 +61,12 @@ export default function useBuildingManagementScreenStyles() {
             width: deviceUI.moderateScale(30),
             color: theme.color.specified.black,
         },
-        badgeBox: {
+        /* badgeBox: {
             width: "30%",
         },
         badge: {
             width: deviceUI.moderateScale(13),
-        },
+        }, */
         registedBadge: {
             color: theme.color.specified.white,
             backgroundColor: theme.color.specified.blue,

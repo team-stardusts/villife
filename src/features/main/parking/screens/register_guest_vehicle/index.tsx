@@ -12,7 +12,7 @@ import VillifeToastMessage from "../../../../common/atoms/toast";
 import GuestVehicleInfoInputBox from "../../blocks/guest_vehicle_info_input_box copy";
 import { GuestVehicleValidationResult } from "../../blocks/guest_vehicle_info_input_box copy/types";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import useParkingLot from "../../services/park";
+import useParkingLot from "../../services/parking_lot";
 import DateRangePicker from "./blocks/date_etda_picker";
 import type { DateRange } from "../../blocks/modal/date_selection/types";
 import StardustDateParser from "../../../../../libs/date_parser";

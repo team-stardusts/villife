@@ -63,6 +63,12 @@ export type MessagesByLanguage = {
                 request_noti_to_go_out_first: string;
                 request_to_change_the_parking_spot: string;
             };
+            date_selection_modal: {
+                date_title: string;
+                date_subtitle: string;
+                time_title: string;
+                time_subtitle: string;
+            };
             detail_modal: {
                 success_to_delete: string;
                 failed_to_delete: string;

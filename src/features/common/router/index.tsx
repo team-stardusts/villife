@@ -35,6 +35,8 @@ import TermsOfServiceScreen from "../../auth/screens/terms_of_service/index.";
 import TestScreen from "../../test";
 import useRoutingAdministratorByLogin from "./routing_admin";
 import WelcomeScreen from "../../auth/screens/welcome";
+import TenantDetailScreen from "../../main/buliding_management/screens/tenant_detail";
+import TenantSettingScreen from "../../main/buliding_management/screens/tenant_setting";
 
 enableScreens(true);
 
@@ -60,6 +62,8 @@ export default function ScreenRouter() {
             <Stack.Group>
                 <Stack.Screen name={"building_management"} component={BuildingManagementScreen} />
                 <Stack.Screen name={"register_building"} component={RegisterBuildingScreen} />
+                <Stack.Screen name={"tenant_detail"} component={TenantDetailScreen} />
+                <Stack.Screen name={"tenant_setting"} component={TenantSettingScreen} />
                 <Stack.Screen
                     options={{ presentation: "modal" }}
                     name={"send_message_to_building_tenants"}

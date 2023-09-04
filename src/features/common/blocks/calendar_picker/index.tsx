@@ -68,8 +68,8 @@ export default function CalendarDatePicker(props: CalendarDatePickerProps) {
                 selectedDayColor={theme.color.specified.lightblue as string}
                 selectedDayTextColor={theme.color.specified.white as string}
                 width={props.width}
-                allowRangeSelection
                 showDayStragglers={false}
+                allowRangeSelection
                 //scrollable
             />
         </View>

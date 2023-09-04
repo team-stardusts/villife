@@ -4,13 +4,13 @@ import Icon from "../../../atoms/icon";
 import { useEffect, useState } from "react";
 import useRootLinks from "../root_links";
 import { useNavigation } from "@react-navigation/native";
-import { RouterParams, VillifeStackParamList } from "../../../router/types";
+import { VillifeRouterParams, VillifeStackParamList } from "../../../router/types";
 import { RootLink } from "../types";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import useUserInformation from "../../../hooks/service/user_info";
 
 export default function NavigationViewBottom() {
-    const navigation = useNavigation<RouterParams["navigation"]>();
+    const navigation = useNavigation<VillifeRouterParams["navigation"]>();
     const styles = useNavigationViewBottomStyles();
     const rootLinks = useRootLinks();
     const user = useUserInformation();

@@ -5,9 +5,9 @@ import useHomeContentFromParkingStyles from "./styles";
 import { useEffect, useState } from "react";
 import { IconSeries } from "../../../../common/atoms/icon/types";
 import Icon from "../../../../common/atoms/icon";
-import { RouterParams } from "../../../../common/router/types";
+import { VillifeRouterParams } from "../../../../common/router/types";
 import { useNavigation } from "@react-navigation/native";
-import useParkingLot from "../../services/park";
+import useParkingLot from "../../services/parking_lot";
 import { Vehicle } from "../../services/states/types";
 import { PRESSABLE_MENU_TYPE, PressableMenuProps } from "./types";
 import VehicleModifyModal from "../modal/modify";
@@ -72,7 +72,7 @@ export default function HomeContentFromParking() {
 }
 
 function PressableMenu({ type, styles, vehicle, messages }: PressableMenuProps) {
-    const navigation = useNavigation<RouterParams["navigation"]>();
+    const navigation = useNavigation<VillifeRouterParams["navigation"]>();
     const [text, setText] = useState<string>("");
     const [iconName, setIconName] = useState<IconSeries>("people-round");
     const [visible, setVisible] = useState<boolean>(false);

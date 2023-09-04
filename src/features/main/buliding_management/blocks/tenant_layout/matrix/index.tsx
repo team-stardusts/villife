@@ -9,6 +9,8 @@ import useBuildingTenantMatrixViewStyles from "./styles";
 import { useEffect, useState } from "react";
 import useScreenMessage from "../../../../../common/hooks/multilingual/hooks";
 import Icon from "../../../../../common/atoms/icon";
+import { useNavigation } from "@react-navigation/native";
+import { VillifeRouterParams } from "../../../../../common/router/types";
 
 export default function BuildingTenantMatrixView(props: BuildingTenantMatrixViewProps) {
     const messages = useScreenMessage()["messages"];
@@ -96,7 +98,7 @@ function BuildingTenantFloorView(props: BuildingTenantFloorViewProps) {
                     key={index}
                     styles={props.styles}
                     messages={props.messages}
-                    tenant={tenant}
+                    roomInfo={tenant}
                     targetCheckMode={props.targetCheckMode}
                     selectAllStatus={props.selectAllStatus}
                     onCheck={({ isCheck, tenant }) =>
@@ -114,13 +116,14 @@ function BuildingTenantFloorView(props: BuildingTenantFloorViewProps) {
 
 function BuildingTenant(props: BuildingTenantProps) {
     const [isCheck, setIsCheck] = useState<boolean>(false);
+    const navigation = useNavigation<VillifeRouterParams["navigation"]>();
 
     useEffect(() => {
-        props.onCheck({ isCheck, tenant: props.tenant });
+        props.onCheck({ isCheck, tenant: props.roomInfo });
     }, [isCheck]);
 
     useEffect(() => {
-        if (props.tenant.roomState !== "signed") return;
+        if (props.roomInfo.roomState !== "signed") return;
 
         switch (props.selectAllStatus) {
             case "select_all":
@@ -135,7 +138,7 @@ function BuildingTenant(props: BuildingTenantProps) {
     }, [props.selectAllStatus]);
 
     const setContainerShadow = () => {
-        switch (props.tenant.roomState) {
+        switch (props.roomInfo.roomState) {
             case "empty":
                 return props.styles.emptyStatus;
             case "signed":
@@ -150,13 +153,30 @@ function BuildingTenant(props: BuildingTenantProps) {
             style={[
                 props.styles.tenantBox,
                 setContainerShadow(),
-                props.targetCheckMode && props.tenant.roomState !== "signed" ? props.styles.disabledTenantBox : {},
+                props.targetCheckMode && props.roomInfo.roomState !== "signed" ? props.styles.disabledTenantBox : {},
             ]}
             activeOpacity={0.5}
-            onPress={() => setIsCheck(!isCheck)}
-            disabled={!props.targetCheckMode || props.tenant.roomState !== "signed"}>
+            onPress={() => {
+                if (props.targetCheckMode) {
+                    setIsCheck(!isCheck);
+                } else {
+                    if (props.roomInfo.roomState === "empty" && props.roomInfo.roomID !== undefined) {
+                        navigation.navigate("tenant_setting", {
+                            type: "addtion",
+                            roomID: props.roomInfo.roomID,
+                        });
+                    } else {
+                        navigation.navigate("tenant_detail", {
+                            roomInfo: JSON.stringify(props.roomInfo),
+                        });
+                    }
+                }
+            }}
+            disabled={props.targetCheckMode && props.roomInfo.roomState !== "signed"}
+            //disabled={!props.targetCheckMode || props.tenant.roomState !== "signed"}
+        >
             <Text>
-                {props.tenant.roomNumber}
+                {props.roomInfo.roomNumber}
                 {props.messages.words.room_postfix}
             </Text>
             {props.targetCheckMode && (

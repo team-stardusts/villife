@@ -1,15 +1,15 @@
 import useScreenMessage from "../../../../../../common/hooks/multilingual/hooks";
-import { BuildingTenant } from "../../../../services/types";
+import { BuildingRoomInfo } from "../../../../services/building_rooms/provider/types";
 import { MenuType } from "../../types";
 
 export type TenantFilterProps = {
     type: MenuType;
-    onFilterChange(tenants: BuildingTenant[]): void;
+    onFilterChange(tenants: BuildingRoomInfo[]): void;
 };
 
 export type FilterDefaultProps = {
     messages: ReturnType<typeof useScreenMessage>["messages"];
-    onChangeFilterCondition(menu: MenuType, conditions: string[]): void;
+    onChangeFilterCondition(menu: MenuType, conditions: (string | undefined)[]): void;
 };
 
 export type FilterConditions = {

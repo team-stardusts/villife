@@ -2,8 +2,8 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { Authority } from "../../../libs/rest_apis/villife/types";
 import { HostType } from "../../../libs/rest_apis/villife/auth/types";
 import { Complaint } from "../../../libs/rest_apis/villife/complaint/types";
-import { BuildingTenant } from "../../main/buliding_management/services/types";
 import { LayoutType } from "../../main/buliding_management/blocks/filter/blocks/layout_selector";
+import { BuildingRoomInfo } from "../../main/buliding_management/services/building_rooms/provider/types";
 
 export type VillifeRootStackParamList = {
     login?: {};
@@ -56,7 +56,7 @@ export type VillifeStackParamList = VillifeRootStackParamList & {
     search_address?: {};
     send_message_to_building_tenants: {
         layout: LayoutType;
-        tenants: string; //BuildingTenant[];
+        tenants: string; //BuildingRoomInfo[];
     };
     send_park_push_noti: {
         vehicleID: number;
@@ -72,7 +72,15 @@ export type VillifeStackParamList = VillifeRootStackParamList & {
     register_vehicle?: {};
     register_guest_vehicle?: {};
     register_building?: {};
+    tenant_detail: {
+        roomInfo: string; //BuildingRoomInfo;
+    };
+    tenant_setting: {
+        type: "addtion" | "edit";
+        roomID: number;
+    };
     terms_of_service?: {};
+
     //building: {};
 };
 
@@ -84,5 +92,5 @@ export const SEND_PARK_PUSH_NOTI_MESSAGE_TYPE = {
 export type SendParkPushNotiMessageType =
     (typeof SEND_PARK_PUSH_NOTI_MESSAGE_TYPE)[keyof typeof SEND_PARK_PUSH_NOTI_MESSAGE_TYPE];
 
-export type RouterParams = NativeStackScreenProps<VillifeStackParamList>;
-export type VillifeNavigation = RouterParams["navigation"];
+export type VillifeRouterParams = NativeStackScreenProps<VillifeStackParamList>;
+export type VillifeNavigation = VillifeRouterParams["navigation"];

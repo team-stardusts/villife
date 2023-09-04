@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useSetRecoilState } from "recoil";
 import { loginDataState } from "../../hooks/states/atoms/login";
 import { useNavigation } from "@react-navigation/native";
-import { RouterParams } from "../types";
+import { VillifeRouterParams } from "../types";
 import VillifeStorage from "../../../../libs/storage";
 import { LoginDataType } from "../../../../libs/storage/tables/login/types";
 import useUserInformation from "../../hooks/service/user_info";
@@ -13,7 +13,7 @@ export default function useRoutingAdministratorByLogin(): void {
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const setLoginData = useSetRecoilState<LoginDataType | null>(loginDataState);
     const userinfo = useUserInformation();
-    const navigation = useNavigation<RouterParams["navigation"]>();
+    const navigation = useNavigation<VillifeRouterParams["navigation"]>();
 
     const storage = VillifeStorage.getInstance();
 
@@ -87,8 +87,9 @@ export default function useRoutingAdministratorByLogin(): void {
             // 정상 로그인
             navigation.reset({
                 index: 0,
-                //routes: [{ name: "home" }],
-                routes: [{ name: "home" }, { name: "register_building" }],
+                routes: [{ name: "home" }],
+                //routes: [{ name: "home" }, { name: "building_management" }],
+                //routes: [{ name: "home" }, { name: "register_building" }],
                 //routes: [{ name: "building_management" }],
             });
         }

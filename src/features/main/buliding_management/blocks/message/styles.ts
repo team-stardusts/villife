@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import useStyler from "../../../../../../common/hooks/styler/hooks";
+import useStyler from "../../../../common/hooks/styler/hooks";
 
 export default function useBuildingTentantMessageStyles() {
     const { deviceUI, theme } = useStyler();

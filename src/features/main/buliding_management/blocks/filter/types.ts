@@ -1,9 +1,9 @@
-import { BuildingTenant } from "../../services/types";
+import { BuildingRoomInfo } from "../../services/building_rooms/provider/types";
 import { LayoutType } from "./blocks/layout_selector";
 
 export type BuildingTenantFilterProps = {
     onLayoutChange(layout: LayoutType): void;
-    onFilterChange(tenants: BuildingTenant[]): void;
+    onFilterChange(tenants: BuildingRoomInfo[]): void;
 };
 
 export type MenuType = "floor" | "contract" | "status" | "expiration";

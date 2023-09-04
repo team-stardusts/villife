@@ -4,6 +4,7 @@ import { useState } from "react";
 
 export default function ContractFilter(props: ContractFilterProps) {
     const [contracts] = useState<string[]>([
+        props.messages.words.not_registed,
         props.messages.words.lump_sum_deposit,
         props.messages.words.partial_lump_sum_deposit,
         props.messages.words.monthly_rent,
@@ -17,7 +18,7 @@ export default function ContractFilter(props: ContractFilterProps) {
         }
     };
 
-    const changeWordToType = (words: string[]): string[] => {
+    const changeWordToType = (words: string[]): (string | undefined)[] => {
         return words.map((word) => {
             switch (word) {
                 case props.messages.words.lump_sum_deposit:

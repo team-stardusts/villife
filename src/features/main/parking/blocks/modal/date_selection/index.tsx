@@ -9,12 +9,14 @@ import type { GuestVehicleDateSelectionModalProps } from "./types";
 import type { Dates } from "../../../../../common/blocks/calendar_picker/types";
 import StardustDateParser from "../../../../../../libs/date_parser";
 import useGuestVehicleDateSelectionModalStyles from "./styles";
+import useScreenMessage from "../../../../../common/hooks/multilingual/hooks";
 
 const PICK_DATE_PAGE = 1;
 const PICK_TIME_PAGE = 2;
 
 export default function GuestVehicleDateSelectionModal(props: GuestVehicleDateSelectionModalProps) {
     const styles = useGuestVehicleDateSelectionModalStyles();
+    const messages = useScreenMessage().messages;
     const [dates, setDates] = useState<Dates | null>(null);
     const [etda, setEtda] = useState<EtdaTime | null>(null);
     const [page, setPage] = useState<typeof PICK_DATE_PAGE | typeof PICK_TIME_PAGE>(PICK_DATE_PAGE);
@@ -62,15 +64,23 @@ export default function GuestVehicleDateSelectionModal(props: GuestVehicleDateSe
         <StardustModal
             modalVisible={props.visible}
             setModalVisible={props.setVisible}
-            title="테스트 모달"
-            subtitle="방문일과 출차일을 선택해주세요."
+            title={
+                page === PICK_DATE_PAGE
+                    ? messages.main.parking.date_selection_modal.date_title
+                    : messages.main.parking.date_selection_modal.time_title
+            }
+            subtitle={
+                page === PICK_DATE_PAGE
+                    ? messages.main.parking.date_selection_modal.date_subtitle
+                    : messages.main.parking.date_selection_modal.time_subtitle
+            }
             buttons={[
                 {
-                    text: "취소",
+                    text: messages.words.cancle,
                     onPress: initialize,
                 },
                 {
-                    text: page === PICK_DATE_PAGE ? "다음" : "확인",
+                    text: page === PICK_DATE_PAGE ? messages.words.next : messages.words.okay,
                     onPress: () => {
                         if (page === PICK_DATE_PAGE) {
                             setPage(PICK_TIME_PAGE);

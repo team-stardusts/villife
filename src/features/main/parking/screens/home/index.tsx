@@ -2,7 +2,7 @@ import { ScrollView } from "react-native";
 import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
 import NavigationView from "../../../../common/blocks/navigation";
 import ParkingScreenProps from "./types";
-import useParkingLot from "../../services/park";
+import useParkingLot from "../../services/parking_lot";
 import { useCallback, useEffect } from "react";
 import VehicleCardView from "./card";
 import useParkingHomeScreenStyles from "./styles";

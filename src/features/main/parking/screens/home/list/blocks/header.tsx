@@ -3,13 +3,13 @@ import { VehicleListHeaderViewProps } from "../types";
 import useScreenMessage from "../../../../../../common/hooks/multilingual/hooks";
 import MultilingualMessage from "../../../../../../common/hooks/multilingual";
 import { useNavigation } from "@react-navigation/native";
-import { RouterParams } from "../../../../../../common/router/types";
+import { VillifeRouterParams } from "../../../../../../common/router/types";
 import useUserInformation from "../../../../../../common/hooks/service/user_info";
 
 export default function VehicleListHeaderView({ styles }: VehicleListHeaderViewProps) {
     const messages = useScreenMessage().messages;
     const user = useUserInformation();
-    const navigation = useNavigation<RouterParams["navigation"]>();
+    const navigation = useNavigation<VillifeRouterParams["navigation"]>();
 
     const handlePressRegisterBtn = (type: VehicleRegisterBtnProps["type"]) => {
         if (type === "own") navigation.navigate("register_vehicle");
