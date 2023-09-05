@@ -56,6 +56,9 @@ const routes: RoutesType = {
         getUserBasicInfo: "user/basicinfo",
         getBuildingManagedByAdmin: "user/buildings-admin-manages",
     },
+    payment: {
+        order: "payment/order",
+    },
 } as const;
 
 export default routes;

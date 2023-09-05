@@ -59,6 +59,10 @@ namespace Routes {
         getUserBasicInfo: string;
         getBuildingManagedByAdmin: string;
     };
+
+    export type Payment = {
+        order: string;
+    };
 }
 
 export type RoutesType = {
@@ -71,4 +75,5 @@ export type RoutesType = {
     test: Routes.Test;
     parking: Routes.Parking;
     userInfo: Routes.UserInformation;
+    payment: Routes.Payment;
 };
