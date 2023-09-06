@@ -42,6 +42,11 @@ export default function CreateAccountScreen({ navigation, route }: CreateAccount
     const handleJoin = async () => {
         const { authority, id, password } = account;
 
+        if (host !== "villife" && access_token === undefined) {
+            // TODO: 예외 추가 필요
+        }
+
+        // TODO: 각 요소에 문제가 있을 때 알림 필요
         if (id && password && access_token) {
             const result = await auth.join(host, { id, password, authority, accessToken: access_token });
 
