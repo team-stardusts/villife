@@ -1,7 +1,7 @@
 import VillifeServer from "../../../../../libs/rest_apis/villife";
 import { Payment } from "../../../../../libs/rest_apis/villife/payment/type";
 
-class CreateOrderFormUsecase {
+export default class CreateOrderFormUsecase {
     private readonly dataSource = VillifeServer.getPaymentRestClient();
 
     async create(params: Payment.CreateOrder.Params): Promise<Payment.CreateOrder.Result> {

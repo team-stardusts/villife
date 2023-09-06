@@ -10,13 +10,15 @@ export namespace Payment {
         unique_id: string;
         name: string;
         product_type: "pt_management_fee" | "pt_monthlt_rent";
+        product_id: number;
         price: number;
         status: "created" | "paid" | "cancled";
     };
 
     export namespace CreateOrder {
         export type Params = {
-            product_type: string;
+            product_id: number;
+            product_type: Order["product_type"];
             product_name: string;
             price: number;
         };

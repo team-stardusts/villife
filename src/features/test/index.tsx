@@ -8,6 +8,7 @@ import DotEnv from "../../libs/dotenv";
 import storage from "../../libs/storage";
 import VillifeStorage from "../../libs/storage";
 import WebView from "react-native-webview";
+import CreateOrderFormUsecase from "../main/payment/services/create_order";
 
 export default function TestScreen() {
     const test = useTestService();
@@ -25,8 +26,18 @@ export default function TestScreen() {
             alignItems: "center",
         },
     });
-    const openWebView = () => {
-        const url = `${env.api.villife.REST_API_BASE_URL}payment/widget?order_unique_id=eebf17a2_5151_4019_a2fa_b4d7426783292023_09_03_00_46_22`; // 여기에 열고자 하는 URL을 입력하세요
+    const openWebView = async () => {
+        const usecase = new CreateOrderFormUsecase();
+        const result = await usecase.create({
+            product_id: 977,
+            product_type: "pt_management_fee",
+            product_name: "빌라이프 2월 관리비",
+            price: 40000,
+        });
+        if (result == null) return console.log("cannot open web view, failed to create order");
+        console.log(result);
+
+        const url = `${env.api.villife.REST_API_BASE_URL}payment/widget?order_unique_id=${result.unique_id}`; // 여기에 열고자 하는 URL을 입력하세요
         console.log(url);
         Linking.openURL(url);
     };
@@ -40,11 +51,11 @@ export default function TestScreen() {
                     <Text>결제 테스트 하기</Text>
                 </TouchableOpacity>
 
-                <WebView
+                {/*   <WebView
                     style={styles.container}
                     source={{
                         uri: `${env.api.villife.REST_API_BASE_URL}payment/widget?order_unique_id=eebf17a2_5151_4019_a2fa_b4d7426783292023_09_03_00_46_22`,
-                    }}></WebView>
+                    }}></WebView> */}
             </View>
         </NavigationView>
     );
