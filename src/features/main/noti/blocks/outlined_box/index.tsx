@@ -47,7 +47,7 @@ function OutlinedBox(props: OutlinedBoxProps) {
                 },
             });
             setTimeout(() => {
-                props.flatListRef.current?.scrollToIndex({ index: position });
+                props.flatListRef.current?.scrollToIndex({ animated: false, index: position });
             }, 300);
         }
         setLoading(false);
@@ -60,7 +60,7 @@ function OutlinedBox(props: OutlinedBoxProps) {
             <Shadow style={styles.container} distance={4}>
                 <View style={styles.innerBox}>
                     <Pressable
-                        onPressOut={() => {
+                        onPress={() => {
                             setUnfold(!unfold);
                         }}
                         style={[styles.innerTitleSection, { borderBottomWidth: !unfold ? 0 : 2 }]}>

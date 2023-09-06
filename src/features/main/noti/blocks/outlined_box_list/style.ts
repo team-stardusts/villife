@@ -11,7 +11,7 @@ export default function useNotiOutLinedBoxListStyles(): UseNotiOutLinedBoxListSt
             paddingVertical: deviceUI.moderateScale(10),
         },
         whenEmptyCard: {
-            backgroundColor: theme.color.specified.blue,
+            backgroundColor: theme.color.specified.darkgrey,
             width: deviceUI.getScreenSize().width * 0.9,
             height: deviceUI.getScreenSize().height * 0.16,
             borderRadius: deviceUI.moderateScale(15),

@@ -13,6 +13,11 @@ export default function useComplaintContentCardStyles(): ComplaintContentCardSty
             borderRadius: deviceUI.moderateScale(15),
             marginBottom: deviceUI.moderateScale(16),
         },
+        editModeTopLevelBox: {
+            width: deviceUI.getScreenSize().width * 0.8,
+            height: deviceUI.getScreenSize().height * 0.16,
+            borderRadius: deviceUI.moderateScale(15),
+        },
         contentBoxContainer: {
             width: "100%",
             height: "100%",

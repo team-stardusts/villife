@@ -18,12 +18,12 @@ export default function useNotiOutlinedBoxStyles(): UseNotiOutLinedBoxListStyles
         },
         innerTitleSection: {
             width: "90%",
-            borderColor: theme.color.specified.blue,
+            borderColor: theme.color.specified.lightgrey,
         },
         contentBox: {
             alignItems: "center",
             flexDirection: "row",
-            height: deviceUI.getScreenSize().height * 0.08,
+            height: deviceUI.moderateScale(50),
         },
         titleTextBox: {
             marginLeft: "5%",
@@ -52,7 +52,8 @@ export default function useNotiOutlinedBoxStyles(): UseNotiOutLinedBoxListStyles
             zIndex: 6,
         },
         titleText: {
-            ...theme.font.researved.h3,
+            fontSize: deviceUI.moderateScale(16),
+            fontFamily: theme.font.fontFamily.pretendard.bold,
             color: theme.color.specified.black,
         },
         titleTextSmall: {
@@ -61,7 +62,8 @@ export default function useNotiOutlinedBoxStyles(): UseNotiOutLinedBoxListStyles
             color: theme.color.specified.black,
         },
         subTitleText: {
-            ...theme.font.researved.h5,
+            fontSize: deviceUI.moderateScale(10),
+            fontFamily: theme.font.fontFamily.pretendard.regular,
             color: theme.color.specified.black,
         },
     });

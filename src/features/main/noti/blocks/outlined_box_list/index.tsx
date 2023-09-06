@@ -41,8 +41,8 @@ function FlatListOutlinedContentsBox() {
             keyExtractor={(item, index) => `${index}${item}`}
             renderItem={OutlinedBoxRenderItem}
             showsVerticalScrollIndicator={false}
-            ListEmptyComponent={(event) => {
-                return event === undefined ? (
+            ListEmptyComponent={() => {
+                return viewModel === undefined ? (
                     <View style={{ justifyContent: "center", marginBottom: 50 }}>
                         <ActivityIndicator size="large" color={theme.color.specified.grey} />
                     </View>

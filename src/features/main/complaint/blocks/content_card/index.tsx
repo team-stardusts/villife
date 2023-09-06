@@ -31,12 +31,12 @@ function ComplaintContentCard(props: ComplaintContentCardProps) {
             ]).start();
             Animated.sequence([
                 Animated.timing(circleOpacity2, {
-                    toValue: 0,
+                    toValue: 0.1,
                     duration: 100,
                     useNativeDriver: true,
                 }),
                 Animated.timing(progressLineWidth, {
-                    toValue: 0,
+                    toValue: 0.1,
                     duration: 100,
                     useNativeDriver: false,
                 }),
@@ -63,7 +63,7 @@ function ComplaintContentCard(props: ComplaintContentCardProps) {
     }, [status]);
 
     return (
-        <View style={styles.topLevelBox}>
+        <View style={props.editMode ? styles.editModeTopLevelBox : styles.topLevelBox}>
             <ContentBox backgroundColor={"white"} enableShadow>
                 <View style={styles.contentBoxContainer}>
                     <View style={styles.titleSection}>
@@ -141,7 +141,11 @@ function ComplaintContentCard(props: ComplaintContentCardProps) {
                                         if (props.editMode) setStatus("completed");
                                         if (props.updatedStatus) props.updatedStatus.current = "completed";
                                     }}
-                                    style={styles.outerCircle}></Pressable>
+                                    style={styles.outerCircle}>
+                                    <Animated.View style={[styles.outerCircleInnerBorder, { opacity: 0.1 }]}>
+                                        <View style={styles.innerCircle}></View>
+                                    </Animated.View>
+                                </Pressable>
                                 <View style={styles.absoluteWrapper}>
                                     <Animated.View
                                         style={[styles.middleLine, { width: interpolatedWidth }]}></Animated.View>

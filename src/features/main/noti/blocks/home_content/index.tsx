@@ -55,12 +55,8 @@ export default function HomeContentFromNoti() {
                                     <Text style={style.text}>{noti.Title}</Text>
                                     <ColorLable
                                         text={message.messages.main.noti.required_reading}
-                                        backgroundColor={
-                                            /* noti.Priority == 1 ? theme.colorFamily.red : backgroundColor */ "red"
-                                        }
-                                        textColor={
-                                            /* noti.Priority == 1 ? theme.colorFamily.white : backgroundColor */ "white"
-                                        }
+                                        backgroundColor={theme.color.specified.lightblue}
+                                        textColor={theme.color.specified.white}
                                     />
                                 </TouchableOpacity>
                             );

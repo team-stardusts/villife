@@ -22,7 +22,7 @@ export default function NoticeHomeScreen(props: NoticeHomeScreenProps) {
             }}
             bodyOptions={{
                 applyDefaultHorizontalPadding: false,
-                applyDefaultVerticalPadding: true,
+                applyDefaultVerticalPadding: false,
                 backgroundColor: styles.navContainer.backgroundColor,
             }}
             bottomNavOptions={{ shown: false }}>

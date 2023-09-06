@@ -7,7 +7,7 @@ export default function useHomeScreenContentStyles() {
     return StyleSheet.create({
         container: {
             width: "100%",
-            height: deviceUI.moderateScale(240),
+            height: deviceUI.moderateScale(200),
             marginBottom: deviceUI.moderateScale(15),
         },
         contentsContatainer: {
@@ -21,7 +21,7 @@ export default function useHomeScreenContentStyles() {
             width: "100%",
             flexDirection: "row",
             justifyContent: "space-between",
-            alignItems: "center",
+            alignItems: "flex-start",
         },
         navigationTitle: {
             fontFamily: theme.font.fontFamily.pretendard.bold,

@@ -11,8 +11,8 @@ import { ComplaintEventEmitter } from "../../services/event";
 import useComplaintService from "../../services";
 import VillifeToastMessage from "../../../../common/atoms/toast";
 import { EditIcon } from "../../../../common/atoms/icon/edit";
-import { IconTrashCan } from "../../../../common/atoms/icon/trash_can";
 import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
+import IconTrashCan from "../../../../common/atoms/icon/trash_can";
 
 export default function ComplaintDetailEditModal(props: DetailEditModalProps) {
     const styles = useBottomEditModalStyles();

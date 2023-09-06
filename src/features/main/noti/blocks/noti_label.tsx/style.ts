@@ -6,31 +6,32 @@ export default function useNotiLableStyles(): UseNotiLabelStylesType {
     const { deviceUI, theme } = useStyler();
     return StyleSheet.create({
         containerRed: {
-            width: deviceUI.getScreenSize().width * 0.13,
-            height: deviceUI.getScreenSize().height * 0.035,
+            width: deviceUI.moderateScale(52),
+            height: deviceUI.moderateScale(20),
             borderRadius: deviceUI.moderateScale(15),
             justifyContent: "center",
             alignItems: "center",
-            backgroundColor: theme.color.specified.red,
+            backgroundColor: theme.color.specified.lightblue,
         },
         containerGreen: {
-            width: deviceUI.getScreenSize().width * 0.13,
-            height: deviceUI.getScreenSize().height * 0.035,
+            width: deviceUI.moderateScale(52),
+            height: deviceUI.moderateScale(20),
             borderRadius: deviceUI.moderateScale(15),
             justifyContent: "center",
             alignItems: "center",
             backgroundColor: theme.color.specified.green,
         },
         containerGray: {
-            width: deviceUI.getScreenSize().width * 0.13,
-            height: deviceUI.getScreenSize().height * 0.035,
+            width: deviceUI.moderateScale(52),
+            height: deviceUI.moderateScale(20),
             borderRadius: deviceUI.moderateScale(15),
             justifyContent: "center",
             alignItems: "center",
             backgroundColor: theme.color.specified.grey,
         },
         textStyle: {
-            ...theme.font.researved.h4,
+            fontFamily: theme.font.fontFamily.pretendard.bold,
+            fontSize: deviceUI.moderateScale(14),
             color: "white",
         },
     });

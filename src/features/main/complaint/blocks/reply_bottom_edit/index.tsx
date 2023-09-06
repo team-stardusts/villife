@@ -15,8 +15,9 @@ import { ComplaintEventEmitter } from "../../services/event";
 import useComplaintService from "../../services";
 import VillifeToastMessage from "../../../../common/atoms/toast";
 import { EditIcon } from "../../../../common/atoms/icon/edit";
-import { IconTrashCan } from "../../../../common/atoms/icon/trash_can";
+
 import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
+import IconTrashCan from "../../../../common/atoms/icon/trash_can";
 
 export default function ComplaintReplyEditModal(props: ReplyEditModalProps) {
     const styles = useBottomEditModalStyles();
@@ -83,7 +84,7 @@ export default function ComplaintReplyEditModal(props: ReplyEditModalProps) {
                         },
                         {
                             text: messages.messages.words.delete,
-                            onPress: () => onDeleteButtonPress,
+                            onPress: () => onDeleteButtonPress(),
                         },
                     ]}
                 />

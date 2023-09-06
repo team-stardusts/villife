@@ -16,6 +16,7 @@ export default function useColorLableStyle(): UseColorLableStylesType {
 
         textStyle: {
             ...theme.font.researved.h5,
+            fontWeight: "700",
             color: "white",
         },
     });

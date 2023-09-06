@@ -9,12 +9,11 @@ export default function useHomeContentCardStyle(): HomeContentCardStyle {
         contentContainer: {
             height: "100%",
             width: "100%",
-            paddingTop: deviceUI.moderateScale(25),
         },
         itemContainer: {
             width: "100%",
             //paddingHorizontal: deviceUI.moderateScale(20),
-            paddingVertical: deviceUI.moderateScale(5),
+            paddingVertical: deviceUI.moderateScale(8),
             justifyContent: "space-between",
             flexDirection: "row",
             alignItems: "center",
