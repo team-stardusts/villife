@@ -51,6 +51,7 @@ class NoticeService implements INoticeService {
 
     async registerNotice(params: CreateNoticeParams): Promise<Response<string>> {
         const result = await this.mApi.createNotice(params);
+        console.log("[dsdds]", result.data?.status, result.isSuccessful);
         if (result.data?.status == 200) {
             new NoticeEventEmitter().emitListUpdatedEvent();
             VillifeToastMessage.showBottomToast("success", message.messages.main.noti.noti_sucess);
@@ -61,6 +62,8 @@ class NoticeService implements INoticeService {
 
     async updateNotice(params: UpdateNoticeParams): Promise<Response<string>> {
         const result = await this.mApi.updateNotice(params);
+        console.log("[dsdds]", result.data?.status, result.isSuccessful);
+
         if (result.data?.status == 200) {
             new NoticeEventEmitter().emitListUpdatedEvent();
             VillifeToastMessage.showBottomToast("success", message.messages.main.noti.noti_sucess);

@@ -10,10 +10,10 @@ import BottomEditModalProps from "./type";
 import useBottomEditModalStyles from "./style";
 import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
 import { EditIcon } from "../../../../common/atoms/icon/edit";
-import { IconTrashCan } from "../../../../common/atoms/icon/trash_can";
 import useStyler from "../../../../common/hooks/styler/hooks";
 import useNoticeService from "../../services";
 import useUserInformation from "../../../../common/hooks/service/user_info";
+import IconTrashCan from "../../../../common/atoms/icon/trash_can";
 
 export default function NotiBottomEditModal(props: BottomEditModalProps) {
     const user = useUserInformation();
@@ -29,7 +29,6 @@ export default function NotiBottomEditModal(props: BottomEditModalProps) {
     }, []);
 
     const onDeleteButtonPress = async () => {
-        console.log(user);
         if (user?.isAdmin && user.adminInfomation?.selectedBuilding.id) {
             const result = await service.deleteNotice({
                 building_id: user.adminInfomation?.selectedBuilding.id,
@@ -73,6 +72,7 @@ export default function NotiBottomEditModal(props: BottomEditModalProps) {
                             notiID: props.noticeInfo.id,
                             priority: props.noticeInfo.priority,
                         });
+                        props.setVisible(false);
                     }}
                     style={styles.editModalMenu}>
                     <EditIcon size={styles.iconSize.width as number} />
@@ -98,7 +98,7 @@ export default function NotiBottomEditModal(props: BottomEditModalProps) {
                         },
                         {
                             text: messages.messages.words.delete,
-                            onPress: () => onDeleteButtonPress,
+                            onPress: () => onDeleteButtonPress(),
                         },
                     ]}
                 />

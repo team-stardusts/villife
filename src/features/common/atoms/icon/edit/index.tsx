@@ -5,8 +5,8 @@ const ICON_DEFAULT_COLOR: string = "#000000" as const;
 
 export function EditIcon(props: CommonIconProps): JSX.Element {
     const { color, size } = props;
-    const widthRatio: number = 1;
-    const heightRatio: number = 1;
+    const widthRatio: number = 0.5;
+    const heightRatio: number = 0.5;
 
     return (
         <Svg width={size * widthRatio} height={size * heightRatio} viewBox="0 0 14 14" fill="none">

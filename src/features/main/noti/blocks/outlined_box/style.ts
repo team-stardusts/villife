@@ -41,7 +41,7 @@ export default function useNotiOutlinedBoxStyles(): UseNotiOutLinedBoxListStyles
             marginRight: "2%",
         },
         iconEditSize: {
-            width: deviceUI.moderateScale(20),
+            width: deviceUI.moderateScale(40),
         },
         iconVectorSize: {
             width: deviceUI.moderateScale(30),

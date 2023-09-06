@@ -1,4 +1,4 @@
-import { FlatList, ListRenderItemInfo, Text, TouchableOpacity } from "react-native";
+import { ActivityIndicator, FlatList, ListRenderItemInfo, Text, TouchableOpacity, View } from "react-native";
 import React, { useRef } from "react";
 import OutlinedBox from "../outlined_box";
 import useNotiViewModel from "./useNotiViewModel";
@@ -8,6 +8,7 @@ import { useNavigation } from "@react-navigation/native";
 import { VillifeNavigation } from "../../../../common/router/types";
 import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
 import useUserInformation from "../../../../common/hooks/service/user_info";
+import useStyler from "../../../../common/hooks/styler/hooks";
 
 function FlatListOutlinedContentsBox() {
     const styles = useNotiOutLinedBoxListStyles();
@@ -16,6 +17,7 @@ function FlatListOutlinedContentsBox() {
     const messages = useScreenMessage();
     const user = useUserInformation();
     const flatListRef = useRef<FlatList<Notice>>(null);
+    const { theme } = useStyler();
 
     const OutlinedBoxRenderItem = (props: ListRenderItemInfo<Notice>) => {
         return (
@@ -39,8 +41,12 @@ function FlatListOutlinedContentsBox() {
             keyExtractor={(item, index) => `${index}${item}`}
             renderItem={OutlinedBoxRenderItem}
             showsVerticalScrollIndicator={false}
-            ListEmptyComponent={() => {
-                return (
+            ListEmptyComponent={(event) => {
+                return event === undefined ? (
+                    <View style={{ justifyContent: "center", marginBottom: 50 }}>
+                        <ActivityIndicator size="large" color={theme.color.specified.grey} />
+                    </View>
+                ) : (
                     <TouchableOpacity
                         style={styles.whenEmptyCard}
                         onPress={() => {

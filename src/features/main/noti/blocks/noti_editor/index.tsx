@@ -9,6 +9,7 @@ import useNoticeService from "../../services";
 import useOnKeyboardEvent from "../../../../common/hooks/keyboard";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import useStyler from "../../../../common/hooks/styler/hooks";
+import NavigationView from "../../../../common/blocks/navigation";
 
 export default function NotiEditor(props: NotiEditorProps) {
     const styles = useNotiEditorStyles();

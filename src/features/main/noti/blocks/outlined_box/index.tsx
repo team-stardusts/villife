@@ -29,6 +29,7 @@ function OutlinedBox(props: OutlinedBoxProps) {
     const [editModalVisible, setEditModalVisible] = React.useState(false);
     const [loading, setLoading] = React.useState(false);
     const navigation = useNavigation<VillifeNavigation>();
+
     useEffect(() => {
         return () => {
             setEditModalVisible(false);
@@ -47,7 +48,7 @@ function OutlinedBox(props: OutlinedBoxProps) {
             });
             setTimeout(() => {
                 props.flatListRef.current?.scrollToIndex({ index: position });
-            }, 600);
+            }, 300);
         }
         setLoading(false);
     };

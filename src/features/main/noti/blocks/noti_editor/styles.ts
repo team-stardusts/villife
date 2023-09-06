@@ -7,6 +7,9 @@ export default function useNotiEditorStyles(): UseNotiEditorStylesType {
     const { deviceUI, theme } = useStyler();
 
     return StyleSheet.create({
+        nav: {
+            backgroundColor: theme.color.specified.white,
+        },
         rich: {
             flex: 1,
         },
@@ -17,6 +20,7 @@ export default function useNotiEditorStyles(): UseNotiEditorStylesType {
             fontSize: deviceUI.moderateScale(30),
             marginLeft: deviceUI.moderateScale(10),
             fontFamily: "Pretendard-Bold",
+            backgroundColor: theme.color.specified.white,
         },
         scroll: { flex: 1 },
         tib: {

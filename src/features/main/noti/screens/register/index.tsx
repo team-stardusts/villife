@@ -6,11 +6,13 @@ import NotiEditor from "../../blocks/noti_editor";
 import VillifeToastMessage from "../../../../common/atoms/toast";
 import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
 import NotiRegisterModal from "../../blocks/noti_register_modal";
+import useStyler from "../../../../common/hooks/styler/hooks";
 
 export default function NoticeRegisterScreen(props: NoticeRegisterScreenProps) {
     const message = useScreenMessage();
     const content = useRef("");
     const title = useRef("");
+    const { deviceUI, theme } = useStyler();
 
     const [loading, setLoading] = React.useState(false);
     const [editModalVisible, setEditModalVisible] = React.useState(false);
@@ -30,6 +32,7 @@ export default function NoticeRegisterScreen(props: NoticeRegisterScreenProps) {
             headerOptions={{
                 title: message.messages.main.noti.screen_register_title,
                 shown: true,
+                backgroundColor: theme.color.specified.white,
                 navComponent: RegisterButton,
                 navComponentProps: {
                     onSubmit: () => {
@@ -38,7 +41,11 @@ export default function NoticeRegisterScreen(props: NoticeRegisterScreenProps) {
                     loading: loading,
                 },
             }}
-            bodyOptions={{ applyDefaultHorizontalPadding: false, applyDefaultVerticalPadding: false }}
+            bodyOptions={{
+                applyDefaultHorizontalPadding: false,
+                applyDefaultVerticalPadding: false,
+                backgroundColor: theme.color.specified.white,
+            }}
             bottomNavOptions={{ shown: false }}>
             <NotiRegisterModal
                 visible={editModalVisible}

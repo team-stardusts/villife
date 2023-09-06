@@ -3,18 +3,18 @@ import NoticeModifyScreenProps from "./type";
 import NavigationView from "../../../../common/blocks/navigation";
 import NotiEditor from "../../blocks/noti_editor";
 import ModifyButton from "../../blocks/modify_button";
-import useNoticeModifyScreenStyles from "./styles";
 import { UpdateNoticeParams } from "../../../../../libs/rest_apis/villife/notice/types";
 import useNoticeService from "../../services";
 import VillifeToastMessage from "../../../../common/atoms/toast";
 import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
 import useUserInformation from "../../../../common/hooks/service/user_info";
+import useStyler from "../../../../common/hooks/styler/hooks";
 
 export default function NoticeModifyScreen(props: NoticeModifyScreenProps) {
-    const styles = useNoticeModifyScreenStyles();
     const user = useUserInformation();
     const service = useNoticeService();
     const message = useScreenMessage();
+    const { deviceUI, theme } = useStyler();
 
     const content = useRef(props.route.params.content);
     const title = useRef(props.route.params.title);
@@ -52,6 +52,7 @@ export default function NoticeModifyScreen(props: NoticeModifyScreenProps) {
             headerOptions={{
                 title: message.messages.main.noti.screen_modify_title,
                 shown: true,
+                backgroundColor: theme.color.specified.white,
                 navComponent: ModifyButton,
                 navComponentProps: {
                     onSubmit: () => {
@@ -60,7 +61,11 @@ export default function NoticeModifyScreen(props: NoticeModifyScreenProps) {
                     loading: loading,
                 },
             }}
-            bodyOptions={{ applyDefaultHorizontalPadding: false, applyDefaultVerticalPadding: false }}
+            bodyOptions={{
+                applyDefaultHorizontalPadding: false,
+                applyDefaultVerticalPadding: false,
+                backgroundColor: theme.color.specified.white,
+            }}
             bottomNavOptions={{ shown: false }}>
             <NotiEditor contentRef={content} titleRef={title} mode={"modify"} />
         </NavigationView>
