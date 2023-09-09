@@ -94,8 +94,6 @@ function BuildingTenantView(props: BuildingTenantProps) {
         switch (props.roomInfo.contractInfo?.rentType) {
             case "lump-sum-deposit":
                 return props.messages.words.lump_sum_deposit;
-            case "partial-lump-sum-deposit":
-                return props.messages.words.partial_lump_sum_deposit;
             case "monthly-rent":
                 return props.messages.words.monthly_rent;
             default: // undefined
@@ -183,7 +181,7 @@ function BuildingTenantView(props: BuildingTenantProps) {
                                 }
                             }}>
                             <Icon
-                                name="three-dots-vertical"
+                                name="arrow-right"
                                 size={props.styles.detailIcon.width}
                                 color={props.styles.detailIcon.color}
                             />

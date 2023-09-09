@@ -9,24 +9,27 @@ export default function Menu(props: MenuProps) {
     return (
         <View style={[props.styles.menuWrapper, {}]}>
             <TouchableOpacity
-                style={[
-                    props.styles.menu,
-                    {
-                        borderBottomColor: props.isSelected ? props.styles.menuSelected.borderBottomColor : "",
-                        borderBottomWidth: props.isSelected ? props.styles.menuSelected.borderBottomWidth : 0,
-                    },
-                ]}
+                style={props.styles.menuTouchBox}
                 activeOpacity={0.6}
                 onPress={() => props.onMenuPress(props.type)}>
-                <Text
+                <View
                     style={[
-                        props.styles.menuName,
+                        props.styles.menu,
                         {
-                            color: props.isSelected ? props.styles.menuSelected.color : props.styles.menuName.color,
+                            borderBottomColor: props.isSelected ? props.styles.menuSelected.borderBottomColor : "",
+                            borderBottomWidth: props.isSelected ? props.styles.menuSelected.borderBottomWidth : 0,
                         },
                     ]}>
-                    {messages[props.type]}
-                </Text>
+                    <Text
+                        style={[
+                            props.styles.menuName,
+                            {
+                                color: props.isSelected ? props.styles.menuSelected.color : props.styles.menuName.color,
+                            },
+                        ]}>
+                        {messages[props.type]}
+                    </Text>
+                </View>
             </TouchableOpacity>
         </View>
     );

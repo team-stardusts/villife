@@ -2,7 +2,7 @@ import { StyleSheet } from "react-native";
 import useStyler from "../../../../../hooks/styler/hooks";
 
 export default function useBuildingSelectModalStyles() {
-    const { deviceUI, theme } = useStyler();
+    const { deviceUI, theme, safetyEdgeSize } = useStyler();
 
     const modalHeight = deviceUI.getScreenSize().height * 0.45;
 
@@ -11,7 +11,7 @@ export default function useBuildingSelectModalStyles() {
             maxHeight: modalHeight,
         },
         container: {
-            marginBottom: 30,
+            marginBottom: deviceUI.moderateScale(30) + safetyEdgeSize.bottom,
         },
         buildingComponent: {
             height: deviceUI.moderateScale(55),

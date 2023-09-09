@@ -11,19 +11,19 @@ export default function NotiLable(props: ContentLableProps) {
     switch (props.priority) {
         case 1:
             return (
-                <View style={styles.containerRed}>
+                <View style={[styles.container, styles.blue]}>
                     <Text style={styles.textStyle}>{message.messages.main.noti.required_reading}</Text>
                 </View>
             );
         case 2:
             return (
-                <View style={styles.containerGreen}>
+                <View style={[styles.container, styles.green]}>
                     <Text style={styles.textStyle}>{message.messages.main.noti.important_reading}</Text>
                 </View>
             );
         case 3:
             return (
-                <View style={styles.containerGray}>
+                <View style={[styles.container, styles.gray]}>
                     <Text style={styles.textStyle}>{message.messages.main.noti.reading}</Text>
                 </View>
             );

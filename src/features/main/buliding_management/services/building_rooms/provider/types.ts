@@ -68,11 +68,11 @@ export namespace VerifyBuildingAddress {
 }
 
 export type BuildingRoomInfo = {
-    contractInfo?: BuildingRoomContract;
+    contractInfo: BuildingRoomContract;
     contractState: Building.RoomInfo["contract_state"];
     floor: number;
-    residentName?: string;
-    residentPhoneNumber?: string;
+    residentName: string;
+    residentPhoneNumber: string;
     roomNumber: number;
     roomID?: number;
     roomState: Building.RoomInfo["room_state"];

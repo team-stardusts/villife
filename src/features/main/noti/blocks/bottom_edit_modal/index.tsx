@@ -1,19 +1,16 @@
-import { Text, TouchableOpacity, View } from "react-native";
 import React from "react";
 import Toast from "react-native-toast-message";
 import { NoticeEventEmitter } from "../outlined_box_list/event";
 import { useNavigation } from "@react-navigation/native";
 import { VillifeNavigation } from "../../../../common/router/types";
-import BottomSlidableModal from "../../../../common/blocks/universial/slidemodal_bottom";
 import StardustModal from "../../../../common/blocks/universial/stardust_modal";
 import BottomEditModalProps from "./type";
 import useBottomEditModalStyles from "./style";
 import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
-import { EditIcon } from "../../../../common/atoms/icon/edit";
 import useStyler from "../../../../common/hooks/styler/hooks";
 import useNoticeService from "../../services";
 import useUserInformation from "../../../../common/hooks/service/user_info";
-import IconTrashCan from "../../../../common/atoms/icon/trash_can";
+import ListBottomSlidableModal from "../../../../common/blocks/bottom_list_modal";
 
 export default function NotiBottomEditModal(props: BottomEditModalProps) {
     const user = useUserInformation();
@@ -59,7 +56,49 @@ export default function NotiBottomEditModal(props: BottomEditModalProps) {
     };
 
     return (
-        <BottomSlidableModal
+        <>
+            <ListBottomSlidableModal
+                modalVisible={props.visible}
+                setModalVisible={props.setVisible}
+                features={[
+                    {
+                        icon: "pencil",
+                        text: messages.messages.main.noti.modify,
+                        onPress: () => {
+                            navigation.navigate("noti_modify", {
+                                title: props.noticeInfo.title,
+                                content: props.noticeInfo.content,
+                                notiID: props.noticeInfo.id,
+                                priority: props.noticeInfo.priority,
+                            });
+                        },
+                    },
+                    {
+                        icon: "trash-can",
+                        text: messages.messages.main.noti.delete,
+                        onPress: () => {
+                            props.setVisible(false);
+                            setDeleteAlertVisible(true);
+                        },
+                    },
+                ]}
+            />
+            <StardustModal
+                modalVisible={deleteAlertVisible}
+                setModalVisible={setDeleteAlertVisible}
+                title={messages.messages.main.noti.delete_title}
+                buttons={[
+                    {
+                        text: messages.messages.words.cancle,
+                        onPress: () => setDeleteAlertVisible(false),
+                    },
+                    {
+                        text: messages.messages.words.delete,
+                        onPress: () => onDeleteButtonPress(),
+                    },
+                ]}
+            />
+            {/* <BottomSlidableModal
             modalVisible={props.visible}
             setModalVisible={props.setVisible}
             height={deviceUI.getScreenSize().height * 0.2}>
@@ -83,7 +122,7 @@ export default function NotiBottomEditModal(props: BottomEditModalProps) {
                         setDeleteAlertVisible(true);
                     }}
                     style={styles.editModalMenu}>
-                    <IconTrashCan size={styles.iconSize.width as number} />
+                    <Icon name={"trash-can"} size={styles.iconSize.width as number} />
                     <Text style={styles.editModalMenuText}>{messages.messages.main.noti.delete}</Text>
                 </TouchableOpacity>
 
@@ -103,6 +142,7 @@ export default function NotiBottomEditModal(props: BottomEditModalProps) {
                     ]}
                 />
             </View>
-        </BottomSlidableModal>
+        </BottomSlidableModal> */}
+        </>
     );
 }

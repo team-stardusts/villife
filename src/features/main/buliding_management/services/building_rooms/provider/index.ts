@@ -121,19 +121,17 @@ class BuildingManagementServiceProvider implements IBuildingManagementServicePro
     }
 
     private convertRoomInfoForUse(tenant: Building.RoomInfo): BuildingRoomInfo {
-        const contractInfo = tenant.contract_info
-            ? {
-                  contractID: tenant.contract_info.contract_id,
-                  rentType: tenant.contract_info.rent_type,
-                  deposit: tenant.contract_info.deposit,
-                  monthlyRent: tenant.contract_info.monthly_rent,
-                  managementFee: tenant.contract_info.management_fee,
-                  startDate: StardustDateParser.deserialize(tenant.contract_info.start_date),
-                  expirationDate: StardustDateParser.deserialize(tenant.contract_info.expiration_date),
-                  //createdAt: StardustDateParser.deserialize(tenant.contract_info.created_at),
-                  //updatedAt: StardustDateParser.deserialize(tenant.contract_info.updated_at),
-              }
-            : undefined;
+        const contractInfo = {
+            contractID: tenant.contract_info.contract_id,
+            rentType: tenant.contract_info.rent_type,
+            deposit: tenant.contract_info.deposit,
+            monthlyRent: tenant.contract_info.monthly_rent,
+            managementFee: tenant.contract_info.management_fee,
+            startDate: StardustDateParser.deserialize(tenant.contract_info.start_date),
+            expirationDate: StardustDateParser.deserialize(tenant.contract_info.expiration_date),
+            //createdAt: StardustDateParser.deserialize(tenant.contract_info.created_at),
+            //updatedAt: StardustDateParser.deserialize(tenant.contract_info.updated_at),
+        };
 
         return {
             contractInfo: contractInfo,

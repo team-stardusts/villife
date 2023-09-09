@@ -324,6 +324,7 @@ export type MessagesByLanguage = {
         visiting_time: string;
         visiting_date: string;
         visiting_room_number: string;
+        important: string;
         info: string;
     };
     navigation: {

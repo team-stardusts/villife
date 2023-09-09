@@ -10,7 +10,7 @@ export default function ListBottomSlidableModal(props: ListBottomSlidableModalPr
 
     return (
         <BottomSlidableModal
-            height={rowHeight * props.features.length}
+            height={rowHeight * props.features.length + styles.container.marginBottom}
             modalVisible={props.modalVisible}
             setModalVisible={props.setModalVisible}>
             <View style={styles.container}>

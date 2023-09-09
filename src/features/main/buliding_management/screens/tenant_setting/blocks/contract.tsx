@@ -26,14 +26,6 @@ export default function Contract(props: ContractProps) {
         },
         {
             icon: "pencil",
-            text: "반전세",
-            onPress: () => {
-                setContract("partial-lump-sum-deposit");
-                setModalVisible(false);
-            },
-        },
-        {
-            icon: "pencil",
             text: "월세",
             onPress: () => {
                 setContract("monthly-rent");
@@ -48,8 +40,6 @@ export default function Contract(props: ContractProps) {
                 return "전세";
             case "monthly-rent":
                 return "월세";
-            case "partial-lump-sum-deposit":
-                return "반전세";
             default:
                 return "선택";
         }

@@ -6,5 +6,3 @@ export type ContentPriority = number;
 export type ContentLableProps = {
     priority: ContentPriority;
 };
-
-export type UseNotiLabelStylesType = ReturnType<typeof StyleSheet.create>;

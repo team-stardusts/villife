@@ -24,6 +24,12 @@ export default function useBuildingTenantFilterStyles() {
             justifyContent: "center",
             alignItems: "center",
         },
+        menuTouchBox: {
+            height: "100%",
+            justifyContent: "center",
+            alignItems: "center",
+            paddingHorizontal: deviceUI.moderateScale(10),
+        },
         menu: {
             height: "100%",
             borderBottomColor: theme.color.specified.black,
@@ -51,7 +57,7 @@ export default function useBuildingTenantFilterStyles() {
             flex: 1,
             flexDirection: "row",
             justifyContent: "center",
-            paddingRight: deviceUI.moderateScale(10),
+            //paddingRight: deviceUI.moderateScale(10),
         },
         layoutSelectionBtn: {
             height: "100%",
@@ -59,10 +65,10 @@ export default function useBuildingTenantFilterStyles() {
             justifyContent: "center",
             alignItems: "center",
         },
-        layoutSelectionIcon: {
+        /* layoutSelectionIcon: {
             color: theme.color.specified.lightgrey,
             width: deviceUI.moderateScale(40),
-        },
+        }, */
         layoutSelectionIconSelected: {
             color: theme.color.specified.black,
             width: deviceUI.moderateScale(45),

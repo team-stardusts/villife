@@ -78,7 +78,7 @@ export const NoAnimationModalComponent = ({
                 position: "absolute",
                 width: screenSize.width,
                 height: screenSize.height,
-                backgroundColor: "rgba(180,180,180,0.5)",
+                backgroundColor: "rgba(128,128,128,0.5)",
             }}>
             <Pressable
                 style={{ flex: 1 }}

@@ -71,11 +71,11 @@ export namespace Building {
     }
 
     export type RoomInfo = {
-        contract_info?: Contract;
+        contract_info: Contract;
         contract_state: ContractStatus;
         floor: number;
-        resident_name?: string;
-        resident_phone_number?: string;
+        resident_name: string;
+        resident_phone_number: string;
         room_number: number;
         room_id: number;
         room_state: RoomState;
@@ -125,5 +125,5 @@ export namespace Building {
     // 만료 / 만료 임박 / 없음 / 정상
     export type ContractStatus = "expired" | "imminent-expiration" | "absense" | "normal";
     export type RoomState = "empty" | "signed" | "unsigned";
-    export type RentType = "" | "lump-sum-deposit" | "partial-lump-sum-deposit" | "monthly-rent";
+    export type RentType = "" | "lump-sum-deposit" | "monthly-rent";
 }

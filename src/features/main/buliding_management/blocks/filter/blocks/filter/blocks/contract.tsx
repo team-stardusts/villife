@@ -6,7 +6,6 @@ export default function ContractFilter(props: ContractFilterProps) {
     const [contracts] = useState<string[]>([
         props.messages.words.not_registed,
         props.messages.words.lump_sum_deposit,
-        props.messages.words.partial_lump_sum_deposit,
         props.messages.words.monthly_rent,
     ]);
 
@@ -23,8 +22,6 @@ export default function ContractFilter(props: ContractFilterProps) {
             switch (word) {
                 case props.messages.words.lump_sum_deposit:
                     return "lump-sum-deposit";
-                case props.messages.words.partial_lump_sum_deposit:
-                    return "partial-lump-sum-deposit";
                 case props.messages.words.monthly_rent:
                     return "monthly-rent";
                 default:

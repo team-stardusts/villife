@@ -12,20 +12,20 @@ import TenantRoomStateLabel from "./blocks/status_label";
 export default function TentantLayout(props: TentantLayoutProps) {
     const styles = useTentantLayoutStyles();
     const messages = useScreenMessage().messages;
-    const [targets, setTargets] = useState<number[]>([]);
+    const [messagingTargets, setMessagingTargets] = useState<number[]>([]);
     const [selectAllStatus, setSelectAllStatus] = useState<SelectAllStatus>("unselect_all");
     const roomStates: Building.RoomState[] = ["signed", "unsigned", "empty"];
 
     useEffect(() => {
         // 전체 선택 후 개별 요소의 체크를 해제 하는 경우를 위한 status
-        if (targets.length !== 0 && targets.length !== props.tenants.length) {
+        if (messagingTargets.length !== 0 && messagingTargets.length !== props.tenants.length) {
             setSelectAllStatus("unselect_element");
         }
 
         // Messaging의 대상 전달
         props.onCheckTarget &&
-            props.onCheckTarget(props.tenants.filter((_, index) => targets.find((i) => i === index)));
-    }, [targets, props.tenants]);
+            props.onCheckTarget(props.tenants.filter((_, index) => messagingTargets.find((i) => i === index)));
+    }, [messagingTargets, props.tenants]);
 
     return (
         <View style={styles.container}>
@@ -72,9 +72,17 @@ export default function TentantLayout(props: TentantLayoutProps) {
                 )}
             </View>
             {props.layout === "list" ? (
-                <BuildingTenantListView {...props} onCheckTarget={setTargets} selectAllStatus={selectAllStatus} />
+                <BuildingTenantListView
+                    {...props}
+                    onCheckTarget={setMessagingTargets}
+                    selectAllStatus={selectAllStatus}
+                />
             ) : (
-                <BuildingTenantMatrixView {...props} onCheckTarget={setTargets} selectAllStatus={selectAllStatus} />
+                <BuildingTenantMatrixView
+                    {...props}
+                    onCheckTarget={setMessagingTargets}
+                    selectAllStatus={selectAllStatus}
+                />
             )}
         </View>
     );

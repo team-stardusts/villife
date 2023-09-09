@@ -41,7 +41,7 @@ export default function Money(props: MoneyProps) {
                     onChangeText={(text) => handleChangeMoney(text)}
                 />
                 <View style={props.styles.moneyInputPostFixBox}>
-                    <Text style={props.styles.contractText}>만원</Text>
+                    <Text style={props.styles.contractText}>원</Text>
                 </View>
             </View>
         </View>

@@ -13,22 +13,29 @@ export default function LayoutSelector(props: LayoutSelectorProps) {
 
     return (
         <View style={props.styles.layoutSelector}>
-            <TouchableOpacity style={props.styles.layoutSelectionBtn} onPress={() => setCrrLayout("list")}>
+            <TouchableOpacity
+                style={props.styles.layoutSelectionBtn}
+                onPress={() => {
+                    if (crrLayout === "list") setCrrLayout("matrix");
+                    else setCrrLayout("list");
+                }}>
                 <Icon
-                    name="list"
+                    name={crrLayout === "list" ? "matrix" : "list"}
                     size={
-                        crrLayout === "list"
+                        props.styles.layoutSelectionIconSelected.width
+                        /* crrLayout === "list"
                             ? props.styles.layoutSelectionIconSelected.width
-                            : props.styles.layoutSelectionIcon.width
+                            : props.styles.layoutSelectionIcon.width */
                     }
                     color={
-                        crrLayout === "list"
+                        props.styles.layoutSelectionIconSelected.color
+                        /* crrLayout === "list"
                             ? props.styles.layoutSelectionIconSelected.color
-                            : props.styles.layoutSelectionIcon.color
+                            : props.styles.layoutSelectionIcon.color */
                     }
                 />
             </TouchableOpacity>
-            <TouchableOpacity style={props.styles.layoutSelectionBtn} onPress={() => setCrrLayout("matrix")}>
+            {/*             <TouchableOpacity style={props.styles.layoutSelectionBtn} onPress={() => setCrrLayout("matrix")}>
                 <Icon
                     name="matrix"
                     size={
@@ -42,7 +49,7 @@ export default function LayoutSelector(props: LayoutSelectorProps) {
                             : props.styles.layoutSelectionIcon.color
                     }
                 />
-            </TouchableOpacity>
+            </TouchableOpacity> */}
         </View>
     );
 }

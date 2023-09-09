@@ -2,12 +2,13 @@ import { StyleSheet } from "react-native";
 import useStyler from "../../hooks/styler/hooks";
 
 export default function useListBottomSlidableModalStyles() {
-    const { deviceUI, theme } = useStyler();
+    const { deviceUI, theme, safetyEdgeSize } = useStyler();
 
     return StyleSheet.create({
         container: {
             flex: 1,
             marginTop: deviceUI.moderateScale(10),
+            marginBottom: safetyEdgeSize.bottom + 10,
         },
         row: {
             width: "100%",

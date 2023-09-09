@@ -43,15 +43,19 @@ export default function TenantFilter(props: TenantFilterProps) {
 
     useEffect(() => {
         let _tenants = tenants;
-        //console.log(tenants);
 
         if (conditions.floor !== null) {
             _tenants = _tenants.filter((tenant) => conditions.floor?.find((cndt) => cndt === tenant.floor.toString()));
         }
         if (conditions.contract !== null) {
-            _tenants = _tenants.filter((tenant) =>
-                conditions.contract?.find((cdnt) => cdnt == tenant.contractInfo?.rentType)
-            );
+            _tenants = _tenants.filter((tenant) => {
+                const findResult = conditions.contract?.find((cdnt) => cdnt === tenant.contractInfo.rentType);
+
+                // Find result에 빈문자열이 있기 때문에 boolean 값으로 대체
+                if (findResult === undefined) return false;
+
+                return true;
+            });
         }
         if (conditions.status !== null) {
             _tenants = _tenants.filter((tenant) => conditions.status?.find((cdnt) => cdnt === tenant.roomState));

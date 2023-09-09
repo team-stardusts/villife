@@ -1,14 +1,12 @@
-import { Pressable, Text, TouchableOpacity, View } from "react-native";
+import { Text, TouchableOpacity, View } from "react-native";
 import MiniContent from "../../../../common/blocks/mini_content";
 import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
 import { useNavigation } from "@react-navigation/native";
 import { VillifeNavigation } from "../../../../common/router/types";
 import ColorLable from "../../../../common/blocks/universial/color_label.tsx";
 import useStyler from "../../../../common/hooks/styler/hooks";
-import { ComplaintStatus } from "../../../../../libs/rest_apis/villife/complaint/types";
 import useHomeContentCardStyle from "./styles";
 import useNotiViewModel from "../outlined_box_list/useNotiViewModel";
-import IconPlus from "../../../../common/atoms/icon/plus";
 import useUserInformation from "../../../../common/hooks/service/user_info";
 
 export default function HomeContentFromNoti() {
