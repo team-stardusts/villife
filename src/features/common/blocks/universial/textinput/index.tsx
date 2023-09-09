@@ -1,10 +1,16 @@
 import { useEffect, useRef, useState } from "react";
-import { NativeSyntheticEvent, TextInputChangeEventData, TextInputFocusEventData } from "react-native/types";
+import {
+    ColorValue,
+    NativeSyntheticEvent,
+    TextInputChangeEventData,
+    TextInputFocusEventData,
+} from "react-native/types";
 import TextInput from "../../../atoms/textinput";
 import UniversalTextInputProps from "./types";
 import { StyleSheet } from "react-native";
 import useStyler from "../../../hooks/styler/hooks";
 import { Animated } from "react-native";
+import { ANIMATION_DURATION_FAST } from "../../../constants";
 
 export default function UniversalTextInput(props: UniversalTextInputProps) {
     const { deviceUI, theme } = useStyler();
@@ -18,7 +24,7 @@ export default function UniversalTextInput(props: UniversalTextInputProps) {
 
         Animated.timing(animatedBorderWidth, {
             toValue: toValue,
-            duration: 200,
+            duration: ANIMATION_DURATION_FAST,
             useNativeDriver: false,
         }).start();
     }, [isFocusing, animatedBorderWidth]);
@@ -73,11 +79,18 @@ export default function UniversalTextInput(props: UniversalTextInputProps) {
         }
     };
 
+    const getPlaceholderTextColor = (): ColorValue => {
+        if (props.placeholderTextColor) return props.placeholderTextColor;
+
+        return theme.color.specified.lightgrey;
+    };
+
     return (
         <Animated.View style={[styles.container, { borderWidth: animatedBorderWidth }]}>
             <TextInput
                 style={[props.style, styles.input]}
                 {...props}
+                placeholderTextColor={getPlaceholderTextColor()}
                 onChange={onChange}
                 onChangeText={onChangeText}
                 onFocus={onFocus}

@@ -20,8 +20,6 @@ export default function TenantDetailScreen({ navigation, route }: TenantDetailSc
         setTenant(JSON.parse(route.params.roomInfo));
     }, [route.params.roomInfo]);
 
-    useEffect(() => {}, [tenant]);
-
     const notiModalFeatures: ModalFeature[] = [
         {
             icon: "pencil",

@@ -7,7 +7,6 @@ import { useEffect, useState } from "react";
 import { View, Text } from "react-native";
 import UniversalTextInput from "../../../../../../common/blocks/universial/textinput";
 import Icon from "../../../../../../common/atoms/icon";
-import Badge from "../../../../../../common/atoms/badge";
 import type { AddressSetterProps } from "./types";
 import BuildingManagementServiceProvider from "../../../../services/building_rooms/provider";
 import StringValidator from "../../../../../../../libs/string_validator";

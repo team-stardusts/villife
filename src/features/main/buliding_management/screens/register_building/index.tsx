@@ -82,7 +82,8 @@ export default function RegisterBuildingScreen({ navigation, route }: RegisterBu
                     title: messages.words.okay,
                     disabled: !isProperlyPrepared(),
                     onPress: () => registerBuilding(),
-                }}>
+                }}
+                disablePaddingTop>
                 <View style={styles.main.container}>
                     <View style={styles.main.searchingContainer}>
                         <AddressSetter styles={styles.search} onChangeBuildingInfo={setBuildingInfo} />

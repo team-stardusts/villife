@@ -163,6 +163,7 @@ function BuildingTenant(props: BuildingTenantProps) {
                     if (props.roomInfo.roomState === "empty" && props.roomInfo.roomID !== undefined) {
                         navigation.navigate("tenant_setting", {
                             type: "addtion",
+                            contractID: props.roomInfo.contractInfo.contractID,
                             roomID: props.roomInfo.roomID,
                         });
                     } else {

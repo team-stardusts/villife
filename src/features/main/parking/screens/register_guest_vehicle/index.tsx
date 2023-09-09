@@ -3,7 +3,6 @@ import NavigationView from "../../../../common/blocks/navigation";
 import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
 import RegisterGuestVehicleScreenProps, { GuestVehicle } from "./types";
 import useRegisterVehicleScreenStyles from "./styles";
-import ParkingScreenGuide from "../../blocks/screen_guide";
 import { useState } from "react";
 import SimpleNavComponent from "../../../../common/blocks/navigation/header/navcomponent";
 import { Toast } from "react-native-toast-message/lib/src/Toast";
@@ -16,6 +15,7 @@ import useParkingLot from "../../services/parking_lot";
 import DateRangePicker from "./blocks/date_etda_picker";
 import type { DateRange } from "../../blocks/modal/date_selection/types";
 import StardustDateParser from "../../../../../libs/date_parser";
+import ScreenTitleView from "../../../../common/blocks/title_view";
 
 export default function RegisterGuestVehicleScreen({ navigation, route }: RegisterGuestVehicleScreenProps) {
     const messages = useScreenMessage();
@@ -106,20 +106,18 @@ export default function RegisterGuestVehicleScreen({ navigation, route }: Regist
                 backgroundColor: styles.navView.backgroundColor,
             }}
             bodyOptions={{
-                applyDefaultHorizontalPadding: true,
-                applyDefaultVerticalPadding: true,
+                //applyDefaultHorizontalPadding: true,
+                //applyDefaultVerticalPadding: true,
                 backgroundColor: styles.navView.backgroundColor,
             }}>
-            <KeyboardAwareScrollView
-                style={styles.container}
-                showsVerticalScrollIndicator={false}
-                //scrollEnabled={false}
-                enableOnAndroid={true}>
-                <View>
-                    <ParkingScreenGuide
-                        title={messages.messages.main.parking.register_guest_vehicle.register_guest_vehicle}
-                        subtitle={messages.messages.main.parking.register_guest_vehicle.request_input_vehicle_info}
-                    />
+            <ScreenTitleView
+                titles={[messages.messages.main.parking.register_guest_vehicle.register_guest_vehicle]}
+                subtitles={[messages.messages.main.parking.register_guest_vehicle.request_input_vehicle_info]}
+                disablePaddingTop>
+                <KeyboardAwareScrollView
+                    style={styles.container}
+                    showsVerticalScrollIndicator={false}
+                    enableOnAndroid={true}>
                     <View style={styles.etdaPickerContainer}>
                         <DateRangePicker onChangeDateTimeRange={setDateTimeRange} />
                     </View>
@@ -134,8 +132,12 @@ export default function RegisterGuestVehicleScreen({ navigation, route }: Regist
                             }}
                         />
                     </View>
-                </View>
-            </KeyboardAwareScrollView>
+                </KeyboardAwareScrollView>
+            </ScreenTitleView>
+            {/* <ParkingScreenGuide
+                        title={messages.messages.main.parking.register_guest_vehicle.register_guest_vehicle}
+                        subtitle={messages.messages.main.parking.register_guest_vehicle.request_input_vehicle_info}
+                    /> */}
         </NavigationView>
     );
 }

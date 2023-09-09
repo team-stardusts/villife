@@ -1,11 +1,10 @@
-import { Alert, KeyboardAvoidingView, ScrollView, Text, TouchableWithoutFeedback, View } from "react-native";
+import { Alert, View } from "react-native";
 import NavigationView from "../../../../common/blocks/navigation";
 import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
 import RegisterVehicleScreenProps, { Vehicle } from "./types";
 import useRegisterVehicleScreenStyles from "./styles";
-import ParkingScreenGuide from "../../blocks/screen_guide";
 import EtdaTimePicker from "../../blocks/etad_time_picker";
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import SimpleNavComponent from "../../../../common/blocks/navigation/header/navcomponent";
 import { Toast } from "react-native-toast-message/lib/src/Toast";
 import { TOAST_DEFAULT_OFFSET, TOAST_DEFAULT_VISIBILITY_TIME } from "../../../../common/constants";
@@ -14,6 +13,7 @@ import VehicleInfoInputBox from "../../blocks/info_input_box";
 import { VehicleValidationResult } from "../../blocks/info_input_box/types";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import useParkingLot from "../../services/parking_lot";
+import ScreenTitleView from "../../../../common/blocks/title_view";
 
 export default function RegisterVehicleScreen({ navigation, route }: RegisterVehicleScreenProps) {
     const messages = useScreenMessage();
@@ -104,35 +104,36 @@ export default function RegisterVehicleScreen({ navigation, route }: RegisterVeh
                 applyDefaultVerticalPadding: true,
                 backgroundColor: styles.navView.backgroundColor,
             }}>
-            <KeyboardAwareScrollView
-                style={styles.container}
-                showsVerticalScrollIndicator={false}
-                //scrollEnabled={false}
-                enableOnAndroid={true}>
-                <ParkingScreenGuide
-                    title={messages.messages.main.parking.register_vehicle.register_own_vehicle}
-                    subtitle={messages.messages.main.parking.register_vehicle.request_input_vehicle_info}
-                />
-                <View style={styles.etdaPickerContainer}>
-                    <EtdaTimePicker
-                        onTimeChange={(time) => {
-                            setVehicle({ ...vehicle, ...time });
-                        }}
-                        enableShadow
-                    />
-                </View>
-                <View style={styles.vehicleInfoInputsContainer}>
-                    <VehicleInfoInputBox
-                        onValidation={setValid}
-                        onChangeVehicleInfo={(info) => {
-                            setVehicle({
-                                ...vehicle,
-                                ...info,
-                            });
-                        }}
-                    />
-                </View>
-            </KeyboardAwareScrollView>
+            <ScreenTitleView
+                titles={[messages.messages.main.parking.register_vehicle.register_own_vehicle]}
+                subtitles={[messages.messages.main.parking.register_vehicle.request_input_vehicle_info]}
+                disablePaddingTop>
+                <KeyboardAwareScrollView
+                    style={styles.container}
+                    showsVerticalScrollIndicator={false}
+                    //scrollEnabled={false}
+                    enableOnAndroid={true}>
+                    <View style={styles.etdaPickerContainer}>
+                        <EtdaTimePicker
+                            onTimeChange={(time) => {
+                                setVehicle({ ...vehicle, ...time });
+                            }}
+                            enableShadow
+                        />
+                    </View>
+                    <View style={styles.vehicleInfoInputsContainer}>
+                        <VehicleInfoInputBox
+                            onValidation={setValid}
+                            onChangeVehicleInfo={(info) => {
+                                setVehicle({
+                                    ...vehicle,
+                                    ...info,
+                                });
+                            }}
+                        />
+                    </View>
+                </KeyboardAwareScrollView>
+            </ScreenTitleView>
         </NavigationView>
     );
 }

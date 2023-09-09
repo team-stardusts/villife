@@ -1,13 +1,9 @@
 import { Linking, StyleSheet, Text, TouchableOpacity } from "react-native";
 import NavigationView from "../common/blocks/navigation";
 import useTestService from "./test_hook";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { View } from "react-native";
-import CalendarDatePicker from "../common/blocks/calendar_picker";
 import DotEnv from "../../libs/dotenv";
-import storage from "../../libs/storage";
-import VillifeStorage from "../../libs/storage";
-import WebView from "react-native-webview";
 import CreateOrderFormUsecase from "../main/payment/services/create_order";
 
 export default function TestScreen() {

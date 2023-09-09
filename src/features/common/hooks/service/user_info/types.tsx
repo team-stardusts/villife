@@ -11,7 +11,9 @@ interface IUserInfoProvidable {
     name: LoginDataType["name"];
     authority: LoginDataType["authority"];
     roomID: LoginDataType["room_id"];
+    roomNumber: LoginDataType["room_number"];
     buildingID: LoginDataType["building_id"];
+    buildingRoadAddress: LoginDataType["building_road_addr"];
 }
 
 interface IAdminInfoProvidable {

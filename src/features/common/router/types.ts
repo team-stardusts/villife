@@ -77,6 +77,7 @@ export type VillifeStackParamList = VillifeRootStackParamList & {
     };
     tenant_setting: {
         type: "addtion" | "edit";
+        contractID: number;
         roomID: number;
     };
     terms_of_service?: {};

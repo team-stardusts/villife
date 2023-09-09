@@ -4,19 +4,19 @@ import { TenantInfoProps } from "../types";
 import StardustDateParser from "../../../../../../libs/date_parser";
 import CardRow from "./card_row";
 import ListBottomSlidableModal from "../../../../../common/blocks/bottom_list_modal";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { ModalFeature } from "../../../../../common/blocks/bottom_list_modal/types";
 import { useNavigation } from "@react-navigation/native";
 import { VillifeRouterParams } from "../../../../../common/router/types";
 import VillifeToastMessage from "../../../../../common/atoms/toast";
-import BuildingManagementServiceProvider from "../../../services/building_rooms/provider";
 import StardustAlert from "../../../../../common/blocks/universial/stardust_alert";
 import { StardustAlertContent } from "../../../../../common/blocks/universial/stardust_alert/types";
+import useBuildingRoomContractor from "../../../services/building_rooms";
 
 export default function TenantInfo(props: TenantInfoProps) {
     const [modalVisible, setModalVisible] = useState<boolean>(false);
     const navigation = useNavigation<VillifeRouterParams["navigation"]>();
-    const service = new BuildingManagementServiceProvider();
+    const contractor = useBuildingRoomContractor();
     const [alert, setAlert] = useState<StardustAlertContent>({
         visible: false,
         type: "warning",
@@ -24,7 +24,7 @@ export default function TenantInfo(props: TenantInfoProps) {
         message: "삭제된 정보는 복구 할 수 없습니다.",
     });
 
-    const [features, setFeatures] = useState<ModalFeature[]>([
+    const [features] = useState<ModalFeature[]>([
         {
             icon: "pencil",
             text: "수정하기",
@@ -36,7 +36,11 @@ export default function TenantInfo(props: TenantInfoProps) {
                     );
                     return;
                 }
-                navigation.navigate("tenant_setting", { type: "edit", roomID: props.tenant.roomID });
+                navigation.navigate("tenant_setting", {
+                    type: "edit",
+                    contractID: props.tenant.contractInfo.contractID,
+                    roomID: props.tenant.roomID,
+                });
                 setModalVisible(false);
             },
         },
@@ -79,7 +83,7 @@ export default function TenantInfo(props: TenantInfoProps) {
             return;
         }
 
-        const isSuccessful = await service.deleteContract(props.tenant.contractInfo.contractID);
+        const isSuccessful = await contractor.deleteContract(props.tenant.contractInfo.contractID);
 
         setAlert({
             ...alert,
@@ -98,8 +102,6 @@ export default function TenantInfo(props: TenantInfoProps) {
         switch (props.tenant.contractInfo?.rentType) {
             case "lump-sum-deposit":
                 return props.messages.words.lump_sum_deposit;
-            case "partial-lump-sum-deposit":
-                return props.messages.words.partial_lump_sum_deposit;
             case "monthly-rent":
                 return props.messages.words.monthly_rent;
             default: // undefined

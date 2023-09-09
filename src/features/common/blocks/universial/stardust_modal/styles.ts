@@ -58,9 +58,10 @@ export default function useStardustModalStyles() {
             justifyContent: "center",
             alignItems: "center",
             right: deviceUI.moderateScale(25),
+            padding: deviceUI.moderateScale(5),
         },
         upperRightIcon: {
-            width: deviceUI.moderateScale(25),
+            width: deviceUI.moderateScale(40),
             color: theme.color.specified.black,
         },
         title: {

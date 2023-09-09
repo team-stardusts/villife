@@ -48,10 +48,10 @@ export default function useBuildingTenantFilterStyles() {
             color: theme.color.specified.black,
         },
         filterWrapper: {
-            flex: 0.8,
+            flex: 8.5,
         },
         layoutSelectorWrapper: {
-            flex: 0.2,
+            flex: 1.5,
         },
         layoutSelector: {
             flex: 1,

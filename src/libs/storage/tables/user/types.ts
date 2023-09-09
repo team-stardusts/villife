@@ -6,8 +6,10 @@ export interface IUserTable extends ITableUsable<UserTableKey, UserDataType> {}
 export type UserTableKey = "user";
 
 export type UserDataType = {
-    name: string;
     authority: Authority[keyof Authority];
-    room_id: number | undefined;
     building_id: number | undefined;
+    building_road_addr: string;
+    name: string;
+    room_id: number;
+    room_number: number;
 };

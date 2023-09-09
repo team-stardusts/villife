@@ -42,8 +42,16 @@ export default function useUserInformation(): UseUserInfoReturns {
             return this.rawdata.room_id;
         }
 
+        get roomNumber(): LoginDataType["room_number"] {
+            return this.rawdata.room_number;
+        }
+
         get buildingID(): LoginDataType["building_id"] {
             return this.rawdata.building_id;
+        }
+
+        get buildingRoadAddress(): LoginDataType["building_road_addr"] {
+            return this.rawdata.building_road_addr;
         }
 
         get isRenter(): boolean {

@@ -45,7 +45,7 @@ class VillifeBuildingManager extends AVillifeServerModule implements IVillifeBui
 
     public async modifyContract(params: Building.ModifyContract.Params): Response<Building.ModifyContract.Returns> {
         let route: string = this.routes.budilingAndContract.contract;
-
+        console.log(params);
         return await this.requestAuthable<Building.ModifyContract.Params, Building.ModifyContract.Returns>({
             method: "patch",
             url: route,

@@ -6,6 +6,7 @@ import IVillifeBuildingManager, { Building } from "../../../../../../libs/rest_a
 import {
     BuildingRoomInfo,
     IBuildingManagementServiceProvider,
+    ModifyContract,
     RegisterBuilding,
     RegisterContract,
     VerifyBuildingAddress,
@@ -47,7 +48,6 @@ class BuildingManagementServiceProvider implements IBuildingManagementServicePro
     }
 
     public async registerContract(params: RegisterContract.Params): Promise<boolean> {
-        console.log(params);
         const result = await this._buildingApi.registerContract({
             contractor_name: params.contractorName,
             deposit: params.deposit,
@@ -68,8 +68,9 @@ class BuildingManagementServiceProvider implements IBuildingManagementServicePro
         return true;
     }
 
-    public async modifyContract(params: RegisterContract.Params): Promise<boolean> {
+    public async modifyContract(params: ModifyContract.Params): Promise<boolean> {
         const result = await this._buildingApi.modifyContract({
+            contract_id: params.contractID,
             contractor_name: params.contractorName,
             deposit: params.deposit,
             expiration_date: StardustDateParser.serialize(params.expirationDate),

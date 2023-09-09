@@ -4,22 +4,22 @@ import useStyler from "../../../../../../common/hooks/styler/hooks";
 export default function useFilterStyles() {
     const { deviceUI, theme } = useStyler();
 
-    const horizontalFilter = StyleSheet.create({
+    return StyleSheet.create({
         container: {
             flex: 1,
         },
         itemContainer: {
-            width: deviceUI.moderateScale(40),
+            //width: deviceUI.moderateScale(40),
             justifyContent: "center",
             alignItems: "center",
             marginLeft: deviceUI.moderateScale(15),
         },
         itemBox: {
-            width: "100%",
             height: "60%",
             justifyContent: "center",
             alignItems: "center",
-            borderRadius: deviceUI.moderateScale(6),
+            paddingHorizontal: deviceUI.moderateScale(10),
+            borderRadius: deviceUI.moderateScale(15),
             backgroundColor: theme.color.specified.white,
             ...Platform.select({
                 ios: {
@@ -33,6 +33,9 @@ export default function useFilterStyles() {
                     elevation: 3,
                 },
             }),
+        },
+        bumper: {
+            width: deviceUI.moderateScale(5),
         },
         seletedItemBox: {
             borderColor: theme.color.specified.black,
@@ -56,8 +59,4 @@ export default function useFilterStyles() {
             color: theme.color.specified.black,
         },
     });
-
-    return {
-        horizontalFilter,
-    };
 }

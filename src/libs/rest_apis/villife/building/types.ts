@@ -118,7 +118,9 @@ export namespace Building {
     }
 
     export namespace ModifyContract {
-        export type Params = RegisterContract.Params;
+        export type Params = RegisterContract.Params & {
+            contract_id: number;
+        };
         export type Returns = string;
     }
 

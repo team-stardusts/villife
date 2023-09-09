@@ -12,13 +12,13 @@ import type { Building } from "../../../../../libs/rest_apis/villife/building/ty
 import { Dates } from "../../../../common/blocks/calendar_picker/types";
 import StardustAlert from "../../../../common/blocks/universial/stardust_alert";
 import { StardustAlertContent } from "../../../../common/blocks/universial/stardust_alert/types";
-import BuildingManagementServiceProvider from "../../services/building_rooms/provider";
 import VillifeToastMessage from "../../../../common/atoms/toast";
+import useBuildingRoomContractor from "../../services/building_rooms";
 
 export default function TenantSettingScreen({ navigation, route }: TenantSettingScreenProps) {
     const styles = useTenantSettingScreenStyles();
     const messages = useScreenMessage().messages;
-    const service = new BuildingManagementServiceProvider();
+    const contractor = useBuildingRoomContractor();
     const navTitle = route.params?.type === "edit" ? "세입자 정보 수정" : "세입자 정보 추가";
     const screenTitle = route.params?.type === "edit" ? "세입자 정보 수정하기" : "세입자 정보 추가하기";
     const screenSubtitle =
@@ -83,9 +83,12 @@ export default function TenantSettingScreen({ navigation, route }: TenantSetting
         };
 
         if (route.params.type === "addtion") {
-            isSuccessful = await service.registerContract(params);
+            isSuccessful = await contractor.registerContract(params);
         } else {
-            isSuccessful = await service.modifyContract(params);
+            isSuccessful = await contractor.modifyContract({
+                ...params,
+                contractID: route.params.contractID,
+            });
         }
 
         setAlert({
@@ -170,7 +173,8 @@ export default function TenantSettingScreen({ navigation, route }: TenantSetting
                     title: messages.words.okay,
                     disabled: contract === null || dates === null,
                     onPress: () => handlePressOkayButton(),
-                }}>
+                }}
+                disablePaddingTop>
                 <KeyboardAwareScrollView style={styles.container} showsVerticalScrollIndicator={false}>
                     <Contract styles={styles} onChangeInfo={setContract} />
                     {Object.keys(moneys).map((moneyType, index) => (

@@ -8,7 +8,6 @@ import type { CalendarDatePickerProps, Dates, PickedDates } from "./types";
 
 export default function CalendarDatePicker(props: CalendarDatePickerProps) {
     const { deviceUI, theme } = useStyler();
-    const minDate = new Date(); // today
     const [dates, setDates] = useState<PickedDates>({
         startDate: props.initialDate ?? new Date(),
         endDate: null,
@@ -63,7 +62,7 @@ export default function CalendarDatePicker(props: CalendarDatePickerProps) {
                         },
                     };
                 }}
-                minDate={minDate}
+                minDate={props.minDate}
                 selectedStartDate={dates.startDate}
                 selectedDayColor={theme.color.specified.lightblue as string}
                 selectedDayTextColor={theme.color.specified.white as string}

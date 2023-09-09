@@ -17,8 +17,8 @@ export default function VehicleListBodyView(props: VehicleListBodyViewProps) {
     const user = useUserInformation();
 
     // [TO-DO] Room number를 가져오는 function이 필요함
-    const getUserRoomNumber = (): number => {
-        return 502;
+    const getUserRoomNumber = (): number | undefined => {
+        return user?.roomNumber;
     };
     return (
         <View style={props.styles.container}>

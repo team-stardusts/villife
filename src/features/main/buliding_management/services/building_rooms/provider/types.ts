@@ -5,7 +5,8 @@ import { SelectedAddressType } from "../../../../../common/hooks/states/atoms/ad
 export interface IBuildingManagementServiceProvider
     extends IRoomInfosOnBuildingGetable,
         IBuildingVerifiable,
-        IBuildingAdministrable {}
+        IBuildingRegisterable,
+        IRoomContractAdministrable {}
 
 interface IRoomInfosOnBuildingGetable {
     //getTentantsFromServer(buildingID: number): Promise<Building.Tenant[]>;
@@ -16,8 +17,11 @@ interface IBuildingVerifiable {
     verifyBuildingAddress(params: VerifyBuildingAddress.Params): Promise<VerifyBuildingAddress.Returns>;
 }
 
-interface IBuildingAdministrable {
+interface IBuildingRegisterable {
     registerBuilding(params: RegisterBuilding.Params): Promise<RegisterBuilding.Returns>;
+}
+
+export interface IRoomContractAdministrable {
     registerContract(params: RegisterContract.Params): Promise<boolean>;
     modifyContract(params: ModifyContract.Params): Promise<boolean>;
     deleteContract(contractID: DeleteContract.Params): Promise<boolean>;
@@ -37,7 +41,9 @@ export namespace RegisterContract {
 }
 
 export namespace ModifyContract {
-    export type Params = RegisterContract.Params;
+    export type Params = RegisterContract.Params & {
+        contractID: Building.ModifyContract.Params["contract_id"];
+    };
 }
 
 export namespace DeleteContract {

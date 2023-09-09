@@ -2,13 +2,13 @@ import { Alert, Text, View } from "react-native";
 import NavigationView from "../../../../common/blocks/navigation";
 import SendParkPushNotiScreenProps, { MessagesProps } from "./types";
 import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
-import ParkingScreenGuide from "../../blocks/screen_guide";
 import SimpleNavComponent from "../../../../common/blocks/navigation/header/navcomponent";
 import { TimePickerTime } from "../../../../common/atoms/time_picker/types";
 import { useEffect, useState } from "react";
 import useSendParkPushNotiScreenStyles from "./styles";
 import TimePicker from "../../../../common/atoms/time_picker";
 import useParkingLot from "../../services/parking_lot";
+import ScreenTitleView from "../../../../common/blocks/title_view";
 
 export default function SendParkPushNotiScreen({ navigation, route }: SendParkPushNotiScreenProps) {
     const messages = useScreenMessage().messages;
@@ -58,13 +58,10 @@ export default function SendParkPushNotiScreen({ navigation, route }: SendParkPu
                 applyDefaultVerticalPadding: true,
                 applyDefaultHorizontalPadding: true,
             }}>
-            <View style={styles.main.container}>
-                <View style={styles.main.screenGuideBox}>
-                    <ParkingScreenGuide
-                        title={messages.main.parking.send_park_push_noti.screen_title}
-                        subtitle={messages.main.parking.send_park_push_noti.request_to_send_park_noti}
-                    />
-                </View>
+            <ScreenTitleView
+                titles={[messages.main.parking.send_park_push_noti.screen_title]}
+                subtitles={[messages.main.parking.send_park_push_noti.request_to_send_park_noti]}
+                disablePaddingTop>
                 <View style={styles.main.messageBox}>
                     <Messages
                         screenMessages={messages}
@@ -73,7 +70,7 @@ export default function SendParkPushNotiScreen({ navigation, route }: SendParkPu
                         onMessageChange={setContent}
                     />
                 </View>
-            </View>
+            </ScreenTitleView>
         </NavigationView>
     );
 }

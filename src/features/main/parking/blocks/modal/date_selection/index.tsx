@@ -95,7 +95,7 @@ export default function GuestVehicleDateSelectionModal(props: GuestVehicleDateSe
             ]}>
             <View style={styles.container}>
                 {page === 1 ? (
-                    <CalendarDatePicker width={styles.datePicker.width} onDateChange={setDates} />
+                    <CalendarDatePicker minDate={new Date()} width={styles.datePicker.width} onDateChange={setDates} />
                 ) : (
                     <View style={styles.etdaPicker}>
                         <EtdaTimePicker onTimeChange={setEtda} />

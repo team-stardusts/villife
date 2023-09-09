@@ -12,7 +12,8 @@ export default function Money(props: MoneyProps) {
     }, [money]);
 
     const handleChangeMoney = (text: string) => {
-        const number = parseInt(text);
+        const stringWithoutComma = text.replace(/,/g, "");
+        const number = parseInt(stringWithoutComma);
 
         if (Number.isNaN(number)) {
             setMoney(null);
@@ -22,8 +23,8 @@ export default function Money(props: MoneyProps) {
         }
     };
 
-    const insertCommaToMoney = (money: number | undefined): string => {
-        if (money === undefined) return "";
+    const insertCommaToMoney = (money?: number | null): string => {
+        if (money === undefined || money === null) return "";
         return money.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     };
 
@@ -36,7 +37,7 @@ export default function Money(props: MoneyProps) {
                 <UniversalTextInput
                     style={props.styles.moneyInput}
                     placeholder={`${props.title}를 입력해주세요.`}
-                    value={money?.toString()}
+                    value={insertCommaToMoney(money)}
                     lowlightColor={props.styles.moneyInputLowLight.color}
                     onChangeText={(text) => handleChangeMoney(text)}
                 />

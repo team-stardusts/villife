@@ -1,7 +1,6 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import CalendarDatePicker from "../../../../../common/blocks/calendar_picker";
 import StardustModal from "../../../../../common/blocks/universial/stardust_modal";
-import CalendarPicker from "react-native-calendar-picker";
 import useStyler from "../../../../../common/hooks/styler/hooks";
 import { Dates } from "../../../../../common/blocks/calendar_picker/types";
 import VillifeToastMessage from "../../../../../common/atoms/toast";

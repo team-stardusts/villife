@@ -5,7 +5,7 @@ import useScreenMessage from "../../../../../../../common/hooks/multilingual/hoo
 
 export default function HorizontalFilter(props: HorizontalFilterProps) {
     const messages = useScreenMessage().messages.words;
-    const styles = useFilterStyles().horizontalFilter;
+    const styles = useFilterStyles();
     const [items, setItems] = useState<string[]>([]);
     const [selectedItems, setSelectedItems] = useState<string[]>([]);
 
@@ -81,6 +81,8 @@ export default function HorizontalFilter(props: HorizontalFilterProps) {
                     </TouchableOpacity>
                 </View>
             ))}
+            {/* 리스트 끝 요소의 우측 Shadow가 짤리는 것을 방지함 */}
+            <View style={styles.bumper} />
         </ScrollView>
     );
 }

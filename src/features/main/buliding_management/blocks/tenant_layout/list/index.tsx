@@ -112,9 +112,37 @@ function BuildingTenantView(props: BuildingTenantProps) {
         }
     };
 
+    const handlePressArrowRight = () => {
+        if (props.roomInfo.roomState === "empty" && props.roomInfo.roomID !== undefined) {
+            navigation.navigate("tenant_setting", {
+                type: "addtion",
+                contractID: props.roomInfo.contractInfo.contractID,
+                roomID: props.roomInfo.roomID,
+            });
+        } else {
+            navigation.navigate("tenant_detail", {
+                roomInfo: JSON.stringify(props.roomInfo),
+            });
+        }
+    };
+
+    const handlePressCheckRadio = () => {
+        setIsCheck(!isCheck);
+    };
+
     return (
         <View style={props.styles.container}>
-            <View style={props.styles.wrapper}>
+            <TouchableOpacity
+                style={props.styles.wrapper}
+                activeOpacity={0.6}
+                onPress={() => {
+                    if (props.targetCheckMode) {
+                        handlePressCheckRadio();
+                    } else {
+                        handlePressArrowRight();
+                    }
+                }}
+                disabled={props.targetCheckMode && props.roomInfo.roomState !== "signed"}>
                 <View style={props.styles.infoSection}>
                     <View>
                         <TenantRoomStateLabel roomState={props.roomInfo.roomState} />
@@ -145,15 +173,12 @@ function BuildingTenantView(props: BuildingTenantProps) {
                 </View>
                 <View style={props.styles.functionSection}>
                     {props.targetCheckMode ? (
-                        <TouchableOpacity
+                        <View
                             style={[
                                 props.styles.checkRadio,
                                 props.roomInfo.roomState !== "signed" ? props.styles.disabledCheckRadio : {},
                                 isCheck ? props.styles.checkedCheckRadio : {},
-                            ]}
-                            activeOpacity={0.3}
-                            onPress={() => setIsCheck(!isCheck)}
-                            disabled={props.roomInfo.roomState !== "signed"}>
+                            ]}>
                             {isCheck ? (
                                 <Icon
                                     name="check"
@@ -163,32 +188,18 @@ function BuildingTenantView(props: BuildingTenantProps) {
                             ) : (
                                 <></>
                             )}
-                        </TouchableOpacity>
+                        </View>
                     ) : (
-                        <TouchableOpacity
-                            style={props.styles.detailBtnWrapper}
-                            activeOpacity={0.3}
-                            onPress={() => {
-                                if (props.roomInfo.roomState === "empty" && props.roomInfo.roomID !== undefined) {
-                                    navigation.navigate("tenant_setting", {
-                                        type: "addtion",
-                                        roomID: props.roomInfo.roomID,
-                                    });
-                                } else {
-                                    navigation.navigate("tenant_detail", {
-                                        roomInfo: JSON.stringify(props.roomInfo),
-                                    });
-                                }
-                            }}>
+                        <View style={props.styles.detailBtnWrapper}>
                             <Icon
                                 name="arrow-right"
                                 size={props.styles.detailIcon.width}
                                 color={props.styles.detailIcon.color}
                             />
-                        </TouchableOpacity>
+                        </View>
                     )}
                 </View>
-            </View>
+            </TouchableOpacity>
         </View>
     );
 }
