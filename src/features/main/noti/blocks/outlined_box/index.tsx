@@ -37,10 +37,9 @@ function OutlinedBox(props: OutlinedBoxProps) {
         };
     }, []);
 
-    const onPress = (position: number) => {
+    const onPress = async (position: number) => {
         if (!loading) {
             setLoading(true);
-
             if (!unfold) {
                 setShowActivityIndicator(true);
             }
@@ -50,14 +49,6 @@ function OutlinedBox(props: OutlinedBoxProps) {
                     type: LayoutAnimation.Types.linear,
                 },
             });
-            setTimeout(() => {
-                setShowActivityIndicator(false);
-                props.flatListRef.current?.scrollToIndex({
-                    animated: false,
-                    index: position,
-                });
-            }, 300);
-
             setUnfold(!unfold);
             setLoading(false);
         }
@@ -126,6 +117,13 @@ function OutlinedBox(props: OutlinedBoxProps) {
                                 }`}
                             source={{ html: props.content }}
                             cacheEnabled={false}
+                            onLoadEnd={() => {
+                                setShowActivityIndicator(false);
+                                props.flatListRef.current?.scrollToIndex({
+                                    animated: false,
+                                    index: props.position,
+                                });
+                            }}
                             customScript={`
                                 try {
                                     const images = document.getElementsByTagName('img'); 
