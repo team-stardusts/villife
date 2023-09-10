@@ -3,9 +3,10 @@ import NavigationView from "../../../../common/blocks/navigation";
 import BuildingSendMessageScreenProps from "./types";
 import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
 import useBuildingSendMessageScreenStyles from "./styles";
-import NextButton from "../send_message/blocks/next";
+
 import TentantLayout from "../../blocks/tenant_layout";
 import VillifeToastMessage from "../../../../common/atoms/toast";
+import NextButton from "./blocks/next";
 
 export default function BuildingSendMessageScreen({ route }: BuildingSendMessageScreenProps) {
     const messages = useScreenMessage().messages;
