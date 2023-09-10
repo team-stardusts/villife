@@ -16,7 +16,7 @@ import VillifeComplaintRestClient from "./complaint";
 import IVillifeMediaManager from "./media/types";
 import VillifeMediaManager from "./media";
 import VillifePaymentRestClient from "./payment";
-import IVillifePaymentRestClient from "./payment/type";
+import IVillifePaymentRestClient from "./payment/types";
 
 const env: DotEnv = new DotEnv();
 

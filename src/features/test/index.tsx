@@ -4,7 +4,7 @@ import useTestService from "./test_hook";
 import { useEffect } from "react";
 import { View } from "react-native";
 import DotEnv from "../../libs/dotenv";
-import CreateOrderFormUsecase from "../main/payment/services/create_order";
+import PaymentServiceProvider from "../main/payment/services/provider";
 
 export default function TestScreen() {
     const test = useTestService();
@@ -23,8 +23,8 @@ export default function TestScreen() {
         },
     });
     const openWebView = async () => {
-        const usecase = new CreateOrderFormUsecase();
-        const result = await usecase.create({
+        const usecase = new PaymentServiceProvider();
+        const result = await usecase.createOrder({
             product_id: 977,
             product_type: "pt_management_fee",
             product_name: "빌라이프 2월 관리비",

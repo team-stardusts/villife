@@ -17,7 +17,7 @@ export default function useHomeScreenContentStyles() {
             paddingHorizontal: deviceUI.moderateScale(25),
         },
         navigationBox: {
-            flex: 3,
+            flex: 2.5,
             width: "100%",
             flexDirection: "row",
             justifyContent: "space-between",
@@ -35,7 +35,7 @@ export default function useHomeScreenContentStyles() {
             color: theme.color.specified.black,
         },
         childrenBox: {
-            flex: 7,
+            flex: 7.5,
         },
     });
 }

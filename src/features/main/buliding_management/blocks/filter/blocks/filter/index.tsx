@@ -7,9 +7,11 @@ import FloorFilter from "./blocks/floor";
 import ContractFilter from "./blocks/contract";
 import StatusFilter from "./blocks/status";
 import { BuildingRoomInfo } from "../../../../services/building_rooms/provider/types";
+import useUserInformation from "../../../../../../common/hooks/service/user_info";
 
 export default function TenantFilter(props: TenantFilterProps) {
     const messages = useScreenMessage().messages;
+    const user = useUserInformation();
     const tenants = useBuildngManagementFilterViewModel();
     const expirations = ["expired", "imminent-expiration"];
     const [filteredTenants, setFilteredTenants] = useState<BuildingRoomInfo[]>([]);
@@ -20,6 +22,16 @@ export default function TenantFilter(props: TenantFilterProps) {
         status: null,
         expiration: null,
     });
+
+    useEffect(() => {
+        setConditions({
+            ...conditions,
+            floor: null,
+            contract: null,
+            status: null,
+            expiration: null,
+        });
+    }, [user?.adminInfomation?.selectedBuilding]);
 
     useEffect(() => {
         props.onFilterChange(filteredTenants);

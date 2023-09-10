@@ -22,7 +22,7 @@ import NoticeRegisterScreen from "../../main/noti/screens/register";
 import NoticeHomeScreen from "../../main/noti/screens/home";
 import NoticeModifyScreen from "../../main/noti/screens/modify";
 import ParkingScreen from "../../main/parking/screens/home";
-import PaymentScreen from "../../main/payment/screens";
+import PaymentScreen from "../../main/payment/screens/home";
 import PermissionRequestScreen from "../../auth/screens/permission_request";
 import RegisterVehicleScreen from "../../main/parking/screens/register_vehicle";
 import RegisterGuestVehicleScreen from "../../main/parking/screens/register_guest_vehicle";

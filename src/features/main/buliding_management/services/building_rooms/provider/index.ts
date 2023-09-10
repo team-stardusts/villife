@@ -3,6 +3,7 @@ import { Responsable } from "../../../../../../libs/rest_apis/types";
 import VillifeServer from "../../../../../../libs/rest_apis/villife";
 import IVillifeApprovalManager from "../../../../../../libs/rest_apis/villife/approval/types";
 import IVillifeBuildingManager, { Building } from "../../../../../../libs/rest_apis/villife/building/types";
+import AServiceProvider from "../../../../../common/hooks/service/provider/absc";
 import {
     BuildingRoomInfo,
     IBuildingManagementServiceProvider,
@@ -12,7 +13,8 @@ import {
     VerifyBuildingAddress,
 } from "./types";
 
-class BuildingManagementServiceProvider implements IBuildingManagementServiceProvider {
+class BuildingManagementServiceProvider extends AServiceProvider implements IBuildingManagementServiceProvider {
+    protected readonly errorTag = "BUILDING_MANAGEMENT_SERVICE";
     private readonly _buildingApi: IVillifeBuildingManager = VillifeServer.getBuildingManager();
     private readonly _approvalApi: IVillifeApprovalManager = VillifeServer.getApprovalManager();
 
@@ -156,15 +158,6 @@ class BuildingManagementServiceProvider implements IBuildingManagementServicePro
         }
 
         return result.data.data;
-    }
-
-    private printWhyFailed(response: Responsable<any>["data"], message?: string) {
-        console.error(
-            "[BUILDING_MANAGEMENT_SERVICE]",
-            response?.status,
-            message && message,
-            `\n\tReason: ${response?.data}`
-        );
     }
 }
 

@@ -1,0 +1,190 @@
+import { StyleSheet } from "react-native";
+import useStyler from "../../../../common/hooks/styler/hooks";
+
+export default function usePaymentScreenStyles() {
+    const { deviceUI, theme } = useStyler();
+
+    const main = StyleSheet.create({
+        container: {
+            flex: 1,
+        },
+    });
+
+    const payment = StyleSheet.create({
+        container: {
+            marginTop: deviceUI.moderateScale(10),
+            height: deviceUI.moderateScale(150),
+        },
+        contentBox: {
+            color: theme.color.specified.white,
+        },
+        contentWrapper: {
+            height: "100%",
+            width: "100%",
+            paddingHorizontal: deviceUI.moderateScale(20),
+        },
+        header: {
+            flex: 3,
+            width: "100%",
+            justifyContent: "flex-end",
+        },
+        headerText: {
+            fontFamily: theme.font.fontFamily.pretendard.bold,
+            fontSize: deviceUI.moderateScale(13),
+            color: theme.color.specified.black,
+        },
+        body: {
+            flex: 7,
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "space-between",
+            marginBottom: deviceUI.moderateScale(20),
+        },
+        managementFee: {
+            fontFamily: theme.font.fontFamily.pretendard.extraBold,
+            fontSize: deviceUI.moderateScale(25),
+            color: theme.color.specified.black,
+        },
+        paymentBtn: {
+            borderRadius: deviceUI.moderateScale(20),
+            backgroundColor: theme.color.series.grey.level1,
+            alignItems: "center",
+            justifyContent: "center",
+            paddingHorizontal: deviceUI.moderateScale(10),
+            paddingVertical: deviceUI.moderateScale(5),
+        },
+        paymentText: {
+            fontFamily: theme.font.fontFamily.pretendard.regular,
+            fontSize: deviceUI.moderateScale(12),
+            color: theme.color.specified.black,
+        },
+    });
+
+    const bill = StyleSheet.create({
+        container: {
+            //height: deviceUI.moderateScale(150),
+            marginTop: deviceUI.moderateScale(15),
+        },
+        contentBox: {
+            color: theme.color.specified.white,
+        },
+        contentWrapper: {
+            height: "100%",
+            width: "100%",
+            paddingHorizontal: deviceUI.moderateScale(20),
+        },
+        header: {
+            width: "100%",
+            paddingVertical: deviceUI.moderateScale(15),
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "space-between",
+        },
+        headerText: {
+            fontFamily: theme.font.fontFamily.pretendard.bold,
+            fontSize: deviceUI.moderateScale(22),
+            color: theme.color.specified.black,
+        },
+        body: {
+            width: "100%",
+            paddingVertical: deviceUI.moderateScale(15),
+        },
+        bodyRow: {
+            width: "100%",
+            flexDirection: "row",
+            justifyContent: "space-between",
+            alignItems: "center",
+            marginBottom: deviceUI.moderateScale(10),
+        },
+        bodyRowKey: {
+            fontFamily: theme.font.fontFamily.pretendard.bold,
+            fontSize: deviceUI.moderateScale(15),
+            color: theme.color.specified.black,
+        },
+        bodyRowValue: {
+            fontFamily: theme.font.fontFamily.pretendard.regular,
+            fontSize: deviceUI.moderateScale(14),
+            color: theme.color.specified.black,
+        },
+        detailBtn: {
+            borderRadius: deviceUI.moderateScale(20),
+            backgroundColor: theme.color.series.grey.level1,
+            alignItems: "center",
+            justifyContent: "center",
+            paddingHorizontal: deviceUI.moderateScale(10),
+            paddingVertical: deviceUI.moderateScale(5),
+        },
+        detailText: {
+            fontFamily: theme.font.fontFamily.pretendard.regular,
+            fontSize: deviceUI.moderateScale(12),
+            color: theme.color.specified.black,
+        },
+    });
+
+    const paymentStatus = StyleSheet.create({
+        container: {
+            marginTop: deviceUI.moderateScale(25),
+            height: deviceUI.moderateScale(65),
+        },
+        paymentContainer: {
+            height: "100%",
+            width: deviceUI.moderateScale(65),
+            marginRight: deviceUI.moderateScale(10),
+        },
+        contentBox: {
+            color: theme.color.specified.white,
+        },
+        contentWrapper: {
+            height: "100%",
+            width: "100%",
+            paddingHorizontal: deviceUI.moderateScale(7),
+        },
+        monthBox: {
+            height: "50%",
+            justifyContent: "center",
+            alignItems: "center",
+        },
+        month: {
+            fontFamily: theme.font.fontFamily.pretendard.bold,
+            fontSize: deviceUI.moderateScale(13),
+            color: theme.color.specified.black,
+        },
+        btnBox: {
+            height: "50%",
+            width: "100%",
+            justifyContent: "flex-start",
+            alignItems: "center",
+        },
+        iconBox: {
+            width: "100%",
+            height: "70%",
+            justifyContent: "center",
+            alignItems: "center",
+        },
+        icon: {
+            width: deviceUI.moderateScale(25),
+            color: theme.color.specified.green,
+        },
+        paymentBtn: {
+            marginTop: deviceUI.moderateScale(3),
+            paddingHorizontal: deviceUI.moderateScale(10),
+            paddingVertical: deviceUI.moderateScale(3),
+            borderRadius: deviceUI.moderateScale(20),
+            backgroundColor: theme.color.specified.blue,
+            justifyContent: "center",
+            alignItems: "center",
+        },
+        paymentBtnText: {
+            fontFamily: theme.font.fontFamily.pretendard.regular,
+            fontSize: deviceUI.moderateScale(8),
+            color: theme.color.specified.white,
+        },
+    });
+
+    return {
+        main,
+        payment,
+        bill,
+        paymentStatus,
+    };
+}

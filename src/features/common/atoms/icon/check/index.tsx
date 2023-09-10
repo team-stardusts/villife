@@ -9,7 +9,7 @@ export default function IconCheck(props: CommonIconProps) {
     const heightRatio: number = 9 / (12 + 9);
 
     return (
-        <Svg width={size * widthRatio} height={size * heightRatio} fill="none">
+        <Svg width={size * widthRatio} height={size * heightRatio} viewBox="0 0 12 9" fill="none">
             <Path
                 d="M10.6668 1.5L4.25016 7.91667L1.3335 5"
                 stroke={color ?? ICON_DEFAULT_COLOR}
