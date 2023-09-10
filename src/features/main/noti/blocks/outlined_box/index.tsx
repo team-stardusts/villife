@@ -1,6 +1,6 @@
 import { ActivityIndicator, Pressable, TouchableOpacity, View } from "react-native";
 import { Text } from "react-native";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { LayoutAnimation } from "react-native";
 import { OutlinedBoxProps } from "./type";
 import NotiLable from "../noti_label.tsx";
@@ -18,17 +18,18 @@ import { Shadow } from "react-native-shadow-2";
 
 /**
  * @param OutlinedBoxProp
- * @description this componets are used by noti and complaint domains which are incharge of showing its contents
+ * @description this components are used by noti and complaint domains which are in charge of showing its contents
  */
 function OutlinedBox(props: OutlinedBoxProps) {
     const styles = useNotiOutlinedBoxStyles();
     const user = useUserInformation();
     const { theme } = useStyler();
-
-    const [unfold, setUnfold] = React.useState(false);
-    const [editModalVisible, setEditModalVisible] = React.useState(false);
-    const [loading, setLoading] = React.useState(false);
     const navigation = useNavigation<VillifeNavigation>();
+
+    const [unfold, setUnfold] = useState(false);
+    const [editModalVisible, setEditModalVisible] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const [showActivityIndicator, setShowActivityIndicator] = useState(false);
 
     useEffect(() => {
         return () => {
@@ -39,7 +40,10 @@ function OutlinedBox(props: OutlinedBoxProps) {
     const onPress = (position: number) => {
         if (!loading) {
             setLoading(true);
-            setUnfold(!unfold);
+
+            if (!unfold) {
+                setShowActivityIndicator(true);
+            }
             LayoutAnimation.configureNext({
                 duration: 50,
                 update: {
@@ -47,10 +51,16 @@ function OutlinedBox(props: OutlinedBoxProps) {
                 },
             });
             setTimeout(() => {
-                props.flatListRef.current?.scrollToIndex({ animated: false, index: position });
+                setShowActivityIndicator(false);
+                props.flatListRef.current?.scrollToIndex({
+                    animated: false,
+                    index: position,
+                });
             }, 300);
+
+            setUnfold(!unfold);
+            setLoading(false);
         }
-        setLoading(false);
     };
 
     return (
@@ -60,10 +70,8 @@ function OutlinedBox(props: OutlinedBoxProps) {
             <Shadow style={styles.container} distance={4}>
                 <View style={styles.innerBox}>
                     <Pressable
-                        onPress={() => {
-                            setUnfold(!unfold);
-                        }}
-                        style={[styles.innerTitleSection, { borderBottomWidth: !unfold ? 0 : 2 }]}>
+                        onPress={() => onPress(props.position)}
+                        style={[styles.innerTitleSection, { borderBottomWidth: unfold ? 2 : 0 }]}>
                         <View style={styles.contentBox}>
                             <NotiLable priority={props.priority} />
                             <View style={styles.titleTextBox}>
@@ -74,7 +82,7 @@ function OutlinedBox(props: OutlinedBoxProps) {
                             </View>
                             <View style={styles.absoluteWrapper}>
                                 <View style={styles.iconBox}>
-                                    {unfold && user?.isAdmin ? (
+                                    {unfold && user?.isAdmin && (
                                         <TouchableOpacity
                                             style={styles.editButton}
                                             onPress={() => {
@@ -82,16 +90,16 @@ function OutlinedBox(props: OutlinedBoxProps) {
                                             }}>
                                             <EditIcon size={styles.iconEditSize.width as number} />
                                         </TouchableOpacity>
-                                    ) : (
-                                        <></>
                                     )}
-                                    <PressableVectorIcon
-                                        onPress={() => {
-                                            onPress(props.position);
-                                        }}
-                                        providerName={unfold ? "up" : "down"}
-                                        diameter={styles.iconVectorSize.width as number}
-                                    />
+                                    {showActivityIndicator ? (
+                                        <ActivityIndicator size="large" color={theme.color.specified.grey} />
+                                    ) : (
+                                        <PressableVectorIcon
+                                            onPress={() => onPress(props.position)}
+                                            providerName={unfold ? "up" : "down"}
+                                            diameter={styles.iconVectorSize.width as number}
+                                        />
+                                    )}
                                 </View>
                             </View>
                         </View>
@@ -99,50 +107,43 @@ function OutlinedBox(props: OutlinedBoxProps) {
 
                     {unfold && (
                         <AutoHeightWebView
-                            startInLoadingState={true}
-                            renderLoading={() => {
-                                return (
-                                    <View style={{ justifyContent: "center", marginBottom: 50 }}>
-                                        <ActivityIndicator size="large" color={theme.color.specified.grey} />
-                                    </View>
-                                );
-                            }}
                             style={styles.foldedContainer}
-                            customStyle={`${RemoteCSS.getPretendardRegular()}
-                                        body {
-                                          font-size: 14px;
-                                          font-family:"Pretendard-Regular";
-                                        }
-                                        div {
-                                          color: ${theme.color.specified.black.toString()}; 
-                                          
-                                        }
-                                        img {
-                                            width: 50vw !important;
-                                            height: 50vw !important;
-                                            object-fit: cover;
-                                            display:block;
-                                            border-radius: 15px;
-                                          }`}
+                            customStyle={`
+                                ${RemoteCSS.getPretendardRegular()}
+                                body {
+                                    font-size: 14px;
+                                    font-family:"Pretendard-Regular";
+                                }
+                                div {
+                                    color: ${theme.color.specified.black.toString()};
+                                }
+                                img {
+                                    width: 50vw !important;
+                                    height: 50vw !important;
+                                    object-fit: cover;
+                                    display:block;
+                                    border-radius: 15px;
+                                }`}
                             source={{ html: props.content }}
                             cacheEnabled={false}
                             customScript={`
-                                    try {
-                                        const images = document.getElementsByTagName('img'); 
-                                        for (const image of images) {
-                                            image.addEventListener('click', () => {
-                                                const src = image.src
-                                                window.ReactNativeWebView.postMessage(JSON.stringify(src));
-                                            });
-                                        }
-                                    }catch(e){
-                                        window.ReactNativeWebView.postMessage(JSON.stringify("error"));    
+                                try {
+                                    const images = document.getElementsByTagName('img'); 
+                                    for (const image of images) {
+                                        image.addEventListener('click', () => {
+                                            const src = image.src
+                                            window.ReactNativeWebView.postMessage(JSON.stringify(src));
+                                        });
                                     }
-                                `}
+                                } catch(e){
+                                    window.ReactNativeWebView.postMessage(JSON.stringify("error"));
+                                }`}
                             javaScriptEnabled={true}
                             onMessage={(event) => {
                                 const imageUri = JSON.parse(event.nativeEvent.data);
-                                navigation.navigate("image_detail_view", { uri: imageUri });
+                                navigation.navigate("image_detail_view", {
+                                    uri: imageUri,
+                                });
                             }}
                             scalesPageToFit={false}
                             viewportContent={"width=device-width, user-scalable=no"}></AutoHeightWebView>
