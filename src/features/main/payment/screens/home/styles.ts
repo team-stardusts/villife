@@ -1,5 +1,6 @@
 import { StyleSheet } from "react-native";
 import useStyler from "../../../../common/hooks/styler/hooks";
+import { SCREEN_PADDING_HORIZONTAL_STANDARD_VALUE } from "../../../../common/constants";
 
 export default function usePaymentScreenStyles() {
     const { deviceUI, theme } = useStyler();
@@ -7,6 +8,9 @@ export default function usePaymentScreenStyles() {
     const main = StyleSheet.create({
         container: {
             flex: 1,
+        },
+        wrapper: {
+            paddingHorizontal: deviceUI.moderateScale(SCREEN_PADDING_HORIZONTAL_STANDARD_VALUE),
         },
     });
 
@@ -129,7 +133,7 @@ export default function usePaymentScreenStyles() {
         paymentContainer: {
             height: "100%",
             width: deviceUI.moderateScale(65),
-            marginRight: deviceUI.moderateScale(10),
+            marginLeft: deviceUI.moderateScale(SCREEN_PADDING_HORIZONTAL_STANDARD_VALUE),
         },
         contentBox: {
             color: theme.color.specified.white,

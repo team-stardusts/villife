@@ -9,14 +9,25 @@ export default function PaymentStatusScrollView(props: PaymentStatusScrollViewPr
     return (
         <ScrollView style={props.styles.container} horizontal showsHorizontalScrollIndicator={false}>
             {props.manangementFees &&
-                props.manangementFees.map((fee, index) => <PaymentByMonth styles={props.styles} managementFee={fee} />)}
+                props.manangementFees.map((fee, index) => (
+                    <PaymentByMonth
+                        key={index}
+                        isLastElement={props.manangementFees?.length === index + 1}
+                        styles={props.styles}
+                        managementFee={fee}
+                    />
+                ))}
         </ScrollView>
     );
 }
 
 function PaymentByMonth(props: PaymentByMonthProps) {
     return (
-        <View style={props.styles.paymentContainer}>
+        <View
+            style={[
+                props.styles.paymentContainer,
+                props.isLastElement && { marginRight: props.styles.paymentContainer.marginLeft },
+            ]}>
             <ContentBox backgroundColor={props.styles.contentBox.color} enableShadow={false}>
                 <View style={props.styles.contentWrapper}>
                     <View style={props.styles.monthBox}>
@@ -43,6 +54,7 @@ function PaymentByMonth(props: PaymentByMonthProps) {
 }
 
 type PaymentByMonthProps = {
+    isLastElement: boolean;
     styles: ReturnType<typeof usePaymentScreenStyles>["paymentStatus"];
     managementFee: Payment.ManagementFee;
 };

@@ -19,11 +19,14 @@ export default function PaymentScreen({ navigation, route }: PaymentScreenProps)
                 title: messages.messages.main.payment.screen_title,
             }}
             bodyOptions={{
-                applyDefaultHorizontalPadding: true,
+                applyDefaultHorizontalPadding: false,
+                applyDefaultVerticalPadding: false,
             }}>
             <ScrollView style={styles.main.container}>
-                <PaymentBox styles={styles.payment} manangementFee={payer?.thisMonthFee} />
-                <BillBox styles={styles.bill} manangementFee={payer?.thisMonthFee} />
+                <View style={styles.main.wrapper}>
+                    <PaymentBox styles={styles.payment} manangementFee={payer?.thisMonthFee} />
+                    <BillBox styles={styles.bill} manangementFee={payer?.thisMonthFee} />
+                </View>
                 <PaymentStatusScrollView styles={styles.paymentStatus} manangementFees={payer?.fees} />
             </ScrollView>
         </NavigationView>
