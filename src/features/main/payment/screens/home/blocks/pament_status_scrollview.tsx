@@ -4,19 +4,40 @@ import ContentBox from "../../../../../common/blocks/content_box";
 import usePaymentScreenStyles from "../styles";
 import { Payment } from "../../../../../../libs/rest_apis/villife/payment/types";
 import Icon from "../../../../../common/atoms/icon";
+import { useEffect, useRef, useState } from "react";
 
 export default function PaymentStatusScrollView(props: PaymentStatusScrollViewProps) {
+    const [fees, setFees] = useState<Payment.ManagementFee[]>([]);
+    const scrollviewRef = useRef<ScrollView>(null);
+
+    useEffect(() => {
+        if (props.manangementFees === undefined) return;
+
+        if (props.manangementFees.length > 12) {
+            setFees([...props.manangementFees.slice(props.manangementFees.length - 12, props.manangementFees.length)]);
+        } else {
+            setFees([...props.manangementFees]);
+        }
+        scrollviewRef.current?.scrollToEnd({ animated: true });
+    }, [props.manangementFees]);
+
+    useEffect(() => {}, [fees]);
+
     return (
-        <ScrollView style={props.styles.container} horizontal showsHorizontalScrollIndicator={false}>
-            {props.manangementFees &&
-                props.manangementFees.map((fee, index) => (
-                    <PaymentByMonth
-                        key={index}
-                        isLastElement={props.manangementFees?.length === index + 1}
-                        styles={props.styles}
-                        managementFee={fee}
-                    />
-                ))}
+        <ScrollView
+            ref={scrollviewRef}
+            style={props.styles.container}
+            onContentSizeChange={() => scrollviewRef.current?.scrollToEnd({ animated: true })}
+            horizontal
+            showsHorizontalScrollIndicator={false}>
+            {fees.map((fee, index) => (
+                <PaymentByMonth
+                    key={index}
+                    isLastElement={fees.length === index + 1}
+                    styles={props.styles}
+                    managementFee={fee}
+                />
+            ))}
         </ScrollView>
     );
 }

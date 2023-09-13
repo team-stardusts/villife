@@ -30,4 +30,16 @@ export default class PaymentServiceProvider extends AServiceProvider implements 
 
         return result.data.data;
     }
+
+    public async getUserBills(params: Payment.GetUserBills.Params): Promise<Payment.ManagementFee[]> {
+        const result = await this._api.getUserBills(params);
+
+        if (!result.isSuccessful || result.data?.data === undefined) {
+            this.printWhyFailed(result.data, "왜 Undefine일까?");
+
+            return [];
+        }
+
+        return result.data.data;
+    }
 }

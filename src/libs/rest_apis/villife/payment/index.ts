@@ -4,7 +4,7 @@ import IVillifePaymentRestClient, { Payment } from "./types";
 
 const dummyData: Payment.GetBills.Result = [
     {
-        id: 1,
+        bill_id: 1,
         category: "hello",
         is_paid: true,
         year: 2022,
@@ -13,7 +13,7 @@ const dummyData: Payment.GetBills.Result = [
         payment_info: {},
     },
     {
-        id: 2,
+        bill_id: 2,
         category: "hello",
         is_paid: true,
         year: 2022,
@@ -22,7 +22,7 @@ const dummyData: Payment.GetBills.Result = [
         payment_info: {},
     },
     {
-        id: 3,
+        bill_id: 3,
         category: "hello",
         is_paid: true,
         year: 2022,
@@ -31,7 +31,7 @@ const dummyData: Payment.GetBills.Result = [
         payment_info: {},
     },
     {
-        id: 4,
+        bill_id: 4,
         category: "hello",
         is_paid: true,
         year: 2022,
@@ -40,7 +40,7 @@ const dummyData: Payment.GetBills.Result = [
         payment_info: {},
     },
     {
-        id: 5,
+        bill_id: 5,
         category: "hello",
         is_paid: true,
         year: 2022,
@@ -49,7 +49,7 @@ const dummyData: Payment.GetBills.Result = [
         payment_info: {},
     },
     {
-        id: 6,
+        bill_id: 6,
         category: "hello",
         is_paid: true,
         year: 2023,
@@ -58,7 +58,7 @@ const dummyData: Payment.GetBills.Result = [
         payment_info: {},
     },
     {
-        id: 7,
+        bill_id: 7,
         category: "hello",
         is_paid: true,
         year: 2023,
@@ -67,7 +67,7 @@ const dummyData: Payment.GetBills.Result = [
         payment_info: {},
     },
     {
-        id: 8,
+        bill_id: 8,
         category: "hello",
         is_paid: true,
         year: 2023,
@@ -76,7 +76,7 @@ const dummyData: Payment.GetBills.Result = [
         payment_info: {},
     },
     {
-        id: 9,
+        bill_id: 9,
         category: "hello",
         is_paid: true,
         year: 2023,
@@ -85,7 +85,7 @@ const dummyData: Payment.GetBills.Result = [
         payment_info: {},
     },
     {
-        id: 10,
+        bill_id: 10,
         category: "hello",
         is_paid: true,
         year: 2023,
@@ -94,7 +94,7 @@ const dummyData: Payment.GetBills.Result = [
         payment_info: {},
     },
     {
-        id: 11,
+        bill_id: 11,
         category: "hello",
         is_paid: true,
         year: 2023,
@@ -103,7 +103,7 @@ const dummyData: Payment.GetBills.Result = [
         payment_info: {},
     },
     {
-        id: 12,
+        bill_id: 12,
         category: "hello",
         is_paid: true,
         year: 2023,
@@ -112,7 +112,7 @@ const dummyData: Payment.GetBills.Result = [
         payment_info: {},
     },
     {
-        id: 13,
+        bill_id: 13,
         category: "hello",
         is_paid: true,
         year: 2023,
@@ -121,7 +121,7 @@ const dummyData: Payment.GetBills.Result = [
         payment_info: {},
     },
     {
-        id: 14,
+        bill_id: 14,
         category: "hello",
         is_paid: false,
         year: 2023,
@@ -133,12 +133,25 @@ const dummyData: Payment.GetBills.Result = [
 
 export default class VillifePaymentRestClient extends AVillifeServerModule implements IVillifePaymentRestClient {
     public async createOrderForm(params: Payment.CreateOrder.Params): Response<Payment.CreateOrder.Result> {
-        const url = this.routes.payment.order;
+        const url = this.routes.payment.handleBuildingBill;
 
         return await this.requestAuthable<Payment.CreateOrder.Params, Payment.CreateOrder.Result>({
             method: "post",
             url: url,
             data: params,
+        });
+    }
+
+    public async getUserBills(params: Payment.GetUserBills.Params): Response<Payment.GetUserBills.Result> {
+        const route = this.routes.payment.handleMyBill;
+        const data: Payment.GetUserBills.Data = {
+            unpaid_only: params.unpaidOnly ? "yes" : "no",
+        };
+
+        return await this.requestAuthable<Payment.GetUserBills.Data, Payment.GetUserBills.Result>({
+            method: "get",
+            url: route,
+            params: data,
         });
     }
 

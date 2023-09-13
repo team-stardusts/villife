@@ -128,10 +128,10 @@ export default function usePaymentScreenStyles() {
     const paymentStatus = StyleSheet.create({
         container: {
             marginTop: deviceUI.moderateScale(25),
-            height: deviceUI.moderateScale(65),
+            //height: deviceUI.moderateScale(65),
         },
         paymentContainer: {
-            height: "100%",
+            height: deviceUI.moderateScale(65),
             width: deviceUI.moderateScale(65),
             marginLeft: deviceUI.moderateScale(SCREEN_PADDING_HORIZONTAL_STANDARD_VALUE),
         },

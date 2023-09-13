@@ -9,6 +9,19 @@ export namespace Payment {
 
     export interface IBillGettable {
         getBills(params: GetBills.Params): ResponseForTest<GetBills.Result>;
+        getUserBills(params: GetUserBills.Params): Response<GetUserBills.Result>;
+    }
+
+    export namespace GetUserBills {
+        export type Params = {
+            unpaidOnly?: true;
+        };
+
+        export type ReqParams = {
+            unpaid_only: "yes" | "no";
+        };
+
+        export type Result = ManagementFee[];
     }
 
     export namespace GetBills {
@@ -25,13 +38,13 @@ export namespace Payment {
     }
 
     export type ManagementFee = {
-        id: number;
-        category: string;
         amount_won: number;
+        bill_id: number;
+        category: string;
         is_paid: boolean;
         month: number;
-        year: number;
         payment_info: PaymentInfo;
+        year: number;
     };
 
     export type PaymentInfo = {};

@@ -61,7 +61,8 @@ namespace Routes {
     };
 
     export type Payment = {
-        order: string;
+        handleBuildingBill: string;
+        handleMyBill: string;
     };
 }
 

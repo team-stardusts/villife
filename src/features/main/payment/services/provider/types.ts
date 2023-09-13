@@ -8,4 +8,5 @@ interface IPaymentOrderable {
 
 interface IBillGettable {
     getBills(params: Payment.GetBills.Params): Promise<Payment.ManagementFee[]>;
+    getUserBills(params: Payment.GetUserBills.Params): Promise<Payment.ManagementFee[]>;
 }
