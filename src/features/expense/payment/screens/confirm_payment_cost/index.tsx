@@ -33,10 +33,13 @@ export default function ConfirmPaymentCostScreen({ navigation, route }: ConfirmP
             }}>
             <ScreenTitleView
                 titles={[`${costType} 결제하기`]}
-                subtitles={["내역과 중개수수료를 확인하고 결제해주세요."]}
+                subtitles={["비용 내역과 중개수수료를 확인하고 결제해주세요."]}
                 bottomButton={{
                     title: "결제하기",
-                    onPress: () => console.log("HELLO"),
+                    onPress: () =>
+                        navigation.navigate("payment_window", {
+                            ...route.params,
+                        }),
                 }}
                 disablePaddingTop>
                 <View style={styles.main.container}>

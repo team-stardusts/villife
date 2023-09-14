@@ -10,6 +10,7 @@ export default function useConfirmPaymentScreenStyles() {
         },
         container: {
             flex: 1,
+            paddingHorizontal: deviceUI.moderateScale(10),
         },
         priceContainer: {
             flex: 0.1,

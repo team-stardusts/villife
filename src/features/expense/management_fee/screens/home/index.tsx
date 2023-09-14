@@ -43,7 +43,7 @@ export default function ManagementFeeHomeScreen({ navigation, route }: Managemen
                 </View>
                 <ManagementFeeStatusScrollView
                     styles={styles.managementFeeStatus}
-                    manangementFees={payer.history.user}
+                    manangementFee={payer.history.user}
                 />
             </ScrollView>
         </NavigationView>

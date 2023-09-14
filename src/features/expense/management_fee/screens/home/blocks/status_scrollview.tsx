@@ -5,21 +5,23 @@ import useManagementFeeHomeScreenStyles from "../styles";
 import { ManagementFee } from "../../../../../../libs/rest_apis/villife/expense/types";
 import Icon from "../../../../../common/atoms/icon";
 import { useEffect, useRef, useState } from "react";
+import { useNavigation } from "@react-navigation/native";
+import { VillifeNavigation } from "../../../../../common/router/types";
 
 export default function ManagementFeeStatusScrollView(props: ManagementFeeStatusScrollViewProps) {
     const [fees, setFees] = useState<ManagementFee.ManagementFee[]>([]);
     const scrollviewRef = useRef<ScrollView>(null);
 
     useEffect(() => {
-        if (props.manangementFees === undefined) return;
+        if (props.manangementFee === undefined) return;
 
-        if (props.manangementFees.length > 12) {
-            setFees([...props.manangementFees.slice(props.manangementFees.length - 12, props.manangementFees.length)]);
+        if (props.manangementFee.length > 12) {
+            setFees([...props.manangementFee.slice(props.manangementFee.length - 12, props.manangementFee.length)]);
         } else {
-            setFees([...props.manangementFees]);
+            setFees([...props.manangementFee]);
         }
         scrollviewRef.current?.scrollToEnd({ animated: true });
-    }, [props.manangementFees]);
+    }, [props.manangementFee]);
 
     useEffect(() => {}, [fees]);
 
@@ -44,6 +46,25 @@ export default function ManagementFeeStatusScrollView(props: ManagementFeeStatus
 }
 
 function PaymentByMonth(props: PaymentByMonthProps) {
+    const navigation = useNavigation<VillifeNavigation>();
+
+    const handlePressPaymentBtn = () => {
+        navigation.navigate("confirm_payment_cost", {
+            title: "관리비 결제하기",
+            product_id: props.managementFee.bill_id,
+            product_name: "?",
+            product_type: "pt_management_fee",
+            price: props.managementFee.amount_won,
+            bill: {
+                관리용역비: 20000,
+                일반관리비: 45000,
+                소독비: 100,
+                화재보험료: 100,
+                수선유지비: 100,
+            },
+        });
+    };
+
     return (
         <View
             style={[
@@ -53,7 +74,11 @@ function PaymentByMonth(props: PaymentByMonthProps) {
                 props.isLastElement && { marginRight: props.styles.managementFeeContainer.marginLeft * 1.5 },
             ]}>
             <ContentBox backgroundColor={props.styles.contentBox.color} enableShadow={false}>
-                <View style={props.styles.contentWrapper}>
+                <TouchableOpacity
+                    style={props.styles.contentWrapper}
+                    activeOpacity={0.6}
+                    disabled={props.managementFee.is_paid}
+                    onPress={handlePressPaymentBtn}>
                     <View style={props.styles.monthBox}>
                         <Text style={props.styles.month}>{props.managementFee.month}월</Text>
                     </View>
@@ -63,15 +88,12 @@ function PaymentByMonth(props: PaymentByMonthProps) {
                                 <Icon name="check" size={props.styles.icon.width} color={props.styles.icon.color} />
                             </View>
                         ) : (
-                            <TouchableOpacity
-                                style={props.styles.paymentBtn}
-                                activeOpacity={0.6}
-                                onPress={() => console.log("납부!!")}>
+                            <View style={props.styles.paymentBtn}>
                                 <Text style={props.styles.paymentBtnText}>납부하기</Text>
-                            </TouchableOpacity>
+                            </View>
                         )}
                     </View>
-                </View>
+                </TouchableOpacity>
             </ContentBox>
         </View>
     );
