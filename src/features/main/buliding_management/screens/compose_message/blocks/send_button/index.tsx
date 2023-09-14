@@ -1,9 +1,9 @@
 import { ActivityIndicator, TouchableOpacity, View, Text } from "react-native";
 import useNotiRegisterButtonStyles from "./styles";
-import NotiRegisterButtonProps from "./type";
 import useScreenMessage from "../../../../../../common/hooks/multilingual/hooks";
+import SendButtonProps from "./type";
 
-export default function SendButton(props: NotiRegisterButtonProps): JSX.Element {
+export default function SendButton(props: SendButtonProps): JSX.Element {
     const styles = useNotiRegisterButtonStyles();
     const Message = useScreenMessage();
 

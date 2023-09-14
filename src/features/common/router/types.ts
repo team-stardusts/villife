@@ -80,6 +80,7 @@ export type VillifeStackParamList = VillifeRootStackParamList & {
         contractID: number;
         roomID: number;
     };
+    compose_message: {};
     terms_of_service?: {};
 
     //building: {};

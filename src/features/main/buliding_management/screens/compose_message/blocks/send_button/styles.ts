@@ -1,8 +1,8 @@
 import { StyleSheet } from "react-native";
-import { UseNotiRegisterButtonStylesType } from "./type";
-import useStyler from "../../../../common/hooks/styler/hooks";
+import { UseSendButtonStylesType } from "./type";
+import useStyler from "../../../../../../common/hooks/styler/hooks";
 
-export default function useNotiRegisterButtonStyles(): UseNotiRegisterButtonStylesType {
+export default function useSendButtonButtonStyles(): UseSendButtonStylesType {
     const { deviceUI, theme } = useStyler();
     return StyleSheet.create({
         registerButton: {

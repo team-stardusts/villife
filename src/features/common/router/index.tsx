@@ -37,6 +37,7 @@ import useRoutingAdministratorByLogin from "./routing_admin";
 import WelcomeScreen from "../../auth/screens/welcome";
 import TenantDetailScreen from "../../main/buliding_management/screens/tenant_detail";
 import TenantSettingScreen from "../../main/buliding_management/screens/tenant_setting";
+import ComposeMessageScreen from "../../main/buliding_management/screens/compose_message";
 
 enableScreens(true);
 
@@ -69,6 +70,7 @@ export default function ScreenRouter() {
                     name={"send_message_to_building_tenants"}
                     component={BuildingSendMessageScreen}
                 />
+                <Stack.Screen name={"compose_message"} component={ComposeMessageScreen} />
             </Stack.Group>
             <Stack.Group>
                 <Stack.Screen name={"parking"} component={ParkingScreen} />
