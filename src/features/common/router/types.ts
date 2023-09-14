@@ -82,7 +82,13 @@ export type VillifeStackParamList = VillifeRootStackParamList & {
     };
     compose_message: {};
     terms_of_service?: {};
-
+    payment_window: {
+        title: string;
+        product_id: number;
+        product_type: "pt_management_fee" | "pt_monthlt_rent";
+        product_name: string;
+        price: number;
+    };
     //building: {};
 };
 

@@ -60,9 +60,13 @@ namespace Routes {
         getBuildingManagedByAdmin: string;
     };
 
-    export type Payment = {
+    export type Expense = {
         handleBuildingBill: string;
         handleMyBill: string;
+    };
+
+    export type Payment = {
+        order: string;
     };
 }
 
@@ -76,5 +80,6 @@ export type RoutesType = {
     test: Routes.Test;
     parking: Routes.Parking;
     userInfo: Routes.UserInformation;
+    expense: Routes.Expense;
     payment: Routes.Payment;
 };

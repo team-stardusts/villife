@@ -1,4 +1,4 @@
-import { ManagementFee } from "../../../../../libs/rest_apis/villife/payment/types";
+import { ManagementFee } from "../../../../../libs/rest_apis/villife/expense/types";
 
 export interface IManagementFeePaymentServiceProvider extends IPaymentOrderable, IBillGettable {}
 

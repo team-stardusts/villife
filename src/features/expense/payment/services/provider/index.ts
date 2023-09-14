@@ -1,8 +1,8 @@
 import VillifeServer from "../../../../../libs/rest_apis/villife";
 import AServiceProvider from "../../../../common/hooks/service/provider/absc";
-import type { Payment } from "../../../../../libs/rest_apis/villife/payment/types";
 import { IPaymentServiceProvider } from "./types";
 import DotEnv from "../../../../../libs/dotenv";
+import { Payment } from "../../../../../libs/rest_apis/villife/payment/types";
 
 export default class PaymentServiceProvider extends AServiceProvider implements IPaymentServiceProvider {
     protected readonly errorTag = "PAYMENT_SERVICE";

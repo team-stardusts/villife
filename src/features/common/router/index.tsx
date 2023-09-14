@@ -38,6 +38,7 @@ import WelcomeScreen from "../../auth/screens/welcome";
 import TenantDetailScreen from "../../main/buliding_management/screens/tenant_detail";
 import TenantSettingScreen from "../../main/buliding_management/screens/tenant_setting";
 import ComposeMessageScreen from "../../main/buliding_management/screens/compose_message";
+import CommonPaymentWindowScreen from "../../expense/payment/screens/payment_window_common";
 
 enableScreens(true);
 
@@ -79,7 +80,7 @@ export default function ScreenRouter() {
                 <Stack.Screen name={"send_park_push_noti"} component={SendParkPushNotiScreen} />
             </Stack.Group>
             <Stack.Group>
-                <Stack.Screen name={"payment"} component={ManagementFeeHomeScreen} />
+                <Stack.Screen name={"management_fee"} component={ManagementFeeHomeScreen} />
                 <Stack.Screen name={"mypage"} component={MyPageScreen} />
                 <Stack.Screen name={"my_page"} component={MyPageHomeScreen} />
             </Stack.Group>
@@ -111,6 +112,9 @@ export default function ScreenRouter() {
             </Stack.Group>
             <Stack.Group>
                 <Stack.Screen name={"approval_home"} component={ApprovalHomeScreen} />
+            </Stack.Group>
+            <Stack.Group>
+                <Stack.Screen name={"payment_window"} component={CommonPaymentWindowScreen} />
             </Stack.Group>
         </Stack.Navigator>
     );

@@ -4,13 +4,14 @@ import useTestService from "./test_hook";
 import { useEffect, useState } from "react";
 import { View } from "react-native";
 import DotEnv from "../../libs/dotenv";
-import ManagementFeePaymentServiceProvider from "../expense/management_fee/services/provider";
-import WebView from "react-native-webview";
-import PaymentServiceProvider from "../main/payment_tobe/services/provider";
+import { useNavigation } from "@react-navigation/native";
+import { VillifeNavigation } from "../common/router/types";
+import PaymentServiceProvider from "../expense/payment/services/provider";
 
 export default function TestScreen() {
     const test = useTestService();
     const env = new DotEnv();
+    const navigation = useNavigation<VillifeNavigation>();
 
     const [paymentUrl, setPaymentUrl] = useState("");
 
@@ -37,6 +38,15 @@ export default function TestScreen() {
 
         if (result != null) setPaymentUrl(result);
     };
+    const navigateToPaymentWindow = () => {
+        navigation.navigate("payment_window", {
+            title: "관리비 제목",
+            product_id: 949,
+            product_type: "pt_management_fee",
+            product_name: "관리비 테스트",
+            price: 120000,
+        });
+    };
 
     useEffect(() => {
         createOrder();
@@ -48,11 +58,11 @@ export default function TestScreen() {
             bottomNavOptions={{ shown: false }}
             bodyOptions={{ applyDefaultHorizontalPadding: false }}>
             <View style={styles.container}>
-                <TouchableOpacity onPress={createOrder}>
-                    <Text></Text>
+                <TouchableOpacity onPress={navigateToPaymentWindow}>
+                    <Text>hello</Text>
                 </TouchableOpacity>
 
-                {paymentUrl === "" ? (
+                {/*  {paymentUrl === "" ? (
                     <></>
                 ) : (
                     <WebView
@@ -62,7 +72,7 @@ export default function TestScreen() {
                         source={{
                             uri: `${paymentUrl}`,
                         }}></WebView>
-                )}
+                )} */}
             </View>
         </NavigationView>
     );

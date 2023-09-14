@@ -1,7 +1,7 @@
 import VillifeServer from "../../../../../libs/rest_apis/villife";
 import AServiceProvider from "../../../../common/hooks/service/provider/absc";
 import type { AxiosResponse } from "axios";
-import type { ManagementFee } from "../../../../../libs/rest_apis/villife/payment/types";
+import type { ManagementFee } from "../../../../../libs/rest_apis/villife/expense/types";
 import { IManagementFeePaymentServiceProvider } from "./types";
 
 export default class ManagementFeePaymentServiceProvider
@@ -9,7 +9,7 @@ export default class ManagementFeePaymentServiceProvider
     implements IManagementFeePaymentServiceProvider
 {
     protected readonly errorTag = "PAYMENT_SERVICE";
-    private readonly _api = VillifeServer.getPaymentRestClient();
+    private readonly _api = VillifeServer.getExpenseRestClient();
 
     public async createOrder(params: ManagementFee.CreateOrder.Params): Promise<ManagementFee.CreateOrder.Result> {
         const result = await this._api.createOrderForm(params);

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import ManagementFeePaymentServiceProvider from "../provider";
 import StardustDateParser from "../../../../../libs/date_parser";
-import { ManagementFee } from "../../../../../libs/rest_apis/villife/payment/types";
+import { ManagementFee } from "../../../../../libs/rest_apis/villife/expense/types";
 import useManagementFeePaymentHistory from "./history";
 
 export default function usePayer() {

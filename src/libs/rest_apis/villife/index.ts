@@ -15,8 +15,10 @@ import { IVillifeComplaintRestClient } from "./complaint/types";
 import VillifeComplaintRestClient from "./complaint";
 import IVillifeMediaManager from "./media/types";
 import VillifeMediaManager from "./media";
-import VillifePaymentRestClient from "./payment";
+import VillifeExpenseRestClient from "./expense";
+import IVillifeExpenseRestClient from "./expense/types";
 import IVillifePaymentRestClient from "./payment/types";
+import VillifePaymentRestClient from "./payment";
 
 const env: DotEnv = new DotEnv();
 
@@ -48,6 +50,9 @@ class VillifeServer {
     }
     static getMediaManager(): IVillifeMediaManager {
         return new VillifeMediaManager();
+    }
+    static getExpenseRestClient(): IVillifeExpenseRestClient {
+        return new VillifeExpenseRestClient();
     }
     static getPaymentRestClient(): IVillifePaymentRestClient {
         return new VillifePaymentRestClient();

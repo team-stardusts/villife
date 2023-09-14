@@ -4,6 +4,7 @@ import ContentBox from "../../../../../common/blocks/content_box";
 
 export default function ManagementFeeBox(props: ManagementFeeBoxProps) {
     const insertCommaToMoney = (money: number): string => {
+        if (money == undefined) return "0";
         return money.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     };
 

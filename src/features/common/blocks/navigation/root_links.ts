@@ -32,7 +32,7 @@ export default function useRootLinks(): RootLink[] {
             icon: "wallet",
             caption: message.messages.main.payment.screen_title,
             screen: {
-                name: "payment",
+                name: "management_fee",
                 params: {},
             },
         },

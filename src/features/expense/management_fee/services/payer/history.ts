@@ -1,5 +1,5 @@
 import ManagementFeePaymentServiceProvider from "../provider";
-import { ManagementFee } from "../../../../../libs/rest_apis/villife/payment/types";
+import { ManagementFee } from "../../../../../libs/rest_apis/villife/expense/types";
 import { useRecoilState } from "recoil";
 import { userBillHistoryState } from "./states/bills";
 import StardustDateParser from "../../../../../libs/date_parser";

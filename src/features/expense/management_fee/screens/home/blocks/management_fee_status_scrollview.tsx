@@ -2,7 +2,7 @@ import { ScrollView, Text, TouchableOpacity, View } from "react-native";
 import { ManagementFeeStatusScrollViewProps } from "../types";
 import ContentBox from "../../../../../common/blocks/content_box";
 import useManagementFeeHomeScreenStyles from "../styles";
-import { ManagementFee } from "../../../../../../libs/rest_apis/villife/payment/types";
+import { ManagementFee } from "../../../../../../libs/rest_apis/villife/expense/types";
 import Icon from "../../../../../common/atoms/icon";
 import { useEffect, useRef, useState } from "react";
 

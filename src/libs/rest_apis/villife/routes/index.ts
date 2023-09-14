@@ -56,9 +56,12 @@ const routes: RoutesType = {
         getUserBasicInfo: "user/basicinfo",
         getBuildingManagedByAdmin: "user/buildings-admin-manages",
     },
-    payment: {
+    expense: {
         handleBuildingBill: "rental-expense/management-fee/building",
         handleMyBill: "rental-expense/management-fee/mine",
+    },
+    payment: {
+        order: "payment/order",
     },
 } as const;
 
