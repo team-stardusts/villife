@@ -23,6 +23,7 @@ interface IBuildingAdministrable {
     registerContract(params: Building.RegisterContract.Params): Response<Building.RegisterContract.Returns>;
     modifyContract(params: Building.ModifyContract.Params): Response<Building.ModifyContract.Returns>;
     deleteContract(params: Building.DeleteContract.Params): Response<Building.DeleteContract.Returns>;
+    requestNotification(params: Building.RequestNotification.Params): Response<Building.RequestNotification.Returns>;
 }
 
 export namespace Building {
@@ -121,6 +122,16 @@ export namespace Building {
         export type Params = RegisterContract.Params & {
             contract_id: number;
         };
+        export type Returns = string;
+    }
+
+    export namespace RequestNotification {
+        export type Params = {
+            contract_id: number;
+            content: string;
+            title: string;
+        };
+
         export type Returns = string;
     }
 

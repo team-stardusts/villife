@@ -10,6 +10,7 @@ import {
     ModifyContract,
     RegisterBuilding,
     RegisterContract,
+    RequestNotification,
     VerifyBuildingAddress,
 } from "./types";
 
@@ -70,6 +71,18 @@ class BuildingManagementServiceProvider extends AServiceProvider implements IBui
         return true;
     }
 
+    public async deleteContract(contractID: number): Promise<boolean> {
+        const result = await this._buildingApi.deleteContract({ contract_id: contractID });
+
+        if (!result.isSuccessful || result.data?.data === undefined) {
+            this.printWhyFailed(result.data, "Failed to delete the contract.");
+
+            return false;
+        }
+
+        return true;
+    }
+
     public async modifyContract(params: ModifyContract.Params): Promise<boolean> {
         const result = await this._buildingApi.modifyContract({
             contract_id: params.contractID,
@@ -92,8 +105,12 @@ class BuildingManagementServiceProvider extends AServiceProvider implements IBui
         return true;
     }
 
-    public async deleteContract(contractID: number): Promise<boolean> {
-        const result = await this._buildingApi.deleteContract({ contract_id: contractID });
+    public async requestNotification(params: RequestNotification.Params): Promise<boolean> {
+        const result = await this._buildingApi.requestNotification({
+            contract_id: params.contractID,
+            content: params.content,
+            title: params.title,
+        });
 
         if (!result.isSuccessful || result.data?.data === undefined) {
             this.printWhyFailed(result.data, "Failed to delete the contract.");

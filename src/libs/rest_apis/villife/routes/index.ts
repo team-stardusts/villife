@@ -23,6 +23,7 @@ const routes: RoutesType = {
         building: "building-and-contract/building",
         contract: "building-and-contract/contract",
         totalInfo: "building-and-contract/total-info",
+        buildingNoti: "building-and-contract/noti",
     },
     complaint: {
         createComplaint: "complaint/create",

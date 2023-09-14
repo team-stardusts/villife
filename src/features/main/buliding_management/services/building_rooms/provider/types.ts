@@ -25,6 +25,7 @@ export interface IRoomContractAdministrable {
     registerContract(params: RegisterContract.Params): Promise<boolean>;
     modifyContract(params: ModifyContract.Params): Promise<boolean>;
     deleteContract(contractID: DeleteContract.Params): Promise<boolean>;
+    requestNotification(params: RequestNotification.Params): Promise<boolean>;
 }
 
 export namespace RegisterContract {
@@ -63,6 +64,14 @@ export namespace RegisterBuilding {
         buildingID: number;
         roadAddress: string;
     } | null;
+}
+
+export namespace RequestNotification {
+    export type Params = {
+        contractID: Building.RequestNotification.Params["contract_id"];
+        content: string;
+        title: string;
+    };
 }
 
 export namespace VerifyBuildingAddress {

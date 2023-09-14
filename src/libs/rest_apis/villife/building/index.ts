@@ -92,6 +92,18 @@ class VillifeBuildingManager extends AVillifeServerModule implements IVillifeBui
             data: params,
         });
     }
+
+    public async requestNotification(
+        params: Building.RequestNotification.Params
+    ): Response<Building.RequestNotification.Returns> {
+        let route: string = this.routes.budilingAndContract.contract;
+
+        return await this.requestAuthable<Building.RequestNotification.Params, Building.RequestNotification.Returns>({
+            method: "post",
+            url: route,
+            data: params,
+        });
+    }
 }
 
 export default VillifeBuildingManager;
