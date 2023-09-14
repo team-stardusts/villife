@@ -27,20 +27,14 @@ export default function TestScreen() {
     });
     const createOrder = async () => {
         const usecase = new PaymentServiceProvider();
-        const result = await usecase.createOrder({
+        const result = await usecase.getPaymentWidgetUrl({
             product_id: 945,
             product_type: "pt_management_fee",
             product_name: "빌라이프 3월 관리비",
             price: 80000,
         });
-        if (result == null) return console.log("cannot open web view, failed to create order");
-        console.log(result);
 
-        const url = `${env.api.villife.REST_API_BASE_URL}payment/widget?order_unique_id=${result.unique_id}`; // 여기에 열고자 하는 URL을 입력하세요
-
-        setPaymentUrl(url);
-        console.log(url);
-        //Linking.openURL(url);
+        if (result != null) setPaymentUrl(result);
     };
 
     useEffect(() => {
