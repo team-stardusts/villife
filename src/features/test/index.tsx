@@ -59,7 +59,7 @@ export default function TestScreen() {
             bodyOptions={{ applyDefaultHorizontalPadding: false }}>
             <View style={styles.container}>
                 <TouchableOpacity onPress={navigateToPaymentWindow}>
-                    <Text>hello</Text>
+                    <Text style={{ fontSize: 24 }}>관리비 결제 테스트</Text>
                 </TouchableOpacity>
 
                 {/*  {paymentUrl === "" ? (

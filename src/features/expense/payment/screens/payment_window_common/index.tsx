@@ -1,10 +1,9 @@
-import { View } from "react-native";
+import { Text, View } from "react-native";
 import WebView from "react-native-webview";
 import NavigationView from "../../../../common/blocks/navigation";
 import usePaymentCommonScreenStyles from "./style";
 import { useGetPaymentWidgetUrl } from "../../services";
 import { CommonPaymentWindowScreenProps } from "./type";
-import { Text } from "react-native-svg";
 
 export default function CommonPaymentWindowScreen(params: CommonPaymentWindowScreenProps) {
     const navParam = params.route.params;
@@ -19,11 +18,14 @@ export default function CommonPaymentWindowScreen(params: CommonPaymentWindowScr
     console.log(navParam);
     return (
         <NavigationView
-            headerOptions={{ title: "PaymentCommon" }}
+            headerOptions={{ title: "결제하기", backgroundColor: styles.navViewBackgroundColor.color }}
             bottomNavOptions={{ shown: false }}
-            bodyOptions={{ applyDefaultHorizontalPadding: false }}>
+            bodyOptions={{
+                applyDefaultHorizontalPadding: false,
+                backgroundColor: styles.navViewBackgroundColor.color,
+            }}>
             <View style={styles.container}>
-                <Text>{navParam.title}</Text>
+                <Text style={styles.title}>{navParam.title}</Text>
                 {!widgetUrl ? (
                     <></>
                 ) : (
