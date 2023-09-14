@@ -20,6 +20,7 @@ namespace Routes {
         building: string;
         contract: string;
         totalInfo: string;
+        buildingNoti: string;
     };
 
     export type Complaint = {

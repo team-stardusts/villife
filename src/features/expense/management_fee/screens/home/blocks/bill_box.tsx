@@ -31,7 +31,7 @@ export default function BillBox(props: ManagementFeeBillBoxProps) {
                         <View style={props.styles.bodyRow}>
                             <Text style={props.styles.bodyRowKey}>미납액</Text>
                             {/* TODO: 미납액 가져오기 */}
-                            <Text style={props.styles.bodyRowValue}>0 원</Text>
+                            <Text style={props.styles.bodyRowValue}>{insertCommaToMoney(props.unpaidFee)} 원</Text>
                         </View>
                     </View>
                 </View>

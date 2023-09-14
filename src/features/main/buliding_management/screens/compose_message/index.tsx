@@ -6,12 +6,14 @@ import useStyler from "../../../../common/hooks/styler/hooks";
 import Editor from "./blocks/editor";
 import ComposeMessageScreenProps from "./type";
 import SendButton from "./blocks/send_button";
+import BuildingManagementServiceProvider from "../../services/building_rooms/provider";
 
 export default function ComposeMessageScreen(props: ComposeMessageScreenProps) {
     const message = useScreenMessage();
     const content = useRef("");
     const title = useRef("");
     const { deviceUI, theme } = useStyler();
+    const service = new BuildingManagementServiceProvider();
 
     const [loading, setLoading] = React.useState(false);
     const [editModalVisible, setEditModalVisible] = React.useState(false);

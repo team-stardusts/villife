@@ -1,6 +1,6 @@
 import { useRecoilState } from "recoil";
 import { buildingRoomsState } from "./states";
-import { BuildingRoomInfo, ModifyContract, RegisterContract } from "./provider/types";
+import { BuildingRoomInfo, ModifyContract, RegisterContract, RequestNotification } from "./provider/types";
 import BuildingManagementServiceProvider from "./provider";
 import useUserInformation from "../../../../common/hooks/service/user_info";
 import { IBuildingRooms } from "./types";
@@ -46,6 +46,14 @@ export default function useBuildingRoomContractor(): IBuildingRooms {
             const isSuccessful = await service.registerContract(params);
 
             if (isSuccessful) this.updateRooms();
+
+            return isSuccessful;
+        }
+
+        public async requestNotification(params: RequestNotification.Params): Promise<boolean> {
+            const isSuccessful = await service.requestNotification(params);
+
+            if (isSuccessful) this.requestNotification(params);
 
             return isSuccessful;
         }

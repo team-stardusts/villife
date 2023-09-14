@@ -4,9 +4,9 @@ import NavigationView from "../../../../common/blocks/navigation";
 import ManagementFeeHomeScreenProps from "./types";
 import useManagementFeeHomeScreenStyles from "./styles";
 import usePayer from "../../services/payer";
-import ManagementFeeBox from "./blocks/management_fee_box";
+import ManagementFeeBox from "./blocks/fee_box";
 import BillBox from "./blocks/bill_box";
-import ManagementFeeStatusScrollView from "./blocks/management_fee_status_scrollview";
+import ManagementFeeStatusScrollView from "./blocks/status_scrollview";
 import { useEffect } from "react";
 import useUserInformation from "../../../../common/hooks/service/user_info";
 
@@ -35,7 +35,11 @@ export default function ManagementFeeHomeScreen({ navigation, route }: Managemen
                         styles={styles.managementFee}
                         manangementFee={payer.history.thisMonthBillOfUser}
                     />
-                    <BillBox styles={styles.bill} manangementFee={payer.history.thisMonthBillOfUser} />
+                    <BillBox
+                        styles={styles.bill}
+                        manangementFee={payer.history.thisMonthBillOfUser}
+                        unpaidFee={payer.history.userUnpaidFee}
+                    />
                 </View>
                 <ManagementFeeStatusScrollView
                     styles={styles.managementFeeStatus}
