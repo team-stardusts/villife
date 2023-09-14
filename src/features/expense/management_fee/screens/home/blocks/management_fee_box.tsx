@@ -1,8 +1,8 @@
 import { Text, TouchableOpacity, View } from "react-native";
-import { PaymentBoxProps } from "../types";
+import { ManagementFeeBoxProps } from "../types";
 import ContentBox from "../../../../../common/blocks/content_box";
 
-export default function PaymentBox(props: PaymentBoxProps) {
+export default function ManagementFeeBox(props: ManagementFeeBoxProps) {
     const insertCommaToMoney = (money: number): string => {
         return money.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     };

@@ -1,18 +1,18 @@
 import { ScrollView, View } from "react-native";
 import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
 import NavigationView from "../../../../common/blocks/navigation";
-import PaymentScreenProps from "./types";
-import usePaymentScreenStyles from "./styles";
+import ManagementFeeHomeScreenProps from "./types";
+import useManagementFeeHomeScreenStyles from "./styles";
 import usePayer from "../../services/payer";
-import PaymentBox from "./blocks/payment_box";
+import ManagementFeeBox from "./blocks/management_fee_box";
 import BillBox from "./blocks/bill_box";
-import PaymentStatusScrollView from "./blocks/pament_status_scrollview";
+import ManagementFeeStatusScrollView from "./blocks/management_fee_status_scrollview";
 import { useEffect } from "react";
 import useUserInformation from "../../../../common/hooks/service/user_info";
 
-export default function PaymentScreen({ navigation, route }: PaymentScreenProps) {
+export default function ManagementFeeHomeScreen({ navigation, route }: ManagementFeeHomeScreenProps) {
     const messages = useScreenMessage();
-    const styles = usePaymentScreenStyles();
+    const styles = useManagementFeeHomeScreenStyles();
     const user = useUserInformation();
     const payer = usePayer();
 
@@ -31,10 +31,16 @@ export default function PaymentScreen({ navigation, route }: PaymentScreenProps)
             }}>
             <ScrollView style={styles.main.container}>
                 <View style={styles.main.wrapper}>
-                    <PaymentBox styles={styles.payment} manangementFee={payer.history.thisMonthBillOfUser} />
+                    <ManagementFeeBox
+                        styles={styles.managementFee}
+                        manangementFee={payer.history.thisMonthBillOfUser}
+                    />
                     <BillBox styles={styles.bill} manangementFee={payer.history.thisMonthBillOfUser} />
                 </View>
-                <PaymentStatusScrollView styles={styles.paymentStatus} manangementFees={payer.history.user} />
+                <ManagementFeeStatusScrollView
+                    styles={styles.managementFeeStatus}
+                    manangementFees={payer.history.user}
+                />
             </ScrollView>
         </NavigationView>
     );

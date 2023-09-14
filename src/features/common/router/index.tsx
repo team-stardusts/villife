@@ -22,7 +22,7 @@ import NoticeRegisterScreen from "../../main/noti/screens/register";
 import NoticeHomeScreen from "../../main/noti/screens/home";
 import NoticeModifyScreen from "../../main/noti/screens/modify";
 import ParkingScreen from "../../main/parking/screens/home";
-import PaymentScreen from "../../main/payment/screens/home";
+import ManagementFeeHomeScreen from "../../expense/management_fee/screens/home";
 import PermissionRequestScreen from "../../auth/screens/permission_request";
 import RegisterVehicleScreen from "../../main/parking/screens/register_vehicle";
 import RegisterGuestVehicleScreen from "../../main/parking/screens/register_guest_vehicle";
@@ -79,7 +79,7 @@ export default function ScreenRouter() {
                 <Stack.Screen name={"send_park_push_noti"} component={SendParkPushNotiScreen} />
             </Stack.Group>
             <Stack.Group>
-                <Stack.Screen name={"payment"} component={PaymentScreen} />
+                <Stack.Screen name={"payment"} component={ManagementFeeHomeScreen} />
                 <Stack.Screen name={"mypage"} component={MyPageScreen} />
                 <Stack.Screen name={"my_page"} component={MyPageHomeScreen} />
             </Stack.Group>

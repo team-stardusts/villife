@@ -1,13 +1,13 @@
 import { ScrollView, Text, TouchableOpacity, View } from "react-native";
-import { PaymentStatusScrollViewProps } from "../types";
+import { ManagementFeeStatusScrollViewProps } from "../types";
 import ContentBox from "../../../../../common/blocks/content_box";
-import usePaymentScreenStyles from "../styles";
-import { Payment } from "../../../../../../libs/rest_apis/villife/payment/types";
+import useManagementFeeHomeScreenStyles from "../styles";
+import { ManagementFee } from "../../../../../../libs/rest_apis/villife/payment/types";
 import Icon from "../../../../../common/atoms/icon";
 import { useEffect, useRef, useState } from "react";
 
-export default function PaymentStatusScrollView(props: PaymentStatusScrollViewProps) {
-    const [fees, setFees] = useState<Payment.ManagementFee[]>([]);
+export default function ManagementFeeStatusScrollView(props: ManagementFeeStatusScrollViewProps) {
+    const [fees, setFees] = useState<ManagementFee.ManagementFee[]>([]);
     const scrollviewRef = useRef<ScrollView>(null);
 
     useEffect(() => {
@@ -33,6 +33,7 @@ export default function PaymentStatusScrollView(props: PaymentStatusScrollViewPr
             {fees.map((fee, index) => (
                 <PaymentByMonth
                     key={index}
+                    isFirstElement={index === 0}
                     isLastElement={fees.length === index + 1}
                     styles={props.styles}
                     managementFee={fee}
@@ -46,8 +47,10 @@ function PaymentByMonth(props: PaymentByMonthProps) {
     return (
         <View
             style={[
-                props.styles.paymentContainer,
-                props.isLastElement && { marginRight: props.styles.paymentContainer.marginLeft },
+                props.styles.managementFeeContainer,
+                /* 아래 스타일링은 다른 ContentBox 컴포넌트들과 정렬을 맞추기 위함임 */
+                props.isFirstElement && { marginLeft: props.styles.managementFeeContainer.marginLeft * 1.5 },
+                props.isLastElement && { marginRight: props.styles.managementFeeContainer.marginLeft * 1.5 },
             ]}>
             <ContentBox backgroundColor={props.styles.contentBox.color} enableShadow={false}>
                 <View style={props.styles.contentWrapper}>
@@ -75,7 +78,8 @@ function PaymentByMonth(props: PaymentByMonthProps) {
 }
 
 type PaymentByMonthProps = {
+    isFirstElement: boolean;
     isLastElement: boolean;
-    styles: ReturnType<typeof usePaymentScreenStyles>["paymentStatus"];
-    managementFee: Payment.ManagementFee;
+    styles: ReturnType<typeof useManagementFeeHomeScreenStyles>["managementFeeStatus"];
+    managementFee: ManagementFee.ManagementFee;
 };

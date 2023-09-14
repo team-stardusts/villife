@@ -2,7 +2,7 @@ import { StyleSheet } from "react-native";
 import useStyler from "../../../../common/hooks/styler/hooks";
 import { SCREEN_PADDING_HORIZONTAL_STANDARD_VALUE } from "../../../../common/constants";
 
-export default function usePaymentScreenStyles() {
+export default function useManagementFeeHomeScreenStyles() {
     const { deviceUI, theme } = useStyler();
 
     const main = StyleSheet.create({
@@ -14,7 +14,7 @@ export default function usePaymentScreenStyles() {
         },
     });
 
-    const payment = StyleSheet.create({
+    const managementFee = StyleSheet.create({
         container: {
             marginTop: deviceUI.moderateScale(10),
             height: deviceUI.moderateScale(150),
@@ -125,15 +125,15 @@ export default function usePaymentScreenStyles() {
         },
     });
 
-    const paymentStatus = StyleSheet.create({
+    const managementFeeStatus = StyleSheet.create({
         container: {
             marginTop: deviceUI.moderateScale(25),
             //height: deviceUI.moderateScale(65),
         },
-        paymentContainer: {
+        managementFeeContainer: {
             height: deviceUI.moderateScale(65),
             width: deviceUI.moderateScale(65),
-            marginLeft: deviceUI.moderateScale(SCREEN_PADDING_HORIZONTAL_STANDARD_VALUE),
+            marginLeft: deviceUI.moderateScale(SCREEN_PADDING_HORIZONTAL_STANDARD_VALUE / 1.5),
         },
         contentBox: {
             color: theme.color.specified.white,
@@ -187,8 +187,8 @@ export default function usePaymentScreenStyles() {
 
     return {
         main,
-        payment,
+        managementFee,
         bill,
-        paymentStatus,
+        managementFeeStatus,
     };
 }

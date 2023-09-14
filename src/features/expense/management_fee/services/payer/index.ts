@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import PaymentServiceProvider from "../provider";
+import ManagementFeePaymentServiceProvider from "../provider";
 import StardustDateParser from "../../../../../libs/date_parser";
-import { Payment } from "../../../../../libs/rest_apis/villife/payment/types";
-import usePaymentHistory from "./history";
+import { ManagementFee } from "../../../../../libs/rest_apis/villife/payment/types";
+import useManagementFeePaymentHistory from "./history";
 
 export default function usePayer() {
     /* const [crrYear, setCrrYear] = useState<number | null>(null);
@@ -34,7 +34,7 @@ export default function usePayer() {
     };
 
     if (fees === null) return null; */
-    const history = usePaymentHistory();
+    const history = useManagementFeePaymentHistory();
 
     class Payer {
         public readonly history = history;

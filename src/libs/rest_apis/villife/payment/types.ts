@@ -1,18 +1,20 @@
 import { Response, ResponseForTest } from "../../types";
 
-export default interface IVillifePaymentRestClient extends Payment.IPaymentOrderable, Payment.IBillGettable {}
+export default interface IVillifePaymentRestClient
+    extends ManagementFee.IPaymentOrderable,
+        ManagementFee.IManagementFeeBillGettable {}
 
-export namespace Payment {
+export namespace ManagementFee {
     export interface IPaymentOrderable {
-        createOrderForm(params: Payment.CreateOrder.Params): Response<Payment.CreateOrder.Result>;
+        createOrderForm(params: ManagementFee.CreateOrder.Params): Response<ManagementFee.CreateOrder.Result>;
     }
 
-    export interface IBillGettable {
-        getBills(params: GetBills.Params): ResponseForTest<GetBills.Result>;
-        getUserBills(params: GetUserBills.Params): Response<GetUserBills.Result>;
+    export interface IManagementFeeBillGettable {
+        getManagementFeeBills(params: GetManagementFeeBills.Params): ResponseForTest<GetManagementFeeBills.Result>;
+        getUserManagementFeeBills(params: GetUserManagementFeeBills.Params): Response<GetUserManagementFeeBills.Result>;
     }
 
-    export namespace GetUserBills {
+    export namespace GetUserManagementFeeBills {
         export type Params = {
             unpaidOnly?: true;
         };
@@ -24,7 +26,7 @@ export namespace Payment {
         export type Result = ManagementFee[];
     }
 
-    export namespace GetBills {
+    export namespace GetManagementFeeBills {
         export type Params = {
             startYear: number;
             endYear: number;

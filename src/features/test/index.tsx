@@ -4,7 +4,7 @@ import useTestService from "./test_hook";
 import { useEffect, useState } from "react";
 import { View } from "react-native";
 import DotEnv from "../../libs/dotenv";
-import PaymentServiceProvider from "../main/payment/services/provider";
+import ManagementFeePaymentServiceProvider from "../expense/management_fee/services/provider";
 import WebView from "react-native-webview";
 
 export default function TestScreen() {
@@ -26,7 +26,7 @@ export default function TestScreen() {
         },
     });
     const createOrder = async () => {
-        const usecase = new PaymentServiceProvider();
+        const usecase = new ManagementFeePaymentServiceProvider();
         const result = await usecase.createOrder({
             product_id: 945,
             product_type: "pt_management_fee",
