@@ -1,10 +1,10 @@
 import { Response, ResponseForTest } from "../../types";
 import AVillifeServerModule from "../absc";
-import IVillifePaymentRestClient, { Payment } from "./types";
+import IVillifePaymentRestClient, { ManagementFee } from "./types";
 
-const dummyData: Payment.GetBills.Result = [
+const dummyData: ManagementFee.GetManagementFeeBills.Result = [
     {
-        id: 1,
+        bill_id: 1,
         category: "hello",
         is_paid: true,
         year: 2022,
@@ -13,7 +13,7 @@ const dummyData: Payment.GetBills.Result = [
         payment_info: {},
     },
     {
-        id: 2,
+        bill_id: 2,
         category: "hello",
         is_paid: true,
         year: 2022,
@@ -22,7 +22,7 @@ const dummyData: Payment.GetBills.Result = [
         payment_info: {},
     },
     {
-        id: 3,
+        bill_id: 3,
         category: "hello",
         is_paid: true,
         year: 2022,
@@ -31,7 +31,7 @@ const dummyData: Payment.GetBills.Result = [
         payment_info: {},
     },
     {
-        id: 4,
+        bill_id: 4,
         category: "hello",
         is_paid: true,
         year: 2022,
@@ -40,7 +40,7 @@ const dummyData: Payment.GetBills.Result = [
         payment_info: {},
     },
     {
-        id: 5,
+        bill_id: 5,
         category: "hello",
         is_paid: true,
         year: 2022,
@@ -49,7 +49,7 @@ const dummyData: Payment.GetBills.Result = [
         payment_info: {},
     },
     {
-        id: 6,
+        bill_id: 6,
         category: "hello",
         is_paid: true,
         year: 2023,
@@ -58,7 +58,7 @@ const dummyData: Payment.GetBills.Result = [
         payment_info: {},
     },
     {
-        id: 7,
+        bill_id: 7,
         category: "hello",
         is_paid: true,
         year: 2023,
@@ -67,7 +67,7 @@ const dummyData: Payment.GetBills.Result = [
         payment_info: {},
     },
     {
-        id: 8,
+        bill_id: 8,
         category: "hello",
         is_paid: true,
         year: 2023,
@@ -76,7 +76,7 @@ const dummyData: Payment.GetBills.Result = [
         payment_info: {},
     },
     {
-        id: 9,
+        bill_id: 9,
         category: "hello",
         is_paid: true,
         year: 2023,
@@ -85,7 +85,7 @@ const dummyData: Payment.GetBills.Result = [
         payment_info: {},
     },
     {
-        id: 10,
+        bill_id: 10,
         category: "hello",
         is_paid: true,
         year: 2023,
@@ -94,7 +94,7 @@ const dummyData: Payment.GetBills.Result = [
         payment_info: {},
     },
     {
-        id: 11,
+        bill_id: 11,
         category: "hello",
         is_paid: true,
         year: 2023,
@@ -103,7 +103,7 @@ const dummyData: Payment.GetBills.Result = [
         payment_info: {},
     },
     {
-        id: 12,
+        bill_id: 12,
         category: "hello",
         is_paid: true,
         year: 2023,
@@ -112,7 +112,7 @@ const dummyData: Payment.GetBills.Result = [
         payment_info: {},
     },
     {
-        id: 13,
+        bill_id: 13,
         category: "hello",
         is_paid: true,
         year: 2023,
@@ -121,7 +121,7 @@ const dummyData: Payment.GetBills.Result = [
         payment_info: {},
     },
     {
-        id: 14,
+        bill_id: 14,
         category: "hello",
         is_paid: false,
         year: 2023,
@@ -132,17 +132,37 @@ const dummyData: Payment.GetBills.Result = [
 ];
 
 export default class VillifePaymentRestClient extends AVillifeServerModule implements IVillifePaymentRestClient {
-    public async createOrderForm(params: Payment.CreateOrder.Params): Response<Payment.CreateOrder.Result> {
-        const url = this.routes.payment.order;
+    public async createOrderForm(params: ManagementFee.CreateOrder.Params): Response<ManagementFee.CreateOrder.Result> {
+        const url = this.routes.payment.handleBuildingBill;
 
-        return await this.requestAuthable<Payment.CreateOrder.Params, Payment.CreateOrder.Result>({
+        return await this.requestAuthable<ManagementFee.CreateOrder.Params, ManagementFee.CreateOrder.Result>({
             method: "post",
             url: url,
             data: params,
         });
     }
 
-    public async getBills(params: Payment.GetBills.Params): ResponseForTest<Payment.GetBills.Result> {
+    public async getUserManagementFeeBills(
+        params: ManagementFee.GetUserManagementFeeBills.Params
+    ): Response<ManagementFee.GetUserManagementFeeBills.Result> {
+        const route = this.routes.payment.handleMyBill;
+        const data: ManagementFee.GetUserManagementFeeBills.ReqParams = {
+            unpaid_only: params.unpaidOnly ? "yes" : "no",
+        };
+
+        return await this.requestAuthable<
+            ManagementFee.GetUserManagementFeeBills.ReqParams,
+            ManagementFee.GetUserManagementFeeBills.Result
+        >({
+            method: "get",
+            url: route,
+            params: data,
+        });
+    }
+
+    public async getManagementFeeBills(
+        params: ManagementFee.GetManagementFeeBills.Params
+    ): ResponseForTest<ManagementFee.GetManagementFeeBills.Result> {
         const _dummy = dummyData.filter((fee) => {
             if (!(fee.year >= params.startYear && fee.year <= params.endYear)) {
                 return false;
@@ -154,6 +174,6 @@ export default class VillifePaymentRestClient extends AVillifeServerModule imple
 
             return true;
         });
-        return await this.requestForTest<Payment.GetBills.Result>(_dummy);
+        return await this.requestForTest<ManagementFee.GetManagementFeeBills.Result>(_dummy);
     }
 }

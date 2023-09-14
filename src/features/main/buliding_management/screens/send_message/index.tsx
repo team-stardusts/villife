@@ -7,10 +7,42 @@ import useBuildingSendMessageScreenStyles from "./styles";
 import TentantLayout from "../../blocks/tenant_layout";
 import VillifeToastMessage from "../../../../common/atoms/toast";
 import NextButton from "./blocks/next";
+import ListBottomSlidableModal from "../../../../common/blocks/bottom_list_modal";
+import { useNavigation } from "@react-navigation/native";
+import { VillifeNavigation } from "../../../../common/router/types";
+import { ModalFeature } from "../../../../common/blocks/bottom_list_modal/types";
+import { useState } from "react";
 
 export default function BuildingSendMessageScreen({ route }: BuildingSendMessageScreenProps) {
     const messages = useScreenMessage().messages;
     const styles = useBuildingSendMessageScreenStyles();
+    const navigation = useNavigation<VillifeNavigation>();
+    const [noticeModalVisible, setNoticeModalVisible] = useState<boolean>(false);
+
+    const notiModalFeatures: ModalFeature[] = [
+        {
+            icon: "pencil",
+            text: "알림 작성하기",
+            onPress: () => {
+                navigation.navigate("compose_message", {});
+            },
+        },
+        {
+            icon: "letter",
+            text: "만기 임박 알림 보내기",
+            onPress: () => console.log("만기 임박 알림 보내기"),
+        },
+        {
+            icon: "letter",
+            text: "월세 미납 알림 보내기",
+            onPress: () => console.log("월세 미납 알림 보내기"),
+        },
+        {
+            icon: "letter",
+            text: "관리비 미납 알림 보내기",
+            onPress: () => console.log("관리비 미납 알림 보내기"),
+        },
+    ];
 
     return (
         <NavigationView
@@ -20,7 +52,7 @@ export default function BuildingSendMessageScreen({ route }: BuildingSendMessage
                 backgroundColor: styles.nav.backgroundColor,
                 navComponent: NextButton,
                 navComponentProps: {
-                    onPress: () => console.log("Not implemented."),
+                    onPress: () => setNoticeModalVisible(true),
                 },
             }}
             bodyOptions={{
@@ -28,6 +60,11 @@ export default function BuildingSendMessageScreen({ route }: BuildingSendMessage
                 applyDefaultHorizontalPadding: false,
                 applyDefaultVerticalPadding: false,
             }}>
+            <ListBottomSlidableModal
+                modalVisible={noticeModalVisible}
+                setModalVisible={setNoticeModalVisible}
+                features={notiModalFeatures}
+            />
             <View style={styles.container}>
                 <View style={styles.listView}>
                     <TentantLayout

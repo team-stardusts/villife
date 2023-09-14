@@ -1,9 +1,9 @@
 import { StyleSheet } from "react-native";
-import { UseNotiEditorStylesType } from "./type";
-import useStyler from "../../../../common/hooks/styler/hooks";
-import RemoteCSS from "../../../../../libs/themes/remote_css";
+import { UseEditorStylesType } from "./type";
+import useStyler from "../../../../../../common/hooks/styler/hooks";
+import RemoteCSS from "../../../../../../../libs/themes/remote_css";
 
-export default function useNotiEditorStyles(): UseNotiEditorStylesType {
+export default function useEditorStyles(): UseEditorStylesType {
     const { deviceUI, theme } = useStyler();
 
     return StyleSheet.create({

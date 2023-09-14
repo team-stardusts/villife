@@ -1,8 +1,8 @@
 import { Text, TouchableOpacity, View } from "react-native";
-import { BillBoxProps } from "../types";
+import { ManagementFeeBillBoxProps } from "../types";
 import ContentBox from "../../../../../common/blocks/content_box";
 
-export default function BillBox(props: BillBoxProps) {
+export default function BillBox(props: ManagementFeeBillBoxProps) {
     const insertCommaToMoney = (money: number | undefined): string => {
         if (money === undefined || money === null) return "-";
         return money.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");

@@ -12,7 +12,7 @@ export type VillifeRootStackParamList = {
     home?: {};
     complaint?: {};
     parking?: {};
-    payment?: {};
+    management_fee?: {};
     mypage?: {};
     building_management?: {};
 };
@@ -23,7 +23,7 @@ export const VILLIFE_ROOT_STACK_PARAMS: Array<keyof VillifeRootStackParamList> =
     "home",
     "splash",
     "parking",
-    "payment",
+    "management_fee",
     "mypage",
     "building_management",
 ];
@@ -80,6 +80,7 @@ export type VillifeStackParamList = VillifeRootStackParamList & {
         contractID: number;
         roomID: number;
     };
+    compose_message: {};
     terms_of_service?: {};
 
     //building: {};

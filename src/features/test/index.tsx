@@ -4,8 +4,9 @@ import useTestService from "./test_hook";
 import { useEffect, useState } from "react";
 import { View } from "react-native";
 import DotEnv from "../../libs/dotenv";
-import PaymentServiceProvider from "../main/payment/services/provider";
+import ManagementFeePaymentServiceProvider from "../expense/management_fee/services/provider";
 import WebView from "react-native-webview";
+import PaymentServiceProvider from "../main/payment_tobe/services/provider";
 
 export default function TestScreen() {
     const test = useTestService();

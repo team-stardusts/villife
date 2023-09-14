@@ -18,7 +18,7 @@ class DotEnv implements IDotEnv {
             API_CONSUMER_KEY: Config.NAVER_API_CONSUMER_KEY,
             API_CONSUMER_SECRET: Config.NAVER_API_CONSUMER_SECRET,
             API_SERVISE_URL_SHEME: Config.NAVER_API_SERVISE_URL_SHEME,
-        }
+        },
     } as const;
 }
 

@@ -9,9 +9,12 @@ import TenantInfo from "./blocks/tenant_info";
 import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
 import ListBottomSlidableModal from "../../../../common/blocks/bottom_list_modal";
 import { ModalFeature } from "../../../../common/blocks/bottom_list_modal/types";
+import { VillifeNavigation } from "../../../../common/router/types";
+import { useNavigation } from "@react-navigation/native";
 
-export default function TenantDetailScreen({ navigation, route }: TenantDetailScreenProps) {
+export default function TenantDetailScreen({ route }: TenantDetailScreenProps) {
     const styles = useTenantDetailScreenStyles();
+    const navigation = useNavigation<VillifeNavigation>();
     const messages = useScreenMessage().messages;
     const [tenant, setTenant] = useState<BuildingRoomInfo>(JSON.parse(route.params.roomInfo));
     const [noticeModalVisible, setNoticeModalVisible] = useState<boolean>(false);
@@ -24,7 +27,9 @@ export default function TenantDetailScreen({ navigation, route }: TenantDetailSc
         {
             icon: "pencil",
             text: "알림 작성하기",
-            onPress: () => console.log("알림 작성하기"),
+            onPress: () => {
+                navigation.navigate("compose_message", {});
+            },
         },
         {
             icon: "letter",

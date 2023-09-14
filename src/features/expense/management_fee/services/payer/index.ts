@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
-import PaymentServiceProvider from "./provider";
-import StardustDateParser from "../../../../libs/date_parser";
-import { Payment } from "../../../../libs/rest_apis/villife/payment/types";
+import ManagementFeePaymentServiceProvider from "../provider";
+import StardustDateParser from "../../../../../libs/date_parser";
+import { ManagementFee } from "../../../../../libs/rest_apis/villife/payment/types";
+import useManagementFeePaymentHistory from "./history";
 
 export default function usePayer() {
-    const [crrYear, setCrrYear] = useState<number | null>(null);
+    /* const [crrYear, setCrrYear] = useState<number | null>(null);
     const [crrMonth, setCrrMonth] = useState<number | null>(null);
     const [fees, setFees] = useState<Payment.ManagementFee[] | null>(null);
     const service = new PaymentServiceProvider();
@@ -32,19 +33,19 @@ export default function usePayer() {
         setFees(managementFees);
     };
 
-    if (fees === null) return null;
+    if (fees === null) return null; */
+    const history = useManagementFeePaymentHistory();
 
     class Payer {
-        private crrYear = crrYear;
-        private crrMonth = crrMonth;
+        public readonly history = history;
 
-        get fees(): Payment.ManagementFee[] {
+        /* get fees(): Payment.ManagementFee[] {
             return fees as Payment.ManagementFee[];
         }
 
         get thisMonthFee(): Payment.ManagementFee | undefined {
             return this.fees?.find((fee) => fee.year === this.crrYear && fee.month === this.crrMonth);
-        }
+        } */
     }
 
     return new Payer();

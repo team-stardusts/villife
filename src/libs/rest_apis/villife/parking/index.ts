@@ -1,5 +1,4 @@
-import { AxiosRequestConfig } from "axios";
-import { Response, ResponseForTest } from "../../types";
+import { Response } from "../../types";
 import AVillifeServerModule from "../absc";
 import IVillifeParkingManager, { Parking } from "./types";
 

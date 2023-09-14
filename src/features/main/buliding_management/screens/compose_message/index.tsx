@@ -1,13 +1,13 @@
 import React, { useRef } from "react";
-import NoticeRegisterScreenProps from "./type";
 import NavigationView from "../../../../common/blocks/navigation";
 import VillifeToastMessage from "../../../../common/atoms/toast";
 import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
 import useStyler from "../../../../common/hooks/styler/hooks";
-import SendButton from "./blocks/send_button";
 import Editor from "./blocks/editor";
+import ComposeMessageScreenProps from "./type";
+import SendButton from "./blocks/send_button";
 
-export default function ComposeMessageScreen(props: NoticeRegisterScreenProps) {
+export default function ComposeMessageScreen(props: ComposeMessageScreenProps) {
     const message = useScreenMessage();
     const content = useRef("");
     const title = useRef("");
@@ -29,8 +29,9 @@ export default function ComposeMessageScreen(props: NoticeRegisterScreenProps) {
     return (
         <NavigationView
             headerOptions={{
-                title: message.messages.main.noti.screen_register_title,
+                title: "메세지 보내기",
                 shown: true,
+                hideBuidingSelector: true,
                 backgroundColor: theme.color.specified.white,
                 navComponent: SendButton,
                 navComponentProps: {

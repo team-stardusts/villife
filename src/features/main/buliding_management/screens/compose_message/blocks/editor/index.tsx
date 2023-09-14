@@ -7,9 +7,10 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 import useScreenMessage from "../../../../../../common/hooks/multilingual/hooks";
 import useStyler from "../../../../../../common/hooks/styler/hooks";
 import useOnKeyboardEvent from "../../../../../../common/hooks/keyboard";
+import useEditorStyles from "./styles";
 
 export default function Editor(props: NotiEditorProps) {
-    const styles = useNotiEditorStyles();
+    const styles = useEditorStyles();
     const richText = useRef<RichEditor>(null);
     const scrollRef = useRef<KeyboardAwareScrollView>(null);
     const { deviceUI, theme } = useStyler();
