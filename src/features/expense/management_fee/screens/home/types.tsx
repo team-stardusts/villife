@@ -15,6 +15,7 @@ export type ManagementFeeBoxProps = {
 export type ManagementFeeBillBoxProps = {
     styles: ReturnType<typeof useManagementFeeHomeScreenStyles>["bill"];
     manangementFee: ManagementFee.ManagementFee | undefined;
+    unpaidFee: number;
 };
 
 export type ManagementFeeStatusScrollViewProps = {

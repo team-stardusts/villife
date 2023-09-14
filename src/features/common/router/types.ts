@@ -30,6 +30,10 @@ export const VILLIFE_ROOT_STACK_PARAMS: Array<keyof VillifeRootStackParamList> =
 
 export type VillifeStackParamList = VillifeRootStackParamList & {
     approval_home: {};
+    confirm_payment_cost: {
+        cost: number;
+        [key: string]: number;
+    };
     common_complaint_home: {};
     common_complaint_modify: {};
     common_complaint_register: {};

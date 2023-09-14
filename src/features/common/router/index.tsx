@@ -79,7 +79,7 @@ export default function ScreenRouter() {
                 <Stack.Screen name={"send_park_push_noti"} component={SendParkPushNotiScreen} />
             </Stack.Group>
             <Stack.Group>
-                <Stack.Screen name={"payment"} component={ManagementFeeHomeScreen} />
+                <Stack.Screen name={"management_fee"} component={ManagementFeeHomeScreen} />
                 <Stack.Screen name={"mypage"} component={MyPageScreen} />
                 <Stack.Screen name={"my_page"} component={MyPageHomeScreen} />
             </Stack.Group>
