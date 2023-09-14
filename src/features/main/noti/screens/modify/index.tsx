@@ -52,7 +52,9 @@ export default function NoticeModifyScreen(props: NoticeModifyScreenProps) {
             headerOptions={{
                 title: message.messages.main.noti.screen_modify_title,
                 shown: true,
-                backgroundColor: theme.color.specified.white,
+                style: {
+                    backgroundColor: theme.color.specified.white,
+                },
                 navComponent: ModifyButton,
                 navComponentProps: {
                     onSubmit: () => {

@@ -1,10 +1,10 @@
 import { ManagementFee } from "../../../../../libs/rest_apis/villife/expense/types";
 
-export interface IManagementFeePaymentServiceProvider extends IPaymentOrderable, IBillGettable {}
+export interface IManagementFeePaymentServiceProvider extends IBillGettable {}
 
-interface IPaymentOrderable {
+/* interface IPaymentOrderable {
     createOrder(params: ManagementFee.CreateOrder.Params): Promise<ManagementFee.CreateOrder.Result>;
-}
+} */
 
 interface IBillGettable {
     getManagementFeeBills(params: ManagementFee.GetManagementFeeBills.Params): Promise<ManagementFee.ManagementFee[]>;

@@ -30,7 +30,9 @@ export default function ComplaintDetailScreen({ navigation, route }: ComplaintDe
         <NavigationView
             headerOptions={{
                 title: messages.messages.main.complaint.detail,
-                backgroundColor: styles.navContainer.backgroundColor,
+                style: {
+                    backgroundColor: styles.navContainer.backgroundColor,
+                },
             }}
             bodyOptions={{
                 applyDefaultHorizontalPadding: false,

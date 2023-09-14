@@ -39,6 +39,7 @@ import TenantDetailScreen from "../../main/buliding_management/screens/tenant_de
 import TenantSettingScreen from "../../main/buliding_management/screens/tenant_setting";
 import ComposeMessageScreen from "../../main/buliding_management/screens/compose_message";
 import CommonPaymentWindowScreen from "../../expense/payment/screens/payment_window_common";
+import ConfirmPaymentCostScreen from "../../expense/payment/screens/confirm_payment_cost";
 
 enableScreens(true);
 
@@ -81,6 +82,9 @@ export default function ScreenRouter() {
             </Stack.Group>
             <Stack.Group>
                 <Stack.Screen name={"management_fee"} component={ManagementFeeHomeScreen} />
+                <Stack.Screen name={"confirm_payment_cost"} component={ConfirmPaymentCostScreen} />
+            </Stack.Group>
+            <Stack.Group>
                 <Stack.Screen name={"mypage"} component={MyPageScreen} />
                 <Stack.Screen name={"my_page"} component={MyPageHomeScreen} />
             </Stack.Group>

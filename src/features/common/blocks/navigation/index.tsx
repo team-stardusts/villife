@@ -23,7 +23,7 @@ export default function NavigationView({
     const styles = useNavigationViewStyles(bodyOptions);
     const navigation = useNavigation<VillifeRouterParams["navigation"]>();
 
-    const headerBackGroundColor = headerOptions.backgroundColor ?? styles.container.backgroundColor;
+    const headerBackGroundColor = headerOptions?.style?.backgroundColor ?? styles.container.backgroundColor;
     const bodyBackGroundColor = bodyOptions.backgroundColor ?? styles.container.backgroundColor;
     const headerShown: boolean = headerOptions.shown ?? true;
     const bottomNavShown: boolean = bottomNavOptions?.shown ?? true;

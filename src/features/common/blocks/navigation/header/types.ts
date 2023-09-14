@@ -8,5 +8,8 @@ export type NavigationViewHeaderProps = {
     navComponentProps?: {
         [key: string]: any;
     };
-    backgroundColor?: ColorValue;
+    style?: {
+        borderBottomColor?: ColorValue;
+        backgroundColor?: ColorValue;
+    };
 };

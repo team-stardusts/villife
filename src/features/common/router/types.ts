@@ -30,10 +30,12 @@ export const VILLIFE_ROOT_STACK_PARAMS: Array<keyof VillifeRootStackParamList> =
 
 export type VillifeStackParamList = VillifeRootStackParamList & {
     approval_home: {};
-    confirm_payment_cost: {
-        cost: number;
-        [key: string]: number;
+    confirm_payment_cost: VillifeStackParamList["payment_window"] & {
+        bill?: {
+            [key: string]: number;
+        };
     };
+    compose_message: {};
     common_complaint_home: {};
     common_complaint_modify: {};
     common_complaint_register: {};
@@ -73,25 +75,24 @@ export type VillifeStackParamList = VillifeRootStackParamList & {
         password: string;
     };
     permission_request?: {};
-    register_vehicle?: {};
-    register_guest_vehicle?: {};
-    register_building?: {};
-    tenant_detail: {
-        roomInfo: string; //BuildingRoomInfo;
-    };
-    tenant_setting: {
-        type: "addtion" | "edit";
-        contractID: number;
-        roomID: number;
-    };
-    compose_message: {};
-    terms_of_service?: {};
     payment_window: {
         title: string;
         product_id: number;
         product_type: "pt_management_fee" | "pt_monthlt_rent";
         product_name: string;
         price: number;
+    };
+    register_vehicle?: {};
+    register_guest_vehicle?: {};
+    register_building?: {};
+    tenant_detail: {
+        roomInfo: string; //BuildingRoomInfo;
+    };
+    terms_of_service?: {};
+    tenant_setting: {
+        type: "addtion" | "edit";
+        contractID: number;
+        roomID: number;
     };
     //building: {};
 };

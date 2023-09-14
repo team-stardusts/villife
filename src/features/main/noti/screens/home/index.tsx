@@ -18,7 +18,9 @@ export default function NoticeHomeScreen(props: NoticeHomeScreenProps) {
                 title: message.messages.main.noti.screen_title,
                 shown: true,
                 navComponent: user?.isAdmin ? WriteButton : undefined,
-                backgroundColor: styles.navContainer.backgroundColor,
+                style: {
+                    backgroundColor: styles.navContainer.backgroundColor,
+                },
             }}
             bodyOptions={{
                 applyDefaultHorizontalPadding: false,

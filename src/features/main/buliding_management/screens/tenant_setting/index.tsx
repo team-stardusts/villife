@@ -154,7 +154,9 @@ export default function TenantSettingScreen({ navigation, route }: TenantSetting
         <NavigationView
             headerOptions={{
                 title: navTitle,
-                backgroundColor: styles.nav.backgroundColor,
+                style: {
+                    backgroundColor: styles.nav.backgroundColor,
+                },
                 hideBuidingSelector: true,
             }}
             bodyOptions={{

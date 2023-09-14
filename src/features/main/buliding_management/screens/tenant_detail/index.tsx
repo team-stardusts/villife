@@ -52,7 +52,9 @@ export default function TenantDetailScreen({ route }: TenantDetailScreenProps) {
         <NavigationView
             headerOptions={{
                 title: "세입자 정보",
-                backgroundColor: styles.nav.backgroundColor,
+                style: {
+                    backgroundColor: styles.nav.backgroundColor,
+                },
                 hideBuidingSelector: true,
                 navComponent: BuildingTentantMessage,
                 navComponentProps: {

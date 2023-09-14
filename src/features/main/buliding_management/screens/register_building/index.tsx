@@ -64,7 +64,9 @@ export default function RegisterBuildingScreen({ navigation, route }: RegisterBu
         <NavigationView
             headerOptions={{
                 title: "건물 추가하기",
-                backgroundColor: styles.main.nav.backgroundColor,
+                style: {
+                    backgroundColor: styles.main.nav.backgroundColor,
+                },
                 hideBuidingSelector: true,
             }}
             bodyOptions={{

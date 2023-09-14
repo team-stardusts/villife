@@ -1,11 +1,33 @@
 import { Text, TouchableOpacity, View } from "react-native";
 import { ManagementFeeBoxProps } from "../types";
 import ContentBox from "../../../../../common/blocks/content_box";
+import { useNavigation } from "@react-navigation/native";
+import { VillifeNavigation } from "../../../../../common/router/types";
 
 export default function ManagementFeeBox(props: ManagementFeeBoxProps) {
+    const navigation = useNavigation<VillifeNavigation>();
     const insertCommaToMoney = (money: number): string => {
         if (money == undefined) return "0";
         return money.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    };
+
+    const handlePressPaymentBtn = () => {
+        if (props.manangementFee?.amount_won) {
+            navigation.navigate("confirm_payment_cost", {
+                title: "관리비 결제하기",
+                product_id: props.manangementFee.bill_id,
+                product_name: "?",
+                product_type: "pt_management_fee",
+                price: props.manangementFee.amount_won,
+                bill: {
+                    관리용역비: 20000,
+                    일반관리비: 45000,
+                    소독비: 100,
+                    화재보험료: 100,
+                    수선유지비: 100,
+                },
+            });
+        }
     };
 
     return (
@@ -28,7 +50,7 @@ export default function ManagementFeeBox(props: ManagementFeeBoxProps) {
                         <TouchableOpacity
                             style={props.styles.paymentBtn}
                             activeOpacity={0.6}
-                            onPress={() => console.log("결제!!")}>
+                            onPress={handlePressPaymentBtn}>
                             <Text style={props.styles.paymentText}>결제하기</Text>
                         </TouchableOpacity>
                     </View>

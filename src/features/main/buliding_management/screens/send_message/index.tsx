@@ -49,7 +49,9 @@ export default function BuildingSendMessageScreen({ route }: BuildingSendMessage
             headerOptions={{
                 title: messages.main.building_management.send_message_to_building_tenant.screen_title,
                 hideBuidingSelector: true,
-                backgroundColor: styles.nav.backgroundColor,
+                style: {
+                    backgroundColor: styles.nav.backgroundColor,
+                },
                 navComponent: NextButton,
                 navComponentProps: {
                     onPress: () => setNoticeModalVisible(true),

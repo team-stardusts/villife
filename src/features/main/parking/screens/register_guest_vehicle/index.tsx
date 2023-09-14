@@ -103,7 +103,9 @@ export default function RegisterGuestVehicleScreen({ navigation, route }: Regist
                     title: messages.messages.words.register,
                     onPress: handlePressRegisterBtn,
                 },
-                backgroundColor: styles.navView.backgroundColor,
+                style: {
+                    backgroundColor: styles.navView.backgroundColor,
+                },
             }}
             bodyOptions={{
                 //applyDefaultHorizontalPadding: true,

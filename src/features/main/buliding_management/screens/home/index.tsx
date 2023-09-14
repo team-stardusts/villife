@@ -21,7 +21,9 @@ export default function BuildingManagementScreen({ navigation, route }: Building
         <NavigationView
             headerOptions={{
                 title: messages.main.building_management.home.screen_title,
-                backgroundColor: styles.nav.backgroundColor,
+                style: {
+                    backgroundColor: styles.nav.backgroundColor,
+                },
                 navComponent: BuildingTentantMessage,
                 navComponentProps: {
                     onPress: () => {

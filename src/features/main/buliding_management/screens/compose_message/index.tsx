@@ -34,7 +34,9 @@ export default function ComposeMessageScreen(props: ComposeMessageScreenProps) {
                 title: "메세지 보내기",
                 shown: true,
                 hideBuidingSelector: true,
-                backgroundColor: theme.color.specified.white,
+                style: {
+                    backgroundColor: theme.color.specified.white,
+                },
                 navComponent: SendButton,
                 navComponentProps: {
                     onSubmit: () => {

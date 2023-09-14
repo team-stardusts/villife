@@ -97,7 +97,9 @@ export default function RegisterVehicleScreen({ navigation, route }: RegisterVeh
                     title: messages.messages.words.register,
                     onPress: handlePressRegisterBtn,
                 },
-                backgroundColor: styles.navView.backgroundColor,
+                style: {
+                    backgroundColor: styles.navView.backgroundColor,
+                },
             }}
             bodyOptions={{
                 applyDefaultHorizontalPadding: true,

@@ -11,7 +11,7 @@ export default class ManagementFeePaymentServiceProvider
     protected readonly errorTag = "PAYMENT_SERVICE";
     private readonly _api = VillifeServer.getExpenseRestClient();
 
-    public async createOrder(params: ManagementFee.CreateOrder.Params): Promise<ManagementFee.CreateOrder.Result> {
+    /* public async createOrder(params: ManagementFee.CreateOrder.Params): Promise<ManagementFee.CreateOrder.Result> {
         const result = await this._api.createOrderForm(params);
 
         if (!result.isSuccessful || result.data?.data === undefined) {
@@ -20,7 +20,7 @@ export default class ManagementFeePaymentServiceProvider
         }
 
         return result.data.data;
-    }
+    } */
 
     public async getManagementFeeBills(
         params: ManagementFee.GetManagementFeeBills.Params

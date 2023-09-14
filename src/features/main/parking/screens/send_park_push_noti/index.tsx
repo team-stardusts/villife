@@ -20,7 +20,9 @@ export default function SendParkPushNotiScreen({ navigation, route }: SendParkPu
         <NavigationView
             headerOptions={{
                 title: messages.main.parking.send_park_push_noti.screen_title,
-                backgroundColor: styles.main.navContainer.backgroundColor,
+                style: {
+                    backgroundColor: styles.main.navContainer.backgroundColor,
+                },
                 navComponent: SimpleNavComponent,
                 navComponentProps: {
                     title: messages.words.register,

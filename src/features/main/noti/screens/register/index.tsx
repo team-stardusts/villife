@@ -32,7 +32,9 @@ export default function NoticeRegisterScreen(props: NoticeRegisterScreenProps) {
             headerOptions={{
                 title: message.messages.main.noti.screen_register_title,
                 shown: true,
-                backgroundColor: theme.color.specified.white,
+                style: {
+                    backgroundColor: theme.color.specified.white,
+                },
                 navComponent: RegisterButton,
                 navComponentProps: {
                     onSubmit: () => {

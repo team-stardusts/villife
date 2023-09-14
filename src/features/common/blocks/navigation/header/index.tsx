@@ -11,14 +11,15 @@ export default function NavigationViewHeader(props: NavigationViewHeaderProps) {
     const [crrNavIndex, setCrrNavIndex] = useState<number>(0);
     const navigation = useNavigation<VillifeRouterParams["navigation"]>();
     const styles = useNavigationViewHeaderStyles(crrNavIndex);
-    const backgroundColor = props.backgroundColor ?? styles.container.backgroundColor;
+    const backgroundColor = props?.style?.backgroundColor ?? styles.container.backgroundColor;
+    const borderBottomColor = props?.style?.borderBottomColor ?? styles.container.borderBottomColor;
 
     useEffect(() => {
         setCrrNavIndex(navigation.getState().index);
     }, [navigation]);
 
     return (
-        <View style={[styles.container, { backgroundColor: backgroundColor }]}>
+        <View style={[styles.container, { backgroundColor: backgroundColor, borderBottomColor: borderBottomColor }]}>
             <View style={styles.box}>
                 {crrNavIndex > 0 && (
                     <TouchableOpacity style={styles.iconBox} onPress={() => navigation.pop(1)}>
