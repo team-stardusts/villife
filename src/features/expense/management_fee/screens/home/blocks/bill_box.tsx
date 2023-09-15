@@ -1,8 +1,12 @@
 import { Text, TouchableOpacity, View } from "react-native";
 import { ManagementFeeBillBoxProps } from "../types";
 import ContentBox from "../../../../../common/blocks/content_box";
+import { useNavigation } from "@react-navigation/native";
+import { VillifeNavigation } from "../../../../../common/router/types";
 
 export default function BillBox(props: ManagementFeeBillBoxProps) {
+    const navigation = useNavigation<VillifeNavigation>();
+
     const insertCommaToMoney = (money: number | undefined): string => {
         if (money === undefined || money === null) return "-";
         return money.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -17,7 +21,7 @@ export default function BillBox(props: ManagementFeeBillBoxProps) {
                         <TouchableOpacity
                             style={props.styles.detailBtn}
                             activeOpacity={0.6}
-                            onPress={() => console.log("상세!!")}>
+                            onPress={() => navigation.navigate("management_fee_detail")}>
                             <Text style={props.styles.detailText}>상세내역</Text>
                         </TouchableOpacity>
                     </View>

@@ -5,11 +5,12 @@ export default function useRegisterVehicleScreenStyles() {
     const { deviceUI, theme } = useStyler();
 
     return StyleSheet.create({
-        container: {
-            flex: 1,
-        },
         navView: {
             backgroundColor: theme.color.specified.white,
+        },
+        container: {
+            flex: 1,
+            paddingTop: deviceUI.moderateScale(20),
         },
         etdaPickerContainer: {
             height: deviceUI.moderateScale(170),

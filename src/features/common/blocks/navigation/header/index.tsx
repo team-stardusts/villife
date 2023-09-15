@@ -21,22 +21,24 @@ export default function NavigationViewHeader(props: NavigationViewHeaderProps) {
     return (
         <View style={[styles.container, { backgroundColor: backgroundColor, borderBottomColor: borderBottomColor }]}>
             <View style={styles.box}>
-                {crrNavIndex > 0 && (
-                    <TouchableOpacity style={styles.iconBox} onPress={() => navigation.pop(1)}>
-                        <Icon name="arrow-left" size={styles.icon.width} color={styles.icon.color} />
-                    </TouchableOpacity>
-                )}
-                <View style={styles.titleBox}>
-                    <Text
-                        style={styles.title}
-                        numberOfLines={1}
-                        ellipsizeMode="tail"
-                        minimumFontScale={0.2}
-                        maxFontSizeMultiplier={1}
-                        adjustsFontSizeToFit={true}>
-                        {props.title}
-                    </Text>
-                </View>
+                <TouchableOpacity style={styles.wrapper} disabled={crrNavIndex === 0} onPress={() => navigation.pop(1)}>
+                    {crrNavIndex > 0 && (
+                        <View style={styles.iconBox}>
+                            <Icon name="arrow-left" size={styles.icon.width} color={styles.icon.color} />
+                        </View>
+                    )}
+                    <View style={styles.titleBox}>
+                        <Text
+                            style={styles.title}
+                            numberOfLines={1}
+                            minimumFontScale={0.2}
+                            ellipsizeMode="tail"
+                            //maxFontSizeMultiplier={1}
+                            adjustsFontSizeToFit>
+                            {props.title}
+                        </Text>
+                    </View>
+                </TouchableOpacity>
             </View>
             <View style={styles.centerReactFuncBox}>{!props.hideBuidingSelector && <BuildingSelector />}</View>
             <View style={styles.rightReactFuncBox}>

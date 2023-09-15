@@ -8,11 +8,11 @@ export default function useScreenTtitleViewStyles() {
         container: {
             flex: 1,
             justifyContent: "center",
-            paddingTop: deviceUI.moderateScale(16),
+            paddingTop: deviceUI.moderateScale(70),
             paddingHorizontal: deviceUI.moderateScale(18),
         },
         titleBox: {
-            flex: 1.8,
+            flex: 1,
             justifyContent: "center",
             textAlign: "left",
         },
@@ -26,7 +26,7 @@ export default function useScreenTtitleViewStyles() {
             ...theme.font.researved.h5,
         },
         children: {
-            flex: 7.4,
+            flex: 8.2,
         },
         btnBox: {
             flex: 0.8,

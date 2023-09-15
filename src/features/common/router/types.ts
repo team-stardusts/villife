@@ -49,7 +49,8 @@ export type VillifeStackParamList = VillifeRootStackParamList & {
     image_detail_view: {
         uri: string;
     };
-    my_page: {};
+    mypage: {};
+    management_fee_detail?: {};
     noti_home?: {};
     noti_register?: {};
     noti_modify: {

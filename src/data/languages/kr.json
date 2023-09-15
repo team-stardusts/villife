@@ -30,7 +30,7 @@
                 "inform_to_modify_vehicle_info": "차량 번호와 모델 수정하기"
             },
             "register_vehicle": {
-                "screen_title": "차량 정보 등록",
+                "screen_title": "차량 등록",
                 "register_own_vehicle": "내 차량 정보 등록",
                 "request_input_vehicle_info": "일일 출차시간 및 입차시간과 차량 정보를 입력 해주세요.",
                 "vehicle_plate_number_input_placeholder": "000가 00000의 형식으로 입력해주세요.",
@@ -40,7 +40,7 @@
                 "invalid_model": "차량 모델을 확인해주세요."
             },
             "register_guest_vehicle": {
-                "screen_title": "방문 차량 정보 등록",
+                "screen_title": "방문 차량 등록",
                 "register_guest_vehicle": "방문자 차량 정보 등록",
                 "request_input_vehicle_info": "방문 일정과 차량 정보를 입력 해주세요.",
                 "vehicle_plate_number_input_placeholder": "000가 00000의 형식으로 입력해주세요.",

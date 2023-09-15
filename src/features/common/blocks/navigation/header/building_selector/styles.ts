@@ -9,6 +9,7 @@ export default function useBuildingSelectorStyles() {
             flex: 1,
             width: "100%",
             justifyContent: "center",
+            alignItems: "center",
         },
         wrapper: {
             flex: 1,
@@ -20,7 +21,7 @@ export default function useBuildingSelectorStyles() {
         iconBox: {
             alignItems: "center",
             justifyContent: "center",
-            marginRight: deviceUI.moderateScale(10),
+            marginRight: deviceUI.moderateScale(5),
         },
         textBox: {
             alignItems: "flex-start",

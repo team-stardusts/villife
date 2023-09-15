@@ -102,8 +102,8 @@ export default function RegisterVehicleScreen({ navigation, route }: RegisterVeh
                 },
             }}
             bodyOptions={{
-                applyDefaultHorizontalPadding: true,
-                applyDefaultVerticalPadding: true,
+                applyDefaultHorizontalPadding: false,
+                applyDefaultVerticalPadding: false,
                 backgroundColor: styles.navView.backgroundColor,
             }}>
             <ScreenTitleView

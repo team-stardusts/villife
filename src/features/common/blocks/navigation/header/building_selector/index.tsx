@@ -44,10 +44,10 @@ export default function BuildingSelector({}: BuildingSelectorType) {
                         <Text
                             style={styles.buildingName}
                             numberOfLines={1}
-                            ellipsizeMode="tail"
-                            minimumFontScale={0.2}
-                            maxFontSizeMultiplier={1}
-                            adjustsFontSizeToFit={true}>
+                            //ellipsizeMode="tail"
+                            //minimumFontScale={0.2}
+                            //maxFontSizeMultiplier={1}
+                            adjustsFontSizeToFit>
                             {userinfo === null
                                 ? message.messages.navigation.building_not_selected
                                 : userinfo.adminInfomation?.selectedBuilding.name}
