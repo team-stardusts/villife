@@ -336,6 +336,7 @@
         "fail_to_send_message": "메세지를 보내지 못했습니다."
     },
     "status": {
+        "primary": "알림",
         "info": "정보",
         "success": "성공",
         "warning": "경고",

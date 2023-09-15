@@ -24,12 +24,13 @@ export default function useNavigationViewBottomStyles() {
             flexDirection: "row",
             alignItems: "flex-start",
             justifyContent: "center",
+            paddingTop: deviceUI.moderateScale(5),
             backgroundColor: theme.color.specified.white,
-            borderColor: theme.color.specified.darkgrey,
+            borderColor: theme.color.specified.lightgrey,
             borderWidth: deviceUI.moderateScale(1),
             borderBottomWidth: 0,
-            borderTopLeftRadius: deviceUI.moderateScale(15),
-            borderTopRightRadius: deviceUI.moderateScale(15),
+            borderTopLeftRadius: deviceUI.moderateScale(25),
+            borderTopRightRadius: deviceUI.moderateScale(25),
         },
         wrapper: {
             width: "18%",
@@ -38,7 +39,8 @@ export default function useNavigationViewBottomStyles() {
         iconBox: {
             flex: 5, //deviceUI.getPlatform() === "ios" ? 4 : 5,
             justifyContent: "flex-end",
-            paddingBottom: deviceUI.horizontalScale(0.05),
+            //paddingBottom: deviceUI.horizontalScale(0.05),
+            marginBottom: deviceUI.moderateScale(2),
         },
         icon: {
             width: deviceUI.moderateScale(50),

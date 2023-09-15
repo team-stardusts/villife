@@ -346,5 +346,6 @@ export type MessagesByLanguage = {
         success: string;
         warning: string;
         error: string;
+        primary: string;
     };
 };

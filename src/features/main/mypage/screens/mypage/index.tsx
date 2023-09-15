@@ -4,10 +4,6 @@ import NavigationView from "../../../../common/blocks/navigation";
 import MyPageScreenProps from "./type";
 import useLogoutService from "../../services/logout";
 import VillifeServer from "../../../../../libs/rest_apis/villife";
-import {
-    UserResidenceValidationParams,
-    VehicleResidenceValidationParams,
-} from "../../../../../libs/rest_apis/villife/building/types";
 import { VILLIFE_AUTHORITY } from "../../../../../libs/rest_apis/villife/absc";
 import useUserInformation from "../../../../common/hooks/service/user_info";
 
@@ -55,7 +51,7 @@ export default function MyPageScreen({ navigation, route }: MyPageScreenProps) {
                     aria-label="Decrement value"
                     title="admin 건물변경"
                 />
-                <Button
+                {/* <Button
                     onPress={async () => {
                         const buildingManager = VillifeServer.getBuildingManager();
                         const param: UserResidenceValidationParams = { building_id: 7, room_number: 501 };
@@ -84,7 +80,7 @@ export default function MyPageScreen({ navigation, route }: MyPageScreenProps) {
                     }}
                     aria-label="Decrement value"
                     title="Vehicle 거주인증 Test"
-                />
+                /> */}
             </View>
         </NavigationView>
     );

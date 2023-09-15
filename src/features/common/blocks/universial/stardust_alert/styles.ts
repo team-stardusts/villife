@@ -35,7 +35,7 @@ export default function useStardustAlertStyles(enterMessage: boolean) {
         },
         header: {
             width: "100%",
-            height: deviceUI.moderateScale(40),
+            height: deviceUI.moderateScale(45),
         },
         body: {
             width: "100%",
@@ -43,7 +43,7 @@ export default function useStardustAlertStyles(enterMessage: boolean) {
         },
         bottom: {
             width: "100%",
-            height: deviceUI.moderateScale(50),
+            height: deviceUI.moderateScale(45),
         },
     });
 

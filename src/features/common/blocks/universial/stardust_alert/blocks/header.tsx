@@ -21,6 +21,8 @@ export default function StardustAlertHeader(props: StardustAlertHeaderProps) {
         }
 
         switch (props.type) {
+            case "primary":
+                return messages.primary;
             case "warning":
                 return messages.warning;
             case "error":
@@ -34,6 +36,8 @@ export default function StardustAlertHeader(props: StardustAlertHeaderProps) {
 
     const selectBgColor = (): ColorValue => {
         switch (props.type) {
+            case "primary":
+                return theme.color.status.primary;
             case "warning":
                 return theme.color.status.warning;
             case "error":

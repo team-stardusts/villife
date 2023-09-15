@@ -13,7 +13,7 @@ export type VillifeRootStackParamList = {
     complaint?: {};
     parking?: {};
     management_fee?: {};
-    mypage?: {};
+    my_page?: {};
     building_management?: {};
 };
 
@@ -24,7 +24,7 @@ export const VILLIFE_ROOT_STACK_PARAMS: Array<keyof VillifeRootStackParamList> =
     "splash",
     "parking",
     "management_fee",
-    "mypage",
+    "my_page",
     "building_management",
 ];
 

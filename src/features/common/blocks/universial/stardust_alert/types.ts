@@ -12,7 +12,7 @@ export type StardustAlertProps = StardustAlertContent & {
     setAlert: React.Dispatch<React.SetStateAction<StardustAlertContent>>;
 };
 
-export type AlertType = "info" | "success" | "warning" | "error";
+export type AlertType = "info" | "success" | "warning" | "error" | "primary";
 
 export type AlertButton = {
     text: string | undefined;

@@ -48,7 +48,7 @@ export default function useRootLinks(): RootLink[] {
             icon: "person",
             caption: message.messages.main.mypage.screen_title,
             screen: {
-                name: "mypage",
+                name: "my_page",
                 params: {},
             },
         },
