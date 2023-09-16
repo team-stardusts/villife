@@ -1,18 +1,25 @@
 import { StyleSheet } from "react-native";
 import useStyler from "../../../../common/hooks/styler/hooks";
-import { ComplaintEditorStylesType } from "./types";
 import RemoteCSS from "../../../../../libs/themes/remote_css";
+import useOnKeyboardEvent from "../../../../common/hooks/keyboard";
+import { useState } from "react";
 
-export default function useComplaintEditorStyle(): ComplaintEditorStylesType {
-    const { deviceUI, theme } = useStyler();
+export default function useComplaintEditorStyle() {
+    const { deviceUI, theme, safetyEdgeSize } = useStyler();
+    const [isKeyboardFold, setIsKeyboardFold] = useState<boolean>();
+    const keyboardHeight = useOnKeyboardEvent({
+        onShow: () => setIsKeyboardFold(false),
+        onHide: () => setIsKeyboardFold(true),
+    });
 
     const Style = StyleSheet.create({
         rich: {
             flex: 1,
-            fontFamily: "Pretendard-Bold",
         },
         richBar: {
+            height: deviceUI.moderateScale(60),
             backgroundColor: "rgba(83, 156, 241,0.2)",
+            bottom: isKeyboardFold ? 0 : keyboardHeight - safetyEdgeSize.bottom,
             width: deviceUI.getScreenSize().width,
             position: "absolute",
         },

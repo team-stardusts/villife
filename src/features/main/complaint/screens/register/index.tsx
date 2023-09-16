@@ -9,12 +9,14 @@ import React from "react";
 import useComplaintService from "../../services";
 import VillifeToastMessage from "../../../../common/atoms/toast";
 import { ComplaintEventEmitter } from "../../services/event";
+import useStyler from "../../../../common/hooks/styler/hooks";
 
 export default function ComplaintRegisterScreen({ navigation, route }: ComplaintRegisterScreenProps) {
     const messages = useScreenMessage();
     const content = useRef("");
     const title = useRef("");
     const service = useComplaintService();
+    const { theme } = useStyler();
     const [loading, setLoading] = React.useState(false);
 
     const onSubmit = async () => {
@@ -43,10 +45,15 @@ export default function ComplaintRegisterScreen({ navigation, route }: Complaint
                     },
                     loading: loading,
                 },
+                style: {
+                    backgroundColor: theme.color.specified.white,
+                    borderBottomColor: theme.color.specified.white,
+                },
             }}
             bodyOptions={{
                 applyDefaultHorizontalPadding: false,
                 applyDefaultVerticalPadding: false,
+                backgroundColor: theme.color.specified.white,
             }}
             bottomNavOptions={{ shown: false }}>
             <ComplaintEditor titleRef={title} contentRef={content} mode="register" />

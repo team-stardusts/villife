@@ -4,18 +4,13 @@ import { IconRecord, RichEditor, RichToolbar, actions } from "react-native-pell-
 import { Dimensions, KeyboardAvoidingView, ScrollView, Text, TextInput, View } from "react-native";
 import useComplaintEditorStyle, { EditorStyle } from "./styles";
 import useComplaintService from "../../services";
-import useOnKeyboardEvent from "../../../../common/hooks/keyboard";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import useStyler from "../../../../common/hooks/styler/hooks";
 
 function ComplaintEditor(props: ComplaintEditorProps) {
     const styles = useComplaintEditorStyle();
     const richText = useRef<RichEditor>(null);
     const scrollRef = useRef<KeyboardAwareScrollView>(null);
     const service = useComplaintService();
-    const { deviceUI, theme } = useStyler();
-
-    const keyboardHeight = useOnKeyboardEvent();
 
     return (
         <>
@@ -42,13 +37,7 @@ function ComplaintEditor(props: ComplaintEditorProps) {
                     }}
                     editorStyle={EditorStyle}
                     ref={richText}
-                    style={[
-                        styles.rich,
-                        {
-                            height:
-                                deviceUI.getScreenSize().height * 0.78 - deviceUI.moderateScale(50) - keyboardHeight,
-                        },
-                    ]}
+                    style={[styles.rich]}
                     useContainer={false}
                     enterKeyHint={"done"}
                     placeholder={"내용을 입력해주세요."}
@@ -57,7 +46,7 @@ function ComplaintEditor(props: ComplaintEditorProps) {
             </KeyboardAwareScrollView>
 
             <RichToolbar
-                style={[styles.richBar, { bottom: keyboardHeight, height: deviceUI.moderateScale(50) }]}
+                style={[styles.richBar]}
                 flatContainerStyle={styles.flatStyle}
                 editor={richText}
                 selectedIconTint={"#2095F2"}
