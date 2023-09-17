@@ -7,12 +7,14 @@ import React from "react";
 import ComplaintReplyEditModal from "../reply_bottom_edit";
 import { useNavigation } from "@react-navigation/native";
 import { VillifeNavigation } from "../../../../common/router/types";
+import useStyler from "../../../../common/hooks/styler/hooks";
 
 function ComplaintReplyItem(props: ComplaintReplyItemProps) {
     const styles = useComplaintRegisterButtonStyle();
     const [sanitizedURIs, setSanitizedURIs] = React.useState<Array<string>>([]);
     const [editModalVisible, setEditModalVisible] = React.useState(false);
     const navigation = useNavigation<VillifeNavigation>();
+    const { deviceUI, theme } = useStyler();
 
     React.useEffect(() => {
         const appropriateURIs = props.data.image_uris.split(",").filter((uri) => {
@@ -57,7 +59,7 @@ function ComplaintReplyItem(props: ComplaintReplyItemProps) {
                                         width: styles.image.width,
                                         height: styles.image.height,
                                         borderRadius: styles.image.borderRadius,
-                                        backgroundColor: "blue",
+                                        backgroundColor: theme.color.specified.grey,
                                     }}
                                 />
                             </Pressable>
