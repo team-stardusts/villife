@@ -25,6 +25,7 @@ import IconCheck from "./check";
 import IconFilterSetting from "./filter_setting";
 import IconTrashCan from "./trash_can";
 import IconMagnifier from "./magnifier";
+import IconCalendar from "./calendar";
 
 export default function Icon(props: IconProps) {
     /* let iconProps: ChildIconProps = {
@@ -50,6 +51,8 @@ export default function Icon(props: IconProps) {
             return <IconArrowWithMidline {...iconProps} />;
         case "building":
             return <IconBuilding {...iconProps} />;
+        case "calendar":
+            return <IconCalendar {...iconProps} />;
         case "car":
             return <IconCar {...iconProps} />;
         case "check":

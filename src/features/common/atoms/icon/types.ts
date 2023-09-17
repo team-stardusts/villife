@@ -12,6 +12,7 @@ export type IconSeries =
     | "arrow-down"
     | "arrow-right-with-midline"
     | "building"
+    | "calendar"
     | "car"
     | "check"
     | "clock-arrow"

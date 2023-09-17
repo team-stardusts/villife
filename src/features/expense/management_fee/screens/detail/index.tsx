@@ -45,6 +45,7 @@ export default function ManagementFeeDetailScreen({ navigation, route }: Managem
 
     useEffect(() => {
         if (selectedDate === null) return;
+
         const _fee = payer.history.user.find(
             (fee) => fee.year === selectedDate.year && fee.month === selectedDate.month
         );
@@ -55,6 +56,16 @@ export default function ManagementFeeDetailScreen({ navigation, route }: Managem
     const insertCommaToMoney = (money: number | undefined): string => {
         if (money === undefined || money === null) return "-";
         return money.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    };
+
+    const make2Digit = (num: number | undefined): string => {
+        if (num === undefined) return "0";
+
+        if (num >= 10) {
+            return num.toString();
+        } else {
+            return "0" + num.toString();
+        }
     };
 
     return (
@@ -73,13 +84,18 @@ export default function ManagementFeeDetailScreen({ navigation, route }: Managem
                 shown: false,
             }}>
             <ScreenTitleView titles={[`그린파크 ${user?.roomNumber}호`]} disablePaddingTop={true}>
-                <SelectModal modalVisible={modalVisible} setModalVisible={setModalVisible} paidDateRange={paidDR} />
+                <SelectModal
+                    modalVisible={modalVisible}
+                    setModalVisible={setModalVisible}
+                    paidDateRange={paidDR}
+                    onPick={setSelectedDate}
+                />
                 <TouchableOpacity
                     style={styles.main.selector}
                     activeOpacity={0.4}
                     onPress={() => setModalVisible(true)}>
                     <Text style={styles.main.selectorText}>
-                        {selectedDate?.year}년 {selectedDate?.month}월분
+                        {selectedDate?.year}년 {make2Digit(selectedDate?.month)}월분
                     </Text>
                     <Icon
                         name="arrow-down"
