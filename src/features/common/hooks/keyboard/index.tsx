@@ -32,15 +32,20 @@ function useOnKeyboardEvent(props?: UseOnKeyboardEventParam) {
             android: "keyboardDidHide",
         }) as KeyboardEventName;
 
-        //console.log(onShow, onHide);
-
-        Keyboard.addListener(onShow, onKeyboardShow);
-        Keyboard.addListener(onHide, onKeyboardHide);
+        const onShowListenr = Keyboard.addListener(onShow, onKeyboardShow);
+        const onHideListenr = Keyboard.addListener(onHide, onKeyboardHide);
 
         return () => {
             try {
-                Keyboard.removeAllListeners(onShow);
-                Keyboard.removeAllListeners(onHide);
+                // Keyboard가 NativeModule을 가지고 있지만, KeyboardStatic에는 타입 선언이 되어 있지 않아
+                // removeListeners를 사용할 수 없음
+                // removeAllListers는 없는 Function.
+                // 따라서, addListenr의 반환 객체를 통해 삭제함
+                // 아래는 에러 유발 코드
+                //Keyboard.removeAllListeners(onShow);
+                //Keyboard.removeAllListeners(onHide);
+                onShowListenr.remove();
+                onHideListenr.remove();
             } catch (e) {
                 console.log("[useOnKeyboardEvent]", e);
             }
