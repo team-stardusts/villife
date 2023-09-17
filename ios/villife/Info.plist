@@ -22,14 +22,14 @@
 	<string>????</string>
 	<key>CFBundleURLTypes</key>
 	<array>
-		<dict>
+		<!-- <dict>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>{KAKAO_API_KEY}</string>
 			</array>
-		</dict>
+		</dict> -->
 		<dict>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
