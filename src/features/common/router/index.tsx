@@ -41,6 +41,7 @@ import ComposeMessageScreen from "../../main/buliding_management/screens/compose
 import CommonPaymentWindowScreen from "../../expense/payment/screens/payment_window_common";
 import ConfirmPaymentCostScreen from "../../expense/payment/screens/confirm_payment_cost";
 import ManagementFeeDetailScreen from "../../expense/management_fee/screens/detail";
+import { Platform } from "react-native";
 
 enableScreens(true);
 
@@ -51,7 +52,15 @@ export default function ScreenRouter() {
     useAutoRegisterFirebaseToken();
 
     return (
-        <Stack.Navigator screenOptions={{ headerShown: false, animation: "fade" }} initialRouteName={"login"}>
+        <Stack.Navigator
+            screenOptions={{
+                headerShown: false,
+                animation: Platform.select({
+                    ios: "fade",
+                    android: "fade",
+                }),
+            }}
+            initialRouteName={"login"}>
             <Stack.Group>
                 <Stack.Screen name={"permission_request"} component={PermissionRequestScreen} />
                 <Stack.Screen name={"login"} component={LoginScreen} />

@@ -29,7 +29,7 @@ export default function useSendParkPushNotiScreenStyles() {
         },
         timeRow: {
             height: deviceUI.moderateScale(120),
-            marginVertical: deviceUI.moderateScale(15),
+            marginVertical: deviceUI.moderateScale(20),
         },
         timeFocused: {
             color: theme.color.specified.blue,
