@@ -54,7 +54,7 @@ export default function useStardustAlertStyles(enterMessage: boolean) {
             /* alignItems: enterMessage ? "center" : "flex-start",
             paddingLeft: enterMessage ? 0 : deviceUI.moderateScale(10), */
             alignItems: "flex-start",
-            paddingLeft: deviceUI.moderateScale(10),
+            paddingHorizontal: deviceUI.moderateScale(15),
         },
         title: {
             fontFamily: theme.font.fontFamily.pretendard.bold,
@@ -69,7 +69,7 @@ export default function useStardustAlertStyles(enterMessage: boolean) {
             justifyContent: "center",
             alignItems: "flex-start",
             paddingVertical: deviceUI.moderateScale(5),
-            paddingHorizontal: deviceUI.moderateScale(10),
+            paddingHorizontal: deviceUI.moderateScale(15),
         },
         message: {
             color: theme.color.specified.black,

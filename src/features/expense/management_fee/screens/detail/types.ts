@@ -10,6 +10,6 @@ export type PaidDateRange = {
 };
 
 export type SelectedDate = {
-    year: number | string;
-    month: number | string;
+    year: number;
+    month: number;
 };

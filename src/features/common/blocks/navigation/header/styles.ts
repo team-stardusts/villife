@@ -34,7 +34,7 @@ export default function useNavigationViewHeaderStyles(crrNavIndex: number) {
             alignItems: "flex-start",
         },
         icon: {
-            width: deviceUI.moderateScale(65),
+            width: deviceUI.moderateScale(55),
             color: theme.color.specified.black,
         },
         centerReactFuncBox: {
@@ -49,7 +49,7 @@ export default function useNavigationViewHeaderStyles(crrNavIndex: number) {
         },
         title: {
             color: theme.color.specified.black,
-            paddingLeft: crrNavIndex === 0 ? deviceUI.moderateScale(20) : deviceUI.moderateScale(3),
+            paddingLeft: crrNavIndex === 0 ? deviceUI.moderateScale(17) : deviceUI.moderateScale(3),
             marginRight: deviceUI.moderateScale(5),
             fontFamily: theme.font.fontFamily.pretendard.bold,
             fontSize: deviceUI.moderateScale(17),

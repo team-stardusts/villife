@@ -2,12 +2,12 @@ import { Animated, Platform, StyleSheet, View } from "react-native";
 import { ContentBoxProps } from "./types";
 import useStyler from "../../hooks/styler/hooks";
 import { useEffect, useRef } from "react";
-import { ANIMATION_DURATION_DEFAULT, ANIMATION_DURATION_SLOW } from "../../constants";
+import { ANIMATION_DURATION_DEFAULT, ANIMATION_DURATION_FAST, ANIMATION_DURATION_SLOW } from "../../constants";
 
 export default function ContentBox({ children, backgroundColor, enableShadow: eanbleShadow }: ContentBoxProps) {
     const { deviceUI, theme } = useStyler();
     const opacityValue = useRef(new Animated.Value(0)).current;
-    const translateYValue = useRef(new Animated.Value(12)).current;
+    const translateYValue = useRef(new Animated.Value(9)).current;
     const shadow = eanbleShadow
         ? Platform.select({
               ios: {
@@ -35,7 +35,7 @@ export default function ContentBox({ children, backgroundColor, enableShadow: ea
             }),
             Animated.timing(translateYValue, {
                 toValue: 0,
-                duration: ANIMATION_DURATION_SLOW,
+                duration: ANIMATION_DURATION_DEFAULT,
                 useNativeDriver: true,
             }),
         ]).start();

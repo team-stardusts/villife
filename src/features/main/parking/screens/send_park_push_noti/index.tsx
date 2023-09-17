@@ -57,8 +57,8 @@ export default function SendParkPushNotiScreen({ navigation, route }: SendParkPu
             }}
             bodyOptions={{
                 backgroundColor: styles.main.navContainer.backgroundColor,
-                applyDefaultVerticalPadding: true,
-                applyDefaultHorizontalPadding: true,
+                applyDefaultVerticalPadding: false,
+                applyDefaultHorizontalPadding: false,
             }}>
             <ScreenTitleView
                 titles={[messages.main.parking.send_park_push_noti.screen_title]}
