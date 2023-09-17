@@ -1,9 +1,10 @@
-import { Text, View } from "react-native";
+import { Linking, Platform, Text, View } from "react-native";
 import WebView from "react-native-webview";
 import NavigationView from "../../../../common/blocks/navigation";
 import usePaymentCommonScreenStyles from "./style";
 import { useGetPaymentWidgetUrl } from "../../services";
 import { CommonPaymentWindowScreenProps } from "./type";
+import SendIntentAndroid from "react-native-send-intent";
 
 export default function CommonPaymentWindowScreen(params: CommonPaymentWindowScreenProps) {
     const navParam = params.route.params;
@@ -18,7 +19,7 @@ export default function CommonPaymentWindowScreen(params: CommonPaymentWindowScr
     console.log(navParam);
     return (
         <NavigationView
-            headerOptions={{ title: "결제하기", backgroundColor: styles.navViewBackgroundColor.color }}
+            headerOptions={{ title: "결제하기" }}
             bottomNavOptions={{ shown: false }}
             bodyOptions={{
                 applyDefaultHorizontalPadding: false,
@@ -32,6 +33,35 @@ export default function CommonPaymentWindowScreen(params: CommonPaymentWindowScr
                     <WebView
                         style={styles.container}
                         javaScriptEnabled={true}
+                        onAccessibilityAction={(e) => {
+                            console.log(e);
+                        }}
+                        onShouldStartLoadWithRequest={(event) => {
+                            console.log("onShouldstart");
+                            console.log(event.url);
+                            if (event.url.startsWith("http")) {
+                                return true;
+                            }
+                            if (Platform.OS === "android" && event.url.startsWith("intent")) {
+                                console.log("android and intent condition");
+                                SendIntentAndroid.openAppWithUri(event.url)
+                                    .then((isOpened) => {
+                                        if (!isOpened) {
+                                            console.log("실행 실패");
+                                        }
+                                        return false;
+                                    })
+                                    .catch((err) => {
+                                        console.log(err);
+                                    });
+                                return false;
+                            }
+                            if (Platform.OS === "ios") {
+                                return true;
+                            }
+                            return true;
+                        }}
+                        originWhitelist={["http://", "https://", "intent:*"]}
                         injectedJavaScriptForMainFrameOnly={true}
                         source={{
                             uri: `${widgetUrl}`,

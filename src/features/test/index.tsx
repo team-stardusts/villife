@@ -36,7 +36,10 @@ export default function TestScreen() {
             price: 80000,
         });
 
-        if (result != null) setPaymentUrl(result);
+        if (result != null) {
+            setPaymentUrl(result);
+            //Linking.openURL(result);
+        }
     };
     const navigateToPaymentWindow = () => {
         navigation.navigate("payment_window", {
