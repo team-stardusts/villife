@@ -7,7 +7,6 @@ import useBottomEditModalStyles from "./styles";
 import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
 import useStyler from "../../../../common/hooks/styler/hooks";
 import useNoticeService from "../../services";
-import { ContentPriority } from "../noti_label.tsx/type";
 import { CreateNoticeParams } from "../../../../../libs/rest_apis/villife/notice/types";
 import NavigationWithProps from "./type";
 import useUserInformation from "../../../../common/hooks/service/user_info";
@@ -21,7 +20,6 @@ export default function NotiRegisterModal(props: NavigationWithProps) {
 
     const onPrioritySubmit = async (priority: number) => {
         props.setVisible(false);
-        console.log(priority);
 
         if (priority && user?.adminInfomation?.selectedBuilding.id) {
             const param: CreateNoticeParams = {

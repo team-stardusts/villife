@@ -96,9 +96,9 @@ class VillifeBuildingManager extends AVillifeServerModule implements IVillifeBui
     public async requestNotification(
         params: Building.RequestNotification.Params
     ): Response<Building.RequestNotification.Returns> {
-        let route: string = this.routes.budilingAndContract.contract;
+        let route: string = this.routes.budilingAndContract.buildingNoti;
 
-        return await this.requestAuthable<Building.RequestNotification.Params, Building.RequestNotification.Returns>({
+        return await this.requestAuthable<any, string>({
             method: "post",
             url: route,
             data: params,

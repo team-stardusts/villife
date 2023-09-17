@@ -6,17 +6,17 @@ import useStyler from "../../../../common/hooks/styler/hooks";
 import Editor from "./blocks/editor";
 import ComposeMessageScreenProps from "./type";
 import SendButton from "./blocks/send_button";
-import BuildingManagementServiceProvider from "../../services/building_rooms/provider";
+
+import useBuildingRoomContractor from "../../services/building_rooms";
 
 export default function ComposeMessageScreen(props: ComposeMessageScreenProps) {
     const message = useScreenMessage();
     const content = useRef("");
     const title = useRef("");
     const { deviceUI, theme } = useStyler();
-    const service = new BuildingManagementServiceProvider();
+    const contractor = useBuildingRoomContractor();
 
     const [loading, setLoading] = React.useState(false);
-    const [editModalVisible, setEditModalVisible] = React.useState(false);
 
     const onSubmit = async () => {
         setLoading(true);
@@ -24,8 +24,19 @@ export default function ComposeMessageScreen(props: ComposeMessageScreenProps) {
             setLoading(false);
             return VillifeToastMessage.showBottomToast("info", message.messages.main.noti.noti_title_error);
         }
+        let isSuccessful: boolean = false;
+        const params = {
+            title: title.current,
+            content: content.current,
+            contractID: props.route.params.contractID,
+        };
         setLoading(false);
-        setEditModalVisible(true);
+        isSuccessful = await contractor.requestNotification(params);
+        if (isSuccessful)
+            props.navigation.reset({
+                index: 0,
+                routes: [{ name: "building_management" }],
+            });
     };
 
     return (

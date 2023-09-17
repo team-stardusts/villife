@@ -20,7 +20,6 @@ export default function ApprovalRequiredModal(props: ApprovalRequiredModalProps)
         if (!props.visible) setDeleteAlertVisible(false);
     }, []);
 
-    // [TO-DO] : service에서 불러와서 사용
     const onRejectButtonPress = async () => {
         const result = await service.rejectUserApproval(props.convertedApprovalRequest.id);
 

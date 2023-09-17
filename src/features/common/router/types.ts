@@ -35,7 +35,9 @@ export type VillifeStackParamList = VillifeRootStackParamList & {
             [key: string]: number;
         };
     };
-    compose_message: {};
+    compose_message: {
+        contractID: number;
+    };
     common_complaint_home: {};
     common_complaint_modify: {};
     common_complaint_register: {};
@@ -88,6 +90,7 @@ export type VillifeStackParamList = VillifeRootStackParamList & {
     register_building?: {};
     tenant_detail: {
         roomInfo: string; //BuildingRoomInfo;
+        contractID: number;
     };
     terms_of_service?: {};
     tenant_setting: {

@@ -113,7 +113,7 @@ class BuildingManagementServiceProvider extends AServiceProvider implements IBui
         });
 
         if (!result.isSuccessful || result.data?.data === undefined) {
-            this.printWhyFailed(result.data, "Failed to delete the contract.");
+            this.printWhyFailed(result.data, "Failed to request notification.");
 
             return false;
         }

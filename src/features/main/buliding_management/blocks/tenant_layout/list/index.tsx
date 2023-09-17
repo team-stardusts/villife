@@ -122,6 +122,7 @@ function BuildingTenantView(props: BuildingTenantProps) {
         } else {
             navigation.navigate("tenant_detail", {
                 roomInfo: JSON.stringify(props.roomInfo),
+                contractID: props.roomInfo.contractInfo.contractID,
             });
         }
     };
