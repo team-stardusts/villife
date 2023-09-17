@@ -48,6 +48,9 @@ export default function TenantDetailScreen({ route }: TenantDetailScreenProps) {
                 if (isSuccessful) {
                     VillifeToastMessage.showBottomToast("success", "알림 완료");
                     setNoticeModalVisible(false);
+                } else {
+                    VillifeToastMessage.showBottomToast("error", "알림 실패");
+                    setNoticeModalVisible(false);
                 }
             },
         },
@@ -65,6 +68,9 @@ export default function TenantDetailScreen({ route }: TenantDetailScreenProps) {
                 if (isSuccessful) {
                     VillifeToastMessage.showBottomToast("success", "알림 완료");
                     setNoticeModalVisible(false);
+                }else {
+                    VillifeToastMessage.showBottomToast("error", "알림 실패");
+                    setNoticeModalVisible(false);
                 }
             },
         },
@@ -81,6 +87,9 @@ export default function TenantDetailScreen({ route }: TenantDetailScreenProps) {
                 isSuccessful = await contractor.requestNotification(params);
                 if (isSuccessful) {
                     VillifeToastMessage.showBottomToast("success", "알림 완료");
+                    setNoticeModalVisible(false);
+                }else {
+                    VillifeToastMessage.showBottomToast("error", "알림 실패");
                     setNoticeModalVisible(false);
                 }
             },

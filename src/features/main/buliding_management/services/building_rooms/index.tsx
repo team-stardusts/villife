@@ -54,8 +54,6 @@ export default function useBuildingRoomContractor(): IBuildingRooms {
         public async requestNotification(params: RequestNotification.Params): Promise<boolean> {
             const isSuccessful = await service.requestNotification(params);
 
-            if (isSuccessful) this.requestNotification(params);
-
             return isSuccessful;
         }
     }

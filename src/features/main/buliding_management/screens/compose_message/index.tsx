@@ -32,11 +32,19 @@ export default function ComposeMessageScreen(props: ComposeMessageScreenProps) {
         };
         setLoading(false);
         isSuccessful = await contractor.requestNotification(params);
-        if (isSuccessful)
+        if (isSuccessful) {
+            VillifeToastMessage.showBottomToast("error", "알림 성공");
             props.navigation.reset({
                 index: 0,
                 routes: [{ name: "building_management" }],
             });
+        } else {
+            VillifeToastMessage.showBottomToast("error", "알림 실패");
+            props.navigation.reset({
+                index: 0,
+                routes: [{ name: "building_management" }],
+            });
+        }
     };
 
     return (
