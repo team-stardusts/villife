@@ -47,7 +47,7 @@ export default function BuildingSendMessageScreen({ route }: BuildingSendMessage
     return (
         <NavigationView
             headerOptions={{
-                title: messages.main.building_management.send_message_to_building_tenant.screen_title,
+                title: messages.main.lease_contract.send_message_to_building_tenant.screen_title,
                 hideBuidingSelector: true,
                 style: {
                     backgroundColor: styles.nav.backgroundColor,

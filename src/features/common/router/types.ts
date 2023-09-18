@@ -2,8 +2,8 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { Authority } from "../../../libs/rest_apis/villife/types";
 import { HostType } from "../../../libs/rest_apis/villife/auth/types";
 import { Complaint } from "../../../libs/rest_apis/villife/complaint/types";
-import { LayoutType } from "../../main/buliding_management/blocks/filter/blocks/layout_selector";
-import { BuildingRoomInfo } from "../../main/buliding_management/services/building_rooms/provider/types";
+import { LayoutType } from "../../main/lease_contract/blocks/filter/blocks/layout_selector";
+import { BuildingRoomInfo } from "../../main/lease_contract/services/building_rooms/provider/types";
 
 export type VillifeRootStackParamList = {
     login?: {};
@@ -14,7 +14,7 @@ export type VillifeRootStackParamList = {
     parking?: {};
     management_fee?: {};
     my_page?: {};
-    building_management?: {};
+    lease_contract?: {};
 };
 
 export const VILLIFE_ROOT_STACK_PARAMS: Array<keyof VillifeRootStackParamList> = [
@@ -25,7 +25,7 @@ export const VILLIFE_ROOT_STACK_PARAMS: Array<keyof VillifeRootStackParamList> =
     "parking",
     "management_fee",
     "my_page",
-    "building_management",
+    "lease_contract",
 ];
 
 export type VillifeStackParamList = VillifeRootStackParamList & {

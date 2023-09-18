@@ -19,14 +19,22 @@ export default function CommonPaymentWindowScreen(params: CommonPaymentWindowScr
     console.log(navParam);
     return (
         <NavigationView
-            headerOptions={{ title: "결제하기" }}
+            headerOptions={{
+                title: "결제하기",
+                hideBuidingSelector: true,
+                style: {
+                    borderBottomColor: styles.navContainer.color,
+                    backgroundColor: styles.navContainer.color,
+                },
+            }}
             bottomNavOptions={{ shown: false }}
             bodyOptions={{
                 applyDefaultHorizontalPadding: false,
-                backgroundColor: styles.navViewBackgroundColor.color,
+                applyDefaultVerticalPadding: false,
+                backgroundColor: styles.navContainer.color,
             }}>
             <View style={styles.container}>
-                <Text style={styles.title}>{navParam.title}</Text>
+                {/* <Text style={styles.title}>{navParam.title}</Text> */}
                 {!widgetUrl ? (
                     <></>
                 ) : (
@@ -34,7 +42,7 @@ export default function CommonPaymentWindowScreen(params: CommonPaymentWindowScr
                         style={styles.container}
                         javaScriptEnabled={true}
                         onAccessibilityAction={(e) => {
-                            console.log(e);
+                            console.log("onAccessibilityAction", e);
                         }}
                         onShouldStartLoadWithRequest={(event) => {
                             console.log("onShouldstart");
@@ -65,7 +73,8 @@ export default function CommonPaymentWindowScreen(params: CommonPaymentWindowScr
                         injectedJavaScriptForMainFrameOnly={true}
                         source={{
                             uri: `${widgetUrl}`,
-                        }}></WebView>
+                        }}
+                    />
                 )}
             </View>
         </NavigationView>

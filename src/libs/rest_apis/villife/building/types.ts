@@ -136,7 +136,7 @@ export namespace Building {
     }
 
     // 만료 / 만료 임박 / 없음 / 정상
-    export type ContractStatus = "expired" | "imminent-expiration" | "absense" | "normal";
+    export type ContractStatus = "expired" | "ImminentExpiration" | "absense" | "normal";
     export type RoomState = "empty" | "signed" | "unsigned";
     export type RentType = "" | "lump-sum-deposit" | "monthly-rent";
 }

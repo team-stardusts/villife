@@ -1,6 +1,6 @@
 import { View } from "react-native";
 import NavigationView from "../../../../common/blocks/navigation";
-import BuildingManagementScreenProps from "./types";
+import LeaseContractHomeScreenProps from "./types";
 import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
 import useBuildingManagementScreenStyles from "./styles";
 import BuildingTentantMessage from "../../blocks/message";
@@ -10,7 +10,7 @@ import { LayoutType } from "../../blocks/filter/blocks/layout_selector";
 import TentantLayout from "../../blocks/tenant_layout";
 import { BuildingRoomInfo } from "../../services/building_rooms/provider/types";
 
-export default function BuildingManagementScreen({ navigation, route }: BuildingManagementScreenProps) {
+export default function LeaseContractHomeScreen({ navigation, route }: LeaseContractHomeScreenProps) {
     const messages = useScreenMessage().messages;
     const styles = useBuildingManagementScreenStyles();
     const [layout, setLayout] = useState<LayoutType>("list");
@@ -20,7 +20,7 @@ export default function BuildingManagementScreen({ navigation, route }: Building
     return (
         <NavigationView
             headerOptions={{
-                title: messages.main.building_management.home.screen_title,
+                title: messages.main.lease_contract.home.screen_title,
                 style: {
                     backgroundColor: styles.nav.backgroundColor,
                 },

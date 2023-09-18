@@ -105,7 +105,7 @@ function BuildingTenantView(props: BuildingTenantProps) {
         switch (props.roomInfo.contractState) {
             case "expired":
                 return props.messages.words.expiration;
-            case "imminent-expiration":
+            case "ImminentExpiration":
                 return props.messages.words.close_to_expiration;
             default:
                 return "";

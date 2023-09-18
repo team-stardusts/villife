@@ -5,9 +5,9 @@
             "building_info": "건물 정보",
             "user_info": "개인 정보"
         },
-        "building_management": {
+        "lease_contract": {
             "home": {
-                "screen_title": "건물"
+                "screen_title": "계약"
             },
             "send_message_to_building_tenant": {
                 "screen_title": "알림 보내기"

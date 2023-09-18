@@ -12,7 +12,7 @@ export type MessagesByLanguage = {
             building_info: string;
             user_info: string;
         };
-        building_management: {
+        lease_contract: {
             home: {
                 screen_title: string;
             };

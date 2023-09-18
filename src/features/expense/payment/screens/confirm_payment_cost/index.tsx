@@ -18,6 +18,7 @@ export default function ConfirmPaymentCostScreen({ navigation, route }: ConfirmP
         <NavigationView
             headerOptions={{
                 title: "결제하기",
+                hideBuidingSelector: true,
                 style: {
                     borderBottomColor: styles.main.navContainer.backgroundColor,
                     backgroundColor: styles.main.navContainer.backgroundColor,

@@ -36,7 +36,7 @@ export default function NavigationViewBottom() {
                 {rootLinks.map((link, index) => {
                     if (user?.isAdmin && link.screen.name === "parking") {
                         return;
-                    } else if (user?.isRenter && link.screen.name === "building_management") {
+                    } else if (user?.isRenter && link.screen.name === "lease_contract") {
                         return;
                     }
 

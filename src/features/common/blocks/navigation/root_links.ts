@@ -14,9 +14,9 @@ export default function useRootLinks(): RootLink[] {
         },
         {
             icon: "building",
-            caption: message.messages.main.building_management.home.screen_title,
+            caption: message.messages.main.lease_contract.home.screen_title,
             screen: {
-                name: "building_management",
+                name: "lease_contract",
                 params: {},
             },
         },

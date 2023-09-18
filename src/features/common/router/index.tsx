@@ -3,8 +3,8 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { VillifeStackParamList } from "./types";
 import { useAutoRegisterFirebaseToken } from "../hooks/firebase";
 import ApprovalHomeScreen from "../../main/approval/screens/home";
-import BuildingManagementScreen from "../../main/buliding_management/screens/home";
-import BuildingSendMessageScreen from "../../main/buliding_management/screens/send_message";
+import LeaseContractHomeScreen from "../../main/lease_contract/screens/home";
+import BuildingSendMessageScreen from "../../main/lease_contract/screens/send_message";
 import CommonComplaintHomeScreen from "../../main/common_complaint/screens/home";
 import CommonComplaintModifyScreen from "../../main/common_complaint/screens/modify";
 import CommonComplaintRegisterScreen from "../../main/common_complaint/screens/register";
@@ -26,7 +26,7 @@ import ManagementFeeHomeScreen from "../../expense/management_fee/screens/home";
 import PermissionRequestScreen from "../../auth/screens/permission_request";
 import RegisterVehicleScreen from "../../main/parking/screens/register_vehicle";
 import RegisterGuestVehicleScreen from "../../main/parking/screens/register_guest_vehicle";
-import RegisterBuildingScreen from "../../main/buliding_management/screens/register_building";
+import RegisterBuildingScreen from "../../main/lease_contract/screens/register_building";
 import SendParkPushNotiScreen from "../../main/parking/screens/send_park_push_noti";
 import SplashScreen from "../../splash/screens";
 import SetBuildingScreen from "../../auth/screens/set_building";
@@ -35,9 +35,9 @@ import TermsOfServiceScreen from "../../auth/screens/terms_of_service/index.";
 import TestScreen from "../../test";
 import useRoutingAdministratorByLogin from "./routing_admin";
 import WelcomeScreen from "../../auth/screens/welcome";
-import TenantDetailScreen from "../../main/buliding_management/screens/tenant_detail";
-import TenantSettingScreen from "../../main/buliding_management/screens/tenant_setting";
-import ComposeMessageScreen from "../../main/buliding_management/screens/compose_message";
+import TenantDetailScreen from "../../main/lease_contract/screens/tenant_detail";
+import TenantSettingScreen from "../../main/lease_contract/screens/tenant_setting";
+import ComposeMessageScreen from "../../main/lease_contract/screens/compose_message";
 import CommonPaymentWindowScreen from "../../expense/payment/screens/payment_window_common";
 import ConfirmPaymentCostScreen from "../../expense/payment/screens/confirm_payment_cost";
 import ManagementFeeDetailScreen from "../../expense/management_fee/screens/detail";
@@ -73,7 +73,7 @@ export default function ScreenRouter() {
                 <Stack.Screen name={"home"} component={HomeScreen} />
             </Stack.Group>
             <Stack.Group>
-                <Stack.Screen name={"building_management"} component={BuildingManagementScreen} />
+                <Stack.Screen name={"lease_contract"} component={LeaseContractHomeScreen} />
                 <Stack.Screen name={"register_building"} component={RegisterBuildingScreen} />
                 <Stack.Screen name={"tenant_detail"} component={TenantDetailScreen} />
                 <Stack.Screen name={"tenant_setting"} component={TenantSettingScreen} />
