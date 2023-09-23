@@ -11,15 +11,17 @@ import {
     ANIMATION_DURATION_FAST_LV2,
     ANIMATION_DURATION_FAST_LV3,
 } from "../../../constants";
+import useStyler from "../../../hooks/styler/hooks";
 
 export default function NavigationViewHeader(props: NavigationViewHeaderProps) {
     const [crrNavIndex, setCrrNavIndex] = useState<number>(0);
     const navigation = useNavigation<VillifeRouterParams["navigation"]>();
+    const { deviceUI } = useStyler();
     const styles = useNavigationViewHeaderStyles(crrNavIndex);
     const backgroundColor = props?.style?.backgroundColor ?? styles.container.backgroundColor;
     const borderBottomColor = props?.style?.borderBottomColor ?? styles.container.borderBottomColor;
     const translateXValue = useRef(new Animated.Value(0)).current;
-    const TRANSLATE_X_STD_VALUE = 20;
+    const TRANSLATE_X_STD_VALUE = deviceUI.moderateScale(40);
 
     useEffect(() => {
         setCrrNavIndex(navigation.getState().index);

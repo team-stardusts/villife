@@ -16,7 +16,7 @@ export default function NavigationViewBottom() {
     const rootLinks = useRootLinks();
     const user = useUserInformation();
     const [currentRootScreen, setCurrentRootScreen] = useState<keyof VillifeStackParamList>("home");
-    const translateYValue = useRef(new Animated.Value(20)).current;
+    const translateYValue = useRef(new Animated.Value(30)).current;
 
     const handleLinkPress = (link: RootLink) => {
         // 현재 스크린의 버튼 클릭 시 routing 되지 않도록 함.
