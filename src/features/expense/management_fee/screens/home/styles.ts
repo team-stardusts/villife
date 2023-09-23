@@ -131,8 +131,8 @@ export default function useManagementFeeHomeScreenStyles() {
             //height: deviceUI.moderateScale(65),
         },
         managementFeeContainer: {
-            height: deviceUI.moderateScale(65),
-            width: deviceUI.moderateScale(65),
+            height: deviceUI.moderateScale(70),
+            width: deviceUI.moderateScale(70),
             marginLeft: deviceUI.moderateScale(SCREEN_PADDING_HORIZONTAL_STANDARD_VALUE / 1.5),
         },
         contentBox: {
@@ -165,13 +165,17 @@ export default function useManagementFeeHomeScreenStyles() {
             justifyContent: "center",
             alignItems: "center",
         },
-        icon: {
-            width: deviceUI.moderateScale(25),
+        checkIcon: {
+            width: deviceUI.moderateScale(30),
             color: theme.color.specified.green,
+        },
+        xIcon: {
+            width: deviceUI.moderateScale(45),
+            color: theme.color.status.danger,
         },
         paymentBtn: {
             marginTop: deviceUI.moderateScale(3),
-            paddingHorizontal: deviceUI.moderateScale(10),
+            paddingHorizontal: deviceUI.moderateScale(8),
             paddingVertical: deviceUI.moderateScale(3),
             borderRadius: deviceUI.moderateScale(20),
             backgroundColor: theme.color.specified.blue,
@@ -180,7 +184,7 @@ export default function useManagementFeeHomeScreenStyles() {
         },
         paymentBtnText: {
             fontFamily: theme.font.fontFamily.pretendard.regular,
-            fontSize: deviceUI.moderateScale(8),
+            fontSize: deviceUI.moderateScale(10),
             color: theme.color.specified.white,
         },
     });

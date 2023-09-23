@@ -1,13 +1,14 @@
-import { Text, TouchableOpacity, View } from "react-native";
+import { Animated, Text, TouchableOpacity, View } from "react-native";
 import useNavigationViewBottomStyles from "./styles";
 import Icon from "../../../atoms/icon";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import useRootLinks from "../root_links";
 import { useNavigation } from "@react-navigation/native";
 import { VillifeRouterParams, VillifeStackParamList } from "../../../router/types";
 import { RootLink } from "../types";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import useUserInformation from "../../../hooks/service/user_info";
+import { ANIMATION_DURATION_FAST_LV3 } from "../../../constants";
 
 export default function NavigationViewBottom() {
     const navigation = useNavigation<VillifeRouterParams["navigation"]>();
@@ -15,6 +16,7 @@ export default function NavigationViewBottom() {
     const rootLinks = useRootLinks();
     const user = useUserInformation();
     const [currentRootScreen, setCurrentRootScreen] = useState<keyof VillifeStackParamList>("home");
+    const translateYValue = useRef(new Animated.Value(20)).current;
 
     const handleLinkPress = (link: RootLink) => {
         // 현재 스크린의 버튼 클릭 시 routing 되지 않도록 함.
@@ -30,9 +32,17 @@ export default function NavigationViewBottom() {
         setCurrentRootScreen(navigation.getState().routes[0].name);
     }, [navigation.getState().routes]);
 
+    useEffect(() => {
+        Animated.timing(translateYValue, {
+            toValue: 0,
+            duration: ANIMATION_DURATION_FAST_LV3,
+            useNativeDriver: true,
+        }).start();
+    }, []);
+
     return (
         <View style={styles.container}>
-            <View style={styles.menuBox}>
+            <Animated.View style={[styles.menuBox, { transform: [{ translateY: translateYValue }] }]}>
                 {rootLinks.map((link, index) => {
                     if (user?.isAdmin && link.screen.name === "parking") {
                         return;
@@ -74,7 +84,7 @@ export default function NavigationViewBottom() {
                         </TouchableOpacity>
                     );
                 })}
-            </View>
+            </Animated.View>
             <View style={styles.dummyView} />
         </View>
     );

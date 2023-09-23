@@ -4,10 +4,10 @@ import ScreenTitleViewProps from "./types";
 import ScreenBottonButton from "./bottom_button";
 
 export default function ScreenTitleView(props: ScreenTitleViewProps): JSX.Element {
-    const styles = useScreenTtitleViewStyles();
+    const styles = useScreenTtitleViewStyles(props.disablePaddingTop);
 
     return (
-        <View style={[styles.container, props.disablePaddingTop && { paddingTop: 0 }]}>
+        <View style={[styles.container]}>
             <View style={styles.titleBox}>
                 {props.titles.map((title, index) => (
                     <Text key={index} style={styles.title} adjustsFontSizeToFit={true} numberOfLines={1}>

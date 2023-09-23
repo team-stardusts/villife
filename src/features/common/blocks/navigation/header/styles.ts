@@ -23,18 +23,23 @@ export default function useNavigationViewHeaderStyles(crrNavIndex: number) {
             flexDirection: "row",
         },
         titleBox: {
-            flex: 0.7,
+            flex: 1,
             justifyContent: "center",
             alignItems: "flex-start",
+            paddingLeft: crrNavIndex === 0 ? deviceUI.moderateScale(17) : 0,
+        },
+        title: {
+            color: theme.color.specified.black,
+            marginRight: deviceUI.moderateScale(5),
+            fontFamily: theme.font.fontFamily.pretendard.bold,
+            fontSize: deviceUI.moderateScale(17),
         },
         iconBox: {
-            flex: 0.3,
-            //height: "100%",
             justifyContent: "center",
             alignItems: "flex-start",
         },
         icon: {
-            width: deviceUI.moderateScale(55),
+            width: deviceUI.moderateScale(50),
             color: theme.color.specified.black,
         },
         centerReactFuncBox: {
@@ -46,13 +51,6 @@ export default function useNavigationViewHeaderStyles(crrNavIndex: number) {
             width: "32%",
             alignContent: "center",
             justifyContent: "center",
-        },
-        title: {
-            color: theme.color.specified.black,
-            paddingLeft: crrNavIndex === 0 ? deviceUI.moderateScale(17) : deviceUI.moderateScale(3),
-            marginRight: deviceUI.moderateScale(5),
-            fontFamily: theme.font.fontFamily.pretendard.bold,
-            fontSize: deviceUI.moderateScale(17),
         },
     });
 }

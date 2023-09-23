@@ -10,7 +10,7 @@ import UniversalTextInputProps from "./types";
 import { StyleSheet } from "react-native";
 import useStyler from "../../../hooks/styler/hooks";
 import { Animated } from "react-native";
-import { ANIMATION_DURATION_FAST } from "../../../constants";
+import { ANIMATION_DURATION_FAST_LV2 } from "../../../constants";
 
 export default function UniversalTextInput(props: UniversalTextInputProps) {
     const { deviceUI, theme } = useStyler();
@@ -24,7 +24,7 @@ export default function UniversalTextInput(props: UniversalTextInputProps) {
 
         Animated.timing(animatedBorderWidth, {
             toValue: toValue,
-            duration: ANIMATION_DURATION_FAST,
+            duration: ANIMATION_DURATION_FAST_LV2,
             useNativeDriver: false,
         }).start();
     }, [isFocusing, animatedBorderWidth]);

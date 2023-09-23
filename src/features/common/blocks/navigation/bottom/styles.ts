@@ -16,7 +16,7 @@ export default function useNavigationViewBottomStyles() {
             width: "100%",
             height: deviceUI.getScreenSize().height * 0.3,
             bottom: deviceUI.getScreenSize().height * -0.3 + 1,
-            backgroundColor: "white",
+            backgroundColor: theme.color.specified.white,
         },
         menuBox: {
             width: "101%",

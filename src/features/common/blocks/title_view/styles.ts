@@ -1,14 +1,14 @@
 import { StyleSheet } from "react-native";
 import useStyler from "../../hooks/styler/hooks";
 
-export default function useScreenTtitleViewStyles() {
+export default function useScreenTtitleViewStyles(disabledPaddingTop?: boolean) {
     const { deviceUI, theme, safetyEdgeSize } = useStyler();
 
     return StyleSheet.create({
         container: {
             flex: 1,
             justifyContent: "center",
-            paddingTop: deviceUI.moderateScale(70),
+            paddingTop: disabledPaddingTop ? deviceUI.moderateScale(20) : deviceUI.moderateScale(70),
             paddingHorizontal: deviceUI.moderateScale(18),
         },
         titleBox: {

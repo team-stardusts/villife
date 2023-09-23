@@ -1,11 +1,16 @@
-import { useCallback, useEffect, useState } from "react";
-import { Text, TouchableOpacity, View } from "react-native";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { Animated, Text, TouchableOpacity, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { VillifeRouterParams } from "../../../router/types";
 import Icon from "../../../atoms/icon";
 import useNavigationViewHeaderStyles from "./styles";
 import { NavigationViewHeaderProps } from "./types";
 import BuildingSelector from "./building_selector";
+import {
+    ANIMATION_DURATION_DEFAULT,
+    ANIMATION_DURATION_FAST_LV2,
+    ANIMATION_DURATION_FAST_LV3,
+} from "../../../constants";
 
 export default function NavigationViewHeader(props: NavigationViewHeaderProps) {
     const [crrNavIndex, setCrrNavIndex] = useState<number>(0);
@@ -13,13 +18,36 @@ export default function NavigationViewHeader(props: NavigationViewHeaderProps) {
     const styles = useNavigationViewHeaderStyles(crrNavIndex);
     const backgroundColor = props?.style?.backgroundColor ?? styles.container.backgroundColor;
     const borderBottomColor = props?.style?.borderBottomColor ?? styles.container.borderBottomColor;
+    const translateXValue = useRef(new Animated.Value(0)).current;
+    const TRANSLATE_X_STD_VALUE = 20;
 
     useEffect(() => {
         setCrrNavIndex(navigation.getState().index);
+        if (navigation.getState().index === 0) {
+            translateXValue.setValue(-TRANSLATE_X_STD_VALUE);
+        } else {
+            translateXValue.setValue(TRANSLATE_X_STD_VALUE);
+        }
     }, [navigation]);
 
+    useEffect(() => {
+        Animated.timing(translateXValue, {
+            toValue: 0,
+            duration: ANIMATION_DURATION_FAST_LV3,
+            useNativeDriver: true,
+        }).start();
+    }, []);
+
     return (
-        <View style={[styles.container, { backgroundColor: backgroundColor, borderBottomColor: borderBottomColor }]}>
+        <Animated.View
+            style={[
+                styles.container,
+                {
+                    backgroundColor: backgroundColor,
+                    borderBottomColor: borderBottomColor,
+                    transform: [{ translateX: translateXValue }],
+                },
+            ]}>
             <View style={styles.box}>
                 <TouchableOpacity style={styles.wrapper} disabled={crrNavIndex === 0} onPress={() => navigation.pop(1)}>
                     {crrNavIndex > 0 && (
@@ -31,7 +59,7 @@ export default function NavigationViewHeader(props: NavigationViewHeaderProps) {
                         <Text
                             style={styles.title}
                             numberOfLines={1}
-                            minimumFontScale={0.2}
+                            //minimumFontScale={0.2}
                             ellipsizeMode="tail"
                             //maxFontSizeMultiplier={1}
                             adjustsFontSizeToFit>
@@ -44,6 +72,6 @@ export default function NavigationViewHeader(props: NavigationViewHeaderProps) {
             <View style={styles.rightReactFuncBox}>
                 {props.navComponent !== undefined && <props.navComponent {...props.navComponentProps} />}
             </View>
-        </View>
+        </Animated.View>
     );
 }

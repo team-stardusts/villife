@@ -1,8 +1,8 @@
-import { Animated, Platform, StyleSheet, View } from "react-native";
+import { Animated, Platform, StyleSheet } from "react-native";
 import { ContentBoxProps } from "./types";
 import useStyler from "../../hooks/styler/hooks";
 import { useEffect, useRef } from "react";
-import { ANIMATION_DURATION_DEFAULT, ANIMATION_DURATION_FAST, ANIMATION_DURATION_SLOW } from "../../constants";
+import { ANIMATION_DURATION_DEFAULT } from "../../constants";
 
 export default function ContentBox({ children, backgroundColor, enableShadow: eanbleShadow }: ContentBoxProps) {
     const { deviceUI, theme } = useStyler();

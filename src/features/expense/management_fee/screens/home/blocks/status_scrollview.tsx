@@ -77,7 +77,7 @@ function PaymentByMonth(props: PaymentByMonthProps) {
                 <TouchableOpacity
                     style={props.styles.contentWrapper}
                     activeOpacity={0.6}
-                    disabled={props.managementFee.is_paid}
+                    disabled={props.managementFee.is_paid || !props.isLastElement}
                     onPress={handlePressPaymentBtn}>
                     <View style={props.styles.monthBox}>
                         <Text style={props.styles.month}>{props.managementFee.month}월</Text>
@@ -85,11 +85,21 @@ function PaymentByMonth(props: PaymentByMonthProps) {
                     <View style={props.styles.btnBox}>
                         {props.managementFee.is_paid ? (
                             <View style={props.styles.iconBox}>
-                                <Icon name="check" size={props.styles.icon.width} color={props.styles.icon.color} />
+                                <Icon
+                                    name="check"
+                                    size={props.styles.checkIcon.width}
+                                    color={props.styles.checkIcon.color}
+                                />
+                            </View>
+                        ) : props.isLastElement ? (
+                            <View style={props.styles.paymentBtn}>
+                                <Text style={props.styles.paymentBtnText} adjustsFontSizeToFit>
+                                    납부하기
+                                </Text>
                             </View>
                         ) : (
-                            <View style={props.styles.paymentBtn}>
-                                <Text style={props.styles.paymentBtnText}>납부하기</Text>
+                            <View style={[props.styles.iconBox, { transform: [{ rotateZ: "45deg" }] }]}>
+                                <Icon name="plus" size={props.styles.xIcon.width} color={props.styles.xIcon.color} />
                             </View>
                         )}
                     </View>

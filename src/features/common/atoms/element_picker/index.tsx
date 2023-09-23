@@ -1,6 +1,6 @@
 import { Animated, NativeScrollEvent, NativeSyntheticEvent, Pressable, ScrollView } from "react-native";
 import { useEffect, useRef, useState } from "react";
-import { ANIMATION_DURATION_FAST } from "../../constants";
+import { ANIMATION_DURATION_FAST_LV2 } from "../../constants";
 import { ElementPickerProps, Node, NodeProps } from "./types";
 import useElementPickerStyles from "./styles";
 
@@ -118,7 +118,7 @@ function ElementNode(props: NodeProps) {
 
         Animated.timing(fontSizeValue, {
             toValue,
-            duration: ANIMATION_DURATION_FAST,
+            duration: ANIMATION_DURATION_FAST_LV2,
             useNativeDriver: true,
         }).start();
     }, [props.isFocused]);

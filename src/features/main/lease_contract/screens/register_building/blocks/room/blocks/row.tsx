@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { FloorSetterRowProps } from "../types";
 import { Animated, Text, TouchableOpacity, View } from "react-native";
 import Icon from "../../../../../../../common/atoms/icon";
-import { ANIMATION_DURATION_FAST } from "../../../../../../../common/constants";
+import { ANIMATION_DURATION_FAST_LV2 } from "../../../../../../../common/constants";
 import RoomsSettingModal from "./modal";
 
 export default function FloorSetterRow(props: FloorSetterRowProps) {
@@ -21,12 +21,12 @@ export default function FloorSetterRow(props: FloorSetterRowProps) {
         Animated.parallel([
             Animated.timing(opacityValue, {
                 toValue: 1,
-                duration: ANIMATION_DURATION_FAST,
+                duration: ANIMATION_DURATION_FAST_LV2,
                 useNativeDriver: true,
             }),
             Animated.timing(translateYValue, {
                 toValue: 0,
-                duration: ANIMATION_DURATION_FAST,
+                duration: ANIMATION_DURATION_FAST_LV2,
                 useNativeDriver: true,
             }),
         ]).start();

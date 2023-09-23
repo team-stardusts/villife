@@ -4,7 +4,7 @@ import { Animated, Text, TouchableOpacity, View } from "react-native";
 import useVehicleCardViewStyles from "../styles";
 import { VehicleModifyType } from "../../../../blocks/modal/modify/types";
 import { useEffect, useRef } from "react";
-import { ANIMATION_DURATION_FAST } from "../../../../../../common/constants";
+import { ANIMATION_DURATION_FAST_LV2 } from "../../../../../../common/constants";
 
 export default function VehicleCard({ vehicle, cardWidth, isEditmode, onPressEditBtn }: VehicleCardProps) {
     const messages = useScreenMessage();
@@ -92,7 +92,7 @@ function EditButton({
     useEffect(() => {
         Animated.timing(opacityValue, {
             toValue: 1,
-            duration: ANIMATION_DURATION_FAST,
+            duration: ANIMATION_DURATION_FAST_LV2,
             useNativeDriver: true,
         }).start();
     }, [opacityValue]);
