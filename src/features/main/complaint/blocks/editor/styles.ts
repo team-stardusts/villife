@@ -3,49 +3,83 @@ import useStyler from "../../../../common/hooks/styler/hooks";
 import RemoteCSS from "../../../../../libs/themes/remote_css";
 import useOnKeyboardEvent from "../../../../common/hooks/keyboard";
 import { useState } from "react";
+import useNavigationViewSpace from "../../../../common/blocks/navigation/service";
 
 export default function useComplaintEditorStyle() {
     const { deviceUI, theme, safetyEdgeSize } = useStyler();
+    const safetySpace = useNavigationViewSpace({
+        applyDefaultHorizontalPadding: false,
+        applyDefaultVerticalPadding: false,
+        isBottomNavShown: false,
+        isHeaderShown: true,
+    });
     const [isKeyboardFold, setIsKeyboardFold] = useState<boolean>();
     const keyboardHeight = useOnKeyboardEvent({
         onShow: () => setIsKeyboardFold(false),
         onHide: () => setIsKeyboardFold(true),
     });
 
-    const Style = StyleSheet.create({
-        rich: {
+    const titleHeight = deviceUI.moderateScale(40);
+    const richBarHeight = deviceUI.moderateScale(50);
+    const richHeight = safetySpace.height - (titleHeight + richBarHeight);
+
+    const main = StyleSheet.create({
+        scroll: {
             flex: 1,
         },
+        rich: {
+            height: richHeight,
+        },
         richBar: {
-            height: deviceUI.moderateScale(60),
+            position: "absolute",
+            width: deviceUI.getScreenSize().width,
+            height: richBarHeight,
             backgroundColor: "rgba(83, 156, 241,0.2)",
             bottom: isKeyboardFold ? 0 : keyboardHeight - safetyEdgeSize.bottom,
-            width: deviceUI.getScreenSize().width,
+        },
+        // SafetyAreaView의 backgroundColor로 인해
+        // 커버되지 않는 구간을 커버하기 위함
+        richBarDummyView: {
             position: "absolute",
+            width: "100%",
+            height: deviceUI.getScreenSize().height * 0.3,
+            bottom: deviceUI.getScreenSize().height * -0.3,
+            backgroundColor: "rgba(83, 156, 241,0.2)",
         },
         title: {
+            height: titleHeight,
             fontSize: deviceUI.moderateScale(30),
             marginLeft: "3%",
-            fontFamily: "Pretendard-Bold",
+            fontFamily: theme.font.fontFamily.pretendard.bold,
         },
-        scroll: { flex: 1 },
         tib: {
             textAlign: "center",
-            color: "#515156",
         },
         flatStyle: {
-            paddingHorizontal: 12,
-            fontFamily: "Pretendard-Bold",
+            paddingHorizontal: deviceUI.moderateScale(10),
+            fontFamily: theme.font.fontFamily.pretendard.bold,
         },
     });
-    return Style;
+
+    const editorCSS = {
+        initialCSSText: `${RemoteCSS.getPretendardBold()}`,
+        backgroundColor: theme.color.specified.white as string,
+        color: theme.color.specified.black as string,
+        caretColor: theme.color.specified.red as string,
+        placeholderColor: theme.color.series.grey.level4 as string,
+        contentCSSText: `font-family:${theme.font.fontFamily.pretendard.semiBold}`,
+    };
+    return {
+        main,
+        editorCSS,
+    };
 }
 
 const fontFamily = "Pretendard-Bold";
 
 export const EditorStyle = {
     initialCSSText: `${RemoteCSS.getPretendardBold()}`,
-    backgroundColor: "white",
+    backgroundColor: "red",
     color: "black",
     caretColor: "red",
     placeholderColor: "grey",

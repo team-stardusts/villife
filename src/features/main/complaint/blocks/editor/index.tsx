@@ -15,7 +15,7 @@ function ComplaintEditor(props: ComplaintEditorProps) {
     return (
         <>
             <TextInput
-                style={styles.title}
+                style={styles.main.title}
                 onChangeText={(text) => {
                     console.log("onchange", text);
                     props.titleRef.current = text;
@@ -24,7 +24,7 @@ function ComplaintEditor(props: ComplaintEditorProps) {
                 defaultValue={props.titleRef.current}
             />
             <KeyboardAwareScrollView
-                style={[styles.scroll]}
+                style={[styles.main.scroll]}
                 keyboardDismissMode={"interactive"}
                 ref={scrollRef}
                 nestedScrollEnabled={true}
@@ -35,9 +35,10 @@ function ComplaintEditor(props: ComplaintEditorProps) {
                     onChange={(text) => {
                         props.contentRef.current = text;
                     }}
-                    editorStyle={EditorStyle}
+                    onBlur={console.log}
+                    editorStyle={styles.editorCSS}
                     ref={richText}
-                    style={[styles.rich]}
+                    style={[styles.main.rich]}
                     useContainer={false}
                     enterKeyHint={"done"}
                     placeholder={"내용을 입력해주세요."}
@@ -46,8 +47,8 @@ function ComplaintEditor(props: ComplaintEditorProps) {
             </KeyboardAwareScrollView>
 
             <RichToolbar
-                style={[styles.richBar]}
-                flatContainerStyle={styles.flatStyle}
+                style={[styles.main.richBar]}
+                flatContainerStyle={styles.main.flatStyle}
                 editor={richText}
                 selectedIconTint={"#2095F2"}
                 disabledIconTint={"#bfbfbf"}
@@ -67,19 +68,20 @@ function ComplaintEditor(props: ComplaintEditorProps) {
                 ]}
                 iconMap={{
                     [actions.heading1]: ({ tintColor }: IconRecord) => (
-                        <Text style={[styles.tib, { color: tintColor }]}>H1</Text>
+                        <Text style={[styles.main.tib, { color: tintColor }]}>H1</Text>
                     ),
                     [actions.heading2]: ({ tintColor }: IconRecord) => (
-                        <Text style={[styles.tib, { color: tintColor }]}>H2</Text>
+                        <Text style={[styles.main.tib, { color: tintColor }]}>H2</Text>
                     ),
                     [actions.heading3]: ({ tintColor }: IconRecord) => (
-                        <Text style={[styles.tib, { color: tintColor }]}>H3</Text>
+                        <Text style={[styles.main.tib, { color: tintColor }]}>H3</Text>
                     ),
                     [actions.heading4]: ({ tintColor }: IconRecord) => (
-                        <Text style={[styles.tib, { color: tintColor }]}>H4</Text>
+                        <Text style={[styles.main.tib, { color: tintColor }]}>H4</Text>
                     ),
                 }}
             />
+            <View style={styles.main.richBarDummyView} />
         </>
     );
 }
