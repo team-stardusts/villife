@@ -1,8 +1,10 @@
-import { Text, TouchableOpacity, View } from "react-native";
+import { Animated, Text, TouchableOpacity, View } from "react-native";
 import { ManagementFeeBoxProps } from "../types";
 import ContentBox from "../../../../../common/blocks/content_box";
 import { useNavigation } from "@react-navigation/native";
 import { VillifeNavigation } from "../../../../../common/router/types";
+import { useEffect, useRef } from "react";
+import { ANIMATION_DURATION_DEFAULT } from "../../../../../common/constants";
 
 export default function ManagementFeeBox(props: ManagementFeeBoxProps) {
     const navigation = useNavigation<VillifeNavigation>();
@@ -30,6 +32,27 @@ export default function ManagementFeeBox(props: ManagementFeeBoxProps) {
         }
     };
 
+    const unitRotaionValue = useRef(new Animated.Value(0)).current;
+    const interpolate = unitRotaionValue.interpolate({
+        inputRange: [0, 0.25, 0.5, 0.75, 1],
+        outputRange: ["0deg", "90deg", "180deg", "270deg", "360deg"],
+    });
+
+    useEffect(() => {
+        Animated.sequence([
+            Animated.timing(unitRotaionValue, {
+                toValue: 1,
+                duration: ANIMATION_DURATION_DEFAULT,
+                useNativeDriver: true,
+            }),
+            Animated.timing(unitRotaionValue, {
+                toValue: 0,
+                duration: ANIMATION_DURATION_DEFAULT,
+                useNativeDriver: true,
+            }),
+        ]).start();
+    }, []);
+
     return (
         <View style={props.styles.container}>
             <ContentBox backgroundColor={props.styles.contentBox.color} enableShadow={false}>
@@ -43,9 +66,20 @@ export default function ManagementFeeBox(props: ManagementFeeBoxProps) {
                     </View>
                     <View style={props.styles.body}>
                         {props.manangementFee && (
-                            <Text style={props.styles.managementFee}>
-                                {insertCommaToMoney(props.manangementFee.amount_won)} 원
-                            </Text>
+                            <View style={props.styles.managementFeeBox}>
+                                <Animated.View
+                                    style={[
+                                        props.styles.managementFeeUnitCircle,
+                                        {
+                                            transform: [{ rotateY: interpolate }],
+                                        },
+                                    ]}>
+                                    <Text style={props.styles.managementFeeUnitText}>₩</Text>
+                                </Animated.View>
+                                <Text style={props.styles.managementFee}>
+                                    {insertCommaToMoney(props.manangementFee.amount_won)}
+                                </Text>
+                            </View>
                         )}
                         <TouchableOpacity
                             style={props.styles.paymentBtn}

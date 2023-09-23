@@ -6,7 +6,7 @@ export default function useNotiLableStyles() {
     return StyleSheet.create({
         container: {
             width: deviceUI.moderateScale(50),
-            height: deviceUI.moderateScale(27),
+            height: deviceUI.moderateScale(24),
             borderRadius: deviceUI.moderateScale(12),
             justifyContent: "center",
             alignItems: "center",
