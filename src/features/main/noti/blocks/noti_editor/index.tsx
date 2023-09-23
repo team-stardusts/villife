@@ -43,13 +43,7 @@ export default function NotiEditor(props: NotiEditorProps) {
                     }}
                     editorStyle={styles.editorCSS}
                     ref={richText}
-                    style={[
-                        styles.main.rich,
-                        {
-                            height:
-                                deviceUI.getScreenSize().height * 0.78 - deviceUI.moderateScale(50) - keyboardHeight,
-                        },
-                    ]}
+                    style={[styles.main.rich]}
                     useContainer={false}
                     enterKeyHint={"done"}
                     placeholder={"내용을 입력해주세요."}
@@ -58,7 +52,7 @@ export default function NotiEditor(props: NotiEditorProps) {
             </KeyboardAwareScrollView>
 
             <RichToolbar
-                style={[styles.main.richBar, { bottom: keyboardHeight, height: deviceUI.moderateScale(50) }]}
+                style={[styles.main.richBar]}
                 flatContainerStyle={styles.main.flatStyle}
                 editor={richText}
                 selectedIconTint={"#2095F2"}

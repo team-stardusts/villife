@@ -28,7 +28,6 @@ export default function App(): JSX.Element {
             Alert.alert(message.notification?.title || "", message?.notification?.body || "");
         }
     });
-
     messaging().setBackgroundMessageHandler(async (remoteMessage) => {
         console.log("Message handled in the background!", remoteMessage);
     });

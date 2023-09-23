@@ -21,7 +21,7 @@ export default function useComplaintEditorStyle() {
 
     const titleHeight = deviceUI.moderateScale(50);
     const richBarHeight = deviceUI.moderateScale(50);
-    const richHeight = safetySpace.height - (titleHeight + richBarHeight);
+    const richHeight = safetySpace.height - (titleHeight + richBarHeight + keyboardHeight) + safetyEdgeSize.bottom;
 
     const main = StyleSheet.create({
         scroll: {
