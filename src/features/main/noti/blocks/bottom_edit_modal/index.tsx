@@ -1,31 +1,43 @@
-import React from "react";
+import { useEffect, useState } from "react";
 import Toast from "react-native-toast-message";
 import { NoticeEventEmitter } from "../outlined_box_list/event";
 import { useNavigation } from "@react-navigation/native";
 import { VillifeNavigation } from "../../../../common/router/types";
-import StardustModal from "../../../../common/blocks/universial/stardust_modal";
 import BottomEditModalProps from "./type";
-import useBottomEditModalStyles from "./style";
 import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
-import useStyler from "../../../../common/hooks/styler/hooks";
 import useNoticeService from "../../services";
 import useUserInformation from "../../../../common/hooks/service/user_info";
 import ListBottomSlidableModal from "../../../../common/blocks/bottom_list_modal";
+import { StardustAlertContent } from "../../../../common/blocks/universial/stardust_alert/types";
+import StardustAlert from "../../../../common/blocks/universial/stardust_alert";
 
 export default function NotiBottomEditModal(props: BottomEditModalProps) {
     const user = useUserInformation();
-    const styles = useBottomEditModalStyles();
     const messages = useScreenMessage();
     const service = useNoticeService();
-    const { deviceUI, theme } = useStyler();
     const navigation = useNavigation<VillifeNavigation>();
-    const [deleteAlertVisible, setDeleteAlertVisible] = React.useState(false);
+    const [alert, setAlert] = useState<StardustAlertContent>({
+        type: "warning",
+        title: "정말로 삭제하시겠습니까?",
+        message: "삭제된 공지사항은 복구 할 수 없습니다.",
+        visible: false,
+        buttons: [
+            {
+                onPress: () => handlePressCancleAlertBtn(),
+                text: "취소",
+            },
+            {
+                onPress: () => handlePressDeleteBtn(),
+                text: "삭제",
+            },
+        ],
+    });
 
-    React.useEffect(() => {
-        if (!props.visible) setDeleteAlertVisible(false);
+    useEffect(() => {
+        if (!props.visible) setAlert({ ...alert, visible: false });
     }, []);
 
-    const onDeleteButtonPress = async () => {
+    const handlePressDeleteBtn = async () => {
         if (user?.isAdmin && user.adminInfomation?.selectedBuilding.id) {
             const result = await service.deleteNotice({
                 building_id: user.adminInfomation?.selectedBuilding.id,
@@ -35,7 +47,7 @@ export default function NotiBottomEditModal(props: BottomEditModalProps) {
             if (result.isSuccessful) {
                 new NoticeEventEmitter().emitListUpdatedEvent();
                 props.setVisible(false);
-                setDeleteAlertVisible(false);
+                setAlert({ ...alert, visible: false });
                 Toast.show({
                     type: "success",
                     text1: messages.messages.main.noti.delete_success,
@@ -55,6 +67,13 @@ export default function NotiBottomEditModal(props: BottomEditModalProps) {
         }
     };
 
+    const handlePressCancleAlertBtn = () => {
+        setAlert({
+            ...alert,
+            visible: false,
+        });
+    };
+
     return (
         <>
             <ListBottomSlidableModal
@@ -71,6 +90,8 @@ export default function NotiBottomEditModal(props: BottomEditModalProps) {
                                 notiID: props.noticeInfo.id,
                                 priority: props.noticeInfo.priority,
                             });
+
+                            props.setVisible(false);
                         },
                     },
                     {
@@ -78,12 +99,13 @@ export default function NotiBottomEditModal(props: BottomEditModalProps) {
                         text: messages.messages.main.noti.delete,
                         onPress: () => {
                             props.setVisible(false);
-                            setDeleteAlertVisible(true);
+                            setAlert({ ...alert, visible: true });
                         },
                     },
                 ]}
             />
-            <StardustModal
+            <StardustAlert {...alert} setAlert={setAlert} />
+            {/* <StardustModal
                 modalVisible={deleteAlertVisible}
                 setModalVisible={setDeleteAlertVisible}
                 title={messages.messages.main.noti.delete_title}
@@ -94,10 +116,10 @@ export default function NotiBottomEditModal(props: BottomEditModalProps) {
                     },
                     {
                         text: messages.messages.words.delete,
-                        onPress: () => onDeleteButtonPress(),
+                        onPress: () => handlePressDeleteBtn(),
                     },
                 ]}
-            />
+            /> */}
             {/* <BottomSlidableModal
             modalVisible={props.visible}
             setModalVisible={props.setVisible}

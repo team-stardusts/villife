@@ -15,6 +15,7 @@ import { useNavigation } from "@react-navigation/native";
 import { VillifeNavigation } from "../../../../common/router/types";
 import useUserInformation from "../../../../common/hooks/service/user_info";
 import { Shadow } from "react-native-shadow-2";
+import Icon from "../../../../common/atoms/icon";
 
 /**
  * @param OutlinedBoxProp
@@ -79,17 +80,26 @@ function OutlinedBox(props: OutlinedBoxProps) {
                                             onPress={() => {
                                                 setEditModalVisible(true);
                                             }}>
-                                            <EditIcon size={styles.iconEditSize.width as number} />
+                                            <Icon
+                                                name={"pencil"}
+                                                size={styles.editIcon.width}
+                                                color={styles.editIcon.color}
+                                            />
                                         </TouchableOpacity>
                                     )}
                                     {showActivityIndicator ? (
-                                        <ActivityIndicator size="large" color={theme.color.specified.grey} />
-                                    ) : (
-                                        <PressableVectorIcon
-                                            onPress={() => onPress(props.position)}
-                                            providerName={unfold ? "up" : "down"}
-                                            diameter={styles.iconVectorSize.width as number}
+                                        <ActivityIndicator
+                                            size={styles.indicator.size}
+                                            color={styles.indicator.color}
                                         />
+                                    ) : (
+                                        <TouchableOpacity onPress={() => onPress(props.position)}>
+                                            <Icon
+                                                name={unfold ? "arrow-up" : "arrow-down"}
+                                                size={styles.vectorIcon.width}
+                                                color={styles.vectorIcon.color}
+                                            />
+                                        </TouchableOpacity>
                                     )}
                                 </View>
                             </View>

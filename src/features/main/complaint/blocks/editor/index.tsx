@@ -1,8 +1,8 @@
 import React, { useRef } from "react";
 import { ComplaintEditorProps } from "./types";
 import { IconRecord, RichEditor, RichToolbar, actions } from "react-native-pell-rich-editor";
-import { Dimensions, KeyboardAvoidingView, ScrollView, Text, TextInput, View } from "react-native";
-import useComplaintEditorStyle, { EditorStyle } from "./styles";
+import { Text, TextInput, View } from "react-native";
+import useComplaintEditorStyle from "./styles";
 import useComplaintService from "../../services";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 

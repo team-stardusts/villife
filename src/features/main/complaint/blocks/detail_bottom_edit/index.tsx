@@ -1,91 +1,94 @@
-import { Dimensions, Text, TouchableOpacity, View } from "react-native";
-import React from "react";
+import { useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { VillifeNavigation } from "../../../../common/router/types";
-import BottomSlidableModal from "../../../../common/blocks/universial/slidemodal_bottom";
-
-import StardustModal from "../../../../common/blocks/universial/stardust_modal";
 import DetailEditModalProps from "./type";
-import useBottomEditModalStyles from "./style";
 import { ComplaintEventEmitter } from "../../services/event";
 import useComplaintService from "../../services";
 import VillifeToastMessage from "../../../../common/atoms/toast";
-import { EditIcon } from "../../../../common/atoms/icon/edit";
-import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
-import IconTrashCan from "../../../../common/atoms/icon/trash_can";
+import { ModalFeature } from "../../../../common/blocks/bottom_list_modal/types";
+import ListBottomSlidableModal from "../../../../common/blocks/bottom_list_modal";
+import StardustAlert from "../../../../common/blocks/universial/stardust_alert";
+import { StardustAlertContent } from "../../../../common/blocks/universial/stardust_alert/types";
 
 export default function ComplaintDetailEditModal(props: DetailEditModalProps) {
-    const styles = useBottomEditModalStyles();
-    const messages = useScreenMessage();
-    const screenSize = Dimensions.get("window");
-    const [deleteAlertVisible, setDeleteAlertVisible] = React.useState(false);
     const service = useComplaintService();
     const navigation = useNavigation<VillifeNavigation>();
+    const [alert, setAlert] = useState<StardustAlertContent>({
+        type: "warning",
+        title: "정말로 삭제하시겠습니까?",
+        message: "삭제된 민원은 복구 할 수 없습니다.",
+        visible: false,
+        buttons: [
+            {
+                onPress: () => handlePressCancleAlertBtn(),
+                text: "취소",
+            },
+            {
+                onPress: () => handlePressDeleteBtn(),
+                text: "삭제",
+            },
+        ],
+    });
 
-    React.useEffect(() => {
-        if (!props.visible) setDeleteAlertVisible(false);
+    useEffect(() => {
+        if (!props.visible) setAlert({ ...alert, visible: false });
     }, []);
 
-    const onModifyButtonPress = async () => {
+    const handlePressModifyBtn = async () => {
         if (props.ComplaintInfo.status == "received") navigation.navigate("complaint_modify", props.ComplaintInfo);
         else VillifeToastMessage.showBottomToast("error", "접수중인 민원만 수정 할 수 있습니다.");
+
         props.setVisible(false);
     };
-    const onDeleteButtonPress = async () => {
+
+    const handlePressDeleteBtn = async () => {
         const result = await service.deleteComplaint({ complaint_id: props.ComplaintInfo.id });
+
         if (!result.isSuccessful) {
             VillifeToastMessage.showBottomToast("error", "민원 삭제에 실패했습니다");
-            setDeleteAlertVisible(false);
+            setAlert({ ...alert, visible: false });
+
             return props.setVisible(false);
         }
+
         const emitter = new ComplaintEventEmitter();
         emitter.emitListUpdatedEvent();
-        setDeleteAlertVisible(false);
+
+        setAlert({ ...alert, visible: false });
         props.setVisible(false);
+
         navigation.goBack();
     };
 
-    return (
-        <BottomSlidableModal
-            modalVisible={props.visible}
-            setModalVisible={props.setVisible}
-            height={screenSize.height * 0.3}>
-            <View style={styles.editModalContentContainer}>
-                <TouchableOpacity
-                    onPress={() => {
-                        onModifyButtonPress();
-                    }}
-                    style={styles.editModalMenu}>
-                    <EditIcon size={30} />
-                    <Text style={[styles.editModalMenuText, { fontSize: 20 }]}>수정하기</Text>
-                    {/* font scaling 필요*/}
-                </TouchableOpacity>
-                <TouchableOpacity
-                    onPress={() => {
-                        setDeleteAlertVisible(true);
-                    }}
-                    style={styles.editModalMenu}>
-                    <IconTrashCan size={30} />
-                    <Text style={[styles.editModalMenuText, { fontSize: 20 }]}>삭제하기</Text>
-                    {/* font scaling 필요*/}
-                </TouchableOpacity>
+    const handlePressCancleAlertBtn = () => {
+        setAlert({
+            ...alert,
+            visible: false,
+        });
+    };
 
-                <StardustModal
-                    modalVisible={deleteAlertVisible}
-                    setModalVisible={setDeleteAlertVisible}
-                    title="정말 삭제 하시겠어요?"
-                    buttons={[
-                        {
-                            text: messages.messages.words.cancle,
-                            onPress: () => setDeleteAlertVisible(false),
+    return (
+        <>
+            <ListBottomSlidableModal
+                modalVisible={props.visible}
+                setModalVisible={props.setVisible}
+                features={[
+                    {
+                        icon: "pencil",
+                        onPress: () => handlePressModifyBtn(),
+                        text: "수정하기",
+                    },
+                    {
+                        icon: "trash-can",
+                        onPress: () => {
+                            props.setVisible(false);
+                            setAlert({ ...alert, visible: true });
                         },
-                        {
-                            text: messages.messages.words.delete,
-                            onPress: () => onDeleteButtonPress,
-                        },
-                    ]}
-                />
-            </View>
-        </BottomSlidableModal>
+                        text: "삭제하기",
+                    },
+                ]}
+            />
+            <StardustAlert {...alert} setAlert={setAlert} />
+        </>
     );
 }

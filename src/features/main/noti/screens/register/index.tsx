@@ -1,12 +1,12 @@
 import React, { useRef } from "react";
 import NoticeRegisterScreenProps from "./type";
 import NavigationView from "../../../../common/blocks/navigation";
-import RegisterButton from "../../blocks/register_button";
 import NotiEditor from "../../blocks/noti_editor";
 import VillifeToastMessage from "../../../../common/atoms/toast";
 import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
 import NotiRegisterModal from "../../blocks/noti_register_modal";
 import useStyler from "../../../../common/hooks/styler/hooks";
+import SimpleNavComponent from "../../../../common/blocks/navigation/header/navcomponent";
 
 export default function NoticeRegisterScreen(props: NoticeRegisterScreenProps) {
     const message = useScreenMessage();
@@ -35,12 +35,10 @@ export default function NoticeRegisterScreen(props: NoticeRegisterScreenProps) {
                 style: {
                     backgroundColor: theme.color.specified.white,
                 },
-                navComponent: RegisterButton,
+                navComponent: SimpleNavComponent,
                 navComponentProps: {
-                    onSubmit: () => {
-                        onSubmit();
-                    },
-                    loading: loading,
+                    title: "등록하기",
+                    onPress: () => onSubmit(),
                 },
             }}
             bodyOptions={{

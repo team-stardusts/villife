@@ -19,7 +19,7 @@ export default function useComplaintEditorStyle() {
         onHide: () => setIsKeyboardFold(true),
     });
 
-    const titleHeight = deviceUI.moderateScale(40);
+    const titleHeight = deviceUI.moderateScale(50);
     const richBarHeight = deviceUI.moderateScale(50);
     const richHeight = safetySpace.height - (titleHeight + richBarHeight);
 
@@ -69,19 +69,9 @@ export default function useComplaintEditorStyle() {
         placeholderColor: theme.color.series.grey.level4 as string,
         contentCSSText: `font-family:${theme.font.fontFamily.pretendard.semiBold}`,
     };
+
     return {
         main,
         editorCSS,
     };
 }
-
-const fontFamily = "Pretendard-Bold";
-
-export const EditorStyle = {
-    initialCSSText: `${RemoteCSS.getPretendardBold()}`,
-    backgroundColor: "red",
-    color: "black",
-    caretColor: "red",
-    placeholderColor: "grey",
-    contentCSSText: `font-family:${fontFamily}`,
-};

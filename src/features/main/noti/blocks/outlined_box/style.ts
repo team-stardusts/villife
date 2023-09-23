@@ -1,8 +1,7 @@
 import { StyleSheet } from "react-native";
 import useStyler from "../../../../common/hooks/styler/hooks";
-import { UseNotiOutLinedBoxListStylesType } from "../outlined_box_list/type";
 
-export default function useNotiOutlinedBoxStyles(): UseNotiOutLinedBoxListStylesType {
+export default function useNotiOutlinedBoxStyles() {
     const { deviceUI, theme } = useStyler();
 
     return StyleSheet.create({
@@ -23,7 +22,7 @@ export default function useNotiOutlinedBoxStyles(): UseNotiOutLinedBoxListStyles
         contentBox: {
             alignItems: "center",
             flexDirection: "row",
-            height: deviceUI.moderateScale(50),
+            height: deviceUI.moderateScale(55),
         },
         titleTextBox: {
             marginLeft: "5%",
@@ -39,12 +38,6 @@ export default function useNotiOutlinedBoxStyles(): UseNotiOutLinedBoxListStyles
         editButton: {
             justifyContent: "center",
             marginRight: "2%",
-        },
-        iconEditSize: {
-            width: deviceUI.moderateScale(40),
-        },
-        iconVectorSize: {
-            width: deviceUI.moderateScale(30),
         },
         foldedContainer: {
             marginVertical: deviceUI.moderateScale(25),
@@ -65,6 +58,18 @@ export default function useNotiOutlinedBoxStyles(): UseNotiOutLinedBoxListStyles
             fontSize: deviceUI.moderateScale(10),
             fontFamily: theme.font.fontFamily.pretendard.regular,
             color: theme.color.specified.black,
+        },
+        vectorIcon: {
+            width: deviceUI.moderateScale(50),
+            color: theme.color.specified.grey,
+        },
+        editIcon: {
+            width: deviceUI.moderateScale(40),
+            color: theme.color.specified.grey,
+        },
+        indicator: {
+            size: deviceUI.moderateScale(30),
+            color: theme.color.status.info,
         },
     });
 }

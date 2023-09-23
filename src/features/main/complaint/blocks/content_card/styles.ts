@@ -1,24 +1,25 @@
-import { Platform, StyleSheet } from "react-native";
+import { StyleSheet } from "react-native";
 import useStyler from "../../../../common/hooks/styler/hooks";
-import { ComplaintContentCardStylesType } from "./types";
 
-export default function useComplaintContentCardStyles(): ComplaintContentCardStylesType {
+export default function useComplaintContentCardStyles() {
     const { deviceUI, theme } = useStyler();
 
     const Style = StyleSheet.create({
-        topLevelBox: {
+        container: {
             width: deviceUI.getScreenSize().width,
-
             paddingHorizontal: deviceUI.moderateScale(32),
             borderRadius: deviceUI.moderateScale(15),
             marginBottom: deviceUI.moderateScale(16),
         },
-        editModeTopLevelBox: {
+        editModeContainer: {
             width: deviceUI.getScreenSize().width * 0.8,
             height: deviceUI.getScreenSize().height * 0.16,
             borderRadius: deviceUI.moderateScale(15),
         },
-        contentBoxContainer: {
+        contentBox: {
+            backgroundColor: theme.color.specified.white,
+        },
+        wrapper: {
             width: "100%",
             height: "100%",
         },
@@ -26,7 +27,6 @@ export default function useComplaintContentCardStyles(): ComplaintContentCardSty
             flexDirection: "row",
             justifyContent: "space-between",
             alignItems: "center",
-
             marginTop: deviceUI.moderateScale(16),
             paddingHorizontal: deviceUI.moderateScale(16),
         },

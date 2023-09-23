@@ -5,5 +5,3 @@ export default interface NotiEditorProps {
     contentRef: React.MutableRefObject<string>;
     mode: "modify" | "register";
 }
-
-export type UseNotiEditorStylesType = ReturnType<typeof StyleSheet.create>;

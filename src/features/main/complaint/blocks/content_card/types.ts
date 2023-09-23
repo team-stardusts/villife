@@ -8,4 +8,5 @@ export type ComplaintContentCardProps = {
     info: ComplaintInfo;
     editMode?: boolean;
     updatedStatus?: React.MutableRefObject<ComplaintStatus | undefined>;
+    onPress?(): void;
 };

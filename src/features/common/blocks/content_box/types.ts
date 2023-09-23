@@ -4,4 +4,5 @@ export type ContentBoxProps = {
     children?: React.ReactNode;
     backgroundColor?: ColorValue | undefined;
     enableShadow?: boolean;
+    onPress?(): void;
 };

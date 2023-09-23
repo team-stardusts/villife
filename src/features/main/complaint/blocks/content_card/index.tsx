@@ -1,6 +1,6 @@
 import React from "react";
 import { ComplaintContentCardProps } from "./types";
-import { View, Text, Animated, Pressable, TouchableOpacity } from "react-native";
+import { View, Text, Animated, TouchableOpacity } from "react-native";
 import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
 import useComplaintContentCardStyles from "./styles";
 import ContentBox from "../../../../common/blocks/content_box";
@@ -12,13 +12,10 @@ function ComplaintContentCard(props: ComplaintContentCardProps) {
 
     const circleOpacity1 = React.useRef(new Animated.Value(0)).current;
     const circleOpacity2 = React.useRef(new Animated.Value(0)).current;
-    const progressLineWidth = React.useRef(new Animated.Value(0)).current;
+    //const progressLineWidth = React.useRef(new Animated.Value(0)).current;
     const [status, setStatus] = React.useState<ComplaintStatus>(props.info.status);
 
-    const interpolatedWidth = progressLineWidth.interpolate({
-        inputRange: [0, 1],
-        outputRange: ["0%", "45%"],
-    });
+    const statusList: ComplaintStatus[] = ["received", "in_progress", "completed"];
 
     React.useEffect(() => {
         if (status == "received") {
@@ -35,11 +32,11 @@ function ComplaintContentCard(props: ComplaintContentCardProps) {
                     duration: 100,
                     useNativeDriver: true,
                 }),
-                Animated.timing(progressLineWidth, {
+                /* Animated.timing(progressLineWidth, {
                     toValue: 0.1,
                     duration: 100,
                     useNativeDriver: false,
-                }),
+                }), */
             ]).start();
             return;
         }
@@ -54,18 +51,18 @@ function ComplaintContentCard(props: ComplaintContentCardProps) {
                 duration: 100,
                 useNativeDriver: true,
             }),
-            Animated.timing(progressLineWidth, {
+            /* Animated.timing(progressLineWidth, {
                 toValue: 1,
                 duration: 100,
                 useNativeDriver: false,
-            }),
+            }), */
         ]).start();
     }, [status]);
 
     return (
-        <View style={props.editMode ? styles.editModeTopLevelBox : styles.topLevelBox}>
-            <ContentBox backgroundColor={"white"} enableShadow>
-                <View style={styles.contentBoxContainer}>
+        <View style={props.editMode ? styles.editModeContainer : styles.container}>
+            <ContentBox backgroundColor={styles.contentBox.backgroundColor} enableShadow onPress={props.onPress}>
+                <View style={styles.wrapper}>
                     <View style={styles.titleSection}>
                         <Text style={styles.titleText}>{props.info.title}</Text>
                         <Text style={styles.dateTimeText}>
@@ -86,72 +83,54 @@ function ComplaintContentCard(props: ComplaintContentCardProps) {
                                 <Text style={styles.statusText}>{messages.messages.main.complaint.done}</Text>
                             </View>
                         </View>
-                        {status == "completed" ? (
-                            <View style={styles.progressBarSection}>
-                                <Pressable
-                                    onPress={() => {
-                                        if (props.editMode) setStatus("received");
-                                        if (props.updatedStatus) props.updatedStatus.current = "received";
-                                    }}
-                                    style={styles.outerCircle}>
-                                    <Animated.View style={[styles.outerCircleInnerBorderCompleted]}>
-                                        <View style={styles.innerCircleCompleted}></View>
-                                    </Animated.View>
-                                </Pressable>
-                                <Pressable
-                                    onPress={() => {
-                                        if (props.editMode) setStatus("in_progress");
-                                        if (props.updatedStatus) props.updatedStatus.current = "in_progress";
-                                    }}
-                                    style={styles.outerCircle}>
-                                    <Animated.View style={[styles.outerCircleInnerBorderCompleted]}>
-                                        <View style={styles.innerCircleCompleted}></View>
-                                    </Animated.View>
-                                </Pressable>
-                                <Pressable style={styles.outerCircle}>
-                                    <Animated.View style={[styles.outerCircleInnerBorderCompleted]}>
-                                        <View style={styles.innerCircleCompleted}></View>
-                                    </Animated.View>
-                                </Pressable>
-                            </View>
-                        ) : (
-                            <View style={styles.progressBarSection}>
-                                <TouchableOpacity
-                                    onPress={() => {
-                                        if (props.editMode) setStatus("received");
-                                        if (props.updatedStatus) props.updatedStatus.current = "received";
-                                    }}
-                                    style={styles.outerCircle}>
-                                    <Animated.View style={[styles.outerCircleInnerBorder, { opacity: circleOpacity1 }]}>
-                                        <View style={styles.innerCircle}></View>
-                                    </Animated.View>
-                                </TouchableOpacity>
-                                <Pressable
-                                    onPress={() => {
-                                        if (props.editMode) setStatus("in_progress");
-                                        if (props.updatedStatus) props.updatedStatus.current = "in_progress";
-                                    }}
-                                    style={styles.outerCircle}>
-                                    <Animated.View style={[styles.outerCircleInnerBorder, { opacity: circleOpacity2 }]}>
-                                        <View style={styles.innerCircle}></View>
-                                    </Animated.View>
-                                </Pressable>
-                                <Pressable
-                                    onPress={() => {
-                                        if (props.editMode) setStatus("completed");
-                                        if (props.updatedStatus) props.updatedStatus.current = "completed";
-                                    }}
-                                    style={styles.outerCircle}>
-                                    <Animated.View style={[styles.outerCircleInnerBorder, { opacity: 0.1 }]}>
-                                        <View style={styles.innerCircle}></View>
-                                    </Animated.View>
-                                </Pressable>
-                                <View style={styles.absoluteWrapper}>
-                                    <Animated.View
-                                        style={[styles.middleLine, { width: interpolatedWidth }]}></Animated.View>
-                                </View>
-                            </View>
-                        )}
+                        <View style={styles.progressBarSection}>
+                            {statusList.map((_status, index) => {
+                                let opacityValue: Animated.Value | number;
+
+                                if (status === "completed") {
+                                    opacityValue = 1;
+                                } else {
+                                    switch (_status) {
+                                        case "received":
+                                            opacityValue = circleOpacity1;
+                                            break;
+                                        case "in_progress":
+                                            opacityValue = circleOpacity2;
+                                            break;
+
+                                        case "completed":
+                                            opacityValue = 0.1;
+                                    }
+                                }
+
+                                return (
+                                    <TouchableOpacity
+                                        key={index}
+                                        activeOpacity={0.6}
+                                        disabled={!props.editMode || _status === status}
+                                        onPress={() => {
+                                            if (props.editMode) setStatus(_status);
+                                            if (props.updatedStatus) props.updatedStatus.current = _status;
+                                        }}
+                                        style={styles.outerCircle}>
+                                        <Animated.View
+                                            style={[
+                                                styles.outerCircleInnerBorder,
+                                                status === "completed" && styles.outerCircleInnerBorderCompleted,
+                                                {
+                                                    opacity: opacityValue,
+                                                },
+                                            ]}>
+                                            <View
+                                                style={[
+                                                    styles.innerCircle,
+                                                    status === "completed" && styles.innerCircleCompleted,
+                                                ]}></View>
+                                        </Animated.View>
+                                    </TouchableOpacity>
+                                );
+                            })}
+                        </View>
                     </View>
                 </View>
             </ContentBox>
