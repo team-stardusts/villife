@@ -24,6 +24,8 @@ export default function App(): JSX.Element {
     1. 유저의 방 변경시 User Storage 변경 필요
     **/
     messaging().onMessage(async (message) => {
+        console.log("category", message.category);
+        console.log("notification", message.notification);
         if (message.notification) {
             Alert.alert(message.notification?.title || "", message?.notification?.body || "");
         }

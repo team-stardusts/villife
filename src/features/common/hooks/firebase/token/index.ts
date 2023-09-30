@@ -1,13 +1,12 @@
 import React from "react";
-import useSystemInfo from "../systeminfo/hooks";
-import { useRecoilState, useRecoilValue } from "recoil";
-import { loginDataState } from "../states/atoms/login";
+import useSystemInfo from "../../systeminfo/hooks";
+import { useRecoilValue } from "recoil";
+import { loginDataState } from "../../states/atoms/login";
 import AndroidFirebaseModule from "./android";
 import IosFirebaseModule from "./ios";
-import { Platform } from "react-native";
-import VillifeServer from "../../../../libs/rest_apis/villife";
-import IVillifeAuthManager from "../../../../libs/rest_apis/villife/auth/types";
-import { LoginDataType } from "../../../../libs/storage/tables/login/types";
+import VillifeServer from "../../../../../libs/rest_apis/villife";
+import IVillifeAuthManager from "../../../../../libs/rest_apis/villife/auth/types";
+import { LoginDataType } from "../../../../../libs/storage/tables/login/types";
 
 export function useGetFirebaseToken(): string {
     const [token, setToken] = React.useState("");

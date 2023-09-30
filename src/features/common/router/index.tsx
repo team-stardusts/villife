@@ -1,7 +1,7 @@
 import { enableScreens } from "react-native-screens";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { VillifeStackParamList } from "./types";
-import { useAutoRegisterFirebaseToken } from "../hooks/firebase";
+import { useAutoRegisterFirebaseToken } from "../hooks/firebase/token";
 import ApprovalHomeScreen from "../../main/approval/screens/home";
 import LeaseContractHomeScreen from "../../main/lease_contract/screens/home";
 import BuildingSendMessageScreen from "../../main/lease_contract/screens/send_message";
