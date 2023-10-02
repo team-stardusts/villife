@@ -36,13 +36,13 @@ export default function ComposeMessageScreen(props: ComposeMessageScreenProps) {
             VillifeToastMessage.showBottomToast("error", "알림 성공");
             props.navigation.reset({
                 index: 0,
-                routes: [{ name: "building_management" }],
+                routes: [{ name: "lease_contract" }],
             });
         } else {
             VillifeToastMessage.showBottomToast("error", "알림 실패");
             props.navigation.reset({
                 index: 0,
-                routes: [{ name: "building_management" }],
+                routes: [{ name: "lease_contract" }],
             });
         }
     };

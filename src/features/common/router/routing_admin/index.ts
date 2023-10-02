@@ -7,6 +7,7 @@ import VillifeStorage from "../../../../libs/storage";
 import { LoginDataType } from "../../../../libs/storage/tables/login/types";
 import useUserInformation from "../../hooks/service/user_info";
 import useAdminInfoService from "../../hooks/service/user_info/service";
+import useFirebaseMessagingListener from "../../hooks/firebase/messaging/listening";
 
 export default function useRoutingAdministratorByLogin(): void {
     const adminService = useAdminInfoService();
@@ -16,6 +17,8 @@ export default function useRoutingAdministratorByLogin(): void {
     const navigation = useNavigation<VillifeRouterParams["navigation"]>();
 
     const storage = VillifeStorage.getInstance();
+
+    useFirebaseMessagingListener();
 
     // Listening on change login value
     useEffect(() => {

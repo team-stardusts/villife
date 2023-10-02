@@ -7,7 +7,6 @@ import UniversialButton from "../../../common/blocks/universial/button";
 import { useState } from "react";
 import SocialLoginIcon from "../../../common/blocks/icon/login";
 import ScreenTitleView from "../../../common/blocks/title_view";
-import { Toast } from "react-native-toast-message/lib/src/Toast";
 import { HostType } from "../../../../libs/storage/tables/login/types";
 import useStyler from "../../../common/hooks/styler/hooks";
 import useAuthService from "../../services/authentication";
@@ -112,7 +111,7 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
                     </View>
                 </View>
                 <View style={styles.joinLink.container}>
-                    <View style={styles.joinLink.textWrapper}>
+                    {/* <View style={styles.joinLink.textWrapper}>
                         <TouchableOpacity
                             activeOpacity={0.4}
                             onPress={() => {
@@ -127,7 +126,7 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
                         <TouchableOpacity activeOpacity={0.4} onPress={showToast}>
                             <Text style={styles.joinLink.text}>{messages.messages.auth.login.reset_password}</Text>
                         </TouchableOpacity>
-                    </View>
+                    </View> */}
                 </View>
                 {/*
                     <View style={styles.SocialLoginSection.topLevelBox}>

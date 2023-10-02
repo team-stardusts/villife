@@ -1,0 +1,41 @@
+import messaging, { FirebaseMessagingTypes } from "@react-native-firebase/messaging";
+import { Alert } from "react-native";
+import { IEventEmittable, MessagingEvent, MessagingEventData } from "../types";
+import FirebaseMessagingEventHandler from "../event";
+import { useEffect } from "react";
+
+export default function useFirebaseMessagingEmitter() {
+    const emitter: IEventEmittable<MessagingEvent, MessagingEventData> = new FirebaseMessagingEventHandler();
+
+    useEffect(() => {
+        messaging().onMessage(async (message: FirebaseMessagingTypes.RemoteMessage) => {
+            /* if (!message.category ||  !message.notification) return;
+            else if (!emitter.events.find((event) => event === message.category)) return; */
+
+            if (!message.notification) return;
+
+            let category: MessagingEvent | null = null;
+            /* Test code */
+            switch (message.notification.title) {
+                case "차량 주차 알림":
+                    category = "vehicle-parking-notification";
+                    break;
+                case "차량 등록 요청 결과":
+                    category = "vehicle-registration-approval-notification";
+                    break;
+            }
+            console.log(category, message.notification.title);
+            if (category !== null) {
+                emitter.emit(category as MessagingEvent, message.notification);
+                return;
+            }
+            /* End of Test code */
+
+            Alert.alert(message.notification?.title || "", message?.notification?.body || "");
+        });
+
+        messaging().setBackgroundMessageHandler(async (remoteMessage) => {
+            console.log("Message handled in the background!", remoteMessage);
+        });
+    }, []);
+}

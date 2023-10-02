@@ -1,8 +1,15 @@
-export type MessagingEvent = "new-noti-registration" | "new-complaint-registration";
+import { FirebaseMessagingTypes } from "@react-native-firebase/messaging";
+
+export type MessagingEvent =
+    | "new-noti-registration"
+    | "new-complaint-registration"
+    | "new-vehicle-registration"
+    | "vehicle-parking-notification"
+    | "vehicle-registration-approval-notification";
 /* | "double-parking"
 | "change-request" */
 
-export type MessagingEventData = any;
+export type MessagingEventData = FirebaseMessagingTypes.NotificationPayload;
 
 export interface IEventListenable<TEventName, TEventData> {
     listen(eventName: TEventName, callback: (eventName: TEventName, eventData: TEventData) => void): void;

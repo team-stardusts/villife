@@ -24,8 +24,21 @@ export default function useSendParkPushNotiScreenStyles() {
             flex: 1,
         },
         messageRow: {
-            height: theme.font.researved.h2.fontSize,
-            marginVertical: deviceUI.moderateScale(15),
+            //height: theme.font.researved.h2.fontSize,
+            marginVertical: deviceUI.moderateScale(10),
+        },
+        myVehicleButton: {
+            justifyContent: "center",
+            alignItems: "center",
+            paddingVertical: deviceUI.moderateScale(3),
+            paddingHorizontal: deviceUI.moderateScale(10),
+            marginRight: deviceUI.moderateScale(5),
+            borderRadius: deviceUI.moderateScale(10),
+            backgroundColor: theme.color.specified.lightblue,
+        },
+        myVehicle: {
+            ...theme.font.researved.h4,
+            color: theme.color.specified.white,
         },
         timeRow: {
             height: deviceUI.moderateScale(120),

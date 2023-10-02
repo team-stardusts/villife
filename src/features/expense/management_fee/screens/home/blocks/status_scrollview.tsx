@@ -13,7 +13,7 @@ export default function ManagementFeeStatusScrollView(props: ManagementFeeStatus
     const scrollviewRef = useRef<ScrollView>(null);
 
     useEffect(() => {
-        if (props.manangementFee === undefined) return;
+        if (props.manangementFee === null || props.manangementFee === undefined) return;
 
         if (props.manangementFee.length > 12) {
             setFees([...props.manangementFee.slice(props.manangementFee.length - 12, props.manangementFee.length)]);

@@ -6,7 +6,13 @@ class FirebaseMessagingEventHandler
         IEventEmittable<MessagingEvent, MessagingEventData>,
         IEventListenable<MessagingEvent, MessagingEventData>
 {
-    public readonly events: MessagingEvent[] = ["new-complaint-registration", "new-noti-registration"];
+    public readonly events: MessagingEvent[] = [
+        "new-complaint-registration",
+        "new-noti-registration",
+        "new-vehicle-registration",
+        "vehicle-parking-notification",
+        "vehicle-registration-approval-notification",
+    ];
 
     public emit(eventName: MessagingEvent, eventData: MessagingEventData): void {
         EventRegister.emit(eventName as string, eventData);

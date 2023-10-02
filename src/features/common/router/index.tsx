@@ -42,12 +42,14 @@ import CommonPaymentWindowScreen from "../../expense/payment/screens/payment_win
 import ConfirmPaymentCostScreen from "../../expense/payment/screens/confirm_payment_cost";
 import ManagementFeeDetailScreen from "../../expense/management_fee/screens/detail";
 import { Platform } from "react-native";
+import useFirebaseMessagingEmitter from "../hooks/firebase/messaging/emission";
 
 enableScreens(true);
 
 const Stack = createNativeStackNavigator<VillifeStackParamList>();
 
 export default function ScreenRouter() {
+    useFirebaseMessagingEmitter();
     useRoutingAdministratorByLogin();
     useAutoRegisterFirebaseToken();
 

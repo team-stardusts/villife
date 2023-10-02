@@ -19,7 +19,7 @@ export default function useManagementFeePaymentHistory() {
             const year = today.getFullYear();
             const month = today.getMonth() + 1;
 
-            return this.user.find((data) => data.year === year && data.month === month);
+            return this.user?.find((data) => data.year === year && data.month === month);
         }
 
         // 미납액에서 당월 부과액은 제외
@@ -27,7 +27,7 @@ export default function useManagementFeePaymentHistory() {
             const thisMonthBillOfUser = this.thisMonthBillOfUser;
             let unpaidFee = 0;
 
-            this.user.forEach((fee) => {
+            this.user?.forEach((fee) => {
                 if (thisMonthBillOfUser != undefined && fee.bill_id === thisMonthBillOfUser.bill_id) return;
                 if (!fee.is_paid) unpaidFee += fee.amount_won;
             });

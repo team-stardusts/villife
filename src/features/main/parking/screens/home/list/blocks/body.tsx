@@ -20,13 +20,15 @@ export default function VehicleListBodyView(props: VehicleListBodyViewProps) {
     const getUserRoomNumber = (): number | undefined => {
         return user?.roomNumber;
     };
+
     return (
         <View style={props.styles.container}>
             {props.vehicles.map((vehicle, index) => {
                 return (
                     <VehicleInfoRow
-                        userRoomNumber={getUserRoomNumber()}
                         key={index}
+                        isAdmin={user?.isAdmin ?? false}
+                        userRoomNumber={getUserRoomNumber()}
                         styles={props.styles}
                         messages={messages}
                         vehicle={vehicle}
@@ -42,6 +44,7 @@ function VehicleInfoRow(props: VehicleInfoRowProps) {
     const badgeTitle =
         props.vehicle.ownerType !== "guest" ? props.vehicle.room_number.toString() : props.messages.words.visit;
     const badgeStyle = props.vehicle.ownerType !== "guest" ? props.styles.tenantBadge : props.styles.guestBadge;
+    const isMyVehicle = props.vehicle.room_number === props.userRoomNumber;
 
     return (
         <View style={props.styles.vehicleInfoContainer}>
@@ -55,17 +58,28 @@ function VehicleInfoRow(props: VehicleInfoRowProps) {
                 <Text style={props.styles.plateNumber}>{props.vehicle.plate_number}</Text>
             </View>
             <View style={props.styles.communicationFuncContainer}>
-                <TouchableOpacity
-                    activeOpacity={0.6}
-                    style={props.styles.communicationIconBox}
-                    onPress={() =>
-                        VillifeToastMessage.showBottomToast("info", props.messages.boilerplate.preparing_service)
-                    }>
-                    <Icon name="phone" size={props.styles.phoneIcon.width} color={props.styles.phoneIcon.color} />
-                </TouchableOpacity>
-                <View style={props.styles.communicationIconBox}>
-                    <MessageSelectionModal vehicleID={props.vehicle.id} />
-                </View>
+                {!isMyVehicle && (
+                    <>
+                        <TouchableOpacity
+                            activeOpacity={0.6}
+                            style={props.styles.communicationIconBox}
+                            onPress={() =>
+                                VillifeToastMessage.showBottomToast(
+                                    "info",
+                                    props.messages.boilerplate.preparing_service
+                                )
+                            }>
+                            <Icon
+                                name="phone"
+                                size={props.styles.phoneIcon.width}
+                                color={props.styles.phoneIcon.color}
+                            />
+                        </TouchableOpacity>
+                        <View style={props.styles.communicationIconBox}>
+                            {!props.isAdmin && <MessageSelectionModal vehicleID={props.vehicle.id} />}
+                        </View>
+                    </>
+                )}
             </View>
             <View style={props.styles.detailFuncContainer}>
                 <TouchableOpacity
@@ -91,8 +105,9 @@ function VehicleInfoRow(props: VehicleInfoRowProps) {
 }
 
 type VehicleInfoRowProps = {
-    styles: ReturnType<typeof useVehicleListStyles>["body"];
+    isAdmin: boolean;
     messages: MultilingualMessage["messages"];
     vehicle: Vehicle;
     userRoomNumber: number | undefined;
+    styles: ReturnType<typeof useVehicleListStyles>["body"];
 };

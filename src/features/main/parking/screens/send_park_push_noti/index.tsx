@@ -1,4 +1,4 @@
-import { Alert, Text, View } from "react-native";
+import { Alert, Text, TouchableOpacity, View } from "react-native";
 import NavigationView from "../../../../common/blocks/navigation";
 import SendParkPushNotiScreenProps, { MessagesProps } from "./types";
 import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
@@ -9,12 +9,38 @@ import useSendParkPushNotiScreenStyles from "./styles";
 import TimePicker from "../../../../common/atoms/time_picker";
 import useParkingLot from "../../services/parking_lot";
 import ScreenTitleView from "../../../../common/blocks/title_view";
+import ListBottomSlidableModal from "../../../../common/blocks/bottom_list_modal";
+import SelectModal from "../../../../expense/management_fee/screens/detail/blocks/select_modal";
+import StardustAlert from "../../../../common/blocks/universial/stardust_alert";
+import { StardustAlertContent } from "../../../../common/blocks/universial/stardust_alert/types";
 
 export default function SendParkPushNotiScreen({ navigation, route }: SendParkPushNotiScreenProps) {
     const messages = useScreenMessage().messages;
     const parkingLot = useParkingLot();
     const styles = useSendParkPushNotiScreenStyles();
     const [content, setContent] = useState<string>("");
+    const [visible, setVisible] = useState<boolean>(false);
+    const [alert, setAlert] = useState<StardustAlertContent>({
+        type: "primary",
+        title: "등록된 차량이 없습니다.\n차량 등록 후 이용해주세요.",
+        visible: false,
+        buttons: [
+            {
+                text: "확인",
+                onPress: () => navigation.canGoBack() && navigation.goBack(),
+            },
+        ],
+    });
+    const [myVehicleNumber, setMyVehicleNumber] = useState<string | null>(null);
+
+    useEffect(() => {
+        if (parkingLot.userVehicles.length === 0) {
+            setAlert({ ...alert, visible: true });
+            return;
+        }
+
+        setMyVehicleNumber(parkingLot.userVehicles[0].plate_number);
+    }, []);
 
     return (
         <NavigationView
@@ -40,18 +66,25 @@ export default function SendParkPushNotiScreen({ navigation, route }: SendParkPu
                         const alertMessage: string | undefined = isSuccessful
                             ? undefined
                             : messages.boilerplate.try_again_soon;
-
-                        Alert.alert(alertTitle, alertMessage, [
-                            {
-                                onPress: () => {
-                                    isSuccessful &&
-                                        navigation.reset({
-                                            index: 0,
-                                            routes: [{ name: "parking", params: {} }],
-                                        });
+                        setAlert({
+                            ...alert,
+                            type: isSuccessful ? "primary" : "error",
+                            title: alertTitle,
+                            message: alertMessage,
+                            visible: true,
+                            buttons: [
+                                {
+                                    text: "확인",
+                                    onPress: () => {
+                                        isSuccessful &&
+                                            navigation.reset({
+                                                index: 0,
+                                                routes: [{ name: "parking", params: {} }],
+                                            });
+                                    },
                                 },
-                            },
-                        ]);
+                            ],
+                        });
                     },
                 },
             }}
@@ -66,18 +99,53 @@ export default function SendParkPushNotiScreen({ navigation, route }: SendParkPu
                 disablePaddingTop>
                 <View style={styles.main.messageBox}>
                     <Messages
+                        myVehicleNumber={myVehicleNumber || ""}
                         screenMessages={messages}
                         styles={styles.message}
                         messageType={route.params.messageType}
                         onMessageChange={setContent}
+                        onMyVehicleNumberPress={() => setVisible(true)}
                     />
                 </View>
             </ScreenTitleView>
+            <StardustAlert {...alert} setAlert={setAlert} />
+            <ListBottomSlidableModal
+                modalVisible={visible}
+                setModalVisible={setVisible}
+                features={parkingLot.userVehicles
+                    .sort((vehicleA, vehicleB) => {
+                        try {
+                            return (
+                                parseInt(vehicleA.plate_number.slice(0, 2)) -
+                                parseInt(vehicleB.plate_number.slice(0, 2))
+                            );
+                        } catch {
+                            return 0;
+                        }
+                    })
+                    .map((vehicle) => {
+                        return {
+                            icon: "car",
+                            text: vehicle.plate_number,
+                            onPress: () => {
+                                setMyVehicleNumber(vehicle.plate_number);
+                                setVisible(false);
+                            },
+                        };
+                    })}
+            />
         </NavigationView>
     );
 }
 
-function Messages({ screenMessages, styles, messageType, onMessageChange }: MessagesProps) {
+function Messages({
+    myVehicleNumber,
+    screenMessages,
+    styles,
+    messageType,
+    onMessageChange,
+    onMyVehicleNumberPress,
+}: MessagesProps) {
     const [time, setTime] = useState<TimePickerTime>({
         hour: 0,
         minute: 0,
@@ -97,6 +165,8 @@ function Messages({ screenMessages, styles, messageType, onMessageChange }: Mess
         messageType === "double_parking" &&
             _message.unshift(screenMessages.main.parking.send_park_push_noti.parked_double);
 
+        _message.unshift(`${myVehicleNumber} 차주 입니다.`);
+
         setContent(_message);
     }, [time]);
 
@@ -106,6 +176,12 @@ function Messages({ screenMessages, styles, messageType, onMessageChange }: Mess
 
     return (
         <View style={styles.container}>
+            <View style={[styles.messageRow, { flexDirection: "row" }]}>
+                <TouchableOpacity style={styles.myVehicleButton} activeOpacity={0.4} onPress={onMyVehicleNumberPress}>
+                    <Text style={styles.myVehicle}>{myVehicleNumber} </Text>
+                </TouchableOpacity>
+                <Text style={styles.message}>차주 입니다.</Text>
+            </View>
             {messageType === "double_parking" ? (
                 <View style={styles.messageRow}>
                     <Text style={styles.message}>{screenMessages.main.parking.send_park_push_noti.parked_double}</Text>

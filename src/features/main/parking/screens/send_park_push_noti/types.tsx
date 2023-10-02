@@ -6,6 +6,8 @@ import useSendParkPushNotiScreenStyles from "./styles";
 type SendParkPushNotiScreenProps = NativeStackScreenProps<VillifeStackParamList, "send_park_push_noti">;
 
 export type MessagesProps = {
+    myVehicleNumber: string;
+    onMyVehicleNumberPress(): void;
     screenMessages: MultilingualMessage["messages"];
     styles: ReturnType<typeof useSendParkPushNotiScreenStyles>["message"];
     messageType: SendParkPushNotiScreenProps["route"]["params"]["messageType"];

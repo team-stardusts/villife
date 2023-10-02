@@ -51,8 +51,8 @@
             "send_park_push_noti": {
                 "screen_title": "차량 주차 알림",
                 "request_to_send_park_noti": "양식에 맞게 주차 알림을 송부해주세요.",
-                "parked_double": "제가 이중 주차를 했습니다.",
-                "scheduled_to_depart_at": "에 출차 예정입니다.",
+                "parked_double": "이중 주차를 하게 되었습니다.",
+                "scheduled_to_depart_at": "에 출차 예정으로,",
                 "request_noti_to_go_out_first": "먼저 나가실 경우 알려주세요.",
                 "request_to_change_the_parking_spot": "주차 자리 변경 부탁드립니다."
             },
@@ -176,7 +176,7 @@
             "title_of_id_input": "아이디",
             "title_of_password_input": "비밀번호",
             "title_of_login_btn": "로그인",
-            "title_of_naver_social_login_btn": "네이버 로그인",
+            "title_of_naver_social_login_btn": "네이버 로그인 / 회원가입",
             "join": "회원가입",
             "reset_password": "비밀번호 재설정",
             "invalid_login_data": {
