@@ -53,20 +53,6 @@ export default function useManagementFeeHomeScreenStyles() {
             fontSize: deviceUI.moderateScale(25),
             color: theme.color.specified.black,
         },
-        managementFeeUnitCircle: {
-            backgroundColor: theme.color.specified.blue,
-            width: deviceUI.moderateScale(20),
-            height: deviceUI.moderateScale(20),
-            borderRadius: deviceUI.moderateScale(20),
-            marginRight: deviceUI.moderateScale(5),
-            justifyContent: "center",
-            alignItems: "center",
-        },
-        managementFeeUnitText: {
-            fontFamily: theme.font.fontFamily.pretendard.bold,
-            fontSize: deviceUI.moderateScale(12),
-            color: theme.color.specified.white,
-        },
         paymentBtn: {
             borderRadius: deviceUI.moderateScale(20),
             backgroundColor: theme.color.series.grey.level1,

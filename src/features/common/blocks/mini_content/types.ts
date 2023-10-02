@@ -1,3 +1,4 @@
+import { ColorValue } from "react-native";
 import { VillifeStackParamList } from "../../router/types";
 
 export type MiniContentProps = {
@@ -8,4 +9,6 @@ export type MiniContentProps = {
     };
     children?: React.ReactNode;
     eanbleShadow?: boolean;
+    backgroundColor?: ColorValue;
+    titleColor?: ColorValue;
 };

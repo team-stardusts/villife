@@ -1,9 +1,9 @@
 import { StyleSheet } from "react-native";
 import useStyler from "../../../../common/hooks/styler/hooks";
-import { UseHomeSideMoalStylesType } from "./type";
 
-export default function useHomeSideMoalStyles(): UseHomeSideMoalStylesType {
+export default function useHomeSideMoalStyles() {
     const { deviceUI, theme } = useStyler();
+
     return StyleSheet.create({
         container: {
             justifyContent: "center",
@@ -22,7 +22,7 @@ export default function useHomeSideMoalStyles(): UseHomeSideMoalStylesType {
         },
         wrapperTop: { width: deviceUI.getScreenSize().width, height: deviceUI.getScreenSize().height },
         content: {
-            backgroundColor: "white",
+            backgroundColor: theme.color.specified.white,
             position: "absolute",
             height: deviceUI.getScreenSize().height,
             width: deviceUI.getScreenSize().width * 0.6,
@@ -43,6 +43,11 @@ export default function useHomeSideMoalStyles(): UseHomeSideMoalStylesType {
             flexDirection: "row",
             marginLeft: deviceUI.moderateScale(30),
             paddingTop: deviceUI.moderateScale(20),
+            alignItems: "center",
+        },
+        menuIconBox: {
+            width: "15%",
+            justifyContent: "center",
             alignItems: "center",
         },
         menuText: {

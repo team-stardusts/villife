@@ -1,8 +1,7 @@
 import { StyleSheet } from "react-native";
 import useStyler from "../../../../common/hooks/styler/hooks";
-import { HomeContentCardStyle } from "./type";
 
-export default function useHomeContentCardStyle(): HomeContentCardStyle {
+export default function useHomeContentCardStyle() {
     const { deviceUI, theme } = useStyler();
 
     const Style = StyleSheet.create({
@@ -27,6 +26,14 @@ export default function useHomeContentCardStyle(): HomeContentCardStyle {
         whenEmptyContainer: {
             verticalAlign: "center",
             alignItems: "center",
+        },
+        requireReadingLabel: {
+            color: theme.color.specified.white,
+            backgroundColor: theme.color.specified.lightblue,
+        },
+        generalLabel: {
+            color: theme.color.specified.white,
+            backgroundColor: theme.color.specified.grey,
         },
     });
     return Style;

@@ -1,4 +1,4 @@
-import { Dimensions, Modal, Pressable, Text, TouchableOpacity, View } from "react-native";
+import { ColorValue, Dimensions, Modal, Pressable, Text, TouchableOpacity, View } from "react-native";
 import React, { useEffect, useState } from "react";
 import useBottomEditModalStyles from "./style";
 import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
@@ -19,101 +19,103 @@ export default function HomeSideModal(props: HomeSideMoalProps) {
     const navigation = useNavigation<VillifeNavigation>();
     const { visible, setVisible } = props;
 
-    const renterData: Array<{ name: IconSeries; size: number; color: string; title: string; onPress: () => void }> = [
-        {
-            name: "speaker",
-            size: deviceUI.moderateScale(40),
-            color: theme.color.specified.black,
-            title: message.messages.main.noti.screen_title,
-            onPress: () => {
-                setVisible(false);
-                navigation.navigate("noti_home", {});
+    const renterData: Array<{ name: IconSeries; size: number; color: ColorValue; title: string; onPress: () => void }> =
+        [
+            {
+                name: "speaker",
+                size: deviceUI.moderateScale(40),
+                color: theme.color.specified.black,
+                title: message.messages.main.noti.screen_title,
+                onPress: () => {
+                    setVisible(false);
+                    navigation.navigate("noti_home", {});
+                },
             },
-        },
-        {
-            name: "question-mark",
-            size: deviceUI.moderateScale(40),
-            color: theme.color.specified.black,
-            title: message.messages.main.complaint.frequently_reported_complaints,
-            onPress: () => {
-                setVisible(false);
-                VillifeToastMessage.showBottomToast("error", message.messages.boilerplate.preparing_service);
+            {
+                name: "question-mark",
+                size: deviceUI.moderateScale(40),
+                color: theme.color.specified.black,
+                title: message.messages.main.complaint.frequently_reported_complaints,
+                onPress: () => {
+                    setVisible(false);
+                    VillifeToastMessage.showBottomToast("error", message.messages.boilerplate.preparing_service);
+                },
             },
-        },
-        {
-            name: "building",
-            size: deviceUI.moderateScale(20),
-            color: theme.color.specified.black,
-            title: message.messages.main.home.building_info,
-            onPress: () => {
-                setVisible(false);
-                VillifeToastMessage.showBottomToast("error", message.messages.boilerplate.preparing_service);
+            {
+                name: "building",
+                size: deviceUI.moderateScale(40),
+                color: theme.color.specified.black,
+                title: message.messages.main.home.building_info,
+                onPress: () => {
+                    setVisible(false);
+                    VillifeToastMessage.showBottomToast("error", message.messages.boilerplate.preparing_service);
+                },
             },
-        },
-        {
-            name: "round-person",
-            size: deviceUI.moderateScale(35),
-            color: theme.color.specified.black,
-            title: message.messages.main.home.user_info,
-            onPress: () => {
-                setVisible(false);
-                VillifeToastMessage.showBottomToast("error", message.messages.boilerplate.preparing_service);
+            {
+                name: "round-person",
+                size: deviceUI.moderateScale(35),
+                color: theme.color.specified.black,
+                title: message.messages.main.home.user_info,
+                onPress: () => {
+                    setVisible(false);
+                    VillifeToastMessage.showBottomToast("error", message.messages.boilerplate.preparing_service);
+                },
             },
-        },
-    ];
+        ];
 
-    const adminData: Array<{ name: IconSeries; size: number; color: string; title: string; onPress: () => void }> = [
-        {
-            name: "speaker",
-            size: deviceUI.moderateScale(40),
-            color: theme.color.specified.black,
-            title: message.messages.main.noti.screen_title,
-            onPress: () => {
-                setVisible(false);
-                navigation.navigate("noti_home", {});
+    const adminData: Array<{ name: IconSeries; size: number; color: ColorValue; title: string; onPress: () => void }> =
+        [
+            {
+                name: "speaker",
+                size: deviceUI.moderateScale(40),
+                color: theme.color.specified.black,
+                title: message.messages.main.noti.screen_title,
+                onPress: () => {
+                    setVisible(false);
+                    navigation.navigate("noti_home", {});
+                },
             },
-        },
-        {
-            name: "letter",
-            size: deviceUI.moderateScale(40),
-            color: theme.color.specified.black,
-            title: message.messages.main.approval.screen_title,
-            onPress: () => {
-                setVisible(false);
-                navigation.navigate("approval_home", {});
+            {
+                name: "letter",
+                size: deviceUI.moderateScale(40),
+                color: theme.color.specified.black,
+                title: message.messages.main.approval.screen_title,
+                onPress: () => {
+                    setVisible(false);
+                    navigation.navigate("approval_home", {});
+                },
             },
-        },
-        {
-            name: "question-mark",
-            size: deviceUI.moderateScale(40),
-            color: theme.color.specified.black,
-            title: message.messages.main.complaint.frequently_reported_complaints,
-            onPress: () => {
-                setVisible(false);
-                VillifeToastMessage.showBottomToast("error", message.messages.boilerplate.preparing_service);
+            {
+                name: "question-mark",
+                size: deviceUI.moderateScale(40),
+                color: theme.color.specified.black,
+                title: message.messages.main.complaint.frequently_reported_complaints,
+                onPress: () => {
+                    setVisible(false);
+                    VillifeToastMessage.showBottomToast("error", message.messages.boilerplate.preparing_service);
+                },
             },
-        },
-        {
-            name: "building",
-            size: deviceUI.moderateScale(20),
-            color: theme.color.specified.black,
-            title: message.messages.main.home.building_info,
-            onPress: () => {
-                setVisible(false);
-                VillifeToastMessage.showBottomToast("error", message.messages.boilerplate.preparing_service);
+            {
+                name: "building",
+                size: deviceUI.moderateScale(40),
+                color: theme.color.specified.black,
+                title: message.messages.main.home.building_info,
+                onPress: () => {
+                    setVisible(false);
+                    VillifeToastMessage.showBottomToast("error", message.messages.boilerplate.preparing_service);
+                },
             },
-        },
-        {
-            name: "round-person",
-            size: deviceUI.moderateScale(35),
-            color: theme.color.specified.black,
-            title: message.messages.main.home.user_info,
-            onPress: () => {
-                setVisible(false);
-                VillifeToastMessage.showBottomToast("error", message.messages.boilerplate.preparing_service);
+            {
+                name: "round-person",
+                size: deviceUI.moderateScale(35),
+                color: theme.color.specified.black,
+                title: message.messages.main.home.user_info,
+                onPress: () => {
+                    setVisible(false);
+                    VillifeToastMessage.showBottomToast("error", message.messages.boilerplate.preparing_service);
+                },
             },
-        },
-    ];
+        ];
     return (
         <Modal
             animationType="fade"
@@ -147,7 +149,9 @@ export default function HomeSideModal(props: HomeSideMoalProps) {
                             : adminData.map((item, index) => (
                                   <TouchableOpacity key={index} onPress={() => item.onPress()}>
                                       <View style={styles.menu}>
-                                          <Icon name={item.name} size={item.size} color={item.color} />
+                                          <View style={styles.menuIconBox}>
+                                              <Icon name={item.name} size={item.size} color={item.color} />
+                                          </View>
                                           <Text style={styles.menuText}>{item.title}</Text>
                                       </View>
                                   </TouchableOpacity>

@@ -2,7 +2,7 @@ import { Pressable, Text, TouchableOpacity, View } from "react-native";
 import MiniContent from "../../../../common/blocks/mini_content";
 import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
 import ComplaintHomeViewModel from "../../screens/home/view_model";
-import useHomeContentCardStyle from "./style";
+import useHomeContentCardStyle from "./styles";
 import { useNavigation } from "@react-navigation/native";
 import { VillifeNavigation } from "../../../../common/router/types";
 import ColorLable from "../../../../common/blocks/universial/color_label.tsx";
@@ -19,16 +19,6 @@ export default function HomeContentFromComplaint() {
     const navigation = useNavigation<VillifeNavigation>();
     const { theme } = useStyler();
 
-    const translateLableText = (status: ComplaintStatus) => {
-        switch (status) {
-            case "received":
-                return message.messages.main.complaint.received;
-            case "in_progress":
-                return message.messages.main.complaint.inprogress;
-            case "completed":
-                return message.messages.main.complaint.done;
-        }
-    };
     return (
         <MiniContent
             title={messages.messages.main.complaint.renter_home_content_title}
@@ -50,6 +40,20 @@ export default function HomeContentFromComplaint() {
                     {viewModel.uiState.complaintsWillBeDisplayed.map((complaint, index) => {
                         if (index > 2) return;
 
+                        let labelText = messages.messages.main.complaint.done;
+                        let labelStyle = style.completedLabel;
+
+                        switch (complaint.status) {
+                            case "received":
+                                labelText = messages.messages.main.complaint.received;
+                                labelStyle = style.receivedLabel;
+                                break;
+                            case "in_progress":
+                                labelText = messages.messages.main.complaint.inprogress;
+                                labelStyle = style.progressLabel;
+                                break;
+                        }
+
                         return (
                             <TouchableOpacity
                                 onPress={() => {
@@ -59,9 +63,9 @@ export default function HomeContentFromComplaint() {
                                 style={style.itemContainer}>
                                 <Text style={style.text}>{complaint.title}</Text>
                                 <ColorLable
-                                    text={translateLableText(complaint.status)}
-                                    backgroundColor={theme.color.specified.green as string}
-                                    textColor={theme.color.specified.black as string}
+                                    text={labelText}
+                                    backgroundColor={labelStyle.backgroundColor}
+                                    textColor={labelStyle.color}
                                 />
                             </TouchableOpacity>
                         );

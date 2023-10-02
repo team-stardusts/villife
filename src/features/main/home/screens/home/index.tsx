@@ -1,19 +1,40 @@
+import { useEffect, useState } from "react";
 import { ScrollView, View } from "react-native";
 import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
 import NavigationView from "../../../../common/blocks/navigation";
 import HomeScreenProps from "./type";
 import useHomeScreenStyles from "./styles";
-import HomeContentFromComplaint from "../../../complaint/blocks/home_content";
 import MenuButton from "../../blocks/menu_button";
+import HomeContentFromComplaint from "../../../complaint/blocks/home_content";
 import HomeContentFromParking from "../../../parking/blocks/home_content";
 import HomeContentFromNoti from "../../../noti/blocks/home_content";
+import useUserInformation from "../../../../common/hooks/service/user_info";
+import HomeContentFromManagementFee from "../../../../expense/management_fee/blocks/home_content";
 
 export default function HomeScreen({ navigation, route }: HomeScreenProps) {
     const messages = useScreenMessage();
     const styles = useHomeScreenStyles();
+    const user = useUserInformation();
+    const [contents, setContents] = useState<(() => JSX.Element)[]>([]);
+    //HomeContentFromManagementFee
 
     console.log("[HomeScreen] onCreate");
-    const contents = [HomeContentFromComplaint, HomeContentFromNoti, HomeContentFromParking];
+
+    useEffect(() => {
+        if (user === null) return;
+
+        const _contents = [HomeContentFromComplaint, HomeContentFromNoti, HomeContentFromParking];
+
+        if (user?.isAdmin) {
+            // Add admin specific contents.
+        } else {
+            _contents.unshift(HomeContentFromManagementFee);
+        }
+
+        setContents(_contents);
+        return;
+    }, [user?.authority]);
+    //const contents = [HomeContentFromComplaint, HomeContentFromNoti, HomeContentFromParking];
 
     return (
         <NavigationView

@@ -9,8 +9,8 @@ import ContentBox from "../content_box";
 import { useEffect, useRef } from "react";
 import { ANIMATION_DURATION_SLOW } from "../../constants";
 
-export default function MiniContent({ title, navigation, children, eanbleShadow }: MiniContentProps) {
-    const { deviceUI, theme } = useStyler();
+export default function MiniContent(props: MiniContentProps) {
+    const { theme } = useStyler();
     const styles = useHomeScreenContentStyles();
     const nav = useNavigation<VillifeNavigation>();
 
@@ -33,28 +33,30 @@ export default function MiniContent({ title, navigation, children, eanbleShadow 
     }, [opacityValue, translateYValue]);
 
     const navigate = () => {
-        if (navigation !== undefined) {
-            const finded = VILLIFE_ROOT_STACK_PARAMS.find((value) => value === navigation.to);
+        if (props.navigation !== undefined) {
+            const finded = VILLIFE_ROOT_STACK_PARAMS.find((value) => value === props.navigation?.to);
 
             if (finded !== undefined) {
                 nav.reset({
                     index: 0,
-                    routes: [{ name: navigation.to, params: navigation.params }],
+                    routes: [{ name: props.navigation.to, params: props.navigation.params }],
                 });
             } else {
-                nav.push(navigation.to, navigation.params);
+                nav.push(props.navigation.to, props.navigation.params);
             }
         }
     };
 
     return (
         <View style={styles.container}>
-            <ContentBox backgroundColor={theme.color.specified.white} enableShadow={eanbleShadow}>
+            <ContentBox
+                backgroundColor={props.backgroundColor || theme.color.specified.white}
+                enableShadow={props.eanbleShadow}>
                 <View style={styles.contentsContatainer}>
                     <TouchableOpacity
                         style={styles.navigationBox}
                         onPress={() => navigate()}
-                        disabled={navigation === undefined}>
+                        disabled={props.navigation === undefined}>
                         {/* <Animated.View
                         style={[
                             styles.navigationWrapper,
@@ -68,12 +70,18 @@ export default function MiniContent({ title, navigation, children, eanbleShadow 
                             <Icon name="arrow-right" size={deviceUI.moderateScale(40)} color={theme.colorFamily.grey} />
                         )}
                     </Animated.View> */}
-                        <Text style={styles.navigationTitle}>{title}</Text>
-                        {navigation && (
-                            <Icon name="arrow-right" size={styles.linkIcon.width} color={styles.linkIcon.color} />
+                        <Text style={[styles.navigationTitle, props.titleColor ? { color: props.titleColor } : {}]}>
+                            {props.title}
+                        </Text>
+                        {props.navigation && (
+                            <Icon
+                                name="arrow-right"
+                                size={styles.linkIcon.width}
+                                color={props.titleColor ?? styles.linkIcon.color}
+                            />
                         )}
                     </TouchableOpacity>
-                    <View style={styles.childrenBox}>{children}</View>
+                    <View style={styles.childrenBox}>{props.children}</View>
                 </View>
             </ContentBox>
         </View>

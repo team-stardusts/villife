@@ -43,6 +43,14 @@ export default function HomeContentFromNoti() {
                         viewModel.map((noti, index) => {
                             if (index > 2) return;
 
+                            let labelText = message.messages.main.noti.reading;
+                            let labelStyle = style.generalLabel;
+
+                            if (noti.Priority === 1) {
+                                labelStyle = style.requireReadingLabel;
+                                labelText = message.messages.main.noti.required_reading;
+                            }
+
                             return (
                                 <TouchableOpacity
                                     onPress={() => {
@@ -52,9 +60,9 @@ export default function HomeContentFromNoti() {
                                     style={style.itemContainer}>
                                     <Text style={style.text}>{noti.Title}</Text>
                                     <ColorLable
-                                        text={message.messages.main.noti.required_reading}
-                                        backgroundColor={theme.color.specified.lightblue}
-                                        textColor={theme.color.specified.white}
+                                        text={labelText}
+                                        backgroundColor={labelStyle.backgroundColor}
+                                        textColor={labelStyle.color}
                                     />
                                 </TouchableOpacity>
                             );

@@ -29,9 +29,9 @@ export default function useHomeContentFromParkingStyles(didGetFavoritVehilce: bo
             alignItems: "flex-end",
         },
         text: {
-            color: theme.color.specified.black,
-            fontWeight: "bold",
             ...theme.font.researved.h4,
+            fontFamily: theme.font.fontFamily.pretendard.medium,
+            color: theme.color.specified.black,
         },
         btnBox: {
             flex: 8,
