@@ -114,10 +114,13 @@ export default function SendParkPushNotiScreen({ navigation, route }: SendParkPu
                 features={parkingLot.userVehicles
                     .sort((vehicleA, vehicleB) => {
                         try {
-                            return (
-                                parseInt(vehicleA.plate_number.slice(0, 2)) -
-                                parseInt(vehicleB.plate_number.slice(0, 2))
-                            );
+                            let _vehicleANumber = vehicleA.plate_number.split(" ")[0];
+                            let _vehicleBNumber = vehicleB.plate_number.split(" ")[0];
+
+                            _vehicleANumber = _vehicleANumber.slice(0, _vehicleANumber.length - 1);
+                            _vehicleBNumber = _vehicleBNumber.slice(0, _vehicleBNumber.length - 1);
+
+                            return parseInt(_vehicleANumber) - parseInt(_vehicleBNumber);
                         } catch {
                             return 0;
                         }
