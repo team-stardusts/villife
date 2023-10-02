@@ -38,6 +38,7 @@ export default function useSendParkPushNotiScreenStyles() {
         },
         myVehicle: {
             ...theme.font.researved.h4,
+            fontFamily: theme.font.fontFamily.pretendard.semiBold,
             color: theme.color.specified.white,
         },
         timeRow: {

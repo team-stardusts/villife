@@ -1,4 +1,4 @@
-import { Alert, Text, TouchableOpacity, View } from "react-native";
+import { Text, TouchableOpacity, View } from "react-native";
 import NavigationView from "../../../../common/blocks/navigation";
 import SendParkPushNotiScreenProps, { MessagesProps } from "./types";
 import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
@@ -10,7 +10,6 @@ import TimePicker from "../../../../common/atoms/time_picker";
 import useParkingLot from "../../services/parking_lot";
 import ScreenTitleView from "../../../../common/blocks/title_view";
 import ListBottomSlidableModal from "../../../../common/blocks/bottom_list_modal";
-import SelectModal from "../../../../expense/management_fee/screens/detail/blocks/select_modal";
 import StardustAlert from "../../../../common/blocks/universial/stardust_alert";
 import { StardustAlertContent } from "../../../../common/blocks/universial/stardust_alert/types";
 
@@ -178,7 +177,7 @@ function Messages({
         <View style={styles.container}>
             <View style={[styles.messageRow, { flexDirection: "row" }]}>
                 <TouchableOpacity style={styles.myVehicleButton} activeOpacity={0.4} onPress={onMyVehicleNumberPress}>
-                    <Text style={styles.myVehicle}>{myVehicleNumber} </Text>
+                    <Text style={styles.myVehicle}>{myVehicleNumber || "\t\t\t"} </Text>
                 </TouchableOpacity>
                 <Text style={styles.message}>차주 입니다.</Text>
             </View>

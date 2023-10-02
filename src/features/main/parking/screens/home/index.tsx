@@ -38,18 +38,26 @@ export default function ParkingScreen({ navigation, route }: ParkingScreenProps)
                 // 차량번호 1 -> 2
                 .sort((vehicleA, vehicleB) => {
                     try {
-                        return (
-                            parseInt(vehicleA.plate_number.slice(0, 2)) - parseInt(vehicleB.plate_number.slice(0, 2))
-                        );
+                        let _vehicleANumber = vehicleA.plate_number.split(" ")[0];
+                        let _vehicleBNumber = vehicleB.plate_number.split(" ")[0];
+
+                        _vehicleANumber = _vehicleANumber.slice(0, _vehicleANumber.length - 1);
+                        _vehicleBNumber = _vehicleBNumber.slice(0, _vehicleBNumber.length - 1);
+
+                        return parseInt(_vehicleANumber) - parseInt(_vehicleBNumber);
                     } catch {
                         return 0;
                     }
                 })
+                // Room number 오름차순
+                .sort((vehicleA, vehicleB) => {
+                    return vehicleA.room_number - vehicleB.room_number;
+                })
                 // 방문자 -> 거주자
                 .sort((vehicleA, vehicleB) => {
-                    if (vehicleA.ownerType === "guest" && vehicleB.ownerType === "guest") {
+                    if (vehicleA.ownerType === vehicleB.ownerType) {
                         return 0;
-                    } else if (vehicleA.ownerType === "guest") {
+                    } else if (vehicleA.ownerType === "guest" && vehicleB.ownerType !== "guest") {
                         return -1;
                     }
 
