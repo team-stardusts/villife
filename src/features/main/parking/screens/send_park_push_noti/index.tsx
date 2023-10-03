@@ -26,7 +26,11 @@ export default function SendParkPushNotiScreen({ navigation, route }: SendParkPu
         buttons: [
             {
                 text: "확인",
-                onPress: () => navigation.canGoBack() && navigation.goBack(),
+                onPress: () =>
+                    navigation.reset({
+                        index: 0,
+                        routes: [{ name: "parking" }],
+                    }),
             },
         ],
     });

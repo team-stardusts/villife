@@ -9,7 +9,7 @@ import type { CalendarDatePickerProps, Dates, PickedDates } from "./types";
 export default function CalendarDatePicker(props: CalendarDatePickerProps) {
     const { deviceUI, theme } = useStyler();
     const [dates, setDates] = useState<PickedDates>({
-        startDate: props.initialDate ?? new Date(),
+        startDate: null,
         endDate: null,
     });
 
@@ -48,12 +48,7 @@ export default function CalendarDatePicker(props: CalendarDatePickerProps) {
     return (
         <View>
             <CalendarPicker
-                onDateChange={(date, type) => onDateChange(date, type)}
-                previousComponent={getPreviousNextComponent("previous")}
-                nextComponent={getPreviousNextComponent("next")}
-                textStyle={{
-                    fontFamily: theme.font.fontFamily.pretendard.regular,
-                }}
+                allowRangeSelection
                 customDayHeaderStyles={() => {
                     return {
                         style: {},
@@ -62,13 +57,25 @@ export default function CalendarDatePicker(props: CalendarDatePickerProps) {
                         },
                     };
                 }}
+                initialDate={props.initialDate}
                 minDate={props.minDate}
-                selectedStartDate={dates.startDate}
+                nextComponent={getPreviousNextComponent("next")}
+                onDateChange={(date, type) => onDateChange(date, type)}
+                previousComponent={getPreviousNextComponent("previous")}
+                selectedStartDate={props.selectedStartData}
+                selectedEndDate={props.selectedEndData}
                 selectedDayColor={theme.color.specified.lightblue as string}
                 selectedDayTextColor={theme.color.specified.white as string}
-                width={props.width}
+                todayBackgroundColor={theme.color.specified.green as string}
                 showDayStragglers={false}
-                allowRangeSelection
+                textStyle={{
+                    fontFamily: theme.font.fontFamily.pretendard.regular,
+                }}
+                width={props.width}
+                weekdays={["일", "월", "화", "수", "목", "금", "토"]}
+                months={["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"]}
+                selectMonthTitle={"월 선택\t"}
+                selectYearTitle="연도 선택"
                 //scrollable
             />
         </View>

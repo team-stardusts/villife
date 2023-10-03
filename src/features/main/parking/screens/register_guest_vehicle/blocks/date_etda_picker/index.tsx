@@ -7,15 +7,26 @@ import { useEffect, useState } from "react";
 import GuestVehicleDateSelectionModal from "../../../../blocks/modal/date_selection";
 import type { DateEtdaPickerProps } from "./types";
 import { DateRange } from "../../../../blocks/modal/date_selection/types";
+import StardustDateParser from "../../../../../../../libs/date_parser";
 
 export default function DateRangePicker(props: DateEtdaPickerProps) {
-    const messages = useScreenMessage();
+    //const messages = useScreenMessage();
     const styles = useDateEtdaPickerStyles();
     const [visible, setVisible] = useState<boolean>(false);
     const [dates, setDates] = useState<DateRange | null>(null);
 
     useEffect(() => {
-        if (dates === null) return;
+        if (dates === null) {
+            const initialStartDate = StardustDateParser.changeGMT(new Date(), "kr");
+            const initialEndDate = new Date(initialStartDate);
+            initialEndDate.setHours(initialEndDate.getHours() + 1);
+
+            setDates({
+                startDate: initialStartDate,
+                endDate: initialEndDate,
+            });
+            return;
+        }
 
         props.onChangeDateTimeRange(dates);
     }, [dates]);
@@ -45,7 +56,14 @@ export default function DateRangePicker(props: DateEtdaPickerProps) {
                     </View>
                 </View>
             </ContentBox>
-            <GuestVehicleDateSelectionModal visible={visible} setVisible={setVisible} onChangeDate={setDates} />
+            <GuestVehicleDateSelectionModal
+                minDate={StardustDateParser.changeGMT(new Date(), "kr")}
+                selectedStartDate={dates?.startDate}
+                selectedEndDate={dates?.endDate}
+                visible={visible}
+                setVisible={setVisible}
+                onChangeDate={setDates}
+            />
         </TouchableOpacity>
     );
 }

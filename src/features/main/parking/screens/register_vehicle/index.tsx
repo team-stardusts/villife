@@ -14,6 +14,8 @@ import { VehicleValidationResult } from "../../blocks/info_input_box/types";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import useParkingLot from "../../services/parking_lot";
 import ScreenTitleView from "../../../../common/blocks/title_view";
+import { StardustAlertContent } from "../../../../common/blocks/universial/stardust_alert/types";
+import StardustAlert from "../../../../common/blocks/universial/stardust_alert";
 
 export default function RegisterVehicleScreen({ navigation, route }: RegisterVehicleScreenProps) {
     const messages = useScreenMessage();
@@ -32,14 +34,18 @@ export default function RegisterVehicleScreen({ navigation, route }: RegisterVeh
             minute: 0,
         },
     });
-
     const [valid, setValid] = useState<VehicleValidationResult>({
         plateNumber: false,
         model: false,
     });
+    const [alert, setAlert] = useState<StardustAlertContent>({
+        type: "primary",
+        title: messages.messages.main.parking.common.registration_successful,
+        visible: false,
+    });
 
     const handlePressRegisterBtn = async () => {
-        if (!valid.model && !valid.plateNumber) {
+        /* if (!valid.model && !valid.plateNumber) {
             Toast.show({
                 type: "error",
                 text1: messages.messages.main.parking.register_vehicle.invalid_plate_number_and_model,
@@ -58,7 +64,7 @@ export default function RegisterVehicleScreen({ navigation, route }: RegisterVeh
             );
 
         !valid.model &&
-            VillifeToastMessage.showBottomToast("error", messages.messages.main.parking.register_vehicle.invalid_model);
+            VillifeToastMessage.showBottomToast("error", messages.messages.main.parking.register_vehicle.invalid_model); */
 
         if (valid.model && valid.plateNumber) {
             // [TO-DO] Regsiter Service 등록
@@ -74,29 +80,37 @@ export default function RegisterVehicleScreen({ navigation, route }: RegisterVeh
                 ? undefined
                 : messages.messages.boilerplate.try_again_soon;
 
-            Alert.alert(alertTitle, alertMessages, [
-                {
-                    onPress: () => {
-                        isSuccessful &&
-                            navigation.reset({
-                                index: 0,
-                                routes: [{ name: "parking", params: {} }],
-                            });
+            setAlert({
+                ...alert,
+                visible: true,
+                type: isSuccessful ? "primary" : "error",
+                title: alertTitle,
+                message: alertMessages,
+                buttons: [
+                    {
+                        text: "확인",
+                        onPress: () => {
+                            isSuccessful
+                                ? navigation.reset({
+                                      index: 0,
+                                      routes: [{ name: "parking", params: {} }],
+                                  })
+                                : setAlertUnvisible();
+                        },
                     },
-                },
-            ]);
+                ],
+            });
         }
+    };
+
+    const setAlertUnvisible = () => {
+        setAlert({ ...alert, visible: false });
     };
 
     return (
         <NavigationView
             headerOptions={{
                 title: messages.messages.main.parking.register_vehicle.screen_title,
-                navComponent: SimpleNavComponent,
-                navComponentProps: {
-                    title: messages.messages.words.register,
-                    onPress: handlePressRegisterBtn,
-                },
                 style: {
                     backgroundColor: styles.navView.backgroundColor,
                 },
@@ -105,16 +119,25 @@ export default function RegisterVehicleScreen({ navigation, route }: RegisterVeh
                 applyDefaultHorizontalPadding: false,
                 applyDefaultVerticalPadding: false,
                 backgroundColor: styles.navView.backgroundColor,
+            }}
+            bottomNavOptions={{
+                shown: false,
             }}>
             <ScreenTitleView
                 titles={[messages.messages.main.parking.register_vehicle.register_own_vehicle]}
                 subtitles={[messages.messages.main.parking.register_vehicle.request_input_vehicle_info]}
+                bottomButton={{
+                    title: "등록하기",
+                    onPress: () => handlePressRegisterBtn(),
+                    disabled: !(valid.model && valid.plateNumber),
+                }}
                 disablePaddingTop>
                 <KeyboardAwareScrollView
                     style={styles.container}
                     showsVerticalScrollIndicator={false}
                     //scrollEnabled={false}
                     enableOnAndroid={true}>
+                    <StardustAlert {...alert} setAlert={setAlert} />
                     <View style={styles.etdaPickerContainer}>
                         <EtdaTimePicker
                             onTimeChange={(time) => {
