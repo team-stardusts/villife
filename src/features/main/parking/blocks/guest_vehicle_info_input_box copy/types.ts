@@ -18,6 +18,5 @@ export type GuestVehicleValidationResult = {
 export type GuestVehicleInfoInputBoxProps = {
     initialVehicleInfo?: GuestVehicleInfo;
     onValidation?(validationResult: GuestVehicleValidationResult): void;
-    onTouchInputBox?(coordinate: TouchedCoordinate): void;
     onChangeGuestVehicleInfo(vehicleInfo: GuestVehicleInfo): void;
 };

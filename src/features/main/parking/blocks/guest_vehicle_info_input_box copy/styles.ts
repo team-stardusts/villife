@@ -14,6 +14,12 @@ export default function useGuestVehicleInfoInputBoxStyles() {
             paddingVertical: deviceUI.moderateScale(5),
             justifyContent: "center",
         },
+        vehicleInfoPhoneNumberInputWrapper: {
+            height: "50%",
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "space-around",
+        },
         vehicleInfoInputTitle: {
             ...theme.font.researved.h4,
             fontFamily: theme.font.fontFamily.pretendard.bold,
@@ -24,13 +30,16 @@ export default function useGuestVehicleInfoInputBoxStyles() {
             height: "50%",
         },
         vehiclePhonmberInput0: {
-            width: "30%",
+            height: "100%",
+            width: "25%",
         },
         vehiclePhonmberInput1: {
-            width: "30%",
+            height: "100%",
+            width: "35%",
         },
         vehiclePhonmberInput2: {
-            width: "30%",
+            height: "100%",
+            width: "35%",
         },
     });
 }

@@ -8,6 +8,19 @@ export const VISITING_PERPOSE_MAX_LENGTH: number = 30;
 export class TextValidator {
     private static validator = new StringValidator();
 
+    public static validatePieceOfPhoneNumber(index: number, text: string): boolean {
+        switch (index) {
+            case 0:
+                return /^01(?:0|1|[6-9])$/.test(text);
+            case 1:
+                return /^(\d{3}|\d{4})$/.test(text);
+            case 2:
+                return /\d{4}$/.test(text);
+            default:
+                return false;
+        }
+    }
+
     public static validatePlateNumber(plateNumber: string): boolean {
         return this.validator.isCorrectVehiclePlateNumber(plateNumber);
     }
@@ -29,7 +42,6 @@ export class TextValidator {
     }
 
     public static validatePhoneNumber = (phoneNumber: string): boolean => {
-        console.log(this.validator.isPhoneNumber(phoneNumber, true));
         return this.validator.isPhoneNumber(phoneNumber, true);
     };
 
