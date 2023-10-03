@@ -57,7 +57,6 @@ export default function DateRangePicker(props: DateEtdaPickerProps) {
                 </View>
             </ContentBox>
             <GuestVehicleDateSelectionModal
-                minDate={StardustDateParser.changeGMT(new Date(), "kr")}
                 selectedStartDate={dates?.startDate}
                 selectedEndDate={dates?.endDate}
                 visible={visible}

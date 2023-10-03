@@ -2,7 +2,6 @@ export type GuestVehicleDateSelectionModalProps = {
     visible: boolean;
     selectedStartDate?: Date;
     selectedEndDate?: Date;
-    minDate?: Date;
     setVisible: React.Dispatch<React.SetStateAction<boolean>>;
     onChangeDate(dateEtda: DateRange): void;
 };

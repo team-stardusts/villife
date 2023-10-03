@@ -29,6 +29,9 @@ export default function GuestVehicleInfoInputBox({
             visitingPerpose: "",
         }
     );
+
+    const [phoneNumber, setPhoneNumber] = useState<(string | null)[]>([null, null, null]);
+
     const [touchedCoordinate, setTouchedCoordinate] = useState<TouchedCoordinate>({
         x: 0,
         y: 0,
@@ -108,7 +111,7 @@ export default function GuestVehicleInfoInputBox({
             </View>
             <View style={styles.vehicleInfoInputContainer}>
                 <Text style={styles.vehicleInfoInputTitle}>{messages.messages.words.guest_phone_number}</Text>
-                <View style={styles.vehicleInfoInput}>
+                <View style={[styles.vehicleInfoInput, styles.vehiclePhonmberInput0]}>
                     <UniversalTextInput
                         name="phoneNumber"
                         value={guestVehicleInfo.phoneNumber}

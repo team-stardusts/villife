@@ -23,5 +23,14 @@ export default function useGuestVehicleInfoInputBoxStyles() {
         vehicleInfoInput: {
             height: "50%",
         },
+        vehiclePhonmberInput0: {
+            width: "30%",
+        },
+        vehiclePhonmberInput1: {
+            width: "30%",
+        },
+        vehiclePhonmberInput2: {
+            width: "30%",
+        },
     });
 }

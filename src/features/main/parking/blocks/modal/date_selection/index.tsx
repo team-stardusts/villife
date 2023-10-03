@@ -1,7 +1,7 @@
 import { View } from "react-native";
 import CalendarDatePicker from "../../../../../common/blocks/calendar_picker";
 import StardustModal from "../../../../../common/blocks/universial/stardust_modal";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import EtdaTimePicker from "../../etad_time_picker";
 import { EtdaTime } from "../../etad_time_picker/types";
 import type { GuestVehicleDateSelectionModalProps } from "./types";
@@ -95,7 +95,7 @@ export default function GuestVehicleDateSelectionModal(props: GuestVehicleDateSe
             <View style={styles.container}>
                 {page === 1 ? (
                     <CalendarDatePicker
-                        minDate={props.minDate}
+                        minDate={new Date()}
                         selectedStartData={props.selectedStartDate}
                         selectedEndData={props.selectedEndDate}
                         width={styles.datePicker.width}
