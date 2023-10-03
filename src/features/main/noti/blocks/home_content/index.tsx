@@ -40,33 +40,40 @@ export default function HomeContentFromNoti() {
                     {viewModel == undefined ? (
                         <></>
                     ) : (
-                        viewModel.map((noti, index) => {
-                            if (index > 2) return;
+                        viewModel
+                            .sort((a, b) => {
+                                // Priority 숫자가 낮을 수록 우선 순위가 높음
+                                if (a.Priority < b.Priority) return -1;
+                                else if (a.Priority > b.Priority) return 1;
+                                return 0;
+                            })
+                            .map((noti, index) => {
+                                if (index > 2) return;
 
-                            let labelText = message.messages.main.noti.reading;
-                            let labelStyle = style.generalLabel;
+                                let labelText = message.messages.main.noti.reading;
+                                let labelStyle = style.generalLabel;
 
-                            if (noti.Priority === 1) {
-                                labelStyle = style.requireReadingLabel;
-                                labelText = message.messages.main.noti.required_reading;
-                            }
+                                if (noti.Priority === 1) {
+                                    labelStyle = style.requireReadingLabel;
+                                    labelText = message.messages.main.noti.required_reading;
+                                }
 
-                            return (
-                                <TouchableOpacity
-                                    onPress={() => {
-                                        navigation.navigate("noti_home", noti);
-                                    }}
-                                    key={noti.ID}
-                                    style={style.itemContainer}>
-                                    <Text style={style.text}>{noti.Title}</Text>
-                                    <ColorLable
-                                        text={labelText}
-                                        backgroundColor={labelStyle.backgroundColor}
-                                        textColor={labelStyle.color}
-                                    />
-                                </TouchableOpacity>
-                            );
-                        })
+                                return (
+                                    <TouchableOpacity
+                                        onPress={() => {
+                                            navigation.navigate("noti_home", noti);
+                                        }}
+                                        key={noti.ID}
+                                        style={style.itemContainer}>
+                                        <Text style={style.text}>{noti.Title}</Text>
+                                        <ColorLable
+                                            text={labelText}
+                                            backgroundColor={labelStyle.backgroundColor}
+                                            textColor={labelStyle.color}
+                                        />
+                                    </TouchableOpacity>
+                                );
+                            })
                     )}
                 </View>
             )}

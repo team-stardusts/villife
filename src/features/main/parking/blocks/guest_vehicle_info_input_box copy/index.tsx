@@ -153,6 +153,8 @@ export default function GuestVehicleInfoInputBox({
                     <View style={styles.vehiclePhonmberInput0}>
                         <UniversalTextInput
                             name="first"
+                            inputMode="numeric"
+                            keyboardType="number-pad"
                             textAlign="center"
                             value={phoneNumber[0] ?? ""}
                             placeholder="010"
@@ -172,6 +174,8 @@ export default function GuestVehicleInfoInputBox({
                     <View style={styles.vehiclePhonmberInput1}>
                         <UniversalTextInput
                             name="second"
+                            inputMode="numeric"
+                            keyboardType="number-pad"
                             textAlign="center"
                             value={phoneNumber[1] ?? ""}
                             placeholder="0000"
@@ -191,6 +195,8 @@ export default function GuestVehicleInfoInputBox({
                     <View style={styles.vehiclePhonmberInput1}>
                         <UniversalTextInput
                             name="third"
+                            inputMode="numeric"
+                            keyboardType="number-pad"
                             textAlign="center"
                             value={phoneNumber[2] ?? ""}
                             placeholder="0000"
