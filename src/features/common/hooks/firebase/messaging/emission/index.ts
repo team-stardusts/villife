@@ -1,8 +1,9 @@
 import messaging, { FirebaseMessagingTypes } from "@react-native-firebase/messaging";
 import { Alert } from "react-native";
-import { IEventEmittable, MessagingEvent, MessagingEventData } from "../types";
+import { MessagingEvent, MessagingEventData } from "../types";
 import FirebaseMessagingEventHandler from "../event";
 import { useEffect } from "react";
+import { IEventEmittable } from "../../../../global_interface";
 
 export default function useFirebaseMessagingEmitter() {
     const emitter: IEventEmittable<MessagingEvent, MessagingEventData> = new FirebaseMessagingEventHandler();

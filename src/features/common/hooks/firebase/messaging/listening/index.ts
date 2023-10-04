@@ -1,9 +1,10 @@
 import { useEffect } from "react";
 import FirebaseMessagingEventHandler from "../event";
-import { IEventListenable, MessagingEvent, MessagingEventData } from "../types";
+import { MessagingEvent, MessagingEventData } from "../types";
 import { Alert, AlertButton } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { VillifeRouterParams } from "../../../../router/types";
+import { IEventListenable } from "../../../../global_interface";
 
 export default function useFirebaseMessagingListener() {
     const navigation = useNavigation<VillifeRouterParams["navigation"]>();

@@ -1,17 +1,35 @@
-import { Linking, StyleSheet, Text, TouchableOpacity } from "react-native";
+import { Animated, ColorValue, Linking, StyleSheet, Text, TouchableOpacity } from "react-native";
 import NavigationView from "../common/blocks/navigation";
 import useTestService from "./test_hook";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { View } from "react-native";
 import DotEnv from "../../libs/dotenv";
 import { useNavigation } from "@react-navigation/native";
 import { VillifeNavigation } from "../common/router/types";
 import PaymentServiceProvider from "../expense/payment/services/provider";
+import NetInfoEventHandler from "../../libs/netinfo";
+import Spinner from "../common/blocks/spinner";
+import Icon from "../common/atoms/icon";
+import useStyler from "../common/hooks/styler/hooks";
 
 export default function TestScreen() {
-    const test = useTestService();
+    //const test = useTestService();
+    const { theme } = useStyler();
     const env = new DotEnv();
     const navigation = useNavigation<VillifeNavigation>();
+    const netinfo = new NetInfoEventHandler();
+
+    useEffect(() => {
+        netinfo.listen("changed", (_, state) => console.log("Is connected?", state.isConnected));
+
+        return () => {
+            netinfo.removeAllListeners();
+        };
+    }, []);
+
+    /* useEffect(() => {
+        createOrder();
+    }, [test?.name]); */
 
     const [paymentUrl, setPaymentUrl] = useState("");
 
@@ -50,10 +68,6 @@ export default function TestScreen() {
             price: 120000,
         });
     };
-
-    useEffect(() => {
-        createOrder();
-    }, [test?.name]);
 
     return (
         <NavigationView

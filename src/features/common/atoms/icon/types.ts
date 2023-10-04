@@ -40,7 +40,8 @@ export type IconSeries =
     | "question-mark"
     | "three-dots-vertical"
     | "trash-can"
-    | "filter-setting";
+    | "filter-setting"
+    | "villife";
 
 export type ChildIconProps = CommonIconProps & {
     [key: string]: ColorValue | string | number | undefined;

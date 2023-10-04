@@ -7,15 +7,19 @@ export default function useSplashScreenStyles() {
     return StyleSheet.create({
         container: {
             flex: 1,
+            backgroundColor: theme.color.specified.lightblue,
         },
         indicatorBox: {
             flex: 1,
             justifyContent: "center",
             alignItems: "center",
         },
-        indicator: {
+        villifeIcon: {
             //width: deviceUI.moderateScale(150),
             color: theme.color.specified.blue,
+        },
+        spinner: {
+            color: theme.color.series.grey.level2,
         },
     });
 }

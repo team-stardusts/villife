@@ -28,7 +28,6 @@ export default function useRoutingAdministratorByLogin(): void {
             return;
         }
 
-        navigation.navigate("splash", {});
         handleAccessToApp();
 
         return () => {
@@ -43,6 +42,12 @@ export default function useRoutingAdministratorByLogin(): void {
     }, [userinfo?.rawdata, isLoading]);
 
     const handleAccessToApp = async (): Promise<void> => {
+        navigation.navigate("splash", {});
+
+        await new Promise((resolve) => {
+            setTimeout(() => resolve(""), 1200);
+        });
+
         await storage.login.get().then((data) => {
             setLoginData(data);
             setIsLoading(false);

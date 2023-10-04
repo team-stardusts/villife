@@ -22,6 +22,7 @@ export default function NavigationView({
     const message = useScreenMessage();
     const styles = useNavigationViewStyles(bodyOptions);
     const navigation = useNavigation<VillifeRouterParams["navigation"]>();
+    //navigation.reset(navigation.getState())
 
     const headerBackGroundColor = headerOptions?.style?.backgroundColor ?? styles.container.backgroundColor;
     const bodyBackGroundColor = bodyOptions.backgroundColor ?? styles.container.backgroundColor;

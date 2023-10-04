@@ -26,6 +26,7 @@ import IconFilterSetting from "./filter_setting";
 import IconTrashCan from "./trash_can";
 import IconMagnifier from "./magnifier";
 import IconCalendar from "./calendar";
+import { IconVillife } from "./villife";
 
 export default function Icon(props: IconProps) {
     /* let iconProps: ChildIconProps = {
@@ -99,6 +100,8 @@ export default function Icon(props: IconProps) {
             return <IconTrashCan {...iconProps} />;
         case "filter-setting":
             return <IconFilterSetting {...iconProps} />;
+        case "villife":
+            return <IconVillife {...iconProps} />;
         default:
             return <IconHome {...iconProps} />;
     }

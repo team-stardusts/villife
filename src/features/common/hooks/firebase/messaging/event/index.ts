@@ -1,5 +1,6 @@
 import { EventRegister } from "react-native-event-listeners";
-import { MessagingEvent, MessagingEventData, IEventEmittable, IEventListenable } from "../types";
+import { MessagingEvent, MessagingEventData } from "../types";
+import { IEventEmittable, IEventListenable } from "../../../../global_interface";
 
 class FirebaseMessagingEventHandler
     implements
