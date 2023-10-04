@@ -6,6 +6,13 @@ import { BodyOptions } from "./types";
 export default function useNavigationViewStyles(bodyOptions?: BodyOptions) {
     const { deviceUI, theme } = useStyler();
 
+    const bodyContainerPaddingHorizontal = bodyOptions?.applyDefaultHorizontalPadding
+        ? deviceUI.moderateScale(SCREEN_PADDING_HORIZONTAL_STANDARD_VALUE)
+        : 0;
+    const bodyContainerPaddingVertical = bodyOptions?.applyDefaultVerticalPadding
+        ? deviceUI.moderateScale(SCREEN_PADDING_VERTICAL_STANDARD_VALUE)
+        : 0;
+
     const styles = StyleSheet.create({
         container: {
             flex: 1,
@@ -17,12 +24,18 @@ export default function useNavigationViewStyles(bodyOptions?: BodyOptions) {
         bodyContainer: {
             flex: 8.3,
             // Default padding은 index.tsx에서 조정
-            paddingHorizontal: bodyOptions?.applyDefaultHorizontalPadding
-                ? deviceUI.moderateScale(SCREEN_PADDING_HORIZONTAL_STANDARD_VALUE)
-                : 0,
-            paddingVertical: bodyOptions?.applyDefaultVerticalPadding
-                ? deviceUI.moderateScale(SCREEN_PADDING_VERTICAL_STANDARD_VALUE)
-                : 0,
+            paddingHorizontal: bodyContainerPaddingHorizontal,
+            paddingVertical: bodyContainerPaddingVertical,
+        },
+        disconnectionBox: {
+            position: "absolute",
+            width: "100%",
+            height: "100%",
+            top: bodyContainerPaddingVertical,
+            left: bodyContainerPaddingHorizontal,
+            justifyContent: "center",
+            alignItems: "center",
+            zIndex: 1,
         },
         bottomContainer: {
             flex: 1,

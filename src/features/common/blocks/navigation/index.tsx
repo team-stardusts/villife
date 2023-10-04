@@ -1,5 +1,5 @@
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
-import { useCallback } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Alert, BackHandler, SafeAreaView, StatusBar, View } from "react-native";
 import useScreenMessage from "../../hooks/multilingual/hooks";
 import useNavigationViewStyles from "./styles";
@@ -8,6 +8,11 @@ import useStyler from "../../hooks/styler/hooks";
 import { VillifeRouterParams } from "../../router/types";
 import NavigationViewHeader from "./header";
 import NavigationViewBottom from "./bottom";
+import NetInfoEventHandler from "../../../../libs/netinfo";
+import { IEventListenable } from "../../global_interface";
+import { NetInfoEvents } from "../../../../libs/netinfo/types";
+import { NetInfoState } from "@react-native-community/netinfo";
+import VillifeSpinner from "../spinner/villife";
 
 export default function NavigationView({
     headerOptions,
@@ -22,6 +27,8 @@ export default function NavigationView({
     const message = useScreenMessage();
     const styles = useNavigationViewStyles(bodyOptions);
     const navigation = useNavigation<VillifeRouterParams["navigation"]>();
+    const netinfo: IEventListenable<NetInfoEvents, NetInfoState> = new NetInfoEventHandler();
+    const [isConnectedToNetwork, setIsConnectedToNetwork] = useState<boolean>(false);
     //navigation.reset(navigation.getState())
 
     const headerBackGroundColor = headerOptions?.style?.backgroundColor ?? styles.container.backgroundColor;
@@ -33,6 +40,18 @@ export default function NavigationView({
     // Navigation child에 props를 넣어주기 위함
     let navComponentProps = headerOptions.navComponentProps;
     navComponentProps = navComponentProps !== undefined ? navComponentProps : {};
+
+    // Network가 연결되지 않은 경우 예외 처리를 위함
+    useEffect(() => {
+        netinfo.listen("changed", (_, state) => {
+            setIsConnectedToNetwork(state.isConnected ?? false);
+        });
+
+        return () => {
+            netinfo.removeAllListeners();
+        };
+    }, []);
+
     // Android back button 대비 코드
     useFocusEffect(
         useCallback(() => {
@@ -60,6 +79,18 @@ export default function NavigationView({
         }, [])
     );
 
+    const hexToRGB = (hex: string, alpha: number) => {
+        let r = parseInt(hex.slice(1, 3), 16),
+            g = parseInt(hex.slice(3, 5), 16),
+            b = parseInt(hex.slice(5, 7), 16);
+
+        if (alpha) {
+            return "rgba(" + r + ", " + g + ", " + b + ", " + alpha + ")";
+        } else {
+            return "rgb(" + r + ", " + g + ", " + b + ")";
+        }
+    };
+
     return (
         <SafeAreaView style={[styles.container, { backgroundColor: headerBackGroundColor }]}>
             <StatusBar barStyle={statusBarContent} backgroundColor={headerBackGroundColor} />
@@ -68,7 +99,20 @@ export default function NavigationView({
                     <NavigationViewHeader {...headerOptions} />
                 </View>
             )}
-            <View style={[styles.bodyContainer, { backgroundColor: bodyBackGroundColor }]} children={children} />
+            <View style={[styles.bodyContainer, { backgroundColor: bodyBackGroundColor }]}>
+                {!isConnectedToNetwork && (
+                    <View
+                        style={[
+                            styles.disconnectionBox,
+                            {
+                                backgroundColor: hexToRGB(bodyBackGroundColor as string, 0.4),
+                            },
+                        ]}>
+                        <VillifeSpinner />
+                    </View>
+                )}
+                {children}
+            </View>
             {bottomNavShown && (
                 <View style={styles.bottomContainer}>
                     <NavigationViewBottom />

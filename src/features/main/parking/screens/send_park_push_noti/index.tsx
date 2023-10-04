@@ -79,11 +79,10 @@ export default function SendParkPushNotiScreen({ navigation, route }: SendParkPu
                                 {
                                     text: "확인",
                                     onPress: () => {
-                                        isSuccessful &&
-                                            navigation.reset({
-                                                index: 0,
-                                                routes: [{ name: "parking", params: {} }],
-                                            });
+                                        navigation.reset({
+                                            index: 0,
+                                            routes: [{ name: "parking", params: {} }],
+                                        });
                                     },
                                 },
                             ],
