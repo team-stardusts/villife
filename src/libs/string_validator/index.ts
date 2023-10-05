@@ -20,8 +20,17 @@ class StringValidator implements IStringValidator {
         vehiclePlateNumber: /^(([0-9]{2,3})|([가-힣]{2,3}))[가-힣]{1}[\s\u3000]\d{4}$/,
         // 공백 포함 미포함 : /^(([0-9]{2,3})|([가-힣]{2,3}))[\s\u3000]?[가-힣]{1}[\s\u3000]?\d{4}$/,
         vowels: /^[ㅏㅑㅓㅕㅗㅛㅜㅠㅡㅣ]*$/,
+        consonant: /^[ㄱ-ㅎ]*$/,
         consonants: /^[ㄱ-ㅎ]*$/,
     };
+
+    public isKoreanConsonant(text: string): boolean {
+        return this.regExps.consonants.test(text);
+    }
+
+    public isKoreanConsonants(text: string): boolean {
+        return this.regExps.consonants.test(text);
+    }
 
     public isNumber(text: string): boolean {
         return this.regExps.number.test(text);

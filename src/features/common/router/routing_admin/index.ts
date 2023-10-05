@@ -45,12 +45,13 @@ export default function useRoutingAdministratorByLogin(): void {
         navigation.navigate("splash", {});
 
         await new Promise((resolve) => {
-            setTimeout(() => resolve(""), 1200);
-        });
-
-        await storage.login.get().then((data) => {
-            setLoginData(data);
-            setIsLoading(false);
+            setTimeout(async () => {
+                await storage.login.get().then((data) => {
+                    setLoginData(data);
+                    setIsLoading(false);
+                });
+                resolve("");
+            }, 500);
         });
     };
 

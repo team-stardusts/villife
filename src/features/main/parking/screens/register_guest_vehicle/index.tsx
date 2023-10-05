@@ -4,8 +4,8 @@ import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
 import RegisterGuestVehicleScreenProps, { GuestVehicle } from "./types";
 import useRegisterVehicleScreenStyles from "./styles";
 import { useState } from "react";
-import GuestVehicleInfoInputBox from "../../blocks/guest_vehicle_info_input_box copy";
-import { GuestVehicleValidationResult } from "../../blocks/guest_vehicle_info_input_box copy/types";
+import GuestVehicleInfoInputBox from "../../blocks/guest_vehicle_info_input_box";
+import { GuestVehicleValidationResult } from "../../blocks/guest_vehicle_info_input_box/types";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import useParkingLot from "../../services/parking_lot";
 import DateRangePicker from "./blocks/date_etda_picker";
@@ -37,33 +37,7 @@ export default function RegisterGuestVehicleScreen({ navigation, route }: Regist
         visible: false,
     });
 
-    // [TO-DO] 예외 처리가 필요함
     const handlePressRegisterBtn = async () => {
-        /* if (dateTimeRange === null) {
-            return;
-        }
-
-        if (!valid.phoneNumber && !valid.plateNumber) {
-            Toast.show({
-                type: "error",
-                text1: messages.messages.main.parking.register_vehicle.invalid_plate_number_and_model,
-                position: "bottom",
-                visibilityTime: TOAST_DEFAULT_VISIBILITY_TIME,
-                bottomOffset: TOAST_DEFAULT_OFFSET,
-            });
-
-            return;
-        }
-
-        !valid.plateNumber &&
-            VillifeToastMessage.showBottomToast(
-                "error",
-                messages.messages.main.parking.register_vehicle.invalid_plate_number
-            );
-
-        !valid.phoneNumber &&
-            VillifeToastMessage.showBottomToast("error", messages.messages.main.parking.register_vehicle.invalid_model); */
-
         if (valid.phoneNumber && valid.plateNumber && valid.visitingPerpose && dateTimeRange) {
             const isSuccessful = await parkingLot.registerGuestVehicle({
                 eta: StardustDateParser.serialize(dateTimeRange.startDate),
