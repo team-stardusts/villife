@@ -31,8 +31,6 @@ export default function useNavigationViewStyles(bodyOptions?: BodyOptions) {
             position: "absolute",
             width: "100%",
             height: "100%",
-            top: bodyContainerPaddingVertical,
-            left: bodyContainerPaddingHorizontal,
             justifyContent: "center",
             alignItems: "center",
             zIndex: 1,

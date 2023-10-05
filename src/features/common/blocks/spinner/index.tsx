@@ -1,10 +1,10 @@
 import { Animated, View } from "react-native";
 import { SpinnerCircleProps, SpinnerProps } from "./types";
-import { useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef } from "react";
 
 export default function Spinner(props: SpinnerProps) {
     const defaultSize = 100;
-    const dummyArr = Array(24).fill(null);
+    const dummyArr = Array(20).fill(null);
 
     return (
         <View
@@ -32,12 +32,13 @@ function SpinnerCircle(props: SpinnerCircleProps) {
     const opacityValue = useRef(new Animated.Value(0)).current;
     const scaleValue = useRef(new Animated.Value(0)).current;
     const degree = (360 / props.totalCount) * (props.index + 1);
-    const duration = 300;
-    const delay = (duration / 10) * (props.totalCount - 1);
+    const duration = 500;
+    const delay = (duration / 10) * props.totalCount;
     const timeout = (delay / props.totalCount) * props.index;
 
-    useEffect(() => {
-        setTimeout(() => {
+    const animation = useCallback(() => {
+        Animated.sequence([
+            Animated.delay(timeout),
             Animated.loop(
                 Animated.sequence([
                     Animated.parallel([
@@ -55,7 +56,7 @@ function SpinnerCircle(props: SpinnerCircleProps) {
                     Animated.parallel([
                         Animated.timing(scaleValue, {
                             toValue: 0,
-                            duration: duration * 1.3,
+                            duration: duration,
                             useNativeDriver: true,
                         }),
                         Animated.timing(opacityValue, {
@@ -64,12 +65,15 @@ function SpinnerCircle(props: SpinnerCircleProps) {
                             useNativeDriver: true,
                         }),
                     ]),
-                    //Animated.delay(duration * 3.7),
                     Animated.delay(delay),
                 ])
-            ).start();
-        }, timeout);
-    }, []);
+            ),
+        ]).start();
+    }, [opacityValue, scaleValue]);
+
+    useEffect(() => {
+        animation();
+    }, [animation]);
 
     return (
         <View

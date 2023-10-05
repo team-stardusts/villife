@@ -79,45 +79,33 @@ export default function NavigationView({
         }, [])
     );
 
-    const hexToRGB = (hex: string, alpha: number) => {
-        let r = parseInt(hex.slice(1, 3), 16),
-            g = parseInt(hex.slice(3, 5), 16),
-            b = parseInt(hex.slice(5, 7), 16);
-
-        if (alpha) {
-            return "rgba(" + r + ", " + g + ", " + b + ", " + alpha + ")";
-        } else {
-            return "rgb(" + r + ", " + g + ", " + b + ")";
-        }
-    };
-
     return (
-        <SafeAreaView style={[styles.container, { backgroundColor: headerBackGroundColor }]}>
-            <StatusBar barStyle={statusBarContent} backgroundColor={headerBackGroundColor} />
-            {headerShown && (
-                <View style={styles.HeaderConatiner}>
-                    <NavigationViewHeader {...headerOptions} />
-                </View>
-            )}
-            <View style={[styles.bodyContainer, { backgroundColor: bodyBackGroundColor }]}>
-                {!isConnectedToNetwork && (
-                    <View
-                        style={[
-                            styles.disconnectionBox,
-                            {
-                                backgroundColor: hexToRGB(bodyBackGroundColor as string, 0.4),
-                            },
-                        ]}>
-                        <VillifeSpinner />
+        <>
+            <SafeAreaView style={[styles.container, { backgroundColor: headerBackGroundColor }]}>
+                <StatusBar barStyle={statusBarContent} backgroundColor={headerBackGroundColor} />
+                {headerShown && (
+                    <View style={styles.HeaderConatiner}>
+                        <NavigationViewHeader {...headerOptions} />
                     </View>
                 )}
-                {children}
-            </View>
-            {bottomNavShown && (
-                <View style={styles.bottomContainer}>
-                    <NavigationViewBottom />
+                <View style={[styles.bodyContainer, { backgroundColor: bodyBackGroundColor }]}>{children}</View>
+                {bottomNavShown && (
+                    <View style={styles.bottomContainer}>
+                        <NavigationViewBottom />
+                    </View>
+                )}
+            </SafeAreaView>
+            {!isConnectedToNetwork && (
+                <View
+                    style={[
+                        styles.disconnectionBox,
+                        {
+                            backgroundColor: "rgba(255,255,255,0.5)",
+                        },
+                    ]}>
+                    <VillifeSpinner />
                 </View>
             )}
-        </SafeAreaView>
+        </>
     );
 }
