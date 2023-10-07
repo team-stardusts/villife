@@ -5,12 +5,8 @@ import RegisterVehicleScreenProps, { Vehicle } from "./types";
 import useRegisterVehicleScreenStyles from "./styles";
 import EtdaTimePicker from "../../blocks/etad_time_picker";
 import { useState } from "react";
-import SimpleNavComponent from "../../../../common/blocks/navigation/header/navcomponent";
-import { Toast } from "react-native-toast-message/lib/src/Toast";
-import { TOAST_DEFAULT_OFFSET, TOAST_DEFAULT_VISIBILITY_TIME } from "../../../../common/constants";
-import VillifeToastMessage from "../../../../common/atoms/toast";
-import VehicleInfoInputBox from "../../blocks/info_input_box";
-import { VehicleValidationResult } from "../../blocks/info_input_box/types";
+import VehicleInfoInputBox from "./blocks/input_box";
+import { VehicleValidationResult } from "./blocks/input_box/types";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import useParkingLot from "../../services/parking_lot";
 import ScreenTitleView from "../../../../common/blocks/title_view";
@@ -23,8 +19,8 @@ export default function RegisterVehicleScreen({ navigation, route }: RegisterVeh
     const parkingLot = useParkingLot();
 
     const [vehicle, setVehicle] = useState<Vehicle>({
-        plateNumber: "",
-        model: "",
+        plateNumber: null,
+        model: null,
         eta: {
             hour: 0,
             minute: 0,
@@ -33,10 +29,6 @@ export default function RegisterVehicleScreen({ navigation, route }: RegisterVeh
             hour: 0,
             minute: 0,
         },
-    });
-    const [valid, setValid] = useState<VehicleValidationResult>({
-        plateNumber: false,
-        model: false,
     });
     const [alert, setAlert] = useState<StardustAlertContent>({
         type: "primary",
@@ -66,10 +58,12 @@ export default function RegisterVehicleScreen({ navigation, route }: RegisterVeh
         !valid.model &&
             VillifeToastMessage.showBottomToast("error", messages.messages.main.parking.register_vehicle.invalid_model); */
 
-        if (valid.model && valid.plateNumber) {
+        if (vehicle.model && vehicle.plateNumber) {
             // [TO-DO] Regsiter Service 등록
             const isSuccessful: boolean = await parkingLot.registerUserVehicle({
                 ...vehicle,
+                plateNumber: vehicle.plateNumber,
+                model: vehicle.model,
                 vehicleType: "4WD",
             });
 
@@ -129,7 +123,7 @@ export default function RegisterVehicleScreen({ navigation, route }: RegisterVeh
                 bottomButton={{
                     title: "등록하기",
                     onPress: () => handlePressRegisterBtn(),
-                    disabled: !(valid.model && valid.plateNumber),
+                    disabled: !(vehicle.model && vehicle.plateNumber),
                 }}
                 disablePaddingTop>
                 <KeyboardAwareScrollView
@@ -148,7 +142,6 @@ export default function RegisterVehicleScreen({ navigation, route }: RegisterVeh
                     </View>
                     <View style={styles.vehicleInfoInputsContainer}>
                         <VehicleInfoInputBox
-                            onValidation={setValid}
                             onChangeVehicleInfo={(info) => {
                                 setVehicle({
                                     ...vehicle,

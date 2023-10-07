@@ -4,8 +4,8 @@ import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
 import RegisterGuestVehicleScreenProps, { GuestVehicle } from "./types";
 import useRegisterVehicleScreenStyles from "./styles";
 import { useState } from "react";
-import GuestVehicleInfoInputBox from "../../blocks/guest_vehicle_info_input_box";
-import { GuestVehicleValidationResult } from "../../blocks/guest_vehicle_info_input_box/types";
+import GuestVehicleInfoInputBox from "./blocks/input_box";
+import { GuestVehicleValidationResult } from "./blocks/input_box/types";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import useParkingLot from "../../services/parking_lot";
 import DateRangePicker from "./blocks/date_etda_picker";
@@ -22,14 +22,9 @@ export default function RegisterGuestVehicleScreen({ navigation, route }: Regist
     const [dateTimeRange, setDateTimeRange] = useState<DateRange | null>(null);
     const [guestVehicle, setGuestVehicle] = useState<GuestVehicle>({
         model: "guest_test",
-        phoneNumber: "",
-        plateNumber: "",
-        visitingPerpose: "",
-    });
-    const [valid, setValid] = useState<GuestVehicleValidationResult>({
-        plateNumber: false,
-        phoneNumber: false,
-        visitingPerpose: false,
+        phoneNumber: null,
+        plateNumber: null,
+        visitingPerpose: null,
     });
     const [alert, setAlert] = useState<StardustAlertContent>({
         type: "primary",
@@ -38,7 +33,7 @@ export default function RegisterGuestVehicleScreen({ navigation, route }: Regist
     });
 
     const handlePressRegisterBtn = async () => {
-        if (valid.phoneNumber && valid.plateNumber && valid.visitingPerpose && dateTimeRange) {
+        if (guestVehicle.phoneNumber && guestVehicle.plateNumber && guestVehicle.visitingPerpose && dateTimeRange) {
             const isSuccessful = await parkingLot.registerGuestVehicle({
                 eta: StardustDateParser.serialize(dateTimeRange.startDate),
                 etd: StardustDateParser.serialize(dateTimeRange.endDate),
@@ -105,9 +100,9 @@ export default function RegisterGuestVehicleScreen({ navigation, route }: Regist
                     title: "등록하기",
                     onPress: () => handlePressRegisterBtn(),
                     disabled: !(
-                        valid.phoneNumber &&
-                        valid.plateNumber &&
-                        valid.visitingPerpose &&
+                        guestVehicle.phoneNumber &&
+                        guestVehicle.plateNumber &&
+                        guestVehicle.visitingPerpose &&
                         dateTimeRange !== null
                     ),
                 }}
@@ -122,7 +117,6 @@ export default function RegisterGuestVehicleScreen({ navigation, route }: Regist
                     </View>
                     <View style={styles.vehicleInfoInputsContainer}>
                         <GuestVehicleInfoInputBox
-                            onValidation={setValid}
                             onChangeGuestVehicleInfo={(info) => {
                                 setGuestVehicle({
                                     ...guestVehicle,

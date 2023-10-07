@@ -2,7 +2,7 @@ import StringValidator from "../../../../../libs/string_validator";
 
 export const MODEL_MIN_LENGTH: number = 3;
 export const MODEL_MAX_LENGTH: number = 15;
-export const VISITING_PERPOSE_MIN_LENGTH: number = 5;
+export const VISITING_PERPOSE_MIN_LENGTH: number = 3;
 export const VISITING_PERPOSE_MAX_LENGTH: number = 30;
 
 export class TextValidator {

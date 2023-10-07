@@ -1,7 +1,7 @@
 export type GuestVehicleInfo = {
-    plateNumber: string;
-    phoneNumber: string;
-    visitingPerpose: string;
+    plateNumber: string | null;
+    phoneNumber: string | null;
+    visitingPerpose: string | null;
 };
 
 export type TouchedCoordinate = {
@@ -17,6 +17,5 @@ export type GuestVehicleValidationResult = {
 
 export type GuestVehicleInfoInputBoxProps = {
     initialVehicleInfo?: GuestVehicleInfo;
-    onValidation?(validationResult: GuestVehicleValidationResult): void;
     onChangeGuestVehicleInfo(vehicleInfo: GuestVehicleInfo): void;
 };

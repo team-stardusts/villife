@@ -7,7 +7,7 @@ import Badge from "../../../../common/atoms/badge";
 import ValidatorProps from "./types";
 import IStringValidator from "../../../../../libs/string_validator/types";
 
-export default function TextInputValidators(props: ValidatorProps) {
+export default function TextInputValidator(props: ValidatorProps) {
     const sysinfo = useSystemInfo();
     const theme = useAppThemeLegacy().colors.colorFamily;
     const validator: IStringValidator = new StringValidator();

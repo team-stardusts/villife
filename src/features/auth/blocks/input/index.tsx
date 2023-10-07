@@ -4,8 +4,8 @@ import useScreenMessage from "../../../common/hooks/multilingual/hooks";
 import UniversalTextInput from "../../../common/blocks/universial/textinput";
 import useAuthScreenCommonInputStyles from "./styles";
 import AuthScreenCommonInputProps from "./types";
-import TextInputValidators from "./validator";
-import ValidatorProps, { InspectTypes } from "./validator/types";
+import TextInputValidator from "./validator";
+import ValidatorProps from "./validator/types";
 
 type ValidateResults = {
     examine: ValidatorProps["examine"];
@@ -14,21 +14,13 @@ type ValidateResults = {
 
 export default function AuthScreenCommonInput(props: AuthScreenCommonInputProps) {
     // [TO-DO] Validator가 검사 후 true를 반환하도록 변경
-    const { title, titleStyle, inspect, onValidate } = props;
     const styles = useAuthScreenCommonInputStyles();
     const message = useScreenMessage();
     const [text, setText] = useState<string>("");
     const [validateResults, setValidateResults] = useState<ValidateResults[]>([]);
     const [isValid, setIsValid] = useState<boolean>(false);
 
-    const _titleStyle = titleStyle ?? styles.title;
-
-    const onChangeText = (text: string) => {
-        if (props.onChangeText) {
-            setText(text);
-            props.onChangeText(text, props.name);
-        }
-    };
+    const _titleStyle = props.titleStyle ?? styles.title;
 
     const validate = (examine: ValidatorProps["examine"], isValid: boolean) => {
         if (validateResults.length === 0) {
@@ -56,8 +48,8 @@ export default function AuthScreenCommonInput(props: AuthScreenCommonInputProps)
     };
 
     useEffect(() => {
-        onValidate && onValidate(isValid);
-    }, [isValid]);
+        props.onInputText && props.onInputText(text, isValid);
+    }, [text, isValid]);
 
     useEffect(() => {
         let valid = true;
@@ -70,10 +62,10 @@ export default function AuthScreenCommonInput(props: AuthScreenCommonInputProps)
     }, [validateResults]);
 
     useEffect(() => {
-        if (inspect !== undefined) {
+        if (props.inspect !== undefined) {
             let _valudateResult: ValidateResults[] = [];
 
-            for (const key in inspect) {
+            for (const key in props.inspect) {
                 _valudateResult.push({
                     examine: key as ValidateResults["examine"],
                     isValid: false,
@@ -86,75 +78,75 @@ export default function AuthScreenCommonInput(props: AuthScreenCommonInputProps)
     return (
         <View style={styles.container}>
             <View style={styles.titleBox}>
-                <Text style={_titleStyle}>{title}</Text>
+                <Text style={_titleStyle}>{props.title}</Text>
             </View>
             <View style={styles.inputBox}>
-                <UniversalTextInput {...props} onChangeText={onChangeText} />
+                <UniversalTextInput {...props} onChangeText={(text) => setText(text)} />
             </View>
-            {inspect && (
+            {props.inspect && (
                 <View style={styles.validatorBox}>
-                    {inspect?.isNumber && (
-                        <TextInputValidators
+                    {props.inspect?.isNumber && (
+                        <TextInputValidator
                             title={message.messages.words.use_english}
                             text={text}
                             examine={"isNumber"}
                             onValidate={validate}
                         />
                     )}
-                    {inspect?.hasEnglish && (
-                        <TextInputValidators
+                    {props.inspect?.hasEnglish && (
+                        <TextInputValidator
                             title={message.messages.words.use_english}
                             text={text}
                             examine={"hasEnglish"}
                             onValidate={validate}
                         />
                     )}
-                    {inspect?.hasEnglishOnlySmallCase && (
-                        <TextInputValidators
+                    {props.inspect?.hasEnglishOnlySmallCase && (
+                        <TextInputValidator
                             title={message.messages.words.use_english_only_smallcase}
                             text={text}
                             examine={"hasEnglishOnlySmallCase"}
                             onValidate={validate}
                         />
                     )}
-                    {inspect?.hasNumber && (
-                        <TextInputValidators
+                    {props.inspect?.hasNumber && (
+                        <TextInputValidator
                             title={message.messages.words.use_number}
                             text={text}
                             examine={"hasNumber"}
                             onValidate={validate}
                         />
                     )}
-                    {inspect?.hasSpecialChar && (
-                        <TextInputValidators
+                    {props.inspect?.hasSpecialChar && (
+                        <TextInputValidator
                             title={message.messages.words.use_special_char}
                             text={text}
                             examine={"hasSpecialChar"}
                             onValidate={validate}
                         />
                     )}
-                    {inspect?.tokens4to10 && (
-                        <TextInputValidators
+                    {props.inspect?.tokens4to10 && (
+                        <TextInputValidator
                             title={message.messages.words.tokens_for_4to10}
                             text={text}
                             examine={"tokens4to10"}
                             onValidate={validate}
                         />
                     )}
-                    {inspect?.tokens8to20 && (
-                        <TextInputValidators
+                    {props.inspect?.tokens8to20 && (
+                        <TextInputValidator
                             title={message.messages.words.tokens_for_8to20}
                             text={text}
                             examine={"tokens8to20"}
                             onValidate={validate}
                         />
                     )}
-                    {typeof inspect?.matching === "string" || inspect?.matching === null ? (
-                        <TextInputValidators
+                    {typeof props.inspect?.matching === "string" || props.inspect?.matching === null ? (
+                        <TextInputValidator
                             title={message.messages.words.matching_password}
                             text={text}
                             examine={"matching"}
-                            matchingText={inspect?.matching}
+                            matchingText={props.inspect?.matching}
                             onValidate={validate}
                         />
                     ) : (

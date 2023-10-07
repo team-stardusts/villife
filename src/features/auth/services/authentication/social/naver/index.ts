@@ -52,7 +52,10 @@ class NaverLoginManager extends ALoginManager implements INaverLoginManager {
     public async refresh(): Promise<any> {}
 
     public async join(params: NaverJoinParams): Response<SocialJoinResultType> {
-        return await this.villife.socialJoin("naver", params);
+        return await this.villife.socialJoin("naver", {
+            authority: params.authority,
+            access_token: params.access_token,
+        });
     }
 }
 

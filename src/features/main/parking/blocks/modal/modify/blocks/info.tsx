@@ -1,8 +1,8 @@
 import { View } from "react-native";
 import { InfoEditViewProps } from "../types";
-import VehicleInfoInputBox from "../../../info_input_box";
+import VehicleInfoInputBox from "../../../../screens/register_vehicle/blocks/input_box";
 import { useEffect, useState } from "react";
-import { VehicleInfo, VehicleValidationResult } from "../../../info_input_box/types";
+import { VehicleInfo, VehicleValidationResult } from "../../../../screens/register_vehicle/blocks/input_box/types";
 
 export default function InfoEditView(props: InfoEditViewProps) {
     const [info, setInfo] = useState<VehicleInfo>({

@@ -1,6 +1,6 @@
-import { View } from "react-native";
+import { TextInput, View } from "react-native";
 import UniversalTextInput from "../../../../common/blocks/universial/textinput";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import StringValidator from "../../../../../libs/string_validator";
 import { InputProps } from "./types";
 import useInputPhoneNumberStyles from "./styles";
@@ -10,6 +10,8 @@ export default function InputPlateNumber(props: InputProps) {
     const styles = useInputPhoneNumberStyles();
     const validator = new Validator();
     const [plateNumber, setPlateNumber] = useState<(string | null)[]>([null, null, null]);
+    const refInput2 = useRef<TextInput>(null);
+    const refInput3 = useRef<TextInput>(null);
 
     useEffect(() => {
         for (let i = 0; i < 3; i++) {
@@ -36,7 +38,7 @@ export default function InputPlateNumber(props: InputProps) {
         props.onInputValidValue(_platenumber);
     }, [plateNumber]);
 
-    const validatePlateNumber = (text: string, name: PlateNumberPieceName) => {
+    const validatePlateNumber = (text: string, name: PlateNumberPieceName): boolean => {
         let index: number = 0;
         let lengthLimit: number = 3;
 
@@ -54,7 +56,8 @@ export default function InputPlateNumber(props: InputProps) {
                 break;
         }
 
-        if (validator.hasSpecialChar(text) || validator.hasAlpha(text) || validator.hasAlphaLargeCase(text)) return;
+        if (validator.hasSpecialChar(text) || validator.hasAlpha(text) || validator.hasAlphaLargeCase(text))
+            return false;
 
         const _phoneNumber = plateNumber;
 
@@ -65,12 +68,13 @@ export default function InputPlateNumber(props: InputProps) {
         } else if (text.length < lengthLimit) {
             _phoneNumber[index] = text;
         } else if (!validator.validatePieceOfPlateNumber(index, text) || text.length > lengthLimit) {
-            return;
+            return false;
         } else {
             _phoneNumber[index] = text;
         }
 
         setPlateNumber([..._phoneNumber]);
+        return true;
     };
 
     return (
@@ -93,11 +97,17 @@ export default function InputPlateNumber(props: InputProps) {
                             ? styles.unvalidInput.color
                             : undefined
                     }
-                    onChangeText={(text, name) => validatePlateNumber(text, name as PlateNumberPieceName)}
+                    onChangeText={(text, name) => {
+                        if (validatePlateNumber(text, name as PlateNumberPieceName) && text.length === 3) {
+                            refInput2.current?.focus();
+                        }
+                    }}
                 />
             </View>
-            <View style={[styles.inputWrapper, { width: "15%" }]}>
+            <View style={[styles.inputWrapper, { width: "20%" }]}>
                 <UniversalTextInput
+                    ref={refInput2}
+                    blurOnSubmit={false}
                     name="second"
                     placeholder="가"
                     value={plateNumber[1] ?? ""}
@@ -116,11 +126,21 @@ export default function InputPlateNumber(props: InputProps) {
                             ? styles.unvalidInput.color
                             : undefined
                     }
-                    onChangeText={(text, name) => validatePlateNumber(text, name as PlateNumberPieceName)}
+                    onChangeText={(text, name) => {
+                        if (
+                            validatePlateNumber(text, name as PlateNumberPieceName) &&
+                            !validator.isKoreanConsonant(text) &&
+                            text.length === 1
+                        ) {
+                            refInput3.current?.focus();
+                        }
+                    }}
                 />
             </View>
-            <View style={[styles.inputWrapper, { width: "50%" }]}>
+            <View style={[styles.inputWrapper, { width: "45%" }]}>
                 <UniversalTextInput
+                    ref={refInput3}
+                    blurOnSubmit={false}
                     name="third"
                     placeholder="0000"
                     value={plateNumber[2] ?? ""}

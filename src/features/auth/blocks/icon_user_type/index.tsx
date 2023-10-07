@@ -1,4 +1,4 @@
-import { StyleSheet, View, Text, Platform, Pressable, ColorValue } from "react-native";
+import { StyleSheet, View, Text, Platform, ColorValue, TouchableOpacity } from "react-native";
 import { IconRoundPeople, IconRoundPerson } from "../../../common/atoms/icon/human";
 import { UserTypeSelectionButtonProps } from "./types";
 import useStyler from "../../../common/hooks/styler/hooks";
@@ -66,13 +66,13 @@ export default function UserTypeSelectionButton({
         },
     });
     return (
-        <Pressable style={styles.toplevelBox} onPress={() => onPress && onPress()}>
+        <TouchableOpacity style={styles.toplevelBox} activeOpacity={0.6} onPress={() => onPress && onPress()}>
             <View style={styles.iconBox}>
                 <Icon color={color} size={size * 0.6} />
             </View>
             <View style={styles.captionBox}>
                 <Text style={styles.caption}>{caption}</Text>
             </View>
-        </Pressable>
+        </TouchableOpacity>
     );
 }

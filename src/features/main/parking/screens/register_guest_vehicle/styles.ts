@@ -17,7 +17,7 @@ export default function useRegisterVehicleScreenStyles() {
             paddingHorizontal: deviceUI.moderateScale(2),
         },
         vehicleInfoInputsContainer: {
-            height: deviceUI.moderateScale(250),
+            //height: deviceUI.moderateScale(250),
         },
     });
 }

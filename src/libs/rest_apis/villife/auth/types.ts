@@ -27,8 +27,6 @@ export type SocialLoginHostType = "naver";
 export type HostType = "villife" | SocialLoginHostType;
 
 export type SocialJoinParamsType = {
-    id: string;
-    password: string;
     access_token: string;
     authority: Authority[keyof Authority];
     //phone_number: string;

@@ -1,7 +1,8 @@
 import { StyleSheet } from "react-native";
 import useStyler from "../../../common/hooks/styler/hooks";
+import { HostType } from "../../../../libs/rest_apis/villife/auth/types";
 
-export default function useCreateAccountScreenStyles() {
+export default function useCreateAccountScreenStyles(host: HostType) {
     const { deviceUI, theme, safetyEdgeSize } = useStyler();
 
     const main = StyleSheet.create({
@@ -20,7 +21,10 @@ export default function useCreateAccountScreenStyles() {
 
     const userTypeIcon = StyleSheet.create({
         container: {
-            height: deviceUI.moderateScale(130),
+            paddingTop: host !== "villife" ? deviceUI.moderateScale(100) : deviceUI.moderateScale(10),
+        },
+        wrapper: {
+            height: host !== "villife" ? deviceUI.moderateScale(150) : deviceUI.moderateScale(130),
             flexDirection: "row",
             justifyContent: "space-evenly",
             marginBottom: deviceUI.moderateScale(5),

@@ -1,6 +1,6 @@
-import { View } from "react-native";
+import { TextInput, View } from "react-native";
 import UniversalTextInput from "../../../../common/blocks/universial/textinput";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import StringValidator from "../../../../../libs/string_validator";
 import { InputProps } from "./types";
 import useInputPhoneNumberStyles from "./styles";
@@ -10,6 +10,8 @@ export default function InputPhoneNumber(props: InputProps) {
     const styles = useInputPhoneNumberStyles();
     const validator = new Validator();
     const [phoneNumber, setPhoneNumber] = useState<(string | null)[]>([null, null, null]);
+    const refInput2 = useRef<TextInput>(null);
+    const refInput3 = useRef<TextInput>(null);
 
     useEffect(() => {
         for (let i = 0; i < 3; i++) {
@@ -33,7 +35,7 @@ export default function InputPhoneNumber(props: InputProps) {
         props.onInputValidValue(phoneNumber.join("-"));
     }, [phoneNumber]);
 
-    const validatePhoneNumber = (text: string, name: PhoneNumberPieceName) => {
+    const validatePhoneNumber = (text: string, name: PhoneNumberPieceName): boolean => {
         let index: number = 0;
         let lengthLimit: number = 4;
 
@@ -50,7 +52,7 @@ export default function InputPhoneNumber(props: InputProps) {
                 break;
         }
 
-        if (validator.hasSpecialChar(text)) return;
+        if (validator.hasSpecialChar(text)) return false;
 
         const _phoneNumber = phoneNumber;
 
@@ -59,23 +61,25 @@ export default function InputPhoneNumber(props: InputProps) {
         } else if (text.length < lengthLimit) {
             _phoneNumber[index] = text;
         } else if (!validator.validatePieceOfPhoneNumber(index, text) || text.length > lengthLimit) {
-            return;
+            return false;
         } else {
             _phoneNumber[index] = text;
         }
 
         setPhoneNumber([..._phoneNumber]);
+        return true;
     };
 
     return (
         <View style={styles.container}>
             <View style={[styles.inputWrapper, { width: "25%" }]}>
                 <UniversalTextInput
+                    blurOnSubmit={false}
                     name="first"
                     placeholder="010"
                     value={phoneNumber[0] ?? ""}
                     inputMode="numeric"
-                    keyboardType="number-pad"
+                    keyboardType="numeric"
                     textAlign="center"
                     highlightColor={
                         phoneNumber[0] !== null && phoneNumber[0]?.length !== 3 ? styles.unvalidInput.color : undefined
@@ -83,11 +87,18 @@ export default function InputPhoneNumber(props: InputProps) {
                     lowlightColor={
                         phoneNumber[0] !== null && phoneNumber[0]?.length !== 3 ? styles.unvalidInput.color : undefined
                     }
-                    onChangeText={(text, name) => validatePhoneNumber(text, name as PhoneNumberPieceName)}
+                    onChangeText={(text, name) => {
+                        if (validatePhoneNumber(text, name as PhoneNumberPieceName) && text.length === 3) {
+                            refInput2.current?.focus();
+                        }
+                    }}
+                    onSubmitEditing={() => refInput2.current?.focus()}
                 />
             </View>
             <View style={[styles.inputWrapper, { width: "35%" }]}>
                 <UniversalTextInput
+                    ref={refInput2}
+                    blurOnSubmit={false}
                     name="second"
                     placeholder="0000"
                     value={phoneNumber[1] ?? ""}
@@ -104,11 +115,18 @@ export default function InputPhoneNumber(props: InputProps) {
                             ? styles.unvalidInput.color
                             : undefined
                     }
-                    onChangeText={(text, name) => validatePhoneNumber(text, name as PhoneNumberPieceName)}
+                    onChangeText={(text, name) => {
+                        if (validatePhoneNumber(text, name as PhoneNumberPieceName) && text.length === 4) {
+                            refInput3.current?.focus();
+                        }
+                    }}
+                    onSubmitEditing={() => refInput3.current?.focus()}
                 />
             </View>
             <View style={[styles.inputWrapper, { width: "35%" }]}>
                 <UniversalTextInput
+                    ref={refInput3}
+                    blurOnSubmit={false}
                     name="third"
                     placeholder="0000"
                     value={phoneNumber[2] ?? ""}

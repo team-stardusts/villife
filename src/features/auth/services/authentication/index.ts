@@ -27,12 +27,12 @@ export default function useAuthService(): IAuthServiceProvider {
     const userApi: IVillifeUserInfoRestClient = VillifeServer.getUserInfoRestClient();
     class AuthServiceProvider implements IAuthServiceProvider {
         public async login(host: HostType, params: LoginServiceParams | undefined): Promise<LoginResult> {
-            const loginManager = LoginManagerProvider.getLoginManager(host);
+            const loginManager: ILoginManager = LoginManagerProvider.getLoginManager(host);
 
             const loginInfo = await loginManager.login(params);
 
             if (!loginInfo.isSuccessful || loginInfo.data?.data == undefined) {
-                console.error("[AUTH_SERVICE]", "Failed to login.", "host:", host);
+                console.log("[AUTH_SERVICE]", "Failed to login.", "host:", host);
                 await storage.login.set(null);
                 return {
                     loginData: null,
@@ -48,8 +48,10 @@ export default function useAuthService(): IAuthServiceProvider {
                 refreshToken: loginInfo.data.data.refresh_token,
                 name: "",
                 authority: 1,
-                room_id: undefined,
+                room_id: 0,
+                room_number: 0,
                 building_id: LOGIN_BUILDING_ID_TEMP,
+                building_road_addr: "",
             });
 
             const userInfo = await userApi.getUserBasicInfo();

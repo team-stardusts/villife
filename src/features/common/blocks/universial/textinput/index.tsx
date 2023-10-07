@@ -1,7 +1,8 @@
-import { useEffect, useRef, useState } from "react";
+import { ForwardedRef, RefObject, forwardRef, useEffect, useRef, useState } from "react";
 import {
     ColorValue,
     NativeSyntheticEvent,
+    TextInput as OriginTextInput,
     TextInputChangeEventData,
     TextInputFocusEventData,
 } from "react-native/types";
@@ -12,7 +13,7 @@ import useStyler from "../../../hooks/styler/hooks";
 import { Animated } from "react-native";
 import { ANIMATION_DURATION_FAST_LV2 } from "../../../constants";
 
-export default function UniversalTextInput(props: UniversalTextInputProps) {
+const UniversalTextInput = forwardRef((props: UniversalTextInputProps, ref: ForwardedRef<OriginTextInput>) => {
     const { deviceUI, theme } = useStyler();
     const animatedBorderWidth = useRef(new Animated.Value(1)).current;
     const [isFocusing, setIsFocusing] = useState<boolean>(false);
@@ -88,6 +89,7 @@ export default function UniversalTextInput(props: UniversalTextInputProps) {
     return (
         <Animated.View style={[styles.container, { borderWidth: animatedBorderWidth }]}>
             <TextInput
+                ref={ref}
                 style={[props.style, styles.input]}
                 {...props}
                 placeholderTextColor={getPlaceholderTextColor()}
@@ -98,4 +100,6 @@ export default function UniversalTextInput(props: UniversalTextInputProps) {
             />
         </Animated.View>
     );
-}
+});
+
+export default UniversalTextInput;

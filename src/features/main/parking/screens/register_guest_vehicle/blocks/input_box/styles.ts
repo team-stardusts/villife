@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import useStyler from "../../../../common/hooks/styler/hooks";
+import useStyler from "../../../../../../common/hooks/styler/hooks";
 
 export default function useGuestVehicleInfoInputBoxStyles() {
     const { deviceUI, theme } = useStyler();
@@ -7,39 +7,30 @@ export default function useGuestVehicleInfoInputBoxStyles() {
     return StyleSheet.create({
         container: {
             flex: 1,
-            justifyContent: "center",
+            //justifyContent: "center",
         },
         vehicleInfoInputContainer: {
-            height: "30%",
+            minheight: deviceUI.moderateScale(70),
+            maxHeight: deviceUI.getScreenSize().height * 0.1,
             paddingVertical: deviceUI.moderateScale(5),
             justifyContent: "center",
         },
-        vehicleInfoPhoneNumberInputWrapper: {
+        vehicleInfoInputWrapper: {
             height: "50%",
             flexDirection: "row",
             alignItems: "center",
             justifyContent: "space-around",
+            marginBottom: deviceUI.moderateScale(10),
+        },
+        vehicleInfoInput: {
+            height: "50%",
+            marginBottom: deviceUI.moderateScale(10),
         },
         vehicleInfoInputTitle: {
             ...theme.font.researved.h4,
             fontFamily: theme.font.fontFamily.pretendard.bold,
             color: theme.color.specified.blue,
             marginBottom: deviceUI.moderateScale(5),
-        },
-        vehicleInfoInput: {
-            height: "50%",
-        },
-        vehiclePhonmberInput0: {
-            height: "100%",
-            width: "25%",
-        },
-        vehiclePhonmberInput1: {
-            height: "100%",
-            width: "35%",
-        },
-        vehiclePhonmberInput2: {
-            height: "100%",
-            width: "35%",
         },
     });
 }

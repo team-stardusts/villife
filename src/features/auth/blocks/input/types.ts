@@ -6,5 +6,5 @@ export default interface AuthScreenCommonInputProps extends UniversalTextInputPr
     title: string;
     titleStyle?: StyleProp<TextStyle>;
     inspect?: InspectTypes;
-    onValidate?(isValid: boolean): void;
+    onInputText?(text: string, isValid: boolean): void;
 }

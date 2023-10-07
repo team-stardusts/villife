@@ -1,6 +1,6 @@
 export type VehicleInfo = {
-    plateNumber: string;
-    model: string;
+    plateNumber: string | null;
+    model: string | null;
 };
 
 export type TouchedCoordinate = {
@@ -15,7 +15,5 @@ export type VehicleValidationResult = {
 
 export type VehicleInfoInputBoxProps = {
     initialVehicleInfo?: VehicleInfo;
-    onValidation?(validationResult: VehicleValidationResult): void;
-    onTouchInputBox?(coordinate: TouchedCoordinate): void;
     onChangeVehicleInfo(vehicleInfo: VehicleInfo): void;
 };

@@ -7,7 +7,7 @@ import { VehicleModifyModalProps } from "./types";
 import EtdaEditView from "./blocks/etda";
 import useVehicleModifyModalStyles from "./styles";
 import InfoEditView from "./blocks/info";
-import { VehicleInfo } from "../../info_input_box/types";
+import { VehicleInfo } from "../../../screens/register_vehicle/blocks/input_box/types";
 import useParkingLot from "../../../services/parking_lot";
 import { useCallback, useState } from "react";
 import StardustAlert from "../../../../../common/blocks/universial/stardust_alert";
