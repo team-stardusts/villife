@@ -26,7 +26,15 @@ export default function useReplyInputStyle() {
             alignItems: "center",
             backgroundColor: theme.color.specified.white,
             borderColor: theme.color.specified.blue,
-            borderWidth: deviceUI.moderateScale(1),
+            borderTopWidth: deviceUI.moderateScale(1),
+            borderBottomWidth: deviceUI.moderateScale(1),
+        },
+        replyInputVoidSpace: {
+            position: "absolute",
+            width: "100%",
+            height: deviceUI.getScreenSize().height * 0.3,
+            bottom: deviceUI.getScreenSize().height * -0.3,
+            backgroundColor: theme.color.specified.blue,
         },
         image: {
             width: deviceUI.moderateScale(50),

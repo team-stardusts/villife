@@ -144,20 +144,22 @@ export default function ReplyInputSection(props: RelpyInputProps) {
             )}
 
             <View style={styles.replyInputSection}>
-                <Pressable
+                {/* <View style={styles.replyInputVoidSpace} /> */}
+                <TouchableOpacity
+                    activeOpacity={0.6}
                     style={styles.imageIconBox}
                     onPress={() => {
                         onPressImageIcon();
                     }}>
                     <IconImage color="black" size={styles.replyImageIconSize.width as number} />
-                </Pressable>
+                </TouchableOpacity>
                 <View style={styles.verticalLine} />
                 <TextInput
                     returnKeyLabel="다음"
                     returnKeyType="go"
                     editable
                     multiline
-                    placeholder="댓글을 입력하세요"
+                    placeholder="댓글을 입력하세요."
                     style={[styles.replyTextInput]}
                     value={replyContent}
                     onChangeText={(text) => setReplyContent(text)}
@@ -166,6 +168,7 @@ export default function ReplyInputSection(props: RelpyInputProps) {
                     <ActivityIndicator size={"small"} />
                 ) : (
                     <TouchableOpacity
+                        activeOpacity={0.6}
                         onPress={() => {
                             onPressSubmitButton();
                         }}>
@@ -175,6 +178,7 @@ export default function ReplyInputSection(props: RelpyInputProps) {
             </View>
             {modifyMode ? (
                 <TouchableOpacity
+                    activeOpacity={0.6}
                     onPress={() => {
                         clearReplyInformation();
                     }}

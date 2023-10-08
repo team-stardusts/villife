@@ -24,8 +24,7 @@ export default function InputPlateNumber(props: InputProps) {
                     if (token.length !== 2 && token.length !== 3) return;
                     break;
                 case 1:
-                    if (token.length !== 1) return;
-                    if (validator.isKoreanConsonant(token)) return;
+                    if (token.length !== 1 || validator.isKoreanConsonant(token)) return;
                     break;
                 case 2:
                     if (token.length !== 4) return;

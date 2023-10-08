@@ -8,8 +8,8 @@ export default function SplashScreen({ navigation, route }: SplashScreenProps) {
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.indicatorBox}>
-                <VillifeSpinner iconColor={styles.villifeIcon.color} spinnerColor={styles.spinner.color} />
-                {/* <ActivityIndicator size={"large"} color={styles.indicator.color} /> */}
+                {/* <VillifeSpinner iconColor={styles.villifeIcon.color} spinnerColor={styles.spinner.color} /> */}
+                <ActivityIndicator size={"large"} color={styles.villifeIcon.color} />
             </View>
         </SafeAreaView>
     );

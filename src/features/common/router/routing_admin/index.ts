@@ -44,15 +44,12 @@ export default function useRoutingAdministratorByLogin(): void {
     const handleAccessToApp = async (): Promise<void> => {
         navigation.navigate("splash", {});
 
-        await new Promise((resolve) => {
-            setTimeout(async () => {
-                await storage.login.get().then((data) => {
-                    setLoginData(data);
-                    setIsLoading(false);
-                });
-                resolve("");
-            }, 500);
-        });
+        setTimeout(async () => {
+            await storage.login.get().then((data) => {
+                setLoginData(data);
+                setIsLoading(false);
+            });
+        }, 500);
     };
 
     const handleFailedToLogin = async (): Promise<void> => {

@@ -50,7 +50,22 @@ export default function EtdaTimePicker({ initialTime, enableShadow, onTimeChange
             borderBottomWidth: deviceUI.moderateScale(2),
         },
         headerContainer: {
-            marginHorizontal: deviceUI.moderateScale(5),
+            //marginHorizontal: deviceUI.moderateScale(5),
+            flexDirection: "row",
+            alignItems: "center",
+        },
+        headerIconWrapper: {
+            //width: deviceUI.moderateScale(15),
+            height: deviceUI.moderateScale(15),
+            borderRadius: deviceUI.moderateScale(15),
+            paddingHorizontal: deviceUI.moderateScale(5),
+            justifyContent: "center",
+            alignItems: "center",
+        },
+        headerIcon: {
+            fontFamily: theme.font.fontFamily.pretendard.medium,
+            fontSize: deviceUI.moderateScale(10),
+            color: theme.color.specified.white,
         },
         header: {
             color: theme.color.specified.black,
@@ -87,25 +102,33 @@ export default function EtdaTimePicker({ initialTime, enableShadow, onTimeChange
                 <View style={styles.contentsContainer}>
                     <View style={styles.headersContainer}>
                         <View style={styles.headerContainer}>
-                            <Text style={styles.header}>{messages.messages.words.vehicle_departure_time}</Text>
+                            <View
+                                style={[
+                                    styles.headerIconWrapper,
+                                    {
+                                        marginRight: deviceUI.moderateScale(5),
+                                        backgroundColor: theme.color.status.success,
+                                    },
+                                ]}>
+                                <Text style={styles.headerIcon}>In</Text>
+                            </View>
+                            <Text style={styles.header}>{messages.messages.words.vehicle_arrival_time}</Text>
                         </View>
                         <View style={styles.headerContainer}>
-                            <Text style={styles.header}>{messages.messages.words.vehicle_arrival_time}</Text>
+                            <Text style={styles.header}>{messages.messages.words.vehicle_departure_time}</Text>
+                            <View
+                                style={[
+                                    styles.headerIconWrapper,
+                                    {
+                                        marginLeft: deviceUI.moderateScale(5),
+                                        backgroundColor: theme.color.status.success,
+                                    },
+                                ]}>
+                                <Text style={styles.headerIcon}>Out</Text>
+                            </View>
                         </View>
                     </View>
                     <View style={styles.etdaSettingContainer}>
-                        <View style={styles.timePickerContainer}>
-                            <TimePicker
-                                initialTime={initialTime?.etd}
-                                height={timepickerHeight}
-                                focusedcolor={theme.color.specified.darkgrey}
-                                unFocusedColor={theme.color.specified.lightgrey}
-                                onTimeChange={(etd: TimePickerTime) => setEtda({ ...etda, etd })}
-                            />
-                        </View>
-                        <View style={styles.timeIsolationContainer}>
-                            <Icon name="arrow-right-with-midline" size={styles.icon.width} color={styles.icon.color} />
-                        </View>
                         <View style={styles.timePickerContainer}>
                             <TimePicker
                                 initialTime={initialTime?.eta}
@@ -113,6 +136,18 @@ export default function EtdaTimePicker({ initialTime, enableShadow, onTimeChange
                                 focusedcolor={theme.color.specified.darkgrey}
                                 unFocusedColor={theme.color.specified.lightgrey}
                                 onTimeChange={(eta: TimePickerTime) => setEtda({ ...etda, eta })}
+                            />
+                        </View>
+                        <View style={styles.timeIsolationContainer}>
+                            <Icon name="arrow-right-with-midline" size={styles.icon.width} color={styles.icon.color} />
+                        </View>
+                        <View style={styles.timePickerContainer}>
+                            <TimePicker
+                                initialTime={initialTime?.etd}
+                                height={timepickerHeight}
+                                focusedcolor={theme.color.specified.darkgrey}
+                                unFocusedColor={theme.color.specified.lightgrey}
+                                onTimeChange={(etd: TimePickerTime) => setEtda({ ...etda, etd })}
                             />
                         </View>
                     </View>

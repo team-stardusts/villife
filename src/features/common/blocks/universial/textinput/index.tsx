@@ -28,6 +28,10 @@ const UniversalTextInput = forwardRef((props: UniversalTextInputProps, ref: Forw
             duration: ANIMATION_DURATION_FAST_LV2,
             useNativeDriver: false,
         }).start();
+
+        return () => {
+            animatedBorderWidth.stopAnimation();
+        };
     }, [isFocusing, animatedBorderWidth]);
 
     const styles = StyleSheet.create({

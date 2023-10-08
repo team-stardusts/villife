@@ -22,7 +22,7 @@ export default function ManagementFeeDetailScreen({ navigation, route }: Managem
     useEffect(() => {
         const _paidPR: PaidDateRange = {};
 
-        payer.history.user.forEach((fee) => {
+        payer.history.user?.forEach((fee) => {
             if (Object.keys(_paidPR).find((year) => parseInt(year) === fee.year)) {
                 if (!_paidPR[fee.year].find((month) => month === fee.month)) {
                     _paidPR[fee.year].push(fee.month);

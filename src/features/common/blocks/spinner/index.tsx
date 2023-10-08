@@ -73,6 +73,11 @@ function SpinnerCircle(props: SpinnerCircleProps) {
 
     useEffect(() => {
         animation();
+
+        return () => {
+            opacityValue.stopAnimation();
+            scaleValue.stopAnimation();
+        };
     }, [animation]);
 
     return (

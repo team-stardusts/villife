@@ -120,7 +120,6 @@ export default function InputPhoneNumber(props: InputProps) {
                             refInput3.current?.focus();
                         }
                     }}
-                    onSubmitEditing={() => refInput3.current?.focus()}
                 />
             </View>
             <View style={[styles.inputWrapper, { width: "35%" }]}>

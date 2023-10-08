@@ -17,6 +17,7 @@ import ComplaintDetailEditModal from "../../blocks/detail_bottom_edit";
 import ComplaintProgressEditModal from "../../blocks/progress_edit";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import useUserInformation from "../../../../common/hooks/service/user_info";
+import Icon from "../../../../common/atoms/icon";
 
 export default function ComplaintDetailScreen({ navigation, route }: ComplaintDetailScreenProps) {
     const messages = useScreenMessage();
@@ -53,34 +54,32 @@ export default function ComplaintDetailScreen({ navigation, route }: ComplaintDe
                 <>
                     <View style={styles.titleSection}>
                         <Text style={styles.title}>{uiState.complaint.title}</Text>
-                        <TouchableOpacity>
-                            <TouchableOpacity
-                                style={styles.editButton}
-                                onPress={() => {
-                                    if (user?.isAdmin) {
-                                        setProgressEditModalVisible(true);
-                                        return;
-                                    }
-                                    setEditModalVisible(true);
-                                }}>
-                                <IconPencil size={(styles.iconSize.width as number) * 3} />
-                                <Text style={styles.registerButtonText}>
-                                    {user?.isAdmin
-                                        ? messages.messages.main.complaint.progress_status
-                                        : messages.messages.words.edit}
-                                </Text>
-                            </TouchableOpacity>
+                        <TouchableOpacity
+                            style={styles.editButton}
+                            onPress={() => {
+                                if (user?.isAdmin) {
+                                    setProgressEditModalVisible(true);
+                                    return;
+                                }
+                                setEditModalVisible(true);
+                            }}>
+                            <Icon name="pencil" size={styles.editIcon.width} color={styles.editIcon.color} />
+                            <Text style={styles.registerButtonText}>
+                                {user?.isAdmin
+                                    ? messages.messages.main.complaint.progress_status
+                                    : messages.messages.words.edit}
+                            </Text>
                         </TouchableOpacity>
                     </View>
                 </>
                 <View style={styles.statusBarSection}>
                     <ComplaintStatusLable status={uiState.complaint.status} />
                     <View style={styles.blockWithIcon}>
-                        <IconBuilding size={styles.iconSize.width as number} />
+                        <Icon name="building" size={styles.iconBuilding.width} color={styles.iconBuilding.color} />
                         <Text>{uiState.complaint.building_name}</Text>
                     </View>
                     <View style={styles.blockWithIcon}>
-                        <IconPerson color="black" size={(styles.iconSize.width as number) * 2} />
+                        <Icon name="person" size={styles.iconPerson.width} color={styles.iconPerson.color} />
                         <Text>{uiState.complaint.complainant_name}</Text>
                     </View>
                 </View>

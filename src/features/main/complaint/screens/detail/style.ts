@@ -41,14 +41,20 @@ export default function useComplaintDetailSecreenStyle() {
             marginBottom: deviceUI.moderateScale(10),
         },
         editButton: {
-            height: deviceUI.moderateScale(26),
-            width: deviceUI.moderateScale(80),
+            //height: deviceUI.moderateScale(30),
+            //width: deviceUI.moderateScale(80),
+            paddingHorizontal: deviceUI.moderateScale(5),
+            paddingVertical: deviceUI.moderateScale(5),
             backgroundColor: theme.color.specified.lightblue,
             flexDirection: "row",
             alignItems: "center",
             justifyContent: "center",
             borderRadius: deviceUI.moderateScale(8),
             marginRight: leftMargin,
+        },
+        editIcon: {
+            width: deviceUI.moderateScale(35),
+            color: theme.color.specified.white,
         },
         webViewContainer: {
             opacity: 0.99,
@@ -67,8 +73,13 @@ export default function useComplaintDetailSecreenStyle() {
             borderBottomColor: theme.color.specified.blue,
             marginVertical: 10,
         },
-        iconSize: {
-            width: deviceUI.moderateScale(14),
+        iconBuilding: {
+            width: deviceUI.moderateScale(25),
+            color: theme.color.specified.black,
+        },
+        iconPerson: {
+            width: deviceUI.moderateScale(30),
+            color: theme.color.specified.black,
         },
         blockWithIcon: {
             flexDirection: "row",

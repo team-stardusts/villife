@@ -1,34 +1,20 @@
-import { Dimensions, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React from "react";
-import VillifeServer from "../../../../../libs/rest_apis/villife";
-import Toast from "react-native-toast-message";
-import { NoticeEventEmitter } from "../../../noti/blocks/outlined_box_list/event";
-import { useNavigation } from "@react-navigation/native";
-import { DeleteNoticeParams } from "../../../../../libs/rest_apis/villife/notice/types";
-import { VillifeNavigation } from "../../../../common/router/types";
-import BottomSlidableModal from "../../../../common/blocks/universial/slidemodal_bottom";
-
-import StardustModal from "../../../../common/blocks/universial/stardust_modal";
 import ReplyEditModalProps from "./type";
-import useBottomEditModalStyles from "./style";
 import { ComplaintEventEmitter } from "../../services/event";
 import useComplaintService from "../../services";
 import VillifeToastMessage from "../../../../common/atoms/toast";
-import { EditIcon } from "../../../../common/atoms/icon/edit";
-
-import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
-import IconTrashCan from "../../../../common/atoms/icon/trash_can";
+import ListBottomSlidableModal from "../../../../common/blocks/bottom_list_modal";
+import { StardustAlertContent } from "../../../../common/blocks/universial/stardust_alert/types";
+import StardustAlert from "../../../../common/blocks/universial/stardust_alert";
 
 export default function ComplaintReplyEditModal(props: ReplyEditModalProps) {
-    const styles = useBottomEditModalStyles();
-    const messages = useScreenMessage();
-    const screenSize = Dimensions.get("window");
-    const [deleteAlertVisible, setDeleteAlertVisible] = React.useState(false);
+    const [alert, setAlert] = React.useState<StardustAlertContent>({
+        type: "warning",
+        title: "정말로 삭제하시겠습니까?",
+        message: "삭제한 댓글은 복구할 수 없습니다.",
+        visible: false,
+    });
     const service = useComplaintService();
-
-    React.useEffect(() => {
-        if (!props.visible) setDeleteAlertVisible(false);
-    }, []);
 
     const onModifyButtonPress = async () => {
         const emitter = new ComplaintEventEmitter();
@@ -39,17 +25,63 @@ export default function ComplaintReplyEditModal(props: ReplyEditModalProps) {
         const result = await service.deleteReply(props.replyInfo.id);
         if (!result.isSuccessful) {
             VillifeToastMessage.showBottomToast("error", "답글 삭제에 실패했습니다");
-            setDeleteAlertVisible(false);
+            setAlertUnvisiable();
             return props.setVisible(false);
         }
+
         const emitter = new ComplaintEventEmitter();
         emitter.emitListUpdatedEvent();
-        setDeleteAlertVisible(false);
-        props.setVisible(false);
+        setAlertUnvisiable();
+    };
+
+    const setAlertUnvisiable = () => {
+        setAlert({
+            ...alert,
+            visible: false,
+        });
     };
 
     return (
-        <BottomSlidableModal
+        <>
+            <ListBottomSlidableModal
+                modalVisible={props.visible}
+                setModalVisible={props.setVisible}
+                features={[
+                    {
+                        icon: "pencil",
+                        text: "수정하기",
+                        onPress: () => onModifyButtonPress(),
+                    },
+                    {
+                        icon: "trash-can",
+                        text: "삭제하기",
+                        onPress: () => {
+                            props.setVisible(false);
+
+                            setAlert({
+                                ...alert,
+                                visible: true,
+                                buttons: [
+                                    {
+                                        text: "취소",
+                                        onPress: () => setAlertUnvisiable(),
+                                    },
+                                    {
+                                        text: "삭제",
+                                        onPress: () => onDeleteButtonPress(),
+                                    },
+                                ],
+                            });
+                        },
+                    },
+                ]}
+            />
+            <StardustAlert {...alert} setAlert={setAlert} />
+        </>
+    );
+}
+
+/* <BottomSlidableModal
             modalVisible={props.visible}
             setModalVisible={props.setVisible}
             height={screenSize.height * 0.3}>
@@ -61,7 +93,6 @@ export default function ComplaintReplyEditModal(props: ReplyEditModalProps) {
                     style={styles.editModalMenu}>
                     <EditIcon size={30} />
                     <Text style={[styles.editModalMenuText, { fontSize: 20 }]}>수정하기</Text>
-                    {/* font scaling 필요*/}
                 </TouchableOpacity>
                 <TouchableOpacity
                     onPress={() => {
@@ -70,7 +101,6 @@ export default function ComplaintReplyEditModal(props: ReplyEditModalProps) {
                     style={styles.editModalMenu}>
                     <IconTrashCan size={30} />
                     <Text style={[styles.editModalMenuText, { fontSize: 20 }]}>삭제하기</Text>
-                    {/* font scaling 필요*/}
                 </TouchableOpacity>
 
                 <StardustModal
@@ -89,6 +119,5 @@ export default function ComplaintReplyEditModal(props: ReplyEditModalProps) {
                     ]}
                 />
             </View>
-        </BottomSlidableModal>
-    );
-}
+        </BottomSlidableModal> 
+        */

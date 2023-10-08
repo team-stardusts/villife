@@ -5,8 +5,8 @@ const ICON_DEFAULT_COLOR: string = "#E4E4E4" as const;
 
 export default function IconPencil(props: CommonIconProps) {
     const { color, size } = props;
-    const widthRatio: number = 20 / (20 + 20);
-    const heightRatio: number = 20 / (20 + 20);
+    const widthRatio: number = 0.5;
+    const heightRatio: number = 0.5;
 
     return (
         <Svg width={size * widthRatio} height={size * heightRatio} viewBox="0 0 20 20" fill="none">

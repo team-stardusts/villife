@@ -127,10 +127,6 @@ export default function RegisterGuestVehicleScreen({ navigation, route }: Regist
                     </View>
                 </KeyboardAwareScrollView>
             </ScreenTitleView>
-            {/* <ParkingScreenGuide
-                        title={messages.messages.main.parking.register_guest_vehicle.register_guest_vehicle}
-                        subtitle={messages.messages.main.parking.register_guest_vehicle.request_input_vehicle_info}
-                    /> */}
         </NavigationView>
     );
 }

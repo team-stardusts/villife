@@ -37,27 +37,6 @@ export default function RegisterVehicleScreen({ navigation, route }: RegisterVeh
     });
 
     const handlePressRegisterBtn = async () => {
-        /* if (!valid.model && !valid.plateNumber) {
-            Toast.show({
-                type: "error",
-                text1: messages.messages.main.parking.register_vehicle.invalid_plate_number_and_model,
-                position: "bottom",
-                visibilityTime: TOAST_DEFAULT_VISIBILITY_TIME,
-                bottomOffset: TOAST_DEFAULT_OFFSET,
-            });
-
-            return;
-        }
-
-        !valid.plateNumber &&
-            VillifeToastMessage.showBottomToast(
-                "error",
-                messages.messages.main.parking.register_vehicle.invalid_plate_number
-            );
-
-        !valid.model &&
-            VillifeToastMessage.showBottomToast("error", messages.messages.main.parking.register_vehicle.invalid_model); */
-
         if (vehicle.model && vehicle.plateNumber) {
             // [TO-DO] Regsiter Service 등록
             const isSuccessful: boolean = await parkingLot.registerUserVehicle({
