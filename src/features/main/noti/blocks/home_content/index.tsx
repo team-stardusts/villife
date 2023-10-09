@@ -16,7 +16,6 @@ export default function HomeContentFromNoti() {
     const user = useUserInformation();
     const viewModel = useNotiViewModel();
     const navigation = useNavigation<VillifeNavigation>();
-    const { theme, deviceUI } = useStyler();
 
     return (
         <MiniContent

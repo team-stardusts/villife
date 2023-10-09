@@ -6,5 +6,3 @@ export default interface ReplyEditModalProps {
     setVisible: React.Dispatch<React.SetStateAction<boolean>>;
     replyInfo: Reply;
 }
-
-export type useBottomEditModalStylesType = ReturnType<typeof StyleSheet.create>;

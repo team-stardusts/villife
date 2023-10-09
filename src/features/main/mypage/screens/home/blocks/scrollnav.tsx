@@ -3,6 +3,7 @@ import { NavButtonProps, ScrollNavProps } from "../types";
 import { useNavigation } from "@react-navigation/native";
 import { VillifeNavigation } from "../../../../../common/router/types";
 import useUserInformation from "../../../../../common/hooks/service/user_info";
+import VillifeStorage from "../../../../../../libs/storage";
 
 export default function ScrollNav(props: ScrollNavProps) {
     const navigation = useNavigation<VillifeNavigation>();
@@ -25,6 +26,22 @@ export default function ScrollNav(props: ScrollNavProps) {
                         }
 
                         console.log(user?.adminInfomation);
+                    }}
+                />
+                <NavButton
+                    styles={props.styles}
+                    text={"토큰 재발행"}
+                    onPress={() => {
+                        VillifeStorage.getInstance()
+                            .login.get()
+                            .then((data) => {
+                                if (data !== null) {
+                                    VillifeStorage.getInstance().login.set({
+                                        ...data,
+                                        accessToken: "hello",
+                                    });
+                                }
+                            });
                     }}
                 />
             </ScrollView>
