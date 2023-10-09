@@ -1,16 +1,17 @@
-import { View, Text } from "react-native";
+import { View, Text, TextInput } from "react-native";
 import useScreenMessage from "../../../../../../common/hooks/multilingual/hooks";
 import UniversalTextInput from "../../../../../../common/blocks/universial/textinput";
 import useVehicleInfoInputBoxStyles from "./styles";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import useStyler from "../../../../../../common/hooks/styler/hooks";
-import { TouchedCoordinate, VehicleInfo, VehicleInfoInputBoxProps, VehicleValidationResult } from "./types";
+import { VehicleInfo, VehicleInfoInputBoxProps } from "./types";
 import { TextValidator } from "../../../../services/validation";
-import InputPlateNumber from "../../../../blocks/input/plate_number";
+import ReusableTextInput from "../../../../../../common/blocks/text_input";
 
 export default function VehicleInfoInputBox({ initialVehicleInfo, onChangeVehicleInfo }: VehicleInfoInputBoxProps) {
     const messages = useScreenMessage();
     const styles = useVehicleInfoInputBoxStyles();
+    const refinput = useRef<TextInput>(null);
     const { theme } = useStyler();
 
     const [vehicleInfo, setVehicleInfo] = useState<VehicleInfo>(
@@ -29,12 +30,15 @@ export default function VehicleInfoInputBox({ initialVehicleInfo, onChangeVehicl
             <View style={styles.vehicleInfoInputContainer}>
                 <Text style={styles.vehicleInfoInputTitle}>{messages.messages.words.plate_number}</Text>
                 <View style={styles.vehicleInfoInputWrapper}>
-                    <InputPlateNumber
+                    <ReusableTextInput
+                        type="plate-number"
                         onInputValidValue={(plateNumber) => {
                             setVehicleInfo({
                                 ...vehicleInfo,
                                 plateNumber: plateNumber,
                             });
+
+                            refinput.current?.focus();
                         }}
                     />
                 </View>
@@ -44,6 +48,7 @@ export default function VehicleInfoInputBox({ initialVehicleInfo, onChangeVehicl
                 <View style={styles.vehicleInfoInput}>
                     <UniversalTextInput
                         name="model"
+                        ref={refinput}
                         placeholder={
                             messages.messages.main.parking.register_vehicle.vehicle_model_number_input_placeholder
                         }

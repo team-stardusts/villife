@@ -1,7 +1,7 @@
 import { TextInput, View } from "react-native";
-import UniversalTextInput from "../../../../common/blocks/universial/textinput";
+import UniversalTextInput from "../universial/textinput";
 import { useEffect, useRef, useState } from "react";
-import StringValidator from "../../../../../libs/string_validator";
+import StringValidator from "../../../../libs/string_validator";
 import { InputProps } from "./types";
 import useInputPhoneNumberStyles from "./styles";
 
@@ -10,8 +10,13 @@ export default function InputPlateNumber(props: InputProps) {
     const styles = useInputPhoneNumberStyles();
     const validator = new Validator();
     const [plateNumber, setPlateNumber] = useState<(string | null)[]>([null, null, null]);
+    const refInput1 = useRef<TextInput>(null);
     const refInput2 = useRef<TextInput>(null);
     const refInput3 = useRef<TextInput>(null);
+
+    useEffect(() => {
+        if (props.focus) refInput1.current?.focus();
+    }, [props.focus]);
 
     useEffect(() => {
         for (let i = 0; i < 3; i++) {
@@ -80,6 +85,7 @@ export default function InputPlateNumber(props: InputProps) {
         <View style={styles.container}>
             <View style={[styles.inputWrapper, { width: "30%" }]}>
                 <UniversalTextInput
+                    ref={refInput1}
                     name="first"
                     placeholder="100"
                     value={plateNumber[0] ?? ""}

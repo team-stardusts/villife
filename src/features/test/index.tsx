@@ -8,7 +8,7 @@ import { useNavigation } from "@react-navigation/native";
 import { VillifeNavigation } from "../common/router/types";
 import PaymentServiceProvider from "../expense/payment/services/provider";
 import NetInfoEventHandler from "../../libs/netinfo";
-import Spinner from "../common/blocks/spinner";
+import Spinner from "../common/atoms/spinner";
 import Icon from "../common/atoms/icon";
 import useStyler from "../common/hooks/styler/hooks";
 

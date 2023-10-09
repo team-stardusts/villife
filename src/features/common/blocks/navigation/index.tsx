@@ -12,7 +12,7 @@ import NetInfoEventHandler from "../../../../libs/netinfo";
 import { IEventListenable } from "../../global_interface";
 import { NetInfoEvents } from "../../../../libs/netinfo/types";
 import { NetInfoState } from "@react-native-community/netinfo";
-import VillifeSpinner from "../spinner/villife";
+import VillifeSpinner from "../../atoms/spinner/villife";
 
 export default function NavigationView({
     headerOptions,

@@ -1,4 +1,4 @@
-import { Alert, View } from "react-native";
+import { View } from "react-native";
 import NavigationView from "../../../../common/blocks/navigation";
 import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
 import RegisterVehicleScreenProps, { Vehicle } from "./types";
@@ -6,7 +6,6 @@ import useRegisterVehicleScreenStyles from "./styles";
 import EtdaTimePicker from "../../blocks/etad_time_picker";
 import { useState } from "react";
 import VehicleInfoInputBox from "./blocks/input_box";
-import { VehicleValidationResult } from "./blocks/input_box/types";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import useParkingLot from "../../services/parking_lot";
 import ScreenTitleView from "../../../../common/blocks/title_view";

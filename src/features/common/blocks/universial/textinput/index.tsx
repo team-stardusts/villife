@@ -32,7 +32,7 @@ const UniversalTextInput = forwardRef((props: UniversalTextInputProps, ref: Forw
         return () => {
             animatedBorderWidth.stopAnimation();
         };
-    }, [isFocusing, animatedBorderWidth]);
+    }, [isFocusing]);
 
     const styles = StyleSheet.create({
         container: {

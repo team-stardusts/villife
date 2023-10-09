@@ -25,7 +25,9 @@ export default function SpinningWon({ size }: SpinningWonProps) {
                 useNativeDriver: true,
             }),
         ]).start();
-    }, []);
+
+        return () => unitRotaionValue.stopAnimation();
+    }, [unitRotaionValue]);
 
     return (
         <Animated.View
@@ -55,7 +57,7 @@ function useSpinningWonStyles(size: number) {
         },
         text: {
             fontFamily: theme.font.fontFamily.pretendard.bold,
-            fontSize: deviceUI.moderateScale(size * 0.6),
+            fontSize: deviceUI.moderateScale(size * 0.5),
             color: theme.color.specified.white,
         },
     });

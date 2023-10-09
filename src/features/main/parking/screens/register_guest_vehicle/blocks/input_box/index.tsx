@@ -1,13 +1,12 @@
-import { View, Text } from "react-native";
+import { View, Text, TextInput } from "react-native";
 import useScreenMessage from "../../../../../../common/hooks/multilingual/hooks";
 import UniversalTextInput from "../../../../../../common/blocks/universial/textinput";
 import useGuestVehicleInfoInputBoxStyles from "./styles";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import useStyler from "../../../../../../common/hooks/styler/hooks";
 import { GuestVehicleInfo, GuestVehicleInfoInputBoxProps } from "./types";
 import { VISITING_PERPOSE_MAX_LENGTH, VISITING_PERPOSE_MIN_LENGTH } from "../../../../services/validation";
-import InputPhoneNumber from "../../../../blocks/input/phone_number";
-import InputPlateNumber from "../../../../blocks/input/plate_number";
+import ReusableTextInput from "../../../../../../common/blocks/text_input";
 
 export default function GuestVehicleInfoInputBox({
     initialVehicleInfo,
@@ -15,6 +14,7 @@ export default function GuestVehicleInfoInputBox({
 }: GuestVehicleInfoInputBoxProps) {
     const messages = useScreenMessage();
     const styles = useGuestVehicleInfoInputBoxStyles();
+    const refinput = useRef<TextInput>(null);
     const { theme } = useStyler();
 
     const [guestVehicleInfo, setGuestVehicleInfo] = useState<GuestVehicleInfo>(
@@ -34,7 +34,8 @@ export default function GuestVehicleInfoInputBox({
             <View style={styles.vehicleInfoInputContainer}>
                 <Text style={styles.vehicleInfoInputTitle}>{messages.messages.words.plate_number}</Text>
                 <View style={styles.vehicleInfoInputWrapper}>
-                    <InputPlateNumber
+                    <ReusableTextInput
+                        type="plate-number"
                         onInputInvalidValue={() =>
                             setGuestVehicleInfo({
                                 ...guestVehicleInfo,
@@ -53,7 +54,9 @@ export default function GuestVehicleInfoInputBox({
             <View style={styles.vehicleInfoInputContainer}>
                 <Text style={styles.vehicleInfoInputTitle}>{messages.messages.words.guest_phone_number}</Text>
                 <View style={styles.vehicleInfoInputWrapper}>
-                    <InputPhoneNumber
+                    <ReusableTextInput
+                        type="phone-number"
+                        focus={guestVehicleInfo.plateNumber !== null}
                         onInputInvalidValue={() =>
                             setGuestVehicleInfo({
                                 ...guestVehicleInfo,
@@ -65,6 +68,7 @@ export default function GuestVehicleInfoInputBox({
                                 ...guestVehicleInfo,
                                 phoneNumber: phoneNumber,
                             });
+                            refinput.current?.focus();
                         }}
                     />
                 </View>
@@ -74,6 +78,7 @@ export default function GuestVehicleInfoInputBox({
                 <View style={styles.vehicleInfoInput}>
                     <UniversalTextInput
                         name="visitingPerpose"
+                        ref={refinput}
                         //value={guestVehicleInfo.visitingPerpose || ""}
                         placeholder={
                             messages.messages.main.parking.register_guest_vehicle.visiting_perpose_input_placeholder

@@ -1,7 +1,7 @@
 import { TextInput, View } from "react-native";
-import UniversalTextInput from "../../../../common/blocks/universial/textinput";
+import UniversalTextInput from "../universial/textinput";
 import { useEffect, useRef, useState } from "react";
-import StringValidator from "../../../../../libs/string_validator";
+import StringValidator from "../../../../libs/string_validator";
 import { InputProps } from "./types";
 import useInputPhoneNumberStyles from "./styles";
 
@@ -10,6 +10,7 @@ export default function InputPhoneNumber(props: InputProps) {
     const styles = useInputPhoneNumberStyles();
     const validator = new Validator();
     const [phoneNumber, setPhoneNumber] = useState<(string | null)[]>([null, null, null]);
+    const refInput1 = useRef<TextInput>(null);
     const refInput2 = useRef<TextInput>(null);
     const refInput3 = useRef<TextInput>(null);
 
@@ -34,6 +35,10 @@ export default function InputPhoneNumber(props: InputProps) {
 
         props.onInputValidValue(phoneNumber.join("-"));
     }, [phoneNumber]);
+
+    useEffect(() => {
+        if (props.focus) refInput1.current?.focus();
+    }, [props.focus]);
 
     const validatePhoneNumber = (text: string, name: PhoneNumberPieceName): boolean => {
         let index: number = 0;
@@ -74,6 +79,7 @@ export default function InputPhoneNumber(props: InputProps) {
         <View style={styles.container}>
             <View style={[styles.inputWrapper, { width: "25%" }]}>
                 <UniversalTextInput
+                    ref={refInput1}
                     blurOnSubmit={false}
                     name="first"
                     placeholder="010"

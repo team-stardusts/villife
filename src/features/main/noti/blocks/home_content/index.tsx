@@ -37,7 +37,7 @@ export default function HomeContentFromNoti() {
                 </TouchableOpacity>
             ) : (
                 <View style={style.contentContainer}>
-                    {viewModel == undefined ? (
+                    {viewModel === undefined ? (
                         <></>
                     ) : (
                         viewModel

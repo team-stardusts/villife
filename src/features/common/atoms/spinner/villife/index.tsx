@@ -1,6 +1,6 @@
 import { ColorValue, View } from "react-native";
 import Spinner from "..";
-import Icon from "../../../atoms/icon";
+import Icon from "../../icon";
 import useStyler from "../../../hooks/styler/hooks";
 
 export default function VillifeSpinner(props: VillifeSpinnerProps) {

@@ -31,7 +31,7 @@ export default function HomeScreen({ navigation, route }: HomeScreenProps) {
             _contents.unshift(HomeContentFromManagementFee);
         }
 
-        setContents(_contents);
+        setContents([..._contents]);
         return;
     }, [user?.authority]);
     //const contents = [HomeContentFromComplaint, HomeContentFromNoti, HomeContentFromParking];
