@@ -8,16 +8,16 @@ export interface IBuildingManagementServiceProvider
         IBuildingRegisterable,
         IRoomContractAdministrable {}
 
-interface IRoomInfosOnBuildingGetable {
+export interface IRoomInfosOnBuildingGetable {
     //getTentantsFromServer(buildingID: number): Promise<Building.Tenant[]>;
     getRoomInfos(buildingID: number): Promise<BuildingRoomInfo[]>;
 }
 
-interface IBuildingVerifiable {
+export interface IBuildingVerifiable {
     verifyBuildingAddress(params: VerifyBuildingAddress.Params): Promise<VerifyBuildingAddress.Returns>;
 }
 
-interface IBuildingRegisterable {
+export interface IBuildingRegisterable {
     registerBuilding(params: RegisterBuilding.Params): Promise<RegisterBuilding.Returns>;
 }
 

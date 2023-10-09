@@ -6,7 +6,7 @@ export interface IManagementFeePaymentServiceProvider extends IBillGettable {}
     createOrder(params: ManagementFee.CreateOrder.Params): Promise<ManagementFee.CreateOrder.Result>;
 } */
 
-interface IBillGettable {
+export interface IBillGettable {
     getManagementFeeBills(params: ManagementFee.GetManagementFeeBills.Params): Promise<ManagementFee.ManagementFee[]>;
     getUserManagementFeeBills(
         params: ManagementFee.GetUserManagementFeeBills.Params

@@ -13,9 +13,10 @@ import StringValidator from "../../../../../../../libs/string_validator";
 import VillifeToastMessage from "../../../../../../common/atoms/toast";
 import { StardustAlertContent } from "../../../../../../common/blocks/universial/stardust_alert/types";
 import StardustAlert from "../../../../../../common/blocks/universial/stardust_alert";
+import { IBuildingVerifiable } from "../../../../services/building_rooms/provider/types";
 
 export default function AddressSetter(props: AddressSetterProps) {
-    const manager = new BuildingManagementServiceProvider();
+    const buildingVerifier: IBuildingVerifiable = new BuildingManagementServiceProvider();
     const navigation = useNavigation<VillifeRouterParams["navigation"]>();
     const validator = new StringValidator();
     const [address, setAddress] = useRecoilState<SelectedAddressStateType | null>(selectedAddressState);
@@ -55,7 +56,7 @@ export default function AddressSetter(props: AddressSetterProps) {
             return;
         }
 
-        manager.verifyBuildingAddress(address).then((result) => {
+        buildingVerifier.verifyBuildingAddress(address).then((result) => {
             if (result === null) return;
 
             setAddress(null);

@@ -13,13 +13,14 @@ import BuildingManagementServiceProvider from "../../services/building_rooms/pro
 import useUserInformation from "../../../../common/hooks/service/user_info";
 import VillifeToastMessage from "../../../../common/atoms/toast";
 import useAdminInfoService from "../../../../common/hooks/service/user_info/service";
+import { IBuildingRegisterable } from "../../services/building_rooms/provider/types";
 
 export default function RegisterBuildingScreen({ navigation, route }: RegisterBuildingScreenProps) {
     const messages = useScreenMessage().messages;
     const styles = useRegisterBuildingScreenStyles();
     const user = useUserInformation();
     const adminInfoService = useAdminInfoService();
-    const service = new BuildingManagementServiceProvider();
+    const registerer: IBuildingRegisterable = new BuildingManagementServiceProvider();
     const [floors, setFloors] = useState<BuildingFloors>([]);
     const [buildingInfo, setBuildingInfo] = useState<BuildingInfo | null>(null);
 
@@ -41,7 +42,7 @@ export default function RegisterBuildingScreen({ navigation, route }: RegisterBu
 
         const _floors = floors;
 
-        const result = await service.registerBuilding({
+        const result = await registerer.registerBuilding({
             basementInfo: _floors.shift() as number | null,
             buildingName: buildingInfo.name,
             ownerName: user.name,
