@@ -5,7 +5,9 @@ export interface UserPaymentManagerBase extends PaymentManagerBase {
 }
 export interface AdminPaymentManagerBase extends PaymentManagerBase {}
 
-export interface PaymentManagerBase extends History<ManagementFee.ManagementFee> {}
+export interface PaymentManagerBase extends History<ManagementFee.ManagementFee> {
+    readonly isAdmin: boolean;
+}
 
 export interface History<THistory> {
     history: Array<THistory>;
