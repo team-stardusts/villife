@@ -1,7 +1,7 @@
-import { ScrollView, Text, View } from "react-native";
+import { Text, View } from "react-native";
 import FloorSetterHeader from "./blocks/header";
 import { BuildingFloors, RoomCountSetterProps } from "./types";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import FloorSetterRow from "./blocks/row";
 import FloorAdditor from "./blocks/addition";
 
@@ -9,7 +9,6 @@ export default function RoomCountSetter(props: RoomCountSetterProps) {
     const [hasUnderground, setHasUnderground] = useState<boolean>(false);
     // floors의 index가 층을 나타냄. 0번 index는 지하를 뜻하며 0번 index만이 null 값을 가짐
     const [floors, setFloors] = useState<BuildingFloors>([null, 0]);
-    const scrollVewRef = useRef<ScrollView | null>(null);
 
     useEffect(() => {
         const _floors = floors.map((floor, index) => {
@@ -55,9 +54,7 @@ export default function RoomCountSetter(props: RoomCountSetterProps) {
             </View>
             <View style={props.styles.contentContainer}>
                 <FloorSetterHeader styles={props.styles} onPress={setHasUnderground} />
-                <ScrollView
-                    ref={scrollVewRef}
-                    onContentSizeChange={() => scrollVewRef.current?.scrollToEnd({ animated: true })}>
+                <View>
                     {floors.map((rooms, index) => {
                         if (rooms === null) return;
 
@@ -72,7 +69,7 @@ export default function RoomCountSetter(props: RoomCountSetterProps) {
                         );
                     })}
                     <FloorAdditor styles={props.styles} onPress={handlePressAddBtn} />
-                </ScrollView>
+                </View>
             </View>
         </View>
     );

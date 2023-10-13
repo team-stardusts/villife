@@ -117,7 +117,7 @@ export default function AddressSetter(props: AddressSetterProps) {
             <View style={props.styles.inputBox}>
                 <View style={props.styles.inputWrapper}>
                     <UniversalTextInput
-                        placeholder="빌라 이름을 검색해주세요."
+                        placeholder="빌라의 주소를 검색해주세요."
                         value={address?.roadAddress ? address.roadAddress : ""}
                         onPressIn={() => navigation.navigate("search_address")}
                     />
@@ -152,7 +152,7 @@ export default function AddressSetter(props: AddressSetterProps) {
             <View style={props.styles.inputBox}>
                 <View style={props.styles.inputWrapper}>
                     <UniversalTextInput
-                        placeholder="빌라 이름을 세 글자 이상 입력해주세요."
+                        placeholder="주소 검색 후 빌라 이름을 세 글자 이상 입력해주세요."
                         value={address ? (buildingName ? buildingName : "") : ""}
                         onChangeText={(text) => handleChangeBuidingName(text)}
                         onEndEditing={() => handleEndEditingBuildingName()}

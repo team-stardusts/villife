@@ -1,4 +1,4 @@
-import { View } from "react-native";
+import { ScrollView, View } from "react-native";
 import NavigationView from "../../../../common/blocks/navigation";
 import RegisterBuildingScreenProps from "./types";
 import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
@@ -7,13 +7,15 @@ import ScreenTitleView from "../../../../common/blocks/title_view";
 import RoomCountSetter from "./blocks/room";
 import AddressSetter from "./blocks/address";
 import { BuildingFloors } from "./blocks/room/types";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { BuildingInfo } from "./blocks/address/types";
 import BuildingManagementServiceProvider from "../../services/building_rooms/provider";
 import useUserInformation from "../../../../common/hooks/service/user_info";
 import VillifeToastMessage from "../../../../common/atoms/toast";
 import useAdminInfoService from "../../../../common/hooks/service/user_info/service";
 import { IBuildingRegisterable } from "../../services/building_rooms/provider/types";
+import MFDateSetter from "./blocks/date";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 export default function RegisterBuildingScreen({ navigation, route }: RegisterBuildingScreenProps) {
     const messages = useScreenMessage().messages;
@@ -21,6 +23,7 @@ export default function RegisterBuildingScreen({ navigation, route }: RegisterBu
     const user = useUserInformation();
     const adminInfoService = useAdminInfoService();
     const registerer: IBuildingRegisterable = new BuildingManagementServiceProvider();
+    const scrollVewRef = useRef<KeyboardAwareScrollView | null>(null);
     const [floors, setFloors] = useState<BuildingFloors>([]);
     const [buildingInfo, setBuildingInfo] = useState<BuildingInfo | null>(null);
 
@@ -89,14 +92,21 @@ export default function RegisterBuildingScreen({ navigation, route }: RegisterBu
                     onPress: () => registerBuilding(),
                 }}
                 disablePaddingTop>
-                <View style={styles.main.container}>
+                <KeyboardAwareScrollView
+                    style={styles.main.container}
+                    showsVerticalScrollIndicator={false}
+                    ref={scrollVewRef}
+                    onContentSizeChange={() => scrollVewRef.current?.scrollToEnd()}>
                     <View style={styles.main.searchingContainer}>
                         <AddressSetter styles={styles.search} onChangeBuildingInfo={setBuildingInfo} />
+                    </View>
+                    <View style={styles.main.dateSettingContainer}>
+                        <MFDateSetter styles={styles.date} onChangeMFDate={console.log} />
                     </View>
                     <View style={styles.main.roomSettingContainer}>
                         <RoomCountSetter styles={styles.room} onChangeRoomCount={setFloors} />
                     </View>
-                </View>
+                </KeyboardAwareScrollView>
             </ScreenTitleView>
         </NavigationView>
     );

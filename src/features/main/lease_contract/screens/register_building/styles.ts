@@ -13,23 +13,23 @@ export default function useBuildingManagementScreenStyles() {
             flex: 1,
         },
         searchingContainer: {
-            flex: 3.5,
             marginBottom: deviceUI.moderateScale(30),
         },
-        roomSettingContainer: {
-            flex: 6.5,
+        dateSettingContainer: {
+            marginBottom: deviceUI.moderateScale(30),
         },
+        roomSettingContainer: {},
     });
 
     const search = StyleSheet.create({
         container: {
-            flex: 1,
+            //flex: 1,
         },
         titleBox: {
-            height: "15%",
+            //height: "15%",
         },
         villaTitleBox: {
-            height: "15%",
+            //height: "15%",
             marginTop: deviceUI.moderateScale(13),
         },
         title: {
@@ -38,7 +38,7 @@ export default function useBuildingManagementScreenStyles() {
             fontSize: deviceUI.moderateScale(17),
         },
         inputBox: {
-            height: "22%",
+            height: deviceUI.moderateScale(30),
             justifyContent: "center",
             marginVertical: deviceUI.moderateScale(5),
         },
@@ -77,12 +77,42 @@ export default function useBuildingManagementScreenStyles() {
         },
     });
 
-    const room = StyleSheet.create({
+    const date = StyleSheet.create({
         container: {
-            flex: 1,
+            //flex: 1,
         },
         titleBox: {
-            flex: 1,
+            //flex: 1,
+            justifyContent: "center",
+            marginBottom: deviceUI.moderateScale(20),
+        },
+        title: {
+            color: theme.color.specified.blue,
+            fontFamily: theme.font.fontFamily.pretendard.bold,
+            fontSize: deviceUI.moderateScale(20),
+        },
+        wrapper: {},
+        row: {
+            flexDirection: "row",
+            marginBottom: deviceUI.moderateScale(20),
+            justifyContent: "space-between",
+        },
+        rowTitleWrapper: {
+            marginLeft: deviceUI.moderateScale(10),
+        },
+        rowTitle: {
+            color: theme.color.specified.blue,
+            fontFamily: theme.font.fontFamily.pretendard.bold,
+            fontSize: deviceUI.moderateScale(15),
+        },
+    });
+
+    const room = StyleSheet.create({
+        container: {
+            //flex: 1,
+        },
+        titleBox: {
+            //flex: 1,
             justifyContent: "center",
         },
         title: {
@@ -91,7 +121,7 @@ export default function useBuildingManagementScreenStyles() {
             fontSize: deviceUI.moderateScale(20),
         },
         contentContainer: {
-            flex: 9,
+            //flex: 9,
         },
         rowContaier: {
             height: deviceUI.moderateScale(30),
@@ -175,6 +205,7 @@ export default function useBuildingManagementScreenStyles() {
     return {
         main,
         search,
+        date,
         room,
     };
 }
