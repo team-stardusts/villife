@@ -45,6 +45,8 @@ export default function RegisterBuildingScreen({ navigation, route }: RegisterBu
         const result = await registerer.registerBuilding({
             basementInfo: _floors.shift() as number | null,
             buildingName: buildingInfo.name,
+            mfDueDate: new Date(),
+            mfNotiDate: new Date(),
             ownerName: user.name,
             roadAddress: buildingInfo.address.roadAddress,
             roomsInfo: floors as number[],

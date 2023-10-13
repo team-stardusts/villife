@@ -31,6 +31,8 @@ export namespace Building {
         export type Params = {
             basement_info: number;
             building_name: string;
+            mf_due_date: number;
+            mf_noti_date: number;
             owner_name: string;
             road_addr: string;
             room_info: number[];
@@ -94,6 +96,20 @@ export namespace Building {
         //created_at: number;
         //updated_at: number;
     };
+    /* 
+    {
+        "auto_mf_billing": true,
+        "contractor_name": "string",
+        "delinquency_rate": 0,
+        "deposit": 0,
+        "expiration_date": 0,
+        "management_fee": 0,
+        "monthly_rent": 0,
+        "rent_type": "string",
+        "room_id": 0,
+        "start_date": 0
+    } 
+    */
 
     export namespace RegisterContract {
         export type Params = {

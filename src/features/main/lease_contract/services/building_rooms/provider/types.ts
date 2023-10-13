@@ -55,6 +55,8 @@ export namespace RegisterBuilding {
     export type Params = {
         basementInfo: number | null;
         buildingName: string;
+        mfDueDate: Date;
+        mfNotiDate: Date;
         ownerName: string;
         roadAddress: string;
         roomsInfo: number[];
