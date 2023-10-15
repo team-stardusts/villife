@@ -37,7 +37,7 @@ export default function FloorSetterRow(props: FloorSetterRowProps) {
         <Animated.View
             style={[props.styles.rowContaier, { opacity: opacityValue, transform: [{ translateY: translateYValue }] }]}>
             <HorizontalNumberPickingModal
-                initialIndex={roomRange.indexOf(props.rooms)}
+                initialNumber={roomRange.indexOf(props.rooms)}
                 numbersRange={roomRange}
                 modalVisible={visible}
                 setModalVisible={setVisible}

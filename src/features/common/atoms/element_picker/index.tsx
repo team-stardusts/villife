@@ -1,4 +1,11 @@
-import { Animated, NativeScrollEvent, NativeSyntheticEvent, Pressable, ScrollView } from "react-native";
+import {
+    Animated,
+    NativeScrollEvent,
+    NativeSyntheticEvent,
+    Pressable,
+    ScrollView,
+    TouchableOpacity,
+} from "react-native";
 import { useEffect, useRef, useState } from "react";
 import { ANIMATION_DURATION_FAST_LV2 } from "../../constants";
 import { ElementPickerProps, Node, NodeProps } from "./types";
@@ -58,7 +65,6 @@ export default function ElementPicker(props: ElementPickerProps) {
         if (index >= _nodes.length - 2) index = _nodes.length - 3;
 
         let correctOffsetX = index * nodeViewWidth;
-
         return {
             index: index,
             offsetX: correctOffsetX,
@@ -75,12 +81,12 @@ export default function ElementPicker(props: ElementPickerProps) {
                 },
             ]}
             contentOffset={{
-                x: props.initialIndex ? props.initialIndex * nodeViewWidth : 0,
+                x: _initialIndex * nodeViewWidth,
                 y: 0,
             }}
             onScroll={handleScroll}
             onScrollEndDrag={handleScrollEndDrag}
-            scrollEventThrottle={16}
+            scrollEventThrottle={10}
             horizontal
             showsVerticalScrollIndicator={false}
             showsHorizontalScrollIndicator={false}>
@@ -94,7 +100,8 @@ export default function ElementPicker(props: ElementPickerProps) {
                     focusedcolor={props.focusedcolor || styles.main.focused.color}
                     unFocusedColor={props.unFocusedColor || styles.main.unfocused.color}
                     onTapToSelect={(node) => {
-                        if (node) setCrrNodeValue(node);
+                        //console.log(node);
+                        if (node === null) return; //setCrrNodeValue(node);
                         const toIndex = _nodes.indexOf(node) - nulls.length;
                         if (toIndex < 0) return;
                         scrollVewRef.current?.scrollTo({ x: nodeViewWidth * toIndex, animated: true });
@@ -124,8 +131,9 @@ function ElementNode(props: NodeProps) {
     }, [props.isFocused]);
 
     return (
-        <Pressable
+        <TouchableOpacity
             //disabled
+            activeOpacity={0.5}
             onPress={() => {
                 props.onTapToSelect(props.value);
             }}
@@ -150,6 +158,6 @@ function ElementNode(props: NodeProps) {
                     {props.value}
                 </Animated.Text>
             )}
-        </Pressable>
+        </TouchableOpacity>
     );
 }

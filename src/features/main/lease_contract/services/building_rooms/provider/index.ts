@@ -33,8 +33,8 @@ class BuildingManagementServiceProvider extends AServiceProvider implements IBui
         const result = await this._buildingApi.registerBuildng({
             basement_info: basementRoomInfo,
             building_name: params.buildingName,
-            mf_due_date: StardustDateParser.serialize(params.mfDueDate),
-            mf_noti_date: StardustDateParser.serialize(params.mfNotiDate),
+            mf_due_date: params.mfDueDate,
+            mf_noti_date: params.mfNotiDate,
             owner_name: params.ownerName,
             road_addr: params.roadAddress,
             room_info: params.roomsInfo,

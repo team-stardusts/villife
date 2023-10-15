@@ -14,8 +14,9 @@ import useUserInformation from "../../../../common/hooks/service/user_info";
 import VillifeToastMessage from "../../../../common/atoms/toast";
 import useAdminInfoService from "../../../../common/hooks/service/user_info/service";
 import { IBuildingRegisterable } from "../../services/building_rooms/provider/types";
-import MFDateSetter from "./blocks/date";
+import MFDaysSetter from "./blocks/date";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import { MFDays } from "./blocks/date/types";
 
 export default function RegisterBuildingScreen({ navigation, route }: RegisterBuildingScreenProps) {
     const messages = useScreenMessage().messages;
@@ -26,11 +27,15 @@ export default function RegisterBuildingScreen({ navigation, route }: RegisterBu
     const scrollVewRef = useRef<KeyboardAwareScrollView | null>(null);
     const [floors, setFloors] = useState<BuildingFloors>([]);
     const [buildingInfo, setBuildingInfo] = useState<BuildingInfo | null>(null);
+    const [mfdays, setMFDays] = useState<MFDays>({
+        dueDay: null,
+        notiDay: null,
+    });
 
     const isProperlyPrepared = (): boolean => {
         const isValidFloorValue = floors.filter((floor) => floor !== 0 && floor !== null).length !== 0;
 
-        return buildingInfo !== null && isValidFloorValue;
+        return buildingInfo !== null && mfdays.dueDay !== null && mfdays.notiDay !== null && isValidFloorValue;
     };
 
     const registerBuilding = async () => {
@@ -42,28 +47,29 @@ export default function RegisterBuildingScreen({ navigation, route }: RegisterBu
         // 확인 버튼 활성 조건에 "buildingInfo가 null이 아닐 것"이 있기 때문에
         // 그냥 Type narrowing임.
         if (buildingInfo === null) return;
+        if (mfdays.dueDay === null || mfdays.dueDay === null) return;
 
         const _floors = floors;
 
         const result = await registerer.registerBuilding({
             basementInfo: _floors.shift() as number | null,
             buildingName: buildingInfo.name,
-            mfDueDate: new Date(),
-            mfNotiDate: new Date(),
+            mfDueDate: 0,
+            mfNotiDate: 0,
             ownerName: user.name,
             roadAddress: buildingInfo.address.roadAddress,
             roomsInfo: floors as number[],
         });
 
-        if (result !== null) {
+        if (result === null) {
+            VillifeToastMessage.showBottomToast("error", "등록에 실패했습니다. 잠시 후 다시 시도해주세요.");
+        } else {
             await adminInfoService.initializeAdminInformation();
 
             VillifeToastMessage.showBottomToast("success", `\"${buildingInfo.name}\" 빌라를 등록했습니다.`);
-            navigation.pop();
-            return;
         }
 
-        VillifeToastMessage.showBottomToast("error", "등록에 실패했습니다. 잠시 후 다시 시도해주세요.");
+        navigation.canGoBack() && navigation.goBack();
     };
 
     return (
@@ -101,7 +107,7 @@ export default function RegisterBuildingScreen({ navigation, route }: RegisterBu
                         <AddressSetter styles={styles.search} onChangeBuildingInfo={setBuildingInfo} />
                     </View>
                     <View style={styles.main.dateSettingContainer}>
-                        <MFDateSetter styles={styles.date} onChangeMFDay={console.log} />
+                        <MFDaysSetter styles={styles.date} onChangeMFDay={setMFDays} />
                     </View>
                     <View style={styles.main.roomSettingContainer}>
                         <RoomCountSetter styles={styles.room} onChangeRoomCount={setFloors} />

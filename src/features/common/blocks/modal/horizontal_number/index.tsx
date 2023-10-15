@@ -16,13 +16,7 @@ export default function HorizontalNumberPickingModal(props: HorizontalNumberPick
                 <ElementPicker
                     width={styles.picker.width}
                     nodes={props.numbersRange}
-                    initialIndex={
-                        props.initialIndex &&
-                        props.initialIndex >= 0 &&
-                        props.initialIndex <= props.numbersRange.length - 1
-                            ? props.initialIndex
-                            : 0
-                    }
+                    initialIndex={props.initialIndex}
                     numberOfElementsToShow={9}
                     focusedcolor={styles.focusedElement.color}
                     unFocusedColor={styles.unfocusedElement.color}
