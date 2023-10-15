@@ -44,6 +44,11 @@ export default function ScrollNav(props: ScrollNavProps) {
                             });
                     }}
                 />
+                <NavButton
+                    styles={props.styles}
+                    text={"회사 정보"}
+                    onPress={() => navigation.navigate("company_introduction")}
+                />
             </ScrollView>
         </View>
     );

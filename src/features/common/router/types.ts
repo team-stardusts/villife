@@ -98,6 +98,7 @@ export type VillifeStackParamList = VillifeRootStackParamList & {
         contractID: number;
         roomID: number;
     };
+    company_introduction?: {};
     //building: {};
 };
 

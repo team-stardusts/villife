@@ -43,6 +43,7 @@ import ConfirmPaymentCostScreen from "../../expense/payment/screens/confirm_paym
 import ManagementFeeDetailScreen from "../../expense/management_fee/screens/detail";
 import { Platform } from "react-native";
 import useFirebaseMessagingEmitter from "../hooks/firebase/messaging/emission";
+import CompanyIntroductionScreen from "../../main/mypage/screens/company_introduction";
 
 enableScreens(true);
 
@@ -116,6 +117,9 @@ export default function ScreenRouter() {
             </Stack.Group>
             <Stack.Group>
                 <Stack.Screen name={"test"} component={TestScreen} />
+            </Stack.Group>
+            <Stack.Group>
+                <Stack.Screen name={"company_introduction"} component={CompanyIntroductionScreen} />
             </Stack.Group>
             <Stack.Group>
                 <Stack.Screen name={"noti_home"} component={NoticeHomeScreen} />
