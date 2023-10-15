@@ -1,8 +1,12 @@
 import type useRegisterBuildingScreenStyles from "../../styles";
 
-export type MFDateSetterProps = {
+export type MFDaysSetterProps = {
     styles: ReturnType<typeof useRegisterBuildingScreenStyles>["date"];
-    onChangeMFDate(mfDate: MFDate | null): void;
+    onChangeMFDay(mfDate: MFDate | null): void;
+};
+
+export type MFDaySetterProps = {
+    styles: ReturnType<typeof useRegisterBuildingScreenStyles>["date"];
 };
 
 export type MFDate = {

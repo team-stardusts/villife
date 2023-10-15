@@ -1,12 +1,11 @@
 import { StyleSheet, View } from "react-native";
-import BottomSlidableModal from "../../../../../../../common/blocks/universial/slidemodal_bottom";
-import { RoomsSettingModalProps } from "../types";
-import ElementPicker from "../../../../../../../common/atoms/element_picker";
-import useStyler from "../../../../../../../common/hooks/styler/hooks";
+import BottomSlidableModal from "../../universial/slidemodal_bottom";
+import ElementPicker from "../../../atoms/element_picker";
+import useStyler from "../../../hooks/styler/hooks";
+import { HorizontalNumberPickingModalProps } from "./types";
 
-export default function RoomsSettingModal(props: RoomsSettingModalProps) {
-    const styles = useRoomsSettingModalStyles();
-    const roomRange = Array.from({ length: 51 }, (_, k) => k);
+export default function HorizontalNumberPickingModal(props: HorizontalNumberPickingModalProps) {
+    const styles = useHorizontalNumberPickingModalStyles();
 
     return (
         <BottomSlidableModal
@@ -16,19 +15,25 @@ export default function RoomsSettingModal(props: RoomsSettingModalProps) {
             <View style={styles.container}>
                 <ElementPicker
                     width={styles.picker.width}
-                    nodes={roomRange}
-                    initialIndex={roomRange.indexOf(props.initialRooms)}
+                    nodes={props.numbersRange}
+                    initialIndex={
+                        props.initialIndex &&
+                        props.initialIndex >= 0 &&
+                        props.initialIndex <= props.numbersRange.length - 1
+                            ? props.initialIndex
+                            : 0
+                    }
                     numberOfElementsToShow={9}
                     focusedcolor={styles.focusedElement.color}
                     unFocusedColor={styles.unfocusedElement.color}
-                    onNodeChange={props.onChangeRoomCount}
+                    onNodeChange={props.onChangeNumber}
                 />
             </View>
         </BottomSlidableModal>
     );
 }
 
-function useRoomsSettingModalStyles() {
+function useHorizontalNumberPickingModalStyles() {
     const { deviceUI, theme } = useStyler();
 
     return StyleSheet.create({

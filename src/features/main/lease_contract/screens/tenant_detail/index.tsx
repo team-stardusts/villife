@@ -7,8 +7,8 @@ import { useEffect, useState } from "react";
 import { BuildingRoomInfo } from "../../services/building_rooms/provider/types";
 import TenantInfo from "./blocks/tenant_info";
 import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
-import ListBottomSlidableModal from "../../../../common/blocks/bottom_list_modal";
-import { ModalFeature } from "../../../../common/blocks/bottom_list_modal/types";
+import ListBottomSlidableModal from "../../../../common/blocks/modal/bottom_list";
+import { ModalFeature } from "../../../../common/blocks/modal/bottom_list/types";
 import { VillifeNavigation } from "../../../../common/router/types";
 import { useNavigation } from "@react-navigation/native";
 import useBuildingRoomContractor from "../../services/building_rooms";
@@ -68,7 +68,7 @@ export default function TenantDetailScreen({ route }: TenantDetailScreenProps) {
                 if (isSuccessful) {
                     VillifeToastMessage.showBottomToast("success", "알림 완료");
                     setNoticeModalVisible(false);
-                }else {
+                } else {
                     VillifeToastMessage.showBottomToast("error", "알림 실패");
                     setNoticeModalVisible(false);
                 }
@@ -88,7 +88,7 @@ export default function TenantDetailScreen({ route }: TenantDetailScreenProps) {
                 if (isSuccessful) {
                     VillifeToastMessage.showBottomToast("success", "알림 완료");
                     setNoticeModalVisible(false);
-                }else {
+                } else {
                     VillifeToastMessage.showBottomToast("error", "알림 실패");
                     setNoticeModalVisible(false);
                 }

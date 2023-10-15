@@ -1,6 +1,6 @@
 import { Text, TouchableOpacity, View } from "react-native";
-import BottomSlidableModal from "../universial/slidemodal_bottom";
-import Icon from "../../atoms/icon";
+import BottomSlidableModal from "../../universial/slidemodal_bottom";
+import Icon from "../../../atoms/icon";
 import useListBottomSlidableModalStyles from "./styles";
 import { ListBottomSlidableModalProps } from "./types";
 

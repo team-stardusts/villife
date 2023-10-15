@@ -1,7 +1,7 @@
 import type { NativeStackScreenProps } from "@react-navigation/native-stack";
 import type { VillifeStackParamList } from "../../../../common/router/types";
 import type useTenantSettingScreenStyles from "./styles";
-import type { Dates } from "../../../../common/blocks/calendar_picker/types";
+import type { Dates } from "../../../../common/blocks/modal/calendar/types";
 import type { Building } from "../../../../../libs/rest_apis/villife/building/types";
 
 type TenantSettingScreenProps = NativeStackScreenProps<VillifeStackParamList, "tenant_setting">;

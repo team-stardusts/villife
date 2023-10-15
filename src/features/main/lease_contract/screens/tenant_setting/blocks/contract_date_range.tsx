@@ -2,7 +2,7 @@ import { Text, TouchableOpacity, View } from "react-native";
 import DatePickModal from "./date_pick_modal";
 import { useEffect, useState } from "react";
 import type { ContractRange } from "../types";
-import type { Dates } from "../../../../../common/blocks/calendar_picker/types";
+import type { Dates } from "../../../../../common/blocks/modal/calendar/types";
 
 export default function ContractDateRange(props: ContractRange) {
     const [modalVisible, setModalVisible] = useState<boolean>(false);

@@ -7,10 +7,10 @@ import useBuildingSendMessageScreenStyles from "./styles";
 import TentantLayout from "../../blocks/tenant_layout";
 import VillifeToastMessage from "../../../../common/atoms/toast";
 import NextButton from "./blocks/next";
-import ListBottomSlidableModal from "../../../../common/blocks/bottom_list_modal";
+import ListBottomSlidableModal from "../../../../common/blocks/modal/bottom_list";
 import { useNavigation } from "@react-navigation/native";
 import { VillifeNavigation } from "../../../../common/router/types";
-import { ModalFeature } from "../../../../common/blocks/bottom_list_modal/types";
+import { ModalFeature } from "../../../../common/blocks/modal/bottom_list/types";
 import { useState } from "react";
 
 export default function BuildingSendMessageScreen({ route }: BuildingSendMessageScreenProps) {

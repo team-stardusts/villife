@@ -21,6 +21,7 @@ function ComplaintEditor(props: ComplaintEditorProps) {
                     props.titleRef.current = text;
                 }}
                 placeholder="제목을 입력하세요"
+                //placeholderTextColor={"black"}
                 defaultValue={props.titleRef.current}
             />
             <KeyboardAwareScrollView

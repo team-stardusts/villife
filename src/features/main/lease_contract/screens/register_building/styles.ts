@@ -11,6 +11,7 @@ export default function useBuildingManagementScreenStyles() {
         },
         container: {
             flex: 1,
+            paddingTop: deviceUI.moderateScale(20),
         },
         searchingContainer: {
             marginBottom: deviceUI.moderateScale(30),
@@ -172,26 +173,34 @@ export default function useBuildingManagementScreenStyles() {
             fontFamily: theme.font.fontFamily.pretendard.medium,
             fontSize: deviceUI.moderateScale(13),
         },
-        roomsWrapper: {
+        roomsSettingBtn: {
             width: "80%",
-            height: "100%",
+            flexDirection: "row",
+            justifyContent: "center",
+            alignItems: "center",
+        },
+        roomsWrapper: {
+            width: "100%",
+            //height: "100%",
             borderRadius: deviceUI.moderateScale(10),
             borderWidth: 1,
             borderColor: theme.color.specified.lightblue,
             justifyContent: "center",
             alignItems: "center",
+            paddingVertical: deviceUI.moderateScale(4),
         },
+        roomsSettingIconWrapper: {
+            position: "absolute",
+            justifyContent: "center",
+            alignItems: "center",
+            right: -deviceUI.moderateScale(25),
+        },
+        /* 
         roomsSettingBtnWrapper: {
             width: "100%",
             justifyContent: "center",
             alignItems: "flex-start",
-        },
-        roomsSettingBtn: {
-            width: "20%",
-            justifyContent: "center",
-            alignItems: "center",
-            left: -deviceUI.moderateScale(5),
-        },
+        }, */
         roomsSettingIcon: {
             width: deviceUI.moderateScale(40),
             color: theme.color.specified.black,

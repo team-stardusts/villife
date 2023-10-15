@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import useStyler from "../../hooks/styler/hooks";
+import useStyler from "../../../hooks/styler/hooks";
 
 export default function useListBottomSlidableModalStyles() {
     const { deviceUI, theme, safetyEdgeSize } = useStyler();

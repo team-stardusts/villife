@@ -101,7 +101,7 @@ export default function RegisterBuildingScreen({ navigation, route }: RegisterBu
                         <AddressSetter styles={styles.search} onChangeBuildingInfo={setBuildingInfo} />
                     </View>
                     <View style={styles.main.dateSettingContainer}>
-                        <MFDateSetter styles={styles.date} onChangeMFDate={console.log} />
+                        <MFDateSetter styles={styles.date} onChangeMFDay={console.log} />
                     </View>
                     <View style={styles.main.roomSettingContainer}>
                         <RoomCountSetter styles={styles.room} onChangeRoomCount={setFloors} />

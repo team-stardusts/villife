@@ -1,8 +1,8 @@
 import { useState } from "react";
-import CalendarDatePicker from "../../../../../common/blocks/calendar_picker";
+import CalendarDatePicker from "../../../../../common/blocks/modal/calendar";
 import StardustModal from "../../../../../common/blocks/universial/stardust_modal";
 import useStyler from "../../../../../common/hooks/styler/hooks";
-import { Dates } from "../../../../../common/blocks/calendar_picker/types";
+import { Dates } from "../../../../../common/blocks/modal/calendar/types";
 import VillifeToastMessage from "../../../../../common/atoms/toast";
 
 export default function DatePickModal(props: DatePickModalProps) {

@@ -1,11 +1,11 @@
 import { View } from "react-native";
-import CalendarDatePicker from "../../../../../common/blocks/calendar_picker";
+import CalendarDatePicker from "../../../../../common/blocks/modal/calendar";
 import StardustModal from "../../../../../common/blocks/universial/stardust_modal";
 import { useEffect, useState } from "react";
 import EtdaTimePicker from "../../etad_time_picker";
 import { EtdaTime } from "../../etad_time_picker/types";
 import type { GuestVehicleDateSelectionModalProps } from "./types";
-import type { Dates } from "../../../../../common/blocks/calendar_picker/types";
+import type { Dates } from "../../../../../common/blocks/modal/calendar/types";
 import StardustDateParser from "../../../../../../libs/date_parser";
 import useGuestVehicleDateSelectionModalStyles from "./styles";
 import useScreenMessage from "../../../../../common/hooks/multilingual/hooks";

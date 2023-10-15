@@ -1,8 +1,8 @@
 import { View } from "react-native";
 import CalendarPicker from "react-native-calendar-picker";
 import type { DateChangedCallback } from "react-native-calendar-picker";
-import Icon from "../../atoms/icon";
-import useStyler from "../../hooks/styler/hooks";
+import Icon from "../../../atoms/icon";
+import useStyler from "../../../hooks/styler/hooks";
 import { useEffect, useState } from "react";
 import type { CalendarDatePickerProps, Dates, PickedDates } from "./types";
 

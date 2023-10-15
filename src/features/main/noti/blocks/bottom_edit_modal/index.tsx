@@ -7,7 +7,7 @@ import BottomEditModalProps from "./type";
 import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
 import useNoticeService from "../../services";
 import useUserInformation from "../../../../common/hooks/service/user_info";
-import ListBottomSlidableModal from "../../../../common/blocks/bottom_list_modal";
+import ListBottomSlidableModal from "../../../../common/blocks/modal/bottom_list";
 import { StardustAlertContent } from "../../../../common/blocks/universial/stardust_alert/types";
 import StardustAlert from "../../../../common/blocks/universial/stardust_alert";
 

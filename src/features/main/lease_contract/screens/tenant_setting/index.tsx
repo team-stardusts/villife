@@ -9,7 +9,7 @@ import Contract from "./blocks/contract";
 import Money from "./blocks/money";
 import ContractDateRange from "./blocks/contract_date_range";
 import type { Building } from "../../../../../libs/rest_apis/villife/building/types";
-import { Dates } from "../../../../common/blocks/calendar_picker/types";
+import { Dates } from "../../../../common/blocks/modal/calendar/types";
 import StardustAlert from "../../../../common/blocks/universial/stardust_alert";
 import { StardustAlertContent } from "../../../../common/blocks/universial/stardust_alert/types";
 import VillifeToastMessage from "../../../../common/atoms/toast";

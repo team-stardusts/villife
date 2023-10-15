@@ -5,8 +5,8 @@ import DetailEditModalProps from "./type";
 import { ComplaintEventEmitter } from "../../services/event";
 import useComplaintService from "../../services";
 import VillifeToastMessage from "../../../../common/atoms/toast";
-import { ModalFeature } from "../../../../common/blocks/bottom_list_modal/types";
-import ListBottomSlidableModal from "../../../../common/blocks/bottom_list_modal";
+import { ModalFeature } from "../../../../common/blocks/modal/bottom_list/types";
+import ListBottomSlidableModal from "../../../../common/blocks/modal/bottom_list";
 import StardustAlert from "../../../../common/blocks/universial/stardust_alert";
 import { StardustAlertContent } from "../../../../common/blocks/universial/stardust_alert/types";
 

@@ -3,7 +3,7 @@ import ReplyEditModalProps from "./type";
 import { ComplaintEventEmitter } from "../../services/event";
 import useComplaintService from "../../services";
 import VillifeToastMessage from "../../../../common/atoms/toast";
-import ListBottomSlidableModal from "../../../../common/blocks/bottom_list_modal";
+import ListBottomSlidableModal from "../../../../common/blocks/modal/bottom_list";
 import { StardustAlertContent } from "../../../../common/blocks/universial/stardust_alert/types";
 import StardustAlert from "../../../../common/blocks/universial/stardust_alert";
 

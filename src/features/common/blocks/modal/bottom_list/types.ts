@@ -1,4 +1,4 @@
-import { IconSeries } from "../../atoms/icon/types";
+import { IconSeries } from "../../../atoms/icon/types";
 
 export type ListBottomSlidableModalProps = {
     modalVisible: boolean;
