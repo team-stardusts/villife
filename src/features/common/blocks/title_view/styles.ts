@@ -12,7 +12,7 @@ export default function useScreenTtitleViewStyles(disabledPaddingTop?: boolean) 
             paddingHorizontal: deviceUI.moderateScale(18),
         },
         titleBox: {
-            flex: 1,
+            flex: 1.24,
             justifyContent: "center",
             textAlign: "left",
         },
