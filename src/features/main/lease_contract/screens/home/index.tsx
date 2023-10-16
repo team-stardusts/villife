@@ -6,7 +6,7 @@ import useBuildingManagementScreenStyles from "./styles";
 import BuildingTentantMessage from "../../blocks/message";
 import BuildingTenantFilter from "../../blocks/filter";
 import { useState } from "react";
-import { LayoutType } from "../../blocks/filter/blocks/layout_selector";
+import { LayoutType } from "../../blocks/filter/blocks/layout";
 import TentantLayout from "../../blocks/tenant_layout";
 import { BuildingRoomInfo } from "../../services/building_rooms/provider/types";
 

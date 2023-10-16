@@ -1,5 +1,5 @@
 export type HorizontalNumberPickingModalProps = {
-    initialNumber?: number;
+    initialIndex?: number;
     numbersRange: number[];
     modalVisible: boolean;
     setModalVisible: React.Dispatch<React.SetStateAction<boolean>>;

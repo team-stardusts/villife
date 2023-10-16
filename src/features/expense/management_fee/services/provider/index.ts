@@ -23,9 +23,9 @@ export default class ManagementFeePaymentServiceProvider
     } */
 
     public async getManagementFeeBills(
-        params: ManagementFee.GetManagementFeeBills.Params
+        params: ManagementFee.GetBuildingMFHistory.Params
     ): Promise<ManagementFee.ManagementFee[]> {
-        const result = await this._api.getManagementFeeBills(params);
+        const result = await this._api.getBuildingManagementFeeHistory(params);
 
         if (!result.isSuccessful || result.data?.data === undefined) {
             this.printWhyFailed(result.data as AxiosResponse);
@@ -37,9 +37,9 @@ export default class ManagementFeePaymentServiceProvider
     }
 
     public async getUserManagementFeeBills(
-        params: ManagementFee.GetUserManagementFeeBills.Params
+        params: ManagementFee.GetUserMFHistory.Params
     ): Promise<ManagementFee.ManagementFee[]> {
-        const result = await this._api.getUserManagementFeeBills(params);
+        const result = await this._api.getUserManagementFeeHistory(params);
 
         if (!result.isSuccessful || result.data?.data === undefined) {
             this.printWhyFailed(result.data, "왜 Undefine일까?");

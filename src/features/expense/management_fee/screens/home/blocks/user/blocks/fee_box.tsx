@@ -1,9 +1,9 @@
 import { Text, TouchableOpacity, View } from "react-native";
-import { ManagementFeeBoxProps } from "../types";
-import ContentBox from "../../../../../common/blocks/content_box";
 import { useNavigation } from "@react-navigation/native";
-import { VillifeNavigation } from "../../../../../common/router/types";
-import SpinningWon from "../../../blocks/icon/spinning_won";
+import { VillifeNavigation } from "../../../../../../../common/router/types";
+import ContentBox from "../../../../../../../common/blocks/content_box";
+import SpinningWon from "../../../../../blocks/icon/spinning_won";
+import { ManagementFeeBoxProps } from "../types";
 
 export default function ManagementFeeBox(props: ManagementFeeBoxProps) {
     const navigation = useNavigation<VillifeNavigation>();

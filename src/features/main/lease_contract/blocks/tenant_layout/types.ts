@@ -1,5 +1,5 @@
 import { BuildingRoomInfo } from "../../services/building_rooms/provider/types";
-import { LayoutType } from "../filter/blocks/layout_selector";
+import { LayoutType } from "../filter/blocks/layout";
 
 export type TentantLayoutProps = TentantLayoutDefaultProps & {
     tenants: BuildingRoomInfo[];

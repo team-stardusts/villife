@@ -1,14 +1,14 @@
 import { Response, ResponseForTest } from "../../types";
 
-export default interface IVillifeExpenseRestClient extends ManagementFee.IManagementFeeBillGettable {}
+export default interface IVillifeExpenseRestClient extends ManagementFee.ManagementFeeHistoryGettable {}
 
 export namespace ManagementFee {
-    export interface IManagementFeeBillGettable {
-        getManagementFeeBills(params: GetManagementFeeBills.Params): ResponseForTest<GetManagementFeeBills.Result>;
-        getUserManagementFeeBills(params: GetUserManagementFeeBills.Params): Response<GetUserManagementFeeBills.Result>;
+    export interface ManagementFeeHistoryGettable {
+        getBuildingManagementFeeHistory(params: GetBuildingMFHistory.Params): Response<GetBuildingMFHistory.Result>;
+        getUserManagementFeeHistory(params: GetUserMFHistory.Params): Response<GetUserMFHistory.Result>;
     }
 
-    export namespace GetUserManagementFeeBills {
+    export namespace GetUserMFHistory {
         export type Params = {
             unpaidOnly?: true;
         };
@@ -20,15 +20,24 @@ export namespace ManagementFee {
         export type Result = ManagementFee[];
     }
 
-    export namespace GetManagementFeeBills {
+    export namespace GetBuildingMFHistory {
         export type Params = {
-            startYear: number;
+            buildingID: number;
+            endMonth: number;
             endYear: number;
             startMonth: number;
-            endMonth: number;
+            startYear: number;
+            unpaidOnly?: boolean;
         };
 
-        export type Body = Params;
+        export type ReqParams = {
+            building_id: number;
+            end_month: number;
+            end_year: number;
+            start_month: number;
+            start_year: number;
+            unpaid_only?: boolean;
+        };
 
         export type Result = ManagementFee[];
     }

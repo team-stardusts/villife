@@ -2,7 +2,7 @@ import { StyleSheet } from "react-native";
 import useStyler from "../../hooks/styler/hooks";
 
 export default function useScreenTtitleViewStyles(disabledPaddingTop?: boolean) {
-    const { deviceUI, theme, safetyEdgeSize } = useStyler();
+    const { deviceUI, theme } = useStyler();
 
     return StyleSheet.create({
         container: {
@@ -26,12 +26,12 @@ export default function useScreenTtitleViewStyles(disabledPaddingTop?: boolean) 
             ...theme.font.researved.h5,
         },
         children: {
-            flex: 8.2,
+            flex: 9.2,
         },
         btnBox: {
             flex: 0.8,
             position: "relative",
-            marginTop: deviceUI.moderateScale(20),
+            //marginTop: deviceUI.moderateScale(20),
             left: -deviceUI.moderateScale(18),
         },
     });

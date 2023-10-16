@@ -1,8 +1,51 @@
-import { Response, ResponseForTest } from "../../types";
+import { Response } from "../../types";
 import AVillifeServerModule from "../absc";
 import IVillifeExpenseRestClient, { ManagementFee } from "./types";
 
-const dummyData: ManagementFee.GetManagementFeeBills.Result = [
+export default class VillifeExpenseRestClient extends AVillifeServerModule implements IVillifeExpenseRestClient {
+    public async getUserManagementFeeHistory(
+        params: ManagementFee.GetUserMFHistory.Params
+    ): Response<ManagementFee.GetUserMFHistory.Result> {
+        const route = this.routes.expense.handleMyBill;
+        const _params: ManagementFee.GetUserMFHistory.ReqParams = {
+            unpaid_only: params.unpaidOnly ? "yes" : "no",
+        };
+
+        return await this.requestAuthable<
+            ManagementFee.GetUserMFHistory.ReqParams,
+            ManagementFee.GetUserMFHistory.Result
+        >({
+            method: "get",
+            url: route,
+            params: _params,
+        });
+    }
+
+    public async getBuildingManagementFeeHistory(
+        params: ManagementFee.GetBuildingMFHistory.Params
+    ): Response<ManagementFee.GetBuildingMFHistory.Result> {
+        const route = this.routes.expense.handleBuildingBill;
+        const _params: ManagementFee.GetBuildingMFHistory.ReqParams = {
+            building_id: params.buildingID,
+            end_month: params.endMonth,
+            end_year: params.endYear,
+            start_month: params.startMonth,
+            start_year: params.startYear,
+            unpaid_only: params.unpaidOnly ? true : false,
+        };
+
+        return await this.requestAuthable<
+            ManagementFee.GetBuildingMFHistory.ReqParams,
+            ManagementFee.GetBuildingMFHistory.Result
+        >({
+            method: "get",
+            url: route,
+            params: _params,
+        });
+    }
+}
+
+const dummyData: ManagementFee.GetBuildingMFHistory.Result = [
     {
         bill_id: 1,
         category: "hello",
@@ -130,40 +173,3 @@ const dummyData: ManagementFee.GetManagementFeeBills.Result = [
         payment_info: {},
     },
 ];
-
-export default class VillifeExpenseRestClient extends AVillifeServerModule implements IVillifeExpenseRestClient {
-    public async getUserManagementFeeBills(
-        params: ManagementFee.GetUserManagementFeeBills.Params
-    ): Response<ManagementFee.GetUserManagementFeeBills.Result> {
-        const route = this.routes.expense.handleMyBill;
-        const data: ManagementFee.GetUserManagementFeeBills.ReqParams = {
-            unpaid_only: params.unpaidOnly ? "yes" : "no",
-        };
-
-        return await this.requestAuthable<
-            ManagementFee.GetUserManagementFeeBills.ReqParams,
-            ManagementFee.GetUserManagementFeeBills.Result
-        >({
-            method: "get",
-            url: route,
-            params: data,
-        });
-    }
-
-    public async getManagementFeeBills(
-        params: ManagementFee.GetManagementFeeBills.Params
-    ): ResponseForTest<ManagementFee.GetManagementFeeBills.Result> {
-        const _dummy = dummyData.filter((fee) => {
-            if (!(fee.year >= params.startYear && fee.year <= params.endYear)) {
-                return false;
-            }
-
-            if (!(fee.month >= params.startMonth && fee.month <= params.endMonth)) {
-                return false;
-            }
-
-            return true;
-        });
-        return await this.requestForTest<ManagementFee.GetManagementFeeBills.Result>(_dummy);
-    }
-}

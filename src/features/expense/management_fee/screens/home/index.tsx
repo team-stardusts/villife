@@ -4,11 +4,13 @@ import NavigationView from "../../../../common/blocks/navigation";
 import ManagementFeeHomeScreenProps from "./types";
 import useManagementFeeHomeScreenStyles from "./styles";
 import usePayer from "../../services/payer";
-import ManagementFeeBox from "./blocks/fee_box";
-import BillBox from "./blocks/bill_box";
-import ManagementFeeStatusScrollView from "./blocks/status_scrollview";
+import BillBox from "./blocks/user/blocks/bill_box";
 import { useEffect } from "react";
 import useUserInformation from "../../../../common/hooks/service/user_info";
+import ManagementFeeBox from "./blocks/user/blocks/fee_box";
+import ManagementFeeStatusScrollView from "./blocks/user/blocks/status_scrollview";
+import UserMFView from "./blocks/user";
+import AdminMFView from "./blocks/admin";
 
 export default function ManagementFeeHomeScreen({ navigation, route }: ManagementFeeHomeScreenProps) {
     const messages = useScreenMessage();
@@ -29,23 +31,7 @@ export default function ManagementFeeHomeScreen({ navigation, route }: Managemen
                 applyDefaultHorizontalPadding: false,
                 applyDefaultVerticalPadding: false,
             }}>
-            <ScrollView style={styles.main.container}>
-                <View style={styles.main.wrapper}>
-                    <ManagementFeeBox
-                        styles={styles.managementFee}
-                        manangementFee={payer.history.thisMonthBillOfUser}
-                    />
-                    <BillBox
-                        styles={styles.bill}
-                        manangementFee={payer.history.thisMonthBillOfUser}
-                        unpaidFee={payer.history.userUnpaidFee}
-                    />
-                </View>
-                <ManagementFeeStatusScrollView
-                    styles={styles.managementFeeStatus}
-                    manangementFee={payer.history.user}
-                />
-            </ScrollView>
+            {user?.isAdmin ? <AdminMFView /> : <UserMFView />}
         </NavigationView>
     );
 }

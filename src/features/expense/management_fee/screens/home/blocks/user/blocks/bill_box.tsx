@@ -1,8 +1,8 @@
 import { Text, TouchableOpacity, View } from "react-native";
-import { ManagementFeeBillBoxProps } from "../types";
-import ContentBox from "../../../../../common/blocks/content_box";
+import ContentBox from "../../../../../../../common/blocks/content_box";
 import { useNavigation } from "@react-navigation/native";
-import { VillifeNavigation } from "../../../../../common/router/types";
+import { VillifeNavigation } from "../../../../../../../common/router/types";
+import { ManagementFeeBillBoxProps } from "../types";
 
 export default function BillBox(props: ManagementFeeBillBoxProps) {
     const navigation = useNavigation<VillifeNavigation>();

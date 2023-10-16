@@ -2,7 +2,7 @@ import { View } from "react-native";
 import useBuildingTenantFilterStyles from "./styles";
 import Menu from "./blocks/menu";
 import { useEffect, useState } from "react";
-import LayoutSelector from "./blocks/layout_selector";
+import LayoutSelector from "./blocks/layout";
 import { BuildingTenantFilterProps, MenuType } from "./types";
 import TenantFilter from "./blocks/filter";
 import useUserInformation from "../../../../common/hooks/service/user_info";

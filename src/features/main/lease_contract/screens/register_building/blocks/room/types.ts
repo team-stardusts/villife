@@ -24,10 +24,3 @@ export type FloorSetterRowProps = FloorSetterDefaultProps & {
 export type FloorAdditorProps = FloorSetterDefaultProps & {
     onPress(): void;
 };
-
-export type RoomsSettingModalProps = {
-    initialRooms: number;
-    modalVisible: boolean;
-    setModalVisible: React.Dispatch<React.SetStateAction<boolean>>;
-    onChangeRoomCount(rooms: number): void;
-};

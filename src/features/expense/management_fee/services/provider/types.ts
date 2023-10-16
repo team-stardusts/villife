@@ -7,8 +7,6 @@ export interface IManagementFeePaymentServiceProvider extends IBillGettable {}
 } */
 
 export interface IBillGettable {
-    getManagementFeeBills(params: ManagementFee.GetManagementFeeBills.Params): Promise<ManagementFee.ManagementFee[]>;
-    getUserManagementFeeBills(
-        params: ManagementFee.GetUserManagementFeeBills.Params
-    ): Promise<ManagementFee.ManagementFee[]>;
+    getManagementFeeBills(params: ManagementFee.GetBuildingMFHistory.Params): Promise<ManagementFee.ManagementFee[]>;
+    getUserManagementFeeBills(params: ManagementFee.GetUserMFHistory.Params): Promise<ManagementFee.ManagementFee[]>;
 }

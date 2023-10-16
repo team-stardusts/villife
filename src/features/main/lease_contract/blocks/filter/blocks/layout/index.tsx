@@ -1,8 +1,8 @@
 import { View } from "react-native";
-import useBuildingTenantFilterStyles from "../styles";
 import { TouchableOpacity } from "react-native";
-import Icon from "../../../../../common/atoms/icon";
+import Icon from "../../../../../../common/atoms/icon";
 import { useEffect, useState } from "react";
+import { LayoutSelectorProps, LayoutType } from "./types";
 
 export default function LayoutSelector(props: LayoutSelectorProps) {
     const [crrLayout, setCrrLayout] = useState<LayoutType>("list");
@@ -53,10 +53,3 @@ export default function LayoutSelector(props: LayoutSelectorProps) {
         </View>
     );
 }
-
-type LayoutSelectorProps = {
-    styles: ReturnType<typeof useBuildingTenantFilterStyles>["main"];
-    onSelect(type: LayoutType): void;
-};
-
-export type LayoutType = "list" | "matrix";

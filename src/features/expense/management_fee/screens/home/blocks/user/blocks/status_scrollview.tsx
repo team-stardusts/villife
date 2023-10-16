@@ -1,12 +1,12 @@
 import { ScrollView, Text, TouchableOpacity, View } from "react-native";
-import { ManagementFeeStatusScrollViewProps } from "../types";
-import ContentBox from "../../../../../common/blocks/content_box";
-import useManagementFeeHomeScreenStyles from "../styles";
-import { ManagementFee } from "../../../../../../libs/rest_apis/villife/expense/types";
-import Icon from "../../../../../common/atoms/icon";
+import useUserMFViewStyles from "../styles";
 import { useEffect, useRef, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
-import { VillifeNavigation } from "../../../../../common/router/types";
+import { ManagementFeeStatusScrollViewProps } from "../types";
+import { ManagementFee } from "../../../../../../../../libs/rest_apis/villife/expense/types";
+import { VillifeNavigation } from "../../../../../../../common/router/types";
+import ContentBox from "../../../../../../../common/blocks/content_box";
+import Icon from "../../../../../../../common/atoms/icon";
 
 export default function ManagementFeeStatusScrollView(props: ManagementFeeStatusScrollViewProps) {
     const [fees, setFees] = useState<ManagementFee.ManagementFee[]>([]);
@@ -112,6 +112,6 @@ function PaymentByMonth(props: PaymentByMonthProps) {
 type PaymentByMonthProps = {
     isFirstElement: boolean;
     isLastElement: boolean;
-    styles: ReturnType<typeof useManagementFeeHomeScreenStyles>["managementFeeStatus"];
+    styles: ReturnType<typeof useUserMFViewStyles>["managementFeeStatus"];
     managementFee: ManagementFee.ManagementFee;
 };

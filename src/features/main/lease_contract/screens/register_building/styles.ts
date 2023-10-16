@@ -19,7 +19,9 @@ export default function useBuildingManagementScreenStyles() {
         dateSettingContainer: {
             marginBottom: deviceUI.moderateScale(30),
         },
-        roomSettingContainer: {},
+        roomSettingContainer: {
+            marginBottom: deviceUI.moderateScale(15),
+        },
     });
 
     const search = StyleSheet.create({

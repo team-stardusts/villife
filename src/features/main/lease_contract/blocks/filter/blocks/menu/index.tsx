@@ -1,7 +1,6 @@
 import { Text, TouchableOpacity, View } from "react-native";
-import useBuildingTenantFilterStyles from "../styles";
-import useScreenMessage from "../../../../../common/hooks/multilingual/hooks";
-import { MenuType } from "../types";
+import useScreenMessage from "../../../../../../common/hooks/multilingual/hooks";
+import { MenuProps } from "./types";
 
 export default function Menu(props: MenuProps) {
     const messages = useScreenMessage().messages.words;
@@ -34,10 +33,3 @@ export default function Menu(props: MenuProps) {
         </View>
     );
 }
-
-type MenuProps = {
-    styles: ReturnType<typeof useBuildingTenantFilterStyles>["main"];
-    type: MenuType;
-    isSelected: boolean;
-    onMenuPress(type: MenuType): void;
-};
