@@ -70,49 +70,17 @@ export default function ComplaintHomeScreen({ navigation, route }: ComplaintHome
                             />
                         </TouchableOpacity>
                     </View>
-                    {viewModel.uiState.complaintsWillBeDisplayed.map((item) => (
-                        <View
-                            key={item.id} // Make sure to assign a unique key
-                            style={{ alignItems: "center" }}>
-                            <ComplaintContentCard
-                                info={item}
-                                onPress={() => navigation.navigate("complaint_detail", item)}
-                            />
-                        </View>
-                    ))}
-                    {/*  <FlatList
-                        style={styles.flatList}
-                        contentContainerStyle={styles.flatListContainer}
-                        data={viewModel.uiState.complaintsWillBeDisplayed}
-                        ListEmptyComponent={() => {
-                            return (
-                                <TouchableOpacity
-                                    style={styles.whenEmptyCard}
-                                    onPress={() => {
-                                        navigation.navigate("complaint_register", {});
-                                    }}>
-                                    <Text style={styles.whenEmptyCardText}>
-                                        {messages.messages.main.complaint.when_complaint_empty}
-                                    </Text>
-                                    <IconPlus
-                                        size={(styles.plusIcon.width as number) * 2}
-                                        color={styles.plusIcon.borderColor}
-                                    />
-                                </TouchableOpacity>
-                            );
-                        }}
-                        renderItem={(info) => {
-                            return (
-                                <Pressable
-                                    onPress={() => {
-                                        navigation.navigate("complaint_detail", info.item);
-                                    }}
-                                    style={{ marginVertical: 2 }}>
-                                    <ComplaintContentCard info={info.item} />
-                                </Pressable>
-                            );
-                        }}
-                    /> */}
+                    {viewModel.uiState.complaintsWillBeDisplayed.map((item) => {
+                        console.log("[complaint 변경 ComplaintHomeScreen] : ", item);
+                        return (
+                            <View key={item.id} style={{ alignItems: "center" }}>
+                                <ComplaintContentCard
+                                    info={item}
+                                    onPress={() => navigation.navigate("complaint_detail", item)}
+                                />
+                            </View>
+                        );
+                    })}
                 </View>
             </ScrollView>
         </NavigationView>

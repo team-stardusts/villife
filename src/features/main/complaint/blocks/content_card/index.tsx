@@ -57,7 +57,7 @@ function ComplaintContentCard(props: ComplaintContentCardProps) {
                 useNativeDriver: false,
             }), */
         ]).start();
-    }, [status]);
+    }, [status, props.info.status]);
 
     return (
         <View style={props.editMode ? styles.editModeContainer : styles.container}>
