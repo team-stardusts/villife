@@ -3,13 +3,11 @@ import useScreenTopFilterStyles from "./styles";
 import Menu from "./blocks/menu";
 import { ScreenTopFilterProps } from "./types";
 import { useState } from "react";
-import HorizontalFilter from "./blocks/filter/nodes";
 import Filter from "./blocks/filter";
 
 export default function ScreenTopFilter(props: ScreenTopFilterProps) {
     const styles = useScreenTopFilterStyles();
     const [crrMenu, setCrrMenu] = useState<string | null>(null);
-    //console.log(props.filters[0].filter(props.data[0], props.filters[0].headers));
 
     return (
         <View style={styles.container}>
@@ -24,7 +22,14 @@ export default function ScreenTopFilter(props: ScreenTopFilterProps) {
                 {props.filters.map(
                     (filter, index) =>
                         filter.name === crrMenu && (
-                            <Filter key={index} {...filter} style={props.style} filterStyle={props.filterStyle} />
+                            <Filter
+                                key={index}
+                                {...filter}
+                                data={props.data}
+                                style={props.style}
+                                filterStyle={props.filterStyle}
+                                onFilterData={props.onFilterData}
+                            />
                         )
                 )}
             </View>

@@ -2,16 +2,25 @@ import { View } from "react-native";
 import useFilterStyles from "./styles";
 import { FilterProps } from "./types";
 import HorizontalFilter from "./nodes";
+import { useEffect, useState } from "react";
 
 export default function Filter(props: FilterProps) {
     const styles = useFilterStyles({ ...props });
+    const [selectedItems, setSelectedItems] = useState<string[] | null>(null);
+
+    useEffect(() => {
+        if (selectedItems === null) return;
+
+        props.onFilterData(props.data.filter((datum) => props.filter(datum, selectedItems)));
+    }, [selectedItems]);
+
     return (
         <View style={styles.main.container}>
             <HorizontalFilter
                 styles={styles.nodes}
-                headers={props.headers}
+                headers={props.conditions}
                 postfix={props?.postfix}
-                onChangeSelectedItems={console.log}
+                onChangeSelectedItems={setSelectedItems}
                 enableSelectAll={props.enableSelectAll}
             />
         </View>

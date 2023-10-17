@@ -14,11 +14,12 @@ export type ScreenTopFilterProps = {
         selectedBackgroundColor?: ColorValue;
         selectedBorderColor?: ColorValue;
     };
+    onFilterData(data: ScreenTopFilterProps["data"]): void;
 };
 
 export type Filter<T> = {
     name: string;
-    headers: string[];
+    conditions: string[];
     postfix?: string;
     enableSelectAll?: boolean;
     filter: (datum: T, selectedHeaders: string[]) => boolean;

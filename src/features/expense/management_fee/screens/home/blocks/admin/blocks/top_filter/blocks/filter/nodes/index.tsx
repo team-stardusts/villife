@@ -22,8 +22,12 @@ export default function HorizontalFilter(props: HorizontalFilterProps) {
     }, [props.headers]);
 
     useEffect(() => {
-        console.log(selectedItems);
-        props.onChangeSelectedItems(selectedItems);
+        let _selectedItems = [...selectedItems];
+
+        if (_selectedItems.find((item) => item === messages.all) && items.length > 2) {
+            _selectedItems = [...items.slice(1)];
+        }
+        props.onChangeSelectedItems(_selectedItems);
     }, [selectedItems]);
 
     const handlePressItem = (item: string) => {

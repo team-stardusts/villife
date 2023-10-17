@@ -20,57 +20,56 @@ export default function AdminMFView() {
                 data={[
                     {
                         name: "성빈",
-                        age: 1,
-                        job: "농부",
+                        floor: 1,
+                        state: "가입",
                     },
                     {
                         name: "준우",
-                        age: 2,
-                        job: "어부",
+                        floor: 2,
+                        state: "미가입",
                     },
                     {
                         name: "태성",
-                        age: 3,
-                        job: "광부",
+                        floor: 3,
+                        state: "공실",
                     },
                 ]}
+                onFilterData={(d) => console.log("Hello", d)}
                 filters={[
                     {
                         name: "층",
-                        headers: ["1", "2", "3"],
+                        conditions: ["1", "2", "3"],
                         postfix: "층",
-                        filter: (datum: testt, selectedHeaders: string[]) => {
-                            console.log(datum, selectedHeaders);
-                            return true;
-                        },
                         enableSelectAll: true,
+                        filter: (datum: testt, selectedConditions: string[]) => {
+                            return selectedConditions.find((condition) => condition === datum.floor.toString())
+                                ? true
+                                : false;
+                        },
                     },
                     {
                         name: "계약",
-                        headers: ["미등록", "전세", "월세"],
-                        filter: (datum: testt, selectedHeaders: string[]) => {
-                            console.log(datum, selectedHeaders);
+                        conditions: ["미등록", "전세", "월세"],
+                        enableSelectAll: true,
+                        filter: (datum: testt, selectedConditions: string[]) => {
                             return true;
                         },
-                        enableSelectAll: true,
                     },
                     {
                         name: "상태",
-                        headers: ["가입", "미가입", "공실"],
-                        filter: (datum: testt, selectedHeaders: string[]) => {
-                            console.log(datum, selectedHeaders);
-                            return true;
-                        },
+                        conditions: ["가입", "미가입", "공실"],
                         enableSelectAll: true,
+                        filter: (datum: testt, selectedConditions: string[]) => {
+                            return selectedConditions.find((condition) => condition === datum.state) ? true : false;
+                        },
                     },
                     {
                         name: "만료",
-                        headers: ["만료", "만료 임박"],
-                        filter: (datum: testt, selectedHeaders: string[]) => {
-                            console.log(datum, selectedHeaders);
+                        conditions: ["만료", "만료 임박"],
+                        enableSelectAll: true,
+                        filter: (datum: testt, selectedConditions: string[]) => {
                             return true;
                         },
-                        enableSelectAll: true,
                     },
                 ]}
             />
@@ -80,8 +79,8 @@ export default function AdminMFView() {
 
 type testt = {
     name: string;
-    age: number;
-    job: string;
+    floor: number;
+    state: string;
 };
 
 /* 
