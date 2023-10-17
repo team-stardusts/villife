@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import useStyler from "../../../../../../../../../../common/hooks/styler/hooks";
+import useStyler from "../../../../hooks/styler/hooks";
 
 export default function useMenuStyles() {
     const { deviceUI, theme } = useStyler();

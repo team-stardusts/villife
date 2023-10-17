@@ -1,9 +1,18 @@
-import { ScrollView } from "react-native";
-import ScreenTopFilter from "./blocks/top_filter";
+import { ScrollView, View } from "react-native";
+import ScreenTopFilter from "../../../../../../common/blocks/top_filter";
 import useStyler from "../../../../../../common/hooks/styler/hooks";
+import { AdminMFViewProps } from "./types";
+import { AdminPaymentManagerBase } from "../../../../services/payment/types";
+import useManagementFeeManager from "../../../../services/payment";
+import { useEffect } from "react";
+import buildingManagementFeeFilter from "./filter";
 
-export default function AdminMFView() {
+export default function AdminMFView(props: AdminMFViewProps) {
     const { deviceUI, theme } = useStyler();
+    const manager: AdminPaymentManagerBase = useManagementFeeManager();
+
+    useEffect(() => {}, []);
+
     return (
         <ScrollView>
             <ScreenTopFilter
@@ -17,61 +26,9 @@ export default function AdminMFView() {
                     selectedBackgroundColor: theme.color.specified.white,
                     backgroundColor: theme.color.series.grey.level1,
                 }}
-                data={[
-                    {
-                        name: "성빈",
-                        floor: 1,
-                        state: "가입",
-                    },
-                    {
-                        name: "준우",
-                        floor: 2,
-                        state: "미가입",
-                    },
-                    {
-                        name: "태성",
-                        floor: 3,
-                        state: "공실",
-                    },
-                ]}
-                onFilterData={(d) => console.log("Hello", d)}
-                filters={[
-                    {
-                        name: "층",
-                        conditions: ["1", "2", "3"],
-                        postfix: "층",
-                        enableSelectAll: true,
-                        filter: (datum: testt, selectedConditions: string[]) => {
-                            return selectedConditions.find((condition) => condition === datum.floor.toString())
-                                ? true
-                                : false;
-                        },
-                    },
-                    {
-                        name: "계약",
-                        conditions: ["미등록", "전세", "월세"],
-                        enableSelectAll: true,
-                        filter: (datum: testt, selectedConditions: string[]) => {
-                            return true;
-                        },
-                    },
-                    {
-                        name: "상태",
-                        conditions: ["가입", "미가입", "공실"],
-                        enableSelectAll: true,
-                        filter: (datum: testt, selectedConditions: string[]) => {
-                            return selectedConditions.find((condition) => condition === datum.state) ? true : false;
-                        },
-                    },
-                    {
-                        name: "만료",
-                        conditions: ["만료", "만료 임박"],
-                        enableSelectAll: true,
-                        filter: (datum: testt, selectedConditions: string[]) => {
-                            return true;
-                        },
-                    },
-                ]}
+                data={manager.history}
+                onFilterData={() => {}}
+                filters={buildingManagementFeeFilter}
             />
         </ScrollView>
     );

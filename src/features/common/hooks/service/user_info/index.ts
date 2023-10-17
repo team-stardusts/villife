@@ -2,14 +2,14 @@ import { useRecoilValue } from "recoil";
 import { loginDataState } from "../../states/atoms/login";
 import { LoginDataType } from "../../../../../libs/storage/tables/login/types";
 import { VILLIFE_AUTHORITY } from "../../../../../libs/rest_apis/villife/absc";
-import { IUserInfoProvider, UseUserInfoReturns } from "./types";
+import { UserInfo } from "./types";
 import { AdminInformation } from "../../states/atoms/user/admin_only/type";
 import { adminInfoState } from "../../states/atoms/user/admin_only";
 import { SimpleBuildingInfo } from "../../../../../libs/rest_apis/villife/user_info/types";
 import useAdminInfoService from "./service";
 import { LOGIN_BUILDING_ID_TEMP } from "../../../../auth/services/authentication";
 
-export default function useUserInformation(): UseUserInfoReturns {
+export default function useUserInformation(): UserInfo | null {
     const adminService = useAdminInfoService();
     const loginData = useRecoilValue<LoginDataType | null>(loginDataState);
     const adminInfo = useRecoilValue<AdminInformation | null>(adminInfoState);
@@ -17,7 +17,7 @@ export default function useUserInformation(): UseUserInfoReturns {
     if (loginData === null) return null;
     if (loginData.building_id === LOGIN_BUILDING_ID_TEMP) return null;
 
-    class UserInfoProvider implements IUserInfoProvider {
+    class UserInfoProvider implements UserInfo {
         public readonly rawdata: LoginDataType;
         private readonly adminInfo: AdminInformation | null;
 

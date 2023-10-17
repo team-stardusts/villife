@@ -22,7 +22,7 @@ export default class ManagementFeePaymentServiceProvider
         return result.data.data;
     } */
 
-    public async getManagementFeeBills(
+    public async getBuildingMFHistory(
         params: ManagementFee.GetBuildingMFHistory.Params
     ): Promise<ManagementFee.ManagementFee[]> {
         const result = await this._api.getBuildingManagementFeeHistory(params);
@@ -36,7 +36,7 @@ export default class ManagementFeePaymentServiceProvider
         return result.data.data;
     }
 
-    public async getUserManagementFeeBills(
+    public async getUserMFHistory(
         params: ManagementFee.GetUserMFHistory.Params
     ): Promise<ManagementFee.ManagementFee[]> {
         const result = await this._api.getUserManagementFeeHistory(params);

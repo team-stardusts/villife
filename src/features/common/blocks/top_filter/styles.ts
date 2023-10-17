@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import useStyler from "../../../../../../../../common/hooks/styler/hooks";
+import useStyler from "../../hooks/styler/hooks";
 
 export default function useScreenTopFilterStyles() {
     const { theme, deviceUI } = useStyler();
@@ -17,6 +17,13 @@ export default function useScreenTopFilterStyles() {
         filter: {
             flex: 5,
             backgroundColor: theme.color.series.grey.level1,
+            flexDirection: "row",
+        },
+        filterComponent: {
+            flex: 8,
+        },
+        sideComponent: {
+            flex: 2,
         },
     });
 }

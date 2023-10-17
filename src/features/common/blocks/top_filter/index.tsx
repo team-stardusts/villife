@@ -19,18 +19,26 @@ export default function ScreenTopFilter(props: ScreenTopFilterProps) {
                 />
             </View>
             <View style={styles.filter}>
-                {props.filters.map(
-                    (filter, index) =>
-                        filter.name === crrMenu && (
-                            <Filter
-                                key={index}
-                                {...filter}
-                                data={props.data}
-                                style={props.style}
-                                filterStyle={props.filterStyle}
-                                onFilterData={props.onFilterData}
-                            />
-                        )
+                <View style={styles.filterComponent}>
+                    {props.filters.map(
+                        (filter, index) =>
+                            filter.name === crrMenu && (
+                                <Filter
+                                    key={index}
+                                    data={props.data}
+                                    style={props.style}
+                                    filterStyle={props.filterStyle}
+                                    onFilterData={props.onFilterData}
+                                    {...filter}
+                                />
+                            )
+                    )}
+                </View>
+
+                {props.sideComponent && (
+                    <View style={styles.sideComponent}>
+                        <props.sideComponent />
+                    </View>
                 )}
             </View>
         </View>

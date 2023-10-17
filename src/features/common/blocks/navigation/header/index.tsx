@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Animated, Text, TouchableOpacity, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { VillifeRouterParams } from "../../../router/types";
@@ -6,11 +6,7 @@ import Icon from "../../../atoms/icon";
 import useNavigationViewHeaderStyles from "./styles";
 import { NavigationViewHeaderProps } from "./types";
 import BuildingSelector from "./building_selector";
-import {
-    ANIMATION_DURATION_DEFAULT,
-    ANIMATION_DURATION_FAST_LV2,
-    ANIMATION_DURATION_FAST_LV3,
-} from "../../../constants";
+import { ANIMATION_DURATION_FAST_LV3 } from "../../../constants";
 import useStyler from "../../../hooks/styler/hooks";
 
 export default function NavigationViewHeader(props: NavigationViewHeaderProps) {

@@ -1,8 +1,11 @@
+import { FunctionComponent, ReactElement } from "react";
 import { ColorValue } from "react-native";
+import { ArrayElement } from "../../global_interface";
 
 export type ScreenTopFilterProps = {
     data: any[];
     filters: Filter<ArrayElement<ScreenTopFilterProps["data"]>>[];
+    sideComponent?: () => ReactElement;
     style?: {
         borderTopColor?: ColorValue;
         borderBottomColor?: ColorValue;
@@ -24,7 +27,3 @@ export type Filter<T> = {
     enableSelectAll?: boolean;
     filter: (datum: T, selectedHeaders: string[]) => boolean;
 };
-
-export type ArrayElement<ArrayType extends readonly unknown[]> = ArrayType extends readonly (infer ElementType)[]
-    ? ElementType
-    : never;

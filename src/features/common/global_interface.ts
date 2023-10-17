@@ -8,3 +8,7 @@ export interface IEventEmittable<TEventName, TEventData> {
     events: TEventName[];
     emit(eventName: TEventName, eventData: TEventData): void;
 }
+
+export type ArrayElement<ArrayType extends readonly unknown[]> = ArrayType extends readonly (infer ElementType)[]
+    ? ElementType
+    : never;

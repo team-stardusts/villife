@@ -2,16 +2,22 @@ import { ManagementFee } from "../../../../../../libs/rest_apis/villife/expense/
 import { UserPaymentManagerBase } from "../types";
 import PaymentManager from "./abstract";
 
-export default function useUserManagementFeeManager() {
-    class UserPaymentManager extends PaymentManager implements UserPaymentManagerBase {
-        readonly isAdmin: boolean = false;
-        history: ManagementFee.ManagementFee[] = [];
-        unpaidFee: number = 0;
+class UserPaymentManager extends PaymentManager implements UserPaymentManagerBase {
+    readonly isAdmin: boolean = false;
+    history: ManagementFee.ManagementFee[] = [];
+    unpaidFee: number = 0;
 
-        public updateHistory(): Promise<this> {
-            return Promise.resolve(this);
-        }
+    public async updateHistory(): Promise<this> {
+        if (this._userInfo === null) return this;
+
+        const history = await this._api.getUserMFHistory({});
+
+        this._historyStateSetter(history);
+
+        this.history = history;
+
+        return this;
     }
-
-    return new UserPaymentManager();
 }
+
+export default UserPaymentManager;

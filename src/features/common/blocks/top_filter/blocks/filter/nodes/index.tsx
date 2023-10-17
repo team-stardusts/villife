@@ -1,6 +1,6 @@
 import { ScrollView, Text, TouchableOpacity, View } from "react-native";
 import { useEffect, useState } from "react";
-import useScreenMessage from "../../../../../../../../../../../common/hooks/multilingual/hooks";
+import useScreenMessage from "../../../../../hooks/multilingual/hooks";
 import { HorizontalFilterProps } from "./types";
 
 export default function HorizontalFilter(props: HorizontalFilterProps) {
@@ -34,9 +34,14 @@ export default function HorizontalFilter(props: HorizontalFilterProps) {
         if (props.enableSelectAll) {
             const comparison = [...items];
             const allOfTheSelectedItems = [...selectedItems, item];
+
+            if (allOfTheSelectedItems.find((value) => value === messages.all)) {
+                allOfTheSelectedItems.shift();
+            }
+
             comparison.shift(); // items에 "전체"가 포함되어 있으므로 삭제
 
-            if (JSON.stringify(comparison) === JSON.stringify(allOfTheSelectedItems)) {
+            if (JSON.stringify(comparison.sort()) === JSON.stringify(allOfTheSelectedItems.sort())) {
                 setSelectedItems([messages.all]);
 
                 return;

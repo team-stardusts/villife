@@ -21,7 +21,7 @@ interface IAdminInfoProvidable {
     changeAdminSelectedBuilding(building: SimpleBuildingInfo): void;
 }
 
-export interface IUserInfoProvider extends IInfoProvidable<LoginDataType>, IUserInfoProvidable, IAdminInfoProvidable {
+export interface UserInfo extends IInfoProvidable<LoginDataType>, IUserInfoProvidable, IAdminInfoProvidable {
     isRenter: boolean;
     isOwner: boolean;
     isAdmin: boolean;
@@ -30,5 +30,3 @@ export interface IUserInfoProvider extends IInfoProvidable<LoginDataType>, IUser
 }
 /* accessToken: LoginDataType["accessToken"];
 refreshToken: LoginDataType["refreshToken"]; */
-
-export type UseUserInfoReturns = IUserInfoProvider | null;

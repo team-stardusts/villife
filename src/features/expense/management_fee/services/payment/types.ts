@@ -3,6 +3,7 @@ import { ManagementFee } from "../../../../../libs/rest_apis/villife/expense/typ
 export interface UserPaymentManagerBase extends PaymentManagerBase {
     unpaidFee: number;
 }
+
 export interface AdminPaymentManagerBase extends PaymentManagerBase {}
 
 export interface PaymentManagerBase extends History<ManagementFee.ManagementFee> {
