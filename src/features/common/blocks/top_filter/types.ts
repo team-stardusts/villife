@@ -1,4 +1,4 @@
-import { FunctionComponent, ReactElement } from "react";
+import { ReactElement } from "react";
 import { ColorValue } from "react-native";
 import { ArrayElement } from "../../global_interface";
 

@@ -1,3 +1,4 @@
 import { ManagementFee } from "../../../../../../libs/rest_apis/villife/expense/types";
 
-export type MFHistory = ManagementFee.ManagementFee[];
+export type UserMFHistory = ManagementFee.ManagementFee[];
+export type BuildingMFHistory = ManagementFee.BuildingRenterMFHistory[];

@@ -2,12 +2,11 @@ import { ManagementFee } from "../../../../../../../libs/rest_apis/villife/expen
 
 const buildingManagementFeeFilter = [
     {
-        name: "분류",
+        name: "층",
         conditions: ["1", "2", "3"],
         postfix: "층",
         enableSelectAll: true,
         filter: (datum: ManagementFee.ManagementFee, selectedConditions: string[]) => {
-            console.log("분류", datum);
             return true;
             //return selectedConditions.find((condition) => condition === datum.year.toString()) ? true : false;
         },
@@ -25,7 +24,7 @@ const buildingManagementFeeFilter = [
         conditions: ["가입", "미가입", "공실"],
         enableSelectAll: true,
         filter: (datum: ManagementFee.ManagementFee, selectedConditions: string[]) => {
-            return selectedConditions.find((condition) => condition === datum.bill_id.toString()) ? true : false;
+            return true;
         },
     },
     {

@@ -24,7 +24,7 @@ export default class ManagementFeePaymentServiceProvider
 
     public async getBuildingMFHistory(
         params: ManagementFee.GetBuildingMFHistory.Params
-    ): Promise<ManagementFee.ManagementFee[]> {
+    ): Promise<ManagementFee.BuildingRenterMFHistory[]> {
         const result = await this._api.getBuildingManagementFeeHistory(params);
 
         if (!result.isSuccessful || result.data?.data === undefined) {

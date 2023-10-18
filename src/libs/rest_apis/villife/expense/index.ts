@@ -27,11 +27,6 @@ export default class VillifeExpenseRestClient extends AVillifeServerModule imple
         const route = this.routes.expense.handleBuildingBill;
         const _params: ManagementFee.GetBuildingMFHistory.ReqParams = {
             building_id: params.buildingID,
-            end_month: params.endMonth,
-            end_year: params.endYear,
-            start_month: params.startMonth,
-            start_year: params.startYear,
-            unpaid_only: params.unpaidOnly ? true : false,
         };
 
         return await this.requestAuthable<
@@ -45,7 +40,7 @@ export default class VillifeExpenseRestClient extends AVillifeServerModule imple
     }
 }
 
-const dummyData: ManagementFee.GetBuildingMFHistory.Result = [
+/* const dummyData: ManagementFee.GetBuildingMFHistory.Result = [
     {
         bill_id: 1,
         category: "hello",
@@ -173,3 +168,4 @@ const dummyData: ManagementFee.GetBuildingMFHistory.Result = [
         payment_info: {},
     },
 ];
+ */

@@ -34,7 +34,6 @@ export default function ScreenTopFilter(props: ScreenTopFilterProps) {
                             )
                     )}
                 </View>
-
                 {props.sideComponent && (
                     <View style={styles.sideComponent}>
                         <props.sideComponent />
@@ -43,13 +42,4 @@ export default function ScreenTopFilter(props: ScreenTopFilterProps) {
             </View>
         </View>
     );
-}
-
-{
-    /* <HorizontalFilter
-                                key={index}
-                                headers={filter.headers}
-                                postfix={filter?.postfix}
-                                onChangeSelectedItems={console.log}
-                            /> */
 }

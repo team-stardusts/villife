@@ -1,4 +1,4 @@
-import { ScrollView, View } from "react-native";
+import { ScrollView } from "react-native";
 import ScreenTopFilter from "../../../../../../common/blocks/top_filter";
 import useStyler from "../../../../../../common/hooks/styler/hooks";
 import { AdminMFViewProps } from "./types";
@@ -33,27 +33,3 @@ export default function AdminMFView(props: AdminMFViewProps) {
         </ScrollView>
     );
 }
-
-type testt = {
-    name: string;
-    floor: number;
-    state: string;
-};
-
-/* 
-
-1. 베이스 데이터
-2. 필터 이름
-3. 전체 선택 여부
-4. 필터
-
-<BaseFilter data={foos} onChangeData={}>
-    <Filter 
-        name="층"
-        filter=["1", "2", "3"]
-        postFix="층"
-        enableSelectAll
-    />
-</BaseFilter>
-
- */

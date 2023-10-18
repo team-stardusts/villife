@@ -11,7 +11,7 @@ import ManagementFeeBox from "./blocks/user/blocks/fee_box";
 import ManagementFeeStatusScrollView from "./blocks/user/blocks/status_scrollview";
 import UserMFView from "./blocks/user";
 import AdminMFView from "./blocks/admin";
-import { History } from "../../services/payment/types";
+import { AdminPaymentManagerBase, History } from "../../services/payment/types";
 import { ManagementFee } from "../../../../../libs/rest_apis/villife/expense/types";
 import useManagementFeeManager from "../../services/payment";
 
@@ -20,7 +20,7 @@ export default function ManagementFeeHomeScreen({ navigation, route }: Managemen
     const styles = useManagementFeeHomeScreenStyles();
     const user = useUserInformation();
     const payer = usePayer();
-    const manager: History<ManagementFee.ManagementFee> = useManagementFeeManager();
+    const manager: History<any> = useManagementFeeManager();
 
     useEffect(() => {
         payer.history.updateHistory();

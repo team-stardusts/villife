@@ -1,12 +1,12 @@
 import { atom } from "recoil";
-import { MFHistory } from "./types";
+import { BuildingMFHistory, UserMFHistory } from "./types";
 
-export const buildingMFHistory = atom<MFHistory>({
+export const buildingMFHistory = atom<BuildingMFHistory>({
     key: "buildingMFHistory",
     default: [],
 });
 
-export const userMFHistory = atom<MFHistory>({
+export const userMFHistory = atom<UserMFHistory>({
     key: "userMFHistory",
     default: [],
 });

@@ -1,12 +1,14 @@
 import { ManagementFee } from "../../../../../libs/rest_apis/villife/expense/types";
 
+export type ManagementFeeManager = UserPaymentManagerBase | AdminPaymentManagerBase;
+
 export interface UserPaymentManagerBase extends PaymentManagerBase {
     unpaidFee: number;
 }
 
 export interface AdminPaymentManagerBase extends PaymentManagerBase {}
 
-export interface PaymentManagerBase extends History<ManagementFee.ManagementFee> {
+export interface PaymentManagerBase extends History<any> {
     readonly isAdmin: boolean;
 }
 

@@ -1,4 +1,4 @@
-import { Response, ResponseForTest } from "../../types";
+import { Response } from "../../types";
 
 export default interface IVillifeExpenseRestClient extends ManagementFee.ManagementFeeHistoryGettable {}
 
@@ -23,23 +23,13 @@ export namespace ManagementFee {
     export namespace GetBuildingMFHistory {
         export type Params = {
             buildingID: number;
-            endMonth: number;
-            endYear: number;
-            startMonth: number;
-            startYear: number;
-            unpaidOnly?: boolean;
         };
 
         export type ReqParams = {
             building_id: number;
-            end_month: number;
-            end_year: number;
-            start_month: number;
-            start_year: number;
-            unpaid_only?: boolean;
         };
 
-        export type Result = ManagementFee[];
+        export type Result = BuildingRenterMFHistory[];
     }
 
     export type ManagementFee = {
@@ -50,6 +40,15 @@ export namespace ManagementFee {
         month: number;
         payment_info: PaymentInfo;
         year: number;
+    };
+
+    export type BuildingRenterMFHistory = {
+        lastestNotiMonth: number;
+        lastestNotiYear: number;
+        lastestPaidMonth: number;
+        lastestPaidYear: number;
+        roomNumber: number;
+        totalUnpaidFee: number;
     };
 
     export type PaymentInfo = {};

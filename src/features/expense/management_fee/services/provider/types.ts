@@ -7,6 +7,8 @@ export interface IManagementFeePaymentServiceProvider extends HistoryGettable {}
 } */
 
 export interface HistoryGettable {
-    getBuildingMFHistory(params: ManagementFee.GetBuildingMFHistory.Params): Promise<ManagementFee.ManagementFee[]>;
+    getBuildingMFHistory(
+        params: ManagementFee.GetBuildingMFHistory.Params
+    ): Promise<ManagementFee.BuildingRenterMFHistory[]>;
     getUserMFHistory(params: ManagementFee.GetUserMFHistory.Params): Promise<ManagementFee.ManagementFee[]>;
 }
