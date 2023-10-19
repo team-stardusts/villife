@@ -44,6 +44,7 @@ import ManagementFeeDetailScreen from "../../expense/management_fee/screens/deta
 import { Platform } from "react-native";
 import useFirebaseMessagingEmitter from "../hooks/firebase/messaging/emission";
 import CompanyIntroductionScreen from "../../main/mypage/screens/company_introduction";
+import ExpenseApprovalScreen from "../../expense/approval/screens/home";
 
 enableScreens(true);
 
@@ -133,6 +134,9 @@ export default function ScreenRouter() {
             </Stack.Group>
             <Stack.Group>
                 <Stack.Screen name={"approval_home"} component={ApprovalHomeScreen} />
+            </Stack.Group>
+            <Stack.Group>
+                <Stack.Screen name={"expense_approval"} component={ExpenseApprovalScreen} />
             </Stack.Group>
             <Stack.Group>
                 <Stack.Screen name={"payment_window"} component={CommonPaymentWindowScreen} />

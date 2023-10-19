@@ -4,7 +4,6 @@ import { ComplaintInfo } from "../../services/type";
 import { ComplaintHomeDisplayMode } from "./types";
 import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
 import { ComplaintListUpatedEventListener } from "../../services/event";
-import { VILLIFE_AUTHORITY } from "../../../../../libs/rest_apis/villife/absc";
 import useUserInformation from "../../../../common/hooks/service/user_info";
 
 export default function ComplaintHomeViewModel(): ComplaintHomeUiState {
