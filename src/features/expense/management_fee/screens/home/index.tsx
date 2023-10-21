@@ -14,6 +14,11 @@ export default function ManagementFeeHomeScreen({ navigation, route }: Managemen
     const messages = useScreenMessage();
     const styles = useManagementFeeHomeScreenStyles();
     const user = useUserInformation();
+    const manager: History<any> = useManagementFeeManager();
+
+    useEffect(() => {
+        manager.updateHistory();
+    }, [user?.adminInfomation?.selectedBuilding]);
 
     return (
         <NavigationView

@@ -33,6 +33,12 @@ export default class ManagementFeePaymentServiceProvider
             return [];
         }
 
+        if (result.data.data === null) {
+            console.warn("[getBuildingMFHistory]", null);
+
+            return [];
+        }
+
         return result.data.data;
     }
 

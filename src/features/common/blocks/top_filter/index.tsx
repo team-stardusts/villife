@@ -10,7 +10,11 @@ export default function ScreenTopFilter(props: ScreenTopFilterProps) {
     const [crrMenu, setCrrMenu] = useState<string | null>(null);
 
     return (
-        <View style={styles.container}>
+        <View
+            style={[
+                styles.container,
+                props.style?.backgroundColor !== undefined && { backgroundColor: props.style.backgroundColor },
+            ]}>
             <View style={styles.menu}>
                 <Menu
                     menus={props.filters.map((filter) => filter.name)}
@@ -18,7 +22,11 @@ export default function ScreenTopFilter(props: ScreenTopFilterProps) {
                     onMenuSelection={setCrrMenu}
                 />
             </View>
-            <View style={styles.filter}>
+            <View
+                style={[
+                    styles.filter,
+                    props.style?.backgroundColor !== undefined && { backgroundColor: props.style.backgroundColor },
+                ]}>
                 <View style={styles.filterComponent}>
                     {props.filters.map(
                         (filter, index) =>

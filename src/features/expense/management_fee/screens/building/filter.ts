@@ -1,6 +1,6 @@
-import StardustDateParser from "../../../../../../../libs/date_parser";
-import { ManagementFee } from "../../../../../../../libs/rest_apis/villife/expense/types";
-import { Filter } from "../../../../../../common/blocks/top_filter/types";
+import StardustDateParser from "../../../../../libs/date_parser";
+import { ManagementFee } from "../../../../../libs/rest_apis/villife/expense/types";
+import { Filter } from "../../../../common/blocks/top_filter/types";
 
 const buildingManagementFeeFilter: Filter<ManagementFee.BuildingRenterMFHistory>[] = [
     {

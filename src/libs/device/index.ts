@@ -42,6 +42,8 @@ export default class DeviceUiInfo {
     //gives font scale based on pixel ratio
     public static readonly fontScale: number = PixelRatio.getFontScale();
 
+    public static readonly select = Platform.select;
+
     public static getPlatform(): Platform["OS"] {
         return this._platform;
     }

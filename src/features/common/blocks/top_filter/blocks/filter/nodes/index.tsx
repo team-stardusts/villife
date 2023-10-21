@@ -1,7 +1,8 @@
-import { ScrollView, Text, TouchableOpacity, View } from "react-native";
-import { useEffect, useState } from "react";
+import { Animated, ScrollView, Text, TouchableOpacity, View } from "react-native";
+import { useEffect, useRef, useState } from "react";
 import useScreenMessage from "../../../../../hooks/multilingual/hooks";
-import { HorizontalFilterProps } from "./types";
+import { HorizontalFilterProps, NodeProps } from "./types";
+import { ANIMATION_DURATION_DEFAULT, ANIMATION_DURATION_FAST_LV1 } from "../../../../../constants";
 
 export default function HorizontalFilter(props: HorizontalFilterProps) {
     const messages = useScreenMessage().messages.words;
@@ -95,23 +96,73 @@ export default function HorizontalFilter(props: HorizontalFilterProps) {
     return (
         <ScrollView style={props.styles.container} showsHorizontalScrollIndicator={false} horizontal>
             {items.map((item, index) => (
-                <View key={index} style={props.styles.itemContainer}>
-                    <TouchableOpacity
-                        style={[
-                            props.styles.itemBox,
-                            selectedItems.find((value) => value === item) !== undefined && props.styles.seletedItemBox,
-                        ]}
-                        activeOpacity={0.6}
-                        onPress={() => handlePressItem(item)}>
-                        <Text style={props.styles.item}>
-                            {item}
-                            {item !== messages.all && props.postfix && props.postfix}
-                        </Text>
-                    </TouchableOpacity>
-                </View>
+                <Node
+                    key={index}
+                    index={index}
+                    isSelected={selectedItems.find((value) => value === item) !== undefined}
+                    item={item}
+                    messages={messages}
+                    onPress={() => handlePressItem(item)}
+                    postfix={props.postfix}
+                    styles={props.styles}
+                />
             ))}
             {/* 리스트 끝 요소의 우측 Shadow가 짤리는 것을 방지함 */}
             <View style={props.styles.bumper} />
         </ScrollView>
+    );
+}
+
+function Node(props: NodeProps) {
+    const opacityValue = useRef(new Animated.Value(0)).current;
+    const xValue = useRef(new Animated.Value(-10)).current;
+
+    useEffect(() => {
+        const animation = Animated.sequence([
+            Animated.delay(ANIMATION_DURATION_FAST_LV1 * props.index),
+            Animated.parallel([
+                Animated.timing(opacityValue, {
+                    toValue: 1,
+                    duration: ANIMATION_DURATION_DEFAULT,
+                    useNativeDriver: true,
+                }),
+                Animated.timing(xValue, {
+                    toValue: 0,
+                    duration: ANIMATION_DURATION_DEFAULT,
+                    useNativeDriver: true,
+                }),
+            ]),
+        ]);
+
+        animation.start();
+
+        return () => {
+            animation.stop();
+        };
+    }, [opacityValue, xValue]);
+
+    return (
+        <Animated.View
+            style={[
+                props.styles.itemContainer,
+                {
+                    opacity: opacityValue,
+                    transform: [
+                        {
+                            translateX: xValue,
+                        },
+                    ],
+                },
+            ]}>
+            <TouchableOpacity
+                style={[props.styles.itemBox, props.isSelected && props.styles.seletedItemBox]}
+                activeOpacity={0.6}
+                onPress={props.onPress}>
+                <Text style={props.styles.item}>
+                    {props.item}
+                    {props.item !== props.messages.all && props.postfix && props.postfix}
+                </Text>
+            </TouchableOpacity>
+        </Animated.View>
     );
 }

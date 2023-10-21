@@ -9,3 +9,7 @@ export const hexToRGB = (hex: string, alpha: number) => {
         return "rgb(" + r + ", " + g + ", " + b + ")";
     }
 };
+
+export const insertCommaToNumber = (number: number): string => {
+    return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+};
