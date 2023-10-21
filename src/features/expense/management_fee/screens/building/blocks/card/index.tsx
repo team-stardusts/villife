@@ -46,7 +46,8 @@ export default function MFHistoryCardView(props: MFHistoryCardViewProps) {
     const isUnpaid = (): boolean => {
         const today = StardustDateParser.changeGMT(new Date(), "kr");
 
-        return props.LastestPaidYear !== today.getFullYear() || props.LastestPaidMonth !== today.getMonth() + 1;
+        //return props.LastestPaidYear !== today.getFullYear() || props.LastestPaidMonth !== today.getMonth() + 1;
+        return props.TotalUnpaidFee > 0;
     };
 
     function NotiMark() {

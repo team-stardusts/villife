@@ -1,3 +1,4 @@
+import { Building } from "../../../../../libs/rest_apis/villife/building/types";
 import { ManagementFee } from "../../../../../libs/rest_apis/villife/expense/types";
 import { SimpleBuildingInfo } from "../../../../../libs/rest_apis/villife/user_info/types";
 
@@ -7,12 +8,18 @@ export interface UserPaymentManagerBase extends PaymentManagerBase<ManagementFee
     unpaidFee: number;
 }
 
-export interface AdminPaymentManagerBase extends PaymentManagerBase<ManagementFee.BuildingRenterMFHistory> {
+export interface AdminPaymentManagerBase
+    extends PaymentManagerBase<ManagementFee.BuildingRenterMFHistory>,
+        BuildingDetailInfoGettable {
     selectedBuilding: SimpleBuildingInfo | undefined;
 }
 
 export interface PaymentManagerBase<THistory> extends History<THistory> {
     readonly isAdmin: boolean;
+}
+
+export interface BuildingDetailInfoGettable {
+    getBuildingDetailInfo(): Promise<Building.BuildingInfo | null>;
 }
 
 export interface History<THistory> {

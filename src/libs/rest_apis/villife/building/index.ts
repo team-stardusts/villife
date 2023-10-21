@@ -21,6 +21,20 @@ class VillifeBuildingManager extends AVillifeServerModule implements IVillifeBui
         return await this.requestForTest<Building.GetRoomInfosInBuilding.Returns>(generateDummyRoomInfoData()); */
     }
 
+    public async getBuildingInfo(params: Building.GetBuildngInfo.Params): Response<Building.BuildingInfo> {
+        let route: string = this.routes.budilingAndContract.building;
+
+        const _params: Building.GetBuildngInfo.ReqParams = {
+            building_id: params.buildingID,
+        };
+
+        return await this.requestAuthable<Building.GetBuildngInfo.ReqParams, Building.GetBuildngInfo.Returns>({
+            method: "get",
+            url: route,
+            params: _params,
+        });
+    }
+
     public async registerBuildng(params: Building.RegisterBuildng.Params): Response<Building.RegisterBuildng.Returns> {
         let route: string = this.routes.budilingAndContract.building;
 

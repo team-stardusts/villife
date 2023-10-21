@@ -1,9 +1,9 @@
 import { Response, ResponseForTest } from "../../types";
 
 // Interface of VillifeBuildingManager
-export default interface IVillifeBuildingManager extends IBuildingVerifiable, IBuildingAdministrable {}
+export default interface IVillifeBuildingManager extends BuildingVerifiable, BuildingAdministable {}
 
-interface IBuildingVerifiable {
+interface BuildingVerifiable {
     validateUserResidenceForTest(
         params: Building.UserResidenceValidation.Params
     ): Response<Building.UserResidenceValidation.Returns>;
@@ -18,7 +18,8 @@ interface IBuildingVerifiable {
     ): Response<Building.GetRoomInfosInBuilding.Returns>;
 }
 
-interface IBuildingAdministrable {
+interface BuildingAdministable {
+    getBuildingInfo(params: Building.GetBuildngInfo.Params): Response<Building.GetBuildngInfo.Returns>;
     registerBuildng(params: Building.RegisterBuildng.Params): Response<Building.RegisterBuildng.Returns>;
     registerContract(params: Building.RegisterContract.Params): Response<Building.RegisterContract.Returns>;
     modifyContract(params: Building.ModifyContract.Params): Response<Building.ModifyContract.Returns>;
@@ -27,6 +28,18 @@ interface IBuildingAdministrable {
 }
 
 export namespace Building {
+    export namespace GetBuildngInfo {
+        export type Params = {
+            buildingID: number;
+        };
+
+        export type ReqParams = {
+            building_id: number;
+        };
+
+        export type Returns = BuildingInfo;
+    }
+
     export namespace RegisterBuildng {
         export type Params = {
             basement_info: number;
@@ -72,6 +85,24 @@ export namespace Building {
 
         export type Returns = RoomInfo[];
     }
+
+    export type BuildingInfo = {
+        bank_accounts: BuildingBackAccountInfo[];
+        building_id: number;
+        building_name: string;
+        mf_due_date: number;
+        mf_noti_date: number;
+        owner_name: string;
+        road_addr: string;
+    };
+
+    export type BuildingBackAccountInfo = {
+        account_id: number;
+        account_number: string;
+        account_type: string;
+        bank_name: string;
+        owner_name: string;
+    };
 
     export type RoomInfo = {
         contract_info: Contract;
