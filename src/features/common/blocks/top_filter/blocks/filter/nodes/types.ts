@@ -5,6 +5,7 @@ export type HorizontalFilterProps = {
     headers: string[];
     postfix?: string;
     enableSelectAll?: boolean;
+    disableMultipleSelection: boolean;
     onChangeSelectedItems(headers: string[]): void;
     styles: ReturnType<typeof useFilterStyles>["nodes"];
 };

@@ -22,6 +22,7 @@ export default function Filter(props: FilterProps) {
                 postfix={props?.postfix}
                 onChangeSelectedItems={setSelectedItems}
                 enableSelectAll={props.enableSelectAll}
+                disableMultipleSelection={props.disableMultipleSelection ? true : false}
             />
         </View>
     );

@@ -25,5 +25,6 @@ export type Filter<T> = {
     conditions: string[];
     postfix?: string;
     enableSelectAll?: boolean;
+    disableMultipleSelection?: boolean;
     filter: (datum: T, selectedHeaders: string[]) => boolean;
 };

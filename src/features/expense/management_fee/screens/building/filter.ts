@@ -9,6 +9,8 @@ const buildingManagementFeeFilter: Filter<ManagementFee.BuildingRenterMFHistory>
         postfix: "층",
         enableSelectAll: true,
         filter: (datum: ManagementFee.BuildingRenterMFHistory, selectedConditions: string[]) => {
+            if (selectedConditions.length > 0 && selectedConditions[0] === "전체") return true;
+
             return selectedConditions.find((condition) => condition === Math.floor(datum.RoomNumber / 100).toString())
                 ? true
                 : false;
@@ -18,6 +20,7 @@ const buildingManagementFeeFilter: Filter<ManagementFee.BuildingRenterMFHistory>
         name: "고지 여부",
         conditions: ["미고지", "고지"],
         enableSelectAll: true,
+        disableMultipleSelection: true,
         filter: (datum: ManagementFee.BuildingRenterMFHistory, selectedConditions: string[]) => {
             const today = StardustDateParser.changeGMT(new Date(), "kr");
             const thisYear = today.getFullYear();
@@ -37,6 +40,7 @@ const buildingManagementFeeFilter: Filter<ManagementFee.BuildingRenterMFHistory>
         name: "미납",
         conditions: ["미납", "완납"],
         enableSelectAll: true,
+        disableMultipleSelection: true,
         filter: (datum: ManagementFee.BuildingRenterMFHistory, selectedConditions: string[]) => {
             const today = StardustDateParser.changeGMT(new Date(), "kr");
             const thisYear = today.getFullYear();

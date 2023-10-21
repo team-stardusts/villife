@@ -32,11 +32,19 @@ export default function HorizontalFilter(props: HorizontalFilterProps) {
     }, [selectedItems]);
 
     const handlePressItem = (item: string) => {
-        if (props.enableSelectAll) {
+        if (props.disableMultipleSelection) {
+            setSelectedItems([item]);
+            return;
+        }
+
+        // 모든 아이템 선택 시 "전체" 선택으로 변경
+        // 단, "전체"를 제외한 아이템이 1개만 있을 경우 제외
+        if (props.enableSelectAll && items.length > 2) {
             const comparison = [...items];
             const allOfTheSelectedItems = [...selectedItems, item];
 
             if (allOfTheSelectedItems.find((value) => value === messages.all)) {
+                // items에 "전체"가 포함되어 있으므로 삭제
                 allOfTheSelectedItems.shift();
             }
 
