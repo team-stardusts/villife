@@ -1,8 +1,9 @@
-import { useColorScheme } from "react-native";
+import { Dimensions, useColorScheme } from "react-native";
 import DeviceUiInfo from "../../../../libs/device";
 import LightTheme from "../../../../libs/themes/light";
 import { StylerReturnType } from "./types";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { useEffect } from "react";
 
 export default function useStyler(): StylerReturnType {
     const safetyEdgeSize = useSafeAreaInsets();

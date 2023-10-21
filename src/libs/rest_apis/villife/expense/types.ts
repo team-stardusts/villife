@@ -43,12 +43,18 @@ export namespace ManagementFee {
     };
 
     export type BuildingRenterMFHistory = {
-        lastestNotiMonth: number;
+        /* lastestNotiMonth: number;
         lastestNotiYear: number;
         lastestPaidMonth: number;
         lastestPaidYear: number;
         roomNumber: number;
-        totalUnpaidFee: number;
+        totalUnpaidFee: number; */
+        LastestNotiMonth: number;
+        LastestNotiYear: number;
+        LastestPaidMonth: number;
+        LastestPaidYear: number;
+        RoomNumber: number;
+        TotalUnpaidFee: number;
     };
 
     export type PaymentInfo = {};

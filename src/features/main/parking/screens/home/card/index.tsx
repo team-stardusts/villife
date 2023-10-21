@@ -6,14 +6,15 @@ import useVehicleCardViewStyles from "./styles";
 import VehicleCardBottom from "./blocks/bottom";
 import VehicleCardHeader from "./blocks/header";
 import VehicleCardBody from "./blocks/body";
-import DeviceUiInfo from "../../../../../../libs/device";
 import { SCREEN_PADDING_HORIZONTAL_STANDARD_VALUE } from "../../../../../common/constants";
+import useStyler from "../../../../../common/hooks/styler/hooks";
 
 export default function VehicleCardView({ vehicles }: VehicleCardViewProps) {
-    const innerPadding = DeviceUiInfo.moderateScale(40);
-    const screenPadding = DeviceUiInfo.moderateScale(SCREEN_PADDING_HORIZONTAL_STANDARD_VALUE) * 2;
+    const { deviceUI } = useStyler();
+    const innerPadding = deviceUI.moderateScale(40);
+    const screenPadding = deviceUI.moderateScale(SCREEN_PADDING_HORIZONTAL_STANDARD_VALUE) * 2;
 
-    const cardWidth: number = DeviceUiInfo.getScreenSize().width - (screenPadding + innerPadding);
+    const cardWidth: number = deviceUI.getScreenSize().width - (screenPadding + innerPadding);
 
     const [crrIndex, setCrrIndex] = useState<number>(0);
     const [editmode, setEditmode] = useState<boolean>(false);

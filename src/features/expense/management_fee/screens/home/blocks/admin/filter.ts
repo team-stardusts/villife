@@ -1,38 +1,55 @@
+import StardustDateParser from "../../../../../../../libs/date_parser";
 import { ManagementFee } from "../../../../../../../libs/rest_apis/villife/expense/types";
+import { Filter } from "../../../../../../common/blocks/top_filter/types";
 
-const buildingManagementFeeFilter = [
+const buildingManagementFeeFilter: Filter<ManagementFee.BuildingRenterMFHistory>[] = [
     {
         name: "층",
-        conditions: ["1", "2", "3"],
+        conditions: [],
         postfix: "층",
         enableSelectAll: true,
-        filter: (datum: ManagementFee.ManagementFee, selectedConditions: string[]) => {
-            return true;
-            //return selectedConditions.find((condition) => condition === datum.year.toString()) ? true : false;
+        filter: (datum: ManagementFee.BuildingRenterMFHistory, selectedConditions: string[]) => {
+            return selectedConditions.find((condition) => condition === Math.floor(datum.RoomNumber / 100).toString())
+                ? true
+                : false;
         },
     },
     {
-        name: "계약",
-        conditions: ["미등록", "전세", "월세"],
+        name: "고지 여부",
+        conditions: ["미고지", "고지"],
         enableSelectAll: true,
-        filter: (datum: ManagementFee.ManagementFee, selectedConditions: string[]) => {
-            return true;
+        filter: (datum: ManagementFee.BuildingRenterMFHistory, selectedConditions: string[]) => {
+            const today = StardustDateParser.changeGMT(new Date(), "kr");
+            const thisYear = today.getFullYear();
+            const thisMonth = today.getMonth() + 1;
+
+            // 전체 선택
+            if (selectedConditions.length === 2) return true;
+
+            if (selectedConditions[0] === "고지") {
+                return datum.LastestNotiYear === thisYear && datum.LastestNotiMonth === thisMonth;
+            } else {
+                return datum.LastestNotiYear !== thisYear || datum.LastestNotiMonth !== thisMonth;
+            }
         },
     },
     {
-        name: "상태",
-        conditions: ["가입", "미가입", "공실"],
+        name: "미납",
+        conditions: ["미납", "완납"],
         enableSelectAll: true,
-        filter: (datum: ManagementFee.ManagementFee, selectedConditions: string[]) => {
-            return true;
-        },
-    },
-    {
-        name: "만료",
-        conditions: ["만료", "만료 임박"],
-        enableSelectAll: true,
-        filter: (datum: ManagementFee.ManagementFee, selectedConditions: string[]) => {
-            return true;
+        filter: (datum: ManagementFee.BuildingRenterMFHistory, selectedConditions: string[]) => {
+            const today = StardustDateParser.changeGMT(new Date(), "kr");
+            const thisYear = today.getFullYear();
+            const thisMonth = today.getMonth() + 1;
+
+            // 전체 선택
+            if (selectedConditions.length === 2) return true;
+
+            if (selectedConditions[0] === "완납") {
+                return datum.LastestPaidYear === thisYear && datum.LastestPaidMonth === thisMonth;
+            } else {
+                return datum.LastestPaidYear !== thisYear || datum.LastestPaidMonth !== thisMonth;
+            }
         },
     },
 ];
