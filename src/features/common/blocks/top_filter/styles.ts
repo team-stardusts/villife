@@ -20,10 +20,10 @@ export default function useScreenTopFilterStyles() {
             flexDirection: "row",
         },
         filterComponent: {
-            flex: 8,
+            flex: 8.5,
         },
         sideComponent: {
-            flex: 2,
+            flex: 1.5,
         },
     });
 }

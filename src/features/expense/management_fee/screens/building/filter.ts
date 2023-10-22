@@ -9,8 +9,6 @@ const buildingManagementFeeFilter: Filter<ManagementFee.BuildingRenterMFHistory>
         postfix: "층",
         enableSelectAll: true,
         filter: (datum: ManagementFee.BuildingRenterMFHistory, selectedConditions: string[]) => {
-            if (selectedConditions.length > 0 && selectedConditions[0] === "전체") return true;
-
             return selectedConditions.find((condition) => condition === Math.floor(datum.RoomNumber / 100).toString())
                 ? true
                 : false;
