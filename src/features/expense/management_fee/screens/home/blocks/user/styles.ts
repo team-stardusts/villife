@@ -129,9 +129,35 @@ export default function useUserMFViewStyles() {
         },
     });
 
+    const history = StyleSheet.create({
+        container: {
+            marginTop: deviceUI.moderateScale(20),
+        },
+        contentBox: {
+            color: theme.color.specified.white,
+        },
+        pressable: {
+            width: "100%",
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "space-between",
+            paddingHorizontal: deviceUI.moderateScale(20),
+            paddingVertical: deviceUI.moderateScale(10),
+        },
+        text: {
+            fontFamily: theme.font.fontFamily.pretendard.bold,
+            fontSize: deviceUI.moderateScale(22),
+            color: theme.color.specified.black,
+        },
+        icon: {
+            width: deviceUI.moderateScale(40),
+            color: theme.color.specified.black,
+        },
+    });
+
     const managementFeeStatus = StyleSheet.create({
         container: {
-            marginTop: deviceUI.moderateScale(25),
+            marginTop: deviceUI.moderateScale(20),
             //height: deviceUI.moderateScale(65),
         },
         managementFeeContainer: {
@@ -197,6 +223,7 @@ export default function useUserMFViewStyles() {
         main,
         managementFee,
         bill,
+        history,
         managementFeeStatus,
     };
 }

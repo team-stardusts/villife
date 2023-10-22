@@ -4,7 +4,7 @@ import PaymentManager from "./abstract";
 
 class UserPaymentManager extends PaymentManager implements UserPaymentManagerBase {
     readonly isAdmin: boolean = false;
-    history: ManagementFee.ManagementFee[] = [];
+    //history: ManagementFee.ManagementFee[] = [];
     unpaidFee: number = 0;
 
     public async updateHistory(): Promise<this> {
@@ -13,8 +13,6 @@ class UserPaymentManager extends PaymentManager implements UserPaymentManagerBas
         const history = await this._api.getUserMFHistory({});
 
         this._historyStateSetter(history);
-
-        this.history = history;
 
         return this;
     }

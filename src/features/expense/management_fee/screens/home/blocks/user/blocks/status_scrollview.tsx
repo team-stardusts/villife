@@ -13,17 +13,15 @@ export default function ManagementFeeStatusScrollView(props: ManagementFeeStatus
     const scrollviewRef = useRef<ScrollView>(null);
 
     useEffect(() => {
-        if (props.manangementFee === null || props.manangementFee === undefined) return;
+        if (props.manangementFees === null || props.manangementFees === undefined) return;
 
-        if (props.manangementFee.length > 12) {
-            setFees([...props.manangementFee.slice(props.manangementFee.length - 12, props.manangementFee.length)]);
+        if (props.manangementFees.length > 12) {
+            setFees([...props.manangementFees.slice(props.manangementFees.length - 12, props.manangementFees.length)]);
         } else {
-            setFees([...props.manangementFee]);
+            setFees([...props.manangementFees]);
         }
         scrollviewRef.current?.scrollToEnd({ animated: true });
-    }, [props.manangementFee]);
-
-    useEffect(() => {}, [fees]);
+    }, [props.manangementFees]);
 
     return (
         <ScrollView

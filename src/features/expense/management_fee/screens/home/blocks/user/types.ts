@@ -12,7 +12,12 @@ export type ManagementFeeBillBoxProps = {
     unpaidFee: number;
 };
 
+export type ManagementFeeHistoryBoxProps = {
+    styles: ReturnType<typeof useUserMFViewStyles>["history"];
+    manangementFees: ManagementFee.ManagementFee[];
+};
+
 export type ManagementFeeStatusScrollViewProps = {
     styles: ReturnType<typeof useUserMFViewStyles>["managementFeeStatus"];
-    manangementFee: ManagementFee.ManagementFee[] | undefined;
+    manangementFees: ManagementFee.ManagementFee[];
 };

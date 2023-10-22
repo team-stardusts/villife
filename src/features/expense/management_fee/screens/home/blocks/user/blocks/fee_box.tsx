@@ -4,9 +4,11 @@ import { VillifeNavigation } from "../../../../../../../common/router/types";
 import ContentBox from "../../../../../../../common/blocks/content_box";
 import SpinningWon from "../../../../../blocks/icon/spinning_won";
 import { ManagementFeeBoxProps } from "../types";
+import useUserInformation from "../../../../../../../common/hooks/service/user_info";
 
 export default function ManagementFeeBox(props: ManagementFeeBoxProps) {
     const navigation = useNavigation<VillifeNavigation>();
+    const user = useUserInformation();
     const insertCommaToMoney = (money: number): string => {
         if (money == undefined) return "0";
         return money.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -37,9 +39,7 @@ export default function ManagementFeeBox(props: ManagementFeeBoxProps) {
                 <View style={props.styles.contentWrapper}>
                     <View style={props.styles.header}>
                         {props.manangementFee && (
-                            <Text style={props.styles.headerText}>
-                                {props.manangementFee.year}년 {props.manangementFee.month}월 납부할 금액
-                            </Text>
+                            <Text style={props.styles.headerText}>{user?.roomNumber}호 관리비</Text>
                         )}
                     </View>
                     <View style={props.styles.body}>

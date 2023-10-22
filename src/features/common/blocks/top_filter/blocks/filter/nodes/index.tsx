@@ -25,7 +25,7 @@ export default function HorizontalFilter(props: HorizontalFilterProps) {
     useEffect(() => {
         let _selectedItems = [...selectedItems];
 
-        if (_selectedItems.find((item) => item === messages.all) && items.length > 2) {
+        if (_selectedItems.find((item) => item === messages.all) && items.length > 1) {
             _selectedItems = [...items.slice(1)];
         }
         props.onChangeSelectedItems(_selectedItems);

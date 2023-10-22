@@ -5,7 +5,6 @@ import PaymentManager from "./abstract";
 
 class AdminPaymentManager extends PaymentManager implements AdminPaymentManagerBase {
     public readonly isAdmin: boolean = true;
-    unpaidFee: number = 0;
 
     get selectedBuilding(): SimpleBuildingInfo | undefined {
         return this._userInfo?.adminInfomation?.selectedBuilding;
