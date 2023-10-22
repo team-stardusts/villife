@@ -4,18 +4,16 @@ import LeaseContractHomeScreenProps from "./types";
 import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
 import useBuildingManagementScreenStyles from "./styles";
 import BuildingTentantMessage from "../../blocks/message";
-import BuildingTenantFilter from "../../blocks/filter";
 import { useEffect, useState } from "react";
 import TentantLayout from "../../blocks/tenant_layout";
 import { BuildingRoomInfo } from "../../services/building_rooms/provider/types";
-import { LayoutType } from "../../blocks/filter/blocks/layout/types";
 import useUserInformation from "../../../../common/hooks/service/user_info";
 import useBuildingRoomContractor from "../../services/building_rooms";
 import ScreenTopFilter from "../../../../common/blocks/top_filter";
 import leaseFilter from "./filter";
 import { Filter } from "../../../../common/blocks/top_filter/types";
-import LayoutSelector from "../../blocks/filter/blocks/layout";
-import useBuildingTenantFilterStyles from "../../blocks/filter/styles";
+import { LayoutType } from "./blocks/layout/types";
+import LayoutSelector from "./blocks/layout";
 
 export default function LeaseContractHomeScreen({ navigation, route }: LeaseContractHomeScreenProps) {
     const messages = useScreenMessage().messages;
@@ -60,8 +58,6 @@ export default function LeaseContractHomeScreen({ navigation, route }: LeaseCont
         setFilters([..._filter]);
     };
 
-    const temp = useBuildingTenantFilterStyles().main;
-
     return (
         <NavigationView
             headerOptions={{
@@ -102,7 +98,7 @@ export default function LeaseContractHomeScreen({ navigation, route }: LeaseCont
                     setFilteredRoomInfo([..._filteredHistory]);
                 }}
                 filters={filters}
-                sideComponent={() => <LayoutSelector layout={layout} styles={temp} onSelect={setLayout} />}
+                sideComponent={() => <LayoutSelector layout={layout} onSelect={setLayout} />}
             />
             <View style={styles.container}>
                 <View style={styles.listView}>

@@ -2,7 +2,7 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { Authority } from "../../../libs/rest_apis/villife/types";
 import { HostType } from "../../../libs/rest_apis/villife/auth/types";
 import { Complaint } from "../../../libs/rest_apis/villife/complaint/types";
-import { LayoutType } from "../../main/lease_contract/blocks/filter/blocks/layout/types";
+import { LayoutType } from "../../main/lease_contract/screens/home/blocks/layout/types";
 
 export type VillifeRootStackParamList = {
     login?: {};

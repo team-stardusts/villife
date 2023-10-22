@@ -64,6 +64,7 @@ export default function SetBuildingScreen({ navigation, route }: SetBuildingScre
     };
 
     useEffect(() => {
+        console.log(roomNumber);
         if (roomNumber !== null) {
             setRoomNumberBadgeStatus({ ...roomNumberBadgeStatus, isValid: validator.isNumber(roomNumber) });
         }
@@ -149,7 +150,9 @@ export default function SetBuildingScreen({ navigation, route }: SetBuildingScre
                             title={messages.messages.auth.set_building.room_number_input_title}
                             placeholder={messages.messages.auth.set_building.room_number_input_placeholder}
                             name="room_number"
-                            onChangeText={(text, name) => {
+                            keyboardType="decimal-pad"
+                            value={roomNumber ? roomNumber : undefined}
+                            onInputText={(text, name) => {
                                 setRoomNumber(text);
                             }}
                         />
