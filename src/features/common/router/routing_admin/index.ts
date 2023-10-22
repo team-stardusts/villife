@@ -93,8 +93,7 @@ export default function useRoutingAdministratorByLogin(): void {
             // 정상 로그인
             navigation.reset({
                 index: 0,
-                //routes: [{ name: "home" }],
-                routes: [{ name: "set_building" }],
+                routes: [{ name: "home" }],
                 //routes: [{ name: "lease_contract" }],
                 //routes: [{ name: "management_fee" }],
                 //routes: [{ name: "home" }, { name: "building_management" }],

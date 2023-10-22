@@ -21,7 +21,7 @@ export default function LeaseContractHomeScreen({ navigation, route }: LeaseCont
     const user = useUserInformation();
     const contractor = useBuildingRoomContractor();
     const [layout, setLayout] = useState<LayoutType>("list");
-    const [filters, setFilters] = useState<Filter<BuildingRoomInfo>[]>(leaseFilter);
+    const [filters, setFilters] = useState<Filter<BuildingRoomInfo>[]>([...leaseFilter]);
     const [filteredRoomInfos, setFilteredRoomInfo] = useState<BuildingRoomInfo[]>([]);
     console.log("[BUILDING_MANAGEMENT_SCREEN]", "On Create");
 

@@ -64,7 +64,6 @@ export default function SetBuildingScreen({ navigation, route }: SetBuildingScre
     };
 
     useEffect(() => {
-        console.log(roomNumber);
         if (roomNumber !== null) {
             setRoomNumberBadgeStatus({ ...roomNumberBadgeStatus, isValid: validator.isNumber(roomNumber) });
         }
@@ -84,7 +83,7 @@ export default function SetBuildingScreen({ navigation, route }: SetBuildingScre
 
     // 주소 확인 작업
     useEffect(() => {
-        if (address == null) return;
+        if (address === null) return;
         validateService
             .VerifyBuildingAddress({ address: address.roadAddress })
             .then((r) => {
@@ -150,7 +149,7 @@ export default function SetBuildingScreen({ navigation, route }: SetBuildingScre
                             title={messages.messages.auth.set_building.room_number_input_title}
                             placeholder={messages.messages.auth.set_building.room_number_input_placeholder}
                             name="room_number"
-                            keyboardType="decimal-pad"
+                            keyboardType="numbers-and-punctuation"
                             value={roomNumber ? roomNumber : undefined}
                             onInputText={(text, name) => {
                                 setRoomNumber(text);

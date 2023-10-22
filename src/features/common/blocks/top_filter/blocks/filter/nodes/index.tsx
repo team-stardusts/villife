@@ -145,6 +145,7 @@ function Node(props: NodeProps) {
         animation.start();
 
         return () => {
+            animation.reset();
             animation.stop();
         };
     }, [opacityValue, xValue]);
