@@ -4,11 +4,11 @@ import { SelectAllStatus, TenantLayoutViewProps } from "../types";
 import useBuildingTenantMatrixViewStyles from "./styles";
 
 export type BuildingTenantMatrixViewProps = TenantLayoutViewProps & {
-    tenants: BuildingRoomInfo[];
+    roomInfos: BuildingRoomInfo[];
 };
 
 export type BuildingTenantFloorViewProps = {
-    tenants: BuildingRoomInfo[];
+    roomInfos: BuildingRoomInfo[];
     messages: ReturnType<typeof useScreenMessage>["messages"];
     styles: ReturnType<typeof useBuildingTenantMatrixViewStyles>["floor"];
     targetCheckMode: boolean;

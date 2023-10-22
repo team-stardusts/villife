@@ -18,14 +18,18 @@ export default function TentantLayout(props: TentantLayoutProps) {
 
     useEffect(() => {
         // 전체 선택 후 개별 요소의 체크를 해제 하는 경우를 위한 status
-        if (messagingTargets.length !== 0 && messagingTargets.length !== props.tenants.length) {
+        if (messagingTargets.length !== 0 && messagingTargets.length !== props.roomInfos.length) {
             setSelectAllStatus("unselect_element");
         }
 
         // Messaging의 대상 전달
         props.onCheckTarget &&
-            props.onCheckTarget(props.tenants.filter((_, index) => messagingTargets.find((i) => i === index)));
-    }, [messagingTargets, props.tenants]);
+            props.onCheckTarget(
+                props.roomInfos.filter(
+                    (room, index) => room.roomState === "signed" && messagingTargets.find((i) => i === index)
+                )
+            );
+    }, [messagingTargets]);
 
     return (
         <View style={styles.container}>

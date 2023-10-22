@@ -21,13 +21,13 @@ export default function BuildingTenantMatrixView(props: BuildingTenantMatrixView
     useEffect(() => {
         let _floors: number[] = [];
 
-        for (let i = 0; i < props.tenants.length; i++) {
-            if (_floors.find((floor) => floor === props.tenants[i].floor) === undefined) {
-                _floors.push(props.tenants[i].floor);
+        for (let i = 0; i < props.roomInfos.length; i++) {
+            if (_floors.find((floor) => floor === props.roomInfos[i].floor) === undefined) {
+                _floors.push(props.roomInfos[i].floor);
             }
         }
         setFloors(_floors.sort());
-    }, [props.tenants]);
+    }, [props.roomInfos]);
 
     useEffect(() => {
         props.onCheckTarget(messagingTargets);
@@ -35,7 +35,7 @@ export default function BuildingTenantMatrixView(props: BuildingTenantMatrixView
 
     useEffect(() => {
         if (props.selectAllStatus === "select_all") {
-            setMessagingTargets(props.tenants.map((_, index) => index));
+            setMessagingTargets(props.roomInfos.map((_, index) => index));
         } else if (props.selectAllStatus === "unselect_all") {
             setMessagingTargets([]);
         }
@@ -43,7 +43,7 @@ export default function BuildingTenantMatrixView(props: BuildingTenantMatrixView
 
     const handleOnCheck = ({ isCheck, tenant }: OnBuildingTenantCheck) => {
         // Check 시 대상 어레이에 없는 경우 추가
-        const tenantIndex = props.tenants.findIndex((value) => value.roomNumber === tenant.roomNumber);
+        const tenantIndex = props.roomInfos.findIndex((value) => value.roomNumber === tenant.roomNumber);
 
         if (isCheck && messagingTargets.find((target) => target === tenantIndex) === undefined) {
             setMessagingTargets([...messagingTargets, tenantIndex]);
@@ -73,7 +73,7 @@ export default function BuildingTenantMatrixView(props: BuildingTenantMatrixView
                     key={index}
                     styles={styles.floor}
                     messages={messages}
-                    tenants={props.tenants.filter((tenant) => tenant.floor === floor)}
+                    roomInfos={props.roomInfos.filter((tenant) => tenant.floor === floor)}
                     targetCheckMode={props.checkmode}
                     selectAllStatus={props.selectAllStatus}
                     onCheck={handleOnCheck}
@@ -93,7 +93,7 @@ function BuildingTenantFloorView(props: BuildingTenantFloorViewProps) {
 
     return (
         <ScrollView style={props.styles.container} showsHorizontalScrollIndicator={false} horizontal>
-            {props.tenants.map((tenant, index) => (
+            {props.roomInfos.map((tenant, index) => (
                 <BuildingTenant
                     key={index}
                     styles={props.styles}
@@ -168,6 +168,7 @@ function BuildingTenant(props: BuildingTenantProps) {
                         });
                     } else {
                         navigation.navigate("tenant_detail", {
+                            contractID: props.roomInfo.contractInfo.contractID,
                             roomInfo: JSON.stringify(props.roomInfo),
                         });
                     }

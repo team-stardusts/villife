@@ -5,7 +5,7 @@ import useBuildingTenantListViewStyles from "./styles";
 import { BuildingRoomInfo } from "../../../services/building_rooms/provider/types";
 
 export type BuildingTenantListViewProps = TenantLayoutViewProps & {
-    tenants: BuildingRoomInfo[];
+    roomInfos: BuildingRoomInfo[];
 };
 
 export type BuildingTenantProps = {

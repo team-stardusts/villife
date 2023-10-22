@@ -6,9 +6,9 @@ import useBuildingManagementScreenStyles from "./styles";
 import BuildingTentantMessage from "../../blocks/message";
 import BuildingTenantFilter from "../../blocks/filter";
 import { useState } from "react";
-import { LayoutType } from "../../blocks/filter/blocks/layout";
 import TentantLayout from "../../blocks/tenant_layout";
 import { BuildingRoomInfo } from "../../services/building_rooms/provider/types";
+import { LayoutType } from "../../blocks/filter/blocks/layout/types";
 
 export default function LeaseContractHomeScreen({ navigation, route }: LeaseContractHomeScreenProps) {
     const messages = useScreenMessage().messages;
@@ -44,7 +44,7 @@ export default function LeaseContractHomeScreen({ navigation, route }: LeaseCont
                     <BuildingTenantFilter onFilterChange={setRoomInfos} onLayoutChange={setLayout} />
                 </View>
                 <View style={styles.listView}>
-                    <TentantLayout layout={layout} tenants={roomInfos} checkmode={false} />
+                    <TentantLayout layout={layout} roomInfos={roomInfos} checkmode={false} />
                 </View>
             </View>
         </NavigationView>

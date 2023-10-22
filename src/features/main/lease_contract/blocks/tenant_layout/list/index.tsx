@@ -4,7 +4,6 @@ import { BuildingTenantListViewProps, BuildingTenantProps } from "./types";
 import { useEffect, useState } from "react";
 import Icon from "../../../../../common/atoms/icon";
 import useScreenMessage from "../../../../../common/hooks/multilingual/hooks";
-import VillifeToastMessage from "../../../../../common/atoms/toast";
 import TenantRoomStateLabel from "../blocks/status_label";
 import { useNavigation } from "@react-navigation/native";
 import { VillifeRouterParams } from "../../../../../common/router/types";
@@ -20,7 +19,7 @@ export default function BuildingTenantListView(props: BuildingTenantListViewProp
 
     useEffect(() => {
         if (props.selectAllStatus === "select_all") {
-            setMessagingTargets(props.tenants.map((_, index) => index));
+            setMessagingTargets(props.roomInfos.map((_, index) => index));
         } else if (props.selectAllStatus === "unselect_all") {
             setMessagingTargets([]);
         }
@@ -51,7 +50,7 @@ export default function BuildingTenantListView(props: BuildingTenantListViewProp
 
     return (
         <ScrollView style={styles.main.container} showsVerticalScrollIndicator={false}>
-            {props.tenants.map((tenant, index) => (
+            {props.roomInfos.map((tenant, index) => (
                 <BuildingTenantView
                     key={index}
                     index={index}

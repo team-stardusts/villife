@@ -3,7 +3,7 @@ import useNextButtonStyles from "./styles";
 import { NextButtonProps } from "./types";
 import useScreenMessage from "../../../../../../common/hooks/multilingual/hooks";
 
-export default function NextButton({ onPress }: NextButtonProps) {
+export default function NextButton({ disabled, onPress }: NextButtonProps) {
     const styles = useNextButtonStyles();
     const messages = useScreenMessage().messages;
 
@@ -12,6 +12,7 @@ export default function NextButton({ onPress }: NextButtonProps) {
             <TouchableOpacity
                 style={styles.button}
                 activeOpacity={0.6}
+                disabled={disabled}
                 onPress={() => {
                     onPress();
                 }}>

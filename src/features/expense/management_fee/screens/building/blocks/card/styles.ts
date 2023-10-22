@@ -1,7 +1,7 @@
 import { StyleSheet } from "react-native";
 import useStyler from "../../../../../../common/hooks/styler/hooks";
 
-export default function MFHistoryCardViewStyles() {
+export default function useMFHistoryCardViewStyles() {
     const { deviceUI, theme } = useStyler();
 
     return StyleSheet.create({
@@ -32,12 +32,14 @@ export default function MFHistoryCardViewStyles() {
             fontSize: deviceUI.moderateScale(20),
             color: theme.color.specified.black,
         },
-        key: {
+        rowKey: {
             fontFamily: theme.font.fontFamily.pretendard.semiBold,
             fontSize: deviceUI.moderateScale(15),
             color: theme.color.specified.black,
+            width: deviceUI.moderateScale(70),
+            letterSpacing: deviceUI.moderateScale(3),
         },
-        value: {
+        rowValue: {
             fontFamily: theme.font.fontFamily.pretendard.regular,
             fontSize: deviceUI.moderateScale(15),
             color: theme.color.specified.black,
@@ -51,7 +53,7 @@ export default function MFHistoryCardViewStyles() {
             borderWidth: deviceUI.moderateScale(1),
             justifyContent: "center",
             alignItems: "center",
-            marginLeft: deviceUI.moderateScale(7),
+            //marginLeft: deviceUI.moderateScale(7),
         },
         notimark: {
             fontFamily: theme.font.fontFamily.pretendard.semiBold,

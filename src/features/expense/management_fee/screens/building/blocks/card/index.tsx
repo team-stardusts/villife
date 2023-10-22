@@ -3,12 +3,12 @@ import { MFHistoryCardViewProps } from "./types";
 import { View } from "react-native";
 import { useEffect, useRef } from "react";
 import { ANIMATION_DURATION_DEFAULT, ANIMATION_DURATION_FAST_LV2 } from "../../../../../../common/constants";
-import MFHistoryCardViewStyles from "./styles";
+import useMFHistoryCardViewStyles from "./styles";
 import { insertCommaToNumber } from "../../../../../../common/global_function";
 import StardustDateParser from "../../../../../../../libs/date_parser";
 
 export default function MFHistoryCardView(props: MFHistoryCardViewProps) {
-    const styles = MFHistoryCardViewStyles();
+    const styles = useMFHistoryCardViewStyles();
     const opacityValue = useRef(new Animated.Value(0)).current;
     const yValue = useRef(new Animated.Value(-15)).current;
 
@@ -44,7 +44,7 @@ export default function MFHistoryCardView(props: MFHistoryCardViewProps) {
     };
 
     const isUnpaid = (): boolean => {
-        const today = StardustDateParser.changeGMT(new Date(), "kr");
+        //const today = StardustDateParser.changeGMT(new Date(), "kr");
 
         //return props.LastestPaidYear !== today.getFullYear() || props.LastestPaidMonth !== today.getMonth() + 1;
         return props.TotalUnpaidFee > 0;
@@ -77,25 +77,31 @@ export default function MFHistoryCardView(props: MFHistoryCardViewProps) {
                 </View>
                 <View style={[styles.row]}>
                     <View style={styles.set}>
-                        <Text style={styles.key}>최근 고지</Text>
+                        <Text style={styles.rowKey} adjustsFontSizeToFit numberOfLines={1}>
+                            최근고지
+                        </Text>
                         {isNotiRequired() && <NotiMark />}
                     </View>
-                    <Text style={styles.value}>
+                    <Text style={styles.rowValue}>
                         {props.LastestNotiYear}년 {props.LastestNotiMonth}월
                     </Text>
                 </View>
                 <View style={[styles.row]}>
-                    <Text style={styles.key}>최근 납부</Text>
-                    <Text style={styles.value}>
+                    <Text style={styles.rowKey} adjustsFontSizeToFit numberOfLines={1}>
+                        최근납부
+                    </Text>
+                    <Text style={styles.rowValue}>
                         {props.LastestPaidYear}년 {props.LastestPaidMonth}월
                     </Text>
                 </View>
                 <View style={[styles.row]}>
                     <View style={styles.set}>
-                        <Text style={styles.key}>미납금</Text>
+                        <Text style={styles.rowKey} adjustsFontSizeToFit numberOfLines={1}>
+                            미 납 금
+                        </Text>
                         {isUnpaid() && <NotiMark />}
                     </View>
-                    <Text style={styles.value}>{insertCommaToNumber(props.TotalUnpaidFee)}원</Text>
+                    <Text style={styles.rowValue}>{insertCommaToNumber(props.TotalUnpaidFee)}원</Text>
                 </View>
             </TouchableOpacity>
         </Animated.View>
