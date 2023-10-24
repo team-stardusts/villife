@@ -6,6 +6,7 @@ namespace Routes {
         registerFirebaseToken: string;
         loginRefresh: string;
         verifyBuilding: string;
+        verifyRoom: string;
     };
 
     export type Approval = {
@@ -14,6 +15,7 @@ namespace Routes {
         registerUserVehicle: string;
         decideApprovalRequest: string;
         residenceValidation: string;
+        checkUserIsWaitingForApproval: string;
     };
 
     export type BuildingAndContract = {

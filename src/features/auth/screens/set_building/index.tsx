@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { SafeAreaView, View, LogBox, Alert } from "react-native";
+import { SafeAreaView, View, LogBox, Alert, Text } from "react-native";
 import useScreenMessage from "../../../common/hooks/multilingual/hooks";
 import AuthScreenCommonInput from "../../blocks/input";
 import ScreenTitleView from "../../../common/blocks/title_view";
@@ -39,6 +39,8 @@ export default function SetBuildingScreen({ navigation, route }: SetBuildingScre
         isValid: false,
     });
 
+    const [isWaitingForApprove, setIsWaitingForApprove] = useState(false);
+
     const validateService = useValidateResidenceService();
     const validator: IStringValidator = new StringValidator();
 
@@ -53,10 +55,7 @@ export default function SetBuildingScreen({ navigation, route }: SetBuildingScre
                 room_number: parseInt(roomNumber),
             })
             .then((r) => {
-                navigation.reset({
-                    index: 0,
-                    routes: [{ name: "home", params: {} }],
-                });
+                setIsWaitingForApprove(true);
             })
             .catch((r) => {
                 return Alert.alert("오류", "거주 인증 실패");
@@ -99,6 +98,18 @@ export default function SetBuildingScreen({ navigation, route }: SetBuildingScre
     useEffect(() => {
         setAddress(null);
     }, []);
+
+    if (isWaitingForApprove) {
+        return (
+            <SafeAreaView style={styles.main.container}>
+                <ScreenTitleView
+                    titles={[messages.messages.auth.set_building.title]}
+                    subtitles={[messages.messages.auth.set_building.subtitle]}>
+                    <Text>승인 대기중입니다.</Text>
+                </ScreenTitleView>
+            </SafeAreaView>
+        );
+    }
 
     return (
         <SafeAreaView style={styles.main.container}>

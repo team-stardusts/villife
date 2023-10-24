@@ -9,6 +9,11 @@ export type VerifyBuildingAddressResult = {
     building_name: string;
 };
 
+export type VerifyRoomParams = {
+    building_id: number;
+    room_number: number;
+};
+
 export type ApprovalDecisionParams = {
     request_id: number;
     decision: string;
@@ -23,6 +28,10 @@ export type Approval = {
     content: string;
 };
 
+export type CheckUserIsWaitingForApprovalResult = {
+    is_waiting: boolean;
+};
+
 export type getApprovalsResult = Array<Approval>;
 
 interface Approavalable {
@@ -33,6 +42,7 @@ interface Approavalable {
     getExpenseApproval(): Response<getApprovalsResult>;
     rejectExpenseApproval(request_id: number): Response<string>;
     acceptExpenseApproval(request_id: number): Response<string>;
+    checkUserIsWaitingForApproval(category: number, detailType: number): Response<CheckUserIsWaitingForApprovalResult>;
 }
 
 export default interface IVillifeApprovalManager extends Approavalable {}

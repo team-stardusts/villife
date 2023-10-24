@@ -1,8 +1,10 @@
 import { Response } from "../../types";
 import AVillifeServerModule from "../absc";
 import IVillifeApprovalManager, {
+    CheckUserIsWaitingForApprovalResult,
     VerifyBuildingAddressParams,
     VerifyBuildingAddressResult,
+    VerifyRoomParams,
     getApprovalsResult,
 } from "./types";
 
@@ -91,6 +93,33 @@ class VillifeApprovalManager extends AVillifeServerModule implements IVillifeApp
             method: "post",
             url: route,
             data: reqBody,
+        });
+    }
+
+    public async checkUserIsWaitingForApproval(
+        category: number,
+        detailType: number
+    ): Response<CheckUserIsWaitingForApprovalResult> {
+        let route = this.routes.approval.checkUserIsWaitingForApproval;
+        const reqBody = {
+            category: category,
+            detailType: detailType,
+        };
+
+        return await this.requestAuthable<any, CheckUserIsWaitingForApprovalResult>({
+            method: "post",
+            url: route,
+            data: reqBody,
+        });
+    }
+
+    public async verifyRoom(params: VerifyRoomParams): Response<string> {
+        let route: string = this.routes.auth.verifyRoom;
+
+        return await this.requestAuthable<any, string>({
+            method: "post",
+            url: route,
+            data: params,
         });
     }
 }

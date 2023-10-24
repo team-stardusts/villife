@@ -8,6 +8,7 @@ const routes: RoutesType = {
         registerFirebaseToken: "auth/register/firebase-token",
         loginRefresh: "auth/renew/access-token",
         verifyBuilding: "auth/verify/building-address",
+        verifyRoom : "auth/verify/room"
     },
     approval: {
         approvalDecision: "approval/decision",
@@ -15,7 +16,7 @@ const routes: RoutesType = {
         registerUserVehicle: "approval/request/2/1",
         decideApprovalRequest: "approval/decision",
         residenceValidation: "approval/request/1/1",
-
+        checkUserIsWaitingForApproval: "approval/req-wait-check",
         //request_id
         // decision : approval or reject
     },
