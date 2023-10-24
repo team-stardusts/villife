@@ -441,10 +441,10 @@ PODS:
     - React-perflogger (= 0.71.3)
   - RNCAsyncStorage (1.17.11):
     - React-Core
-  - RNFBApp (17.4.2):
+  - RNFBApp (17.5.0):
     - Firebase/CoreOnly (= 10.7.0)
     - React-Core
-  - RNFBMessaging (17.4.2):
+  - RNFBMessaging (17.5.0):
     - Firebase/Messaging (= 10.7.0)
     - FirebaseCoreExtension (= 10.7.0)
     - React-Core
@@ -676,8 +676,8 @@ SPEC CHECKSUMS:
   React-runtimeexecutor: 7bf0dafc7b727d93c8cb94eb00a9d3753c446c3e
   ReactCommon: 5f9a24e64c1c3e2b719014f07cb2acf628983000
   RNCAsyncStorage: 8616bd5a58af409453ea4e1b246521bb76578d60
-  RNFBApp: 55dbfc574e5ae414f2984394934f79f87eb4b050
-  RNFBMessaging: d365361650cc697294227e1280923f35a31d2501
+  RNFBApp: d59efa0872fff4e27de03cca3c528c203a436ae5
+  RNFBMessaging: 216693dd5ba4f18ba65fb39fc73a44a23c26190f
   RNNaverLogin: 55f822601e31a7c7feeaf167497029c0162115e6
   RNScreens: 218801c16a2782546d30bd2026bb625c0302d70f
   RNSVG: c1e76b81c76cdcd34b4e1188852892dc280eb902
@@ -685,4 +685,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: d13852b500fd8050301c1c3319de0698812f78b4
 
-COCOAPODS: 1.11.3
+COCOAPODS: 1.12.0

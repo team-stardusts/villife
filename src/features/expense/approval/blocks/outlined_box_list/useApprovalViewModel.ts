@@ -1,19 +1,17 @@
 import React from "react";
 import { ApprovalListUpatedEventListener } from "./event";
-import useApprovalService from "../../services";
-import { Approval } from "../../../../../libs/rest_apis/villife/approval/types";
+import useExpenseApprovalService from "../../services";
 
-export default function useApprovalViewModel() {
-    const service = useApprovalService();
+export default function useExpenseApprovalViewModel() {
+    const service = useExpenseApprovalService();
     const [approvals, setApprovals] = React.useState<ReadonlyArray<Approval>>([]);
     const [refresh, setRefresh] = React.useState({});
 
     const fetchApprovals = async () => {
-        console.log("[ApprovalViewModel] Fetching approvals ...");
-        const fetchedApprovals = await service.getUserApproval();
+        const fetchedApprovals = await service.getExpenseApproval();
         if (!fetchedApprovals.isSuccessful) return [];
         if (fetchedApprovals.data?.data) {
-            console.log("[ApprovalViewModel] Fetched approval count :", fetchedApprovals.data?.data.length);
+            console.log("[ExpenseApprovalViewModel] Fetched approval count :", fetchedApprovals.data?.data.length);
             setApprovals([]);
             setApprovals(fetchedApprovals.data?.data);
         }
@@ -35,3 +33,12 @@ export default function useApprovalViewModel() {
 
     return approvals;
 }
+
+type Approval = {
+    id: number;
+    category: number;
+    detail_type: number;
+    create_at: number;
+    updated_at: number;
+    content: string;
+};

@@ -1,24 +1,24 @@
-import { Dimensions, Pressable, View } from "react-native";
+import { Pressable, View } from "react-native";
 import { Text } from "react-native";
 import React, { useEffect, useState } from "react";
-import ApprovalRequiredModal from "../approval_require_modal";
 import { ApprovalDataConverter, ConvertedApprovalData } from "./converter_approval";
 import IconMoreVertical from "../../../../common/atoms/icon/more_vertical";
-import IconBuilding from "../../../../common/atoms/icon/building";
-import useApprovalOutlinedBoxStyle from "./style";
 import OutlinedBoxProps from "./type";
-import IconUserBorder from "../../../../common/atoms/icon/user_border";
+import ExpenseApprovalRequiredModal from "../approval_require_modal";
+import { Shadow } from "react-native-shadow-2";
+import useExpenseApprovalOutlinedBoxStyles from "./style";
+import Icon from "../../../../common/atoms/icon";
 
 /**
  * @param OutlinedBoxProp
  * @description this componets are used by noti and complaint domains which are incharge of showing its contents
  */
 function OutlinedBox(props: OutlinedBoxProps) {
-    const styles = useApprovalOutlinedBoxStyle();
+    const styles = useExpenseApprovalOutlinedBoxStyles();
 
     const [modalVisible, setModalVisible] = useState<boolean>(false);
     const [convertedApprovals, setConvertedApprovals] = useState<ConvertedApprovalData>({} as ConvertedApprovalData);
-    // [TO-DO] : convert 안에 밑에 기능을 할 수 있게 하자
+
     useEffect(() => {
         const fetchData = () => {
             const converter = new ApprovalDataConverter(props.approvalRequest);
@@ -31,42 +31,37 @@ function OutlinedBox(props: OutlinedBoxProps) {
 
     return (
         <>
-            <ApprovalRequiredModal
+            <ExpenseApprovalRequiredModal
                 visible={modalVisible}
                 setVisible={setModalVisible}
                 convertedApprovalRequest={convertedApprovals}
             />
-            <Pressable
-                onPressOut={() => {
-                    setModalVisible(true);
-                }}
-                style={styles.container}>
+            <Shadow style={styles.container} distance={4}>
                 <View style={styles.innerBox}>
-                    <View style={styles.innerTitleSection}>
-                        <View style={styles.titleTextBox}>
-                            <Text style={styles.titleText}>{convertedApprovals.title}</Text>
-                            <View style={styles.subContainerBox}>
-                                <View style={styles.subInnerBox}>
-                                    <IconBuilding size={styles.iconBuildingSize.width as number} />
-                                    <Text style={styles.subText}>{convertedApprovals.buildingName}</Text>
-                                </View>
-                                <View style={styles.subInnerBox}>
-                                    <IconUserBorder size={styles.iconUserSize.width as number} />
-                                    <Text style={styles.subText}>{convertedApprovals.roomNumber}</Text>
+                    <Pressable
+                        onPressOut={() => {
+                            setModalVisible(true);
+                        }}
+                        style={styles.innerTitleSection}>
+                        <View style={styles.contentBox}>
+                            <View style={styles.titleTextBox}>
+                                <Text style={styles.titleText}>{convertedApprovals.title}</Text>
+                            </View>
+                            <View style={styles.absoluteWrapper}>
+                                <View style={styles.iconBox}>
+                                    <View style={styles.moreButton}>
+                                        <Icon
+                                            name={"three-dots-vertical"}
+                                            size={styles.moreIcon.width}
+                                            color={styles.moreIcon.color}
+                                        />
+                                    </View>
                                 </View>
                             </View>
                         </View>
-                        <View style={styles.absoluteWrapper}>
-                            <Pressable
-                                onPress={() => {
-                                    setModalVisible(true);
-                                }}>
-                                <IconMoreVertical size={styles.iconMoreSize.width as number} />
-                            </Pressable>
-                        </View>
-                    </View>
+                    </Pressable>
                 </View>
-            </Pressable>
+            </Shadow>
         </>
     );
 }

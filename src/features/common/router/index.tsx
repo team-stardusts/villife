@@ -100,6 +100,7 @@ export default function ScreenRouter() {
                 <Stack.Screen name={"confirm_payment_cost"} component={ConfirmPaymentCostScreen} />
                 <Stack.Screen name={"management_fee_detail"} component={ManagementFeeDetailScreen} />
                 <Stack.Screen name={"building_mf_history"} component={BuildingMFHistoryScreen} />
+                <Stack.Screen name={"expense_approval"} component={ExpenseApprovalScreen} />
             </Stack.Group>
             <Stack.Group>
                 <Stack.Screen name={"my_page"} component={MyPageHomeScreen} />
@@ -136,9 +137,6 @@ export default function ScreenRouter() {
             </Stack.Group>
             <Stack.Group>
                 <Stack.Screen name={"approval_home"} component={ApprovalHomeScreen} />
-            </Stack.Group>
-            <Stack.Group>
-                <Stack.Screen name={"expense_approval"} component={ExpenseApprovalScreen} />
             </Stack.Group>
             <Stack.Group>
                 <Stack.Screen name={"payment_window"} component={CommonPaymentWindowScreen} />
