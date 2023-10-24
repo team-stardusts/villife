@@ -9,10 +9,13 @@ import { useEffect, useState } from "react";
 import Icon from "../../../../common/atoms/icon";
 import SelectModal from "./blocks/select_modal";
 import { ManagementFee } from "../../../../../libs/rest_apis/villife/expense/types";
+import useManagementFeeManager from "../../services/payment";
+import { UserPaymentManagerBase } from "../../services/payment/types";
+import { insertCommaToNumber } from "../../../../common/global_function";
 
 export default function ManagementFeeDetailScreen({ navigation, route }: ManagementFeeDetailScreenProps) {
     const styles = useManagementFeeDetailScreenStyles();
-    const payer = usePayer();
+    const manager: UserPaymentManagerBase = useManagementFeeManager() as UserPaymentManagerBase;
     const user = useUserInformation();
     const [modalVisible, setModalVisible] = useState<boolean>(false);
     const [paidDR, setPaidDR] = useState<PaidDateRange>({});
@@ -22,7 +25,7 @@ export default function ManagementFeeDetailScreen({ navigation, route }: Managem
     useEffect(() => {
         const _paidPR: PaidDateRange = {};
 
-        payer.history.user?.forEach((fee) => {
+        manager.history.forEach((fee) => {
             if (Object.keys(_paidPR).find((year) => parseInt(year) === fee.year)) {
                 if (!_paidPR[fee.year].find((month) => month === fee.month)) {
                     _paidPR[fee.year].push(fee.month);
@@ -35,28 +38,21 @@ export default function ManagementFeeDetailScreen({ navigation, route }: Managem
 
         setPaidDR({ ..._paidPR });
 
-        if (payer.history.thisMonthBillOfUser) {
+        if (manager.history.length > 0) {
             setSelectedDate({
-                year: payer.history.thisMonthBillOfUser?.year,
-                month: payer.history.thisMonthBillOfUser?.month,
+                year: manager.history[manager.history.length - 1].year,
+                month: manager.history[manager.history.length - 1].month,
             });
         }
-    }, []);
+    }, [manager.history]);
 
     useEffect(() => {
         if (selectedDate === null) return;
 
-        const _fee = payer.history.user.find(
-            (fee) => fee.year === selectedDate.year && fee.month === selectedDate.month
-        );
+        const _fee = manager.history.find((fee) => fee.year === selectedDate.year && fee.month === selectedDate.month);
 
         setSelectedFee(_fee);
     }, [selectedDate]);
-
-    const insertCommaToMoney = (money: number | undefined): string => {
-        if (money === undefined || money === null) return "-";
-        return money.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    };
 
     const make2Digit = (num: number | undefined): string => {
         if (num === undefined) return "0";
@@ -83,7 +79,7 @@ export default function ManagementFeeDetailScreen({ navigation, route }: Managem
             bottomNavOptions={{
                 shown: false,
             }}>
-            <ScreenTitleView titles={[`그린파크 ${user?.roomNumber}호`]} disablePaddingTop={true}>
+            <ScreenTitleView titles={[`${user?.roomNumber}호`]} disablePaddingTop={true}>
                 <SelectModal
                     modalVisible={modalVisible}
                     setModalVisible={setModalVisible}
@@ -105,7 +101,7 @@ export default function ManagementFeeDetailScreen({ navigation, route }: Managem
                 </TouchableOpacity>
                 <View style={styles.main.container}>
                     <View style={styles.main.totalBox}>
-                        <Text style={styles.main.total}>{insertCommaToMoney(selectedFee?.amount_won)} 원</Text>
+                        <Text style={styles.main.total}>{insertCommaToNumber(selectedFee?.amount_won ?? 0)} 원</Text>
                     </View>
                     <ScrollView style={styles.main.billBox}></ScrollView>
                 </View>
