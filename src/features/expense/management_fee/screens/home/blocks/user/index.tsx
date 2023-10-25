@@ -3,7 +3,6 @@ import ManagementFeeBox from "./blocks/fee_box";
 import BillBox from "./blocks/bill_box";
 import ManagementFeeStatusScrollView from "./blocks/status_scrollview";
 import useUserMFViewStyles from "./styles";
-import usePayer from "../../../../services/payer";
 import useManagementFeeManager from "../../../../services/payment";
 import { useEffect, useState } from "react";
 import { ManagementFee } from "../../../../../../../libs/rest_apis/villife/expense/types";

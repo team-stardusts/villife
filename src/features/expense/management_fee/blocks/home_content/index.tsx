@@ -31,7 +31,7 @@ export default function HomeContentFromManagementFee() {
 
     const handlePressPaymentBtn = () => {
         if (thisMonthMF) {
-            navigation.navigate("confirm_payment_cost", {
+            /* navigation.navigate("confirm_payment_cost", {
                 title: "관리비 결제하기",
                 product_id: thisMonthMF.bill_id,
                 product_name: "?",
@@ -44,6 +44,9 @@ export default function HomeContentFromManagementFee() {
                     화재보험료: 100,
                     수선유지비: 100,
                 },
+            }); */
+            navigation.navigate("wire_amount_manually", {
+                amount_won: thisMonthMF.amount_won,
             });
         }
     };
@@ -76,7 +79,7 @@ export default function HomeContentFromManagementFee() {
                     </View>
                     {thisMonthMF !== undefined && thisMonthMF.amount_won !== 0 && (
                         <TouchableOpacity style={styles.paymentBtn} activeOpacity={0.6} onPress={handlePressPaymentBtn}>
-                            <Text style={styles.paymentText}>결제하기</Text>
+                            <Text style={styles.paymentText}>{/* 결제하기 */}이체하기</Text>
                         </TouchableOpacity>
                     )}
                 </View>

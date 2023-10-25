@@ -77,6 +77,7 @@ export type VillifeStackParamList = VillifeRootStackParamList & {
         id: string;
         password: string;
     };
+    wire_amount_manually?: {};
     permission_request?: {};
     payment_window: {
         title: string;
@@ -88,6 +89,11 @@ export type VillifeStackParamList = VillifeRootStackParamList & {
     register_vehicle?: {};
     register_guest_vehicle?: {};
     register_building?: {};
+    request_payment_confirmation: {
+        accountID: number;
+        amountWon: number;
+        billIDs: number[];
+    };
     tenant_detail: {
         roomInfo: string; //BuildingRoomInfo;
         contractID: number;

@@ -27,6 +27,8 @@ import IconTrashCan from "./trash_can";
 import IconMagnifier from "./magnifier";
 import IconCalendar from "./calendar";
 import { IconVillife } from "./villife";
+import IconCharactorBook from "./charactor_book";
+import IconCopy from "./copy";
 
 export default function Icon(props: IconProps) {
     /* let iconProps: ChildIconProps = {
@@ -56,8 +58,12 @@ export default function Icon(props: IconProps) {
             return <IconCalendar {...iconProps} />;
         case "car":
             return <IconCar {...iconProps} />;
+        case "charactor-book":
+            return <IconCharactorBook {...iconProps} />;
         case "check":
             return <IconCheck {...iconProps} />;
+        case "copy":
+            return <IconCopy {...iconProps} />;
         case "magnifier":
             return <IconMagnifier {...iconProps} />;
         case "messenger":

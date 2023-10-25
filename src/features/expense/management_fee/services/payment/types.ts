@@ -1,20 +1,18 @@
 import { Building } from "../../../../../libs/rest_apis/villife/building/types";
 import { ManagementFee } from "../../../../../libs/rest_apis/villife/expense/types";
 import { SimpleBuildingInfo } from "../../../../../libs/rest_apis/villife/user_info/types";
+import { UserInfo } from "../../../../common/hooks/service/user_info/types";
 
 export type ManagementFeeManager = UserPaymentManagerBase | AdminPaymentManagerBase;
 
-export interface UserPaymentManagerBase extends PaymentManagerBase<ManagementFee.ManagementFee> {
-    unpaidFee: number;
-}
+export interface UserPaymentManagerBase extends PaymentManagerBase<ManagementFee.ManagementFee> {}
 
-export interface AdminPaymentManagerBase
-    extends PaymentManagerBase<ManagementFee.BuildingRenterMFHistory>,
-        BuildingDetailInfoGettable {
+export interface AdminPaymentManagerBase extends PaymentManagerBase<ManagementFee.BuildingRenterMFHistory> {
     selectedBuilding: SimpleBuildingInfo | undefined;
 }
 
-export interface PaymentManagerBase<THistory> extends History<THistory> {
+export interface PaymentManagerBase<THistory> extends History<THistory>, BuildingDetailInfoGettable {
+    readonly user: UserInfo | null;
     readonly isAdmin: boolean;
 }
 

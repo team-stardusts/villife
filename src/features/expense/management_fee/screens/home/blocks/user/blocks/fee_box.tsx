@@ -16,7 +16,7 @@ export default function ManagementFeeBox(props: ManagementFeeBoxProps) {
 
     const handlePressPaymentBtn = () => {
         if (props.manangementFee?.amount_won) {
-            navigation.navigate("confirm_payment_cost", {
+            /* navigation.navigate("confirm_payment_cost", {
                 title: "관리비 결제하기",
                 product_id: props.manangementFee.bill_id,
                 product_name: "?",
@@ -29,6 +29,9 @@ export default function ManagementFeeBox(props: ManagementFeeBoxProps) {
                     화재보험료: 100,
                     수선유지비: 100,
                 },
+            }); */
+            navigation.navigate("wire_amount_manually", {
+                amount_won: props.manangementFee.amount_won,
             });
         }
     };
@@ -56,7 +59,7 @@ export default function ManagementFeeBox(props: ManagementFeeBoxProps) {
                                 style={props.styles.paymentBtn}
                                 activeOpacity={0.6}
                                 onPress={handlePressPaymentBtn}>
-                                <Text style={props.styles.paymentText}>결제하기</Text>
+                                <Text style={props.styles.paymentText}>{/* 결제하기 */}이체하기</Text>
                             </TouchableOpacity>
                         )}
                     </View>
