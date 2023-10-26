@@ -4,6 +4,7 @@ import IVillifeBuildingManager, { Building } from "../../../../libs/rest_apis/vi
 import VillifeServer from "../../../../libs/rest_apis/villife";
 import IVillifeApprovalManager, {
     VerifyBuildingAddressParams,
+    VerifyRoomParams,
 } from "../../../../libs/rest_apis/villife/approval/types";
 
 export default function useValidateResidenceService(): IValidateResidenceService {
@@ -38,6 +39,26 @@ class ValidateResidenceService implements IValidateResidenceService {
     async RequestValidationOfUserRegidence(params: Building.UserResidenceValidation.Params) {
         const result = await this.buildingRestClient.requestValidationOfUserRegidence(params);
 
+        if (!result.isSuccessful) {
+            console.log("API Error Log:", result.data?.status);
+            throw new Error("validation of user residence has failed");
+        }
+        if (!result.data?.data) throw new Error("cannot get data from api result");
+        return result.data.data;
+    }
+
+    async VerifyRoom(params: VerifyRoomParams) {
+        const result = await this.approvalRestClient.verifyRoom(params);
+        if (!result.isSuccessful) {
+            console.log("API Error Log:", result.data?.status);
+            throw new Error("validation of user residence has failed");
+        }
+        if (!result.data?.data) throw new Error("cannot get data from api result");
+        return result.data.data;
+    }
+
+    async CheckUserIsWaitingForRegidenceApproval() {
+        const result = await this.approvalRestClient.checkUserIsWaitingForApproval(1, 1);
         if (!result.isSuccessful) {
             console.log("API Error Log:", result.data?.status);
             throw new Error("validation of user residence has failed");

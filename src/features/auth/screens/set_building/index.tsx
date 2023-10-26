@@ -50,15 +50,28 @@ export default function SetBuildingScreen({ navigation, route }: SetBuildingScre
 
         if (!roomNumber) return Alert.alert("오류", "호수 정보를 입력해주세요");
         validateService
-            .RequestValidationOfUserRegidence({
-                building_id: buildingInfo.building_id,
+            .VerifyRoom({
+                building_id: buildingInfo?.building_id,
                 room_number: parseInt(roomNumber),
             })
             .then((r) => {
-                setIsWaitingForApprove(true);
+                validateService
+                    .RequestValidationOfUserRegidence({
+                        building_id: buildingInfo.building_id,
+                        room_number: parseInt(roomNumber),
+                    })
+                    .then((r) => {
+                        setIsWaitingForApprove(true);
+                    })
+                    .catch((r) => {
+                        return Alert.alert("오류", "거주 인증 실패");
+                    });
             })
             .catch((r) => {
-                return Alert.alert("오류", "거주 인증 실패");
+                return Alert.alert(
+                    "호수 재확인 필요",
+                    "조회되지 않는 호실입니다\n입력하신 호수를 다시 확인하시거나 관리자에게 문의해주세요!\n"
+                );
             });
     };
 
@@ -96,6 +109,15 @@ export default function SetBuildingScreen({ navigation, route }: SetBuildingScre
 
     // Selected address 초기화
     useEffect(() => {
+        validateService
+            .CheckUserIsWaitingForRegidenceApproval()
+            .then((r) => {
+                if (r.is_waiting) setIsWaitingForApprove(true);
+            })
+            .catch((r) => {
+                console.error("[SetBuildingScreen]", r);
+            });
+
         setAddress(null);
     }, []);
 

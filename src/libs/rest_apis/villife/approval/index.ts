@@ -103,7 +103,7 @@ class VillifeApprovalManager extends AVillifeServerModule implements IVillifeApp
         let route = this.routes.approval.checkUserIsWaitingForApproval;
         const reqBody = {
             category: category,
-            detailType: detailType,
+            detail_type: detailType,
         };
 
         return await this.requestAuthable<any, CheckUserIsWaitingForApprovalResult>({
@@ -112,6 +112,9 @@ class VillifeApprovalManager extends AVillifeServerModule implements IVillifeApp
             data: reqBody,
         });
     }
+
+
+    
 
     public async verifyRoom(params: VerifyRoomParams): Response<string> {
         let route: string = this.routes.auth.verifyRoom;

@@ -43,6 +43,8 @@ interface Approavalable {
     rejectExpenseApproval(request_id: number): Response<string>;
     acceptExpenseApproval(request_id: number): Response<string>;
     checkUserIsWaitingForApproval(category: number, detailType: number): Response<CheckUserIsWaitingForApprovalResult>;
+    verifyRoom(params: VerifyRoomParams): Response<string>;
+    checkUserIsWaitingForApproval(category: number, detailType: number): Response<CheckUserIsWaitingForApprovalResult>;
 }
 
 export default interface IVillifeApprovalManager extends Approavalable {}
