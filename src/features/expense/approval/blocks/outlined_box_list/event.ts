@@ -1,25 +1,25 @@
 import { EventRegister } from "react-native-event-listeners";
 
-const ApprovalEvents = {
+const ExpenseApprovalEvents = {
     listUpdated: "event_list_updated",
 };
-Object.freeze(ApprovalEvents);
+Object.freeze(ExpenseApprovalEvents);
 
 export class ApprovalEventEmitter {
     constructor() {}
 
     emitListUpdatedEvent() {
-        EventRegister.emit(ApprovalEvents.listUpdated);
+        EventRegister.emit(ExpenseApprovalEvents.listUpdated);
     }
 }
 type EventCallback = (data: any) => void;
 
-interface ApprovalEventListener {
+interface ExpenseApprovalEventListener {
     subscribe(eventCallback: EventCallback): void;
     unsubscribe(): void;
 }
-export class ApprovalListUpatedEventListener implements ApprovalEventListener {
-    private eventName = ApprovalEvents.listUpdated;
+export class ApprovalListUpatedEventListener implements ExpenseApprovalEventListener {
+    private eventName = ExpenseApprovalEvents.listUpdated;
     private listenerID: string = "";
 
     subscribe(eventCallback: EventCallback): void {

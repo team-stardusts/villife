@@ -4,7 +4,7 @@ import VillifeServer from "../../../../libs/rest_apis/villife";
 import IVillifeApprovalManager, { getApprovalsResult } from "../../../../libs/rest_apis/villife/approval/types";
 import { Response } from "../../../../libs/rest_apis/types";
 
-export default function useApprovalService(): IApprovalService {
+export default function useExpenseApprovalService(): IApprovalService {
     const service: IApprovalService = new ApprovalService();
     return service;
 }

@@ -48,8 +48,8 @@ export default function AdminMFView(props: AdminMFViewProps) {
 
         for (let i = 0; i < manager.history.length; i++) {
             if (
-                manager.history[i].LastestNotiYear !== today.getFullYear() ||
-                manager.history[i].LastestNotiMonth !== today.getMonth() + 1
+                manager.history[i].lastest_noti_year !== today.getFullYear() ||
+                manager.history[i].lastest_noti_month !== today.getMonth() + 1
             ) {
                 _unnoticedCnt++;
             }
@@ -63,7 +63,7 @@ export default function AdminMFView(props: AdminMFViewProps) {
                 _nonPaymentCnt++;
             } */
 
-            if (manager.history[i].TotalUnpaidFee > 0) {
+            if (manager.history[i].total_unpaid_fee > 0) {
                 _nonPaymentCnt++;
             }
         }
@@ -74,6 +74,19 @@ export default function AdminMFView(props: AdminMFViewProps) {
 
     return (
         <ScrollView style={styles.container}>
+            <View style={styles.approvalWrapper}>
+                <ContentBox backgroundColor={styles.approvalBox.backgroundColor} enableShadow={false}>
+                    <View style={styles.approvalCotent}>
+                        <TouchableOpacity
+                            style={styles.approvalTitleBox}
+                            activeOpacity={0.6}
+                            onPress={() => navigation.navigate("expense_approval")}>
+                            <Text style={styles.approvalTitle}>관리비 요청함</Text>
+                            <Icon name="letter" size={styles.linkIcon.width} color={styles.linkIcon.color} />
+                        </TouchableOpacity>
+                    </View>
+                </ContentBox>
+            </View>
             <ContentBox backgroundColor={styles.siturationBox.backgroundColor} enableShadow={false}>
                 <View style={styles.siturationWrapper}>
                     <TouchableOpacity

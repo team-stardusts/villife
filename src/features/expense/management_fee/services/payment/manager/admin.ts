@@ -1,10 +1,15 @@
 import { Building } from "../../../../../../libs/rest_apis/villife/building/types";
 import { SimpleBuildingInfo } from "../../../../../../libs/rest_apis/villife/user_info/types";
+import { UserInfo } from "../../../../../common/hooks/service/user_info/types";
 import { AdminPaymentManagerBase } from "../types";
 import PaymentManager from "./abstract";
 
 class AdminPaymentManager extends PaymentManager implements AdminPaymentManagerBase {
     public readonly isAdmin: boolean = true;
+
+    get user(): UserInfo | null {
+        return this._userInfo;
+    }
 
     get selectedBuilding(): SimpleBuildingInfo | undefined {
         return this._userInfo?.adminInfomation?.selectedBuilding;

@@ -1,3 +1,3 @@
 import { StyleSheet } from "react-native";
 
-export type UseApprovalOutLinedBoxListStylesType = ReturnType<typeof StyleSheet.create>;
+export type UseExpenseApprovalOutLinedBoxListStylesType = ReturnType<typeof StyleSheet.create>;

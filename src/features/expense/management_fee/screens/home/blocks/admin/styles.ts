@@ -61,5 +61,27 @@ export default function useAdminMFStyles() {
             color: theme.color.specified.black,
             fontSize: deviceUI.moderateScale(16),
         },
+        approvalWrapper: {
+            marginBottom: deviceUI.moderateScale(SCREEN_PADDING_VERTICAL_STANDARD_VALUE),
+        },
+        approvalBox: {
+            backgroundColor: theme.color.specified.white,
+        },
+        approvalCotent: {
+            width: "100%",
+            paddingHorizontal: deviceUI.moderateScale(SCREEN_PADDING_HORIZONTAL_STANDARD_VALUE),
+            paddingVertical: deviceUI.moderateScale(SCREEN_PADDING_VERTICAL_STANDARD_VALUE),
+        },
+        approvalTitleBox: {
+            width: "100%",
+            flexDirection: "row",
+            justifyContent: "space-between",
+            alignItems: "center",
+        },
+        approvalTitle: {
+            fontFamily: theme.font.fontFamily.pretendard.bold,
+            color: theme.color.specified.black,
+            fontSize: deviceUI.moderateScale(24),
+        },
     });
 }

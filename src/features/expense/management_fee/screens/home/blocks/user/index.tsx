@@ -3,7 +3,6 @@ import ManagementFeeBox from "./blocks/fee_box";
 import BillBox from "./blocks/bill_box";
 import ManagementFeeStatusScrollView from "./blocks/status_scrollview";
 import useUserMFViewStyles from "./styles";
-import usePayer from "../../../../services/payer";
 import useManagementFeeManager from "../../../../services/payment";
 import { useEffect, useState } from "react";
 import { ManagementFee } from "../../../../../../../libs/rest_apis/villife/expense/types";
@@ -31,7 +30,7 @@ export default function UserMFView() {
             manager.history.forEach((element) => {
                 // [TO-DO] is_paid == undefined는 임시로 필요한 조건이며
                 // API 업데이트 시 불필요함
-                if (!element.is_paid) {
+                if (element.is_paid === false) {
                     _unpaidMF += element.amount_won;
                 }
             });
@@ -43,7 +42,7 @@ export default function UserMFView() {
     return (
         <ScrollView style={styles.main.container}>
             <View style={styles.main.wrapper}>
-                <ManagementFeeBox styles={styles.managementFee} manangementFee={thisMonthMF} />
+                <ManagementFeeBox styles={styles.managementFee} feeRequired={unpaidMF} />
                 <BillBox styles={styles.bill} manangementFee={thisMonthMF} unpaidFee={unpaidMF} />
             </View>
             <ManagementFeeStatusScrollView styles={styles.managementFeeStatus} manangementFees={manager.history} />

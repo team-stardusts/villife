@@ -17,21 +17,27 @@ export default function HomeContentFromManagementFee() {
     const styles = useHomeContentFromManagementFeeStyles();
     const user = useUserInformation();
     const manager: UserPaymentManagerBase = useManagementFeeManager() as UserPaymentManagerBase;
-    const [thisMonthMF, setThisMonthMF] = useState<ManagementFee.ManagementFee | undefined>(undefined);
+    const [unpaidFee, setUnpaidFee] = useState<number>(0);
 
     useEffect(() => {
         manager.updateHistory();
     }, []);
 
     useEffect(() => {
-        if (manager.history.length > 0) {
-            setThisMonthMF(manager.history[manager.history.length - 1]);
-        }
+        let _unpaidFee = 0;
+
+        manager.history.forEach((v) => {
+            if (v.is_paid === false) {
+                _unpaidFee += v.amount_won;
+            }
+        });
+
+        setUnpaidFee(_unpaidFee);
     }, [manager.history]);
 
     const handlePressPaymentBtn = () => {
-        if (thisMonthMF) {
-            navigation.navigate("confirm_payment_cost", {
+        if (unpaidFee) {
+            /* navigation.navigate("confirm_payment_cost", {
                 title: "관리비 결제하기",
                 product_id: thisMonthMF.bill_id,
                 product_name: "?",
@@ -44,6 +50,9 @@ export default function HomeContentFromManagementFee() {
                     화재보험료: 100,
                     수선유지비: 100,
                 },
+            }); */
+            navigation.navigate("wire_amount_manually", {
+                amount_won: unpaidFee,
             });
         }
     };
@@ -59,24 +68,16 @@ export default function HomeContentFromManagementFee() {
             eanbleShadow={false}>
             <View style={styles.container}>
                 <View style={styles.header}>
-                    {
-                        <Text style={styles.headerText}>
-                            {user?.roomNumber}호 {thisMonthMF?.month}월 관리비
-                        </Text>
-                    }
+                    {<Text style={styles.headerText}>{user?.roomNumber}호 납부 필요 관리비</Text>}
                 </View>
                 <View style={styles.body}>
                     <View style={styles.managementFeeBox}>
                         <SpinningWon size={20} />
-                        {
-                            <Text style={styles.managementFee}>
-                                {insertCommaToNumber(thisMonthMF?.amount_won ?? 0)}원
-                            </Text>
-                        }
+                        {<Text style={styles.managementFee}>{insertCommaToNumber(unpaidFee)}원</Text>}
                     </View>
-                    {thisMonthMF !== undefined && thisMonthMF.amount_won !== 0 && (
+                    {unpaidFee !== 0 && (
                         <TouchableOpacity style={styles.paymentBtn} activeOpacity={0.6} onPress={handlePressPaymentBtn}>
-                            <Text style={styles.paymentText}>결제하기</Text>
+                            <Text style={styles.paymentText}>{/* 결제하기 */}이체하기</Text>
                         </TouchableOpacity>
                     )}
                 </View>

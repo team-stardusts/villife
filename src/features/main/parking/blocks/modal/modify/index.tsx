@@ -53,10 +53,11 @@ export default function VehicleModifyModal(props: VehicleModifyModalProps) {
                     ? messages.messages.main.parking.modify_modal.succed_to_change_etda
                     : messages.messages.main.parking.modify_modal.fail_to_change_etda
             );
-        } else if (info !== null) {
+        } else if (info?.plateNumber && info?.model) {
             const isSuccessful = await parkingLot.updateUserVehicleInfo({
                 vehicleID: props.vehilce.id,
-                ...info,
+                plateNumber: info.plateNumber,
+                model: info.model,
             });
 
             props.setVisible(false);

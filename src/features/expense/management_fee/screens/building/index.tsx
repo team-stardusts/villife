@@ -21,10 +21,11 @@ export default function BuildingMFHistoryScreen({ navigation, route }: BuildingM
 
     useEffect(() => {
         setFilterFloors();
+        console.log(manager.history);
     }, [manager.history]);
 
     const setFilterFloors = () => {
-        let floors = manager.history.map((f) => Math.floor(f.RoomNumber / 100).toString());
+        let floors = manager.history.map((f) => Math.floor(f.room_number / 100).toString());
 
         // 중복 제거
         floors = floors
@@ -67,9 +68,9 @@ export default function BuildingMFHistoryScreen({ navigation, route }: BuildingM
                     data={manager.history}
                     onFilterData={(data: ManagementFee.BuildingRenterMFHistory[]) => {
                         const _filteredHistory = data.sort((a, b) => {
-                            if (a.RoomNumber > b.RoomNumber) {
+                            if (a.room_number > b.room_number) {
                                 return 1;
-                            } else if (a.RoomNumber < b.RoomNumber) {
+                            } else if (a.room_number < b.room_number) {
                                 return -1;
                             }
                             return 0;

@@ -8,7 +8,7 @@ import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
 import useApprovalService from "../../services";
 import { ApprovalEventEmitter } from "../outlined_box_list/event";
 
-export default function ApprovalRequiredModal(props: ApprovalRequiredModalProps) {
+export default function ExpenseApprovalRequiredModal(props: ApprovalRequiredModalProps) {
     const messages = useScreenMessage();
     const service = useApprovalService();
     const styles = useBottomEditModalStyles();

@@ -9,7 +9,7 @@ const buildingManagementFeeFilter: Filter<ManagementFee.BuildingRenterMFHistory>
         postfix: "층",
         enableSelectAll: true,
         filter: (datum: ManagementFee.BuildingRenterMFHistory, selectedConditions: string[]) => {
-            return selectedConditions.find((condition) => condition === Math.floor(datum.RoomNumber / 100).toString())
+            return selectedConditions.find((condition) => condition === Math.floor(datum.room_number / 100).toString())
                 ? true
                 : false;
         },
@@ -28,9 +28,9 @@ const buildingManagementFeeFilter: Filter<ManagementFee.BuildingRenterMFHistory>
             if (selectedConditions.length === 2) return true;
 
             if (selectedConditions[0] === "고지") {
-                return datum.LastestNotiYear === thisYear && datum.LastestNotiMonth === thisMonth;
+                return datum.lastest_noti_year === thisYear && datum.lastest_noti_month === thisMonth;
             } else {
-                return datum.LastestNotiYear !== thisYear || datum.LastestNotiMonth !== thisMonth;
+                return datum.lastest_noti_year !== thisYear || datum.lastest_noti_month !== thisMonth;
             }
         },
     },
@@ -49,10 +49,10 @@ const buildingManagementFeeFilter: Filter<ManagementFee.BuildingRenterMFHistory>
 
             if (selectedConditions[0] === "완납") {
                 //return datum.LastestPaidYear === thisYear && datum.LastestPaidMonth === thisMonth;
-                return datum.TotalUnpaidFee === 0;
+                return datum.total_unpaid_fee === 0;
             } else {
                 //return datum.LastestPaidYear !== thisYear || datum.LastestPaidMonth !== thisMonth;
-                return datum.TotalUnpaidFee > 0;
+                return datum.total_unpaid_fee > 0;
             }
         },
     },

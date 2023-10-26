@@ -10,7 +10,11 @@ export default function ExpenseApprovalScreen(props: ExpenseApprovalScreenProps)
     return (
         <NavigationView
             headerOptions={{
-                title: messages.messages.main.approval.screen_title,
+                title: "관리비 요청함",
+            }}
+            bodyOptions={{
+                applyDefaultHorizontalPadding: false,
+                applyDefaultVerticalPadding: false,
             }}
             bottomNavOptions={{ shown: false }}>
             <FlatListOutlinedContentsBox />

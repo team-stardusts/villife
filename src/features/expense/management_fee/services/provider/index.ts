@@ -69,4 +69,18 @@ export default class ManagementFeePaymentServiceProvider
 
         return result.data.data;
     }
+
+    public async requestMFPaymentConfirmation(
+        params: ManagementFee.RequestMFPamentConfirmaion.Params
+    ): Promise<boolean> {
+        const result = await this._expenseAPI.requestMFPamentConfirmaion(params);
+
+        if (!result.isSuccessful || result.data?.data === undefined) {
+            this.printWhyFailed(result.data, result.data?.data);
+
+            return false;
+        }
+
+        return true;
+    }
 }
