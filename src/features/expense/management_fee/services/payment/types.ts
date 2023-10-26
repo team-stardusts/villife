@@ -5,7 +5,7 @@ import { UserInfo } from "../../../../common/hooks/service/user_info/types";
 
 export type ManagementFeeManager = UserPaymentManagerBase | AdminPaymentManagerBase;
 
-export interface UserPaymentManagerBase extends PaymentManagerBase<ManagementFee.ManagementFee> {}
+export interface UserPaymentManagerBase extends PaymentManagerBase<ManagementFee.ManagementFee>, ApprovalRequestable {}
 
 export interface AdminPaymentManagerBase extends PaymentManagerBase<ManagementFee.BuildingRenterMFHistory> {
     selectedBuilding: SimpleBuildingInfo | undefined;
@@ -15,6 +15,16 @@ export interface PaymentManagerBase<THistory> extends History<THistory>, Buildin
     readonly user: UserInfo | null;
     readonly isAdmin: boolean;
 }
+
+export interface ApprovalRequestable {
+    requestMFPaymentConfirmation(params: RequestMFPaymentConfirmationParams): Promise<boolean>;
+}
+
+export type RequestMFPaymentConfirmationParams = {
+    amountWon: number;
+    billIDs: number[];
+    sender: string;
+};
 
 export interface BuildingDetailInfoGettable {
     getBuildingDetailInfo(): Promise<Building.BuildingInfo | null>;

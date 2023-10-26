@@ -48,8 +48,8 @@ export default function AdminMFView(props: AdminMFViewProps) {
 
         for (let i = 0; i < manager.history.length; i++) {
             if (
-                manager.history[i].LastestNotiYear !== today.getFullYear() ||
-                manager.history[i].LastestNotiMonth !== today.getMonth() + 1
+                manager.history[i].lastest_noti_year !== today.getFullYear() ||
+                manager.history[i].lastest_noti_month !== today.getMonth() + 1
             ) {
                 _unnoticedCnt++;
             }
@@ -63,7 +63,7 @@ export default function AdminMFView(props: AdminMFViewProps) {
                 _nonPaymentCnt++;
             } */
 
-            if (manager.history[i].TotalUnpaidFee > 0) {
+            if (manager.history[i].total_unpaid_fee > 0) {
                 _nonPaymentCnt++;
             }
         }

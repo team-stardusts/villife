@@ -14,7 +14,7 @@ import VillifeToastMessage from "../../../../common/atoms/toast";
 
 export default function RequestPaymentConfirmationScreen(props: RequestPaymentConfirmationScreenProps) {
     const styles = useRequestPaymentConfirmationStyles();
-    const manager: UserPaymentManagerBase = useManagementFeeManager();
+    const manager: UserPaymentManagerBase = useManagementFeeManager() as UserPaymentManagerBase;
     const [bankAccount, setBankAccount] = useState<Building.BuildingBackAccountInfo | null>(null);
 
     useEffect(() => {
@@ -32,50 +32,73 @@ export default function RequestPaymentConfirmationScreen(props: RequestPaymentCo
         });
     }, []);
 
+    const requestApproval = async () => {
+        // [TO-DO] Amount가 0원일때에 대한 예외처리 필요
+        const result = await manager.requestMFPaymentConfirmation({
+            amountWon: props.route.params.amountWon === 0 ? 1000 : props.route.params.amountWon,
+            billIDs: props.route.params.billIDs,
+            sender: manager.user?.roomNumber.toString() || "TEST",
+        });
+
+        VillifeToastMessage.showBottomToast(
+            result ? "success" : "error",
+            result ? "확인 요청을 전송했어요." : "요청이 전송되지 않았어요. 잠시후 다시 시도해주세요."
+        );
+
+        props.navigation.canGoBack() && props.navigation.goBack();
+    };
+
     return (
-        <NavigationView
-            headerOptions={{
-                title: "이체하기",
-                hideBuidingSelector: true,
-                style: {
-                    borderBottomColor: styles.navContainer.backgroundColor,
-                    backgroundColor: styles.navContainer.backgroundColor,
-                },
-            }}
-            bodyOptions={{
-                applyDefaultHorizontalPadding: false,
-                applyDefaultVerticalPadding: false,
-                backgroundColor: styles.navContainer.backgroundColor,
-            }}
-            bottomNavOptions={{
-                shown: false,
-            }}>
-            <ScreenTitleView
-                titles={["관리비 이체하기"]}
-                subtitles={[
-                    "아래의 계좌에 관리비를 이체해주세요.",
-                    "",
-                    "이체를 마치시고 앱으로 돌아와서",
-                    '하단의 "납부 확인 요청" 버튼을 눌러주세요.',
-                ]}
-                bottomButton={{
-                    title: "납부 확인 요청",
-                    onPress: () => console.log("Hello"),
+        <>
+            <NavigationView
+                headerOptions={{
+                    title: "이체하기",
+                    hideBuidingSelector: true,
+                    style: {
+                        borderBottomColor: styles.navContainer.backgroundColor,
+                        backgroundColor: styles.navContainer.backgroundColor,
+                    },
                 }}
-                disablePaddingTop>
-                <ScrollView style={styles.container}>
-                    <AccountInfo styles={styles} rowKey="은행명" rowValue={bankAccount?.bank_name} />
-                    <AccountInfo styles={styles} rowKey="계좌번호" rowValue={bankAccount?.account_number} copyable />
-                    <AccountInfo styles={styles} rowKey="예금주" rowValue={bankAccount?.owner_name} />
-                    <AccountInfo
-                        styles={styles}
-                        rowKey="관리비"
-                        rowValue={insertCommaToNumber(props.route.params.amountWon)}
-                        copyable
-                    />
-                </ScrollView>
-            </ScreenTitleView>
-        </NavigationView>
+                bodyOptions={{
+                    applyDefaultHorizontalPadding: false,
+                    applyDefaultVerticalPadding: false,
+                    backgroundColor: styles.navContainer.backgroundColor,
+                }}
+                bottomNavOptions={{
+                    shown: false,
+                }}>
+                <ScreenTitleView
+                    titles={["관리비 이체하기"]}
+                    subtitles={[
+                        "아래의 계좌에 관리비를 이체해주세요.",
+                        "",
+                        "이체를 마치시고 앱으로 돌아와서",
+                        '하단의 "납부 확인 요청" 버튼을 눌러주세요.',
+                    ]}
+                    bottomButton={{
+                        title: "납부 확인 요청",
+                        onPress: () => requestApproval(),
+                    }}
+                    disablePaddingTop>
+                    <ScrollView style={styles.container}>
+                        <AccountInfo styles={styles} rowKey="은행명" rowValue={bankAccount?.bank_name} />
+                        <AccountInfo
+                            styles={styles}
+                            rowKey="계좌번호"
+                            rowValue={bankAccount?.account_number}
+                            copyable
+                        />
+                        <AccountInfo styles={styles} rowKey="예금주" rowValue={bankAccount?.owner_name} />
+                        <AccountInfo
+                            styles={styles}
+                            rowKey="관리비"
+                            rowValue={insertCommaToNumber(props.route.params.amountWon)}
+                            copyable
+                        />
+                    </ScrollView>
+                </ScreenTitleView>
+            </NavigationView>
+        </>
     );
 }
 

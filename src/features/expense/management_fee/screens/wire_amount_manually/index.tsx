@@ -14,7 +14,7 @@ import VillifeToastMessage from "../../../../common/atoms/toast";
 
 export default function WireAmountManually(props: WireAmountManuallyScreenProps) {
     const styles = useWireAmountManuallyStyles();
-    const manager: UserPaymentManagerBase = useManagementFeeManager();
+    const manager: UserPaymentManagerBase = useManagementFeeManager() as UserPaymentManagerBase;
     const [buildingName, setBuildingName] = useState<string>("");
     const [unpaidFee, setUnpaidFee] = useState<number>(0);
     const [billIDs, setBillIDs] = useState<number[]>([]);

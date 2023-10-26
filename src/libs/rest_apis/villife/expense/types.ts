@@ -1,11 +1,33 @@
 import { Response } from "../../types";
 
-export default interface IVillifeExpenseRestClient extends ManagementFee.ManagementFeeHistoryGettable {}
+export default interface IVillifeExpenseRestClient
+    extends ManagementFee.ManagementFeeHistoryGettable,
+        ManagementFee.ManagementFeeConfrimationRequestable {}
 
 export namespace ManagementFee {
     export interface ManagementFeeHistoryGettable {
         getBuildingManagementFeeHistory(params: GetBuildingMFHistory.Params): Response<GetBuildingMFHistory.Result>;
         getUserManagementFeeHistory(params: GetUserMFHistory.Params): Response<GetUserMFHistory.Result>;
+    }
+
+    export interface ManagementFeeConfrimationRequestable {
+        requestMFPamentConfirmaion(
+            param: RequestMFPamentConfirmaion.Params
+        ): Response<RequestMFPamentConfirmaion.Result>;
+    }
+
+    export namespace RequestMFPamentConfirmaion {
+        export type Params = {
+            amount_won: number;
+            bill_ids: number[];
+            depositor_name: string;
+            room_id: number;
+            room_number: number;
+        };
+
+        export type Body = Params;
+
+        export type Result = string;
     }
 
     export namespace GetUserMFHistory {
@@ -49,12 +71,12 @@ export namespace ManagementFee {
         lastestPaidYear: number;
         roomNumber: number;
         totalUnpaidFee: number; */
-        LastestNotiMonth: number;
-        LastestNotiYear: number;
-        LastestPaidMonth: number;
-        LastestPaidYear: number;
-        RoomNumber: number;
-        TotalUnpaidFee: number;
+        lastest_noti_month: number;
+        lastest_noti_year: number;
+        lastest_paid_month: number;
+        lastest_paid_year: number;
+        room_number: number;
+        total_unpaid_fee: number;
     };
 
     export type PaymentInfo = {};

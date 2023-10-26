@@ -38,6 +38,21 @@ export default class VillifeExpenseRestClient extends AVillifeServerModule imple
             params: _params,
         });
     }
+
+    public async requestMFPamentConfirmaion(
+        params: ManagementFee.RequestMFPamentConfirmaion.Params
+    ): Response<ManagementFee.RequestMFPamentConfirmaion.Result> {
+        const route = this.routes.approval.requestMFPaymentConfirmation;
+
+        return await this.requestAuthable<
+            ManagementFee.RequestMFPamentConfirmaion.Body,
+            ManagementFee.RequestMFPamentConfirmaion.Result
+        >({
+            method: "post",
+            url: route,
+            data: params,
+        });
+    }
 }
 
 /* const dummyData: ManagementFee.GetBuildingMFHistory.Result = [

@@ -16,7 +16,7 @@ export default function useRequestPaymentConfirmationStyles() {
             width: "100%",
             flexDirection: "row",
             justifyContent: "space-between",
-            paddingRight: deviceUI.moderateScale(30),
+            paddingRight: deviceUI.moderateScale(40),
             alignItems: "center",
             marginVertical: deviceUI.moderateScale(15),
         },
@@ -36,7 +36,7 @@ export default function useRequestPaymentConfirmationStyles() {
             padding: deviceUI.moderateScale(10),
         },
         icon: {
-            width: deviceUI.moderateScale(30),
+            width: deviceUI.moderateScale(40),
             color: theme.color.specified.black,
         },
     });

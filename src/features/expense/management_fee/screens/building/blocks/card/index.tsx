@@ -40,14 +40,14 @@ export default function MFHistoryCardView(props: MFHistoryCardViewProps) {
     const isNotiRequired = (): boolean => {
         const today = StardustDateParser.changeGMT(new Date(), "kr");
 
-        return !(props.LastestNotiYear === today.getFullYear() && props.LastestNotiMonth === today.getMonth() + 1);
+        return !(props.lastest_noti_year === today.getFullYear() && props.lastest_noti_month === today.getMonth() + 1);
     };
 
     const isUnpaid = (): boolean => {
         //const today = StardustDateParser.changeGMT(new Date(), "kr");
 
         //return props.LastestPaidYear !== today.getFullYear() || props.LastestPaidMonth !== today.getMonth() + 1;
-        return props.TotalUnpaidFee > 0;
+        return props.total_unpaid_fee > 0;
     };
 
     function NotiMark() {
@@ -73,7 +73,7 @@ export default function MFHistoryCardView(props: MFHistoryCardViewProps) {
             ]}>
             <TouchableOpacity style={styles.pressable} activeOpacity={0.6}>
                 <View style={styles.row}>
-                    <Text style={styles.roomNumber}>{props.RoomNumber}호</Text>
+                    <Text style={styles.roomNumber}>{props.room_number}호</Text>
                 </View>
                 <View style={[styles.row]}>
                     <View style={styles.set}>
@@ -83,7 +83,7 @@ export default function MFHistoryCardView(props: MFHistoryCardViewProps) {
                         {isNotiRequired() && <NotiMark />}
                     </View>
                     <Text style={styles.rowValue}>
-                        {props.LastestNotiYear}년 {props.LastestNotiMonth}월
+                        {props.lastest_noti_year}년 {props.lastest_noti_month}월
                     </Text>
                 </View>
                 <View style={[styles.row]}>
@@ -91,7 +91,7 @@ export default function MFHistoryCardView(props: MFHistoryCardViewProps) {
                         최근납부
                     </Text>
                     <Text style={styles.rowValue}>
-                        {props.LastestPaidYear}년 {props.LastestPaidMonth}월
+                        {props.lastest_paid_year}년 {props.lastest_paid_month}월
                     </Text>
                 </View>
                 <View style={[styles.row]}>
@@ -101,7 +101,7 @@ export default function MFHistoryCardView(props: MFHistoryCardViewProps) {
                         </Text>
                         {isUnpaid() && <NotiMark />}
                     </View>
-                    <Text style={styles.rowValue}>{insertCommaToNumber(props.TotalUnpaidFee)}원</Text>
+                    <Text style={styles.rowValue}>{insertCommaToNumber(props.total_unpaid_fee) + "원"}</Text>
                 </View>
             </TouchableOpacity>
         </Animated.View>

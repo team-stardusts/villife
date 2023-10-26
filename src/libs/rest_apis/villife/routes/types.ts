@@ -15,6 +15,7 @@ namespace Routes {
         registerUserVehicle: string;
         decideApprovalRequest: string;
         residenceValidation: string;
+        requestMFPaymentConfirmation: string;
         checkUserIsWaitingForApproval: string;
     };
 
