@@ -91,8 +91,15 @@ export default function RequestPaymentConfirmationScreen(props: RequestPaymentCo
                         <AccountInfo styles={styles} rowKey="예금주" rowValue={bankAccount?.owner_name} />
                         <AccountInfo
                             styles={styles}
+                            rowKey="받는 분 통장 표시"
+                            rowValue={manager.user?.roomNumber.toString()}
+                            copyable
+                        />
+                        <AccountInfo
+                            styles={styles}
                             rowKey="관리비"
-                            rowValue={insertCommaToNumber(props.route.params.amountWon)}
+                            rowValue={insertCommaToNumber(props.route.params.amountWon) + " 원"}
+                            rowRealValue={props.route.params.amountWon.toString()}
                             copyable
                         />
                     </ScrollView>
@@ -134,7 +141,9 @@ function AccountInfo(props: AccountInfoProps) {
                     style={props.styles.iconBtn}
                     activeOpacity={0.6}
                     onPress={() => {
-                        copyToClipboard(props.rowValue as string);
+                        copyToClipboard(
+                            (props.rowRealValue !== undefined ? props.rowRealValue : props.rowValue) as string
+                        );
                     }}>
                     <Icon name="copy" size={props.styles.icon.width} color={props.styles.icon.color} />
                 </TouchableOpacity>

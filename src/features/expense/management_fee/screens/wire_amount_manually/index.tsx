@@ -18,12 +18,12 @@ export default function WireAmountManually(props: WireAmountManuallyScreenProps)
     const [buildingName, setBuildingName] = useState<string>("");
     const [unpaidFee, setUnpaidFee] = useState<number>(0);
     const [billIDs, setBillIDs] = useState<number[]>([]);
-    const [backAccounts, setBackAccounts] = useState<Building.BuildingBackAccountInfo[]>([]);
+    const [bankAccounts, setBankAccounts] = useState<Building.BuildingBackAccountInfo[]>([]);
 
     useEffect(() => {
         manager.getBuildingDetailInfo().then((r) => {
             if (r?.building_name !== undefined) setBuildingName(r.building_name);
-            if (r?.bank_accounts !== undefined) setBackAccounts(r.bank_accounts);
+            if (r?.bank_accounts !== undefined) setBankAccounts(r.bank_accounts);
         });
     }, []);
 
@@ -63,7 +63,7 @@ export default function WireAmountManually(props: WireAmountManuallyScreenProps)
             <ScreenTitleView
                 titles={["관리비 이체하기"]}
                 subtitles={[
-                    `우리 건물은 ${"X"}개의 은행 계좌를 보유하고 있어요.`,
+                    `우리 건물은 ${bankAccounts.length}개의 은행 계좌를 보유하고 있어요.`,
                     "계좌이체 하실 때 예금주명에",
                     "살고 계신 호수 입력을 부탁드릴게요.",
                     "",
@@ -96,7 +96,7 @@ export default function WireAmountManually(props: WireAmountManuallyScreenProps)
                             <Text style={styles.header}>납부은행</Text>
                         </View>
                         <ScrollView style={styles.scroll}>
-                            {backAccounts.map((account, index) => (
+                            {bankAccounts.map((account, index) => (
                                 <BackInfoBox
                                     key={index}
                                     accountID={account.account_id}

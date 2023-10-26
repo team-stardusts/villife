@@ -13,5 +13,6 @@ export type AccountInfoProps = {
     styles: ReturnType<typeof useRequestPaymentConfirmationStyles>;
     rowKey: string;
     rowValue: string | undefined;
+    rowRealValue?: string | undefined;
     copyable?: boolean;
 };
