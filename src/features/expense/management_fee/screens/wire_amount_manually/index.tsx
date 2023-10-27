@@ -18,7 +18,7 @@ export default function WireAmountManually(props: WireAmountManuallyScreenProps)
     const [buildingName, setBuildingName] = useState<string>("");
     const [unpaidFee, setUnpaidFee] = useState<number>(0);
     const [billIDs, setBillIDs] = useState<number[]>([]);
-    const [bankAccounts, setBankAccounts] = useState<Building.BuildingBackAccountInfo[]>([]);
+    const [bankAccounts, setBankAccounts] = useState<Building.BuildingBankAccountInfo[]>([]);
 
     useEffect(() => {
         manager.getBuildingDetailInfo().then((r) => {
@@ -185,7 +185,9 @@ function BackInfoBox(props: BackInfoBoxProps) {
                     <Text style={styles.name}>{props.backName}</Text>
                 </View>
                 <View style={styles.accountInfo}>
-                    <Text style={styles.accountNumber}>{props.accountNumber}</Text>
+                    <Text style={styles.accountNumber} adjustsFontSizeToFit numberOfLines={1}>
+                        {props.accountNumber}
+                    </Text>
                 </View>
                 <View style={styles.accountInfo}>
                     <Text style={styles.name}>{props.accountHolder}</Text>
@@ -204,9 +206,9 @@ function BackInfoBox(props: BackInfoBoxProps) {
 }
 
 type BackInfoBoxProps = {
-    backName: Building.BuildingBackAccountInfo["bank_name"];
-    accountID: Building.BuildingBackAccountInfo["account_id"];
-    accountHolder: Building.BuildingBackAccountInfo["owner_name"];
-    accountNumber: Building.BuildingBackAccountInfo["account_number"];
+    backName: Building.BuildingBankAccountInfo["bank_name"];
+    accountID: Building.BuildingBankAccountInfo["account_id"];
+    accountHolder: Building.BuildingBankAccountInfo["owner_name"];
+    accountNumber: Building.BuildingBankAccountInfo["account_number"];
     onPressWireAmount(accountID: number): void;
 };

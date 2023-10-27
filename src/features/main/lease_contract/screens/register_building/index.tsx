@@ -14,9 +14,9 @@ import useUserInformation from "../../../../common/hooks/service/user_info";
 import VillifeToastMessage from "../../../../common/atoms/toast";
 import useAdminInfoService from "../../../../common/hooks/service/user_info/service";
 import { IBuildingRegisterable } from "../../services/building_rooms/provider/types";
-import MFDaysSetter from "./blocks/date";
+import MFDataSetter from "./blocks/mf";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import { MFDays } from "./blocks/date/types";
+import { MFData } from "./blocks/mf/types";
 
 export default function RegisterBuildingScreen({ navigation, route }: RegisterBuildingScreenProps) {
     const messages = useScreenMessage().messages;
@@ -27,15 +27,16 @@ export default function RegisterBuildingScreen({ navigation, route }: RegisterBu
     const scrollVewRef = useRef<KeyboardAwareScrollView | null>(null);
     const [floors, setFloors] = useState<BuildingFloors>([]);
     const [buildingInfo, setBuildingInfo] = useState<BuildingInfo | null>(null);
-    const [mfdays, setMFDays] = useState<MFDays>({
+    const [mfdata, setMFData] = useState<MFData>({
         dueDay: null,
         notiDay: null,
+        bankAccounts: [],
     });
 
     const isProperlyPrepared = (): boolean => {
         const isValidFloorValue = floors.filter((floor) => floor !== 0 && floor !== null).length !== 0;
 
-        return buildingInfo !== null && mfdays.dueDay !== null && mfdays.notiDay !== null && isValidFloorValue;
+        return buildingInfo !== null && mfdata.dueDay !== null && mfdata.notiDay !== null && isValidFloorValue;
     };
 
     const registerBuilding = async () => {
@@ -47,15 +48,16 @@ export default function RegisterBuildingScreen({ navigation, route }: RegisterBu
         // 확인 버튼 활성 조건에 "buildingInfo가 null이 아닐 것"이 있기 때문에
         // 그냥 Type narrowing임.
         if (buildingInfo === null) return;
-        if (mfdays.dueDay === null || mfdays.dueDay === null) return;
+        if (mfdata.dueDay === null || mfdata.notiDay === null) return;
 
         const _floors = floors;
 
         const result = await registerer.registerBuilding({
             basementInfo: _floors.shift() as number | null,
             buildingName: buildingInfo.name,
-            mfDueDate: 0,
-            mfNotiDate: 0,
+            accountRegiReqForms: mfdata.bankAccounts,
+            mfDueDate: mfdata.dueDay,
+            mfNotiDate: mfdata.notiDay,
             ownerName: user.name,
             roadAddress: buildingInfo.address.roadAddress,
             roomsInfo: floors as number[],
@@ -107,7 +109,7 @@ export default function RegisterBuildingScreen({ navigation, route }: RegisterBu
                         <AddressSetter styles={styles.search} onChangeBuildingInfo={setBuildingInfo} />
                     </View>
                     <View style={styles.main.dateSettingContainer}>
-                        <MFDaysSetter styles={styles.date} onChangeMFDay={setMFDays} />
+                        <MFDataSetter onChangeMFData={setMFData} />
                     </View>
                     <View style={styles.main.roomSettingContainer}>
                         <RoomCountSetter styles={styles.room} onChangeRoomCount={setFloors} />
