@@ -48,6 +48,7 @@ import ExpenseApprovalScreen from "../../expense/approval/screens/home";
 import BuildingMFHistoryScreen from "../../expense/management_fee/screens/building";
 import WireAmountManually from "../../expense/management_fee/screens/wire_amount_manually";
 import RequestPaymentConfirmationScreen from "../../expense/management_fee/screens/request_payment_confirmation";
+import MFDepositCheckScreen from "../../expense/management_fee/screens/deposit_check";
 
 enableScreens(true);
 
@@ -102,6 +103,7 @@ export default function ScreenRouter() {
                 <Stack.Screen name={"confirm_payment_cost"} component={ConfirmPaymentCostScreen} />
                 <Stack.Screen name={"management_fee_detail"} component={ManagementFeeDetailScreen} />
                 <Stack.Screen name={"building_mf_history"} component={BuildingMFHistoryScreen} />
+                <Stack.Screen name={"mf_deposit_check"} component={MFDepositCheckScreen} />
                 <Stack.Screen name={"wire_amount_manually"} component={WireAmountManually} />
                 <Stack.Screen name={"request_payment_confirmation"} component={RequestPaymentConfirmationScreen} />
                 <Stack.Screen name={"expense_approval"} component={ExpenseApprovalScreen} />

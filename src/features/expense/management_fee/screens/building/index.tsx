@@ -1,4 +1,4 @@
-import { Alert, ScrollView, Text, Touchable, TouchableOpacity, View } from "react-native";
+import { Alert, ScrollView, Text, TouchableOpacity, View } from "react-native";
 import NavigationView from "../../../../common/blocks/navigation";
 import BuildingMFHistoryScreenProps from "./types";
 import useBuildingMFHistoryScreenStyles from "./styles";
@@ -9,7 +9,7 @@ import { useEffect, useState } from "react";
 import { Filter } from "../../../../common/blocks/top_filter/types";
 import { ManagementFee } from "../../../../../libs/rest_apis/villife/expense/types";
 import buildingManagementFeeFilter from "./filter";
-import MFHistoryCardView from "./blocks/card";
+import MFHistoryCardView from "../blocks/card";
 
 export default function BuildingMFHistoryScreen({ navigation, route }: BuildingMFHistoryScreenProps) {
     const styles = useBuildingMFHistoryScreenStyles();
@@ -21,7 +21,6 @@ export default function BuildingMFHistoryScreen({ navigation, route }: BuildingM
 
     useEffect(() => {
         setFilterFloors();
-        console.log(manager.history);
     }, [manager.history]);
 
     const setFilterFloors = () => {
@@ -83,16 +82,26 @@ export default function BuildingMFHistoryScreen({ navigation, route }: BuildingM
                 <View style={styles.wrapper}>
                     <View style={styles.fcBtnWrapper}>
                         <TouchableOpacity
-                            style={styles.fcBtn}
+                            style={[
+                                styles.depositCheckBtn,
+                                filteredHistory.filter((v) => v.total_unpaid_fee > 0).length === 0 &&
+                                    styles.depositCheckBtnDisabled,
+                            ]}
                             activeOpacity={0.6}
-                            onPress={() => console.log("고지하기!")}>
-                            <Text style={styles.fcTxt}>고지하기</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            style={styles.fcBtn}
-                            activeOpacity={0.6}
-                            onPress={() => console.log("고지하기!")}>
-                            <Text style={styles.fcTxt} adjustsFontSizeToFit numberOfLines={1}>
+                            disabled={filteredHistory.filter((v) => v.total_unpaid_fee > 0).length === 0}
+                            onPress={() => {
+                                navigation.navigate("mf_deposit_check", {
+                                    fees: JSON.stringify(filteredHistory),
+                                });
+                            }}>
+                            <Text
+                                style={[
+                                    styles.depositCheckTxt,
+                                    filteredHistory.filter((v) => v.total_unpaid_fee > 0).length === 0 &&
+                                        styles.depositCheckTxtDisabled,
+                                ]}
+                                adjustsFontSizeToFit
+                                numberOfLines={1}>
                                 입금 확인하기
                             </Text>
                         </TouchableOpacity>

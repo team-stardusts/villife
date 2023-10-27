@@ -3,6 +3,8 @@ import { Authority } from "../../../libs/rest_apis/villife/types";
 import { HostType } from "../../../libs/rest_apis/villife/auth/types";
 import { Complaint } from "../../../libs/rest_apis/villife/complaint/types";
 import { LayoutType } from "../../main/lease_contract/screens/home/blocks/layout/types";
+import { Building } from "../../../libs/rest_apis/villife/building/types";
+import { ManagementFee } from "../../../libs/rest_apis/villife/expense/types";
 
 export type VillifeRootStackParamList = {
     login?: {};
@@ -53,6 +55,10 @@ export type VillifeStackParamList = VillifeRootStackParamList & {
     };
     mypage: {};
     management_fee_detail?: {};
+    mf_deposit_check: {
+        //fees: ManagementFee.BuildingRenterMFHistory[]
+        fees: string;
+    };
     noti_home?: {};
     noti_register?: {};
     noti_modify: {

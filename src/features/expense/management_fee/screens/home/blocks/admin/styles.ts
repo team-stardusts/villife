@@ -62,7 +62,7 @@ export default function useAdminMFStyles() {
             fontSize: deviceUI.moderateScale(16),
         },
         approvalWrapper: {
-            marginBottom: deviceUI.moderateScale(SCREEN_PADDING_VERTICAL_STANDARD_VALUE),
+            marginBottom: deviceUI.moderateScale(15),
         },
         approvalBox: {
             backgroundColor: theme.color.specified.white,
