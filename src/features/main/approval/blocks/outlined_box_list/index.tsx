@@ -4,10 +4,13 @@ import { Approval } from "../../../../../libs/rest_apis/villife/approval/types";
 import useApprovalViewModel from "./useApprovalViewModel";
 import useApprovalOutLinedBoxListStyles from "./style";
 
-//[TO-DO] : 스타일 밖으로 빼기
 function FlatListOutlinedContentsBox() {
     const styles = useApprovalOutLinedBoxListStyles();
     const viewModel = useApprovalViewModel();
+
+    const OutlinedBoxRenderItem = (props: ListRenderItemInfo<Approval>) => {
+        return <OutlinedBox approvalRequest={props.item} />;
+    };
 
     return (
         <FlatList
@@ -17,10 +20,6 @@ function FlatListOutlinedContentsBox() {
             renderItem={OutlinedBoxRenderItem}
         />
     );
-}
-
-function OutlinedBoxRenderItem(props: ListRenderItemInfo<Approval>) {
-    return <OutlinedBox approvalRequest={props.item} />;
 }
 
 export default FlatListOutlinedContentsBox;

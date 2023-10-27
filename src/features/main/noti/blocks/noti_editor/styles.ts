@@ -19,7 +19,7 @@ export default function useNotiEditorStyles() {
         onHide: () => setIsKeyboardFold(true),
     });
 
-    const titleHeight = deviceUI.moderateScale(50);
+    const titleHeight = deviceUI.moderateScale(60);
     const richBarHeight = deviceUI.moderateScale(50);
     const richHeight = safetySpace.height - (titleHeight + richBarHeight + keyboardHeight) + safetyEdgeSize.bottom;
 
@@ -59,6 +59,9 @@ export default function useNotiEditorStyles() {
             paddingHorizontal: deviceUI.moderateScale(10),
             fontFamily: theme.font.fontFamily.pretendard.bold,
         },
+        placeHolderColor: {
+            color: theme.color.series.grey.level2,
+        },
     });
 
     const editorCSS = {
@@ -66,7 +69,7 @@ export default function useNotiEditorStyles() {
         backgroundColor: theme.color.specified.white as string,
         color: theme.color.specified.black as string,
         caretColor: theme.color.specified.red as string,
-        placeholderColor: theme.color.series.grey.level4 as string,
+        placeholderColor: theme.color.series.grey.level2 as string,
         contentCSSText: `font-family:${theme.font.fontFamily.pretendard.semiBold}`,
     };
 

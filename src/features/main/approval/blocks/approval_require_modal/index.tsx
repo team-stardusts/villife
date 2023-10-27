@@ -21,56 +21,60 @@ export default function ApprovalRequiredModal(props: ApprovalRequiredModalProps)
     }, []);
 
     const onRejectButtonPress = async () => {
-        const result = await service.rejectUserApproval(props.convertedApprovalRequest.id);
+        if (props.convertedApprovalRequest) {
+            const result = await service.rejectUserApproval(props.convertedApprovalRequest.id);
+            console.log("[approvalReJect]", result.data?.data);
 
-        if (result.isSuccessful) {
-            new ApprovalEventEmitter().emitListUpdatedEvent();
-            setVisible(false);
-            setDeleteAlertVisible(false);
-            console.log("[approvalReJect]", result.data?.data);
-            Toast.show({
-                type: "success",
-                text1: messages.messages.main.approval.reject_success,
-                position: "bottom",
-                visibilityTime: 1500,
-                bottomOffset: 100,
-            });
-        } else {
-            console.log("[approvalReJect]", result.data?.data);
-            Toast.show({
-                type: "error",
-                text1: messages.messages.main.approval.reject_error,
-                position: "bottom",
-                visibilityTime: 1500,
-                bottomOffset: 100,
-            });
+            if (result.isSuccessful) {
+                new ApprovalEventEmitter().emitListUpdatedEvent();
+                setVisible(false);
+                setDeleteAlertVisible(false);
+                console.log("[approvalReJect]", result.data?.data);
+                Toast.show({
+                    type: "success",
+                    text1: messages.messages.main.approval.reject_success,
+                    position: "bottom",
+                    visibilityTime: 1500,
+                    bottomOffset: 100,
+                });
+            } else {
+                console.log("[approvalReJect]", result.data?.data);
+                Toast.show({
+                    type: "error",
+                    text1: messages.messages.main.approval.reject_error,
+                    position: "bottom",
+                    visibilityTime: 1500,
+                    bottomOffset: 100,
+                });
+            }
         }
     };
 
-    // [TO-DO] : service에서 불러와서 사용
     const onApcceptButtonPress = async () => {
-        const result = await service.acceptUserApproval(props.convertedApprovalRequest.id);
+        if (props.convertedApprovalRequest) {
+            const result = await service.acceptUserApproval(props.convertedApprovalRequest.id);
 
-        if (result.isSuccessful) {
-            new ApprovalEventEmitter().emitListUpdatedEvent();
-            setVisible(false);
-            console.log("[approvalAccept]", result.data?.data);
-            Toast.show({
-                type: "success",
-                text1: messages.messages.main.approval.accept_success,
-                position: "bottom",
-                visibilityTime: 1500,
-                bottomOffset: 100,
-            });
-        } else {
-            console.log("[approvalAccept]", result.data?.data);
-            Toast.show({
-                type: "error",
-                text1: messages.messages.main.approval.accept_error,
-                position: "bottom",
-                visibilityTime: 1500,
-                bottomOffset: 100,
-            });
+            if (result.isSuccessful) {
+                new ApprovalEventEmitter().emitListUpdatedEvent();
+                setVisible(false);
+                console.log("[approvalAccept]", result.data?.data);
+                Toast.show({
+                    type: "success",
+                    text1: messages.messages.main.approval.accept_success,
+                    position: "bottom",
+                    visibilityTime: 1500,
+                    bottomOffset: 100,
+                });
+            } else {
+                console.log("[approvalAccept]", result.data?.data);
+                Toast.show({
+                    type: "error",
+                    text1: messages.messages.main.approval.accept_error,
+                    position: "bottom",
+                    visibilityTime: 1500,
+                    bottomOffset: 100,
+                });
+            }
         }
     };
 
@@ -83,11 +87,30 @@ export default function ApprovalRequiredModal(props: ApprovalRequiredModalProps)
                 setVisible(!props.visible);
             }}
             style={[styles.wrapper, styles.wrapperTop]}>
+            <StardustModal
+                modalVisible={deleteAlertVisible}
+                setModalVisible={setDeleteAlertVisible}
+                title={messages.messages.main.approval.reject_title}
+                buttons={[
+                    {
+                        text: messages.messages.words.cancle,
+                        onPress: () => setDeleteAlertVisible(false),
+                    },
+                    {
+                        text: messages.messages.main.approval.reject,
+                        onPress: () => onRejectButtonPress(),
+                    },
+                ]}
+            />
             <View style={styles.container}>
                 <View style={styles.content}>
                     <View style={styles.textSection}>
-                        <Text style={styles.title}>{convertedApprovalRequest.title}</Text>
-                        <Text style={styles.subtitle}>{convertedApprovalRequest.subTitle}</Text>
+                        <Text style={styles.title}>
+                            {convertedApprovalRequest ? convertedApprovalRequest.title : ""}
+                        </Text>
+                        <Text style={styles.subtitle}>
+                            {convertedApprovalRequest ? convertedApprovalRequest.subTitle : ""}
+                        </Text>
                     </View>
                     {convertedApprovalRequest?.detailContent?.map((content, index) => {
                         return (
@@ -106,21 +129,6 @@ export default function ApprovalRequiredModal(props: ApprovalRequiredModalProps)
                             style={styles.leftButton}>
                             <Text style={styles.leftButtonText}>{messages.messages.main.approval.reject}</Text>
                         </TouchableOpacity>
-                        <StardustModal
-                            modalVisible={deleteAlertVisible}
-                            setModalVisible={setDeleteAlertVisible}
-                            title={messages.messages.main.approval.reject_title}
-                            buttons={[
-                                {
-                                    text: messages.messages.words.cancle,
-                                    onPress: () => setDeleteAlertVisible(false),
-                                },
-                                {
-                                    text: messages.messages.main.approval.reject,
-                                    onPress: () => onRejectButtonPress,
-                                },
-                            ]}
-                        />
                         <TouchableOpacity
                             activeOpacity={0.7}
                             onPress={() => {

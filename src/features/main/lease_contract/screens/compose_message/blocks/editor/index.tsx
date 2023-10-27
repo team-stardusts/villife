@@ -1,35 +1,29 @@
 import React, { useRef } from "react";
 import { Dimensions, Keyboard, ScrollView, TextInput, View, Text } from "react-native";
 import { IconRecord, RichEditor, RichToolbar, actions } from "react-native-pell-rich-editor";
-import NotiEditorProps from "./type";
-import useNotiEditorStyles, { EditorStyle } from "./styles";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import useScreenMessage from "../../../../../../common/hooks/multilingual/hooks";
-import useStyler from "../../../../../../common/hooks/styler/hooks";
-import useOnKeyboardEvent from "../../../../../../common/hooks/keyboard";
 import useEditorStyles from "./styles";
+import EditorProps from "./type";
 
-export default function Editor(props: NotiEditorProps) {
+export default function Editor(props: EditorProps) {
     const styles = useEditorStyles();
     const richText = useRef<RichEditor>(null);
     const scrollRef = useRef<KeyboardAwareScrollView>(null);
-    const { deviceUI, theme } = useStyler();
-    const message = useScreenMessage();
-    const keyboardHeight = useOnKeyboardEvent();
 
     return (
         <>
             <TextInput
                 defaultValue={props.titleRef.current}
-                style={styles.title}
+                style={styles.main.title}
                 onChangeText={(text) => {
                     props.titleRef.current = text;
                 }}
                 maxLength={14}
                 placeholder="제목을 입력하세요"
+                placeholderTextColor={styles.main.placeHolderColor.color}
             />
             <KeyboardAwareScrollView
-                style={[styles.scroll]}
+                style={[styles.main.scroll]}
                 keyboardDismissMode={"interactive"}
                 ref={scrollRef}
                 nestedScrollEnabled={true}
@@ -40,15 +34,9 @@ export default function Editor(props: NotiEditorProps) {
                     onChange={(text) => {
                         props.contentRef.current = text;
                     }}
-                    editorStyle={EditorStyle}
+                    editorStyle={styles.editorCSS}
                     ref={richText}
-                    style={[
-                        styles.rich,
-                        {
-                            height:
-                                deviceUI.getScreenSize().height * 0.78 - deviceUI.moderateScale(50) - keyboardHeight,
-                        },
-                    ]}
+                    style={[styles.main.rich]}
                     useContainer={false}
                     enterKeyHint={"done"}
                     placeholder={"내용을 입력해주세요."}
@@ -57,8 +45,8 @@ export default function Editor(props: NotiEditorProps) {
             </KeyboardAwareScrollView>
 
             <RichToolbar
-                style={[styles.richBar, { bottom: keyboardHeight, height: deviceUI.moderateScale(50) }]}
-                flatContainerStyle={styles.flatStyle}
+                style={[styles.main.richBar]}
+                flatContainerStyle={styles.main.flatStyle}
                 editor={richText}
                 selectedIconTint={"#2095F2"}
                 disabledIconTint={"#bfbfbf"}
@@ -75,19 +63,20 @@ export default function Editor(props: NotiEditorProps) {
                 ]}
                 iconMap={{
                     [actions.heading1]: ({ tintColor }: IconRecord) => (
-                        <Text style={[styles.tib, { color: tintColor }]}>H1</Text>
+                        <Text style={[styles.main.tib, { color: tintColor }]}>H1</Text>
                     ),
                     [actions.heading2]: ({ tintColor }: IconRecord) => (
-                        <Text style={[styles.tib, { color: tintColor }]}>H2</Text>
+                        <Text style={[styles.main.tib, { color: tintColor }]}>H2</Text>
                     ),
                     [actions.heading3]: ({ tintColor }: IconRecord) => (
-                        <Text style={[styles.tib, { color: tintColor }]}>H3</Text>
+                        <Text style={[styles.main.tib, { color: tintColor }]}>H3</Text>
                     ),
                     [actions.heading4]: ({ tintColor }: IconRecord) => (
-                        <Text style={[styles.tib, { color: tintColor }]}>H4</Text>
+                        <Text style={[styles.main.tib, { color: tintColor }]}>H4</Text>
                     ),
                 }}
             />
+            <View style={styles.main.richBarDummyView} />
         </>
     );
 }
