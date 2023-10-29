@@ -16,6 +16,8 @@ export default function useApprovalViewModel() {
             console.log("[ApprovalViewModel] Fetched approval count :", fetchedApprovals.data?.data.length);
             setApprovals([]);
             setApprovals(fetchedApprovals.data?.data);
+        } else {
+            setApprovals([]);
         }
     };
 

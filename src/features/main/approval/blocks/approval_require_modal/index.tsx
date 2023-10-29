@@ -29,6 +29,7 @@ export default function ApprovalRequiredModal(props: ApprovalRequiredModalProps)
                 new ApprovalEventEmitter().emitListUpdatedEvent();
                 setVisible(false);
                 setDeleteAlertVisible(false);
+
                 console.log("[approvalReJect]", result.data?.data);
                 Toast.show({
                     type: "success",
@@ -57,6 +58,7 @@ export default function ApprovalRequiredModal(props: ApprovalRequiredModalProps)
             if (result.isSuccessful) {
                 new ApprovalEventEmitter().emitListUpdatedEvent();
                 setVisible(false);
+
                 console.log("[approvalAccept]", result.data?.data);
                 Toast.show({
                     type: "success",

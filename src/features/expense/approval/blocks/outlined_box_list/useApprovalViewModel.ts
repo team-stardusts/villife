@@ -1,6 +1,7 @@
 import React from "react";
 import { ApprovalListUpatedEventListener } from "./event";
 import useExpenseApprovalService from "../../services";
+import { Approval } from "../../../../../libs/rest_apis/villife/approval/types";
 
 export default function useExpenseApprovalViewModel() {
     const service = useExpenseApprovalService();
@@ -14,6 +15,8 @@ export default function useExpenseApprovalViewModel() {
             console.log("[ExpenseApprovalViewModel] Fetched approval count :", fetchedApprovals.data?.data.length);
             setApprovals([]);
             setApprovals(fetchedApprovals.data?.data);
+        } else {
+            setApprovals([]);
         }
     };
 
@@ -33,12 +36,3 @@ export default function useExpenseApprovalViewModel() {
 
     return approvals;
 }
-
-type Approval = {
-    id: number;
-    category: number;
-    detail_type: number;
-    create_at: number;
-    updated_at: number;
-    content: string;
-};
