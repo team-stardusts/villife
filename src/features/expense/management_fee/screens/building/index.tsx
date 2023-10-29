@@ -9,7 +9,7 @@ import { useEffect, useState } from "react";
 import { Filter } from "../../../../common/blocks/top_filter/types";
 import { ManagementFee } from "../../../../../libs/rest_apis/villife/expense/types";
 import buildingManagementFeeFilter from "./filter";
-import MFHistoryCardView from "../blocks/card";
+import MFHistoryCardView from "../../blocks/card";
 
 export default function BuildingMFHistoryScreen({ navigation, route }: BuildingMFHistoryScreenProps) {
     const styles = useBuildingMFHistoryScreenStyles();

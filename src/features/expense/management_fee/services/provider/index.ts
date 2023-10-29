@@ -60,7 +60,6 @@ export default class ManagementFeePaymentServiceProvider
         params: ManagementFee.GetUserMFHistory.Params
     ): Promise<ManagementFee.ManagementFee[]> {
         const result = await this._expenseAPI.getUserManagementFeeHistory(params);
-
         if (!result.isSuccessful || result.data?.data === undefined) {
             this.printWhyFailed(result.data, "왜 Undefine일까?");
 

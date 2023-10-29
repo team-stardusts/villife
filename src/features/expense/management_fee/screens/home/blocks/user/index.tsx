@@ -30,7 +30,7 @@ export default function UserMFView() {
             manager.history.forEach((element) => {
                 // [TO-DO] is_paid == undefined는 임시로 필요한 조건이며
                 // API 업데이트 시 불필요함
-                if (element.is_paid === false) {
+                if (!element.is_paid) {
                     _unpaidMF += element.amount_won;
                 }
             });
@@ -45,7 +45,11 @@ export default function UserMFView() {
                 <ManagementFeeBox styles={styles.managementFee} feeRequired={unpaidMF} />
                 <BillBox styles={styles.bill} manangementFee={thisMonthMF} unpaidFee={unpaidMF} />
             </View>
-            <ManagementFeeStatusScrollView styles={styles.managementFeeStatus} manangementFees={manager.history} />
+            <ManagementFeeStatusScrollView
+                styles={styles.managementFeeStatus}
+                manangementFees={manager.history}
+                unpaidFee={unpaidMF}
+            />
             <View style={styles.main.wrapper}>
                 <HistoryBox styles={styles.history} manangementFees={manager.history} />
             </View>

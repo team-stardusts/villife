@@ -1,4 +1,4 @@
-import { Text, TouchableOpacity, View } from "react-native";
+import { Alert, Text, TouchableOpacity, View } from "react-native";
 import { VehicleListBodyViewProps } from "../types";
 import Badge from "../../../../../../common/atoms/badge";
 import useScreenMessage from "../../../../../../common/hooks/multilingual/hooks";
@@ -11,6 +11,8 @@ import MessageSelectionModal from "../../../../blocks/modal/message_selection";
 import VehicleDetailModal from "../../../../blocks/modal/detail";
 import { useState } from "react";
 import useUserInformation from "../../../../../../common/hooks/service/user_info";
+import Telephone from "../../../../../../../libs/call";
+import { Callable } from "../../../../../../../libs/call/types";
 
 export default function VehicleListBodyView(props: VehicleListBodyViewProps) {
     const messages = useScreenMessage().messages;
@@ -40,11 +42,36 @@ export default function VehicleListBodyView(props: VehicleListBodyViewProps) {
 }
 
 function VehicleInfoRow(props: VehicleInfoRowProps) {
+    const phone: Callable = new Telephone();
     const [detailVisible, setDetailVisible] = useState<boolean>(false);
     const badgeTitle =
         props.vehicle.ownerType !== "guest" ? props.vehicle.room_number.toString() : props.messages.words.visit;
     const badgeStyle = props.vehicle.ownerType !== "guest" ? props.styles.tenantBadge : props.styles.guestBadge;
     const isMyVehicle = props.vehicle.room_number === props.userRoomNumber;
+
+    const callTo = async () => {
+        const who =
+            props.vehicle.ownerType === "guest"
+                ? `${props.vehicle.room_number}호 방문자`
+                : `${props.vehicle.room_number}호`;
+
+        Alert.alert(`${who}와 전화통화 하시겠어요?`, undefined, [
+            {
+                text: "취소",
+            },
+            {
+                text: "확인",
+                onPress: async () => {
+                    if (!(await phone.call(props.vehicle.phone_number))) {
+                        VillifeToastMessage.showBottomToast(
+                            "error",
+                            "죄송합니다. 전화를 연결하지 못했어요.\n관리자를 통해 의견 전달 부탁드려요."
+                        );
+                    }
+                },
+            },
+        ]);
+    };
 
     return (
         <View style={props.styles.vehicleInfoContainer}>
@@ -63,12 +90,7 @@ function VehicleInfoRow(props: VehicleInfoRowProps) {
                         <TouchableOpacity
                             activeOpacity={0.6}
                             style={props.styles.communicationIconBox}
-                            onPress={() =>
-                                VillifeToastMessage.showBottomToast(
-                                    "info",
-                                    props.messages.boilerplate.preparing_service
-                                )
-                            }>
+                            onPress={callTo}>
                             <Icon
                                 name="phone"
                                 size={props.styles.phoneIcon.width}

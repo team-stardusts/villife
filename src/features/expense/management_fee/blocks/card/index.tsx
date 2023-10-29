@@ -2,11 +2,11 @@ import { Animated, Text, TouchableOpacity } from "react-native";
 import { MFHistoryCardViewProps } from "./types";
 import { View } from "react-native";
 import { useEffect, useRef, useState } from "react";
-import { ANIMATION_DURATION_DEFAULT, ANIMATION_DURATION_FAST_LV2 } from "../../../../../common/constants";
+import { ANIMATION_DURATION_DEFAULT, ANIMATION_DURATION_FAST_LV2 } from "../../../../common/constants";
 import useMFHistoryCardViewStyles from "./styles";
-import { insertCommaToNumber } from "../../../../../common/global_function";
-import StardustDateParser from "../../../../../../libs/date_parser";
-import Icon from "../../../../../common/atoms/icon";
+import { insertCommaToNumber } from "../../../../common/global_function";
+import StardustDateParser from "../../../../../libs/date_parser";
+import Icon from "../../../../common/atoms/icon";
 
 export default function MFHistoryCardView(props: MFHistoryCardViewProps) {
     const opacityValue = useRef(new Animated.Value(0)).current;
@@ -120,7 +120,7 @@ export default function MFHistoryCardView(props: MFHistoryCardViewProps) {
                         </Text>
                         {isUnpaid() && <NotiMark />}
                     </View>
-                    <Text style={styles.rowValue}>{insertCommaToNumber(props.total_unpaid_fee) + "원"}</Text>
+                    <Text style={styles.rowValue}>{insertCommaToNumber(props.total_unpaid_fee || 0) + "원"}</Text>
                 </View>
             </TouchableOpacity>
         </Animated.View>

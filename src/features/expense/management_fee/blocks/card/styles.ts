@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import useStyler from "../../../../../common/hooks/styler/hooks";
+import useStyler from "../../../../common/hooks/styler/hooks";
 import { MFHistoryCardViewProps } from "./types";
 
 export default function useMFHistoryCardViewStyles(
@@ -32,11 +32,11 @@ export default function useMFHistoryCardViewStyles(
             height: deviceUI.moderateScale(17),
             borderRadius: deviceUI.moderateScale(17),
             borderColor: theme.color.specified.black,
-            backgroundColor: ischecked ? theme.color.specified.blue : theme.color.specified.white,
+            backgroundColor: ischecked ? theme.color.specified.blue : theme.color.series.grey.level1,
         },
         checkIcon: {
             width: deviceUI.moderateScale(18),
-            color: theme.color.specified.white,
+            color: ischecked ? theme.color.specified.white : theme.color.series.grey.level1,
         },
         row: {
             flexDirection: "row",
