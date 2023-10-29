@@ -63,10 +63,7 @@ function VehicleInfoRow(props: VehicleInfoRowProps) {
                 text: "확인",
                 onPress: async () => {
                     if (!(await phone.call(props.vehicle.phone_number))) {
-                        VillifeToastMessage.showBottomToast(
-                            "error",
-                            "죄송합니다. 전화를 연결하지 못했어요.\n관리자를 통해 의견 전달 부탁드려요."
-                        );
+                        VillifeToastMessage.showBottomToast("error", "죄송합니다. 전화를 연결하지 못했어요.");
                     }
                 },
             },
