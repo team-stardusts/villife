@@ -1,6 +1,6 @@
 {
     "name": "villife",
-    "version": "0.0.1",
+    "version": "0.1.1",
     "private": true,
     "scripts": {
         "android": "react-native run-android",
@@ -8,7 +8,8 @@
         "lint": "eslint .",
         "start": "react-native start",
         "test": "jest",
-        "android-bundle": "react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res/"
+        "android-bundle": "react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res/",
+        "build-release": "react-native build-android --mode=release"
     },
     "dependencies": {
         "@actbase/react-daum-postcode": "^1.0.4",
