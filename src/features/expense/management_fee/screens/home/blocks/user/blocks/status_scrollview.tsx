@@ -37,6 +37,7 @@ export default function ManagementFeeStatusScrollView(props: ManagementFeeStatus
                     isLastElement={fees.length === index + 1}
                     styles={props.styles}
                     managementFee={fee}
+                    unpaidFee={props.unpaidFee}
                 />
             ))}
         </ScrollView>
@@ -47,7 +48,7 @@ function PaymentByMonth(props: PaymentByMonthProps) {
     const navigation = useNavigation<VillifeNavigation>();
 
     const handlePressPaymentBtn = () => {
-        navigation.navigate("confirm_payment_cost", {
+        /* navigation.navigate("confirm_payment_cost", {
             title: "관리비 결제하기",
             product_id: props.managementFee.bill_id,
             product_name: "?",
@@ -60,6 +61,9 @@ function PaymentByMonth(props: PaymentByMonthProps) {
                 화재보험료: 100,
                 수선유지비: 100,
             },
+        }); */
+        navigation.navigate("wire_amount_manually", {
+            amount_won: props.unpaidFee,
         });
     };
 
@@ -112,4 +116,5 @@ type PaymentByMonthProps = {
     isLastElement: boolean;
     styles: ReturnType<typeof useUserMFViewStyles>["managementFeeStatus"];
     managementFee: ManagementFee.ManagementFee;
+    unpaidFee: number;
 };

@@ -2,7 +2,7 @@ import { StyleSheet } from "react-native";
 import { UseApprovalRequiredModalStylesType } from "./type";
 import useStyler from "../../../../common/hooks/styler/hooks";
 
-export default function useApprovalRequiredModalStyles(): UseApprovalRequiredModalStylesType {
+export default function useApprovalRequiredModalStyles() {
     const { deviceUI, theme } = useStyler();
     return StyleSheet.create({
         container: {
@@ -92,6 +92,22 @@ export default function useApprovalRequiredModalStyles(): UseApprovalRequiredMod
             alignItems: "center",
             backgroundColor: theme.color.specified.blue,
             borderRadius: deviceUI.moderateScale(8),
+        },
+        notedTextButton: {
+            marginTop: deviceUI.moderateScale(8),
+            justifyContent: "center",
+            alignItems: "center",
+            flexDirection: "row",
+            marginBottom: deviceUI.moderateScale(8),
+        },
+        notedText: {
+            color: theme.color.specified.blue,
+            fontFamily: theme.font.fontFamily.pretendard.bold,
+            fontSize: deviceUI.moderateScale(16),
+        },
+        linkIcon: {
+            width: deviceUI.moderateScale(50),
+            color: theme.color.specified.blue,
         },
     });
 }

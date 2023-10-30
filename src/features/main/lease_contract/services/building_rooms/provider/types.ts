@@ -53,6 +53,7 @@ export namespace DeleteContract {
 
 export namespace RegisterBuilding {
     export type Params = {
+        accountRegiReqForms: Building.RegisterBuildng.Params["account_regi_req_forms"];
         basementInfo: number | null;
         buildingName: string;
         mfDueDate: number;

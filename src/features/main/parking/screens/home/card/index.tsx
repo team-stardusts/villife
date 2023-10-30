@@ -1,6 +1,6 @@
 import { View } from "react-native";
 import { VehicleCardViewProps } from "./types";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ContentBox from "../../../../../common/blocks/content_box";
 import useVehicleCardViewStyles from "./styles";
 import VehicleCardBottom from "./blocks/bottom";

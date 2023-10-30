@@ -3,20 +3,14 @@ import { TextInput, Text, View } from "react-native";
 import { IconRecord, RichEditor, RichToolbar, actions } from "react-native-pell-rich-editor";
 import NotiEditorProps from "./type";
 import useNotiEditorStyles from "./styles";
-import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
 import useNoticeService from "../../services";
-import useOnKeyboardEvent from "../../../../common/hooks/keyboard";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import useStyler from "../../../../common/hooks/styler/hooks";
 
 export default function NotiEditor(props: NotiEditorProps) {
     const styles = useNotiEditorStyles();
     const richText = useRef<RichEditor>(null);
     const scrollRef = useRef<KeyboardAwareScrollView>(null);
     const service = useNoticeService();
-    const { deviceUI, theme } = useStyler();
-    const message = useScreenMessage();
-    const keyboardHeight = useOnKeyboardEvent();
 
     return (
         <>
@@ -28,6 +22,7 @@ export default function NotiEditor(props: NotiEditorProps) {
                 }}
                 maxLength={14}
                 placeholder="제목을 입력하세요"
+                placeholderTextColor={styles.main.placeHolderColor.color}
             />
             <KeyboardAwareScrollView
                 style={[styles.main.scroll]}

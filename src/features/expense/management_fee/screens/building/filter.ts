@@ -49,7 +49,7 @@ const buildingManagementFeeFilter: Filter<ManagementFee.BuildingRenterMFHistory>
 
             if (selectedConditions[0] === "완납") {
                 //return datum.LastestPaidYear === thisYear && datum.LastestPaidMonth === thisMonth;
-                return datum.total_unpaid_fee === 0;
+                return datum.total_unpaid_fee === undefined;
             } else {
                 //return datum.LastestPaidYear !== thisYear || datum.LastestPaidMonth !== thisMonth;
                 return datum.total_unpaid_fee > 0;

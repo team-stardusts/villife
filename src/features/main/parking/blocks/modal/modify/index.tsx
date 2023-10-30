@@ -13,12 +13,15 @@ import { useCallback, useState } from "react";
 import StardustAlert from "../../../../../common/blocks/universial/stardust_alert";
 import { StardustAlertContent } from "../../../../../common/blocks/universial/stardust_alert/types";
 import VillifeToastMessage from "../../../../../common/atoms/toast";
+import { useNavigation } from "@react-navigation/native";
+import { VillifeNavigation } from "../../../../../common/router/types";
 
 export default function VehicleModifyModal(props: VehicleModifyModalProps) {
     const messages = useScreenMessage();
     const initialEtda = convertVehicleEtdaToEtdaTime(props.vehilce);
     const styles = useVehicleModifyModalStyles();
     const parkingLot = useParkingLot();
+    const navigation = useNavigation<VillifeNavigation>();
     const [etda, setEtda] = useState<EtdaTime | null>(null);
     const [info, setInfo] = useState<VehicleInfo | null>(null);
     const [deleteAlert, setDeleteAlert] = useState<StardustAlertContent>({
@@ -38,7 +41,7 @@ export default function VehicleModifyModal(props: VehicleModifyModalProps) {
         ],
     });
 
-    const handlePressModifyBtn = useCallback(async () => {
+    const handlePressModifyBtn = async () => {
         if (props.modifyType === "etda" && etda !== null) {
             const isSuccessful = await parkingLot.updateUserVehicleEtda({
                 vehicleID: props.vehilce.id,
@@ -69,7 +72,7 @@ export default function VehicleModifyModal(props: VehicleModifyModalProps) {
                     : messages.messages.main.parking.modify_modal.fail_to_change_info
             );
         }
-    }, [etda, info]);
+    };
 
     /* const selectModifyBtnColor = useCallback(() => {
         if (props.modifyType === "etda") return styles.successBtn.color;
@@ -92,6 +95,15 @@ export default function VehicleModifyModal(props: VehicleModifyModalProps) {
                 ? messages.messages.main.parking.modify_modal.success_to_delete
                 : messages.messages.main.parking.modify_modal.failed_to_delete
         );
+
+        navigation.reset({
+            index: 0,
+            routes: [
+                {
+                    name: "parking",
+                },
+            ],
+        });
     };
 
     return (

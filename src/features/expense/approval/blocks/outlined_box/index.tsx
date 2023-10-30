@@ -17,51 +17,60 @@ function OutlinedBox(props: OutlinedBoxProps) {
     const styles = useExpenseApprovalOutlinedBoxStyles();
 
     const [modalVisible, setModalVisible] = useState<boolean>(false);
-    const [convertedApprovals, setConvertedApprovals] = useState<ConvertedApprovalData>({} as ConvertedApprovalData);
+    const [convertedApprovals, setConvertedApprovals] = useState<ConvertedApprovalData | null>(null);
 
     useEffect(() => {
         const fetchData = () => {
             const converter = new ApprovalDataConverter(props.approvalRequest);
             const convertedData = converter.convert();
-            setConvertedApprovals(convertedData);
-            console.log(convertedData);
+
+            if (convertedData !== null) {
+                setConvertedApprovals(convertedData);
+            }
         };
         fetchData();
     }, [props.approvalRequest]);
 
     return (
         <>
-            <ExpenseApprovalRequiredModal
-                visible={modalVisible}
-                setVisible={setModalVisible}
-                convertedApprovalRequest={convertedApprovals}
-            />
-            <Shadow style={styles.container} distance={4}>
-                <View style={styles.innerBox}>
-                    <Pressable
-                        onPressOut={() => {
-                            setModalVisible(true);
-                        }}
-                        style={styles.innerTitleSection}>
-                        <View style={styles.contentBox}>
-                            <View style={styles.titleTextBox}>
-                                <Text style={styles.titleText}>{convertedApprovals.title}</Text>
-                            </View>
-                            <View style={styles.absoluteWrapper}>
-                                <View style={styles.iconBox}>
-                                    <View style={styles.moreButton}>
-                                        <Icon
-                                            name={"three-dots-vertical"}
-                                            size={styles.moreIcon.width}
-                                            color={styles.moreIcon.color}
-                                        />
+            {convertedApprovals !== null ? (
+                <ExpenseApprovalRequiredModal
+                    visible={modalVisible}
+                    setVisible={setModalVisible}
+                    convertedApprovalRequest={convertedApprovals}
+                />
+            ) : null}
+
+            {convertedApprovals !== null ? (
+                <Shadow style={styles.container} distance={4}>
+                    <View style={styles.innerBox}>
+                        <Pressable
+                            onPressOut={() => {
+                                setModalVisible(true);
+                            }}
+                            style={styles.innerTitleSection}>
+                            <View style={styles.contentBox}>
+                                <View style={styles.titleTextBox}>
+                                    <Text style={styles.titleText}>
+                                        {convertedApprovals ? convertedApprovals.title : ""}
+                                    </Text>
+                                </View>
+                                <View style={styles.absoluteWrapper}>
+                                    <View style={styles.iconBox}>
+                                        <View style={styles.moreButton}>
+                                            <Icon
+                                                name={"three-dots-vertical"}
+                                                size={styles.moreIcon.width}
+                                                color={styles.moreIcon.color}
+                                            />
+                                        </View>
                                     </View>
                                 </View>
                             </View>
-                        </View>
-                    </Pressable>
-                </View>
-            </Shadow>
+                        </Pressable>
+                    </View>
+                </Shadow>
+            ) : null}
         </>
     );
 }

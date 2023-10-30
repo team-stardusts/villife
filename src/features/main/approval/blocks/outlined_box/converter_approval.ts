@@ -15,7 +15,7 @@ export class ApprovalDataConverter {
     convert(): ConvertedApprovalData {
         const message = useScreenMessage();
         const identifier = this.request.category * 1000 + this.request.detail_type;
-        console.log("this.request : ", this.request);
+        console.log("[Converter_approval] : ", this.request);
         switch (identifier) {
             case 1001:
                 const approvalContent1001 = JSON.parse(this.request.content) as unknown as RequestCotent1001;
@@ -127,18 +127,7 @@ export class ApprovalDataConverter {
                 return convertedApprovalRequest2002;
 
             default:
-                return {
-                    id: this.request.id,
-                    category: this.request.category,
-                    detailType: this.request.detail_type,
-                    createdAt: this.request.create_at,
-                    updatedAt: this.request.updated_at,
-                    roomNumber: 111,
-                    buildingName: "아무개",
-                    title: "default 값",
-                    subTitle: "ㅎㅎㅎ",
-                    detailContent: [],
-                };
+                return null;
         }
     }
 }
@@ -154,7 +143,7 @@ export type ConvertedApprovalData = {
     detailContent: DetailContents;
     createdAt: number;
     updatedAt: number;
-};
+} | null;
 
 type DetailContents = Array<DetailContent>;
 type DetailContent = {

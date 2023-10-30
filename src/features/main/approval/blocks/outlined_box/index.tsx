@@ -18,13 +18,13 @@ function OutlinedBox(props: OutlinedBoxProps) {
 
     const [modalVisible, setModalVisible] = useState<boolean>(false);
     const [convertedApprovals, setConvertedApprovals] = useState<ConvertedApprovalData>({} as ConvertedApprovalData);
-    // [TO-DO] : convert 안에 밑에 기능을 할 수 있게 하자
+
     useEffect(() => {
         const fetchData = () => {
             const converter = new ApprovalDataConverter(props.approvalRequest);
             const convertedData = converter.convert();
             setConvertedApprovals(convertedData);
-            console.log(convertedData);
+            console.log("[OutLinedBox] : ", convertedData);
         };
         fetchData();
     }, [props.approvalRequest]);
@@ -44,15 +44,19 @@ function OutlinedBox(props: OutlinedBoxProps) {
                 <View style={styles.innerBox}>
                     <View style={styles.innerTitleSection}>
                         <View style={styles.titleTextBox}>
-                            <Text style={styles.titleText}>{convertedApprovals.title}</Text>
+                            <Text style={styles.titleText}>{convertedApprovals ? convertedApprovals.title : ""}</Text>
                             <View style={styles.subContainerBox}>
                                 <View style={styles.subInnerBox}>
                                     <IconBuilding size={styles.iconBuildingSize.width as number} />
-                                    <Text style={styles.subText}>{convertedApprovals.buildingName}</Text>
+                                    <Text style={styles.subText}>
+                                        {convertedApprovals ? convertedApprovals.buildingName : ""}
+                                    </Text>
                                 </View>
                                 <View style={styles.subInnerBox}>
                                     <IconUserBorder size={styles.iconUserSize.width as number} />
-                                    <Text style={styles.subText}>{convertedApprovals.roomNumber}</Text>
+                                    <Text style={styles.subText}>
+                                        {convertedApprovals ? convertedApprovals.roomNumber : ""}
+                                    </Text>
                                 </View>
                             </View>
                         </View>

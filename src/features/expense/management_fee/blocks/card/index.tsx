@@ -1,16 +1,18 @@
 import { Animated, Text, TouchableOpacity } from "react-native";
 import { MFHistoryCardViewProps } from "./types";
 import { View } from "react-native";
-import { useEffect, useRef } from "react";
-import { ANIMATION_DURATION_DEFAULT, ANIMATION_DURATION_FAST_LV2 } from "../../../../../../common/constants";
+import { useEffect, useRef, useState } from "react";
+import { ANIMATION_DURATION_DEFAULT, ANIMATION_DURATION_FAST_LV2 } from "../../../../common/constants";
 import useMFHistoryCardViewStyles from "./styles";
-import { insertCommaToNumber } from "../../../../../../common/global_function";
-import StardustDateParser from "../../../../../../../libs/date_parser";
+import { insertCommaToNumber } from "../../../../common/global_function";
+import StardustDateParser from "../../../../../libs/date_parser";
+import Icon from "../../../../common/atoms/icon";
 
 export default function MFHistoryCardView(props: MFHistoryCardViewProps) {
-    const styles = useMFHistoryCardViewStyles();
     const opacityValue = useRef(new Animated.Value(0)).current;
     const yValue = useRef(new Animated.Value(-15)).current;
+    const [isChecked, setIsChecked] = useState<boolean | null>(null);
+    const styles = useMFHistoryCardViewStyles(isChecked, props.checkmode);
 
     useEffect(() => {
         const animation = Animated.sequence([
@@ -36,6 +38,10 @@ export default function MFHistoryCardView(props: MFHistoryCardViewProps) {
             animation.stop();
         };
     }, [opacityValue, yValue, props.totalCardCount]);
+
+    useEffect(() => {
+        props.checkmode && isChecked !== null && props.checkmode.onCheck(isChecked);
+    }, [isChecked]);
 
     const isNotiRequired = (): boolean => {
         const today = StardustDateParser.changeGMT(new Date(), "kr");
@@ -71,9 +77,22 @@ export default function MFHistoryCardView(props: MFHistoryCardViewProps) {
                     ],
                 },
             ]}>
-            <TouchableOpacity style={styles.pressable} activeOpacity={0.6}>
+            <TouchableOpacity
+                style={styles.pressable}
+                activeOpacity={0.6}
+                onPress={() => {
+                    if (props.checkmode) {
+                        setIsChecked(isChecked === null ? true : !isChecked);
+                    }
+                }}
+                disabled={props.checkmode !== undefined ? props.checkmode.disabled : true}>
                 <View style={styles.row}>
                     <Text style={styles.roomNumber}>{props.room_number}호</Text>
+                    {props.checkmode && (
+                        <View style={styles.checkIndicator}>
+                            <Icon name="check" size={styles.checkIcon.width} color={styles.checkIcon.color} />
+                        </View>
+                    )}
                 </View>
                 <View style={[styles.row]}>
                     <View style={styles.set}>
@@ -101,7 +120,7 @@ export default function MFHistoryCardView(props: MFHistoryCardViewProps) {
                         </Text>
                         {isUnpaid() && <NotiMark />}
                     </View>
-                    <Text style={styles.rowValue}>{insertCommaToNumber(props.total_unpaid_fee) + "원"}</Text>
+                    <Text style={styles.rowValue}>{insertCommaToNumber(props.total_unpaid_fee || 0) + "원"}</Text>
                 </View>
             </TouchableOpacity>
         </Animated.View>

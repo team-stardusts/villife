@@ -7,6 +7,7 @@ import ApprovalRequiredModalProps from "./type";
 import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
 import useApprovalService from "../../services";
 import { ApprovalEventEmitter } from "../outlined_box_list/event";
+import Icon from "../../../../common/atoms/icon";
 
 export default function ExpenseApprovalRequiredModal(props: ApprovalRequiredModalProps) {
     const messages = useScreenMessage();
@@ -21,7 +22,9 @@ export default function ExpenseApprovalRequiredModal(props: ApprovalRequiredModa
     }, []);
 
     const onRejectButtonPress = async () => {
-        const result = await service.rejectExpenseApproval(props.convertedApprovalRequest.id);
+        const result = await service.rejectExpenseApproval(
+            props.convertedApprovalRequest ? props.convertedApprovalRequest.id : 0
+        );
 
         if (result.isSuccessful) {
             new ApprovalEventEmitter().emitListUpdatedEvent();
@@ -47,9 +50,10 @@ export default function ExpenseApprovalRequiredModal(props: ApprovalRequiredModa
         }
     };
 
-    // [TO-DO] : service에서 불러와서 사용
     const onApcceptButtonPress = async () => {
-        const result = await service.acceptExpenseApproval(props.convertedApprovalRequest.id);
+        const result = await service.acceptExpenseApproval(
+            props.convertedApprovalRequest ? props.convertedApprovalRequest.id : 0
+        );
 
         if (result.isSuccessful) {
             new ApprovalEventEmitter().emitListUpdatedEvent();
@@ -86,8 +90,12 @@ export default function ExpenseApprovalRequiredModal(props: ApprovalRequiredModa
             <View style={styles.container}>
                 <View style={styles.content}>
                     <View style={styles.textSection}>
-                        <Text style={styles.title}>{convertedApprovalRequest.title}</Text>
-                        <Text style={styles.subtitle}>{convertedApprovalRequest.subTitle}</Text>
+                        <Text style={styles.title}>
+                            {convertedApprovalRequest ? convertedApprovalRequest.title : ""}
+                        </Text>
+                        <Text style={styles.subtitle}>
+                            {convertedApprovalRequest ? convertedApprovalRequest.subTitle : ""}
+                        </Text>
                     </View>
                     {convertedApprovalRequest?.detailContent?.map((content, index) => {
                         return (
@@ -97,6 +105,14 @@ export default function ExpenseApprovalRequiredModal(props: ApprovalRequiredModa
                             </View>
                         );
                     })}
+                    <TouchableOpacity
+                        style={styles.notedTextButton}
+                        onPress={() => {
+                            console.log("상세내역으로 슈슝");
+                        }}>
+                        <Text style={styles.notedText}>상세내역</Text>
+                        <Icon name="arrow-right" size={styles.linkIcon.width} color={styles.linkIcon.color} />
+                    </TouchableOpacity>
                     <View style={styles.leftButtonSection}>
                         <TouchableOpacity
                             activeOpacity={0.7}

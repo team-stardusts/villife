@@ -20,4 +20,5 @@ export type ManagementFeeHistoryBoxProps = {
 export type ManagementFeeStatusScrollViewProps = {
     styles: ReturnType<typeof useUserMFViewStyles>["managementFeeStatus"];
     manangementFees: ManagementFee.ManagementFee[];
+    unpaidFee: number;
 };

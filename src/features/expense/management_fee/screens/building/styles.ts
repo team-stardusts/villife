@@ -44,17 +44,23 @@ export default function useBuildingMFHistoryScreenStyles() {
             alignItems: "center",
             marginVertical: deviceUI.moderateScale(10),
         },
-        fcBtn: {
-            width: "48%",
+        depositCheckBtn: {
+            width: "100%",
             alignItems: "center",
             borderRadius: deviceUI.moderateScale(10),
             paddingVertical: deviceUI.moderateScale(8),
             backgroundColor: theme.color.specified.white,
         },
-        fcTxt: {
+        depositCheckBtnDisabled: {
+            backgroundColor: theme.color.series.grey.level2,
+        },
+        depositCheckTxt: {
             fontFamily: theme.font.fontFamily.pretendard.bold,
             fontSize: deviceUI.moderateScale(13),
             color: theme.color.specified.black,
+        },
+        depositCheckTxtDisabled: {
+            color: theme.color.specified.grey,
         },
         scrollView: {
             width: "100%",

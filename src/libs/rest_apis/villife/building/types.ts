@@ -42,6 +42,12 @@ export namespace Building {
 
     export namespace RegisterBuildng {
         export type Params = {
+            account_regi_req_forms: Array<{
+                account_number: string;
+                account_type: string;
+                bank_name: string;
+                owner_name: string;
+            }>;
             basement_info: number;
             building_name: string;
             mf_due_date: number;
@@ -87,7 +93,7 @@ export namespace Building {
     }
 
     export type BuildingInfo = {
-        bank_accounts: BuildingBackAccountInfo[];
+        bank_accounts: BuildingBankAccountInfo[];
         building_id: number;
         building_name: string;
         mf_due_date: number;
@@ -96,7 +102,7 @@ export namespace Building {
         road_addr: string;
     };
 
-    export type BuildingBackAccountInfo = {
+    export type BuildingBankAccountInfo = {
         account_id: number;
         account_number: string;
         account_type: string;

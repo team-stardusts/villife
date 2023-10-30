@@ -18,4 +18,7 @@ export type RequestCotent2001or2002 = BasicContent & {
 
 export type RequestCotent3001 = BasicContent & {
     room_id: string;
+    depositor_name: string;
+    amount_won: number;
+    bill_ids: [];
 };

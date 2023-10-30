@@ -5,5 +5,3 @@ export default interface EditorProps {
     contentRef: React.MutableRefObject<string>;
     mode: "modify" | "register";
 }
-
-export type UseEditorStylesType = ReturnType<typeof StyleSheet.create>;

@@ -37,7 +37,7 @@ class UserPaymentManager extends PaymentManager implements UserPaymentManagerBas
 
         const history = await this._api.getUserMFHistory({});
 
-        this._historyStateSetter(history.filter((v) => v.is_paid !== undefined));
+        this._historyStateSetter(history);
 
         return this;
     }

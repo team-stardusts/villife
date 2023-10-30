@@ -31,6 +31,7 @@ class BuildingManagementServiceProvider extends AServiceProvider implements IBui
         const basementRoomInfo = params.basementInfo || 0;
 
         const result = await this._buildingApi.registerBuildng({
+            account_regi_req_forms: params.accountRegiReqForms,
             basement_info: basementRoomInfo,
             building_name: params.buildingName,
             mf_due_date: params.mfDueDate,

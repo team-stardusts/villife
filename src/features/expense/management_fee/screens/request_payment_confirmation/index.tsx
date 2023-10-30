@@ -15,7 +15,7 @@ import VillifeToastMessage from "../../../../common/atoms/toast";
 export default function RequestPaymentConfirmationScreen(props: RequestPaymentConfirmationScreenProps) {
     const styles = useRequestPaymentConfirmationStyles();
     const manager: UserPaymentManagerBase = useManagementFeeManager() as UserPaymentManagerBase;
-    const [bankAccount, setBankAccount] = useState<Building.BuildingBackAccountInfo | null>(null);
+    const [bankAccount, setBankAccount] = useState<Building.BuildingBankAccountInfo | null>(null);
 
     useEffect(() => {
         manager.getBuildingDetailInfo().then((r) => {

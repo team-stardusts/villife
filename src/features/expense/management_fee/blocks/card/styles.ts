@@ -1,7 +1,11 @@
 import { StyleSheet } from "react-native";
-import useStyler from "../../../../../../common/hooks/styler/hooks";
+import useStyler from "../../../../common/hooks/styler/hooks";
+import { MFHistoryCardViewProps } from "./types";
 
-export default function useMFHistoryCardViewStyles() {
+export default function useMFHistoryCardViewStyles(
+    ischecked: boolean | null,
+    checkmode: MFHistoryCardViewProps["checkmode"]
+) {
     const { deviceUI, theme } = useStyler();
 
     return StyleSheet.create({
@@ -12,9 +16,27 @@ export default function useMFHistoryCardViewStyles() {
         pressable: {
             width: "100%",
             backgroundColor: theme.color.specified.white,
+            opacity: checkmode?.disabled ? 0.5 : 1,
             paddingVertical: deviceUI.moderateScale(15),
             paddingHorizontal: deviceUI.moderateScale(20),
             borderRadius: deviceUI.moderateScale(10),
+        },
+        checkIndicator: {
+            position: "absolute",
+            right: -deviceUI.moderateScale(5),
+            top: -deviceUI.moderateScale(5),
+            justifyContent: "center",
+            alignItems: "center",
+            borderWidth: ischecked ? 0 : deviceUI.moderateScale(2),
+            width: deviceUI.moderateScale(17),
+            height: deviceUI.moderateScale(17),
+            borderRadius: deviceUI.moderateScale(17),
+            borderColor: theme.color.specified.black,
+            backgroundColor: ischecked ? theme.color.specified.blue : theme.color.series.grey.level1,
+        },
+        checkIcon: {
+            width: deviceUI.moderateScale(18),
+            color: ischecked ? theme.color.specified.white : theme.color.series.grey.level1,
         },
         row: {
             flexDirection: "row",

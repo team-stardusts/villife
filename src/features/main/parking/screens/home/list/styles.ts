@@ -91,7 +91,7 @@ export default function useVehicleListStyles() {
             alignItems: "center",
         },
         vehicleInfoBox: {
-            width: "55%",
+            width: "60%",
             flexDirection: "row",
             justifyContent: "flex-start",
             alignItems: "center",
@@ -118,7 +118,8 @@ export default function useVehicleListStyles() {
             justifyContent: "flex-start",
         },
         communicationIconBox: {
-            marginRight: deviceUI.moderateScale(12),
+            marginRight: deviceUI.moderateScale(10),
+            padding: deviceUI.moderateScale(3),
         },
         phoneIcon: {
             width: deviceUI.moderateScale(40),

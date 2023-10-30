@@ -164,7 +164,7 @@ function Node(props: NodeProps) {
                 },
             ]}>
             <TouchableOpacity
-                style={[props.styles.itemBox, props.isSelected && props.styles.seletedItemBox]}
+                style={[props.styles.itemBox, {}, props.isSelected && props.styles.seletedItemBox]}
                 activeOpacity={0.6}
                 onPress={props.onPress}>
                 <Text style={props.styles.item}>
