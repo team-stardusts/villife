@@ -9,7 +9,7 @@ import useUserInformation from "../../hooks/service/user_info";
 import useAdminInfoService from "../../hooks/service/user_info/service";
 import useFirebaseMessagingListener from "../../hooks/firebase/messaging/listening";
 
-export default function useRoutingAdministratorByLogin(): void {
+export default function useRouteStateMachine(): void {
     const adminService = useAdminInfoService();
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const setLoginData = useSetRecoilState<LoginDataType | null>(loginDataState);
