@@ -67,6 +67,7 @@ namespace Routes {
     export type Expense = {
         handleBuildingBill: string;
         handleMyBill: string;
+        confirmPayment: string;
     };
 
     export type Payment = {

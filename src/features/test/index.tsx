@@ -1,96 +1,72 @@
-import { Animated, ColorValue, Linking, StyleSheet, Text, TouchableOpacity } from "react-native";
 import NavigationView from "../common/blocks/navigation";
-import useTestService from "./test_hook";
-import { useEffect, useRef, useState } from "react";
-import { View } from "react-native";
-import DotEnv from "../../libs/dotenv";
-import { useNavigation } from "@react-navigation/native";
-import { VillifeNavigation } from "../common/router/types";
-import PaymentServiceProvider from "../expense/payment/services/provider";
-import NetInfoEventHandler from "../../libs/netinfo";
-import Spinner from "../common/atoms/spinner";
-import Icon from "../common/atoms/icon";
+import { Linking, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import useStyler from "../common/hooks/styler/hooks";
 
 export default function TestScreen() {
-    //const test = useTestService();
-    const { theme } = useStyler();
-    const env = new DotEnv();
-    const navigation = useNavigation<VillifeNavigation>();
-    const netinfo = new NetInfoEventHandler();
-
-    useEffect(() => {
-        netinfo.listen("changed", (_, state) => console.log("Is connected?", state.isConnected));
-
-        return () => {
-            netinfo.removeAllListeners();
-        };
-    }, []);
-
-    /* useEffect(() => {
-        createOrder();
-    }, [test?.name]); */
-
-    const [paymentUrl, setPaymentUrl] = useState("");
-
+    const { deviceUI, theme } = useStyler();
     const styles = StyleSheet.create({
         container: {
-            width: "100%",
-            height: "100%",
+            flex: 1,
         },
         btn: {
-            height: "10%",
-            backgroundColor: "teal",
+            borderRadius: deviceUI.moderateScale(10),
+            backgroundColor: theme.color.specified.blue,
             justifyContent: "center",
             alignItems: "center",
+            paddingVertical: deviceUI.moderateScale(10),
+            marginVertical: deviceUI.moderateScale(10),
+        },
+        btnText: {
+            fontSize: deviceUI.moderateScale(12),
+            fontFamily: theme.font.fontFamily.pretendard.semiBold,
+            color: theme.color.specified.white,
         },
     });
-    const createOrder = async () => {
-        const usecase = new PaymentServiceProvider();
-        const result = await usecase.getPaymentWidgetUrl({
-            product_id: 945,
-            product_type: "pt_management_fee",
-            product_name: "빌라이프 3월 관리비",
-            price: 80000,
-        });
 
-        if (result != null) {
-            setPaymentUrl(result);
-            //Linking.openURL(result);
-        }
-    };
-    const navigateToPaymentWindow = () => {
-        navigation.navigate("payment_window", {
-            title: "관리비 제목",
-            product_id: 949,
-            product_type: "pt_management_fee",
-            product_name: "관리비 테스트",
-            price: 120000,
-        });
+    const link = (what: "tel" | "sms" | "mailto", to: string): void => {
+        Linking.openURL(`${what}:${to}`);
     };
 
     return (
         <NavigationView
-            headerOptions={{ title: "TEST" }}
+            headerOptions={{ title: "테스트" }}
             bottomNavOptions={{ shown: false }}
-            bodyOptions={{ applyDefaultHorizontalPadding: false }}>
+            bodyOptions={{
+                applyDefaultHorizontalPadding: true,
+            }}>
             <View style={styles.container}>
-                <TouchableOpacity onPress={navigateToPaymentWindow}>
-                    <Text style={{ fontSize: 24 }}>관리비 결제 테스트</Text>
+                <TouchableOpacity
+                    style={styles.btn}
+                    onPress={() => {
+                        link("tel", "010-0000-0000");
+                    }}>
+                    <Text style={styles.btnText}>전화</Text>
                 </TouchableOpacity>
-
-                {/*  {paymentUrl === "" ? (
-                    <></>
-                ) : (
-                    <WebView
-                        style={styles.container}
-                        javaScriptEnabled={true}
-                        injectedJavaScriptForMainFrameOnly={true}
-                        source={{
-                            uri: `${paymentUrl}`,
-                        }}></WebView>
-                )} */}
+                <TouchableOpacity
+                    style={styles.btn}
+                    onPress={() => {
+                        link("sms", "010-0000-0000");
+                    }}>
+                    <Text style={styles.btnText}>문자</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                    style={styles.btn}
+                    onPress={() => {
+                        link("mailto", "backingbin@gmail.com");
+                    }}>
+                    <Text style={styles.btnText}>이메일</Text>
+                </TouchableOpacity>
             </View>
         </NavigationView>
     );
 }
+
+/*
+Linking.openURL("tel:010-0000-0000") // 전화 걸기
+Linking.openURL("sms:010-0000-0000") // 문자 보내기
+Linking.openURL("mailto:backingbin@gmail.com") // 이메일 보내기
+*/
+
+const link = (what: "tel" | "sms" | "mailto", to: string): void => {
+    Linking.openURL(`${what}:${to}`);
+};

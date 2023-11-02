@@ -1,22 +1,30 @@
 import { Response } from "../../types";
 
-export default interface IVillifeExpenseRestClient
-    extends ManagementFee.ManagementFeeHistoryGettable,
-        ManagementFee.ManagementFeeConfrimationRequestable {}
+export default interface IVillifeExpenseRestClient extends ManagementFee.HistoryGettable, ManagementFee.Confirmable {}
 
 export namespace ManagementFee {
-    export interface ManagementFeeHistoryGettable {
-        getBuildingManagementFeeHistory(params: GetBuildingMFHistory.Params): Response<GetBuildingMFHistory.Result>;
-        getUserManagementFeeHistory(params: GetUserMFHistory.Params): Response<GetUserMFHistory.Result>;
+    export interface HistoryGettable {
+        getBuildingHistory(params: GetBuildingHistory.Params): Response<GetBuildingHistory.Result>;
+        getUserHistory(params: GetUserHistory.Params): Response<GetUserHistory.Result>;
     }
 
-    export interface ManagementFeeConfrimationRequestable {
-        requestMFPamentConfirmaion(
-            param: RequestMFPamentConfirmaion.Params
-        ): Response<RequestMFPamentConfirmaion.Result>;
+    export interface Confirmable {
+        requestPamentConfirmaion(param: RequestPamentConfirmaion.Params): Response<RequestPamentConfirmaion.Result>;
+        confirmPayment(params: ConfirmPayment.Params): Response<ConfirmPayment.Result>;
     }
 
-    export namespace RequestMFPamentConfirmaion {
+    export namespace ConfirmPayment {
+        export type Params = {
+            bill_id: number;
+            building_id: number;
+        };
+
+        export type Body = Params;
+
+        export type Result = string;
+    }
+
+    export namespace RequestPamentConfirmaion {
         export type Params = {
             amount_won: number;
             bill_ids: number[];
@@ -30,7 +38,7 @@ export namespace ManagementFee {
         export type Result = string;
     }
 
-    export namespace GetUserMFHistory {
+    export namespace GetUserHistory {
         export type Params = {
             unpaidOnly?: true;
         };
@@ -42,7 +50,7 @@ export namespace ManagementFee {
         export type Result = ManagementFee[];
     }
 
-    export namespace GetBuildingMFHistory {
+    export namespace GetBuildingHistory {
         export type Params = {
             buildingID: number;
         };
@@ -51,20 +59,23 @@ export namespace ManagementFee {
             building_id: number;
         };
 
-        export type Result = BuildingRenterMFHistory[];
+        export type Result = BuildingRenterHistory[];
     }
 
     export type ManagementFee = {
         amount_won: number;
         bill_id: number;
         category: string;
+        detail_bill: string;
+        form_id: number;
         is_paid: boolean;
         month: number;
+        overdue_interest: number;
         payment_info: PaymentInfo;
         year: number;
     };
 
-    export type BuildingRenterMFHistory = {
+    export type BuildingRenterHistory = {
         /* lastestNotiMonth: number;
         lastestNotiYear: number;
         lastestPaidMonth: number;
@@ -77,6 +88,7 @@ export namespace ManagementFee {
         lastest_paid_year: number;
         room_number: number;
         total_unpaid_fee: number;
+        unpaid_bills: ManagementFee[];
     };
 
     export type PaymentInfo = {};

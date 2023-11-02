@@ -4,7 +4,7 @@ import ScreenTitleView from "../../../../common/blocks/title_view";
 import useUserInformation from "../../../../common/hooks/service/user_info";
 import useManagementFeeDetailScreenStyles from "./styles";
 import ManagementFeeDetailScreenProps, { PaidDateRange, SelectedDate } from "./types";
-import usePayer from "../../services/payer";
+import usePayer from "../../services/payer_legacy";
 import { useEffect, useState } from "react";
 import Icon from "../../../../common/atoms/icon";
 import SelectModal from "./blocks/select_modal";

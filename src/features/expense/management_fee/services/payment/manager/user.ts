@@ -1,7 +1,6 @@
 import { Building } from "../../../../../../libs/rest_apis/villife/building/types";
-import { ManagementFee } from "../../../../../../libs/rest_apis/villife/expense/types";
 import { UserInfo } from "../../../../../common/hooks/service/user_info/types";
-import { RequestMFPaymentConfirmationParams, UserPaymentManagerBase } from "../types";
+import { UserPaymentManagerBase, UserRequestMFPaymentConfirmationParams } from "../types";
 import PaymentManager from "./abstract";
 
 class UserPaymentManager extends PaymentManager implements UserPaymentManagerBase {
@@ -12,12 +11,12 @@ class UserPaymentManager extends PaymentManager implements UserPaymentManagerBas
         return this._userInfo;
     }
 
-    public async requestMFPaymentConfirmation(params: RequestMFPaymentConfirmationParams): Promise<boolean> {
+    public async requestPaymentConfirmation(params: UserRequestMFPaymentConfirmationParams): Promise<boolean> {
         if (this.user?.roomID === undefined || this.user.roomNumber === undefined) {
             return false;
         }
 
-        return await this._api.requestMFPaymentConfirmation({
+        return await this._api.requestPaymentConfirmation({
             bill_ids: params.billIDs,
             amount_won: params.amountWon,
             depositor_name: params.sender,
@@ -35,7 +34,7 @@ class UserPaymentManager extends PaymentManager implements UserPaymentManagerBas
     public async updateHistory(): Promise<this> {
         if (this._userInfo === null) return this;
 
-        const history = await this._api.getUserMFHistory({});
+        const history = await this._api.getUserHistory({});
 
         this._historyStateSetter(history);
 

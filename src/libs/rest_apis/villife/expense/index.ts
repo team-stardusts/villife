@@ -3,35 +3,42 @@ import AVillifeServerModule from "../absc";
 import IVillifeExpenseRestClient, { ManagementFee } from "./types";
 
 export default class VillifeExpenseRestClient extends AVillifeServerModule implements IVillifeExpenseRestClient {
-    public async getUserManagementFeeHistory(
-        params: ManagementFee.GetUserMFHistory.Params
-    ): Response<ManagementFee.GetUserMFHistory.Result> {
+    public async confirmPayment(params: ManagementFee.ConfirmPayment.Params): Response<string> {
+        const route = this.routes.expense.confirmPayment;
+
+        return await this.requestAuthable<ManagementFee.ConfirmPayment.Body, ManagementFee.ConfirmPayment.Result>({
+            method: "post",
+            url: route,
+            data: params,
+        });
+    }
+
+    public async getUserHistory(
+        params: ManagementFee.GetUserHistory.Params
+    ): Response<ManagementFee.GetUserHistory.Result> {
         const route = this.routes.expense.handleMyBill;
-        const _params: ManagementFee.GetUserMFHistory.ReqParams = {
+        const _params: ManagementFee.GetUserHistory.ReqParams = {
             unpaid_only: params.unpaidOnly ? "yes" : "no",
         };
 
-        return await this.requestAuthable<
-            ManagementFee.GetUserMFHistory.ReqParams,
-            ManagementFee.GetUserMFHistory.Result
-        >({
+        return await this.requestAuthable<ManagementFee.GetUserHistory.ReqParams, ManagementFee.GetUserHistory.Result>({
             method: "get",
             url: route,
             params: _params,
         });
     }
 
-    public async getBuildingManagementFeeHistory(
-        params: ManagementFee.GetBuildingMFHistory.Params
-    ): Response<ManagementFee.GetBuildingMFHistory.Result> {
+    public async getBuildingHistory(
+        params: ManagementFee.GetBuildingHistory.Params
+    ): Response<ManagementFee.GetBuildingHistory.Result> {
         const route = this.routes.expense.handleBuildingBill;
-        const _params: ManagementFee.GetBuildingMFHistory.ReqParams = {
+        const _params: ManagementFee.GetBuildingHistory.ReqParams = {
             building_id: params.buildingID,
         };
 
         return await this.requestAuthable<
-            ManagementFee.GetBuildingMFHistory.ReqParams,
-            ManagementFee.GetBuildingMFHistory.Result
+            ManagementFee.GetBuildingHistory.ReqParams,
+            ManagementFee.GetBuildingHistory.Result
         >({
             method: "get",
             url: route,
@@ -39,14 +46,14 @@ export default class VillifeExpenseRestClient extends AVillifeServerModule imple
         });
     }
 
-    public async requestMFPamentConfirmaion(
-        params: ManagementFee.RequestMFPamentConfirmaion.Params
-    ): Response<ManagementFee.RequestMFPamentConfirmaion.Result> {
+    public async requestPamentConfirmaion(
+        params: ManagementFee.RequestPamentConfirmaion.Params
+    ): Response<ManagementFee.RequestPamentConfirmaion.Result> {
         const route = this.routes.approval.requestMFPaymentConfirmation;
 
         return await this.requestAuthable<
-            ManagementFee.RequestMFPamentConfirmaion.Body,
-            ManagementFee.RequestMFPamentConfirmaion.Result
+            ManagementFee.RequestPamentConfirmaion.Body,
+            ManagementFee.RequestPamentConfirmaion.Result
         >({
             method: "post",
             url: route,

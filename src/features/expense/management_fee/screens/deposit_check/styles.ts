@@ -12,15 +12,54 @@ export default function useMFDepositCheckScreenStyles() {
         isHeaderShown: true,
     });
 
-    const filterHeight = deviceUI.getScreenSize().height * 0.11;
-
     return StyleSheet.create({
         nav: {},
         container: {
             flex: 1,
         },
+        confirmModalContainer: {
+            width: "100%",
+            alignItems: "center",
+            marginBottom: deviceUI.moderateScale(15),
+        },
+        confirmModalRow: {
+            width: "85%",
+            flexDirection: "row",
+            justifyContent: "flex-start",
+            marginVertical: deviceUI.moderateScale(3),
+        },
+        confirmModalTxt: {
+            width: "20%",
+            textAlign: "center",
+            fontFamily: theme.font.fontFamily.pretendard.bold,
+            fontSize: deviceUI.moderateScale(20),
+            color: theme.color.specified.black,
+        },
+        selectAllWrapper: {
+            height: window.height * 0.05,
+            alignItems: "flex-end",
+            paddingHorizontal: deviceUI.moderateScale(SCREEN_PADDING_HORIZONTAL_STANDARD_VALUE),
+        },
+        selectAllBtn: {
+            flexDirection: "row",
+            alignItems: "center",
+            padding: deviceUI.moderateScale(3),
+        },
+        selectAllIcon: {
+            width: deviceUI.moderateScale(25),
+            color: theme.color.series.grey.level3,
+        },
+        selectAllText: {
+            fontFamily: theme.font.fontFamily.pretendard.medium,
+            fontSize: deviceUI.moderateScale(13),
+            color: theme.color.series.grey.level3,
+            marginLeft: deviceUI.moderateScale(8),
+        },
+        selectAll: {
+            color: theme.color.specified.lightblue,
+        },
         scrollView: {
-            height: window.height * 0.93,
+            height: window.height * 0.88,
             width: "100%",
             paddingHorizontal: deviceUI.moderateScale(SCREEN_PADDING_HORIZONTAL_STANDARD_VALUE),
             paddingBottom: deviceUI.moderateScale(10),

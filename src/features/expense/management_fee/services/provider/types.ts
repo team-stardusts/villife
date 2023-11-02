@@ -1,7 +1,7 @@
 import { Building } from "../../../../../libs/rest_apis/villife/building/types";
 import { ManagementFee } from "../../../../../libs/rest_apis/villife/expense/types";
 
-export interface ManagementFeePaymentServiceBase extends BuildingInfoGettable, HistoryGettable, ApprovalRequestable {}
+export interface ManagementFeePaymentServiceBase extends BuildingInfoGettable, HistoryGettable, Confirmable {}
 
 /* interface IPaymentOrderable {
     createOrder(params: ManagementFee.CreateOrder.Params): Promise<ManagementFee.CreateOrder.Result>;
@@ -12,12 +12,11 @@ export interface BuildingInfoGettable {
 }
 
 export interface HistoryGettable {
-    getBuildingMFHistory(
-        params: ManagementFee.GetBuildingMFHistory.Params
-    ): Promise<ManagementFee.BuildingRenterMFHistory[]>;
-    getUserMFHistory(params: ManagementFee.GetUserMFHistory.Params): Promise<ManagementFee.ManagementFee[]>;
+    getBuildingHistory(params: ManagementFee.GetBuildingHistory.Params): Promise<ManagementFee.BuildingRenterHistory[]>;
+    getUserHistory(params: ManagementFee.GetUserHistory.Params): Promise<ManagementFee.ManagementFee[]>;
 }
 
-export interface ApprovalRequestable {
-    requestMFPaymentConfirmation(params: ManagementFee.RequestMFPamentConfirmaion.Params): Promise<boolean>;
+export interface Confirmable {
+    requestPaymentConfirmation(params: ManagementFee.RequestPamentConfirmaion.Params): Promise<boolean>;
+    confirmPayment(params: ManagementFee.ConfirmPayment.Params): Promise<boolean>;
 }

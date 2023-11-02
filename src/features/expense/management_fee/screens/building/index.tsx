@@ -15,9 +15,8 @@ export default function BuildingMFHistoryScreen({ navigation, route }: BuildingM
     const styles = useBuildingMFHistoryScreenStyles();
 
     const manager: AdminPaymentManagerBase = useManagementFeeManager() as AdminPaymentManagerBase;
-    const [filters, setFilters] =
-        useState<Filter<ManagementFee.BuildingRenterMFHistory>[]>(buildingManagementFeeFilter);
-    const [filteredHistory, setFilteredHistory] = useState<ManagementFee.BuildingRenterMFHistory[]>([]);
+    const [filters, setFilters] = useState<Filter<ManagementFee.BuildingRenterHistory>[]>(buildingManagementFeeFilter);
+    const [filteredHistory, setFilteredHistory] = useState<ManagementFee.BuildingRenterHistory[]>([]);
 
     useEffect(() => {
         setFilterFloors();
@@ -65,7 +64,7 @@ export default function BuildingMFHistoryScreen({ navigation, route }: BuildingM
                         backgroundColor: styles.filter.backgroundColor,
                     }}
                     data={manager.history}
-                    onFilterData={(data: ManagementFee.BuildingRenterMFHistory[]) => {
+                    onFilterData={(data: ManagementFee.BuildingRenterHistory[]) => {
                         const _filteredHistory = data.sort((a, b) => {
                             if (a.room_number > b.room_number) {
                                 return 1;

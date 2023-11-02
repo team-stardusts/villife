@@ -34,7 +34,7 @@ export default function RequestPaymentConfirmationScreen(props: RequestPaymentCo
 
     const requestApproval = async () => {
         // [TO-DO] Amount가 0원일때에 대한 예외처리 필요
-        const result = await manager.requestMFPaymentConfirmation({
+        const result = await manager.requestPaymentConfirmation({
             amountWon: props.route.params.amountWon === 0 ? 1000 : props.route.params.amountWon,
             billIDs: props.route.params.billIDs,
             sender: manager.user?.roomNumber.toString() || "TEST",

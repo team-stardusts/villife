@@ -36,7 +36,7 @@ export default function useManagementFeePaymentHistory() {
         }
 
         public async updateHistory(): Promise<void> {
-            setUserHistory(await service.getUserMFHistory({}));
+            setUserHistory(await service.getUserHistory({}));
         }
     }
 

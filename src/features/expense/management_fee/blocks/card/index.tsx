@@ -43,6 +43,15 @@ export default function MFHistoryCardView(props: MFHistoryCardViewProps) {
         props.checkmode && isChecked !== null && props.checkmode.onCheck(isChecked);
     }, [isChecked]);
 
+    useEffect(() => {
+        if (props.checkmode && !props.checkmode.disabled) {
+            if (typeof props.checkmode.checkAll === "boolean") {
+                setIsChecked(props.checkmode.checkAll);
+                return;
+            }
+        }
+    }, [props.checkmode?.checkAll]);
+
     const isNotiRequired = (): boolean => {
         const today = StardustDateParser.changeGMT(new Date(), "kr");
 

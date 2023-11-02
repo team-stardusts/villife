@@ -24,6 +24,18 @@ export default class ManagementFeePaymentServiceProvider
         return result.data.data;
     } */
 
+    public async confirmPayment(params: ManagementFee.ConfirmPayment.Params): Promise<boolean> {
+        const result = await this._expenseAPI.confirmPayment(params);
+
+        if (!result.isSuccessful || result.data?.data === undefined) {
+            this.printWhyFailed(result.data, result.data?.data);
+
+            return false;
+        }
+
+        return true;
+    }
+
     public async getBuildingInfo(buildingID: number): Promise<Building.BuildingInfo | null> {
         const result = await this._buildingAPI.getBuildingInfo({ buildingID });
 
@@ -36,10 +48,10 @@ export default class ManagementFeePaymentServiceProvider
         return result.data.data;
     }
 
-    public async getBuildingMFHistory(
-        params: ManagementFee.GetBuildingMFHistory.Params
-    ): Promise<ManagementFee.BuildingRenterMFHistory[]> {
-        const result = await this._expenseAPI.getBuildingManagementFeeHistory(params);
+    public async getBuildingHistory(
+        params: ManagementFee.GetBuildingHistory.Params
+    ): Promise<ManagementFee.BuildingRenterHistory[]> {
+        const result = await this._expenseAPI.getBuildingHistory(params);
 
         if (!result.isSuccessful || result.data?.data === undefined) {
             this.printWhyFailed(result.data as AxiosResponse);
@@ -56,10 +68,8 @@ export default class ManagementFeePaymentServiceProvider
         return result.data.data;
     }
 
-    public async getUserMFHistory(
-        params: ManagementFee.GetUserMFHistory.Params
-    ): Promise<ManagementFee.ManagementFee[]> {
-        const result = await this._expenseAPI.getUserManagementFeeHistory(params);
+    public async getUserHistory(params: ManagementFee.GetUserHistory.Params): Promise<ManagementFee.ManagementFee[]> {
+        const result = await this._expenseAPI.getUserHistory(params);
         if (!result.isSuccessful || result.data?.data === undefined) {
             this.printWhyFailed(result.data, "왜 Undefine일까?");
 
@@ -69,10 +79,8 @@ export default class ManagementFeePaymentServiceProvider
         return result.data.data;
     }
 
-    public async requestMFPaymentConfirmation(
-        params: ManagementFee.RequestMFPamentConfirmaion.Params
-    ): Promise<boolean> {
-        const result = await this._expenseAPI.requestMFPamentConfirmaion(params);
+    public async requestPaymentConfirmation(params: ManagementFee.RequestPamentConfirmaion.Params): Promise<boolean> {
+        const result = await this._expenseAPI.requestPamentConfirmaion(params);
 
         if (!result.isSuccessful || result.data?.data === undefined) {
             this.printWhyFailed(result.data, result.data?.data);

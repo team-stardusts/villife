@@ -62,6 +62,7 @@ const routes: RoutesType = {
     expense: {
         handleBuildingBill: "rental-expense/management-fee/building",
         handleMyBill: "rental-expense/management-fee/mine",
+        confirmPayment: "rental-expense/confirm-payment",
     },
     payment: {
         order: "payment/order",

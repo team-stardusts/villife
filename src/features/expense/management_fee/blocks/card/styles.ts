@@ -32,11 +32,11 @@ export default function useMFHistoryCardViewStyles(
             height: deviceUI.moderateScale(17),
             borderRadius: deviceUI.moderateScale(17),
             borderColor: theme.color.specified.black,
-            backgroundColor: ischecked ? theme.color.specified.blue : theme.color.series.grey.level1,
+            backgroundColor: ischecked ? theme.color.specified.blue : theme.color.specified.white,
         },
         checkIcon: {
             width: deviceUI.moderateScale(18),
-            color: ischecked ? theme.color.specified.white : theme.color.series.grey.level1,
+            color: ischecked ? theme.color.specified.white : theme.color.specified.white,
         },
         row: {
             flexDirection: "row",

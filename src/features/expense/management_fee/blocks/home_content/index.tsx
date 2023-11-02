@@ -1,7 +1,7 @@
 import { Animated, Text, TouchableOpacity, View } from "react-native";
 import MiniContent from "../../../../common/blocks/mini_content";
 import useHomeContentFromManagementFeeStyles from "./styles";
-import usePayer from "../../services/payer";
+import usePayer from "../../services/payer_legacy";
 import { useEffect, useState } from "react";
 import useUserInformation from "../../../../common/hooks/service/user_info";
 import { useNavigation } from "@react-navigation/native";
