@@ -22,13 +22,22 @@ export default function InputPhoneNumber(props: InputProps) {
             // [010]-0000-0000
             switch (i) {
                 case 0:
-                    if (token.length !== 3) return;
+                    if (token.length !== 3) {
+                        props?.onInputInvalidValue && props.onInputInvalidValue();
+                        return;
+                    }
                     break;
                 case 1:
-                    if (token.length !== 3 && token.length !== 4) return;
+                    if (token.length !== 3 && token.length !== 4) {
+                        props?.onInputInvalidValue && props.onInputInvalidValue();
+                        return;
+                    }
                     break;
                 case 2:
-                    if (token.length !== 4) return;
+                    if (token.length !== 4) {
+                        props?.onInputInvalidValue && props.onInputInvalidValue();
+                        return;
+                    }
                     break;
             }
         }

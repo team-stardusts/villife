@@ -12,6 +12,7 @@ export default function useTenantSettingScreenStyles() {
             flex: 1,
             marginTop: deviceUI.moderateScale(10),
         },
+        wrapper: {},
         row: {
             width: "100%",
             height: deviceUI.moderateScale(50),
@@ -23,9 +24,12 @@ export default function useTenantSettingScreenStyles() {
         },
         col: {
             width: "100%",
-            height: deviceUI.moderateScale(70),
+            //maxHeight: deviceUI.moderateScale(70),
             paddingHorizontal: deviceUI.moderateScale(15),
             marginTop: deviceUI.moderateScale(20),
+        },
+        lastElement: {
+            marginBottom: deviceUI.moderateScale(15),
         },
         rowTitleBox: {
             height: "100%",
@@ -91,8 +95,8 @@ export default function useTenantSettingScreenStyles() {
             color: theme.color.specified.black,
         },
         contractDateRangeBox: {
-            height: "45%",
             width: "100%",
+            height: deviceUI.moderateScale(30),
             flexDirection: "row",
             justifyContent: "center",
             alignItems: "center",
@@ -118,6 +122,11 @@ export default function useTenantSettingScreenStyles() {
             fontSize: deviceUI.moderateScale(13),
             color: theme.color.specified.black,
             marginHorizontal: deviceUI.moderateScale(10),
+        },
+        tenantInfoInputBox: {
+            height: deviceUI.moderateScale(30),
+            marginTop: deviceUI.moderateScale(10),
+            marginBottom: deviceUI.moderateScale(5),
         },
     });
 }

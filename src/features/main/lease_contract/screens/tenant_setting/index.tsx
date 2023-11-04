@@ -1,7 +1,7 @@
 import { useState } from "react";
 import NavigationView from "../../../../common/blocks/navigation";
 import useTenantSettingScreenStyles from "./styles";
-import TenantSettingScreenProps, { MoneyTypes } from "./types";
+import TenantSettingScreenProps, { MoneyTypes, TenantInfo } from "./types";
 import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
 import ScreenTitleView from "../../../../common/blocks/title_view";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
@@ -14,6 +14,8 @@ import StardustAlert from "../../../../common/blocks/universial/stardust_alert";
 import { StardustAlertContent } from "../../../../common/blocks/universial/stardust_alert/types";
 import VillifeToastMessage from "../../../../common/atoms/toast";
 import useBuildingRoomContractor from "../../services/building_rooms";
+import TenantInfoInput from "./blocks/tenant_info";
+import LateFeeRate from "./blocks/latefee";
 
 export default function TenantSettingScreen({ navigation, route }: TenantSettingScreenProps) {
     const styles = useTenantSettingScreenStyles();
@@ -41,6 +43,10 @@ export default function TenantSettingScreen({ navigation, route }: TenantSetting
                 onPress: () => registerContract(),
             },
         ],
+    });
+    const [tenantInfo, setTenantInfo] = useState<TenantInfo>({
+        name: null,
+        phoneNumber: null,
     });
     const [contract, setContract] = useState<Building.RentType | null>(null);
     const [dates, setDates] = useState<Dates | null>(null);
@@ -110,6 +116,10 @@ export default function TenantSettingScreen({ navigation, route }: TenantSetting
         }
     };
 
+    const isPrepared = (): boolean => {
+        return tenantInfo.name !== null && tenantInfo.phoneNumber !== null && contract !== null && dates !== null;
+    };
+
     const handlePressOkayButton = () => {
         if (moneys.deposit.value === 0 && moneys.managementFee.value === 0 && moneys.monthlyRent.value === 0) {
             setAlert({
@@ -173,11 +183,12 @@ export default function TenantSettingScreen({ navigation, route }: TenantSetting
                 subtitles={[screenSubtitle]}
                 bottomButton={{
                     title: messages.words.okay,
-                    disabled: contract === null || dates === null,
+                    disabled: !isPrepared(),
                     onPress: () => handlePressOkayButton(),
                 }}
                 disablePaddingTop>
                 <KeyboardAwareScrollView style={styles.container} showsVerticalScrollIndicator={false}>
+                    <TenantInfoInput styles={styles} onChangeInfo={setTenantInfo} />
                     <Contract styles={styles} onChangeInfo={setContract} />
                     {Object.keys(moneys).map((moneyType, index) => (
                         <Money
@@ -195,6 +206,7 @@ export default function TenantSettingScreen({ navigation, route }: TenantSetting
                             }
                         />
                     ))}
+                    <LateFeeRate styles={styles} onChangeInfo={console.log} />
                     <ContractDateRange styles={styles} onChangeInfo={setDates} />
                 </KeyboardAwareScrollView>
             </ScreenTitleView>

@@ -31,7 +31,7 @@ export default function ContractDateRange(props: ContractRange) {
     };
 
     return (
-        <View style={props.styles.col}>
+        <View style={[props.styles.col, props.styles.lastElement]}>
             <DatePickModal modalVisible={modalVisible} setModalVisible={setModalVisible} onChangeDates={setDates} />
             <View style={props.styles.colTitleBox}>
                 <Text style={props.styles.title}>계약 날짜</Text>

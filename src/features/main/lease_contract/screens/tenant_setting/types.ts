@@ -8,15 +8,26 @@ type TenantSettingScreenProps = NativeStackScreenProps<VillifeStackParamList, "t
 
 export default TenantSettingScreenProps;
 
+export type TenantInfoInputProps = InfoRowDefaultProps<TenantInfo>;
+
 export type ContractProps = InfoRowDefaultProps<Building.RentType | null>;
+
 export type MoneyProps = InfoRowDefaultProps<number> & {
     title: string;
 };
+
+export type LateFeeRateProps = InfoRowDefaultProps<number>;
+
 export type ContractRange = InfoRowDefaultProps<Dates>;
 
 export type InfoRowDefaultProps<T> = {
     styles: ReturnType<typeof useTenantSettingScreenStyles>;
     onChangeInfo(data: T): void;
+};
+
+export type TenantInfo = {
+    name: string | null;
+    phoneNumber: string | null;
 };
 
 export type MoneyTypes = {

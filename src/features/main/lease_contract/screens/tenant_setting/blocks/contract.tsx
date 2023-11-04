@@ -55,21 +55,21 @@ export default function Contract(props: ContractProps) {
             <View style={props.styles.rowTitleBox}>
                 <Text style={props.styles.title}>계약 구분</Text>
             </View>
-            <View style={props.styles.contractSettingBox}>
+            <TouchableOpacity
+                style={props.styles.contractSettingBox}
+                activeOpacity={0.6}
+                onPress={() => setModalVisible(true)}>
                 <View style={props.styles.contractTextBox}>
                     <Text style={props.styles.contractText}>{setContractText()}</Text>
                 </View>
-                <TouchableOpacity
-                    style={props.styles.arrowDownIconBox}
-                    activeOpacity={0.6}
-                    onPress={() => setModalVisible(true)}>
+                <View style={props.styles.arrowDownIconBox}>
                     <Icon
                         name="arrow-down"
                         size={props.styles.arrowDownIcon.width}
                         color={props.styles.arrowDownIcon.color}
                     />
-                </TouchableOpacity>
-            </View>
+                </View>
+            </TouchableOpacity>
         </View>
     );
 }
