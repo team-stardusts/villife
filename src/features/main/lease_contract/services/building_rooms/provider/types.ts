@@ -30,7 +30,9 @@ export interface IRoomContractAdministrable {
 
 export namespace RegisterContract {
     export type Params = {
+        autoMFBilling: Building.RegisterContract.Params["auto_mf_billing"];
         contractorName: Building.RegisterContract.Params["contractor_name"];
+        delinquencyRate: Building.RegisterContract.Params["delinquency_rate"];
         deposit: Building.RegisterContract.Params["deposit"];
         managementFee: Building.RegisterContract.Params["management_fee"];
         monthlyRent: Building.RegisterContract.Params["monthly_rent"];

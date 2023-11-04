@@ -16,6 +16,7 @@ import VillifeToastMessage from "../../../../common/atoms/toast";
 import useBuildingRoomContractor from "../../services/building_rooms";
 import TenantInfoInput from "./blocks/tenant_info";
 import LateFeeRate from "./blocks/latefee";
+import { RegisterContract } from "../../services/building_rooms/provider/types";
 
 export default function TenantSettingScreen({ navigation, route }: TenantSettingScreenProps) {
     const styles = useTenantSettingScreenStyles();
@@ -50,6 +51,7 @@ export default function TenantSettingScreen({ navigation, route }: TenantSetting
     });
     const [contract, setContract] = useState<Building.RentType | null>(null);
     const [dates, setDates] = useState<Dates | null>(null);
+    const [lateFeeRate, setLateFeeRate] = useState<number | null>(null);
     const [moneys, setMoneys] = useState<MoneyTypes>({
         managementFee: {
             text: "관리비",
@@ -74,11 +76,21 @@ export default function TenantSettingScreen({ navigation, route }: TenantSetting
 
     const registerContract = async () => {
         // 이런 경우는 없지만 타입 내로잉을 위해 작성함
-        if (dates === null || contract === null) return;
+        if (
+            tenantInfo.name === null ||
+            tenantInfo.phoneNumber === null ||
+            contract === null ||
+            dates === null ||
+            lateFeeRate === null
+        ) {
+            return;
+        }
 
         let isSuccessful: boolean = false;
-        const params = {
-            contractorName: "테스터",
+        const params: RegisterContract.Params = {
+            autoMFBilling: true,
+            contractorName: tenantInfo.name,
+            delinquencyRate: lateFeeRate,
             deposit: moneys.deposit.value,
             monthlyRent: moneys.monthlyRent.value,
             managementFee: moneys.managementFee.value,
@@ -117,7 +129,13 @@ export default function TenantSettingScreen({ navigation, route }: TenantSetting
     };
 
     const isPrepared = (): boolean => {
-        return tenantInfo.name !== null && tenantInfo.phoneNumber !== null && contract !== null && dates !== null;
+        return (
+            tenantInfo.name !== null &&
+            tenantInfo.phoneNumber !== null &&
+            contract !== null &&
+            dates !== null &&
+            lateFeeRate !== null
+        );
     };
 
     const handlePressOkayButton = () => {
@@ -206,7 +224,7 @@ export default function TenantSettingScreen({ navigation, route }: TenantSetting
                             }
                         />
                     ))}
-                    <LateFeeRate styles={styles} onChangeInfo={console.log} />
+                    <LateFeeRate styles={styles} onChangeInfo={setLateFeeRate} />
                     <ContractDateRange styles={styles} onChangeInfo={setDates} />
                 </KeyboardAwareScrollView>
             </ScreenTitleView>

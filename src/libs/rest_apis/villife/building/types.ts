@@ -150,7 +150,9 @@ export namespace Building {
 
     export namespace RegisterContract {
         export type Params = {
+            auto_mf_billing: boolean;
             contractor_name: string;
+            delinquency_rate: number;
             deposit: Contract["deposit"];
             expiration_date: Contract["expiration_date"];
             management_fee: Contract["management_fee"];

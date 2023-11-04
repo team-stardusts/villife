@@ -55,7 +55,9 @@ class BuildingManagementServiceProvider extends AServiceProvider implements IBui
 
     public async registerContract(params: RegisterContract.Params): Promise<boolean> {
         const result = await this._buildingApi.registerContract({
+            auto_mf_billing: params.autoMFBilling,
             contractor_name: params.contractorName,
+            delinquency_rate: params.delinquencyRate,
             deposit: params.deposit,
             expiration_date: StardustDateParser.serialize(params.expirationDate),
             management_fee: params.managementFee,
@@ -89,7 +91,9 @@ class BuildingManagementServiceProvider extends AServiceProvider implements IBui
     public async modifyContract(params: ModifyContract.Params): Promise<boolean> {
         const result = await this._buildingApi.modifyContract({
             contract_id: params.contractID,
+            auto_mf_billing: params.autoMFBilling,
             contractor_name: params.contractorName,
+            delinquency_rate: params.delinquencyRate,
             deposit: params.deposit,
             expiration_date: StardustDateParser.serialize(params.expirationDate),
             management_fee: params.managementFee,
