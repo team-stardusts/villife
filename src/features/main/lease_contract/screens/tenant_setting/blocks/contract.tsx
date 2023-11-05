@@ -12,6 +12,12 @@ export default function Contract(props: ContractProps) {
     const [modalVisible, setModalVisible] = useState<boolean>(false);
 
     useEffect(() => {
+        if (props.initialRentType) {
+            setContract(props.initialRentType);
+        }
+    }, []);
+
+    useEffect(() => {
         props.onChangeInfo(contract);
     }, [contract]);
 

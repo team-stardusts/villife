@@ -100,6 +100,8 @@ export type BuildingRoomInfo = {
 
 export type BuildingRoomContract = {
     contractID: Building.Contract["contract_id"];
+    contracttorName: Building.Contract["contractor_name"];
+    delinquencyRate: Building.Contract["delinquency_rate"];
     deposit: number;
     expirationDate: Date;
     managementFee: number;

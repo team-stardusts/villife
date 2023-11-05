@@ -23,7 +23,16 @@ export default function TenantDetailScreen({ route }: TenantDetailScreenProps) {
     const [noticeModalVisible, setNoticeModalVisible] = useState<boolean>(false);
 
     useEffect(() => {
-        setTenant(JSON.parse(route.params.roomInfo));
+        const _tenant = JSON.parse(route.params.roomInfo);
+        setTenant({
+            ...tenant,
+            ..._tenant,
+            contractInfo: {
+                ...tenant.contractInfo,
+                startDate: new Date(tenant.contractInfo.startDate),
+                expirationDate: new Date(tenant.contractInfo.expirationDate),
+            },
+        });
     }, [route.params.roomInfo]);
 
     const notiModalFeatures: ModalFeature[] = [

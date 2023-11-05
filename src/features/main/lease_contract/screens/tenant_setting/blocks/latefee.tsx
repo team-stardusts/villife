@@ -9,6 +9,12 @@ export default function LateFeeRate(props: LateFeeRateProps) {
     const [lateFeeRate, setLateFeeRate] = useState<number | null>(null);
 
     useEffect(() => {
+        if (props.initialRate) {
+            setLateFeeRate(props.initialRate);
+        }
+    }, []);
+
+    useEffect(() => {
         props.onChangeInfo(lateFeeRate === null ? 0 : lateFeeRate);
     }, [lateFeeRate]);
 

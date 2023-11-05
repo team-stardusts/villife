@@ -15,6 +15,12 @@ export default function InputPhoneNumber(props: InputProps) {
     const refInput3 = useRef<TextInput>(null);
 
     useEffect(() => {
+        if (props.initialData && props.initialData.length === 3) {
+            setPhoneNumber(props.initialData);
+        }
+    }, []);
+
+    useEffect(() => {
         for (let i = 0; i < 3; i++) {
             const token = phoneNumber[i];
 

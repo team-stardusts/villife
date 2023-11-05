@@ -37,9 +37,20 @@ export default function TenantInfo(props: TenantInfoProps) {
                     return;
                 }
                 navigation.navigate("tenant_setting", {
-                    type: "edit",
-                    contractID: props.tenant.contractInfo.contractID,
                     roomID: props.tenant.roomID,
+                    previous: {
+                        contractID: props.tenant.contractInfo.contractID,
+                        contractorName: props.tenant.residentName,
+                        delinquencyRate: props.tenant.contractInfo.delinquencyRate,
+                        deposit: props.tenant.contractInfo.deposit,
+                        managementFee: props.tenant.contractInfo.managementFee,
+                        monthlyRent: props.tenant.contractInfo.monthlyRent,
+                        rentType: props.tenant.contractInfo.rentType,
+                        roomId: props.tenant.roomID,
+                        expirationDate: JSON.stringify(props.tenant.contractInfo.expirationDate),
+                        startDate: JSON.stringify(props.tenant.contractInfo.startDate),
+                        phoneNumber: props.tenant.residentPhoneNumber,
+                    },
                 });
                 setModalVisible(false);
             },
@@ -133,6 +144,14 @@ export default function TenantInfo(props: TenantInfoProps) {
         return money.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     };
 
+    const getDateDiff = (d1: Date, d2: Date) => {
+        const date1 = new Date(d1);
+        const date2 = new Date(d2);
+        const diffDate = date1.getTime() - date2.getTime();
+
+        return Math.floor(diffDate / (1000 * 60 * 60 * 24)) + 1; // 밀리세컨 * 초 * 분 * 시 = 일
+    };
+
     return (
         <View style={props.styles.tenantInfoContainer}>
             <StardustAlert {...alert} setAlert={setAlert} />
@@ -149,13 +168,15 @@ export default function TenantInfo(props: TenantInfoProps) {
                 }}
                 minHeight={props.styles.tenantInfo.minHeight}>
                 <View style={props.styles.tenantInfo}>
-                    <CardRow styles={props.styles} rowKey={"이름"} rowValue={props.tenant.residentName} />
                     <CardRow
                         styles={props.styles}
                         rowKey={"호수"}
                         rowValue={`${props.tenant.roomNumber.toString()}호`}
                     />
+                    <CardRow styles={props.styles} rowKey={"이름"} rowValue={props.tenant.residentName} />
+                    <CardRow styles={props.styles} rowKey={"전화번호"} rowValue={props.tenant.residentPhoneNumber} />
                     <CardRow styles={props.styles} rowKey={"계약"} rowValue={switchContractType()} />
+                    <CardRow styles={props.styles} rowKey={"자동고지"} rowValue={"사용"} />
                     <CardRow
                         styles={props.styles}
                         rowKey={"관리비"}
@@ -173,8 +194,23 @@ export default function TenantInfo(props: TenantInfoProps) {
                     />
                     <CardRow
                         styles={props.styles}
+                        rowKey={"입주일"}
+                        rowValue={convertDateToString(props.tenant.contractInfo.startDate)}
+                    />
+                    <CardRow
+                        styles={props.styles}
                         rowKey={"만기일"}
-                        rowValue={convertDateToString(props.tenant.contractInfo?.expirationDate)}
+                        rowValue={convertDateToString(props.tenant.contractInfo.expirationDate)}
+                    />
+                    <CardRow
+                        styles={props.styles}
+                        rowKey={"남은기간"}
+                        rowValue={
+                            getDateDiff(
+                                props.tenant.contractInfo.expirationDate,
+                                StardustDateParser.changeGMT(new Date(), "kr")
+                            ).toString() + " 일"
+                        }
                     />
                 </View>
             </TitleCard>

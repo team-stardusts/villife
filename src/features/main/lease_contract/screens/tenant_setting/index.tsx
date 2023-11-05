@@ -22,12 +22,11 @@ export default function TenantSettingScreen({ navigation, route }: TenantSetting
     const styles = useTenantSettingScreenStyles();
     const messages = useScreenMessage().messages;
     const contractor = useBuildingRoomContractor();
-    const navTitle = route.params?.type === "edit" ? "세입자 정보 수정" : "세입자 정보 추가";
-    const screenTitle = route.params?.type === "edit" ? "세입자 정보 수정하기" : "세입자 정보 추가하기";
-    const screenSubtitle =
-        route.params?.type === "edit"
-            ? "세입자 정보를 수정하고 확인을 눌러주세요."
-            : "세입자 정보를 설정하고 확인을 눌러주세요.";
+    const navTitle = route.params?.previous ? "세입자 정보 수정" : "세입자 정보 추가";
+    const screenTitle = route.params?.previous ? "세입자 정보 수정하기" : "세입자 정보 추가하기";
+    const screenSubtitle = route.params?.previous
+        ? "세입자 정보를 수정하고 확인을 눌러주세요."
+        : "세입자 정보를 설정하고 확인을 눌러주세요.";
 
     const [alert, setAlert] = useState<StardustAlertContent>({
         visible: false,
@@ -100,13 +99,13 @@ export default function TenantSettingScreen({ navigation, route }: TenantSetting
             rentType: contract,
         };
 
-        if (route.params.type === "addtion") {
-            isSuccessful = await contractor.registerContract(params);
-        } else {
+        if (route.params.previous) {
             isSuccessful = await contractor.modifyContract({
                 ...params,
-                contractID: route.params.contractID,
+                contractID: route.params.previous.contractID,
             });
+        } else {
+            isSuccessful = await contractor.registerContract(params);
         }
 
         setAlert({
@@ -117,13 +116,13 @@ export default function TenantSettingScreen({ navigation, route }: TenantSetting
         if (isSuccessful) {
             VillifeToastMessage.showBottomToast(
                 "success",
-                `정상적으로 ${route.params.type === "addtion" ? "등록" : "수정"} 되었습니다.`
+                `정상적으로 ${route.params?.previous ? "수정" : "등록"} 되었습니다.`
             );
             navigation.pop();
         } else {
             VillifeToastMessage.showBottomToast(
                 "error",
-                `${route.params.type === "addtion" ? "등록" : "수정"}하지 못했습니다. 잠시 후 다시 시도해주세요.`
+                `${route.params?.previous ? "수정" : "등록"}하지 못했습니다. 잠시 후 다시 시도해주세요.`
             );
         }
     };
@@ -206,26 +205,77 @@ export default function TenantSettingScreen({ navigation, route }: TenantSetting
                 }}
                 disablePaddingTop>
                 <KeyboardAwareScrollView style={styles.container} showsVerticalScrollIndicator={false}>
-                    <TenantInfoInput styles={styles} onChangeInfo={setTenantInfo} />
-                    <Contract styles={styles} onChangeInfo={setContract} />
-                    {Object.keys(moneys).map((moneyType, index) => (
-                        <Money
-                            key={index}
-                            styles={styles}
-                            title={moneys[moneyType as keyof MoneyTypes].text}
-                            onChangeInfo={(money) =>
-                                setMoneys({
-                                    ...moneys,
-                                    [moneyType]: {
-                                        ...moneys[moneyType as keyof MoneyTypes],
-                                        value: money,
-                                    },
-                                })
+                    <TenantInfoInput
+                        styles={styles}
+                        initialInfo={
+                            route.params.previous
+                                ? {
+                                      name: route.params.previous.contractorName,
+                                      phoneNumber: route.params.previous.phoneNumber,
+                                  }
+                                : undefined
+                        }
+                        onChangeInfo={setTenantInfo}
+                    />
+                    <Contract
+                        styles={styles}
+                        initialRentType={route.params.previous ? route.params.previous.rentType : undefined}
+                        onChangeInfo={setContract}
+                    />
+                    {Object.keys(moneys).map((moneyType, index) => {
+                        let initialMoney: number | undefined = undefined;
+
+                        if (route.params.previous) {
+                            switch (moneyType) {
+                                case "managementFee":
+                                    initialMoney = route.params.previous.managementFee;
+                                    break;
+
+                                case "monthlyRent":
+                                    initialMoney = route.params.previous.monthlyRent;
+                                    break;
+
+                                case "deposit":
+                                    initialMoney = route.params.previous.deposit;
+                                    break;
                             }
-                        />
-                    ))}
-                    <LateFeeRate styles={styles} onChangeInfo={setLateFeeRate} />
-                    <ContractDateRange styles={styles} onChangeInfo={setDates} />
+                        }
+
+                        return (
+                            <Money
+                                key={index}
+                                styles={styles}
+                                initialMoney={initialMoney}
+                                title={moneys[moneyType as keyof MoneyTypes].text}
+                                onChangeInfo={(money) =>
+                                    setMoneys({
+                                        ...moneys,
+                                        [moneyType]: {
+                                            ...moneys[moneyType as keyof MoneyTypes],
+                                            value: money,
+                                        },
+                                    })
+                                }
+                            />
+                        );
+                    })}
+                    <LateFeeRate
+                        styles={styles}
+                        initialRate={route.params.previous ? route.params.previous.delinquencyRate : undefined}
+                        onChangeInfo={setLateFeeRate}
+                    />
+                    <ContractDateRange
+                        styles={styles}
+                        initialDate={
+                            route.params.previous
+                                ? {
+                                      startDate: new Date(JSON.parse(route.params.previous.startDate)),
+                                      expirationDate: new Date(JSON.parse(route.params.previous.expirationDate)),
+                                  }
+                                : undefined
+                        }
+                        onChangeInfo={setDates}
+                    />
                 </KeyboardAwareScrollView>
             </ScreenTitleView>
         </NavigationView>

@@ -124,6 +124,8 @@ export namespace Building {
 
     export type Contract = {
         contract_id: number;
+        contractor_name: string;
+        delinquency_rate: number;
         deposit: number;
         expiration_date: number;
         management_fee: number;

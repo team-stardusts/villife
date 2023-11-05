@@ -9,6 +9,12 @@ export default function Money(props: MoneyProps) {
     const [money, setMoney] = useState<number | null>(null);
 
     useEffect(() => {
+        if (props.initialMoney) {
+            setMoney(props.initialMoney);
+        }
+    }, []);
+
+    useEffect(() => {
         props.onChangeInfo(money === null ? 0 : money);
     }, [money]);
 

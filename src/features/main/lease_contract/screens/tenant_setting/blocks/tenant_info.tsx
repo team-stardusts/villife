@@ -14,6 +14,16 @@ export default function TenantInfoInput(props: TenantInfoInputProps) {
     });
 
     useEffect(() => {
+        if (props.initialInfo) {
+            setTenantInfo({
+                ...tenantInfo,
+                name: props.initialInfo.name === "" ? null : props.initialInfo.name,
+                phoneNumber: props.initialInfo.phoneNumber,
+            });
+        }
+    }, []);
+
+    useEffect(() => {
         props.onChangeInfo(tenantInfo);
     }, [tenantInfo]);
 
@@ -57,6 +67,7 @@ export default function TenantInfoInput(props: TenantInfoInputProps) {
                 <View style={props.styles.tenantInfoInputBox}>
                     <ReusableTextInput
                         type="phone-number"
+                        initialData={props.initialInfo ? props.initialInfo.phoneNumber.split("-") : undefined}
                         lowlightColor={props.styles.moneyInputLowLight.color}
                         onInputValidValue={(value) =>
                             setTenantInfo({

@@ -5,6 +5,10 @@ import { Complaint } from "../../../libs/rest_apis/villife/complaint/types";
 import { LayoutType } from "../../main/lease_contract/screens/home/blocks/layout/types";
 import { Building } from "../../../libs/rest_apis/villife/building/types";
 import { ManagementFee } from "../../../libs/rest_apis/villife/expense/types";
+import {
+    BuildingRoomContract,
+    RegisterContract,
+} from "../../main/lease_contract/services/building_rooms/provider/types";
 
 export type VillifeRootStackParamList = {
     login?: {};
@@ -106,9 +110,20 @@ export type VillifeStackParamList = VillifeRootStackParamList & {
     };
     terms_of_service?: {};
     tenant_setting: {
-        type: "addtion" | "edit";
-        contractID: number;
         roomID: number;
+        previous?: {
+            contractID: number;
+            contractorName: string;
+            delinquencyRate: number;
+            deposit: number;
+            managementFee: number;
+            monthlyRent: number;
+            rentType: BuildingRoomContract["rentType"];
+            roomId: number;
+            expirationDate: string;
+            startDate: string;
+            phoneNumber: string;
+        };
     };
     company_introduction?: {};
     expense_approval?: {};

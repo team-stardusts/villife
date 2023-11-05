@@ -9,6 +9,16 @@ export default function ContractDateRange(props: ContractRange) {
     const [dates, setDates] = useState<Dates | null>(null);
 
     useEffect(() => {
+        if (props.initialDate) {
+            setDates({
+                ...dates,
+                startDate: props.initialDate.startDate,
+                endDate: props.initialDate.expirationDate,
+            });
+        }
+    }, []);
+
+    useEffect(() => {
         if (dates === null) return;
         props.onChangeInfo(dates);
     }, [dates]);
