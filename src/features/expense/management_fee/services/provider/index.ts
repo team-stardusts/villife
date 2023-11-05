@@ -76,6 +76,12 @@ export default class ManagementFeePaymentServiceProvider
             return [];
         }
 
+        // MF가 없을 시 null 값이 오는 문제로 예외처리
+        if (result.data?.data === null) {
+            console.log("Management fees are null.");
+            return [];
+        }
+
         return result.data.data;
     }
 
