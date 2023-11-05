@@ -2,15 +2,15 @@ import { NaverLogin, TokenResponse } from "@react-native-seoul/naver-login";
 import { SocialJoinResultType } from "../../../../../../libs/rest_apis/villife/auth/types";
 import { Response } from "../../../../../../libs/rest_apis/types";
 import ALoginManager from "../../absc";
-import INaverLoginManager, { NaverJoinParams } from "./types";
+import { NaverJoinParams } from "./types";
 import DotEnv from "../../../../../../libs/dotenv";
 import { LoginServiceResult } from "../../types";
 import { Platform } from "react-native";
 
-class NaverLoginManager extends ALoginManager implements INaverLoginManager {
+class NaverLoginManager extends ALoginManager {
     private env: DotEnv = new DotEnv();
 
-    public async login(params: void): Promise<LoginServiceResult> {
+    public async login(params: void): Promise<LoginServiceResult | null> {
         const naverLoginParams = {
             kServiceAppName: this.env.app.NAME ?? "",
             kConsumerKey: this.env.api.naver.API_CONSUMER_KEY ?? "",

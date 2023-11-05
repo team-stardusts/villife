@@ -6,7 +6,7 @@ abstract class ALoginManager implements ILoginManager {
     villife: IVillifeAuthManager = VillifeServer.getAuthenticator();
     // [TO-DO] : Check duplicate ID.
 
-    abstract login(params: any): Promise<LoginServiceResult>;
+    abstract login(params: any): Promise<LoginServiceResult | null>;
     abstract join(params: any): Promise<any>;
 }
 

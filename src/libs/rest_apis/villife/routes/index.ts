@@ -2,13 +2,16 @@ import { RoutesType } from "./types";
 
 const routes: RoutesType = {
     auth: {
+        appleSocialLogin: "auth/social-login/apple",
         login: "auth/login",
         naverSocialLogin: "auth/social-login/naver",
         naverSocialJoin: "auth/signup/naver",
         registerFirebaseToken: "auth/register/firebase-token",
         loginRefresh: "auth/renew/access-token",
+        sendVerifyCode: "auth/verify/phone/req-code",
         verifyBuilding: "auth/verify/building-address",
         verifyRoom: "auth/verify/room",
+        verifyPersonalInfo: "auth/verify/phone",
     },
     approval: {
         approvalDecision: "approval/decision",

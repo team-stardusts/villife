@@ -95,6 +95,7 @@ export default function useRouteStateMachine(): void {
                 index: 0,
                 routes: [{ name: "home" }],
                 //routes: [{ name: "test" }],
+                //routes: [{ name: "verify_personal_info", params: { authority: 1 } }],
                 //routes: [{ name: "lease_contract" }],
                 //routes: [{ name: "management_fee" }],
                 //routes: [{ name: "home" }, { name: "building_management" }],

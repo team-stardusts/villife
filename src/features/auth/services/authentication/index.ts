@@ -8,10 +8,13 @@ import { Response } from "../../../../libs/rest_apis/types";
 import VillifeServer from "../../../../libs/rest_apis/villife";
 import { IVillifeUserInfoRestClient } from "../../../../libs/rest_apis/villife/user_info/types";
 import IVillifeStorage from "../../../../libs/storage/types";
+import AppleLoginManager from "./social/apple";
 
 export class LoginManagerProvider {
     static getLoginManager(host: HostType): ILoginManager {
         switch (host) {
+            case "apple":
+                return new AppleLoginManager();
             case "naver":
                 return new NaverLoginManager();
             default:
@@ -31,12 +34,12 @@ export default function useAuthService(): IAuthServiceProvider {
 
             const loginInfo = await loginManager.login(params);
 
-            if (!loginInfo.isSuccessful || loginInfo.data?.data == undefined) {
+            if (loginInfo === null || !loginInfo.isSuccessful || loginInfo.data?.data == undefined) {
                 console.log("[AUTH_SERVICE]", "Failed to login.", "host:", host);
                 await storage.login.set(null);
                 return {
                     loginData: null,
-                    socialAccessToken: loginInfo.socialAccessToken,
+                    socialAccessToken: loginInfo?.socialAccessToken,
                 };
             }
 
@@ -74,7 +77,7 @@ export default function useAuthService(): IAuthServiceProvider {
             };
 
             await storage.login.set(loginData);
-
+            console.log(loginData);
             return {
                 loginData,
                 socialAccessToken: loginInfo.socialAccessToken,

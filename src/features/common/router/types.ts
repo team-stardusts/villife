@@ -125,6 +125,15 @@ export type VillifeStackParamList = VillifeRootStackParamList & {
             phoneNumber: string;
         };
     };
+    verify_personal_info: {
+        authority: Authority["ADMIN"] | Authority["RENTER"];
+    };
+    verify_auth_code: {
+        identityNumberFrontDigit: string;
+        mobileCarrier: string;
+        phoneNumber: string;
+        userName: string;
+    };
     company_introduction?: {};
     expense_approval?: {};
     refund_policy?: {};

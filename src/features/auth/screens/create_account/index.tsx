@@ -29,24 +29,24 @@ export default function CreateAccountScreen({ navigation, route }: CreateAccount
     const [isDone, setIsDone] = useState<boolean>(false);
 
     const handleJoin = async () => {
-        const { authority, id, password } = account;
+        const { authority, id, password, confirm_password } = account;
 
-        if (
-            host === "villife" &&
-            account.id === null &&
-            account.password === null &&
-            account.confirm_password === null
-        ) {
+        if (authority === null) return;
+
+        if (host === "villife" && id === null && password === null && confirm_password === null) {
             return;
         }
 
-        if (account.authority === null) return;
+        if (host === "apple") {
+            navigation.navigate("verify_personal_info", { authority: authority });
+            return;
+        }
 
         // TODO: 각 요소에 문제가 있을 때 알림 필요
         const result = await auth.join(host, {
-            id: account.id || "",
-            password: account.password || "",
-            authority: account.authority,
+            id: id || "",
+            password: password || "",
+            authority: authority,
             accessToken: access_token as string,
         });
 
@@ -73,7 +73,7 @@ export default function CreateAccountScreen({ navigation, route }: CreateAccount
     };
 
     useEffect(() => {
-        if (host !== "villife" && access_token === undefined) {
+        if (host === "naver" && access_token === undefined) {
             Alert.alert("소셜 로그인에 문제가 있습니다.", "다른 소셜 로그인 서비스를 사용해주세요.", [
                 {
                     text: "확인",

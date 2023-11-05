@@ -36,11 +36,13 @@ export default function TenantInfo(props: TenantInfoProps) {
                     );
                     return;
                 }
+
+                // [TO-DO] 이름과 전화번호를 계약 상의 데이터로 변경해야함
                 navigation.navigate("tenant_setting", {
                     roomID: props.tenant.roomID,
                     previous: {
                         contractID: props.tenant.contractInfo.contractID,
-                        contractorName: props.tenant.residentName,
+                        contractorName: props.tenant.contractInfo.contracttorName,
                         delinquencyRate: props.tenant.contractInfo.delinquencyRate,
                         deposit: props.tenant.contractInfo.deposit,
                         managementFee: props.tenant.contractInfo.managementFee,

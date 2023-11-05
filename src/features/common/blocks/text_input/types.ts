@@ -13,4 +13,4 @@ export type ReusableTextInputProps = InputProps & {
     type: ReusableTextInputType;
 };
 
-export type ReusableTextInputType = "phone-number" | "plate-number";
+export type ReusableTextInputType = "phone-number" | "plate-number" | "identity-number";

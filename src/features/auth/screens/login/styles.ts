@@ -1,8 +1,15 @@
 import { StyleSheet } from "react-native";
 import useStyler from "../../../common/hooks/styler/hooks";
+import useNavigationViewSpace from "../../../common/blocks/navigation/service";
 
 export default function useLoginScreenStyles() {
     const { deviceUI, theme } = useStyler();
+    const space = useNavigationViewSpace({
+        applyDefaultVerticalPadding: false,
+        applyDefaultHorizontalPadding: true,
+        isBottomNavShown: false,
+        isHeaderShown: true,
+    });
 
     const main = StyleSheet.create({
         container: {
@@ -53,6 +60,14 @@ export default function useLoginScreenStyles() {
             position: "absolute",
             left: deviceUI.moderateScale(12),
             paddingVertical: 2,
+        },
+        appleBtnWrapper: {
+            width: "100%",
+            marginTop: deviceUI.moderateScale(8),
+        },
+        appleBtn: {
+            width: space.width,
+            height: space.height * 0.08,
         },
     });
 

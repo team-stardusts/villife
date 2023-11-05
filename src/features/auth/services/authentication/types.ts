@@ -13,7 +13,7 @@ export default interface ILoginManagers {
 }
 
 export interface Verifiable {
-    login(params: any): Promise<LoginServiceResult>;
+    login(params: any): Promise<LoginServiceResult | null>;
 }
 
 export interface Joinable {

@@ -1,6 +1,7 @@
 import { Response } from "../../types";
 import { Authority } from "../types";
 
+export default interface IVillifeAuthManager extends Loginable, Joinable, FirebaseAccessable, Verifiable {}
 export interface Loginable {
     login(id: string, password: string): Response<LoginResult>;
     socialLogin(host: SocialLoginHostType, accessToken: string): Response<LoginResult>;
@@ -16,13 +17,30 @@ export interface FirebaseAccessable {
     registerFirebaseToken(params: RegisterFirebaseTokenParams): Response<RegisterFirebaseTokenResult>;
 }
 
+export interface Verifiable {
+    verifyPersonalInfo(params: VerifyPersonalInfoParams): Response<string>;
+    sendVerifyCode(params: SendVerifyCode): Response<string>;
+}
+
+export type SendVerifyCode = {
+    phone_number: string;
+};
+
+export type VerifyPersonalInfoParams = {
+    birth_day: string;
+    birth_year: string;
+    code: string;
+    phone_number: string;
+    user_name: string;
+};
+
 export type LoginResult = {
     access_token: string;
     expire_at: number;
     refresh_token: string;
 }; // | "cannot find user" | undefined;
 
-export type SocialLoginHostType = "naver";
+export type SocialLoginHostType = "apple" | "naver";
 
 export type HostType = "villife" | SocialLoginHostType;
 
@@ -46,5 +64,3 @@ export type RegisterFirebaseTokenResult =
     | "invalid token"
     | "server internal error";
 //export type StardustsReturnType<T> = Promise<StardustsResultType<T>>;
-
-export default interface IVillifeAuthManager extends Loginable, Joinable, FirebaseAccessable {}

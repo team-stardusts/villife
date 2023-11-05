@@ -1,12 +1,15 @@
 namespace Routes {
     export type Auth = {
+        appleSocialLogin: string;
         login: string;
         naverSocialLogin: string;
         naverSocialJoin: string;
         registerFirebaseToken: string;
         loginRefresh: string;
+        sendVerifyCode: string;
         verifyBuilding: string;
         verifyRoom: string;
+        verifyPersonalInfo: string;
     };
 
     export type Approval = {

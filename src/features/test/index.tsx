@@ -3,8 +3,10 @@ import { Linking, StyleSheet, Text, TouchableOpacity, View } from "react-native"
 import useStyler from "../common/hooks/styler/hooks";
 import { AppleButton, appleAuth } from "@invertase/react-native-apple-authentication";
 import useNavigationViewSpace from "../common/blocks/navigation/service";
+import useAuthService from "../auth/services/authentication";
 
 export default function TestScreen() {
+    const auth = useAuthService();
     const { deviceUI, theme } = useStyler();
     const space = useNavigationViewSpace({
         applyDefaultVerticalPadding: false,
@@ -104,7 +106,7 @@ export default function TestScreen() {
                         buttonStyle={AppleButton.Style.BLACK}
                         buttonType={AppleButton.Type.SIGN_IN}
                         style={styles.appleBtn}
-                        onPress={() => onAppleButtonPress()}
+                        onPress={() => auth.login("apple", undefined)}
                     />
                 </View>
             </View>

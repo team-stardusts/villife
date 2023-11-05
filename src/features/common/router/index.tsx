@@ -50,6 +50,8 @@ import WireAmountManually from "../../expense/management_fee/screens/wire_amount
 import RequestPaymentConfirmationScreen from "../../expense/management_fee/screens/request_payment_confirmation";
 import MFDepositCheckScreen from "../../expense/management_fee/screens/deposit_check";
 import RefundPolicyScreen from "../../expense/payment/screens/refund_policy";
+import VerifyPersonalInfoScreen from "../../auth/screens/verify_personal_info";
+import VerifyAuthCodeScreen from "../../auth/screens/verify_auth_code";
 
 enableScreens(true);
 
@@ -77,6 +79,8 @@ export default function ScreenRouter() {
                 <Stack.Screen name={"create_account"} component={CreateAccountScreen} />
                 <Stack.Screen name={"welcome"} component={WelcomeScreen} />
                 <Stack.Screen name={"set_building"} component={SetBuildingScreen} />
+                <Stack.Screen name={"verify_personal_info"} component={VerifyPersonalInfoScreen} />
+                <Stack.Screen name={"verify_auth_code"} component={VerifyAuthCodeScreen} />
             </Stack.Group>
             <Stack.Group>
                 <Stack.Screen name={"home"} component={HomeScreen} />

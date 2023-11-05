@@ -12,6 +12,7 @@ import useStyler from "../../../common/hooks/styler/hooks";
 import useAuthService from "../../services/authentication";
 import { LoginServiceParams } from "../../services/authentication/types";
 import VillifeToastMessage from "../../../common/atoms/toast";
+import { AppleButton } from "@invertase/react-native-apple-authentication";
 
 export default function LoginScreen({ navigation }: LoginScreenProps) {
     const { deviceUI } = useStyler();
@@ -27,6 +28,15 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
 
     const handleLogin = async (host: HostType, params: LoginServiceParams | undefined) => {
         const { loginData, socialAccessToken } = await login(host, params);
+
+        if (host === "apple") {
+            if (loginData?.building_id === 0) {
+                navigation.navigate("create_account", {
+                    host: host,
+                    access_token: undefined,
+                });
+            }
+        }
 
         if (loginData !== null) {
             return;
@@ -108,6 +118,14 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
                                 {messages.messages.auth.login.title_of_naver_social_login_btn}
                             </Text>
                         </TouchableOpacity>
+                        <View style={styles.input.appleBtnWrapper}>
+                            <AppleButton
+                                buttonStyle={AppleButton.Style.BLACK}
+                                buttonType={AppleButton.Type.SIGN_IN}
+                                style={styles.input.appleBtn}
+                                onPress={() => handleLogin("apple", undefined)}
+                            />
+                        </View>
                     </View>
                 </View>
                 <View style={styles.joinLink.container}>

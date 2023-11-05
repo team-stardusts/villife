@@ -4,9 +4,11 @@ import IVillifeAuthManager, {
     LoginResult,
     RegisterFirebaseTokenParams,
     RegisterFirebaseTokenResult,
+    SendVerifyCode,
     SocialJoinParamsType,
     SocialJoinResultType,
     SocialLoginHostType,
+    VerifyPersonalInfoParams,
 } from "./types";
 import VillifeStorage from "../../../storage";
 
@@ -30,19 +32,34 @@ class VillifeAuthManager extends AVillifeServerModule implements IVillifeAuthMan
 
     public async socialLogin(host: SocialLoginHostType, accessToken: string): Response<LoginResult> {
         let route: string;
+        let _param;
 
         switch (host) {
+            case "apple":
+                route = this.routes.auth.appleSocialLogin;
+                _param = {
+                    auth_code: accessToken,
+                };
+                break;
+
             case "naver":
                 route = this.routes.auth.naverSocialLogin;
+                _param = {
+                    access_token: accessToken,
+                };
+
             default:
                 // Social login 추가 시 여기에 Route 추가
                 route = this.routes.auth.naverSocialLogin;
+                _param = {
+                    access_token: accessToken,
+                };
         }
 
         return await this.request<any, LoginResult>({
             method: "post",
             url: route,
-            data: { access_token: accessToken },
+            data: _param,
         });
     }
 
@@ -75,6 +92,26 @@ class VillifeAuthManager extends AVillifeServerModule implements IVillifeAuthMan
             params: {
                 firebase_token: params.firebaseToken,
             },
+        });
+    }
+
+    public async sendVerifyCode(params: SendVerifyCode): Response<string> {
+        const route = this.routes.auth.sendVerifyCode;
+
+        return await this.requestAuthable<SendVerifyCode, string>({
+            url: route,
+            method: "post",
+            data: params,
+        });
+    }
+
+    public async verifyPersonalInfo(params: VerifyPersonalInfoParams): Response<string> {
+        const route = this.routes.auth.verifyPersonalInfo;
+
+        return await this.requestAuthable<VerifyPersonalInfoParams, string>({
+            url: route,
+            method: "post",
+            data: params,
         });
     }
 }
