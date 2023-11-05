@@ -29,6 +29,7 @@ import IconCalendar from "./calendar";
 import { IconVillife } from "./villife";
 import IconCharactorBook from "./charactor_book";
 import IconCopy from "./copy";
+import IconAppleLogo from "./apple_logo";
 
 export default function Icon(props: IconProps) {
     /* let iconProps: ChildIconProps = {
@@ -52,6 +53,8 @@ export default function Icon(props: IconProps) {
             return <IconArrow {..._props} />;
         case "arrow-right-with-midline":
             return <IconArrowWithMidline {...iconProps} />;
+        case "apple-logo":
+            return <IconAppleLogo {...iconProps} />;
         case "building":
             return <IconBuilding {...iconProps} />;
         case "calendar":

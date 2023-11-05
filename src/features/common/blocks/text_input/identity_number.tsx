@@ -1,4 +1,4 @@
-import { TextInput, View } from "react-native";
+import { Text, TextInput, View } from "react-native";
 import UniversalTextInput from "../universial/textinput";
 import { useEffect, useRef, useState } from "react";
 import StringValidator from "../../../../libs/string_validator";
@@ -110,12 +110,12 @@ export default function InputIdentityNumber(props: InputProps) {
                     onSubmitEditing={() => refInput2.current?.focus()}
                 />
             </View>
-            <View style={[styles.inputWrapper, { width: "47%" }]}>
+            <View style={[styles.inputWrapper, { width: "12%" }]}>
                 <UniversalTextInput
                     ref={refInput2}
                     blurOnSubmit={false}
                     name="second"
-                    placeholder="첫 한자리 숫자"
+                    placeholder="1"
                     textContentType="password"
                     value={identityNumber[1] ?? ""}
                     inputMode="numeric"
@@ -135,6 +135,11 @@ export default function InputIdentityNumber(props: InputProps) {
                         validateIdentityNumber(text, name as IdentityNumberPieceName);
                     }}
                 />
+            </View>
+            <View style={[styles.inputWrapper, styles.row, styles.extMargin, { width: "33%" }]}>
+                {"●●●●●●".split("").map((v, i) => (
+                    <Text key={i}>{v}</Text>
+                ))}
             </View>
         </View>
     );

@@ -37,9 +37,6 @@ export default function useVerifyPersonalInfoScreenStyles() {
         inputWrapper: {
             height: deviceUI.moderateScale(30),
         },
-        pressableInput: {
-            backgroundColor: "red",
-        },
         iconWrapper: {
             height: "100%",
             width: "100%",

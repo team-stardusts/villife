@@ -4,11 +4,11 @@ import IVillifeLoginManager from "./types";
 
 class VillifeLoginManager extends ALoginManager implements IVillifeLoginManager {
     public async login(params: LoginServiceParams): Promise<LoginServiceResult> {
-        return (await this.villife.login(params.id, params.password)) as LoginServiceResult;
+        return (await this._api.login(params.id, params.password)) as LoginServiceResult;
     }
 
     public async logout(): Promise<boolean> {
-        return await this.villife.logout();
+        return await this._api.logout();
     }
 
     public async refresh(): Promise<any> {}

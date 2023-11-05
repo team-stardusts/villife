@@ -7,10 +7,12 @@ import { LoginDataType } from "../../../../libs/storage/tables/login/types";
 import type NaverLoginManager from "./social/naver";
 import type VillifeLoginManager from "./villife";
 
-export default interface ILoginManagers {
-    villife: VillifeLoginManager;
-    naver: NaverLoginManager;
+export interface IAuthServiceProvider {
+    login(host: HostType, params?: LoginServiceParams | undefined): Promise<LoginResult>;
+    join(host: HostType, params: JoinServiceParams | undefined): Response<SocialJoinResultType>;
 }
+
+export interface ILoginManager extends Verifiable, Joinable {}
 
 export interface Verifiable {
     login(params: any): Promise<LoginServiceResult | null>;
@@ -18,10 +20,6 @@ export interface Verifiable {
 
 export interface Joinable {
     join(params: any): Promise<any>;
-}
-
-export interface ILoginManager extends Verifiable, Joinable {
-    villife: IVillifeAuthManager;
 }
 
 export type LoginServiceResult = Responsable<VillifeLoginResult> & {
@@ -44,11 +42,6 @@ export type LoginResult = {
     loginData: LoginDataType | null;
     socialAccessToken?: string;
 };
-
-export interface IAuthServiceProvider {
-    login(host: HostType, params: LoginServiceParams | undefined): Promise<LoginResult>;
-    join(host: HostType, params: JoinServiceParams | undefined): Response<SocialJoinResultType>;
-}
 
 /* export type AuthServicesReturn = {
     login(host: HostType, params: LoginServiceParams | undefined): Promise<void>;

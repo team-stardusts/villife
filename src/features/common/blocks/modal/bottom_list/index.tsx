@@ -20,9 +20,11 @@ export default function ListBottomSlidableModal(props: ListBottomSlidableModalPr
                         style={styles.row}
                         activeOpacity={0.6}
                         onPress={() => feature.onPress()}>
-                        <View style={styles.iconBox}>
-                            <Icon name={feature.icon} size={styles.icon.width} color={styles.icon.color} />
-                        </View>
+                        {feature.icon && (
+                            <View style={styles.iconBox}>
+                                <Icon name={feature.icon} size={styles.icon.width} color={styles.icon.color} />
+                            </View>
+                        )}
                         <View style={styles.textBox}>
                             <Text style={styles.text}>{feature.text}</Text>
                         </View>

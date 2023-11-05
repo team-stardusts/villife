@@ -13,4 +13,4 @@ export type ReusableTextInputProps = InputProps & {
     type: ReusableTextInputType;
 };
 
-export type ReusableTextInputType = "phone-number" | "plate-number" | "identity-number";
+export type ReusableTextInputType = "6digit-authcode" | "phone-number" | "plate-number" | "identity-number";

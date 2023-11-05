@@ -52,7 +52,7 @@ export type VillifeStackParamList = VillifeRootStackParamList & {
     complaint_detail: Complaint;
     create_account: {
         host: HostType;
-        access_token: string | undefined;
+        access_token?: string | undefined;
     };
     image_detail_view: {
         uri: string;

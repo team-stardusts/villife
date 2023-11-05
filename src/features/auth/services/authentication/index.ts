@@ -3,7 +3,6 @@ import VillifeLoginManager from "./villife";
 import { IAuthServiceProvider, ILoginManager, JoinServiceParams, LoginServiceParams, LoginResult } from "./types";
 import { HostType, SocialJoinResultType } from "../../../../libs/rest_apis/villife/auth/types";
 import VillifeStorage from "../../../../libs/storage";
-import { LoginDataType } from "../../../../libs/storage/tables/login/types";
 import { Response } from "../../../../libs/rest_apis/types";
 import VillifeServer from "../../../../libs/rest_apis/villife";
 import { IVillifeUserInfoRestClient } from "../../../../libs/rest_apis/villife/user_info/types";
@@ -28,8 +27,9 @@ export const LOGIN_BUILDING_ID_TEMP: number = 999999999;
 export default function useAuthService(): IAuthServiceProvider {
     const storage: IVillifeStorage = VillifeStorage.getInstance();
     const userApi: IVillifeUserInfoRestClient = VillifeServer.getUserInfoRestClient();
+
     class AuthServiceProvider implements IAuthServiceProvider {
-        public async login(host: HostType, params: LoginServiceParams | undefined): Promise<LoginResult> {
+        public async login(host: HostType, params?: LoginServiceParams | undefined): Promise<LoginResult> {
             const loginManager: ILoginManager = LoginManagerProvider.getLoginManager(host);
 
             const loginInfo = await loginManager.login(params);
@@ -59,6 +59,7 @@ export default function useAuthService(): IAuthServiceProvider {
 
             const userInfo = await userApi.getUserBasicInfo();
 
+            // Apple의 경우 서버에 임시로 유저 정보를 저장하므로 이 분기에 해당하지 않음
             if (!userInfo.isSuccessful || userInfo.data?.data == undefined) {
                 console.error("[AUTH_SERVICE]", "Failed to get user information.");
                 await storage.login.set(null);
@@ -77,7 +78,7 @@ export default function useAuthService(): IAuthServiceProvider {
             };
 
             await storage.login.set(loginData);
-            console.log(loginData);
+
             return {
                 loginData,
                 socialAccessToken: loginInfo.socialAccessToken,

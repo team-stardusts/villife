@@ -1,8 +1,7 @@
 import { NaverLogin, TokenResponse } from "@react-native-seoul/naver-login";
-import { SocialJoinResultType } from "../../../../../../libs/rest_apis/villife/auth/types";
+import { SocialJoinParamsType, SocialJoinResultType } from "../../../../../../libs/rest_apis/villife/auth/types";
 import { Response } from "../../../../../../libs/rest_apis/types";
 import ALoginManager from "../../absc";
-import { NaverJoinParams } from "./types";
 import DotEnv from "../../../../../../libs/dotenv";
 import { LoginServiceResult } from "../../types";
 import { Platform } from "react-native";
@@ -10,7 +9,7 @@ import { Platform } from "react-native";
 class NaverLoginManager extends ALoginManager {
     private env: DotEnv = new DotEnv();
 
-    public async login(params: void): Promise<LoginServiceResult | null> {
+    public async login(): Promise<LoginServiceResult | null> {
         const naverLoginParams = {
             kServiceAppName: this.env.app.NAME ?? "",
             kConsumerKey: this.env.api.naver.API_CONSUMER_KEY ?? "",
@@ -35,7 +34,7 @@ class NaverLoginManager extends ALoginManager {
         // [TO-DO] NaverLogin 실패 상황 예외 처리 필요
         const naverAccessToken: string | undefined = naverResult?.accessToken;
 
-        const result: LoginServiceResult = (await this.villife.socialLogin(
+        const result: LoginServiceResult = (await this._api.socialLogin(
             "naver",
             naverAccessToken ?? ""
         )) as LoginServiceResult;
@@ -47,12 +46,12 @@ class NaverLoginManager extends ALoginManager {
 
     public async logout(): Promise<boolean> {
         NaverLogin.logout();
-        return await this.villife.logout();
+        return await this._api.logout();
     }
     public async refresh(): Promise<any> {}
 
-    public async join(params: NaverJoinParams): Response<SocialJoinResultType> {
-        return await this.villife.socialJoin("naver", {
+    public async join(params: SocialJoinParamsType): Response<SocialJoinResultType> {
+        return await this._api.socialJoin("naver", {
             authority: params.authority,
             access_token: params.access_token,
         });

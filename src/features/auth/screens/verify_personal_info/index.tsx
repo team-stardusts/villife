@@ -47,32 +47,26 @@ export default function VerifyPersonalInfoScreen({ navigation, route }: VerifyPe
                 setModalVisible={setModalVisible}
                 features={[
                     {
-                        icon: "phone",
                         onPress: () => handlePressMobileCarrier("SKT"),
                         text: "SKT",
                     },
                     {
-                        icon: "phone",
                         onPress: () => handlePressMobileCarrier("KT"),
                         text: "KT",
                     },
                     {
-                        icon: "phone",
                         onPress: () => handlePressMobileCarrier("LG U+"),
                         text: "LG U+",
                     },
                     {
-                        icon: "phone",
                         onPress: () => handlePressMobileCarrier("SKT 알뜰폰"),
                         text: "SKT 알뜰폰",
                     },
                     {
-                        icon: "phone",
                         onPress: () => handlePressMobileCarrier("KT 알뜰폰"),
                         text: "KT 알뜰폰",
                     },
                     {
-                        icon: "phone",
                         onPress: () => handlePressMobileCarrier("LG U+ 알뜰폰"),
                         text: "LG U+ 알뜰폰",
                     },

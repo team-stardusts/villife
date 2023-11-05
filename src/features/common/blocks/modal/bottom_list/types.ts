@@ -7,7 +7,7 @@ export type ListBottomSlidableModalProps = {
 };
 
 export type ModalFeature = {
-    icon: IconSeries;
+    icon?: IconSeries;
     text: string;
     onPress(): void;
 };

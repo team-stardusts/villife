@@ -12,6 +12,19 @@ export default function useInputPhoneNumberStyles() {
             alignItems: "center",
             justifyContent: "space-around",
         },
+        row: {
+            flexDirection: "row",
+            justifyContent: "space-around",
+            alignItems: "center",
+        },
+        extMargin: {
+            marginRight: deviceUI.moderateScale(10),
+        },
+        extTxt: {
+            fontFamily: theme.font.fontFamily.pretendard.bold,
+            fontSize: deviceUI.actualScale(16),
+            color: theme.color.specified.darkgrey,
+        },
         inputWrapper: {
             height: "100%",
         },

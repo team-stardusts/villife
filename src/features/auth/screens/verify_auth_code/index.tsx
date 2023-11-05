@@ -3,29 +3,68 @@ import VerifyAuthCodeScreenProps from "./types";
 import ScreenTitleView from "../../../common/blocks/title_view";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import useVerifyAuthCodeScreenStyles from "./styles";
-import { Text, View } from "react-native";
-import UniversalTextInput from "../../../common/blocks/universial/textinput";
+import { Text, TouchableOpacity, View } from "react-native";
 import { useEffect, useState } from "react";
-import StringValidator from "../../../../libs/string_validator";
 import VillifeToastMessage from "../../../common/atoms/toast";
-import { Verifiable } from "../../../../libs/rest_apis/villife/auth/types";
+import { Loginable, Verifiable } from "../../../../libs/rest_apis/villife/auth/types";
 import VillifeServer from "../../../../libs/rest_apis/villife";
+import ReusableTextInput from "../../../common/blocks/text_input";
 
 export default function VerifyAuthCodeScreen({ navigation, route }: VerifyAuthCodeScreenProps) {
     const styles = useVerifyAuthCodeScreenStyles();
-    const validator = new StringValidator();
+    const api: Verifiable & Loginable = VillifeServer.getAuthenticator();
+    const TIME_LIMIT = 180;
     const [authcode, setAuthcode] = useState<string | null>(null);
-    const api: Verifiable = VillifeServer.getAuthenticator();
+    const [timer, setTimer] = useState<number | null>(null);
 
     useEffect(() => {
+        sendAuthcode();
+    }, []);
+
+    useEffect(() => {
+        setTimerTime();
+    }, [timer]);
+
+    const sendAuthcode = () => {
         api.sendVerifyCode({
             phone_number: route.params.phoneNumber.replace(/-/g, ""),
         })
-            .then()
+            .then(() => {
+                setTimer(0);
+            })
             .catch(() => {
-                VillifeToastMessage.showBottomToast("error", "인증코드 전송에 실패했습니다.");
+                VillifeToastMessage.showBottomToast("error", "인증코드 전송에 실패했어요.");
+                api.logout();
             });
-    }, []);
+    };
+
+    const setTimerTime = async () => {
+        if (timer === TIME_LIMIT) {
+            setTimer(null);
+
+            VillifeToastMessage.showBottomToast("info", "인증 시간이 만료되었습니다. 다시 로그인 해주세요.");
+
+            api.logout();
+
+            return;
+        }
+
+        if (timer === null) {
+            return;
+        }
+
+        setTimeout(() => {
+            setTimer(timer + 1);
+        }, 1000);
+    };
+
+    const keep2Digit = (num: number) => {
+        if (num < 10) {
+            return "0" + num.toString();
+        }
+
+        return num.toString();
+    };
 
     const verify = async () => {
         const result = await api.verifyPersonalInfo({
@@ -61,29 +100,33 @@ export default function VerifyAuthCodeScreen({ navigation, route }: VerifyAuthCo
                                 인증번호
                             </Text>
                         </View>
-                        <View style={styles.input.inputWrapper}>
-                            <UniversalTextInput
-                                value={authcode ?? ""}
-                                placeholder="인증번호 6자리를 입력해주세요."
-                                onChangeText={(text) => {
-                                    if (text === "") {
-                                        setAuthcode(null);
-                                    }
-
-                                    if (!validator.isNumber(text)) {
+                        <View style={styles.input.row}>
+                            <View style={styles.input.inputWrapper}>
+                                <ReusableTextInput
+                                    type="6digit-authcode"
+                                    onInputValidValue={(value) => setAuthcode(value)}
+                                    onInputInvalidValue={() => {
                                         VillifeToastMessage.showBottomToast("error", "숫자만 입력해주세요.");
-
-                                        return;
-                                    }
-
-                                    if (text.length > 6) {
-                                        return;
-                                    }
-
-                                    setAuthcode(text);
-                                }}
-                            />
+                                        setAuthcode(null);
+                                    }}
+                                />
+                            </View>
+                            <View style={[styles.input.timerWrapper, styles.input.row]}>
+                                {timer !== null && (
+                                    <>
+                                        <Text style={styles.input.timerTxt}>{keep2Digit(Math.floor(timer / 60))}</Text>
+                                        <Text style={styles.input.timerTxt}>:</Text>
+                                        <Text style={styles.input.timerTxt}>{keep2Digit(timer % 60)}</Text>
+                                    </>
+                                )}
+                            </View>
                         </View>
+                    </View>
+                    <View style={styles.main.resendMessageWrapper}>
+                        <Text style={styles.main.resend}>인증번호가 오지 않는다면?</Text>
+                        <TouchableOpacity activeOpacity={0.6} onPress={() => sendAuthcode()}>
+                            <Text style={[styles.main.resend, styles.main.resendUnderline]}>재발송</Text>
+                        </TouchableOpacity>
                     </View>
                 </KeyboardAwareScrollView>
             </ScreenTitleView>

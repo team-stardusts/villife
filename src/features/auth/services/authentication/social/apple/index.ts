@@ -7,7 +7,7 @@ import appleAuth from "@invertase/react-native-apple-authentication";
 class AppleLoginManager extends ALoginManager {
     private env: DotEnv = new DotEnv();
 
-    public async login(params: void): Promise<LoginServiceResult | null> {
+    public async login(): Promise<LoginServiceResult | null> {
         // performs login request
         const appleAuthRequestResponse = await appleAuth
             .performRequest({
@@ -31,14 +31,14 @@ class AppleLoginManager extends ALoginManager {
 
         // use credentialState response to ensure the user is authenticated
         if (credentialState === appleAuth.State.AUTHORIZED) {
-            return await this.villife.socialLogin("apple", appleAuthRequestResponse.authorizationCode);
+            return await this._api.socialLogin("apple", appleAuthRequestResponse.authorizationCode);
         }
 
         return null;
     }
 
     public async logout(): Promise<boolean> {
-        return await this.villife.logout();
+        return await this._api.logout();
     }
     public async refresh(): Promise<any> {}
 

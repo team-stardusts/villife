@@ -14,8 +14,26 @@ export default function useLoginScreenStyles() {
     const main = StyleSheet.create({
         container: {
             flex: 1,
-            flexDirection: "column",
             backgroundColor: theme.color.specified.white,
+        },
+        wrapper: {
+            paddingTop: deviceUI.moderateScale(25),
+        },
+        inputBox: {
+            marginBottom: deviceUI.moderateScale(10),
+        },
+        inputTitle: {
+            fontFamily: theme.font.fontFamily.pretendard.bold,
+            fontSize: deviceUI.moderateScale(18),
+            color: theme.color.specified.black,
+            marginBottom: deviceUI.moderateScale(4),
+        },
+        inputWrapper: {
+            height: deviceUI.getScreenSize().height * 0.04,
+        },
+        btnWrapper: {
+            height: deviceUI.getScreenSize().height * 0.06,
+            marginTop: deviceUI.moderateScale(10),
         },
     });
 
