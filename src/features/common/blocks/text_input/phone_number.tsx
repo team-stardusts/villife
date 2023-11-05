@@ -97,10 +97,14 @@ export default function InputPhoneNumber(props: InputProps) {
                     keyboardType="numeric"
                     textAlign="center"
                     highlightColor={
-                        phoneNumber[0] !== null && phoneNumber[0]?.length !== 3 ? styles.unvalidInput.color : undefined
+                        phoneNumber[0] !== null && phoneNumber[0]?.length !== 3
+                            ? styles.unvalidInput.color
+                            : props.highlightColor
                     }
                     lowlightColor={
-                        phoneNumber[0] !== null && phoneNumber[0]?.length !== 3 ? styles.unvalidInput.color : undefined
+                        phoneNumber[0] !== null && phoneNumber[0]?.length !== 3
+                            ? styles.unvalidInput.color
+                            : props.lowlightColor
                     }
                     onChangeText={(text, name) => {
                         if (validatePhoneNumber(text, name as PhoneNumberPieceName) && text.length === 3) {
@@ -123,12 +127,12 @@ export default function InputPhoneNumber(props: InputProps) {
                     highlightColor={
                         phoneNumber[1] !== null && phoneNumber[1]?.length !== 3 && phoneNumber[1]?.length !== 4
                             ? styles.unvalidInput.color
-                            : undefined
+                            : props.highlightColor
                     }
                     lowlightColor={
                         phoneNumber[1] !== null && phoneNumber[1]?.length !== 3 && phoneNumber[1]?.length !== 4
                             ? styles.unvalidInput.color
-                            : undefined
+                            : props.lowlightColor
                     }
                     onChangeText={(text, name) => {
                         if (validatePhoneNumber(text, name as PhoneNumberPieceName) && text.length === 4) {
@@ -148,10 +152,14 @@ export default function InputPhoneNumber(props: InputProps) {
                     keyboardType="number-pad"
                     textAlign="center"
                     highlightColor={
-                        phoneNumber[2] !== null && phoneNumber[2]?.length !== 4 ? styles.unvalidInput.color : undefined
+                        phoneNumber[2] !== null && phoneNumber[2]?.length !== 4
+                            ? styles.unvalidInput.color
+                            : props.highlightColor
                     }
                     lowlightColor={
-                        phoneNumber[2] !== null && phoneNumber[2]?.length !== 4 ? styles.unvalidInput.color : undefined
+                        phoneNumber[2] !== null && phoneNumber[2]?.length !== 4
+                            ? styles.unvalidInput.color
+                            : props.lowlightColor
                     }
                     onChangeText={(text, name) => validatePhoneNumber(text, name as PhoneNumberPieceName)}
                 />

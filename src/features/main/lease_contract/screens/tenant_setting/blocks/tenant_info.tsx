@@ -27,6 +27,7 @@ export default function TenantInfoInput(props: TenantInfoInputProps) {
                     <UniversalTextInput
                         placeholder="임차인의 이름을 입력해주세요."
                         value={tenantInfo.name ?? ""}
+                        lowlightColor={props.styles.moneyInputLowLight.color}
                         onChangeText={(text) => {
                             if (vaildator.hasNumber(text) || vaildator.hasSpecialChar(text)) {
                                 VillifeToastMessage.showBottomToast(
@@ -56,6 +57,7 @@ export default function TenantInfoInput(props: TenantInfoInputProps) {
                 <View style={props.styles.tenantInfoInputBox}>
                     <ReusableTextInput
                         type="phone-number"
+                        lowlightColor={props.styles.moneyInputLowLight.color}
                         onInputValidValue={(value) =>
                             setTenantInfo({
                                 ...tenantInfo,

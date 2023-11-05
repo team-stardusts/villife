@@ -3,6 +3,7 @@ import VillifeToastMessage from "../../../../../common/atoms/toast";
 import { View, Text } from "react-native";
 import UniversalTextInput from "../../../../../common/blocks/universial/textinput";
 import type { MoneyProps } from "../types";
+import { insertCommaToNumber } from "../../../../../common/global_function";
 
 export default function Money(props: MoneyProps) {
     const [money, setMoney] = useState<number | null>(null);
@@ -23,11 +24,6 @@ export default function Money(props: MoneyProps) {
         }
     };
 
-    const insertCommaToMoney = (money?: number | null): string => {
-        if (money === undefined || money === null) return "";
-        return money.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    };
-
     return (
         <View style={props.styles.row}>
             <View style={props.styles.rowTitleBox}>
@@ -37,7 +33,7 @@ export default function Money(props: MoneyProps) {
                 <UniversalTextInput
                     style={props.styles.moneyInput}
                     placeholder={`${props.title}를 입력해주세요.`}
-                    value={insertCommaToMoney(money)}
+                    value={money === null ? undefined : insertCommaToNumber(money)}
                     lowlightColor={props.styles.moneyInputLowLight.color}
                     onChangeText={(text) => handleChangeMoney(text)}
                 />

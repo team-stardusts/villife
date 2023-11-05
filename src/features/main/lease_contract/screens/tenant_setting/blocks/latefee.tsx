@@ -38,7 +38,7 @@ export default function LateFeeRate(props: LateFeeRateProps) {
                 <UniversalTextInput
                     style={props.styles.moneyInput}
                     placeholder={"연체요율을 입력해주세요."}
-                    value={lateFeeRate?.toString() ?? "0"}
+                    value={lateFeeRate === null ? undefined : lateFeeRate.toString()}
                     lowlightColor={props.styles.moneyInputLowLight.color}
                     onChangeText={(text) => handleChangeRate(text)}
                 />

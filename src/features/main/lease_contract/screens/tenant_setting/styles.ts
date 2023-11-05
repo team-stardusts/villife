@@ -29,7 +29,7 @@ export default function useTenantSettingScreenStyles() {
             marginTop: deviceUI.moderateScale(20),
         },
         lastElement: {
-            marginBottom: deviceUI.moderateScale(15),
+            marginBottom: deviceUI.moderateScale(20),
         },
         rowTitleBox: {
             height: "100%",

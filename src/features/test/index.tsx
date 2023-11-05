@@ -1,9 +1,17 @@
 import NavigationView from "../common/blocks/navigation";
 import { Linking, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import useStyler from "../common/hooks/styler/hooks";
+import { AppleButton, appleAuth } from "@invertase/react-native-apple-authentication";
+import useNavigationViewSpace from "../common/blocks/navigation/service";
 
 export default function TestScreen() {
     const { deviceUI, theme } = useStyler();
+    const space = useNavigationViewSpace({
+        applyDefaultVerticalPadding: false,
+        applyDefaultHorizontalPadding: true,
+        isBottomNavShown: false,
+        isHeaderShown: true,
+    });
     const styles = StyleSheet.create({
         container: {
             flex: 1,
@@ -21,10 +29,45 @@ export default function TestScreen() {
             fontFamily: theme.font.fontFamily.pretendard.semiBold,
             color: theme.color.specified.white,
         },
+        appleBtnWrapper: {
+            width: "100%",
+        },
+        appleBtn: {
+            width: space.width,
+            height: space.height * 0.08,
+        },
     });
 
     const link = (what: "tel" | "sms" | "mailto", to: string): void => {
         Linking.openURL(`${what}:${to}`);
+    };
+
+    const onAppleButtonPress = async () => {
+        console.log("Start to login with apple.");
+        // performs login request
+        const appleAuthRequestResponse = await appleAuth
+            .performRequest({
+                requestedOperation: appleAuth.Operation.LOGIN,
+                // Note: it appears putting FULL_NAME first is important, see issue #293
+                requestedScopes: [appleAuth.Scope.FULL_NAME, appleAuth.Scope.EMAIL],
+            })
+            .then((r) => {
+                return r;
+            })
+            .catch((r) => {
+                return null;
+            });
+
+        if (appleAuthRequestResponse === null) return;
+
+        // get current authentication state for user
+        // /!\ This method must be tested on a real device. On the iOS simulator it always throws an error.
+        const credentialState = await appleAuth.getCredentialStateForUser(appleAuthRequestResponse.user);
+
+        // use credentialState response to ensure the user is authenticated
+        if (credentialState === appleAuth.State.AUTHORIZED) {
+            console.log(appleAuthRequestResponse);
+        }
     };
 
     return (
@@ -56,6 +99,14 @@ export default function TestScreen() {
                     }}>
                     <Text style={styles.btnText}>이메일</Text>
                 </TouchableOpacity>
+                <View style={styles.appleBtnWrapper}>
+                    <AppleButton
+                        buttonStyle={AppleButton.Style.BLACK}
+                        buttonType={AppleButton.Type.SIGN_IN}
+                        style={styles.appleBtn}
+                        onPress={() => onAppleButtonPress()}
+                    />
+                </View>
             </View>
         </NavigationView>
     );

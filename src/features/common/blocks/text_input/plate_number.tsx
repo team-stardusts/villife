@@ -95,12 +95,12 @@ export default function InputPlateNumber(props: InputProps) {
                     highlightColor={
                         plateNumber[0] !== null && plateNumber[0]?.length !== 2 && plateNumber[0]?.length !== 3
                             ? styles.unvalidInput.color
-                            : undefined
+                            : props.highlightColor
                     }
                     lowlightColor={
                         plateNumber[0] !== null && plateNumber[0]?.length !== 2 && plateNumber[0]?.length !== 3
                             ? styles.unvalidInput.color
-                            : undefined
+                            : props.lowlightColor
                     }
                     onChangeText={(text, name) => {
                         if (validatePlateNumber(text, name as PlateNumberPieceName) && text.length === 3) {
@@ -123,13 +123,13 @@ export default function InputPlateNumber(props: InputProps) {
                         (plateNumber[1] !== null && plateNumber[1]?.length !== 1) ||
                         (plateNumber[1]?.length === 1 && validator.isKoreanConsonant(plateNumber[1]))
                             ? styles.unvalidInput.color
-                            : undefined
+                            : props.highlightColor
                     }
                     lowlightColor={
                         (plateNumber[1] !== null && plateNumber[1]?.length !== 1) ||
                         (plateNumber[1]?.length === 1 && validator.isKoreanConsonant(plateNumber[1]))
                             ? styles.unvalidInput.color
-                            : undefined
+                            : props.lowlightColor
                     }
                     onChangeText={(text, name) => {
                         if (
@@ -153,10 +153,14 @@ export default function InputPlateNumber(props: InputProps) {
                     keyboardType="number-pad"
                     textAlign="center"
                     highlightColor={
-                        plateNumber[2] !== null && plateNumber[2]?.length !== 4 ? styles.unvalidInput.color : undefined
+                        plateNumber[2] !== null && plateNumber[2]?.length !== 4
+                            ? styles.unvalidInput.color
+                            : props.highlightColor
                     }
                     lowlightColor={
-                        plateNumber[2] !== null && plateNumber[2]?.length !== 4 ? styles.unvalidInput.color : undefined
+                        plateNumber[2] !== null && plateNumber[2]?.length !== 4
+                            ? styles.unvalidInput.color
+                            : props.lowlightColor
                     }
                     onChangeText={(text, name) => validatePlateNumber(text, name as PlateNumberPieceName)}
                 />
