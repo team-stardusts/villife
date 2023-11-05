@@ -49,6 +49,7 @@ import BuildingMFHistoryScreen from "../../expense/management_fee/screens/buildi
 import WireAmountManually from "../../expense/management_fee/screens/wire_amount_manually";
 import RequestPaymentConfirmationScreen from "../../expense/management_fee/screens/request_payment_confirmation";
 import MFDepositCheckScreen from "../../expense/management_fee/screens/deposit_check";
+import RefundPolicyScreen from "../../expense/payment/screens/refund_policy";
 
 enableScreens(true);
 
@@ -107,6 +108,7 @@ export default function ScreenRouter() {
                 <Stack.Screen name={"wire_amount_manually"} component={WireAmountManually} />
                 <Stack.Screen name={"request_payment_confirmation"} component={RequestPaymentConfirmationScreen} />
                 <Stack.Screen name={"expense_approval"} component={ExpenseApprovalScreen} />
+                <Stack.Screen name={"refund_policy"} component={RefundPolicyScreen} />
             </Stack.Group>
             <Stack.Group>
                 <Stack.Screen name={"my_page"} component={MyPageHomeScreen} />

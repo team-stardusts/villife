@@ -127,6 +127,7 @@ export type VillifeStackParamList = VillifeRootStackParamList & {
     };
     company_introduction?: {};
     expense_approval?: {};
+    refund_policy?: {};
     //building: {};
 };
 
