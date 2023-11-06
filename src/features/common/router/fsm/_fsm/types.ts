@@ -5,17 +5,17 @@ export interface RouteFSMBase {
     situation: Situation;
 
     onAccessIntoApp(): void;
-    onLogin(userinfo: UserInfo): this;
-    onLoginFailed(): void;
+    onLogin(userinfo: UserInfo | null): this;
     onChangeSituation(): void;
 }
 
 export enum Situation {
+    EXCEPTION,
+    LOGGIN_FAILED,
+    LOGGED_OUT,
     NORMAL,
     NO_BUILDING,
     NO_ROOM,
-    LOGGIN_FAILED,
-    LOGGED_OUT,
 }
 
 export enum LoadingState {
