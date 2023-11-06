@@ -98,8 +98,13 @@ export default function Input6DigitAuthCode(props: InputProps) {
     return (
         <View style={styles.container}>
             {authcode.map((digit, index) => {
+                let preRef: React.RefObject<TextInput> | undefined = undefined;
                 let ref: React.RefObject<TextInput> = refs[index];
                 let nextRef: React.RefObject<TextInput> | undefined = undefined;
+
+                if (index !== 0) {
+                    preRef = refs[index - 1];
+                }
 
                 if (authcode.length > index + 1) {
                     nextRef = refs[index + 1];
@@ -123,6 +128,10 @@ export default function Input6DigitAuthCode(props: InputProps) {
                                 digit !== null && digit?.length !== 1 ? styles.unvalidInput.color : props.lowlightColor
                             }
                             onChangeText={(text) => {
+                                if (text === "") {
+                                    preRef?.current?.focus();
+                                }
+
                                 const isCorrected = validateAuthcode(text, index) && text.length === 1;
 
                                 if (isCorrected && nextRef !== undefined) {

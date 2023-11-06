@@ -3,8 +3,8 @@ import VerifyAuthCodeScreenProps from "./types";
 import ScreenTitleView from "../../../common/blocks/title_view";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import useVerifyAuthCodeScreenStyles from "./styles";
-import { Text, TouchableOpacity, View } from "react-native";
-import { useEffect, useState } from "react";
+import { Alert, Text, TouchableOpacity, View } from "react-native";
+import { useCallback, useEffect, useState } from "react";
 import VillifeToastMessage from "../../../common/atoms/toast";
 import { Loginable, Verifiable } from "../../../../libs/rest_apis/villife/auth/types";
 import VillifeServer from "../../../../libs/rest_apis/villife";
@@ -14,15 +14,28 @@ export default function VerifyAuthCodeScreen({ navigation, route }: VerifyAuthCo
     const styles = useVerifyAuthCodeScreenStyles();
     const api: Verifiable & Loginable = VillifeServer.getAuthenticator();
     const TIME_LIMIT = 180;
+    const MAX_RESEND_COUNT = 3;
     const [authcode, setAuthcode] = useState<string | null>(null);
     const [timer, setTimer] = useState<number | null>(null);
+    const [resendCnt, setResendCnt] = useState<number>(0);
 
     useEffect(() => {
         sendAuthcode();
+
+        return () => {
+            setAuthcode(null);
+            setTimer(null);
+        };
     }, []);
 
     useEffect(() => {
-        setTimerTime();
+        if (timer === null) return;
+
+        const handle = setTimerTime();
+
+        return () => {
+            handle !== null && clearInterval(handle);
+        };
     }, [timer]);
 
     const sendAuthcode = () => {
@@ -31,6 +44,7 @@ export default function VerifyAuthCodeScreen({ navigation, route }: VerifyAuthCo
         })
             .then(() => {
                 setTimer(0);
+                setResendCnt(resendCnt + 1);
             })
             .catch(() => {
                 VillifeToastMessage.showBottomToast("error", "인증코드 전송에 실패했어요.");
@@ -38,7 +52,7 @@ export default function VerifyAuthCodeScreen({ navigation, route }: VerifyAuthCo
             });
     };
 
-    const setTimerTime = async () => {
+    const setTimerTime = (): number | null => {
         if (timer === TIME_LIMIT) {
             setTimer(null);
 
@@ -46,15 +60,11 @@ export default function VerifyAuthCodeScreen({ navigation, route }: VerifyAuthCo
 
             api.logout();
 
-            return;
+            return null;
         }
 
-        if (timer === null) {
-            return;
-        }
-
-        setTimeout(() => {
-            setTimer(timer + 1);
+        return setInterval(() => {
+            setTimer((timer) => (timer !== null ? timer + 1 : 0));
         }, 1000);
     };
 
@@ -76,6 +86,31 @@ export default function VerifyAuthCodeScreen({ navigation, route }: VerifyAuthCo
         });
 
         console.log(result.data?.data, result.data?.status);
+
+        if (result.isSuccessful) {
+            navigation.reset({
+                index: 0,
+                routes: [
+                    {
+                        name: "welcome",
+                        params: {
+                            authority: route.params.authority,
+                            host: route.params.host,
+                        },
+                    },
+                ],
+            });
+
+            return;
+        } else {
+            VillifeToastMessage.showBottomToast("error", "유효하지 않은 인증 코드입니다.");
+
+            return;
+        }
+
+        /* if (result.isSuccessful) {
+            
+        } */
     };
 
     return (
@@ -122,12 +157,14 @@ export default function VerifyAuthCodeScreen({ navigation, route }: VerifyAuthCo
                             </View>
                         </View>
                     </View>
-                    <View style={styles.main.resendMessageWrapper}>
-                        <Text style={styles.main.resend}>인증번호가 오지 않는다면?</Text>
-                        <TouchableOpacity activeOpacity={0.6} onPress={() => sendAuthcode()}>
-                            <Text style={[styles.main.resend, styles.main.resendUnderline]}>재발송</Text>
-                        </TouchableOpacity>
-                    </View>
+                    {resendCnt < MAX_RESEND_COUNT && (
+                        <View style={styles.main.resendMessageWrapper}>
+                            <Text style={styles.main.resend}>인증번호가 오지 않는다면?</Text>
+                            <TouchableOpacity activeOpacity={0.6} onPress={() => sendAuthcode()}>
+                                <Text style={[styles.main.resend, styles.main.resendUnderline]}>재발송</Text>
+                            </TouchableOpacity>
+                        </View>
+                    )}
                 </KeyboardAwareScrollView>
             </ScreenTitleView>
         </SafeAreaView>

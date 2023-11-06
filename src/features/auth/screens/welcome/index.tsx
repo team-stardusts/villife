@@ -17,7 +17,15 @@ export default function WelcomeScreen({ route }: WelcomScreenProps) {
 
     const handlePressNextBtn = () => {
         const { host, id, password } = route.params;
-        auth.login(host, { id, password });
+        const params =
+            id && password
+                ? {
+                      id,
+                      password,
+                  }
+                : undefined;
+
+        auth.login(host, params);
     };
 
     return (
@@ -42,6 +50,7 @@ export default function WelcomeScreen({ route }: WelcomScreenProps) {
                         title: message.messages.auth.welcome.next_btn_title,
                         onPress: () => handlePressNextBtn(),
                     }}
+                    disablePaddingTop
                     children={<View />}
                 />
             </View>

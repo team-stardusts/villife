@@ -84,8 +84,8 @@ export type VillifeStackParamList = VillifeRootStackParamList & {
     welcome: {
         authority: Authority["ADMIN"] | Authority["RENTER"];
         host: HostType;
-        id: string;
-        password: string;
+        id?: string;
+        password?: string;
     };
     wire_amount_manually?: {};
     permission_request?: {};
@@ -127,8 +127,11 @@ export type VillifeStackParamList = VillifeRootStackParamList & {
     };
     verify_personal_info: {
         authority: Authority["ADMIN"] | Authority["RENTER"];
+        host: HostType;
     };
     verify_auth_code: {
+        authority: Authority["ADMIN"] | Authority["RENTER"];
+        host: HostType;
         identityNumberFrontDigit: string;
         mobileCarrier: string;
         phoneNumber: string;

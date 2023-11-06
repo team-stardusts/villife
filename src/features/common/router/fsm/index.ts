@@ -9,7 +9,7 @@ import useUserInformation from "../../hooks/service/user_info";
 import useAdminInfoService from "../../hooks/service/user_info/service";
 import useFirebaseMessagingListener from "../../hooks/firebase/messaging/listening";
 
-export default function useRouteStateMachine(): void {
+export default function useRouteFSMEngine(): void {
     const adminService = useAdminInfoService();
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const setLoginData = useSetRecoilState<LoginDataType | null>(loginDataState);
@@ -96,6 +96,7 @@ export default function useRouteStateMachine(): void {
                 routes: [{ name: "home" }],
                 //routes: [{ name: "test" }],
                 //routes: [{ name: "verify_personal_info", params: { authority: 1 } }],
+                //routes: [{ name: "verify_auth_code", params: { authority: 1 } }],
                 //routes: [{ name: "lease_contract" }],
                 //routes: [{ name: "management_fee" }],
                 //routes: [{ name: "home" }, { name: "building_management" }],

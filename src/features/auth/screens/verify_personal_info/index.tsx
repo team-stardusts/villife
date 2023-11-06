@@ -79,6 +79,8 @@ export default function VerifyPersonalInfoScreen({ navigation, route }: VerifyPe
                     title: "다음",
                     onPress: () => {
                         navigation.navigate("verify_auth_code", {
+                            authority: route.params.authority,
+                            host: route.params.host,
                             identityNumberFrontDigit: personalInfo.identityNumber?.split("-")[0] as string,
                             mobileCarrier: personalInfo.mobileCarrier as string,
                             phoneNumber: personalInfo.phoneNumber as string,

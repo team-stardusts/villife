@@ -33,7 +33,7 @@ import SetBuildingScreen from "../../auth/screens/set_building";
 import SearchAddressScreen from "../screens/search_address";
 import TermsOfServiceScreen from "../../auth/screens/terms_of_service/index.";
 import TestScreen from "../../test";
-import useRouteStateMachine from "./fsm";
+import useRouteFSMEngine from "./fsm";
 import WelcomeScreen from "../../auth/screens/welcome";
 import TenantDetailScreen from "../../main/lease_contract/screens/tenant_detail";
 import TenantSettingScreen from "../../main/lease_contract/screens/tenant_setting";
@@ -59,7 +59,7 @@ const Stack = createNativeStackNavigator<VillifeStackParamList>();
 
 export default function ScreenRouter() {
     useFirebaseMessagingEmitter();
-    useRouteStateMachine();
+    useRouteFSMEngine();
     useAutoRegisterFirebaseToken();
 
     return (

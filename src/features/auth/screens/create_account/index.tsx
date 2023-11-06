@@ -38,7 +38,7 @@ export default function CreateAccountScreen({ navigation, route }: CreateAccount
         }
 
         if (host === "apple") {
-            navigation.navigate("verify_personal_info", { authority: authority });
+            navigation.navigate("verify_personal_info", { authority, host });
             return;
         }
 

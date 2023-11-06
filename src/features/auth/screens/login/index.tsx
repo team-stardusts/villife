@@ -1,9 +1,9 @@
-import { Alert, SafeAreaView, Text, View } from "react-native";
+import { Alert, Platform, SafeAreaView, Text, View } from "react-native";
 import useScreenMessage from "../../../common/hooks/multilingual/hooks";
 import LoginScreenProps from "./types";
 import useLoginScreenStyles from "./styles";
 import UniversalTextInput from "../../../common/blocks/universial/textinput";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ScreenTitleView from "../../../common/blocks/title_view";
 import { HostType } from "../../../../libs/storage/tables/login/types";
 import useAuthService, { LOGIN_BUILDING_ID_TEMP } from "../../services/authentication";
@@ -16,12 +16,18 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
     const auth = useAuthService();
     const messages = useScreenMessage();
     const styles = useLoginScreenStyles();
-    const hosts: HostType[] = ["villife", "naver", "apple"];
+    const [hosts, setHosts] = useState<HostType[]>(["villife", "naver"]);
 
     const [account, setAccount] = useState<LoginServiceParams>({
         id: "",
         password: "",
     });
+
+    useEffect(() => {
+        if (Platform.OS === "ios") {
+            setHosts([...hosts, "apple"]);
+        }
+    }, []);
 
     const loginTo = async (host: HostType, params?: LoginServiceParams | undefined) => {
         const { loginData, socialAccessToken } = await auth.login(host, params);
@@ -52,9 +58,9 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
         }
     };
 
-    const showToast = () => {
+    /* const showToast = () => {
         VillifeToastMessage.showBottomToast("info", messages.messages.boilerplate.preparing_service);
-    };
+    }; */
 
     return (
         <SafeAreaView style={styles.main.container}>
