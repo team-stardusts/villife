@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import useStyler from "../../../../common/hooks/styler/hooks";
+import useStyler from "../../../../../../common/hooks/styler/hooks";
 import { UseExpenseApprovalOutLinedBoxListStylesType } from "./type";
 
 export default function useExpenseApprovalOutLinedBoxListStyles(): UseExpenseApprovalOutLinedBoxListStylesType {

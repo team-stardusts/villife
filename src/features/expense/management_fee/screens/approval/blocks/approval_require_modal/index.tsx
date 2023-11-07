@@ -1,13 +1,13 @@
 import { Dimensions, Modal, Pressable, Text, TouchableOpacity, View } from "react-native";
 import React, { useEffect, useState } from "react";
 import Toast from "react-native-toast-message";
-import StardustModal from "../../../../common/blocks/universial/stardust_modal";
+import StardustModal from "../../../../../../common/blocks/universial/stardust_modal";
 import useBottomEditModalStyles from "./style";
 import ApprovalRequiredModalProps from "./type";
-import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
+import useScreenMessage from "../../../../../../common/hooks/multilingual/hooks";
 import useApprovalService from "../../services";
 import { ApprovalEventEmitter } from "../outlined_box_list/event";
-import Icon from "../../../../common/atoms/icon";
+import Icon from "../../../../../../common/atoms/icon";
 
 export default function ExpenseApprovalRequiredModal(props: ApprovalRequiredModalProps) {
     const messages = useScreenMessage();

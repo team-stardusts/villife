@@ -44,7 +44,7 @@ import ManagementFeeDetailScreen from "../../expense/management_fee/screens/deta
 import { Platform } from "react-native";
 import useFirebaseMessagingEmitter from "../hooks/firebase/messaging/emission";
 import CompanyIntroductionScreen from "../../main/mypage/screens/company_introduction";
-import ExpenseApprovalScreen from "../../expense/approval/screens/home";
+import ExpenseApprovalScreen from "../../expense/management_fee/screens/approval/screens/home";
 import BuildingMFHistoryScreen from "../../expense/management_fee/screens/building";
 import WireAmountManually from "../../expense/management_fee/screens/wire_amount_manually";
 import RequestPaymentConfirmationScreen from "../../expense/management_fee/screens/request_payment_confirmation";

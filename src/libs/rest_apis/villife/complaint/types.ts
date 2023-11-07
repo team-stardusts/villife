@@ -33,6 +33,7 @@ export type Complaint = {
     complainant_name: string;
     created_at: string;
     updated_at: string;
+    phone_number: string;
 };
 export type GetComplaintsResult = Array<Complaint>;
 

@@ -1,6 +1,6 @@
 import { StyleSheet } from "react-native";
 import { UseApprovalRequiredModalStylesType } from "./type";
-import useStyler from "../../../../common/hooks/styler/hooks";
+import useStyler from "../../../../../../common/hooks/styler/hooks";
 
 export default function useApprovalRequiredModalStyles() {
     const { deviceUI, theme } = useStyler();

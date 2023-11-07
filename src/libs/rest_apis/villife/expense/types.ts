@@ -11,6 +11,7 @@ export namespace ManagementFee {
     export interface Confirmable {
         requestPamentConfirmaion(param: RequestPamentConfirmaion.Params): Response<RequestPamentConfirmaion.Result>;
         confirmPayment(params: ConfirmPayment.Params): Response<ConfirmPayment.Result>;
+        undoManagementFeeRenterTest(): Response<string>;
     }
 
     export namespace ConfirmPayment {

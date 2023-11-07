@@ -2,12 +2,12 @@ import { Pressable, View } from "react-native";
 import { Text } from "react-native";
 import React, { useEffect, useState } from "react";
 import { ApprovalDataConverter, ConvertedApprovalData } from "./converter_approval";
-import IconMoreVertical from "../../../../common/atoms/icon/more_vertical";
+import IconMoreVertical from "../../../../../../common/atoms/icon/more_vertical";
 import OutlinedBoxProps from "./type";
 import ExpenseApprovalRequiredModal from "../approval_require_modal";
 import { Shadow } from "react-native-shadow-2";
 import useExpenseApprovalOutlinedBoxStyles from "./style";
-import Icon from "../../../../common/atoms/icon";
+import Icon from "../../../../../../common/atoms/icon";
 
 /**
  * @param OutlinedBoxProp

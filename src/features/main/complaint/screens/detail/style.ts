@@ -4,7 +4,7 @@ import useStyler from "../../../../common/hooks/styler/hooks";
 export default function useComplaintDetailSecreenStyle() {
     const { deviceUI, theme } = useStyler();
 
-    const leftMargin = deviceUI.moderateScale(15);
+    const leftMargin = deviceUI.moderateScale(16);
     const styles = StyleSheet.create({
         navContainer: {
             backgroundColor: theme.color.specified.white,
@@ -62,7 +62,8 @@ export default function useComplaintDetailSecreenStyle() {
             marginLeft: leftMargin,
         },
         replyTitle: {
-            marginTop: deviceUI.moderateScale(30),
+            alignItems: "center",
+            justifyContent: "center",
             fontSize: deviceUI.moderateScale(16),
             marginLeft: leftMargin,
             fontFamily: "Pretendard-Bold",
@@ -99,6 +100,18 @@ export default function useComplaintDetailSecreenStyle() {
         absoulteWrapper: {
             position: "absolute",
             height: "100%",
+        },
+        iconPhone: {
+            paddingRight: deviceUI.moderateScale(30),
+            width: deviceUI.moderateScale(36),
+            color: theme.color.specified.black,
+        },
+        replyTitleBox: {
+            marginTop: deviceUI.moderateScale(32),
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "space-between",
+            marginHorizontal: deviceUI.moderateScale(16),
         },
     });
     return styles;

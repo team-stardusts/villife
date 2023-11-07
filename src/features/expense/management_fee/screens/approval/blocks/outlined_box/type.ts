@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import { Approval } from "../../../../../libs/rest_apis/villife/approval/types";
+import { Approval } from "../../../../../../../libs/rest_apis/villife/approval/types";
 
 type OutlinedBoxProps = {
     approvalRequest: Approval;

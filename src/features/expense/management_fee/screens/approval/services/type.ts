@@ -1,5 +1,5 @@
-import { Response } from "../../../../libs/rest_apis/types";
-import { getApprovalsResult } from "../../../../libs/rest_apis/villife/approval/types";
+import { Response } from "../../../../../../libs/rest_apis/types";
+import { getApprovalsResult } from "../../../../../../libs/rest_apis/villife/approval/types";
 
 export interface IApprovalService {
     getExpenseApproval(): Response<getApprovalsResult>;

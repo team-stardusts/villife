@@ -1,7 +1,7 @@
 import React from "react";
 import { ApprovalListUpatedEventListener } from "./event";
 import useExpenseApprovalService from "../../services";
-import { Approval } from "../../../../../libs/rest_apis/villife/approval/types";
+import { Approval } from "../../../../../../../libs/rest_apis/villife/approval/types";
 
 export default function useExpenseApprovalViewModel() {
     const service = useExpenseApprovalService();

@@ -2,7 +2,7 @@ import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
 import NavigationView from "../../../../common/blocks/navigation";
 import ComplaintDetailScreenProps from "./type";
 import useComplaintDetailSecreenStyle from "./style";
-import { Text, TouchableOpacity, View } from "react-native";
+import { Alert, Text, TouchableOpacity, View } from "react-native";
 import React from "react";
 import RemoteCSS from "../../../../../libs/themes/remote_css";
 import AutoHeightWebView from "react-native-autoheight-webview";
@@ -18,12 +18,35 @@ import ComplaintProgressEditModal from "../../blocks/progress_edit";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import useUserInformation from "../../../../common/hooks/service/user_info";
 import Icon from "../../../../common/atoms/icon";
+import { Callable } from "../../../../../libs/call/types";
+import Telephone from "../../../../../libs/call";
+import VillifeToastMessage from "../../../../common/atoms/toast";
 
 export default function ComplaintDetailScreen({ navigation, route }: ComplaintDetailScreenProps) {
     const messages = useScreenMessage();
     const styles = useComplaintDetailSecreenStyle();
     const uiState = useComplaintDetailViewModel(route.params);
     const user = useUserInformation();
+    const phone: Callable = new Telephone();
+    const callTo = async () => {
+        console.log("민원", uiState.complaint.phone_number);
+        Alert.alert(`${uiState.complaint.complainant_name}와 통화를 하시겠어요?`, undefined, [
+            { text: "취소" },
+            {
+                text: "확인",
+                onPress: async () => {
+                    const callSuccess = await phone.call(uiState.complaint.phone_number);
+                    if (!callSuccess) {
+                        VillifeToastMessage.showBottomToast(
+                            "error",
+                            "죄송합니다. 전화를 연결하지 못했어요. 관리자를 통해 의견 전달 부탁드려요."
+                        );
+                    }
+                },
+            },
+        ]);
+    };
+
     const [editModalVisible, setEditModalVisible] = React.useState(false);
     const [progressEditModalVisible, setProgressEditModalVisible] = React.useState(false);
 
@@ -57,6 +80,8 @@ export default function ComplaintDetailScreen({ navigation, route }: ComplaintDe
                         <TouchableOpacity
                             style={styles.editButton}
                             onPress={() => {
+                                callTo();
+
                                 if (user?.isAdmin) {
                                     setProgressEditModalVisible(true);
                                     return;
@@ -122,21 +147,25 @@ export default function ComplaintDetailScreen({ navigation, route }: ComplaintDe
                     }}
                     scalesPageToFit={false}
                     viewportContent={"width=device-width, user-scalable=no"}></AutoHeightWebView>
-                {uiState.replies.length > 0 ? (
-                    <View>
+                <View>
+                    <View style={styles.replyTitleBox}>
                         <Text style={styles.replyTitle}>답글</Text>
-                        <View style={styles.horizontalLine}></View>
-                        {uiState.replies.map((reply, inedx) => {
-                            return (
-                                <View key={reply.id} style={styles.replyItem}>
-                                    <ComplaintReplyItem data={reply} />
-                                </View>
-                            );
-                        })}
+                        <TouchableOpacity
+                            onPress={() => {
+                                callTo();
+                            }}>
+                            <Icon name="phone" size={styles.iconPhone.width} color={styles.iconPhone.color} />
+                        </TouchableOpacity>
                     </View>
-                ) : (
-                    <></>
-                )}
+                    <View style={styles.horizontalLine}></View>
+                    {uiState.replies.map((reply, inedx) => {
+                        return (
+                            <View key={reply.id} style={styles.replyItem}>
+                                <ComplaintReplyItem data={reply} />
+                            </View>
+                        );
+                    })}
+                </View>
             </KeyboardAwareScrollView>
             <ReplyInputSection complaintID={uiState.complaint.id} />
         </NavigationView>

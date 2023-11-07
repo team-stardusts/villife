@@ -7,6 +7,20 @@ import VillifeStorage from "../../../../../../libs/storage";
 import StardustAlert from "../../../../../common/blocks/universial/stardust_alert";
 import { useState } from "react";
 import { StardustAlertContent } from "../../../../../common/blocks/universial/stardust_alert/types";
+import VillifeServer from "../../../../../../libs/rest_apis/villife";
+import { Response } from "../../../../../../libs/rest_apis/types";
+import IVillifeExpenseRestClient from "../../../../../../libs/rest_apis/villife/expense/types";
+
+interface UndoManagementFeeRenterTest {
+    undoManagementFeeRenterTest(): Response<string>;
+}
+class Test implements UndoManagementFeeRenterTest {
+    private mApi: IVillifeExpenseRestClient = VillifeServer.getExpenseRestClient();
+
+    undoManagementFeeRenterTest(): Response<string> {
+        return this.mApi.undoManagementFeeRenterTest();
+    }
+}
 
 export default function ScrollNav(props: ScrollNavProps) {
     const navigation = useNavigation<VillifeNavigation>();
@@ -24,6 +38,8 @@ export default function ScrollNav(props: ScrollNavProps) {
             visible: false,
         });
     };
+
+    const test: UndoManagementFeeRenterTest = new Test();
 
     return (
         <View style={props.styles.container}>
@@ -77,8 +93,10 @@ export default function ScrollNav(props: ScrollNavProps) {
                             buttons: [
                                 {
                                     text: "확인",
-                                    onPress: () => {
+                                    onPress: async () => {
                                         Alert.alert("아직 준비되지 않았습니다.");
+                                        const result = await test.undoManagementFeeRenterTest();
+                                        console.log("TEST", result.isSuccessful);
                                         cancleAlert();
                                     },
                                 },

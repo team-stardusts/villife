@@ -1,6 +1,6 @@
-import { RequestCotent3001 } from "../../../../../libs/rest_apis/villife/approval/content_type";
-import { Approval } from "../../../../../libs/rest_apis/villife/approval/types";
-import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
+import { RequestCotent3001 } from "../../../../../../../libs/rest_apis/villife/approval/content_type";
+import { Approval } from "../../../../../../../libs/rest_apis/villife/approval/types";
+import useScreenMessage from "../../../../../../common/hooks/multilingual/hooks";
 
 export class ApprovalDataConverter {
     private request: Approval;

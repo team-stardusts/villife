@@ -60,6 +60,14 @@ export default class VillifeExpenseRestClient extends AVillifeServerModule imple
             data: params,
         });
     }
+    public async undoManagementFeeRenterTest(): Response<string> {
+        const route = this.routes.test.testExpense;
+
+        return await this.requestAuthable<any, string>({
+            method: "get",
+            url: route,
+        });
+    }
 }
 
 /* const dummyData: ManagementFee.GetBuildingMFHistory.Result = [

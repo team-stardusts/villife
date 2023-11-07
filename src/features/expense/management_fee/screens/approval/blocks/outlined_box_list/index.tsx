@@ -1,6 +1,6 @@
 import { FlatList, ListRenderItemInfo, StyleSheet } from "react-native";
 import OutlinedBox from "../outlined_box";
-import { Approval } from "../../../../../libs/rest_apis/villife/approval/types";
+import { Approval } from "../../../../../../../libs/rest_apis/villife/approval/types";
 import useApprovalViewModel from "./useApprovalViewModel";
 import useExpenseApprovalOutLinedBoxListStyles from "./style";
 

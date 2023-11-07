@@ -1,5 +1,5 @@
 import React from "react";
-import NavigationView from "../../../../common/blocks/navigation";
+import NavigationView from "../../../../../../common/blocks/navigation";
 import FlatListOutlinedContentsBox from "../../blocks/outlined_box_list";
 import ExpenseApprovalScreenProps from "./type";
 
