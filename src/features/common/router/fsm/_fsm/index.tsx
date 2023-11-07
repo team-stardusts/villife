@@ -115,7 +115,7 @@ export default function useRouteFSM() {
                     });
                     break;
 
-                case Situation.LOGGIN_FAILED || Situation.LOGGED_OUT:
+                case Situation.LOGGIN_FAILED:
                     navigation.reset({
                         index: 0,
                         routes: [{ name: "login" }],

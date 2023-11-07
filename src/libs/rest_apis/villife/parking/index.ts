@@ -241,8 +241,9 @@ class VillifeParkginManager extends AVillifeServerModule implements IVillifePark
     ): Response<Parking.SendPushNotification.Return> {
         const route: string = this.routes.parking.sendPushNotification;
         const data: Parking.SendPushNotification.Body = {
+            content: params.content,
+            title: params.title,
             vehicle_id: params.vehicleID,
-            ...params,
         };
 
         return await this.requestAuthable<Parking.SendPushNotification.Body, Parking.SendPushNotification.Return>({

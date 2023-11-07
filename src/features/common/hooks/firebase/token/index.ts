@@ -55,7 +55,6 @@ export function useAutoRegisterFirebaseToken() {
         //console.log("login Data has changed\n", "firebase token :", firebaseToken);
         if (!firebaseToken) return;
         if (loginData === null) return;
-
         if (loginData) {
             villife
                 .registerFirebaseToken({
