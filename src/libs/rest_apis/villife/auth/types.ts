@@ -27,6 +27,7 @@ export type SendVerifyCode = {
 };
 
 export type VerifyPersonalInfoParams = {
+    authority: Authority[keyof Authority];
     birth_day: string;
     birth_year: string;
     code: string;
@@ -38,6 +39,7 @@ export type LoginResult = {
     access_token: string;
     expire_at: number;
     refresh_token: string;
+    need_to_sign_up?: boolean;
 }; // | "cannot find user" | undefined;
 
 export type SocialLoginHostType = "apple" | "naver";

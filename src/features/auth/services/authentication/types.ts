@@ -1,15 +1,13 @@
 import { Responsable, Response } from "../../../../libs/rest_apis/types";
-import IVillifeAuthManager, { HostType } from "../../../../libs/rest_apis/villife/auth/types";
+import { HostType } from "../../../../libs/rest_apis/villife/auth/types";
 import { SocialJoinResultType } from "../../../../libs/rest_apis/villife/auth/types";
 import { LoginResult as VillifeLoginResult } from "../../../../libs/rest_apis/villife/auth/types";
 import { Authority } from "../../../../libs/rest_apis/villife/types";
 import { LoginDataType } from "../../../../libs/storage/tables/login/types";
-import type NaverLoginManager from "./social/naver";
-import type VillifeLoginManager from "./villife";
 
 export interface IAuthServiceProvider {
     login(host: HostType, params?: LoginServiceParams | undefined): Promise<LoginResult>;
-    join(host: HostType, params: JoinServiceParams | undefined): Response<SocialJoinResultType>;
+    join(host: HostType, params: JoinServiceParams | any): Response<SocialJoinResultType | any>;
 }
 
 export interface ILoginManager extends Verifiable, Joinable {}

@@ -1,12 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useSetRecoilState } from "recoil";
 import { loginDataState } from "../../hooks/states/atoms/login";
-import { useNavigation } from "@react-navigation/native";
-import { VillifeRouterParams } from "../types";
 import VillifeStorage from "../../../../libs/storage";
 import { LoginDataType } from "../../../../libs/storage/tables/login/types";
 import useUserInformation from "../../hooks/service/user_info";
-import useAdminInfoService from "../../hooks/service/user_info/service";
 import useFirebaseMessagingListener from "../../hooks/firebase/messaging/listening";
 import useRouteFSM from "./_fsm";
 import { LoadingState } from "./_fsm/types";

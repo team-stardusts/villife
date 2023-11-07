@@ -8,6 +8,9 @@ import VillifeServer from "../../../../libs/rest_apis/villife";
 import { IVillifeUserInfoRestClient } from "../../../../libs/rest_apis/villife/user_info/types";
 import IVillifeStorage from "../../../../libs/storage/types";
 import AppleLoginManager from "./social/apple";
+import { VILLIFE_AUTHORITY } from "../../../../libs/rest_apis/villife/absc";
+import { Authority } from "../../../../libs/rest_apis/villife/types";
+import { LoginDataType } from "../../../../libs/storage/tables/login/types";
 
 export class LoginManagerProvider {
     static getLoginManager(host: HostType): ILoginManager {
@@ -44,18 +47,27 @@ export default function useAuthService(): IAuthServiceProvider {
             }
 
             // VillifeServer의 requestAuthable을 위해 임시로 로그인 데이터 세팅
-            await storage.login.set({
+            let _loginData: LoginDataType = {
                 host: host,
                 accessToken: loginInfo.data.data.access_token,
                 accessTokenExpiresAt: loginInfo.data.data.expire_at,
                 refreshToken: loginInfo.data.data.refresh_token,
                 name: "",
-                authority: 1,
+                authority: VILLIFE_AUTHORITY.RENTER,
                 room_id: 0,
                 room_number: 0,
                 building_id: LOGIN_BUILDING_ID_TEMP,
                 building_road_addr: "",
-            });
+            };
+
+            await storage.login.set(_loginData);
+
+            if (host === "apple" && loginInfo.data.data?.need_to_sign_up === true) {
+                return {
+                    loginData: null,
+                    socialAccessToken: loginInfo.socialAccessToken,
+                };
+            }
 
             const userInfo = await userApi.getUserBasicInfo();
 
@@ -69,7 +81,7 @@ export default function useAuthService(): IAuthServiceProvider {
                 };
             }
 
-            const loginData = {
+            _loginData = {
                 host: host,
                 accessToken: loginInfo.data.data.access_token,
                 accessTokenExpiresAt: loginInfo.data.data.expire_at,
@@ -77,10 +89,10 @@ export default function useAuthService(): IAuthServiceProvider {
                 ...userInfo.data.data,
             };
 
-            await storage.login.set(loginData);
+            await storage.login.set(_loginData);
 
             return {
-                loginData,
+                loginData: _loginData,
                 socialAccessToken: loginInfo.socialAccessToken,
             };
         }

@@ -1,4 +1,5 @@
 import { useNavigation } from "@react-navigation/native";
+import messaging from "@react-native-firebase/messaging";
 import { VillifeRouterParams } from "../../types";
 import { LoadingState, RouteFSMBase, Situation } from "./types";
 import VillifeStorage from "../../../../../libs/storage";
@@ -39,15 +40,16 @@ export default function useRouteFSM() {
 
             if (userinfo.isAdmin) {
                 adminService.initializeAdminInformation();
+
                 this.situation = Situation.NORMAL;
             } else if (userinfo.isRenter) {
                 if (userinfo.roomID === 0) {
                     this.situation = Situation.NO_ROOM;
                 } else if (userinfo.buildingID === 0) {
                     this.situation = Situation.NO_BUILDING;
+                } else {
+                    this.situation = Situation.NORMAL;
                 }
-
-                this.situation = Situation.NORMAL;
             } else {
                 this.situation = Situation.EXCEPTION;
             }
@@ -119,6 +121,9 @@ export default function useRouteFSM() {
                         routes: [{ name: "login" }],
                     });
                     break;
+
+                case Situation.LOGGED_OUT:
+                    messaging().deleteToken();
 
                 case Situation.EXCEPTION:
                     // [TO-DO] 예외 상황 처리용 스크린이 필요함

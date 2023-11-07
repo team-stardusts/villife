@@ -10,6 +10,19 @@ export const hexToRGB = (hex: string, alpha: number) => {
     }
 };
 
-export const insertCommaToNumber = (number: number): string => {
-    return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+export const insertCommaToNumber = (num: number): string => {
+    if (typeof num !== "number") {
+        console.error("[insertCommaToNumber]", `'${num}' is not number.`);
+        return "0";
+    }
+
+    return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+};
+
+export const keep2Digit = (num: number) => {
+    if (num < 10) {
+        return "0" + num.toString();
+    }
+
+    return num.toString();
 };

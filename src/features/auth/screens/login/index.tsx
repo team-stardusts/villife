@@ -24,7 +24,7 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
     });
 
     useEffect(() => {
-        if (Platform.OS === "ios") {
+        if (Platform.OS === "ios" && !hosts.find((v) => v === "apple")) {
             setHosts([...hosts, "apple"]);
         }
     }, []);
@@ -34,7 +34,7 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
 
         switch (host) {
             case "apple":
-                if (loginData?.building_id === 0) {
+                if (loginData === null) {
                     navigation.navigate("create_account", {
                         host: host,
                     });

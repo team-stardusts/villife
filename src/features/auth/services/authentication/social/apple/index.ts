@@ -3,6 +3,7 @@ import ALoginManager from "../../absc";
 import DotEnv from "../../../../../../libs/dotenv";
 import { LoginServiceResult } from "../../types";
 import appleAuth from "@invertase/react-native-apple-authentication";
+import { VerifyPersonalInfoParams } from "../../../../../../libs/rest_apis/villife/auth/types";
 
 class AppleLoginManager extends ALoginManager {
     private env: DotEnv = new DotEnv();
@@ -42,8 +43,8 @@ class AppleLoginManager extends ALoginManager {
     }
     public async refresh(): Promise<any> {}
 
-    public async join(params: void): Promise<void> {
-        return Promise.resolve(params);
+    public async join(params: VerifyPersonalInfoParams): Response<string> {
+        return await this._api.verifyPersonalInfo(params);
     }
 }
 

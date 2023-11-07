@@ -6,13 +6,16 @@ import useVerifyAuthCodeScreenStyles from "./styles";
 import { Alert, Text, TouchableOpacity, View } from "react-native";
 import { useCallback, useEffect, useState } from "react";
 import VillifeToastMessage from "../../../common/atoms/toast";
-import { Loginable, Verifiable } from "../../../../libs/rest_apis/villife/auth/types";
+import { Loginable, Verifiable, VerifyPersonalInfoParams } from "../../../../libs/rest_apis/villife/auth/types";
 import VillifeServer from "../../../../libs/rest_apis/villife";
 import ReusableTextInput from "../../../common/blocks/text_input";
+import useAuthService from "../../services/authentication";
+import { keep2Digit } from "../../../common/global_function";
 
 export default function VerifyAuthCodeScreen({ navigation, route }: VerifyAuthCodeScreenProps) {
     const styles = useVerifyAuthCodeScreenStyles();
     const api: Verifiable & Loginable = VillifeServer.getAuthenticator();
+    //const auth = useAuthService();
     const TIME_LIMIT = 180;
     const MAX_RESEND_COUNT = 3;
     const [authcode, setAuthcode] = useState<string | null>(null);
@@ -43,6 +46,9 @@ export default function VerifyAuthCodeScreen({ navigation, route }: VerifyAuthCo
             phone_number: route.params.phoneNumber.replace(/-/g, ""),
         })
             .then(() => {
+                if (resendCnt > 0) {
+                    VillifeToastMessage.showBottomToast("info", "인증코드를 다시 전송했어요.");
+                }
                 setTimer(0);
                 setResendCnt(resendCnt + 1);
             })
@@ -68,38 +74,41 @@ export default function VerifyAuthCodeScreen({ navigation, route }: VerifyAuthCo
         }, 1000);
     };
 
-    const keep2Digit = (num: number) => {
-        if (num < 10) {
-            return "0" + num.toString();
-        }
-
-        return num.toString();
-    };
-
     const verify = async () => {
-        const result = await api.verifyPersonalInfo({
+        const params: VerifyPersonalInfoParams = {
+            authority: route.params.authority,
             birth_year: route.params.identityNumberFrontDigit.slice(0, 2),
             birth_day: route.params.identityNumberFrontDigit.slice(2),
             code: authcode as string,
             phone_number: route.params.phoneNumber.replace(/-/g, ""),
             user_name: route.params.userName,
-        });
+        };
 
-        console.log(result.data?.data, result.data?.status);
+        //const result = await auth.join(route.params.host, params);
+        const result = await api.verifyPersonalInfo(params);
+
+        console.log("[VERIFY_AUTH_CODE]", result.data?.data, result.data?.status);
 
         if (result.isSuccessful) {
-            navigation.reset({
-                index: 0,
-                routes: [
-                    {
-                        name: "welcome",
-                        params: {
-                            authority: route.params.authority,
-                            host: route.params.host,
-                        },
+            Alert.alert("인증이 완료되었습니다.", undefined, [
+                {
+                    text: "확인",
+                    onPress: () => {
+                        navigation.reset({
+                            index: 0,
+                            routes: [
+                                {
+                                    name: "welcome",
+                                    params: {
+                                        authority: route.params.authority,
+                                        host: route.params.host,
+                                    },
+                                },
+                            ],
+                        });
                     },
-                ],
-            });
+                },
+            ]);
 
             return;
         } else {

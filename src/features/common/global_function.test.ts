@@ -1,0 +1,1 @@
+describe("[GLOBAL_FUNCTION]", () => {});
