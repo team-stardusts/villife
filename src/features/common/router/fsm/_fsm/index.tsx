@@ -123,7 +123,12 @@ export default function useRouteFSM() {
                     break;
 
                 case Situation.LOGGED_OUT:
-                    messaging().deleteToken();
+                    navigation.reset({
+                        index: 0,
+                        routes: [{ name: "login" }],
+                    });
+
+                    break;
 
                 case Situation.EXCEPTION:
                     // [TO-DO] 예외 상황 처리용 스크린이 필요함
