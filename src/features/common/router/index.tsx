@@ -53,6 +53,7 @@ import RefundPolicyScreen from "../../expense/payment/screens/refund_policy";
 import VerifyPersonalInfoScreen from "../../auth/screens/verify_personal_info";
 import VerifyAuthCodeScreen from "../../auth/screens/verify_auth_code";
 import SetAccountScreen from "../../auth/screens/set_account";
+import ManagementFeeCurrentMonthDetailScreen from "../../expense/management_fee/screens/current_month_detail";
 
 enableScreens(true);
 
@@ -114,6 +115,10 @@ export default function ScreenRouter() {
                 <Stack.Screen name={"wire_amount_manually"} component={WireAmountManually} />
                 <Stack.Screen name={"request_payment_confirmation"} component={RequestPaymentConfirmationScreen} />
                 <Stack.Screen name={"expense_approval"} component={ExpenseApprovalScreen} />
+                <Stack.Screen
+                    name={"management_fee_current_month_detail"}
+                    component={ManagementFeeCurrentMonthDetailScreen}
+                />
                 <Stack.Screen name={"refund_policy"} component={RefundPolicyScreen} />
             </Stack.Group>
             <Stack.Group>

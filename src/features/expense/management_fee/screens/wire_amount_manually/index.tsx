@@ -81,14 +81,14 @@ export default function WireAmountManually(props: WireAmountManuallyScreenProps)
                             <View style={styles.amountBox}>
                                 <Text style={styles.amount}>{insertCommaToNumber(unpaidFee)}원</Text>
                             </View>
-                            <TouchableOpacity
+                            {/* <TouchableOpacity
                                 style={styles.detailBtn}
                                 activeOpacity={0.6}
                                 onPress={() => {
                                     VillifeToastMessage.showBottomToast("info", "죄송합니다. 아직 준비되지 않았어요.");
                                 }}>
                                 <Text style={styles.detailBtnText}>상세내역</Text>
-                            </TouchableOpacity>
+                            </TouchableOpacity> */}
                         </View>
                     </View>
                     <View style={styles.bankListContainer}>

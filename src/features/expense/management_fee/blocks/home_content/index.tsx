@@ -51,7 +51,7 @@ export default function HomeContentFromManagementFee() {
                     수선유지비: 100,
                 },
             }); */
-            navigation.navigate("wire_amount_manually", {
+            navigation.navigate("management_fee_current_month_detail", {
                 amount_won: unpaidFee,
             });
         }

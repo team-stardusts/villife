@@ -3,7 +3,7 @@ import useStyler from "../../../../../common/hooks/styler/hooks";
 import { useNavigation } from "@react-navigation/native";
 import { VillifeNavigation } from "../../../../../common/router/types";
 
-export default function Button() {
+export default function RefundPolicyButton() {
     const styles = useSendButtonButtonStyles();
     const navigation = useNavigation<VillifeNavigation>();
 
@@ -21,8 +21,8 @@ function useSendButtonButtonStyles() {
 
     return StyleSheet.create({
         btn: {
-            paddingVertical: deviceUI.moderateScale(4),
-            paddingHorizontal: deviceUI.moderateScale(15),
+            paddingVertical: deviceUI.moderateScale(8),
+            width: deviceUI.moderateScale(96),
             justifyContent: "center",
             alignItems: "center",
             backgroundColor: theme.color.series.grey.level1,
@@ -31,7 +31,7 @@ function useSendButtonButtonStyles() {
         btnText: {
             fontFamily: theme.font.fontFamily.pretendard.regular,
             color: theme.color.specified.black,
-            fontSize: deviceUI.moderateScale(13),
+            fontSize: deviceUI.moderateScale(14),
         },
     });
 }

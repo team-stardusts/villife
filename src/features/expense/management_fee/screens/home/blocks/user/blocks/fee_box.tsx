@@ -30,7 +30,10 @@ export default function ManagementFeeBox(props: ManagementFeeBoxProps) {
                     수선유지비: 100,
                 },
             }); */
-            navigation.navigate("wire_amount_manually", {
+            /*     navigation.navigate("wire_amount_manually", {
+                amount_won: props.feeRequired,
+            } */
+            navigation.navigate("management_fee_current_month_detail", {
                 amount_won: props.feeRequired,
             });
         }

@@ -13,6 +13,7 @@ export default function useWireAmountManuallyStyles() {
         },
         billContainer: {
             marginTop: deviceUI.moderateScale(30),
+            marginLeft: deviceUI.moderateScale(24),
         },
         residenceInfoBox: {},
         residenceInfo: {
