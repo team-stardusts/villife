@@ -83,7 +83,7 @@ export default function useRouteFSM() {
                         navigation.reset({
                             index: 0,
                             routes: [{ name: "home" }],
-                            //routes: [{ name: "welcome" }],
+                            //routes: [{ name: "welcome", params: { authority: 1 } }],
                             //routes: [{ name: "test" }],
                             //routes: [{ name: "verify_personal_info", params: { authority: 1 } }],
                             //routes: [{ name: "verify_auth_code", params: { authority: 1 } }],
