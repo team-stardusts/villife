@@ -10,13 +10,13 @@ export default function useAuthScreenCommonInputStyles() {
         },
         titleBox: {
             flex: 3.3,
-            marginBottom: deviceUI.moderateScale(3),
+            //marginBottom: deviceUI.moderateScale(3),
             justifyContent: "center",
         },
         title: {
             color: theme.color.specified.blue,
             fontFamily: theme.font.fontFamily.pretendard.bold,
-            fontSize: deviceUI.moderateScale(16),
+            fontSize: deviceUI.moderateScale(18),
         },
         inputBox: {
             flex: 3.4,

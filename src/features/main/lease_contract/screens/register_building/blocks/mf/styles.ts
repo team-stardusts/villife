@@ -15,13 +15,12 @@ export default function useMFDataSetterStyles() {
             justifyContent: "space-between",
         },
         rowTitleWrapper: {
-            marginLeft: deviceUI.moderateScale(10),
             justifyContent: "center",
         },
         rowTitle: {
             color: theme.color.specified.black,
             fontFamily: theme.font.fontFamily.pretendard.bold,
-            fontSize: deviceUI.moderateScale(15),
+            fontSize: deviceUI.moderateScale(17),
         },
         rowContentBox: {
             flexDirection: "row",

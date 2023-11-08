@@ -2,7 +2,7 @@ import { StyleSheet } from "react-native";
 import useStyler from "../../../common/hooks/styler/hooks";
 import { HostType } from "../../../../libs/rest_apis/villife/auth/types";
 
-export default function useSetAuthorityScreenStyles(host: HostType) {
+export default function useSetAuthorityScreenStyles() {
     const { deviceUI, theme, safetyEdgeSize } = useStyler();
 
     const main = StyleSheet.create({
@@ -24,7 +24,7 @@ export default function useSetAuthorityScreenStyles(host: HostType) {
             paddingTop: deviceUI.moderateScale(100),
         },
         wrapper: {
-            height: host !== "villife" ? deviceUI.moderateScale(150) : deviceUI.moderateScale(130),
+            height: deviceUI.moderateScale(150),
             flexDirection: "row",
             justifyContent: "space-evenly",
             marginBottom: deviceUI.moderateScale(5),

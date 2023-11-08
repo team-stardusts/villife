@@ -26,6 +26,10 @@ export default function VerifyAuthCodeScreen({ navigation, route }: VerifyAuthCo
     const [authcode, setAuthcode] = useState<string | null>(null);
     const [timer, setTimer] = useState<number | null>(null);
     const [resendCnt, setResendCnt] = useState<number>(0);
+    const authErrors = {
+        duplication: "폰넘버 중복",
+        invalid: "유효하지 않은 인증 코드입니다",
+    };
 
     useEffect(() => {
         sendAuthcode();
@@ -120,10 +124,31 @@ export default function VerifyAuthCodeScreen({ navigation, route }: VerifyAuthCo
             ]);
 
             return;
-        } else {
-            VillifeToastMessage.showBottomToast("error", "유효하지 않은 인증 코드입니다.");
+        }
 
-            return;
+        switch (result.data?.data) {
+            case authErrors.invalid:
+                VillifeToastMessage.showBottomToast("error", "유효하지 않은 인증 코드입니다.");
+                break;
+            case authErrors.duplication:
+                Alert.alert("이미 사용중인 번호입니다.", "휴대폰의 소유주시라면 빌라이프에 문의 부탁드려요.", [
+                    {
+                        text: "확인",
+                        onPress: () => {
+                            navigation.reset({
+                                index: 0,
+                                routes: [
+                                    {
+                                        name: "login",
+                                    },
+                                ],
+                            });
+                        },
+                    },
+                ]);
+                break;
+            default: // undefined
+                VillifeToastMessage.showBottomToast("error", "인증에 실패했습니다. 다시 시도해주세요.");
         }
 
         /* if (result.isSuccessful) {

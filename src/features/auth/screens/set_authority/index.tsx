@@ -14,16 +14,16 @@ import useAuthService from "../../services/authentication";
 export default function SetAuthorityScreen({ navigation, route }: SetAuthorityScreenProps) {
     const { host, access_token } = route.params;
     const messages = useScreenMessage();
-    const styles = useSetAuthorityScreenStyles(host);
+    const styles = useSetAuthorityScreenStyles();
     const auth: IAuthServiceProvider = useAuthService();
-    const [authority, setAuthority] = useState<Authority["RENTER"] | Authority["ADMIN"]>();
+    const [authority, setAuthority] = useState<Authority["RENTER"] | Authority["ADMIN"] | null>(null);
 
     const [isDone, setIsDone] = useState<boolean>(false);
 
     const handleJoin = async () => {
-        if (authority === null || authority === undefined) return;
+        if (authority === null) return;
 
-        if (host == "naver") {
+        if (host === "naver") {
             const result = await auth.join(host, {
                 id: "",
                 password: "",
@@ -52,7 +52,12 @@ export default function SetAuthorityScreen({ navigation, route }: SetAuthoritySc
             });
         }
 
-        if (host == "villife") {
+        if (host === "apple") {
+            navigation.navigate("verify_personal_info", { authority, host, id: "", password: "" });
+            return;
+        }
+
+        if (host === "villife") {
             navigation.navigate("set_account", { authority: authority });
         }
     };

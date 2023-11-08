@@ -48,8 +48,8 @@ export default function SetAccountScreen({ navigation, route }: SetAccountScreen
     return (
         <SafeAreaView style={styles.main.container}>
             <ScreenTitleView
-                titles={[messages.messages.auth.create_account.title]}
-                subtitles={[messages.messages.auth.create_account.subtitle]}
+                titles={["ID & 비밀번호 설정하기"]}
+                subtitles={["ID와 비밀번호를 설정해주세요."]}
                 bottomButton={{
                     title: messages.messages.auth.create_account.next_btn_title,
                     onPress: () => {
