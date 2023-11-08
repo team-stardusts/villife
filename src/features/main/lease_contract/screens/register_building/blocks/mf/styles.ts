@@ -8,16 +8,6 @@ export default function useMFDataSetterStyles() {
         container: {
             //flex: 1,
         },
-        titleBox: {
-            //flex: 1,
-            justifyContent: "center",
-            marginBottom: deviceUI.moderateScale(20),
-        },
-        title: {
-            color: theme.color.specified.blue,
-            fontFamily: theme.font.fontFamily.pretendard.bold,
-            fontSize: deviceUI.moderateScale(20),
-        },
         wrapper: {},
         row: {
             flexDirection: "row",
@@ -29,7 +19,7 @@ export default function useMFDataSetterStyles() {
             justifyContent: "center",
         },
         rowTitle: {
-            color: theme.color.specified.blue,
+            color: theme.color.specified.black,
             fontFamily: theme.font.fontFamily.pretendard.bold,
             fontSize: deviceUI.moderateScale(15),
         },

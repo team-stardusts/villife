@@ -1,4 +1,4 @@
-import { Text, View } from "react-native";
+import { Text, TouchableOpacity, View } from "react-native";
 import FloorSetterHeader from "./blocks/header";
 import { BuildingFloors, RoomCountSetterProps } from "./types";
 import { useEffect, useState } from "react";
@@ -51,9 +51,13 @@ export default function RoomCountSetter(props: RoomCountSetterProps) {
         <View style={props.styles.container}>
             <View style={props.styles.titleBox}>
                 <Text style={props.styles.title}>호수 정보 설정</Text>
+                <TouchableOpacity
+                    style={props.styles.undergroundSettingBtn}
+                    onPress={() => setHasUnderground(!hasUnderground)}>
+                    <Text style={props.styles.undergroundSettingBtnText}>지하 설정</Text>
+                </TouchableOpacity>
             </View>
             <View style={props.styles.contentContainer}>
-                <FloorSetterHeader styles={props.styles} onPress={setHasUnderground} />
                 <View>
                     {floors.map((rooms, index) => {
                         if (rooms === null) return;

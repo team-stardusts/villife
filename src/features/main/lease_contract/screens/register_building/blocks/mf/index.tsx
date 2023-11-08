@@ -34,9 +34,6 @@ export default function MFDataSetter(props: MFDataSetterProps) {
 
     return (
         <View style={styles.main.container}>
-            <View style={styles.main.titleBox}>
-                <Text style={styles.main.title}>관리비 정보 설정</Text>
-            </View>
             <View style={styles.main.wrapper}>
                 {Object.keys(mfdays).map((k, i) => {
                     const mfday = k === "notiDay" ? mfdays.notiDay : mfdays.dueDay;

@@ -36,7 +36,7 @@ export default function useBuildingManagementScreenStyles() {
             marginTop: deviceUI.moderateScale(13),
         },
         title: {
-            color: theme.color.specified.blue,
+            color: theme.color.specified.black,
             fontFamily: theme.font.fontFamily.pretendard.bold,
             fontSize: deviceUI.moderateScale(17),
         },
@@ -84,12 +84,20 @@ export default function useBuildingManagementScreenStyles() {
         container: {
             //flex: 1,
         },
+        row: {
+            flexDirection: "row",
+            justifyContent: "center",
+            alignItems: "center",
+        },
         titleBox: {
             //flex: 1,
-            justifyContent: "center",
+            flexDirection: "row",
+            justifyContent: "space-between",
+            alignItems: "center",
+            marginBottom: deviceUI.moderateScale(10),
         },
         title: {
-            color: theme.color.specified.blue,
+            color: theme.color.specified.black,
             fontFamily: theme.font.fontFamily.pretendard.bold,
             fontSize: deviceUI.moderateScale(20),
         },
@@ -133,12 +141,13 @@ export default function useBuildingManagementScreenStyles() {
             fontSize: deviceUI.moderateScale(15),
         },
         undergroundSettingBtn: {
-            width: "60%",
-            height: "100%",
             borderRadius: deviceUI.moderateScale(8),
             backgroundColor: theme.color.series.grey.level1,
             justifyContent: "center",
             alignItems: "center",
+            paddingVertical: deviceUI.moderateScale(6),
+            paddingHorizontal: deviceUI.moderateScale(15),
+            marginRight: deviceUI.moderateScale(10),
         },
         undergroundSettingBtnText: {
             color: theme.color.specified.black,
