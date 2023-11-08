@@ -2,6 +2,7 @@ namespace Routes {
     export type Auth = {
         appleSocialLogin: string;
         login: string;
+        signUp: string;
         naverSocialLogin: string;
         naverSocialJoin: string;
         registerFirebaseToken: string;

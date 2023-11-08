@@ -9,6 +9,7 @@ import IVillifeAuthManager, {
     SocialJoinResultType,
     SocialLoginHostType,
     VerifyPersonalInfoParams,
+    VillifeSignUpParams,
 } from "./types";
 import VillifeStorage from "../../../storage";
 
@@ -63,7 +64,15 @@ class VillifeAuthManager extends AVillifeServerModule implements IVillifeAuthMan
         });
     }
 
-    public async join(): Promise<any> {}
+    public async join(params: VillifeSignUpParams): Response<string> {
+        const route = this.routes.auth.signUp;
+
+        return await this.request({
+            method: "post",
+            url: route,
+            data: params,
+        });
+    }
 
     public async socialJoin(host: SocialLoginHostType, params: SocialJoinParamsType): Response<SocialJoinResultType> {
         let route: string;
@@ -98,7 +107,7 @@ class VillifeAuthManager extends AVillifeServerModule implements IVillifeAuthMan
     public async sendVerifyCode(params: SendVerifyCode): Response<string> {
         const route = this.routes.auth.sendVerifyCode;
 
-        return await this.requestAuthable<SendVerifyCode, string>({
+        return await this.request<SendVerifyCode, string>({
             url: route,
             method: "post",
             data: params,
@@ -108,7 +117,7 @@ class VillifeAuthManager extends AVillifeServerModule implements IVillifeAuthMan
     public async verifyPersonalInfo(params: VerifyPersonalInfoParams): Response<string> {
         const route = this.routes.auth.verifyPersonalInfo;
 
-        return await this.requestAuthable<VerifyPersonalInfoParams, string>({
+        return await this.request<VerifyPersonalInfoParams, string>({
             url: route,
             method: "post",
             data: params,

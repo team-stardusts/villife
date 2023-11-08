@@ -4,6 +4,7 @@ const routes: RoutesType = {
     auth: {
         appleSocialLogin: "auth/social-login/apple",
         login: "auth/login",
+        signUp : "auth/signup",
         naverSocialLogin: "auth/social-login/naver",
         naverSocialJoin: "auth/signup/naver",
         registerFirebaseToken: "auth/register/firebase-token",

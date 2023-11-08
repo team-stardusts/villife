@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { Alert, SafeAreaView, View } from "react-native";
 import useScreenMessage from "../../../common/hooks/multilingual/hooks";
-import useCreateAccountScreenStyles from "./styles";
+import useSetAuthorityScreenStyles from "./styles";
 import ScreenTitleView from "../../../common/blocks/title_view";
-import CreateAccountScreenProps, { AccountType } from "./types";
+import SetAuthorityScreenProps, { AccountType } from "./types";
 import AuthScreenCommonInput from "../../blocks/input";
 import UserTypeSelectionButton from "../../blocks/icon_user_type";
 import useAuthService from "../../services/authentication";
@@ -11,13 +11,13 @@ import { VILLIFE_AUTHORITY } from "../../../../libs/rest_apis/villife/absc";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { IAuthServiceProvider } from "../../services/authentication/types";
 
-export default function CreateAccountScreen({ navigation, route }: CreateAccountScreenProps) {
+export default function CreateAccountScreen({ navigation, route }: SetAuthorityScreenProps) {
     //const { host, access_token } = route.params;
     const { host, access_token } = route.params;
     //const host: HostType = "villife";
     const auth: IAuthServiceProvider = useAuthService();
     const messages = useScreenMessage();
-    const styles = useCreateAccountScreenStyles(host);
+    const styles = useSetAuthorityScreenStyles(host);
 
     const [account, setAccount] = useState<AccountType>({
         authority: null, //VILLIFE_AUTHORITY.RENTER,
@@ -38,7 +38,7 @@ export default function CreateAccountScreen({ navigation, route }: CreateAccount
         }
 
         if (host === "apple") {
-            navigation.navigate("verify_personal_info", { authority, host });
+            navigation.navigate("verify_personal_info", { authority, host, id: "", password: "" });
             return;
         }
 

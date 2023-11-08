@@ -185,6 +185,7 @@ export type MessagesByLanguage = {
             title_of_login_btn: string;
             title_of_naver_social_login_btn: string;
             join: string;
+            join_intro: string;
             reset_password: string;
             invalid_login_data: {
                 id: string;

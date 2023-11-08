@@ -12,7 +12,7 @@ import ComplaintHomeScreen from "../../main/complaint/screens/home";
 import ComplaintRegisterScreen from "../../main/complaint/screens/register";
 import ComplaintDetailScreen from "../../main/complaint/screens/detail";
 import ComplaintModifyScreen from "../../main/complaint/screens/modify";
-import CreateAccountScreen from "../../auth/screens/create_account";
+import SetAuthorityScreen from "../../auth/screens/set_authority";
 import HomeScreen from "../../main/home/screens/home";
 import ImageDetailView from "../screens/image_detail_view";
 import LoginScreen from "../../auth/screens/login";
@@ -52,6 +52,7 @@ import MFDepositCheckScreen from "../../expense/management_fee/screens/deposit_c
 import RefundPolicyScreen from "../../expense/payment/screens/refund_policy";
 import VerifyPersonalInfoScreen from "../../auth/screens/verify_personal_info";
 import VerifyAuthCodeScreen from "../../auth/screens/verify_auth_code";
+import SetAccountScreen from "../../auth/screens/set_account";
 
 enableScreens(true);
 
@@ -76,11 +77,12 @@ export default function ScreenRouter() {
                 <Stack.Screen name={"permission_request"} component={PermissionRequestScreen} />
                 <Stack.Screen name={"login"} component={LoginScreen} />
                 <Stack.Screen name={"terms_of_service"} component={TermsOfServiceScreen} />
-                <Stack.Screen name={"create_account"} component={CreateAccountScreen} />
+                <Stack.Screen name={"create_account"} component={SetAuthorityScreen} />
                 <Stack.Screen name={"welcome"} component={WelcomeScreen} />
                 <Stack.Screen name={"set_building"} component={SetBuildingScreen} />
                 <Stack.Screen name={"verify_personal_info"} component={VerifyPersonalInfoScreen} />
                 <Stack.Screen name={"verify_auth_code"} component={VerifyAuthCodeScreen} />
+                <Stack.Screen name={"set_account"} component={SetAccountScreen} />
             </Stack.Group>
             <Stack.Group>
                 <Stack.Screen name={"home"} component={HomeScreen} />

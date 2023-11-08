@@ -20,7 +20,7 @@ export default function useSetBuildingScreenStyles() {
             paddingTop: deviceUI.moderateScale(20),
         },
         inputBox: {
-            height: deviceUI.moderateScale(50),
+            height: deviceUI.moderateScale(60),
             marginBottom: deviceUI.moderateScale(7),
         },
         addressBadgeBox: {

@@ -57,7 +57,7 @@ export default function useVerifyAuthCodeScreenStyles() {
             alignItems: "center",
         },
         inputWrapper: {
-            height: deviceUI.moderateScale(50),
+            height: deviceUI.moderateScale(40),
             width: "85%",
         },
         timerWrapper: {

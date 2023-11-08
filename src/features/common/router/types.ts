@@ -54,6 +54,9 @@ export type VillifeStackParamList = VillifeRootStackParamList & {
         host: HostType;
         access_token?: string | undefined;
     };
+    set_account: {
+        authority: Authority["ADMIN"] | Authority["RENTER"];
+    };
     image_detail_view: {
         uri: string;
     };
@@ -128,6 +131,8 @@ export type VillifeStackParamList = VillifeRootStackParamList & {
     verify_personal_info: {
         authority: Authority["ADMIN"] | Authority["RENTER"];
         host: HostType;
+        id: string;
+        password: string;
     };
     verify_auth_code: {
         authority: Authority["ADMIN"] | Authority["RENTER"];
@@ -136,6 +141,8 @@ export type VillifeStackParamList = VillifeRootStackParamList & {
         mobileCarrier: string;
         phoneNumber: string;
         userName: string;
+        id: string;
+        password: string;
     };
     company_introduction?: {};
     expense_approval?: {};

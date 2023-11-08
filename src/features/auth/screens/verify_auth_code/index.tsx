@@ -4,17 +4,22 @@ import ScreenTitleView from "../../../common/blocks/title_view";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import useVerifyAuthCodeScreenStyles from "./styles";
 import { Alert, Text, TouchableOpacity, View } from "react-native";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import VillifeToastMessage from "../../../common/atoms/toast";
-import { Loginable, Verifiable, VerifyPersonalInfoParams } from "../../../../libs/rest_apis/villife/auth/types";
+import {
+    Joinable,
+    Loginable,
+    Verifiable,
+    VerifyPersonalInfoParams,
+    VillifeSignUpParams,
+} from "../../../../libs/rest_apis/villife/auth/types";
 import VillifeServer from "../../../../libs/rest_apis/villife";
 import ReusableTextInput from "../../../common/blocks/text_input";
-import useAuthService from "../../services/authentication";
 import { keep2Digit } from "../../../common/global_function";
 
 export default function VerifyAuthCodeScreen({ navigation, route }: VerifyAuthCodeScreenProps) {
     const styles = useVerifyAuthCodeScreenStyles();
-    const api: Verifiable & Loginable = VillifeServer.getAuthenticator();
+    const api: Verifiable & Loginable & Joinable = VillifeServer.getAuthenticator();
     //const auth = useAuthService();
     const TIME_LIMIT = 180;
     const MAX_RESEND_COUNT = 3;
@@ -74,18 +79,20 @@ export default function VerifyAuthCodeScreen({ navigation, route }: VerifyAuthCo
         }, 1000);
     };
 
-    const verify = async () => {
-        const params: VerifyPersonalInfoParams = {
+    const signUpWithCode = async () => {
+        const params: VillifeSignUpParams = {
             authority: route.params.authority,
             birth_year: route.params.identityNumberFrontDigit.slice(0, 2),
             birth_day: route.params.identityNumberFrontDigit.slice(2),
             code: authcode as string,
             phone_number: route.params.phoneNumber.replace(/-/g, ""),
             user_name: route.params.userName,
+            id: route.params.id,
+            password: route.params.password,
         };
 
         //const result = await auth.join(route.params.host, params);
-        const result = await api.verifyPersonalInfo(params);
+        const result = await api.join(params);
 
         console.log("[VERIFY_AUTH_CODE]", result.data?.data, result.data?.status);
 
@@ -102,6 +109,8 @@ export default function VerifyAuthCodeScreen({ navigation, route }: VerifyAuthCo
                                     params: {
                                         authority: route.params.authority,
                                         host: route.params.host,
+                                        id: route.params.id,
+                                        password: route.params.password,
                                     },
                                 },
                             ],
@@ -130,7 +139,7 @@ export default function VerifyAuthCodeScreen({ navigation, route }: VerifyAuthCo
                 bottomButton={{
                     title: "다음",
                     onPress: () => {
-                        verify();
+                        signUpWithCode();
                     },
                     disabled: authcode === null || authcode?.length < 6,
                 }}>

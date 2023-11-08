@@ -1,4 +1,4 @@
-import { Alert, Platform, SafeAreaView, Text, View } from "react-native";
+import { Alert, Platform, SafeAreaView, Text, TouchableOpacity, View } from "react-native";
 import useScreenMessage from "../../../common/hooks/multilingual/hooks";
 import LoginScreenProps from "./types";
 import useLoginScreenStyles from "./styles";
@@ -11,13 +11,13 @@ import { LoginServiceParams } from "../../services/authentication/types";
 import VillifeToastMessage from "../../../common/atoms/toast";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import LoginButton from "./blocks/button";
+import useStyler from "../../../common/hooks/styler/hooks";
 
 export default function LoginScreen({ navigation }: LoginScreenProps) {
     const auth = useAuthService();
     const messages = useScreenMessage();
     const styles = useLoginScreenStyles();
     const [hosts, setHosts] = useState<HostType[]>(["villife", "naver"]);
-
     const [account, setAccount] = useState<LoginServiceParams>({
         id: "",
         password: "",
@@ -117,6 +117,28 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
                             </View>
                         );
                     })}
+                    <View style={styles.joinLink.textWrapper}>
+                        <TouchableOpacity
+                            activeOpacity={0.4}
+                            onPress={() => {
+                                console.log("회원가입 클릭");
+                                navigation.navigate("create_account", {
+                                    host: "villife",
+                                    access_token: undefined,
+                                });
+                            }}>
+                            <View style={styles.joinLink.textWrapper}>
+                                <Text style={styles.joinLink.text}>{messages.messages.auth.login.join_intro}</Text>
+                                <Text style={[styles.joinLink.text, styles.joinLink.joinText]}>
+                                    {messages.messages.auth.login.join}
+                                </Text>
+                            </View>
+                        </TouchableOpacity>
+                        {/*  <Text style={[{ marginHorizontal: deviceUI.moderateScale(8) }, styles.joinLink.text]}>|</Text> */}
+                        {/* <TouchableOpacity activeOpacity={0.4} onPress={showToast}>
+                            <Text style={styles.joinLink.text}>{messages.messages.auth.login.reset_password}</Text>
+                        </TouchableOpacity> */}
+                    </View>
                 </KeyboardAwareScrollView>
             </ScreenTitleView>
         </SafeAreaView>

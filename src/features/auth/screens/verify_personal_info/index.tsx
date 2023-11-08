@@ -85,6 +85,8 @@ export default function VerifyPersonalInfoScreen({ navigation, route }: VerifyPe
                             mobileCarrier: personalInfo.mobileCarrier as string,
                             phoneNumber: personalInfo.phoneNumber as string,
                             userName: personalInfo.name as string,
+                            id: route.params.id,
+                            password: route.params.password,
                         });
                     },
                     disabled: !isDone(),

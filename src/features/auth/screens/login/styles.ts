@@ -29,7 +29,7 @@ export default function useLoginScreenStyles() {
             marginBottom: deviceUI.moderateScale(4),
         },
         inputWrapper: {
-            height: deviceUI.getScreenSize().height * 0.04,
+            height: deviceUI.moderateScale(40),
         },
         btnWrapper: {
             height: deviceUI.getScreenSize().height * 0.06,
@@ -101,6 +101,15 @@ export default function useLoginScreenStyles() {
         },
         text: {
             ...theme.font.researved.h5,
+        },
+        joinText: {
+            marginLeft: deviceUI.moderateScale(10),
+            color: theme.color.specified.blue,
+        },
+        joinWrapper: {
+            flexDirection: "row",
+            alignItems: "flex-start",
+            justifyContent: "center",
         },
     });
 

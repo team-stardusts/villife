@@ -35,7 +35,7 @@ export default function useVerifyPersonalInfoScreenStyles() {
             color: theme.color.specified.blue,
         },
         inputWrapper: {
-            height: deviceUI.moderateScale(30),
+            height: deviceUI.moderateScale(40),
         },
         iconWrapper: {
             height: "100%",

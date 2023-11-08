@@ -9,7 +9,7 @@ export interface Loginable {
 }
 
 export interface Joinable {
-    join(): Response<any>;
+    join(params: VillifeSignUpParams): Response<string>;
     socialJoin(host: SocialLoginHostType, params: SocialJoinParamsType): Response<SocialJoinResultType>;
 }
 
@@ -33,6 +33,17 @@ export type VerifyPersonalInfoParams = {
     code: string;
     phone_number: string;
     user_name: string;
+};
+
+export type VillifeSignUpParams = {
+    authority: Authority[keyof Authority];
+    birth_day: string;
+    birth_year: string;
+    code: string;
+    phone_number: string;
+    user_name: string;
+    id: string;
+    password: string;
 };
 
 export type LoginResult = {
