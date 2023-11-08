@@ -16,6 +16,7 @@ export enum Situation {
     NORMAL,
     NO_BUILDING,
     NO_ROOM,
+    REFRESHED,
 }
 
 export enum LoadingState {
