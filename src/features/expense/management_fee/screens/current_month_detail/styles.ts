@@ -43,7 +43,7 @@ export default function useManagementFeeCurrentMonthDetailScreenStyles() {
 
         billBoxTitle: {
             marginTop: deviceUI.moderateScale(16),
-            mfontFamily: theme.font.fontFamily.pretendard.regular,
+            fontFamily: theme.font.fontFamily.pretendard.regular,
             fontSize: deviceUI.moderateScale(16),
             color: theme.color.specified.black,
         },

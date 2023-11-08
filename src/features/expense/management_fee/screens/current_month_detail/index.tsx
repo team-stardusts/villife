@@ -18,11 +18,8 @@ export default function ManagementFeeCurrentMonthDetailScreen(props: ManagementF
     const styles = useManagementFeeDetailScreenStyles();
     const manager: UserPaymentManagerBase = useManagementFeeManager() as UserPaymentManagerBase;
     const user = useUserInformation();
-    const [paidDR, setPaidDR] = useState<PaidDateRange>({});
-    const [selectedDate, setSelectedDate] = useState<SelectedDate | null>(null);
-    const [selectedFee, setSelectedFee] = useState<ManagementFee.ManagementFee | undefined>(undefined);
 
-    useEffect(() => {
+    /* useEffect(() => {
         const _paidPR: PaidDateRange = {};
 
         manager.history.forEach((fee) => {
@@ -40,15 +37,15 @@ export default function ManagementFeeCurrentMonthDetailScreen(props: ManagementF
 
         if (manager.history.length > 0) {
         }
-    }, [manager.history]);
+    }, [manager.history]); */
 
-    useEffect(() => {
+    /* useEffect(() => {
         if (selectedDate === null) return;
 
         const _fee = manager.history.find((fee) => fee.year === selectedDate.year && fee.month === selectedDate.month);
 
         setSelectedFee(_fee);
-    }, [selectedDate]);
+    }, [selectedDate]); */
 
     const currentMonthFee = manager.history[manager.history.length - 1]?.amount_won;
     const unpaidFee =
