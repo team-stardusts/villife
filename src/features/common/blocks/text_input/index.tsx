@@ -1,4 +1,4 @@
-import InputIdentityNumber from "./\bidentity_number";
+import InputIdentityNumber from "./identity_number";
 import Input6DigitAuthCode from "./6_digit_auth_code";
 import InputPhoneNumber from "./phone_number";
 import InputPlateNumber from "./plate_number";

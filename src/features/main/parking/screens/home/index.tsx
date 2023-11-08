@@ -9,6 +9,8 @@ import useParkingHomeScreenStyles from "./styles";
 import { Vehicle } from "../../services/states/types";
 import useUserInformation from "../../../../common/hooks/service/user_info";
 import VehicleListView from "./list";
+import Button from "../../../../common/atoms/button";
+import VillifeAuthManager from "../../../../../libs/rest_apis/villife/auth";
 
 export default function ParkingScreen({ navigation, route }: ParkingScreenProps) {
     const messages = useScreenMessage();
@@ -103,6 +105,17 @@ export default function ParkingScreen({ navigation, route }: ParkingScreenProps)
                 applyDefaultHorizontalPadding: true,
                 applyDefaultVerticalPadding: false,
             }}>
+            <Button
+                title={"refresh"}
+                onPress={async () => {
+                    const result = await new VillifeAuthManager().refresh({
+                        expiredAccessToken: user?.rawdata.accessToken || "",
+                        refreshToken: user?.rawdata.refreshToken || "",
+                    });
+
+                    console.log("refresh", result.isSuccessful);
+                }}
+            />
             <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
                 {!user?.isAdmin && <VehicleCardView vehicles={parkingLot.userVehicles} />}
                 <VehicleListView vehicles={sortAndSetVehiclesForRender()} />
