@@ -14,17 +14,19 @@ export default function LoginButton(props: SocialLoginButtonProps) {
         case "apple":
             iconName = "apple-logo";
             break;
+        case "naver":
+            iconName = "naver-logo";
+            break;
         default:
             iconName = "villife";
     }
 
     return (
         <TouchableOpacity style={styles.container} activeOpacity={0.6} onPress={() => props.onPress(props.provider)}>
-            {props.provider !== "villife" && (
-                <View style={styles.iconWrapper}>
-                    <Icon name={iconName} size={styles.icon.width} color={styles.icon.color} />
-                </View>
-            )}
+            <View style={styles.iconWrapper}>
+                <Icon name={iconName} size={styles.icon.width} color={styles.icon.color} />
+            </View>
+
             <Text style={styles.btnTxt} adjustsFontSizeToFit numberOfLines={1}>
                 {props.title}
             </Text>

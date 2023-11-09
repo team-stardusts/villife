@@ -30,6 +30,7 @@ import { IconVillife } from "./villife";
 import IconCharactorBook from "./charactor_book";
 import IconCopy from "./copy";
 import IconAppleLogo from "./apple_logo";
+import IconNaverLogo from "./naver_logo";
 
 export default function Icon(props: IconProps) {
     /* let iconProps: ChildIconProps = {
@@ -99,6 +100,8 @@ export default function Icon(props: IconProps) {
             return <IconMenu {...iconProps} />;
         case "matrix":
             return <IconMatrix {...iconProps} />;
+        case "naver-logo":
+            return <IconNaverLogo {...iconProps} />;
         case "round-person":
             return <IconRoundPerson {...iconProps} />;
         case "question-mark":

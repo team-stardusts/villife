@@ -32,7 +32,7 @@ export default function useLoginScreenStyles() {
             height: deviceUI.moderateScale(40),
         },
         btnWrapper: {
-            height: deviceUI.getScreenSize().height * 0.06,
+            height: deviceUI.getScreenSize().height * 0.065,
             marginTop: deviceUI.moderateScale(10),
         },
     });

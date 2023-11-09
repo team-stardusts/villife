@@ -29,6 +29,7 @@ export default function HomeContentFromManagementFee() {
         manager.history.forEach((v) => {
             if (v.is_paid === false) {
                 _unpaidFee += v.amount_won;
+                //console.log(v.year, v.month, v.amount_won, v.overdue_interest);
             }
         });
 

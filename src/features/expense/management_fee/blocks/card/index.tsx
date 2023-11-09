@@ -112,7 +112,7 @@ export default function MFHistoryCardView(props: MFHistoryCardViewProps) {
                     </View>
                     <Text style={styles.rowValue}>
                         {props.lastest_noti_year === undefined || props.lastest_noti_month === undefined
-                            ? "납부이력 없음"
+                            ? "고지이력 없음"
                             : `${props.lastest_noti_year}년 ${props.lastest_noti_month}월`}
                     </Text>
                 </View>

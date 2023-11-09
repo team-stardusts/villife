@@ -1,29 +1,12 @@
 import { Path, Svg } from "react-native-svg";
-import { IconArrowProps } from "./types";
+import { CommonIconProps } from "../types";
 
 const ICON_DEFAULT_COLOR: string = "#E4E4E4" as const;
 
-export default function IconAppleLogo(props: IconArrowProps) {
+export default function IconAppleLogo(props: CommonIconProps) {
     const { color, size } = props;
     const widthRatio: number = 16 / (16 + 19);
     const heightRatio: number = 19 / (16 + 19);
-
-    //let direction: IconArrowProps["direction"] = "left";
-    let d: string = "M15 18L9 12L15 6"; //Left
-
-    switch (props.direction) {
-        case "up":
-            d = "M18 15L12 9L6 15";
-            break;
-        case "down":
-            d = "M6 9L12 15L18 9";
-            break;
-        case "right":
-            d = "M9 18L15 12L9 6";
-            break;
-        default: // Left
-            break;
-    }
 
     return (
         <Svg width={size * widthRatio} height={size * heightRatio} viewBox="0 0 16 19" fill="none">

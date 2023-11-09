@@ -39,6 +39,7 @@ export type IconSeries =
     | "clock-arrow"
     | "menu"
     | "matrix"
+    | "naver-logo"
     | "round-person"
     | "question-mark"
     | "three-dots-vertical"
