@@ -1,4 +1,4 @@
-import { ColorValue, StyleSheet } from "react-native";
+import { ColorValue, StyleProp, StyleSheet, TextStyle } from "react-native";
 import TextInputProps from "../../../atoms/textinput/types";
 
 export default interface UniversalTextInputProps extends TextInputProps {

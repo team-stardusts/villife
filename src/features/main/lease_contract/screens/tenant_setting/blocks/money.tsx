@@ -37,7 +37,7 @@ export default function Money(props: MoneyProps) {
             </View>
             <View style={props.styles.moneyInputBox}>
                 <UniversalTextInput
-                    style={props.styles.moneyInput}
+                    textAlign="right"
                     placeholder={`${props.title}를 입력해주세요.`}
                     value={money === null ? undefined : insertCommaToNumber(money)}
                     lowlightColor={props.styles.moneyInputLowLight.color}

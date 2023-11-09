@@ -15,16 +15,15 @@ export default function useTenantSettingScreenStyles() {
         wrapper: {},
         row: {
             width: "100%",
-            height: deviceUI.moderateScale(50),
+            height: deviceUI.moderateScale(35),
             flexDirection: "row",
             justifyContent: "space-between",
             alignItems: "center",
             paddingHorizontal: deviceUI.moderateScale(15),
-            marginVertical: deviceUI.moderateScale(10),
+            marginVertical: deviceUI.moderateScale(17),
         },
         col: {
             width: "100%",
-            //maxHeight: deviceUI.moderateScale(70),
             paddingHorizontal: deviceUI.moderateScale(15),
             marginTop: deviceUI.moderateScale(20),
         },
@@ -51,7 +50,7 @@ export default function useTenantSettingScreenStyles() {
         },
         contractTextBox: {
             width: "50%",
-            height: "60%",
+            height: "100%",
             justifyContent: "center",
             alignItems: "center",
             borderColor: theme.color.specified.blue,
@@ -72,16 +71,11 @@ export default function useTenantSettingScreenStyles() {
             color: theme.color.specified.black,
         },
         moneyInputBox: {
-            height: "55%",
-            width: "70%",
+            height: "100%",
+            width: "65%",
             flexDirection: "row",
             justifyContent: "flex-end",
             alignItems: "center",
-        },
-        moneyInput: {
-            height: "100%",
-            textAlign: "right",
-            paddingHorizontal: deviceUI.moderateScale(10),
         },
         moneyInputLowLight: {
             color: theme.color.specified.blue,
@@ -124,7 +118,7 @@ export default function useTenantSettingScreenStyles() {
             marginHorizontal: deviceUI.moderateScale(10),
         },
         tenantInfoInputBox: {
-            height: deviceUI.moderateScale(30),
+            height: deviceUI.moderateScale(35),
             marginTop: deviceUI.moderateScale(10),
             marginBottom: deviceUI.moderateScale(5),
         },

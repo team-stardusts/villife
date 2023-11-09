@@ -5,6 +5,7 @@ import useStyler from "../../../common/hooks/styler/hooks";
 import { VILLIFE_AUTHORITY } from "../../../../libs/rest_apis/villife/absc";
 import { useEffect, useRef } from "react";
 import { ANIMATION_DURATION_FAST_LV1, ANIMATION_DURATION_FAST_LV2 } from "../../../common/constants";
+import { Shadow } from "react-native-shadow-2";
 
 export default function UserTypeSelectionButton({
     caption,
@@ -53,6 +54,16 @@ export default function UserTypeSelectionButton({
 
     const styles = StyleSheet.create({
         container: {},
+        shadow: {
+            borderRadius: size * 0.2,
+            backgroundColor: theme.color.specified.white,
+            shadowColor: theme.color.specified.darkgrey,
+            shadowOpacity: 0.4,
+            shadowOffset: {
+                height: 2,
+                width: 0,
+            },
+        },
         wrapper: {
             width: size,
             height: size * 1.2,
@@ -61,7 +72,7 @@ export default function UserTypeSelectionButton({
             borderRadius: size * 0.2,
             borderWidth: size * 0.05,
             backgroundColor: theme.color.specified.white,
-            ...Platform.select({
+            /* ...Platform.select({
                 ios: {
                     shadowColor: theme.color.specified.darkgrey,
                     shadowOpacity: 0.4,
@@ -74,7 +85,7 @@ export default function UserTypeSelectionButton({
                 android: {
                     elevation: 15,
                 },
-            }),
+            }), */
         },
         iconBox: {
             flex: 5,
@@ -94,24 +105,26 @@ export default function UserTypeSelectionButton({
     });
     return (
         <TouchableOpacity style={styles.container} activeOpacity={0.6} onPress={() => onPress && onPress()}>
-            <Animated.View
-                style={[
-                    styles.wrapper,
-                    {
-                        transform: [
-                            {
-                                scale: scaleValue,
-                            },
-                        ],
-                    },
-                ]}>
-                <View style={styles.iconBox}>
-                    <Icon color={color} size={size * 0.6} />
-                </View>
-                <View style={styles.captionBox}>
-                    <Text style={styles.caption}>{caption}</Text>
-                </View>
-            </Animated.View>
+            <Shadow style={styles.shadow}>
+                <Animated.View
+                    style={[
+                        styles.wrapper,
+                        {
+                            transform: [
+                                {
+                                    scale: scaleValue,
+                                },
+                            ],
+                        },
+                    ]}>
+                    <View style={styles.iconBox}>
+                        <Icon color={color} size={size * 0.6} />
+                    </View>
+                    <View style={styles.captionBox}>
+                        <Text style={styles.caption}>{caption}</Text>
+                    </View>
+                </Animated.View>
+            </Shadow>
         </TouchableOpacity>
     );
 }

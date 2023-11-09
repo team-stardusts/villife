@@ -1,4 +1,4 @@
-import { ForwardedRef, RefObject, forwardRef, useEffect, useRef, useState } from "react";
+import { ForwardedRef, forwardRef, useState } from "react";
 import {
     ColorValue,
     NativeSyntheticEvent,
@@ -10,16 +10,14 @@ import TextInput from "../../../atoms/textinput";
 import UniversalTextInputProps from "./types";
 import { StyleSheet } from "react-native";
 import useStyler from "../../../hooks/styler/hooks";
-import { Animated } from "react-native";
-import { ANIMATION_DURATION_FAST_LV2 } from "../../../constants";
 
 const UniversalTextInput = forwardRef((props: UniversalTextInputProps, ref: ForwardedRef<OriginTextInput>) => {
     const { deviceUI, theme } = useStyler();
-    const animatedBorderWidth = useRef(new Animated.Value(1)).current;
     const [isFocusing, setIsFocusing] = useState<boolean>(false);
-
     const { highlightColor, lowlightColor } = props;
 
+    /* 
+    const animatedBorderWidth = useRef(new Animated.Value(1)).current;
     useEffect(() => {
         let toValue = isFocusing ? deviceUI.moderateScale(2) : deviceUI.moderateScale(1);
 
@@ -32,26 +30,32 @@ const UniversalTextInput = forwardRef((props: UniversalTextInputProps, ref: Forw
         return () => {
             animatedBorderWidth.stopAnimation();
         };
-    }, [isFocusing]);
+    }, [isFocusing]); */
 
     const styles = StyleSheet.create({
-        container: {
+        /* container: {
             flex: 1,
+            minHeight: deviceUI.moderateScale(30),
             borderRadius: deviceUI.moderateScale(8),
             borderColor: isFocusing
                 ? highlightColor ?? theme.color.specified.blue
                 : lowlightColor ?? theme.color.specified.lightgrey,
             justifyContent: "center",
-            paddingVertical: deviceUI.moderateScale(1),
             paddingHorizontal: deviceUI.moderateScale(1),
-        },
+        }, */
         input: {
-            flex: 1,
+            height: "100%",
+            width: "100%",
+            minHeight: deviceUI.moderateScale(20),
+            textAlignVertical: "center",
             backgroundColor: theme.color.specified.white,
             borderRadius: deviceUI.moderateScale(8),
-            paddingVertical: deviceUI.moderateScale(2),
-            paddingHorizontal: deviceUI.moderateScale(5),
-            //...theme.font.researved.h5,
+            borderWidth: isFocusing ? deviceUI.moderateScale(2) : deviceUI.moderateScale(1),
+            borderColor: isFocusing
+                ? highlightColor ?? theme.color.specified.blue
+                : lowlightColor ?? theme.color.specified.lightgrey,
+            paddingHorizontal: deviceUI.moderateScale(10),
+            fontFamily: theme.font.fontFamily.pretendard.regular,
         },
     });
     //const styles = useUniversialTextinputStyles({ isFocusing, highlightColor, lowlightColor });
@@ -91,19 +95,22 @@ const UniversalTextInput = forwardRef((props: UniversalTextInputProps, ref: Forw
     };
 
     return (
-        <Animated.View style={[styles.container, { borderWidth: animatedBorderWidth }]}>
-            <TextInput
-                ref={ref}
-                style={[props.style, styles.input]}
-                {...props}
-                placeholderTextColor={getPlaceholderTextColor()}
-                onChange={onChange}
-                onChangeText={onChangeText}
-                onFocus={onFocus}
-                onBlur={onBlur}
-            />
-        </Animated.View>
+        <TextInput
+            ref={ref}
+            style={[styles.input]}
+            {...props}
+            placeholderTextColor={getPlaceholderTextColor()}
+            onChange={onChange}
+            onChangeText={onChangeText}
+            onFocus={onFocus}
+            onBlur={onBlur}
+            allowFontScaling
+        />
     );
 });
 
 export default UniversalTextInput;
+{
+    /* <Animated.View style={[styles.container, { borderWidth: animatedBorderWidth }]}>
+        </Animated.View> */
+}

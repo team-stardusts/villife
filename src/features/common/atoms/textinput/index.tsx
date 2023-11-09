@@ -1,4 +1,4 @@
-import { TextInput as OriginTextInput } from "react-native";
+import { TextInput as OriginTextInput, TextStyle } from "react-native";
 import { NativeSyntheticEvent, TextInputChangeEventData } from "react-native/types";
 import TextInputProps from "./types";
 import { ForwardedRef, forwardRef } from "react";
