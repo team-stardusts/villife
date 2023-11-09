@@ -24,7 +24,7 @@ export default function useSetAuthorityScreenStyles() {
             paddingTop: deviceUI.moderateScale(100),
         },
         wrapper: {
-            height: deviceUI.moderateScale(150),
+            height: deviceUI.moderateScale(130),
             flexDirection: "row",
             justifyContent: "space-evenly",
             marginBottom: deviceUI.moderateScale(5),

@@ -96,6 +96,10 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
                         </View>
                     </View>
                     {hosts.map((host, index) => {
+                        if (Platform.OS === "ios" && host !== "villife") {
+                            return;
+                        }
+
                         let title;
                         switch (host) {
                             case "apple":

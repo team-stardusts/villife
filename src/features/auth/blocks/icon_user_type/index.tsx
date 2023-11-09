@@ -1,8 +1,10 @@
-import { StyleSheet, View, Text, Platform, ColorValue, TouchableOpacity } from "react-native";
+import { StyleSheet, View, Text, Platform, ColorValue, TouchableOpacity, Animated } from "react-native";
 import { IconRoundPeople, IconRoundPerson } from "../../../common/atoms/icon/human";
 import { UserTypeSelectionButtonProps } from "./types";
 import useStyler from "../../../common/hooks/styler/hooks";
 import { VILLIFE_AUTHORITY } from "../../../../libs/rest_apis/villife/absc";
+import { useEffect, useRef } from "react";
+import { ANIMATION_DURATION_FAST_LV1, ANIMATION_DURATION_FAST_LV2 } from "../../../common/constants";
 
 export default function UserTypeSelectionButton({
     caption,
@@ -13,6 +15,30 @@ export default function UserTypeSelectionButton({
 }: UserTypeSelectionButtonProps) {
     const { theme } = useStyler();
     const color: ColorValue = selected ? theme.color.specified.blue : theme.color.specified.lightgrey;
+    const scaleValue = useRef(new Animated.Value(1)).current;
+
+    useEffect(() => {
+        if (selected) {
+            const animation = Animated.sequence([
+                Animated.timing(scaleValue, {
+                    toValue: 1.2,
+                    duration: ANIMATION_DURATION_FAST_LV2,
+                    useNativeDriver: true,
+                }),
+                Animated.timing(scaleValue, {
+                    toValue: 1.15,
+                    duration: ANIMATION_DURATION_FAST_LV1,
+                    useNativeDriver: true,
+                }),
+            ]);
+
+            animation.start();
+
+            return () => {
+                animation.reset();
+            };
+        }
+    }, [scaleValue, selected]);
 
     let Icon = null;
 
@@ -26,7 +52,8 @@ export default function UserTypeSelectionButton({
     }
 
     const styles = StyleSheet.create({
-        toplevelBox: {
+        container: {},
+        wrapper: {
             width: size,
             height: size * 1.2,
             paddingVertical: size * 0.08,
@@ -66,13 +93,25 @@ export default function UserTypeSelectionButton({
         },
     });
     return (
-        <TouchableOpacity style={styles.toplevelBox} activeOpacity={0.6} onPress={() => onPress && onPress()}>
-            <View style={styles.iconBox}>
-                <Icon color={color} size={size * 0.6} />
-            </View>
-            <View style={styles.captionBox}>
-                <Text style={styles.caption}>{caption}</Text>
-            </View>
+        <TouchableOpacity style={styles.container} activeOpacity={0.6} onPress={() => onPress && onPress()}>
+            <Animated.View
+                style={[
+                    styles.wrapper,
+                    {
+                        transform: [
+                            {
+                                scale: scaleValue,
+                            },
+                        ],
+                    },
+                ]}>
+                <View style={styles.iconBox}>
+                    <Icon color={color} size={size * 0.6} />
+                </View>
+                <View style={styles.captionBox}>
+                    <Text style={styles.caption}>{caption}</Text>
+                </View>
+            </Animated.View>
         </TouchableOpacity>
     );
 }
