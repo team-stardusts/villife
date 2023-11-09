@@ -111,7 +111,9 @@ export default function MFHistoryCardView(props: MFHistoryCardViewProps) {
                         {isNotiRequired() && <NotiMark />}
                     </View>
                     <Text style={styles.rowValue}>
-                        {props.lastest_noti_year}년 {props.lastest_noti_month}월
+                        {props.lastest_noti_year === undefined || props.lastest_noti_month === undefined
+                            ? "납부이력 없음"
+                            : `${props.lastest_noti_year}년 ${props.lastest_noti_month}월`}
                     </Text>
                 </View>
                 <View style={[styles.row]}>
@@ -119,7 +121,9 @@ export default function MFHistoryCardView(props: MFHistoryCardViewProps) {
                         최근납부
                     </Text>
                     <Text style={styles.rowValue}>
-                        {props.lastest_paid_year}년 {props.lastest_paid_month}월
+                        {props.lastest_paid_year === undefined || props.lastest_paid_month === undefined
+                            ? "납부이력 없음"
+                            : `${props.lastest_paid_year}년 ${props.lastest_paid_month}월`}
                     </Text>
                 </View>
                 <View style={[styles.row]}>

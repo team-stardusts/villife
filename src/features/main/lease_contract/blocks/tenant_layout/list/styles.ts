@@ -7,7 +7,8 @@ export default function useBuildingTenantListViewStyles() {
     const main = StyleSheet.create({
         container: {
             flex: 1,
-            paddingTop: deviceUI.moderateScale(20),
+            //paddingTop: deviceUI.moderateScale(20),
+            paddingBottom: deviceUI.moderateScale(10),
         },
     });
 
@@ -15,7 +16,7 @@ export default function useBuildingTenantListViewStyles() {
         container: {
             width: "100%",
             height: deviceUI.moderateScale(55),
-            marginBottom: deviceUI.moderateScale(20),
+            marginVertical: deviceUI.moderateScale(10),
             alignItems: "center",
         },
         wrapper: {

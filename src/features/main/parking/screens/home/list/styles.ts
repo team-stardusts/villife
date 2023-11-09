@@ -55,6 +55,7 @@ export default function useVehicleListStyles() {
         title: {
             fontFamily: theme.font.fontFamily.pretendard.bold,
             fontSize: deviceUI.moderateScale(30),
+            color: theme.color.specified.black,
         },
         modifyBox: {
             height: "40%",
