@@ -191,8 +191,14 @@ export default function HomeSideModal(props: HomeSideMoalProps) {
                         <View style={styles.infoWrapper}>
                             <Icon name={"person"} size={deviceUI.moderateScale(80)} color="black" />
                             <View>
-                                <Text>{user?.adminInfomation?.selectedBuilding.name}</Text>
-                                <Text>{user?.name}</Text>
+                                <Text style={styles.infoText} adjustsFontSizeToFit numberOfLines={1}>
+                                    {user?.isAdmin
+                                        ? user?.adminInfomation?.selectedBuilding.name
+                                        : `${user?.roomNumber}호`}
+                                </Text>
+                                <Text style={styles.infoText} adjustsFontSizeToFit numberOfLines={1}>
+                                    {user?.name}
+                                </Text>
                             </View>
                         </View>
                     </View>

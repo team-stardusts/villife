@@ -40,6 +40,7 @@ export default function useTitleCardViewStyles(minHeight?: number) {
         title: {
             fontFamily: theme.font.fontFamily.pretendard.bold,
             fontSize: deviceUI.moderateScale(25),
+            color: theme.color.specified.black,
         },
         button: {
             height: "45%",

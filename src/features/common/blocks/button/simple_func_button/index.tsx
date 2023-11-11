@@ -29,8 +29,8 @@ export default function SimpleFuncButton({ icon, title, titleStyle, onPress }: S
         },
         title: {
             color: theme.color.specified.white,
-            fontWeight: "bold",
-            ...theme.font.researved.h5,
+            fontFamily: theme.font.fontFamily.pretendard.medium,
+            fontSize: deviceUI.moderateScale(13),
         },
     });
 

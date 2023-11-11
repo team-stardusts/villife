@@ -8,24 +8,7 @@ export default function useBuildingInfoViewStyles() {
         contentBox: {
             backgroundColor: theme.color.specified.white,
         },
-        container: {
-            width: "90%",
-            paddingVertical: deviceUI.moderateScale(20),
-        },
-        titleBox: {
-            flexDirection: "row",
-            justifyContent: "space-between",
-            alignItems: "center",
-            paddingLeft: deviceUI.moderateScale(5),
-            paddingBottom: deviceUI.moderateScale(10),
-            borderBottomWidth: deviceUI.moderateScale(5),
-            borderBottomColor: theme.color.series.grey.level1,
-        },
-        title: {
-            fontFamily: theme.font.fontFamily.pretendard.bold,
-            fontSize: deviceUI.moderateScale(24),
-            color: theme.color.specified.black,
-        },
+        container: {},
         editBtn: {
             justifyContent: "center",
             alignItems: "center",

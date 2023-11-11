@@ -74,7 +74,7 @@ export default function useBuildingTenantMatrixViewStyles() {
         },
         text: {
             fontFamily: theme.font.fontFamily.pretendard.medium,
-            fontSize: deviceUI.moderateScale(15),
+            fontSize: deviceUI.moderateScale(12),
             color: theme.color.specified.black,
         },
         checkIconWrapper: {

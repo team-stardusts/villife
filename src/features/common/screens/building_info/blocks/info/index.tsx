@@ -6,20 +6,15 @@ import BankInfoBox from "./blocks/account";
 import { makeChunk } from "../../../../global_function";
 import { useNavigation } from "@react-navigation/native";
 import { VillifeNavigation } from "../../../../router/types";
+import TitleCard from "../../../../blocks/title_card";
 
 export default function BuildingInfoView(props: BuildingInfoViewProps) {
     const styles = useBuildingInfoViewStyles();
     //const navigation = useNavigation<VillifeNavigation>();
 
     return (
-        <ContentBox backgroundColor={styles.contentBox.backgroundColor}>
+        <TitleCard title="건물 정보" headerButton={{ title: "편집하기", onPress: () => console.log("Hello") }}>
             <View style={styles.container}>
-                <View style={styles.titleBox}>
-                    <Text style={styles.title}>건물 정보</Text>
-                    {/* <TouchableOpacity style={styles.editBtn} activeOpacity={0.6} onPress={() => {}}>
-                        <Text style={styles.editBtnTitle}>편집하기</Text>
-                    </TouchableOpacity> */}
-                </View>
                 <View style={styles.section}>
                     <View style={styles.sectionRow}>
                         <Text style={styles.sectionRowKey}>주소</Text>
@@ -97,6 +92,6 @@ export default function BuildingInfoView(props: BuildingInfoViewProps) {
                     </View>
                 )}
             </View>
-        </ContentBox>
+        </TitleCard>
     );
 }

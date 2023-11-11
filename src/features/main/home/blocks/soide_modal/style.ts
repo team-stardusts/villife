@@ -36,13 +36,19 @@ export default function useHomeSideMoalStyles() {
             flexDirection: "row",
             marginLeft: deviceUI.moderateScale(30),
         },
+        infoText: {
+            marginLeft: deviceUI.moderateScale(10),
+            fontFamily: theme.font.fontFamily.pretendard.medium,
+            fontSize: deviceUI.moderateScale(16),
+            color: theme.color.specified.black,
+        },
         menuContainer: {
-            height: deviceUI.getScreenSize().height * 0.85,
+            marginTop: deviceUI.moderateScale(15),
         },
         menu: {
             flexDirection: "row",
             marginLeft: deviceUI.moderateScale(30),
-            paddingTop: deviceUI.moderateScale(20),
+            marginVertical: deviceUI.moderateScale(10),
             alignItems: "center",
         },
         menuIconBox: {
@@ -52,6 +58,9 @@ export default function useHomeSideMoalStyles() {
         },
         menuText: {
             marginLeft: deviceUI.moderateScale(10),
+            fontFamily: theme.font.fontFamily.pretendard.regular,
+            fontSize: deviceUI.moderateScale(15),
+            color: theme.color.specified.black,
         },
     });
 }

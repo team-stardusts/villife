@@ -175,7 +175,7 @@ function BuildingTenant(props: BuildingTenantProps) {
             disabled={props.targetCheckMode && props.roomInfo.roomState !== "signed"}
             //disabled={!props.targetCheckMode || props.tenant.roomState !== "signed"}
         >
-            <Text>
+            <Text style={props.styles.text}>
                 {props.roomInfo.roomNumber}
                 {props.messages.words.room_postfix}
             </Text>

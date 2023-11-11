@@ -63,8 +63,9 @@ export type VillifeStackParamList = VillifeRootStackParamList & {
     };
     mypage: {};
     management_fee_detail?: {};
-    mf_deposit_check: {
+    mf_select_to_do_something: {
         //fees: ManagementFee.BuildingRenterMFHistory[]
+        dowhat: "confirm-deposit" | "message-to";
         fees: string;
     };
     noti_home?: {};

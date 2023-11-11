@@ -1,6 +1,6 @@
 import { ScrollView, Text, TouchableOpacity, View } from "react-native";
 import NavigationView from "../../../../common/blocks/navigation";
-import MFDepositCheckScreenProps from "./types";
+import MFSelectToDoSomethingScreenProps from "./types";
 import useMFDepositCheckScreenStyles from "./styles";
 import { AdminPaymentManagerBase } from "../../services/payment/types";
 import useManagementFeeManager from "../../services/payment";
@@ -11,9 +11,9 @@ import Icon from "../../../../common/atoms/icon";
 import StardustModal from "../../../../common/blocks/universial/stardust_modal";
 import { makeChunk } from "../../../../common/global_function";
 
-export default function MFDepositCheckScreen({ navigation, route }: MFDepositCheckScreenProps) {
+export default function MFSelectToDoSomethingScreen({ navigation, route }: MFSelectToDoSomethingScreenProps) {
     const styles = useMFDepositCheckScreenStyles();
-    const [modalVisible, setModalVisible] = useState<boolean>(false);
+    const [depositCheckModalVisible, setDepositCheckModalVisible] = useState<boolean>(false);
     const [fees, setFees] = useState<ManagementFee.BuildingRenterHistory[]>([]);
     /* 
         if selectAll is true => "전체 선택" 상태
@@ -45,6 +45,14 @@ export default function MFDepositCheckScreen({ navigation, route }: MFDepositChe
         navigation.canGoBack() && navigation.goBack();
     };
 
+    const pressBottomBtn = () => {
+        if (route.params.dowhat === "confirm-deposit") {
+            setDepositCheckModalVisible(true);
+        } else {
+            console.log("여기야 태성아!");
+        }
+    };
+
     return (
         <NavigationView
             headerOptions={{
@@ -61,18 +69,18 @@ export default function MFDepositCheckScreen({ navigation, route }: MFDepositChe
             <StardustModal
                 title="입금 확인하기"
                 subtitle="선택하신 호수를 확인해주세요."
-                modalVisible={modalVisible}
-                setModalVisible={setModalVisible}
+                modalVisible={depositCheckModalVisible}
+                setModalVisible={setDepositCheckModalVisible}
                 buttons={[
                     {
                         text: "취소",
-                        onPress: () => setModalVisible(false),
+                        onPress: () => setDepositCheckModalVisible(false),
                     },
                     {
                         text: "확인",
                         onPress: async () => {
                             await confirm();
-                            setModalVisible(false);
+                            setDepositCheckModalVisible(false);
                         },
                     },
                 ]}>
@@ -147,9 +155,11 @@ export default function MFDepositCheckScreen({ navigation, route }: MFDepositChe
                     <TouchableOpacity
                         style={[styles.bottomBtn, checkedFees.length === 0 && styles.bottomBtnDisabled]}
                         activeOpacity={0.6}
-                        onPress={() => setModalVisible(true)}
+                        onPress={() => pressBottomBtn}
                         disabled={checkedFees.length === 0}>
-                        <Text style={styles.bottomBtnTxt}>입금 확인</Text>
+                        <Text style={styles.bottomBtnTxt}>
+                            {route.params.dowhat === "confirm-deposit" ? "입금 확인" : "메세지 작성하기"}
+                        </Text>
                     </TouchableOpacity>
                 </View>
             </View>

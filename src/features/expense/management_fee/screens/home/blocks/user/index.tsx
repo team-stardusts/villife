@@ -7,7 +7,7 @@ import useManagementFeeManager from "../../../../services/payment";
 import { useEffect, useState } from "react";
 import { ManagementFee } from "../../../../../../../libs/rest_apis/villife/expense/types";
 import { UserPaymentManagerBase } from "../../../../services/payment/types";
-import HistoryBox from "./blocks/history_box";
+import PaymentHistoryBox from "./blocks/history_box";
 
 export default function UserMFView() {
     const styles = useUserMFViewStyles();
@@ -51,7 +51,7 @@ export default function UserMFView() {
                 unpaidFee={unpaidMF}
             />
             <View style={styles.main.wrapper}>
-                <HistoryBox styles={styles.history} manangementFees={manager.history} />
+                <PaymentHistoryBox styles={styles.history} manangementFees={manager.history} />
             </View>
         </ScrollView>
     );

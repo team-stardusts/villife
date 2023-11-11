@@ -10,6 +10,8 @@ import { Filter } from "../../../../common/blocks/top_filter/types";
 import { ManagementFee } from "../../../../../libs/rest_apis/villife/expense/types";
 import buildingManagementFeeFilter from "./filter";
 import MFHistoryCardView from "../../blocks/card";
+import SimpleFuncButton from "../../../../common/blocks/button/simple_func_button";
+import Message from "./blocks/message";
 
 export default function BuildingMFHistoryScreen({ navigation, route }: BuildingMFHistoryScreenProps) {
     const styles = useBuildingMFHistoryScreenStyles();
@@ -50,6 +52,15 @@ export default function BuildingMFHistoryScreen({ navigation, route }: BuildingM
             headerOptions={{
                 title: "관리비 현황 보기",
                 hideBuidingSelector: true,
+                navComponent: Message,
+                navComponentProps: {
+                    onPress: () => {
+                        navigation.navigate("mf_select_to_do_something", {
+                            dowhat: "message-to",
+                            fees: JSON.stringify(filteredHistory),
+                        });
+                    },
+                },
             }}
             bodyOptions={{
                 applyDefaultHorizontalPadding: false,
@@ -89,7 +100,8 @@ export default function BuildingMFHistoryScreen({ navigation, route }: BuildingM
                             activeOpacity={0.6}
                             disabled={filteredHistory.filter((v) => v.total_unpaid_fee > 0).length === 0}
                             onPress={() => {
-                                navigation.navigate("mf_deposit_check", {
+                                navigation.navigate("mf_select_to_do_something", {
+                                    dowhat: "confirm-deposit",
                                     fees: JSON.stringify(filteredHistory),
                                 });
                             }}>
