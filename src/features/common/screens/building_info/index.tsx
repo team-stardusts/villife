@@ -1,22 +1,35 @@
-import { View } from "react-native";
+import { ScrollView } from "react-native";
 import NavigationView from "../../blocks/navigation";
-import useBuildingInfoScreenScreenStyles from "./styles";
+import useBuildingInfoScreenStyles from "./styles";
 import BuildingInfoScreenProp from "./types";
+import useBuildingInfo from "./service";
+import BuildingInfoView from "./blocks/info";
+import { View } from "react-native";
 
 export default function BuildingInfoScreen({ navigation, route }: BuildingInfoScreenProp) {
-    const style = useBuildingInfoScreenScreenStyles();
+    const styles = useBuildingInfoScreenStyles();
+    const building = useBuildingInfo();
+
     return (
         <NavigationView
             headerOptions={{
-                shown: false,
                 title: "건물 정보",
+                style: {
+                    backgroundColor: styles.nav.backgroundColor,
+                },
             }}
             bodyOptions={{
-                applyDefaultHorizontalPadding: false,
+                backgroundColor: styles.nav.backgroundColor,
+                applyDefaultHorizontalPadding: true,
                 applyDefaultVerticalPadding: false,
             }}
-            bottomNavOptions={{ shown: false }}>
-            <View style={style.container}></View>
+            bottomNavOptions={{
+                shown: false,
+            }}>
+            <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
+                {building !== null && <BuildingInfoView buildingInfo={building} />}
+                <View style={styles.dummy}></View>
+            </ScrollView>
         </NavigationView>
     );
 }

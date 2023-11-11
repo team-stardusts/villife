@@ -1,8 +1,8 @@
-import { ColorValue, Dimensions, Modal, Pressable, Text, TouchableOpacity, View } from "react-native";
+import { Alert, ColorValue, Dimensions, Modal, Pressable, Text, TouchableOpacity, View } from "react-native";
 import React, { useEffect, useState } from "react";
 import useBottomEditModalStyles from "./style";
 import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
-import HomeSideMoalProps from "./type";
+import HomeSideMoalProps, { RenderData } from "./type";
 import useStyler from "../../../../common/hooks/styler/hooks";
 import Icon from "../../../../common/atoms/icon";
 import { IconSeries } from "../../../../common/atoms/icon/types";
@@ -19,103 +19,163 @@ export default function HomeSideModal(props: HomeSideMoalProps) {
     const navigation = useNavigation<VillifeNavigation>();
     const { visible, setVisible } = props;
 
-    const renterData: Array<{ name: IconSeries; size: number; color: ColorValue; title: string; onPress: () => void }> =
-        [
-            {
-                name: "speaker",
-                size: deviceUI.moderateScale(40),
-                color: theme.color.specified.black,
-                title: message.messages.main.noti.screen_title,
-                onPress: () => {
-                    setVisible(false);
-                    navigation.navigate("noti_home", {});
-                },
-            },
-            {
-                name: "question-mark",
-                size: deviceUI.moderateScale(40),
-                color: theme.color.specified.black,
-                title: message.messages.main.complaint.frequently_reported_complaints,
-                onPress: () => {
-                    setVisible(false);
-                    VillifeToastMessage.showBottomToast("error", message.messages.boilerplate.preparing_service);
-                },
-            },
-            {
-                name: "building",
-                size: deviceUI.moderateScale(40),
-                color: theme.color.specified.black,
-                title: message.messages.main.home.building_info,
-                onPress: () => {
-                    setVisible(false);
-                    VillifeToastMessage.showBottomToast("error", message.messages.boilerplate.preparing_service);
-                },
-            },
-            {
-                name: "round-person",
-                size: deviceUI.moderateScale(35),
-                color: theme.color.specified.black,
-                title: message.messages.main.home.user_info,
-                onPress: () => {
-                    setVisible(false);
-                    VillifeToastMessage.showBottomToast("error", message.messages.boilerplate.preparing_service);
-                },
-            },
-        ];
+    useEffect(() => {
+        if (user === null) {
+            VillifeToastMessage.showBottomToast("error", "사용자 정보를 읽을 수 없습니다. 다시 로그인 해주세요.");
+            setVisible(false);
+        }
+    }, [user]);
 
-    const adminData: Array<{ name: IconSeries; size: number; color: ColorValue; title: string; onPress: () => void }> =
-        [
-            {
-                name: "speaker",
-                size: deviceUI.moderateScale(40),
-                color: theme.color.specified.black,
-                title: message.messages.main.noti.screen_title,
-                onPress: () => {
-                    setVisible(false);
-                    navigation.navigate("noti_home", {});
-                },
+    const renterData: RenderData = [
+        {
+            name: "speaker",
+            size: deviceUI.moderateScale(40),
+            color: theme.color.specified.black,
+            title: message.messages.main.noti.screen_title,
+            onPress: () => {
+                setVisible(false);
+                navigation.navigate("noti_home", {});
             },
-            {
-                name: "letter",
-                size: deviceUI.moderateScale(40),
-                color: theme.color.specified.black,
-                title: message.messages.main.approval.screen_title,
-                onPress: () => {
-                    setVisible(false);
-                    navigation.navigate("approval_home", {});
-                },
+        },
+        {
+            name: "question-mark",
+            size: deviceUI.moderateScale(40),
+            color: theme.color.specified.black,
+            title: message.messages.main.complaint.frequently_reported_complaints,
+            onPress: () => {
+                setVisible(false);
+                VillifeToastMessage.showBottomToast("error", message.messages.boilerplate.preparing_service);
             },
-            {
-                name: "question-mark",
-                size: deviceUI.moderateScale(40),
-                color: theme.color.specified.black,
-                title: message.messages.main.complaint.frequently_reported_complaints,
-                onPress: () => {
-                    setVisible(false);
-                    VillifeToastMessage.showBottomToast("error", message.messages.boilerplate.preparing_service);
-                },
+        },
+        {
+            name: "building",
+            size: deviceUI.moderateScale(40),
+            color: theme.color.specified.black,
+            title: message.messages.main.home.building_info,
+            onPress: () => {
+                setVisible(false);
+                if (user === null) return;
+
+                let isIvalid: boolean = false;
+                let alertTitle: string = "건물의 정보를 조회할 수 없습니다.";
+                let alertMessage: string | undefined = undefined;
+
+                if (user?.buildingID === undefined) {
+                    isIvalid = true;
+                    alertMessage = "등록된 건물이 없거나 시스템 오류일 수 있습니다.";
+                } else if (user.buildingID === 0) {
+                    isIvalid = true;
+                    alertMessage = "등록된 건물이 없습니다. 등록 후 사용해주세요!";
+                }
+
+                if (isIvalid) {
+                    Alert.alert(alertTitle, alertMessage, [
+                        {
+                            text: "확인",
+                        },
+                    ]);
+
+                    return;
+                }
+
+                navigation.navigate("building_info", {
+                    buildingID: user.buildingID as number,
+                    isAdmin: user.isAdmin,
+                });
             },
-            {
-                name: "building",
-                size: deviceUI.moderateScale(40),
-                color: theme.color.specified.black,
-                title: message.messages.main.home.building_info,
-                onPress: () => {
-                    setVisible(false);
-                    VillifeToastMessage.showBottomToast("error", message.messages.boilerplate.preparing_service);
-                },
+        },
+        {
+            name: "round-person",
+            size: deviceUI.moderateScale(35),
+            color: theme.color.specified.black,
+            title: message.messages.main.home.user_info,
+            onPress: () => {
+                setVisible(false);
+                VillifeToastMessage.showBottomToast("error", message.messages.boilerplate.preparing_service);
             },
-            {
-                name: "round-person",
-                size: deviceUI.moderateScale(35),
-                color: theme.color.specified.black,
-                title: message.messages.main.home.user_info,
-                onPress: () => {
-                    setVisible(false);
-                    VillifeToastMessage.showBottomToast("error", message.messages.boilerplate.preparing_service);
-                },
+        },
+    ];
+
+    const adminData: RenderData = [
+        {
+            name: "speaker",
+            size: deviceUI.moderateScale(40),
+            color: theme.color.specified.black,
+            title: message.messages.main.noti.screen_title,
+            onPress: () => {
+                setVisible(false);
+                navigation.navigate("noti_home", {});
             },
-        ];
+        },
+        {
+            name: "letter",
+            size: deviceUI.moderateScale(40),
+            color: theme.color.specified.black,
+            title: message.messages.main.approval.screen_title,
+            onPress: () => {
+                setVisible(false);
+                navigation.navigate("approval_home", {});
+            },
+        },
+        {
+            name: "question-mark",
+            size: deviceUI.moderateScale(40),
+            color: theme.color.specified.black,
+            title: message.messages.main.complaint.frequently_reported_complaints,
+            onPress: () => {
+                setVisible(false);
+                VillifeToastMessage.showBottomToast("error", message.messages.boilerplate.preparing_service);
+            },
+        },
+        {
+            name: "building",
+            size: deviceUI.moderateScale(40),
+            color: theme.color.specified.black,
+            title: message.messages.main.home.building_info,
+            onPress: () => {
+                setVisible(false);
+                if (user === null) return;
+
+                const buildingID = user?.adminInfomation?.selectedBuilding.id;
+                let isIvalid: boolean = false;
+                let alertTitle: string = "건물의 정보를 조회할 수 없습니다.";
+                let alertMessage: string | undefined = undefined;
+
+                if (buildingID === undefined) {
+                    isIvalid = true;
+                    alertMessage = "등록된 건물이 없거나 시스템 오류일 수 있습니다.";
+                } else if (buildingID === 0) {
+                    isIvalid = true;
+                    alertMessage = "빌라이프에 문의해주세요.";
+                }
+
+                if (isIvalid) {
+                    Alert.alert(alertTitle, alertMessage, [
+                        {
+                            text: "확인",
+                        },
+                    ]);
+
+                    return;
+                }
+
+                navigation.navigate("building_info", {
+                    buildingID: buildingID as number,
+                    isAdmin: user.isAdmin,
+                });
+            },
+        },
+        {
+            name: "round-person",
+            size: deviceUI.moderateScale(35),
+            color: theme.color.specified.black,
+            title: message.messages.main.home.user_info,
+            onPress: () => {
+                setVisible(false);
+                VillifeToastMessage.showBottomToast("error", message.messages.boilerplate.preparing_service);
+            },
+        },
+    ];
     return (
         <Modal
             animationType="fade"

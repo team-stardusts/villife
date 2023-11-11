@@ -9,7 +9,7 @@ export default function useAuthScreenCommonInputStyles() {
             flex: 1,
         },
         titleBox: {
-            flex: 3.3,
+            flex: 5,
             //marginBottom: deviceUI.moderateScale(3),
             justifyContent: "center",
         },
@@ -19,10 +19,9 @@ export default function useAuthScreenCommonInputStyles() {
             fontSize: deviceUI.moderateScale(18),
         },
         inputBox: {
-            flex: 3.4,
+            flex: 5,
         },
         validatorBox: {
-            flex: 3.3,
             alignItems: "center",
             height: deviceUI.moderateScale(50),
             paddingTop: deviceUI.moderateScale(4),

@@ -90,6 +90,7 @@ export namespace VerifyBuildingAddress {
 export type BuildingRoomInfo = {
     contractInfo: BuildingRoomContract;
     contractState: Building.RoomInfo["contract_state"];
+    //constractorName: Building.RoomInfo["contract_info"]
     floor: number;
     residentName: string;
     residentPhoneNumber: string;
@@ -100,7 +101,7 @@ export type BuildingRoomInfo = {
 
 export type BuildingRoomContract = {
     contractID: Building.Contract["contract_id"];
-    contracttorName: Building.Contract["contractor_name"];
+    contractorName: Building.Contract["contractor_name"];
     delinquencyRate: Building.Contract["delinquency_rate"];
     deposit: number;
     expirationDate: Date;

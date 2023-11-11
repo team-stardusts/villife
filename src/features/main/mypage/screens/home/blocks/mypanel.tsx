@@ -17,7 +17,8 @@ export default function MyPanel(props: MyPanelProps) {
                     />
                     <TouchableOpacity style={props.styles.managementBtn} activeOpacity={0.6}>
                         <Text style={props.styles.managementBtnText}>
-                            {user?.isAdmin ? "건물정보 관리" : "내 정보 관리"}
+                            {/* {user?.isAdmin ? "건물정보 관리" : "내 정보 관리"} */}
+                            {"                "}
                         </Text>
                     </TouchableOpacity>
                 </View>
@@ -25,7 +26,7 @@ export default function MyPanel(props: MyPanelProps) {
                     <InfoBox
                         styles={props.styles}
                         name={user?.name ?? ""}
-                        infos={["그린파크 501호", "테슬라 모델 X 139주 9343"]}
+                        infos={[]} //["그린파크 501호", "테슬라 모델 X 139주 9343"]}
                     />
                 </View>
             </View>

@@ -49,7 +49,7 @@ export default function useMyPageHomeScreenStyles() {
             marginTop: deviceUI.moderateScale(10),
             paddingVertical: deviceUI.moderateScale(7),
             paddingHorizontal: deviceUI.moderateScale(15),
-            backgroundColor: theme.color.specified.lightblue,
+            //backgroundColor: theme.color.specified.lightblue,
         },
         managementBtnText: {
             fontFamily: theme.font.fontFamily.pretendard.bold,

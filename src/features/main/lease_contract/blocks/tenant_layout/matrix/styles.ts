@@ -44,12 +44,33 @@ export default function useBuildingTenantMatrixViewStyles() {
         },
         emptyStatus: {
             shadowColor: theme.color.series.grey.level6,
+            ...Platform.select({
+                android: {
+                    borderWidth: 1,
+                    borderColor: theme.color.series.grey.level6,
+                    shadowColor: theme.color.series.grey.level6,
+                },
+            }),
         },
         signedStatus: {
             shadowColor: theme.color.status.primary,
+            ...Platform.select({
+                android: {
+                    borderWidth: 1,
+                    borderColor: theme.color.status.primary,
+                    shadowColor: theme.color.status.primary,
+                },
+            }),
         },
         unsignedStatus: {
             shadowColor: theme.color.status.danger,
+            ...Platform.select({
+                android: {
+                    borderWidth: 1,
+                    borderColor: theme.color.status.danger,
+                    shadowColor: theme.color.status.danger,
+                },
+            }),
         },
         text: {
             fontFamily: theme.font.fontFamily.pretendard.medium,

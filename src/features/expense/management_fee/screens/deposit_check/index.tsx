@@ -9,6 +9,7 @@ import { ManagementFee } from "../../../../../libs/rest_apis/villife/expense/typ
 import MFHistoryCardView from "../../blocks/card";
 import Icon from "../../../../common/atoms/icon";
 import StardustModal from "../../../../common/blocks/universial/stardust_modal";
+import { makeChunk } from "../../../../common/global_function";
 
 export default function MFDepositCheckScreen({ navigation, route }: MFDepositCheckScreenProps) {
     const styles = useMFDepositCheckScreenStyles();
@@ -31,16 +32,6 @@ export default function MFDepositCheckScreen({ navigation, route }: MFDepositChe
     useEffect(() => {
         selectAll === false && setCheckedFees([]);
     }, [selectAll]);
-
-    function makeChunk<T>(data: T[] = [], size: number = 1): T[][] {
-        const arr: T[][] = [];
-
-        for (let i = 0; i < data.length; i += size) {
-            arr.push(data.slice(i, i + size));
-        }
-
-        return arr;
-    }
 
     const confirm = async () => {
         for (const fee of checkedFees) {

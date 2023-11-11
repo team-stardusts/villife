@@ -150,8 +150,10 @@ class BuildingManagementServiceProvider extends AServiceProvider implements IBui
     private convertRoomInfoForUse(tenant: Building.RoomInfo): BuildingRoomInfo {
         const contractInfo = {
             contractID: tenant.contract_info.contract_id,
+            contractorName: tenant.contract_info.contractor_name,
             rentType: tenant.contract_info.rent_type,
             deposit: tenant.contract_info.deposit,
+            delinquencyRate: tenant.contract_info.delinquency_rate,
             monthlyRent: tenant.contract_info.monthly_rent,
             managementFee: tenant.contract_info.management_fee,
             startDate: StardustDateParser.deserialize(tenant.contract_info.start_date),

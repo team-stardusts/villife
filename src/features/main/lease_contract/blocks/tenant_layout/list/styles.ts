@@ -7,8 +7,9 @@ export default function useBuildingTenantListViewStyles() {
     const main = StyleSheet.create({
         container: {
             flex: 1,
-            //paddingTop: deviceUI.moderateScale(20),
-            paddingBottom: deviceUI.moderateScale(10),
+        },
+        dummy: {
+            paddingVertical: deviceUI.moderateScale(10),
         },
     });
 
@@ -36,6 +37,8 @@ export default function useBuildingTenantListViewStyles() {
                     },
                 },
                 android: {
+                    borderWidth: 1,
+                    borderColor: theme.color.specified.lightblue,
                     shadowColor: theme.color.specified.blue,
                     elevation: 5,
                 },

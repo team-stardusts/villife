@@ -49,6 +49,10 @@ export default function CompanyIntroductionScreen(props: CompanyIntroductionScre
             headerOptions={{
                 title: "",
                 shown: false,
+                hideBuidingSelector: true,
+                style: {
+                    backgroundColor: styles.main.navContainer.color,
+                },
             }}
             bodyOptions={{
                 backgroundColor: styles.main.navContainer.color,

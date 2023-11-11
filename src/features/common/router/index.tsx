@@ -54,6 +54,7 @@ import VerifyPersonalInfoScreen from "../../auth/screens/verify_personal_info";
 import VerifyAuthCodeScreen from "../../auth/screens/verify_auth_code";
 import SetAccountScreen from "../../auth/screens/set_account";
 import ManagementFeeCurrentMonthDetailScreen from "../../expense/management_fee/screens/current_month_detail";
+import BuildingInfoScreen from "../screens/building_info";
 
 enableScreens(true);
 
@@ -93,6 +94,7 @@ export default function ScreenRouter() {
                 <Stack.Screen name={"register_building"} component={RegisterBuildingScreen} />
                 <Stack.Screen name={"tenant_detail"} component={TenantDetailScreen} />
                 <Stack.Screen name={"tenant_setting"} component={TenantSettingScreen} />
+
                 <Stack.Screen
                     options={{ presentation: "modal" }}
                     name={"send_message_to_building_tenants"}
@@ -134,7 +136,12 @@ export default function ScreenRouter() {
             <Stack.Group>
                 <Stack.Screen name={"splash"} component={SplashScreen} />
             </Stack.Group>
-            <Stack.Group screenOptions={{ presentation: "modal" }}>
+            <Stack.Group screenOptions={{ presentation: "card" }}>
+                <Stack.Screen
+                    options={{ presentation: "fullScreenModal" }}
+                    name={"building_info"}
+                    component={BuildingInfoScreen}
+                />
                 <Stack.Screen name={"search_address"} component={SearchAddressScreen} />
                 <Stack.Screen name={"image_detail_view"} component={ImageDetailView} />
             </Stack.Group>

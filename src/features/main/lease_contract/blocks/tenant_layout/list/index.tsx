@@ -62,6 +62,7 @@ export default function BuildingTenantListView(props: BuildingTenantListViewProp
                     selectAllStatus={props.selectAllStatus}
                 />
             ))}
+            <View style={styles.main.dummy} />
         </ScrollView>
     );
 }
