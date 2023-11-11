@@ -1,13 +1,15 @@
-import { Modal, View } from "react-native";
+import { Animated, Modal, View } from "react-native";
 import { StardustAlertProps } from "./types";
 import useStardustAlertStyles from "./styles";
 import StardustAlertHeader from "./blocks/header";
 import StardustAlertBody from "./blocks/body";
 import StardustAlertBottom from "./blocks/bottom";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
+import { ANIMATION_DURATION_FAST_LV1 } from "../../../constants";
 
 export default function StardustAlert(props: StardustAlertProps) {
     const styles = useStardustAlertStyles(props.message !== undefined);
+    const scaleValue = useRef(new Animated.Value(0.95)).current;
 
     useEffect(() => {
         return () => {
@@ -17,6 +19,29 @@ export default function StardustAlert(props: StardustAlertProps) {
             });
         };
     }, []);
+
+    useEffect(() => {
+        if (props.visible) {
+            const animation = Animated.sequence([
+                Animated.timing(scaleValue, {
+                    toValue: 1.05,
+                    duration: ANIMATION_DURATION_FAST_LV1,
+                    useNativeDriver: true,
+                }),
+                Animated.timing(scaleValue, {
+                    toValue: 1,
+                    duration: ANIMATION_DURATION_FAST_LV1,
+                    useNativeDriver: true,
+                }),
+            ]);
+
+            animation.start();
+
+            return () => {
+                animation.reset();
+            };
+        }
+    }, [scaleValue, props.visible]);
 
     return (
         <Modal
@@ -32,7 +57,17 @@ export default function StardustAlert(props: StardustAlertProps) {
             }>
             <View style={styles.main.bgwrapper} />
             <View style={styles.main.container}>
-                <View style={styles.main.alert}>
+                <Animated.View
+                    style={[
+                        styles.main.alert,
+                        {
+                            transform: [
+                                {
+                                    scale: scaleValue,
+                                },
+                            ],
+                        },
+                    ]}>
                     <View style={styles.main.header}>
                         <StardustAlertHeader
                             type={props.type}
@@ -47,7 +82,7 @@ export default function StardustAlert(props: StardustAlertProps) {
                     <View style={styles.main.bottom}>
                         <StardustAlertBottom setAlert={props.setAlert} buttons={props.buttons} styles={styles.bottom} />
                     </View>
-                </View>
+                </Animated.View>
             </View>
         </Modal>
     );

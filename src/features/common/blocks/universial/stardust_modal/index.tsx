@@ -1,8 +1,9 @@
-import React from "react";
-import { Modal, View, Text, TouchableOpacity, Image, Dimensions, Pressable, ColorValue } from "react-native";
+import React, { useEffect, useRef } from "react";
+import { Modal, View, Text, TouchableOpacity, Image, Pressable, ColorValue, Animated } from "react-native";
 import { StardustModalProps } from "./types";
 import useStardustModalStyles from "./styles";
 import Icon from "../../../atoms/icon";
+import { ANIMATION_DURATION_FAST_LV1 } from "../../../constants";
 
 type ButtonColor = {
     backgroundColor: ColorValue;
@@ -11,10 +12,34 @@ type ButtonColor = {
 
 export default function StardustModal(props: StardustModalProps) {
     const { styles, theme } = useStardustModalStyles();
+    const scaleValue = useRef(new Animated.Value(0.95)).current;
 
     if (props.buttons.length > 3) {
         console.error("[StartdustModal]", "he maximum number of buttons is 3.");
     }
+
+    useEffect(() => {
+        if (props.modalVisible) {
+            const animation = Animated.sequence([
+                Animated.timing(scaleValue, {
+                    toValue: 1.05,
+                    duration: ANIMATION_DURATION_FAST_LV1,
+                    useNativeDriver: true,
+                }),
+                Animated.timing(scaleValue, {
+                    toValue: 1,
+                    duration: ANIMATION_DURATION_FAST_LV1,
+                    useNativeDriver: true,
+                }),
+            ]);
+
+            animation.start();
+
+            return () => {
+                animation.reset();
+            };
+        }
+    }, [scaleValue, props.modalVisible]);
 
     const setButtonColor = (index: number): ButtonColor => {
         const btns = props.buttons.length;
@@ -48,7 +73,17 @@ export default function StardustModal(props: StardustModalProps) {
             }}
             style={styles.wrapper}>
             <View style={styles.container}>
-                <View style={styles.content}>
+                <Animated.View
+                    style={[
+                        styles.content,
+                        {
+                            transform: [
+                                {
+                                    scale: scaleValue,
+                                },
+                            ],
+                        },
+                    ]}>
                     <View style={styles.textSection}>
                         <View style={styles.titleBox}>
                             {props?.upperRightFunc && (
@@ -102,7 +137,7 @@ export default function StardustModal(props: StardustModalProps) {
                             );
                         })}
                     </View>
-                </View>
+                </Animated.View>
                 <Pressable
                     style={styles.wrapper}
                     onPress={() =>

@@ -3,7 +3,6 @@ import { ColorValue } from "react-native";
 export interface ThemeBase {
     scheme: ColorScheme;
     color: ColorFamily;
-
     font: {
         fontFamily: FontFamily;
     };
