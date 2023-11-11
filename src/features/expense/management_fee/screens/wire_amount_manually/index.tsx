@@ -34,6 +34,7 @@ export default function WireAmountManually(props: WireAmountManuallyScreenProps)
         manager.history.forEach((v) => {
             if (!v.is_paid) {
                 _unpaidFee += v.amount_won;
+                _unpaidFee += v.overdue_interest;
                 _billIDs.push(v.bill_id);
             }
         });
@@ -79,7 +80,7 @@ export default function WireAmountManually(props: WireAmountManuallyScreenProps)
                         </View>
                         <View style={styles.paymentContainer}>
                             <View style={styles.amountBox}>
-                                <Text style={styles.amount}>{insertCommaToNumber(unpaidFee)}원</Text>
+                                <Text style={styles.amount}>{insertCommaToNumber(unpaidFee)} 원</Text>
                             </View>
                             {/* <TouchableOpacity
                                 style={styles.detailBtn}

@@ -3,55 +3,37 @@ import NavigationView from "../../../../common/blocks/navigation";
 import ScreenTitleView from "../../../../common/blocks/title_view";
 import useUserInformation from "../../../../common/hooks/service/user_info";
 import useManagementFeeDetailScreenStyles from "./styles";
-import ManagementFeeDetailScreenProps, { PaidDateRange } from "./types";
-import usePayer from "../../services/payer_legacy";
+import ManagementFeeDetailScreenProps from "./types";
 import { useEffect, useState } from "react";
-import Icon from "../../../../common/atoms/icon";
 import { ManagementFee } from "../../../../../libs/rest_apis/villife/expense/types";
 import useManagementFeeManager from "../../services/payment";
 import { UserPaymentManagerBase } from "../../services/payment/types";
 import { insertCommaToNumber } from "../../../../common/global_function";
-import { SelectedDate } from "../detail/types";
 import RefundPolicyButton from "../../../payment/screens/refund_policy/blocks/button";
+import VillifeToastMessage from "../../../../common/atoms/toast";
 
-export default function ManagementFeeCurrentMonthDetailScreen(props: ManagementFeeDetailScreenProps) {
+export default function ManagementFeeCurrentMonthDetailScreen({ navigation, route }: ManagementFeeDetailScreenProps) {
     const styles = useManagementFeeDetailScreenStyles();
     const manager: UserPaymentManagerBase = useManagementFeeManager() as UserPaymentManagerBase;
     const user = useUserInformation();
+    const [thisMonthMF, setThisMonthMF] = useState<ManagementFee.ManagementFee | null>(null);
 
-    /* useEffect(() => {
-        const _paidPR: PaidDateRange = {};
-
-        manager.history.forEach((fee) => {
-            if (Object.keys(_paidPR).find((year) => parseInt(year) === fee.year)) {
-                if (!_paidPR[fee.year].find((month) => month === fee.month)) {
-                    _paidPR[fee.year].push(fee.month);
-                }
-                return;
-            }
-
-            _paidPR[fee.year] = [fee.month];
-        });
-
-        setPaidDR({ ..._paidPR });
-
+    useEffect(() => {
         if (manager.history.length > 0) {
+            const _thisMonthMF = manager.history[manager.history.length - 1];
+            const today = new Date();
+
+            if (today.getFullYear() === _thisMonthMF.year && today.getMonth() + 1 === _thisMonthMF.month) {
+                setThisMonthMF(_thisMonthMF);
+
+                return;
+            } else {
+                VillifeToastMessage.showBottomToast("info", "아직 이번 달 관리비가 고지되지 않았어요.");
+            }
         }
-    }, [manager.history]); */
-
-    /* useEffect(() => {
-        if (selectedDate === null) return;
-
-        const _fee = manager.history.find((fee) => fee.year === selectedDate.year && fee.month === selectedDate.month);
-
-        setSelectedFee(_fee);
-    }, [selectedDate]); */
-
-    const currentMonthFee = manager.history[manager.history.length - 1]?.amount_won;
-    const unpaidFee =
-        props.route.params && props.route.params.amount_won && manager.history.length > 0
-            ? props.route.params.amount_won - (currentMonthFee || 0)
-            : 0;
+        // 이번 달 관리비 상세내역 진입 조건이 금월 관리비가 0원 이상인 경우 이므로
+        // Else 분기는 필요 없음
+    }, []);
 
     return (
         <NavigationView
@@ -75,26 +57,35 @@ export default function ManagementFeeCurrentMonthDetailScreen(props: ManagementF
                 bottomButton={{
                     title: "이체하기",
                     onPress: () => {
-                        props.navigation.navigate("wire_amount_manually", {
-                            amount_won: props.route.params?.amount_won,
+                        navigation.navigate("wire_amount_manually", {
+                            amount_won: route.params.unpaidFee,
                         });
                     },
                 }}>
                 <ScrollView style={styles.main.container}>
                     <View style={styles.main.totalBox}>
                         <Text style={styles.main.headerText}>{user?.roomNumber}호 관리비</Text>
-                        <Text style={styles.main.total}>
-                            {insertCommaToNumber(
-                                props.route.params?.amount_won ? props.route.params?.amount_won + unpaidFee * 0.12 : 0
-                            )}
-                            원
-                        </Text>
+                        <Text style={styles.main.total}>{insertCommaToNumber(route.params.unpaidFee)}원</Text>
                     </View>
                     <Text style={styles.main.billBoxTitle}>청구금액</Text>
                     <View style={styles.main.billBox}>
-                        <CardRow rowKey={"당월 부과액"} rowValue={`${insertCommaToNumber(currentMonthFee)}`} />
-                        <CardRow rowKey={"미납액"} rowValue={`${insertCommaToNumber(unpaidFee)}`} />
-                        <CardRow rowKey={"미납 연체료"} rowValue={`${insertCommaToNumber(unpaidFee * 0.12)}`} />
+                        <CardRow
+                            rowKey={"당월 관리비"}
+                            rowValue={`${insertCommaToNumber(thisMonthMF?.amount_won ?? 0)}`}
+                        />
+                        <CardRow
+                            rowKey={"당월 연체료"}
+                            rowValue={`${insertCommaToNumber(thisMonthMF?.overdue_interest ?? 0)}`}
+                        />
+                        <CardRow
+                            rowKey={"누적 연체료"}
+                            rowValue={`${insertCommaToNumber(
+                                route.params.unpaidFee -
+                                    (thisMonthMF?.amount_won ?? 0) -
+                                    (thisMonthMF?.overdue_interest ?? 0)
+                            )}`}
+                        />
+                        <CardRow rowKey={"미납액"} rowValue={`${insertCommaToNumber(route.params.unpaidFee)}`} />
                     </View>
                     <View style={styles.main.termsBox}>
                         <RefundPolicyButton />

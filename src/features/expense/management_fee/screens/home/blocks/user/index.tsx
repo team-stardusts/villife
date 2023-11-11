@@ -32,6 +32,7 @@ export default function UserMFView() {
                 // API 업데이트 시 불필요함
                 if (!element.is_paid) {
                     _unpaidMF += element.amount_won;
+                    _unpaidMF += element.overdue_interest;
                 }
             });
 
@@ -42,7 +43,7 @@ export default function UserMFView() {
     return (
         <ScrollView style={styles.main.container}>
             <View style={styles.main.wrapper}>
-                <ManagementFeeBox styles={styles.managementFee} feeRequired={unpaidMF} />
+                <ManagementFeeBox styles={styles.managementFee} manangementFee={thisMonthMF} unpaidFee={unpaidMF} />
                 <BillBox styles={styles.bill} manangementFee={thisMonthMF} unpaidFee={unpaidMF} />
             </View>
             <ManagementFeeStatusScrollView

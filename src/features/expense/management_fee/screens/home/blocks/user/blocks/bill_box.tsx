@@ -6,7 +6,7 @@ import { ManagementFeeBillBoxProps } from "../types";
 import { insertCommaToNumber } from "../../../../../../../common/global_function";
 
 export default function BillBox(props: ManagementFeeBillBoxProps) {
-    const navigation = useNavigation<VillifeNavigation>();
+    //const navigation = useNavigation<VillifeNavigation>();
 
     return (
         <View style={props.styles.container}>
@@ -23,9 +23,16 @@ export default function BillBox(props: ManagementFeeBillBoxProps) {
                     </View>
                     <View style={props.styles.body}>
                         <View style={props.styles.bodyRow}>
-                            <Text style={props.styles.bodyRowKey}>당월 부과액</Text>
+                            <Text style={props.styles.bodyRowKey}>당월 청구액</Text>
                             <Text style={props.styles.bodyRowValue}>
                                 {insertCommaToNumber(props.manangementFee?.amount_won ?? 0)} 원
+                            </Text>
+                        </View>
+                        <View style={props.styles.bodyRow}>
+                            <Text style={props.styles.bodyRowKey}>누적 연체료</Text>
+                            <Text style={props.styles.bodyRowValue}>
+                                {insertCommaToNumber(props.unpaidFee - (props.manangementFee?.overdue_interest ?? 0))}{" "}
+                                원
                             </Text>
                         </View>
                         <View style={props.styles.bodyRow}>

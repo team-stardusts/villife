@@ -5,17 +5,26 @@ import ContentBox from "../../../../../../../common/blocks/content_box";
 import SpinningWon from "../../../../../blocks/icon/spinning_won";
 import { ManagementFeeBoxProps } from "../types";
 import useUserInformation from "../../../../../../../common/hooks/service/user_info";
+import { useEffect, useState } from "react";
 
 export default function ManagementFeeBox(props: ManagementFeeBoxProps) {
     const navigation = useNavigation<VillifeNavigation>();
     const user = useUserInformation();
+    /* const [dueDate, setDueDate] = useState<Date | null>(null);
+
+    useEffect(() => {
+        if (props.manangementFee === undefined) return;
+
+        console.log(new Date(props.manangementFee.year, props.manangementFee.month));
+    }, []); */
+
     const insertCommaToMoney = (money: number): string => {
         if (money == undefined) return "0";
         return money.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     };
 
     const handlePressPaymentBtn = () => {
-        if (props.feeRequired) {
+        if (props.unpaidFee) {
             /* navigation.navigate("confirm_payment_cost", {
                 title: "관리비 결제하기",
                 product_id: props.manangementFee.bill_id,
@@ -34,7 +43,7 @@ export default function ManagementFeeBox(props: ManagementFeeBoxProps) {
                 amount_won: props.feeRequired,
             } */
             navigation.navigate("management_fee_current_month_detail", {
-                amount_won: props.feeRequired,
+                unpaidFee: props.unpaidFee,
             });
         }
     };
@@ -51,16 +60,16 @@ export default function ManagementFeeBox(props: ManagementFeeBoxProps) {
                             <SpinningWon size={20} />
                             {
                                 <Text style={props.styles.managementFee}>
-                                    {props.feeRequired ? insertCommaToMoney(props.feeRequired) : "0"}원
+                                    {props.unpaidFee ? insertCommaToMoney(props.unpaidFee) : "0"}원
                                 </Text>
                             }
                         </View>
-                        {props.feeRequired !== 0 && (
+                        {props.unpaidFee !== 0 && (
                             <TouchableOpacity
                                 style={[props.styles.paymentBtn]}
                                 activeOpacity={0.6}
                                 onPress={handlePressPaymentBtn}
-                                disabled={props.feeRequired === 0}>
+                                disabled={props.unpaidFee === 0}>
                                 <Text style={[props.styles.paymentText]}>{/* 결제하기 */}이체하기</Text>
                             </TouchableOpacity>
                         )}

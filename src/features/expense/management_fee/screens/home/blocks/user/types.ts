@@ -3,7 +3,8 @@ import type useUserMFViewStyles from "./styles";
 
 export type ManagementFeeBoxProps = {
     styles: ReturnType<typeof useUserMFViewStyles>["managementFee"];
-    feeRequired: number;
+    manangementFee: ManagementFee.ManagementFee | undefined;
+    unpaidFee: number;
 };
 
 export type ManagementFeeBillBoxProps = {

@@ -29,6 +29,7 @@ export default function HomeContentFromManagementFee() {
         manager.history.forEach((v) => {
             if (v.is_paid === false) {
                 _unpaidFee += v.amount_won;
+                _unpaidFee += v.overdue_interest;
                 //console.log(v.year, v.month, v.amount_won, v.overdue_interest);
             }
         });
@@ -53,7 +54,7 @@ export default function HomeContentFromManagementFee() {
                 },
             }); */
             navigation.navigate("management_fee_current_month_detail", {
-                amount_won: unpaidFee,
+                unpaidFee: unpaidFee,
             });
         }
     };
