@@ -1,83 +1,84 @@
-import { Dimensions, PixelRatio, Platform } from "react-native";
+import { PixelRatio, Platform, ScaledSize } from "react-native";
 import { getBottomSpace, isIphoneX } from "react-native-iphone-x-helper";
+import { DeviceUiInfo, Dimension } from "./types";
 
-const { width, height } = Dimensions.get("window");
-
-export type Dimension = {
-    width: number;
-    height: number;
-};
-
-export default class DeviceUiInfo {
+export default class DeviceUiInfoProvider implements DeviceUiInfo {
     //gives the device platform iOS or Android
-    private static readonly _platform: Platform["OS"] = Platform.OS;
+    private readonly _platform: Platform["OS"] = Platform.OS;
 
     //gives the width & height of device
-    private static readonly _screenSize: Dimension = {
-        width,
-        height,
-    };
+    private readonly _screenSize: Dimension;
 
     //calculate the width & height based on device pixel ratio
-    private static readonly _screenSizeWithPixelRatio: Dimension = {
-        width: width * PixelRatio.get(),
-        height: height * PixelRatio.get(),
-    };
+    private readonly _screenSizeWithPixelRatio: Dimension;
 
     //standard width/height which will be used as base for calculating the scale.
-    private static readonly _guidelineBase: Dimension = {
+    private readonly _guidelineBase: Dimension = {
         width: 350,
         height: 680,
     };
 
-    private static _isIphoneX = isIphoneX(); //check if device is iPhoneX
-    private static _bottomSpace = getBottomSpace();
+    private _isIphoneX = isIphoneX(); //check if device is iPhoneX
+    private _bottomSpace = getBottomSpace();
 
     /* 
-    static isTablet = DeviceInfo.isTablet(); //check if device is Tablet
-    static appVersion = DeviceInfo.getVersion(); //gives app version
-    static softBarHeight = ExtraDimensions.get("SOFT_MENU_BAR_HEIGHT"); //gives soft menu bar height
-    static statusBarHeight = ExtraDimensions.get("STATUS_BAR_HEIGHT"); //gives status bar height */
+     isTablet = DeviceInfo.isTablet(); //check if device is Tablet
+     appVersion = DeviceInfo.getVersion(); //gives app version
+     softBarHeight = ExtraDimensions.get("SOFT_MENU_BAR_HEIGHT"); //gives soft menu bar height
+     statusBarHeight = ExtraDimensions.get("STATUS_BAR_HEIGHT"); //gives status bar height */
 
     //gives font scale based on pixel ratio
-    public static readonly fontScale: number = PixelRatio.getFontScale();
 
-    public static readonly select = Platform.select;
+    constructor(window: ScaledSize) {
+        this._screenSize = {
+            width: window.width,
+            height: window.height,
+        };
 
-    public static getPlatform(): Platform["OS"] {
+        this._screenSizeWithPixelRatio = {
+            width: window.width * PixelRatio.get(),
+            height: window.height * PixelRatio.get(),
+        };
+    }
+
+    public readonly fontScale: number = PixelRatio.getFontScale();
+
+    public readonly select = Platform.select;
+
+    public getPlatform(): Platform["OS"] {
         return this._platform;
     }
 
-    public static getScreenSize(): Dimension {
+    public getScreenSize(): Dimension {
         return this._screenSize;
     }
 
-    public static getScreenSizeWithPixelRatio(): Dimension {
+    public getScreenSizeWithPixelRatio(): Dimension {
         return this._screenSizeWithPixelRatio;
     }
 
-    public static horizontalScale(size: number): number {
+    public horizontalScale(size: number): number {
         return (this._screenSize.width / this._guidelineBase.width) * size;
     }
 
-    public static verticalScale(size: number): number {
+    public verticalScale(size: number): number {
         return (this._screenSize.height / this._guidelineBase.height) * size;
     }
 
-    public static moderateScale(size: number, factor: number = 0.5): number {
+    public moderateScale(size: number, factor: number = 0.5): number {
         return size + (this.horizontalScale(size) - size) * factor;
     }
 
-    public static actualScale(size: number): number {
-        const inputSize = DeviceUiInfo.moderateScale(size);
+    public actualScale(size: number): number {
+        const inputSize = this.moderateScale(size);
         return inputSize / this.fontScale;
     }
 
-    public static isIphoneX() {
+    public isIphoneX() {
         return this._isIphoneX;
     }
 
-    public static getBottomSpace() {
+    public getBottomSpace() {
         return this._bottomSpace;
     }
 }

@@ -1,5 +1,24 @@
 import { ColorValue } from "react-native";
 
+export interface ThemeBase {
+    scheme: ColorScheme;
+    color: ColorFamily;
+
+    font: {
+        fontFamily: FontFamily;
+    };
+}
+
+export type FontFamily = {
+    pretendard: {
+        regular: string;
+        extraBold: string;
+        medium: string;
+        bold: string;
+        semiBold: string;
+    };
+};
+
 export type ColorScheme = "light" | "dark";
 
 export type ColorFamily = {
@@ -46,12 +65,12 @@ export type ColorSeries = {
     level9: ColorValue;
 };
 
-export type FontFamily = {
+/* export type FontFamily = {
     [key: string]: {
         default: string;
         [key: string]: string;
     };
-};
+}; */
 
 export type ResearvedFonts = {
     [key: string]: {

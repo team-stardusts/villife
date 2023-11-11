@@ -1,9 +1,9 @@
 import { EdgeInsets } from "react-native-safe-area-context";
-import DeviceUiInfo from "../../../../libs/device";
-import ATheme from "../../../../libs/themes/absc";
+import { DeviceUiInfo } from "../../../../libs/device/types";
+import { ThemeBase } from "../../../../libs/themes/types";
 
 export type StylerReturnType = {
-    deviceUI: typeof DeviceUiInfo;
-    theme: typeof ATheme;
+    deviceUI: DeviceUiInfo;
+    theme: ThemeBase;
     safetyEdgeSize: EdgeInsets;
 };
