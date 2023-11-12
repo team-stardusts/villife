@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import NavigationView from "../../../../common/blocks/navigation";
 import useTenantSettingScreenStyles from "./styles";
 import TenantSettingScreenProps, { MoneyTypes, TenantInfo } from "./types";
@@ -97,6 +97,7 @@ export default function TenantSettingScreen({ navigation, route }: TenantSetting
             startDate: dates.startDate,
             expirationDate: dates.endDate,
             rentType: contract,
+            phoneNumber: tenantInfo.phoneNumber,
         };
 
         if (route.params.previous) {

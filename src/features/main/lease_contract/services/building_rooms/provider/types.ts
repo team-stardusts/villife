@@ -40,6 +40,7 @@ export namespace RegisterContract {
         roomId: Building.RegisterContract.Params["room_id"];
         expirationDate: Date;
         startDate: Date;
+        phoneNumber: Building.RegisterContract.Params["phone_number"];
     };
 }
 

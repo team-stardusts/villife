@@ -78,22 +78,29 @@ export default function useRouteFSM() {
 
                     // Default screen이 login이므로, 리프레쉬를 하더라도 0번 스택에 login이 쌓임
                     // Login을 못했거나, 로그인에 실패한 경우에는 이 분기에 도달하지 않음
-                    if (routes.length > 0 && routes[0].name === "login") {
-                        // 정상 로그인
-                        navigation.reset({
-                            index: 0,
-                            routes: [{ name: "home" }],
-                            //routes: [{ name: "set_building" }],
-                            //routes: [{ name: "welcome", params: { authority: 1 } }],
-                            //routes: [{ name: "test" }],
-                            //routes: [{ name: "verify_personal_info", params: { authority: 1 } }],
-                            //routes: [{ name: "verify_auth_code", params: { authority: 1 } }],
-                            //routes: [{ name: "lease_contract" }],
-                            //routes: [{ name: "management_fee" }],
-                            //routes: [{ name: "home" }, { name: "building_management" }],
-                            //routes: [{ name: "home" }, { name: "register_building" }],
-                            //routes: [{ name: "building_management" }],
-                        });
+                    if (routes.length > 0) {
+                        if (routes[0].name === "login") {
+                            // 정상 로그인
+                            navigation.reset({
+                                index: 0,
+                                routes: [{ name: "home" }],
+                                //routes: [{ name: "set_building" }],
+                                //routes: [{ name: "welcome", params: { authority: 1 } }],
+                                //routes: [{ name: "test" }],
+                                //routes: [{ name: "verify_personal_info", params: { authority: 1 } }],
+                                //routes: [{ name: "verify_auth_code", params: { authority: 1 } }],
+                                //routes: [{ name: "lease_contract" }],
+                                //routes: [{ name: "management_fee" }],
+                                //routes: [{ name: "home" }, { name: "building_management" }],
+                                //routes: [{ name: "home" }, { name: "register_building" }],
+                                //routes: [{ name: "building_management" }],
+                            });
+                        } else if (routes[0].name === "welcome") {
+                            navigation.reset({
+                                index: 0,
+                                routes: [{ name: "home" }],
+                            });
+                        }
                     }
 
                     // 이 곳에 다른 스크린으로 라우팅 하는 코드를 삽입할 경우

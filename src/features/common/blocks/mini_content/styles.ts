@@ -24,8 +24,8 @@ export default function useHomeScreenContentStyles() {
             alignItems: "flex-start",
         },
         navigationTitle: {
-            fontFamily: theme.font.fontFamily.pretendard.bold,
-            fontSize: deviceUI.moderateScale(28),
+            fontFamily: theme.font.fontFamily.pretendard.semiBold,
+            fontSize: deviceUI.moderateScale(24),
             color: theme.color.specified.black,
             //marginBottom: deviceUI.moderateScale(5),
             //...theme.font.researved.h2,

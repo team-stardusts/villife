@@ -50,7 +50,7 @@ export default function BuildingSelector({}: BuildingSelectorType) {
                             adjustsFontSizeToFit>
                             {userinfo === null
                                 ? message.messages.navigation.building_not_selected
-                                : userinfo.adminInfomation?.selectedBuilding.name}
+                                : userinfo.adminInfomation?.selectedBuilding?.name}
                         </Text>
                     </View>
                 </TouchableOpacity>

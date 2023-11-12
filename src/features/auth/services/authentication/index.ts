@@ -88,7 +88,7 @@ export default function useAuthService(): IAuthServiceProvider {
                 refreshToken: loginInfo.data.data.refresh_token,
                 ...userInfo.data.data,
             };
-
+            console.log(_loginData);
             await storage.login.set(_loginData);
 
             return {

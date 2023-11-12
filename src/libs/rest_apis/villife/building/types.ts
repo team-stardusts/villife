@@ -162,6 +162,7 @@ export namespace Building {
             rent_type: Contract["rent_type"];
             room_id: RoomInfo["room_id"];
             start_date: Contract["start_date"];
+            phone_number: string;
         };
 
         export type Returns = string;

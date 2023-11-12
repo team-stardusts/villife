@@ -193,7 +193,7 @@ export default function HomeSideModal(props: HomeSideMoalProps) {
                             <View>
                                 <Text style={styles.infoText} adjustsFontSizeToFit numberOfLines={1}>
                                     {user?.isAdmin
-                                        ? user?.adminInfomation?.selectedBuilding.name
+                                        ? user?.adminInfomation?.selectedBuilding?.name
                                         : `${user?.roomNumber}호`}
                                 </Text>
                                 <Text style={styles.infoText} adjustsFontSizeToFit numberOfLines={1}>

@@ -37,7 +37,7 @@ export default function RequestPaymentConfirmationScreen(props: RequestPaymentCo
         const result = await manager.requestPaymentConfirmation({
             amountWon: props.route.params.amountWon === 0 ? 1000 : props.route.params.amountWon,
             billIDs: props.route.params.billIDs,
-            sender: manager.user?.roomNumber.toString() || "TEST",
+            sender: manager.user?.roomNumber.toString(),
         });
 
         VillifeToastMessage.showBottomToast(

@@ -65,6 +65,7 @@ class BuildingManagementServiceProvider extends AServiceProvider implements IBui
             rent_type: params.rentType,
             room_id: params.roomId,
             start_date: StardustDateParser.serialize(params.startDate),
+            phone_number: params.phoneNumber,
         });
 
         if (!result.isSuccessful || result.data?.data === undefined) {
@@ -101,6 +102,7 @@ class BuildingManagementServiceProvider extends AServiceProvider implements IBui
             rent_type: params.rentType,
             room_id: params.roomId,
             start_date: StardustDateParser.serialize(params.startDate),
+            phone_number: params.phoneNumber,
         });
 
         if (!result.isSuccessful || result.data?.data === undefined) {
