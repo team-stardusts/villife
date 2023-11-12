@@ -80,8 +80,6 @@ export default function ComplaintDetailScreen({ navigation, route }: ComplaintDe
                         <TouchableOpacity
                             style={styles.editButton}
                             onPress={() => {
-                                callTo();
-
                                 if (user?.isAdmin) {
                                     setProgressEditModalVisible(true);
                                     return;

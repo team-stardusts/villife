@@ -3,9 +3,11 @@ import NavigationView from "../../../../common/blocks/navigation";
 import ScreenTitleView from "../../../../common/blocks/title_view";
 import useUserInformation from "../../../../common/hooks/service/user_info";
 import useManagementFeeDetailScreenStyles from "./styles";
+
 import ManagementFeeDetailScreenProps from "./types";
 import { useEffect, useState } from "react";
 import { ManagementFee } from "../../../../../libs/rest_apis/villife/expense/types";
+
 import useManagementFeeManager from "../../services/payment";
 import { UserPaymentManagerBase } from "../../services/payment/types";
 import { insertCommaToNumber } from "../../../../common/global_function";

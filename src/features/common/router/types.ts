@@ -45,6 +45,9 @@ export type VillifeStackParamList = VillifeRootStackParamList & {
     compose_message: {
         contractID: number;
     };
+    expense_compose_message: {
+        room_number: number;
+    };
     common_complaint_home: {};
     common_complaint_modify: {};
     common_complaint_register: {};

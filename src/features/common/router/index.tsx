@@ -55,6 +55,7 @@ import VerifyAuthCodeScreen from "../../auth/screens/verify_auth_code";
 import SetAccountScreen from "../../auth/screens/set_account";
 import ManagementFeeCurrentMonthDetailScreen from "../../expense/management_fee/screens/current_month_detail";
 import BuildingInfoScreen from "../screens/building_info";
+import ExpenseComposeMessageScreen from "../../expense/management_fee/screens/compose_message";
 
 enableScreens(true);
 
@@ -122,6 +123,7 @@ export default function ScreenRouter() {
                     component={ManagementFeeCurrentMonthDetailScreen}
                 />
                 <Stack.Screen name={"refund_policy"} component={RefundPolicyScreen} />
+                <Stack.Screen name={"expense_compose_message"} component={ExpenseComposeMessageScreen} />
             </Stack.Group>
             <Stack.Group>
                 <Stack.Screen name={"my_page"} component={MyPageHomeScreen} />

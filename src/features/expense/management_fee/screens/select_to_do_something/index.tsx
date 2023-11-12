@@ -49,7 +49,12 @@ export default function MFSelectToDoSomethingScreen({ navigation, route }: MFSel
         if (route.params.dowhat === "confirm-deposit") {
             setDepositCheckModalVisible(true);
         } else {
-            console.log("여기야 태성아!");
+            for (const fee of checkedFees) {
+                console.log("select", fee.room_number);
+                navigation.navigate("expense_compose_message", {
+                    room_number: fee.room_number,
+                });
+            }
         }
     };
 
@@ -155,7 +160,7 @@ export default function MFSelectToDoSomethingScreen({ navigation, route }: MFSel
                     <TouchableOpacity
                         style={[styles.bottomBtn, checkedFees.length === 0 && styles.bottomBtnDisabled]}
                         activeOpacity={0.6}
-                        onPress={() => pressBottomBtn}
+                        onPress={() => pressBottomBtn()}
                         disabled={checkedFees.length === 0}>
                         <Text style={styles.bottomBtnTxt}>
                             {route.params.dowhat === "confirm-deposit" ? "입금 확인" : "메세지 작성하기"}

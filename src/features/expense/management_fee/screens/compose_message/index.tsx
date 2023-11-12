@@ -4,13 +4,14 @@ import VillifeToastMessage from "../../../../common/atoms/toast";
 import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
 import useStyler from "../../../../common/hooks/styler/hooks";
 import Editor from "./blocks/editor";
-import ComposeMessageScreenProps from "./type";
 import SendButton from "./blocks/send_button";
+import ExpenseComposeMessageScreenProps from "./type";
 
-export default function ComposeMessageScreen(props: ComposeMessageScreenProps) {
+export default function ExpenseComposeMessageScreen(props: ExpenseComposeMessageScreenProps) {
     const message = useScreenMessage();
     const content = useRef("");
     const title = useRef("");
+
     const { deviceUI, theme } = useStyler();
 
     const [loading, setLoading] = React.useState(false);
@@ -25,21 +26,21 @@ export default function ComposeMessageScreen(props: ComposeMessageScreenProps) {
         const params = {
             title: title.current,
             content: content.current,
-            contractID: props.route.params.contractID,
+            room_number: props.route.params.room_number,
         };
         setLoading(false);
-        //isSuccessful = await contractor.requestNotification(params);
+        //isSuccessful = await contractor.requestNotification(params); service 필요
         if (isSuccessful) {
             VillifeToastMessage.showBottomToast("error", "알림 성공");
             props.navigation.reset({
                 index: 0,
-                routes: [{ name: "lease_contract" }],
+                routes: [{ name: "management_fee" }],
             });
         } else {
             VillifeToastMessage.showBottomToast("error", "알림 실패");
             props.navigation.reset({
                 index: 0,
-                routes: [{ name: "lease_contract" }],
+                routes: [{ name: "management_fee" }],
             });
         }
     };
