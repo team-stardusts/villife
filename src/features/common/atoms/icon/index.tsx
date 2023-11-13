@@ -31,6 +31,8 @@ import IconCharactorBook from "./charactor_book";
 import IconCopy from "./copy";
 import IconAppleLogo from "./apple_logo";
 import IconNaverLogo from "./naver_logo";
+import IconInfoMark from "./info_mark";
+import IconCautionMark from "./caution_mark";
 
 export default function Icon(props: IconProps) {
     /* let iconProps: ChildIconProps = {
@@ -62,6 +64,8 @@ export default function Icon(props: IconProps) {
             return <IconCalendar {...iconProps} />;
         case "car":
             return <IconCar {...iconProps} />;
+        case "caution-mark":
+            return <IconCautionMark {...iconProps} />;
         case "charactor-book":
             return <IconCharactorBook {...iconProps} />;
         case "check":
@@ -72,6 +76,8 @@ export default function Icon(props: IconProps) {
             return <IconMagnifier {...iconProps} />;
         case "messenger":
             return <IconMessenger {...iconProps} />;
+        case "info-mark":
+            return <IconInfoMark {...iconProps} />;
         case "speaker":
             return <IconSpeaker {...iconProps} />;
         case "wallet":

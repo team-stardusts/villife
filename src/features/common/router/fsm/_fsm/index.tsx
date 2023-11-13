@@ -84,6 +84,7 @@ export default function useRouteFSM() {
                             navigation.reset({
                                 index: 0,
                                 routes: [{ name: "home" }],
+                                //routes: [{ name: "parking" }],
                                 //routes: [{ name: "set_building" }],
                                 //routes: [{ name: "welcome", params: { authority: 1 } }],
                                 //routes: [{ name: "test" }],

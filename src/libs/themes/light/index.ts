@@ -24,6 +24,18 @@ class LightTheme extends ThemeCommon {
             info: "#539CF1",
         },
         series: {
+            blue: {
+                level0: "#E3F2FD",
+                level1: "#BBDEFB",
+                level2: "#90CAF9",
+                level3: "#64B5F6",
+                level4: "#42A5F5",
+                level5: "#2196F3",
+                level6: "#1E88E5",
+                level7: "#1976D2",
+                level8: "#1565C0",
+                level9: "#0D47A1",
+            },
             grey: {
                 level0: "#FFFFFF",
                 level1: "#F2F2F2",

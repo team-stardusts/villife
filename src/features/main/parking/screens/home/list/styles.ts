@@ -53,8 +53,8 @@ export default function useVehicleListStyles() {
             justifyContent: "center",
         },
         title: {
-            fontFamily: theme.font.fontFamily.pretendard.bold,
-            fontSize: deviceUI.moderateScale(30),
+            fontFamily: theme.font.fontFamily.pretendard.semiBold,
+            fontSize: deviceUI.moderateScale(24),
             color: theme.color.specified.black,
         },
         modifyBox: {
@@ -67,7 +67,7 @@ export default function useVehicleListStyles() {
         },
         modifyBtn: {
             width: "40%",
-            height: "80%",
+            height: "75%",
             justifyContent: "center",
             alignItems: "center",
             paddingHorizontal: deviceUI.moderateScale(10),
@@ -75,7 +75,9 @@ export default function useVehicleListStyles() {
             borderRadius: deviceUI.moderateScale(10),
         },
         modifyBtnTitle: {
-            ...theme.font.researved.h4,
+            fontFamily: theme.font.fontFamily.pretendard.regular,
+            fontSize: deviceUI.moderateScale(13),
+            color: theme.color.specified.black,
         },
     });
 

@@ -5,6 +5,32 @@ export interface ThemeBase {
     color: ColorFamily;
     font: {
         fontFamily: FontFamily;
+        researved: {
+            h1: {
+                fontFamily: string;
+                fontSize: number;
+            };
+            h2: {
+                fontFamily: string;
+                fontSize: number;
+            };
+            h3: {
+                fontFamily: string;
+                fontSize: number;
+            };
+            h4: {
+                fontFamily: string;
+                fontSize: number;
+            };
+            h5: {
+                fontFamily: string;
+                fontSize: number;
+            };
+            h6: {
+                fontFamily: string;
+                fontSize: number;
+            };
+        };
     };
 }
 
@@ -48,6 +74,7 @@ export type StatusColor = {
 };
 
 export type ColorSeriesSet = {
+    blue: ColorSeries;
     grey: ColorSeries;
 };
 

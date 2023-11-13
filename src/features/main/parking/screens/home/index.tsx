@@ -9,6 +9,7 @@ import useParkingHomeScreenStyles from "./styles";
 import { Vehicle } from "../../services/states/types";
 import useUserInformation from "../../../../common/hooks/service/user_info";
 import VehicleListView from "./list";
+import InfoPannel from "../../../../common/blocks/info-pannel";
 
 export default function ParkingScreen({ navigation, route }: ParkingScreenProps) {
     const messages = useScreenMessage();
@@ -104,6 +105,22 @@ export default function ParkingScreen({ navigation, route }: ParkingScreenProps)
                 applyDefaultVerticalPadding: false,
             }}>
             <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
+                <InfoPannel
+                    infos={[
+                        {
+                            type: "info",
+                            message: "차량을 등록하면 관리자가 승인 이후 반영이 돼요!",
+                        },
+                        {
+                            type: "warning",
+                            message: "차량 입차/출차 시간은 참고용 시간이에요.",
+                        },
+                        {
+                            type: "danger",
+                            message: "이중주차를 하셨나요? 알림 메세지를 보내보세요!",
+                        },
+                    ]}
+                />
                 {!user?.isAdmin && <VehicleCardView vehicles={parkingLot.userVehicles} />}
                 <VehicleListView vehicles={sortAndSetVehiclesForRender()} />
             </ScrollView>
