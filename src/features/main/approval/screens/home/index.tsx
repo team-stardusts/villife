@@ -12,6 +12,10 @@ export default function ApprovalHomeScreen(props: ApprovaleHomeScreenProps) {
             headerOptions={{
                 title: messages.messages.main.approval.screen_title,
             }}
+            bodyOptions={{
+                applyDefaultHorizontalPadding: false,
+                applyDefaultVerticalPadding: false,
+            }}
             bottomNavOptions={{ shown: false }}>
             <FlatListOutlinedContentsBox />
         </NavigationView>

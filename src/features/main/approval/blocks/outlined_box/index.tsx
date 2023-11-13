@@ -8,6 +8,8 @@ import IconBuilding from "../../../../common/atoms/icon/building";
 import useApprovalOutlinedBoxStyle from "./style";
 import OutlinedBoxProps from "./type";
 import IconUserBorder from "../../../../common/atoms/icon/user_border";
+import { Shadow } from "react-native-shadow-2";
+import Icon from "../../../../common/atoms/icon";
 
 /**
  * @param OutlinedBoxProp
@@ -17,7 +19,7 @@ function OutlinedBox(props: OutlinedBoxProps) {
     const styles = useApprovalOutlinedBoxStyle();
 
     const [modalVisible, setModalVisible] = useState<boolean>(false);
-    const [convertedApprovals, setConvertedApprovals] = useState<ConvertedApprovalData>({} as ConvertedApprovalData);
+    const [convertedApprovals, setConvertedApprovals] = useState<ConvertedApprovalData | null>(null);
 
     useEffect(() => {
         const fetchData = () => {
@@ -31,46 +33,55 @@ function OutlinedBox(props: OutlinedBoxProps) {
 
     return (
         <>
-            <ApprovalRequiredModal
-                visible={modalVisible}
-                setVisible={setModalVisible}
-                convertedApprovalRequest={convertedApprovals}
-            />
-            <Pressable
-                onPressOut={() => {
-                    setModalVisible(true);
-                }}
-                style={styles.container}>
-                <View style={styles.innerBox}>
-                    <View style={styles.innerTitleSection}>
-                        <View style={styles.titleTextBox}>
-                            <Text style={styles.titleText}>{convertedApprovals ? convertedApprovals.title : ""}</Text>
-                            <View style={styles.subContainerBox}>
-                                <View style={styles.subInnerBox}>
-                                    <IconBuilding size={styles.iconBuildingSize.width as number} />
-                                    <Text style={styles.subText}>
-                                        {convertedApprovals ? convertedApprovals.buildingName : ""}
-                                    </Text>
+            {convertedApprovals !== null ? (
+                <ApprovalRequiredModal
+                    visible={modalVisible}
+                    setVisible={setModalVisible}
+                    convertedApprovalRequest={convertedApprovals}
+                />
+            ) : null}
+            {convertedApprovals !== null ? (
+                <View style={styles.boxContainer}>
+                    <Pressable
+                        onPressOut={() => {
+                            setModalVisible(true);
+                        }}>
+                        <Shadow style={styles.boxInner} startColor={styles.shadowColor.color} distance={6}>
+                            <View style={styles.contentBetween}>
+                                <View style={styles.contentContainer}>
+                                    <Text style={styles.titleText}>{convertedApprovals.title}</Text>
+                                    <View style={styles.contentRow}>
+                                        <View style={styles.miniContentRow}>
+                                            <Icon
+                                                name={"building"}
+                                                size={styles.buildingIcon.width}
+                                                color={styles.buildingIcon.color}
+                                            />
+
+                                            <Text style={styles.subText}>{convertedApprovals.buildingName}</Text>
+                                        </View>
+                                        <View style={[styles.miniContentRow, styles.miniContentMargin]}>
+                                            <Icon
+                                                name={"person"}
+                                                size={styles.userIcon.width}
+                                                color={styles.userIcon.color}
+                                            />
+                                            <Text style={styles.subText}>{convertedApprovals.roomNumber}</Text>
+                                        </View>
+                                    </View>
                                 </View>
-                                <View style={styles.subInnerBox}>
-                                    <IconUserBorder size={styles.iconUserSize.width as number} />
-                                    <Text style={styles.subText}>
-                                        {convertedApprovals ? convertedApprovals.roomNumber : ""}
-                                    </Text>
+                                <View style={styles.moreButton}>
+                                    <Icon
+                                        name={"three-dots-vertical"}
+                                        size={styles.moreIcon.width}
+                                        color={styles.moreIcon.color}
+                                    />
                                 </View>
                             </View>
-                        </View>
-                        <View style={styles.absoluteWrapper}>
-                            <Pressable
-                                onPress={() => {
-                                    setModalVisible(true);
-                                }}>
-                                <IconMoreVertical size={styles.iconMoreSize.width as number} />
-                            </Pressable>
-                        </View>
-                    </View>
+                        </Shadow>
+                    </Pressable>
                 </View>
-            </Pressable>
+            ) : null}
         </>
     );
 }

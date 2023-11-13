@@ -6,47 +6,33 @@ export default function useExpenseApprovalOutlinedBoxStyles() {
 
     return StyleSheet.create({
         container: {
+            width: deviceUI.getScreenSize().width,
             marginBottom: deviceUI.moderateScale(16),
-            borderRadius: deviceUI.moderateScale(15),
-            width: deviceUI.getScreenSize().width * 0.9,
-            borderColor: "rgba(0, 0, 0, 0)",
+            alignItems: "center",
         },
         innerBox: {
-            alignItems: "center",
-            overflow: "visible",
-        },
-        innerTitleSection: {
-            width: "90%",
-            borderColor: theme.color.specified.lightgrey,
-        },
-        contentBox: {
-            alignItems: "center",
-            flexDirection: "row",
+            justifyContent: "center",
             height: deviceUI.moderateScale(55),
+            borderRadius: deviceUI.moderateScale(16),
+            width: deviceUI.moderateScale(328),
         },
-        titleTextBox: {
-            marginLeft: "5%",
-        },
-        absoluteWrapper: {
-            position: "absolute",
-            width: "100%",
-            height: "100%",
-            alignItems: "flex-end",
-            justifyContent: "center",
-        },
-        iconBox: { flexDirection: "row" },
+        contentBox: { flexDirection: "row", justifyContent: "space-between" },
+
         moreButton: {
-            justifyContent: "center",
-            marginRight: "2%",
+            marginRight: deviceUI.moderateScale(16),
         },
         titleText: {
+            marginLeft: deviceUI.moderateScale(24),
             fontSize: deviceUI.moderateScale(16),
             fontFamily: theme.font.fontFamily.pretendard.bold,
             color: theme.color.specified.black,
         },
         moreIcon: {
             width: deviceUI.moderateScale(40),
-            color: theme.color.specified.grey,
+            color: theme.color.specified.black,
+        },
+        shadowColor: {
+            color: "rgba(11, 117, 242, 0.2)",
         },
     });
 }

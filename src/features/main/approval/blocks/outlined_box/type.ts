@@ -6,5 +6,3 @@ type OutlinedBoxProps = {
 };
 
 export default OutlinedBoxProps;
-
-export type ApprovalOutlinedBoxStylesType = ReturnType<typeof StyleSheet.create>;

@@ -1,60 +1,63 @@
 import { StyleSheet } from "react-native";
 import useStyler from "../../../../common/hooks/styler/hooks";
-import { ApprovalOutlinedBoxStylesType } from "./type";
 
-export default function useApprovalOutlinedBoxStyle(): ApprovalOutlinedBoxStylesType {
+export default function useApprovalOutlinedBoxStyle() {
     const { deviceUI, theme } = useStyler();
 
-    const style = StyleSheet.create({
-        container: {
-            borderWidth: deviceUI.moderateScale(2),
-            borderColor: "#0B75F2",
-            marginVertical: deviceUI.getScreenSize().height * 0.008,
-            borderRadius: deviceUI.moderateScale(15),
-            minHeight: deviceUI.getScreenSize().height * 0.08,
-            width: "100%",
-        },
-        innerBox: {
+    return StyleSheet.create({
+        boxContainer: {
+            width: deviceUI.getScreenSize().width,
+            marginBottom: deviceUI.moderateScale(16),
             alignItems: "center",
-            overflow: "visible",
         },
-        innerTitleSection: {
-            width: "90%",
+        boxInner: {
+            justifyContent: "center",
+            height: deviceUI.moderateScale(55),
+            borderRadius: deviceUI.moderateScale(16),
+            width: deviceUI.moderateScale(328),
+        },
+        contentBetween: { justifyContent: "space-between", flexDirection: "row", alignItems: "center" },
+        contentContainer: {
+            marginLeft: deviceUI.moderateScale(24),
+        },
+        contentRow: {
+            flexDirection: "row",
+            alignContent: "center",
+            marginTop: deviceUI.moderateScale(4),
+        },
+        miniContentRow: {
             flexDirection: "row",
             alignItems: "center",
-            height: deviceUI.getScreenSize().height * 0.08,
         },
-        titleTextBox: {
-            marginLeft: "5%",
-        },
+        miniContentMargin: { marginLeft: deviceUI.moderateScale(8) },
         titleText: {
-            fontSize: deviceUI.moderateScale(16),
+            fontSize: deviceUI.moderateScale(15),
             fontFamily: theme.font.fontFamily.pretendard.bold,
             color: theme.color.specified.black,
         },
         subText: {
-            fontSize: deviceUI.moderateScale(12),
+            marginLeft: deviceUI.moderateScale(4),
+            fontSize: deviceUI.moderateScale(10),
             fontFamily: theme.font.fontFamily.pretendard.regular,
             color: theme.color.specified.black,
         },
-        subContainerBox: { flexDirection: "row", marginTop: "3%" },
-        subInnerBox: { flexDirection: "row", justifyContent: "center", alignContent: "center", marginLeft: "2%" },
-        absoluteWrapper: {
-            position: "absolute",
-            width: "100%",
-            height: "100%",
-            justifyContent: "center",
-            alignItems: "flex-end",
+        moreButton: {
+            marginRight: deviceUI.moderateScale(16),
         },
-        iconBuildingSize: {
-            width: deviceUI.moderateScale(14),
+        buildingIcon: {
+            width: deviceUI.moderateScale(18),
+            color: theme.color.specified.black,
         },
-        iconUserSize: {
-            width: deviceUI.moderateScale(16),
+        userIcon: {
+            width: deviceUI.moderateScale(20),
+            color: theme.color.specified.black,
         },
-        iconMoreSize: {
-            width: deviceUI.moderateScale(30),
+        moreIcon: {
+            width: deviceUI.moderateScale(40),
+            color: theme.color.specified.black,
+        },
+        shadowColor: {
+            color: "rgba(11, 117, 242, 0.2)",
         },
     });
-    return style;
 }

@@ -5,9 +5,8 @@ import useStyler from "../../../../common/hooks/styler/hooks";
 export default function useApprovalOutLinedBoxListStyles(): UseApprovalOutLinedBoxListStylesType {
     const { deviceUI, theme } = useStyler();
     return StyleSheet.create({
-        contentContainer: { alignItems: "center", width: "100%" },
+        contentContainer: { alignItems: "center", width: "100%", paddingVertical: deviceUI.moderateScale(10) },
         whenEmptyCard: {
-            backgroundColor: theme.color.series.grey.level4,
             width: deviceUI.getScreenSize().width * 0.9,
             height: deviceUI.getScreenSize().height * 0.16,
             borderRadius: deviceUI.moderateScale(15),

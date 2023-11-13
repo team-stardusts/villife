@@ -2,7 +2,6 @@ import { Pressable, View } from "react-native";
 import { Text } from "react-native";
 import React, { useEffect, useState } from "react";
 import { ApprovalDataConverter, ConvertedApprovalData } from "./converter_approval";
-import IconMoreVertical from "../../../../../../common/atoms/icon/more_vertical";
 import OutlinedBoxProps from "./type";
 import ExpenseApprovalRequiredModal from "../approval_require_modal";
 import { Shadow } from "react-native-shadow-2";
@@ -42,34 +41,25 @@ function OutlinedBox(props: OutlinedBoxProps) {
             ) : null}
 
             {convertedApprovals !== null ? (
-                <Shadow style={styles.container} distance={4}>
-                    <View style={styles.innerBox}>
-                        <Pressable
-                            onPressOut={() => {
-                                setModalVisible(true);
-                            }}
-                            style={styles.innerTitleSection}>
+                <View style={styles.container}>
+                    <Pressable
+                        onPressOut={() => {
+                            setModalVisible(true);
+                        }}>
+                        <Shadow style={styles.innerBox} startColor={styles.shadowColor.color} distance={6}>
                             <View style={styles.contentBox}>
-                                <View style={styles.titleTextBox}>
-                                    <Text style={styles.titleText}>
-                                        {convertedApprovals ? convertedApprovals.title : ""}
-                                    </Text>
-                                </View>
-                                <View style={styles.absoluteWrapper}>
-                                    <View style={styles.iconBox}>
-                                        <View style={styles.moreButton}>
-                                            <Icon
-                                                name={"three-dots-vertical"}
-                                                size={styles.moreIcon.width}
-                                                color={styles.moreIcon.color}
-                                            />
-                                        </View>
-                                    </View>
+                                <Text style={styles.titleText}>{convertedApprovals.title}</Text>
+                                <View style={styles.moreButton}>
+                                    <Icon
+                                        name={"three-dots-vertical"}
+                                        size={styles.moreIcon.width}
+                                        color={styles.moreIcon.color}
+                                    />
                                 </View>
                             </View>
-                        </Pressable>
-                    </View>
-                </Shadow>
+                        </Shadow>
+                    </Pressable>
+                </View>
             ) : null}
         </>
     );

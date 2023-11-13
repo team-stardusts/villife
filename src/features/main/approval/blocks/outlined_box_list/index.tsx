@@ -15,13 +15,9 @@ function FlatListOutlinedContentsBox() {
         return <OutlinedBox approvalRequest={props.item} />;
     };
 
-    useEffect(() => {
-        console.log(viewModel);
-    }, [viewModel]);
-
     return (
         <FlatList
-            contentContainerStyle={styles.container}
+            contentContainerStyle={styles.contentContainer}
             data={viewModel}
             keyExtractor={(index, item) => `${index}${item}`}
             renderItem={OutlinedBoxRenderItem}
