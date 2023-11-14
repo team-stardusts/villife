@@ -21,9 +21,9 @@ export default function useInfoPannelStyles() {
             alignItems: "center",
         },
         iconBox: {
-            height: infoHeight * 0.6,
-            width: infoHeight * 0.6,
-            borderRadius: infoHeight * 0.6,
+            height: infoHeight * 0.55,
+            width: infoHeight * 0.55,
+            borderRadius: infoHeight * 0.55,
             backgroundColor: theme.color.specified.blue,
             justifyContent: "center",
             alignItems: "center",
@@ -35,7 +35,7 @@ export default function useInfoPannelStyles() {
             ],
         },
         icon: {
-            width: infoHeight * 0.9,
+            width: infoHeight * 0.85,
             color: theme.color.specified.white,
         },
         message: {

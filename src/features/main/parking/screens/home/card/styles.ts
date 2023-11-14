@@ -25,20 +25,14 @@ export default function useVehicleCardViewStyles(isEditmode?: boolean) {
             height: "100%",
             justifyContent: "flex-start",
             alignItems: "center",
-            paddingHorizontal: deviceUI.moderateScale(20),
-            paddingTop: deviceUI.moderateScale(15),
-        },
-        headerContainer: {
-            width: "100%",
-            height: isEditmode ? "21%" : "25%",
         },
         bodyContainer: {
             width: "100%",
-            height: isEditmode ? "70%" : "65%", //deviceUI.moderateScale(isEditmode ? 200 : 150),
+            height: isEditmode ? "80%" : "65%", //deviceUI.moderateScale(isEditmode ? 200 : 150),
         },
         bottomCotainer: {
             width: "100%",
-            height: isEditmode ? "9%" : "10%", //deviceUI.moderateScale(10),
+            height: isEditmode ? "20%" : "10%", //deviceUI.moderateScale(10),
         },
     });
 

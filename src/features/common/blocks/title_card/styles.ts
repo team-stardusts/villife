@@ -28,7 +28,7 @@ export default function useTitleCardViewStyles(minHeight?: number) {
 
     const header = StyleSheet.create({
         container: {
-            height: deviceUI.moderateScale(60),
+            height: deviceUI.moderateScale(50),
             width: "100%",
             flexDirection: "row",
             justifyContent: "space-between",
@@ -38,8 +38,8 @@ export default function useTitleCardViewStyles(minHeight?: number) {
             paddingHorizontal: deviceUI.moderateScale(5),
         },
         title: {
-            fontFamily: theme.font.fontFamily.pretendard.bold,
-            fontSize: deviceUI.moderateScale(25),
+            fontFamily: theme.font.fontFamily.pretendard.semiBold,
+            fontSize: deviceUI.moderateScale(24),
             color: theme.color.specified.black,
         },
         button: {

@@ -67,34 +67,6 @@ export default function ParkingScreen({ navigation, route }: ParkingScreenProps)
         );
     }, [parkingLot.vehicles]);
 
-    /* // Vehicles 목록을 딜레이를 줘서 렌더링하기 위함.
-    const [vehiclesForRendering, setVehiclesForRendering] = useState<Vehicle[]>([]);
-
-    // Vehicles 목록을 딜레이를 줘서 렌더링하기 위함.
-    const renderVehicleInfos = useCallback(async () => {
-        const delay: number = 50;
-        // 차량 리스트에서 User vehicles를 제외하기 위함.
-        const allVehiclesExceptUser: Vehicle[] = [...guestVehicles, ...tenantVehicles];
-
-        if (allVehiclesExceptUser.length === 0) {
-            return [];
-        }
-
-        for (let i = 0; i < allVehiclesExceptUser.length; i++) {
-            await new Promise((resolve) =>
-                setTimeout(() => {
-                    resolve("");
-                }, delay)
-            );
-
-            setVehiclesForRendering((prevData) => {
-                const newData = [...prevData];
-                newData[i] = allVehiclesExceptUser[i];
-                return newData;
-            });
-        }
-    }, [tenantVehicles, guestVehicles]); */
-
     return (
         <NavigationView
             headerOptions={{
@@ -109,14 +81,14 @@ export default function ParkingScreen({ navigation, route }: ParkingScreenProps)
                     infos={[
                         {
                             type: "info",
-                            message: "차량을 등록하면 관리자가 승인 이후 반영이 돼요!",
+                            message: "등록한 차량은 관리자 승인 이후 반영돼요!",
                         },
                         {
-                            type: "warning",
+                            type: "info",
                             message: "차량 입차/출차 시간은 참고용 시간이에요.",
                         },
                         {
-                            type: "danger",
+                            type: "info",
                             message: "이중주차를 하셨나요? 알림 메세지를 보내보세요!",
                         },
                     ]}

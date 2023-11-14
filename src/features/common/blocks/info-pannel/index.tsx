@@ -1,4 +1,4 @@
-import { Text, View } from "react-native";
+import { Animated, Text, View } from "react-native";
 import { Callback, IconChunk, Info, InfoPannelProps } from "./types";
 import useInfoPannelStyles from "./styles";
 import { FlatList } from "react-native";
@@ -8,25 +8,48 @@ import { useEffect, useMemo, useRef, useState } from "react";
 export default function InfoPannel(props: InfoPannelProps) {
     const styles = useInfoPannelStyles();
     const height = styles.container.height;
+    const [crrIndex, setCrrIndex] = useState<number | null>(null);
     const snapToOffset = useMemo(
         () => Array.from(Array(props.infos.length)).map((_, index) => index * height),
         [props.infos]
     );
-    const [crrIndex, setCrrIndex] = useState<number>(0);
     const flatListRef = useRef<FlatList>(null);
+    // 마지막 인덱스에서 0번 인덱스로 넘어올때
+    // Scroll animation을 비활성화 한 대신 어색해보이지 않도록 별도의 애니메이션을 추가함
+    const translateY = useRef(new Animated.Value(height)).current;
+    const translateYInterpolate = translateY.interpolate({
+        inputRange: [0, height * 0.5, height],
+        outputRange: [0, height * 0.2, height],
+    });
 
     useEffect(() => {
+        if (crrIndex === null) return;
+
         if (crrIndex !== snapToOffset.length) {
             flatListRef.current?.scrollToOffset({
-                animated: true,
+                animated: crrIndex !== 0, // Index 0에 도달했을때 스크롤이 올라가는걸 방지
                 offset: snapToOffset[crrIndex],
             });
+        }
+
+        if (crrIndex === 0) {
+            const anmiationHandler = Animated.timing(translateY, {
+                toValue: 0,
+                duration: 300,
+                useNativeDriver: true,
+            });
+            anmiationHandler.start();
+
+            return () => anmiationHandler.reset();
         }
     }, [crrIndex, snapToOffset]);
 
     useInterval(() => {
-        setCrrIndex((prev) => (prev === snapToOffset.length - 1 ? 0 : prev + 1));
-    }, 5000);
+        setCrrIndex((prev) => {
+            if (prev === null) return 0;
+            return prev === snapToOffset.length - 1 ? 0 : prev + 1;
+        });
+    }, 7000);
 
     const getIconChunk = (type: Info["type"]): IconChunk => {
         const chunk: IconChunk = {
@@ -52,7 +75,17 @@ export default function InfoPannel(props: InfoPannelProps) {
                 ref={flatListRef}
                 data={props.infos}
                 renderItem={({ item }) => (
-                    <View style={styles.wrapper}>
+                    <Animated.View
+                        style={[
+                            styles.wrapper,
+                            crrIndex === 0 && {
+                                transform: [
+                                    {
+                                        translateY: translateYInterpolate,
+                                    },
+                                ],
+                            },
+                        ]}>
                         <View style={[styles.iconBox, { backgroundColor: getIconChunk(item.type).color }]}>
                             <Icon
                                 name={getIconChunk(item.type).name}
@@ -63,8 +96,9 @@ export default function InfoPannel(props: InfoPannelProps) {
                         <Text style={styles.message} adjustsFontSizeToFit numberOfLines={1}>
                             {item.message}
                         </Text>
-                    </View>
+                    </Animated.View>
                 )}
+                //onEndReachedThreshold={0} // 끝에 도달했을때 동작
                 scrollEnabled={false}
                 snapToOffsets={snapToOffset}
                 showsVerticalScrollIndicator={false}
