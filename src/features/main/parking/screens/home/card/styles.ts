@@ -1,9 +1,14 @@
 import { StyleSheet } from "react-native";
 import useStyler from "../../../../../common/hooks/styler/hooks";
 import useNavigationViewSpace from "../../../../../common/blocks/navigation/service";
+import { SCREEN_PADDING_HORIZONTAL_STANDARD_VALUE } from "../../../../../common/constants";
 
-export default function useVehicleCardViewStyles(isEditmode?: boolean) {
+export default function useVehicleCardViewStyles() {
     const { deviceUI, theme } = useStyler();
+
+    const innerPadding = deviceUI.moderateScale(40);
+    const screenPadding = deviceUI.moderateScale(SCREEN_PADDING_HORIZONTAL_STANDARD_VALUE) * 2;
+    const cardWidth: number = deviceUI.getScreenSize().width - (screenPadding + innerPadding);
 
     const space = useNavigationViewSpace({
         isHeaderShown: true,
@@ -14,72 +19,36 @@ export default function useVehicleCardViewStyles(isEditmode?: boolean) {
 
     const main = StyleSheet.create({
         container: {
-            height: space.height * (isEditmode ? 0.4 : 0.35),
+            //height: space.height * 0.25,
+            width: "100%",
             marginBottom: deviceUI.moderateScale(15),
         },
-        contentBox: {
-            backgroundColor: theme.color.specified.white,
-        },
         wrapper: {
+            //height: space.height * 0.25,
             width: "100%",
-            height: "100%",
             justifyContent: "flex-start",
             alignItems: "center",
         },
-        bodyContainer: {
+        bodyContainer: {},
+        btncomboContainer: {
             width: "100%",
-            height: isEditmode ? "80%" : "65%", //deviceUI.moderateScale(isEditmode ? 200 : 150),
         },
         bottomCotainer: {
             width: "100%",
-            height: isEditmode ? "20%" : "10%", //deviceUI.moderateScale(10),
-        },
-    });
-
-    const header = StyleSheet.create({
-        conatainer: {
-            width: "100%",
-            height: "100%",
-            flexDirection: "row",
-            justifyContent: "space-between",
-            alignItems: "center",
-            borderBottomWidth: deviceUI.moderateScale(5),
-            borderColor: theme.color.series.grey.level1,
-        },
-        titleBox: {
-            height: "100%",
-            justifyContent: "center",
-        },
-        title: {
-            fontFamily: theme.font.fontFamily.pretendard.semiBold,
-            fontSize: deviceUI.moderateScale(24),
-            color: theme.color.specified.black,
-        },
-        modifyBtn: {
-            //width: "15%",
-            height: "45%",
-            justifyContent: "center",
-            alignItems: "center",
-            paddingHorizontal: deviceUI.moderateScale(10),
-            backgroundColor: theme.color.series.grey.level1,
-            borderRadius: deviceUI.moderateScale(10),
-        },
-        modifyBtnTitle: {
-            fontFamily: theme.font.fontFamily.pretendard.regular,
-            fontSize: deviceUI.moderateScale(13),
-            color: theme.color.specified.black,
         },
     });
 
     const body = StyleSheet.create({
         container: {
             width: "100%",
-            height: "100%",
         },
-        scrollview: {
-            height: "100%",
+        scrollview: {},
+        card: {
+            width: cardWidth,
         },
         noCardContainer: {
+            width: cardWidth,
+            minHeight: deviceUI.moderateScale(80),
             justifyContent: "center",
             alignItems: "center",
         },
@@ -90,12 +59,14 @@ export default function useVehicleCardViewStyles(isEditmode?: boolean) {
         },
         noCardTitle: {
             marginBottom: deviceUI.moderateScale(5),
-            color: theme.color.specified.black,
-            ...theme.font.researved.h3,
+            fontFamily: theme.font.fontFamily.pretendard.semiBold,
+            fontSize: deviceUI.moderateScale(16),
+            color: theme.color.specified.blue,
         },
         noCardSubtitle: {
+            fontFamily: theme.font.fontFamily.pretendard.regular,
+            fontSize: deviceUI.moderateScale(14),
             color: theme.color.specified.black,
-            ...theme.font.researved.h5,
         },
         registerIcon: {
             color: theme.color.specified.black,
@@ -107,7 +78,7 @@ export default function useVehicleCardViewStyles(isEditmode?: boolean) {
         cotainer: {
             justifyContent: "center",
             alignItems: "center",
-            height: "100%",
+            height: deviceUI.moderateScale(15),
             width: "100%",
         },
         indicator: {
@@ -125,10 +96,9 @@ export default function useVehicleCardViewStyles(isEditmode?: boolean) {
             overflow: "hidden",
             justifyContent: "space-between",
             alignItems: "center",
-            paddingVertical: deviceUI.moderateScale(15),
+            marginVertical: deviceUI.moderateScale(5),
         },
         cardRowsWrapper: {
-            height: isEditmode ? "74%" : "100%",
             width: "100%",
             justifyContent: "space-between",
         },
@@ -137,48 +107,47 @@ export default function useVehicleCardViewStyles(isEditmode?: boolean) {
             flexDirection: "row",
             justifyContent: "space-between",
             alignItems: "center",
+            marginVertical: deviceUI.moderateScale(3),
         },
         rowKey: {
-            color: theme.color.specified.black,
-            fontFamily: theme.font.fontFamily.pretendard.medium,
-            fontSize: deviceUI.moderateScale(17),
-        },
-        rowValue: {
             color: theme.color.specified.black,
             fontFamily: theme.font.fontFamily.pretendard.regular,
             fontSize: deviceUI.moderateScale(15),
         },
-        editBtnsBox: {
-            width: "100%",
-            height: "26%", //deviceUI.moderateScale(20),
-            flexDirection: "row",
-            justifyContent: "space-between",
-            marginTop: deviceUI.moderateScale(10),
-            paddingHorizontal: deviceUI.moderateScale(10),
+        rowValue: {
+            color: theme.color.specified.black,
+            fontFamily: theme.font.fontFamily.pretendard.semiBold,
+            fontSize: deviceUI.moderateScale(15),
         },
-        editBtnWrapper: {
-            //width: "100%",
-            height: "100%",
+    });
+
+    const btncombo = StyleSheet.create({
+        container: {
+            width: "100%",
+            flexDirection: "row",
+            justifyContent: "space-around",
+            marginVertical: deviceUI.moderateScale(10),
         },
         editBtn: {
-            height: "100%",
             justifyContent: "center",
             alignItems: "center",
-            paddingHorizontal: deviceUI.moderateScale(20),
+            paddingVertical: deviceUI.moderateScale(7),
+            paddingHorizontal: deviceUI.moderateScale(17),
             backgroundColor: theme.color.series.grey.level1,
             borderRadius: deviceUI.moderateScale(10),
         },
         editBtnTitle: {
+            fontFamily: theme.font.fontFamily.pretendard.regular,
+            fontSize: deviceUI.moderateScale(14),
             color: theme.color.specified.black,
-            ...theme.font.researved.h4,
         },
     });
 
     return {
         main,
-        header,
         body,
         bottom,
         card,
+        btncombo,
     };
 }

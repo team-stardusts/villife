@@ -1,68 +1,76 @@
 import { View } from "react-native";
 import { VehicleCardViewProps } from "./types";
-import { useEffect, useState } from "react";
-import ContentBox from "../../../../../common/blocks/content_box";
+import { useCallback, useEffect, useState } from "react";
 import useVehicleCardViewStyles from "./styles";
 import VehicleCardBottom from "./blocks/bottom";
-import VehicleCardHeader from "./blocks/header";
 import VehicleCardBody from "./blocks/body";
-import { SCREEN_PADDING_HORIZONTAL_STANDARD_VALUE } from "../../../../../common/constants";
-import useStyler from "../../../../../common/hooks/styler/hooks";
 import TitleCard from "../../../../../common/blocks/title_card";
 import useScreenMessage from "../../../../../common/hooks/multilingual/hooks";
+import EditBtnCombo from "./blocks/btn-combo";
+import { VehicleModifyType } from "../../../blocks/modal/modify/types";
+import VehicleModifyModal from "../../../blocks/modal/modify";
 
 export default function VehicleCardView({ vehicles }: VehicleCardViewProps) {
-    const { deviceUI } = useStyler();
     const messages = useScreenMessage().messages;
-    const innerPadding = deviceUI.moderateScale(40);
-    const screenPadding = deviceUI.moderateScale(SCREEN_PADDING_HORIZONTAL_STANDARD_VALUE) * 2;
-
-    const cardWidth: number = deviceUI.getScreenSize().width - (screenPadding + innerPadding);
 
     const [crrIndex, setCrrIndex] = useState<number>(0);
     const [editmode, setEditmode] = useState<boolean>(false);
+    const [modalVisible, setModalVisible] = useState<boolean>(false);
+    const [editType, setEditType] = useState<VehicleModifyType | null>(null);
 
-    const styles = useVehicleCardViewStyles(editmode);
+    const styles = useVehicleCardViewStyles();
+
+    useEffect(() => {
+        if (editType === null || vehicles.length === 0) return;
+        setModalVisible(true);
+    }, [editType]);
+
+    const handlePressEditBtns = useCallback(
+        (newEditType: VehicleModifyType) => {
+            if (editType === newEditType) setModalVisible(true);
+            else setEditType(newEditType);
+        },
+        [editType, vehicles]
+    );
 
     return (
-        <TitleCard
-            title={messages.main.parking.home.my_vehicle_info}
-            headerButton={
-                vehicles.length === 0
-                    ? undefined
-                    : {
-                          title: "수정하기",
-                          onPress: () => setEditmode(!editmode),
-                      }
-            }>
-            <View style={styles.main.wrapper}>
-                <View style={styles.main.bodyContainer}>
-                    <VehicleCardBody
-                        styles={styles.body}
-                        cardWidth={cardWidth}
-                        vehicles={vehicles}
-                        isEditmode={editmode}
-                        onFlip={setCrrIndex}
-                    />
-                </View>
-                <View style={styles.main.bottomCotainer}>
-                    <VehicleCardBottom styles={styles.bottom} length={vehicles.length} currentIndex={crrIndex} />
-                </View>
-            </View>
-        </TitleCard>
-    );
-}
-
-{
-    /* <ContentBox backgroundColor={styles.main.contentBox.backgroundColor}>
+        <View style={styles.main.container}>
+            <TitleCard
+                title={messages.main.parking.home.my_vehicle_info}
+                headerButton={
+                    vehicles.length > 0 && vehicles.length !== crrIndex
+                        ? {
+                              title: "수정하기",
+                              onPress: () => setEditmode(!editmode),
+                          }
+                        : undefined
+                }>
                 <View style={styles.main.wrapper}>
-                    <View style={styles.main.headerContainer}>
-                        <VehicleCardHeader
-                            styles={styles.header}
-                            numberOfVehicle={vehicles.length}
-                            onIntoEditmode={setEditmode}
+                    <View style={styles.main.bodyContainer}>
+                        <VehicleCardBody styles={styles.body} vehicles={vehicles} onFlip={setCrrIndex} />
+                    </View>
+                    {editmode && vehicles.length >= crrIndex + 1 && (
+                        <View style={styles.main.btncomboContainer}>
+                            <EditBtnCombo styles={styles.btncombo} onPressEditBtn={handlePressEditBtns} />
+                        </View>
+                    )}
+                    <View style={styles.main.bottomCotainer}>
+                        <VehicleCardBottom
+                            styles={styles.bottom}
+                            length={vehicles.length + 1}
+                            currentIndex={crrIndex}
                         />
                     </View>
                 </View>
-            </ContentBox> */
+                {editType !== null && vehicles.length >= crrIndex + 1 && (
+                    <VehicleModifyModal
+                        modifyType={editType}
+                        visible={modalVisible}
+                        setVisible={setModalVisible}
+                        vehilce={vehicles[crrIndex]}
+                    />
+                )}
+            </TitleCard>
+        </View>
+    );
 }

@@ -43,10 +43,10 @@ export default function useTitleCardViewStyles(minHeight?: number) {
             color: theme.color.specified.black,
         },
         button: {
-            height: "45%",
             justifyContent: "center",
             alignItems: "center",
             paddingHorizontal: deviceUI.moderateScale(12),
+            paddingVertical: deviceUI.moderateScale(5),
             backgroundColor: theme.color.series.grey.level1,
             borderRadius: deviceUI.moderateScale(10),
         },

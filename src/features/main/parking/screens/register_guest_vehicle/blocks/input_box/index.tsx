@@ -21,7 +21,7 @@ export default function GuestVehicleInfoInputBox({
         initialVehicleInfo || {
             plateNumber: null,
             phoneNumber: null,
-            visitingPerpose: null,
+            visitingPerpose: "지인댁 방문",
         }
     );
 
@@ -79,7 +79,7 @@ export default function GuestVehicleInfoInputBox({
                     <UniversalTextInput
                         name="visitingPerpose"
                         ref={refinput}
-                        //value={guestVehicleInfo.visitingPerpose || ""}
+                        value={guestVehicleInfo.visitingPerpose || ""}
                         placeholder={
                             messages.messages.main.parking.register_guest_vehicle.visiting_perpose_input_placeholder
                         }
@@ -100,11 +100,7 @@ export default function GuestVehicleInfoInputBox({
                         onChangeText={(text) => {
                             setGuestVehicleInfo({
                                 ...guestVehicleInfo,
-                                visitingPerpose:
-                                    VISITING_PERPOSE_MIN_LENGTH <= text.length &&
-                                    text.length <= VISITING_PERPOSE_MAX_LENGTH
-                                        ? text
-                                        : null,
+                                visitingPerpose: text.length <= VISITING_PERPOSE_MAX_LENGTH ? text : null,
                             });
                         }}
                     />

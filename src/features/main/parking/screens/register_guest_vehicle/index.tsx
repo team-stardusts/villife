@@ -21,7 +21,7 @@ export default function RegisterGuestVehicleScreen({ navigation, route }: Regist
     const parkingLot = useParkingLot();
     const [dateTimeRange, setDateTimeRange] = useState<DateRange | null>(null);
     const [guestVehicle, setGuestVehicle] = useState<GuestVehicle>({
-        model: "guest_test",
+        model: "guest_vehicle",
         phoneNumber: null,
         plateNumber: null,
         visitingPerpose: null,

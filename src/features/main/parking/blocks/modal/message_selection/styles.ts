@@ -14,7 +14,7 @@ export default function useMessageSelectorStyles() {
             alignItems: "center",
         },
         icon: {
-            width: deviceUI.moderateScale(50),
+            width: deviceUI.moderateScale(40),
             color: theme.color.specified.black,
         },
     });

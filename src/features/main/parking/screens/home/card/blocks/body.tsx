@@ -1,14 +1,13 @@
-import { NativeScrollEvent, NativeSyntheticEvent, ScrollView, Text, View } from "react-native";
-import { VehicleCardBodyProps, VehicleCardInfoForEdit } from "../types";
+import { NativeScrollEvent, NativeSyntheticEvent, ScrollView, Text, TouchableOpacity, View } from "react-native";
+import { VehicleCardBodyProps } from "../types";
 import VehicleCard from "./card";
 import useScreenMessage from "../../../../../../common/hooks/multilingual/hooks";
-import VehicleModifyModal from "../../../../blocks/modal/modify";
-import { useEffect, useState } from "react";
-import { VehicleModifyType } from "../../../../blocks/modal/modify/types";
-import { Vehicle } from "../../../../services/states/types";
+import { useNavigation } from "@react-navigation/native";
+import { VillifeNavigation } from "../../../../../../common/router/types";
 
-export default function VehicleCardBody({ styles, cardWidth, vehicles, isEditmode, onFlip }: VehicleCardBodyProps) {
-    const messages = useScreenMessage().messages;
+export default function VehicleCardBody({ styles, vehicles, onFlip }: VehicleCardBodyProps) {
+    //const messages = useScreenMessage().messages;
+    const navigation = useNavigation<VillifeNavigation>();
 
     // ScrollView가 가로 상태일 때, 현재 페이지를 구함
     const getCurrentPage = (scollEvent: NativeSyntheticEvent<NativeScrollEvent>, scrollViewWidth: number): number => {
@@ -22,52 +21,45 @@ export default function VehicleCardBody({ styles, cardWidth, vehicles, isEditmod
 
         return index;
     };
-    const [modalVisible, setModalVisible] = useState<boolean>(false);
-    const [vehicleToEdit, setVehicleToEdit] = useState<VehicleCardInfoForEdit | null>(null);
-
-    useEffect(() => {
-        if (vehicleToEdit) setModalVisible(true);
-    }, [vehicleToEdit]);
 
     return (
         <View style={styles.container}>
-            {vehicleToEdit ? (
-                <VehicleModifyModal
-                    modifyType={vehicleToEdit.modifyType}
-                    visible={modalVisible}
-                    setVisible={setModalVisible}
-                    vehilce={vehicleToEdit.vehicle}
-                />
-            ) : (
-                <></>
-            )}
-
             <ScrollView
-                style={[styles.scrollview, { width: cardWidth }]}
+                style={[styles.scrollview, { width: styles.card.width }]}
                 showsHorizontalScrollIndicator={false}
                 horizontal
                 pagingEnabled
                 scrollEventThrottle={5}
-                onScroll={(e) => onFlip(getCurrentPage(e, cardWidth))}>
+                onScroll={(e) => onFlip(getCurrentPage(e, styles.card.width))}>
                 {vehicles.map((vehicle, index) => (
-                    <VehicleCard
-                        key={index}
-                        vehicle={vehicle}
-                        cardWidth={cardWidth}
-                        isEditmode={isEditmode}
-                        onPressEditBtn={setVehicleToEdit}
-                    />
+                    <VehicleCard key={index} vehicle={vehicle} cardWidth={styles.card.width} />
                 ))}
-                {vehicles.length === 0 && (
-                    <View style={[styles.noCardContainer, { width: cardWidth }]}>
-                        <View style={styles.noCardTitleBox}>
-                            <Text style={styles.noCardTitle}>{messages.main.parking.home.say_no_vehicle_info}</Text>
-                            <Text style={styles.noCardSubtitle}>
-                                {messages.main.parking.home.induce_to_register_own_vehicle}
-                            </Text>
-                        </View>
+                <TouchableOpacity
+                    style={styles.noCardContainer}
+                    activeOpacity={0.5}
+                    onPress={() => navigation.navigate("register_vehicle")}>
+                    <View style={styles.noCardTitleBox}>
+                        {vehicles.length === 0 ? (
+                            <>
+                                <Text style={styles.noCardTitle} adjustsFontSizeToFit numberOfLines={1}>
+                                    등록된 차량이 없어요!
+                                </Text>
+                                <Text style={styles.noCardSubtitle} adjustsFontSizeToFit numberOfLines={2}>
+                                    여기를 눌러서 차량을 등록해보세요.
+                                </Text>
+                            </>
+                        ) : (
+                            <>
+                                <Text style={styles.noCardTitle} adjustsFontSizeToFit numberOfLines={1}>
+                                    추가로 등록할 차량이 있으신가요?
+                                </Text>
+                                <Text style={styles.noCardSubtitle} adjustsFontSizeToFit numberOfLines={2}>
+                                    여기를 눌러 더 많은 차량을 등록해보세요.
+                                </Text>
+                            </>
+                        )}
                     </View>
-                )}
+                </TouchableOpacity>
             </ScrollView>
         </View>
     );

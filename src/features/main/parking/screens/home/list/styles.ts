@@ -24,60 +24,8 @@ export default function useVehicleListStyles() {
         },
         wrapper: {
             width: "100%",
-            height: "100%",
             justifyContent: "flex-start",
             alignItems: "center",
-            paddingHorizontal: deviceUI.moderateScale(20),
-            paddingTop: deviceUI.moderateScale(15),
-        },
-        headerContainer: {
-            width: "100%",
-            height: deviceUI.moderateScale(100),
-        },
-        bodyContainer: {
-            width: "100%",
-        },
-    });
-
-    const header = StyleSheet.create({
-        container: {
-            width: "100%",
-            height: "100%",
-            justifyContent: "center",
-            alignItems: "flex-start",
-            borderBottomWidth: deviceUI.moderateScale(5),
-            borderColor: theme.color.series.grey.level1,
-        },
-        titleBox: {
-            height: "60%",
-            justifyContent: "center",
-        },
-        title: {
-            fontFamily: theme.font.fontFamily.pretendard.semiBold,
-            fontSize: deviceUI.moderateScale(24),
-            color: theme.color.specified.black,
-        },
-        modifyBox: {
-            height: "40%",
-            width: "100%",
-            justifyContent: "space-between",
-            paddingHorizontal: deviceUI.moderateScale(5),
-            marginBottom: deviceUI.moderateScale(10),
-            flexDirection: "row",
-        },
-        modifyBtn: {
-            width: "40%",
-            height: "75%",
-            justifyContent: "center",
-            alignItems: "center",
-            paddingHorizontal: deviceUI.moderateScale(10),
-            backgroundColor: theme.color.series.grey.level1,
-            borderRadius: deviceUI.moderateScale(10),
-        },
-        modifyBtnTitle: {
-            fontFamily: theme.font.fontFamily.pretendard.regular,
-            fontSize: deviceUI.moderateScale(13),
-            color: theme.color.specified.black,
         },
     });
 
@@ -94,27 +42,27 @@ export default function useVehicleListStyles() {
             alignItems: "center",
         },
         vehicleInfoBox: {
-            width: "60%",
+            width: "55%",
             flexDirection: "row",
             justifyContent: "flex-start",
             alignItems: "center",
             marginVertical: deviceUI.moderateScale(15),
         },
         tenantBadge: {
-            width: deviceUI.moderateScale(16),
+            width: deviceUI.moderateScale(15),
             color: theme.color.specified.white,
             backgroundColor: theme.color.specified.grey,
         },
         guestBadge: {
-            width: deviceUI.moderateScale(16),
+            width: deviceUI.moderateScale(15),
             color: theme.color.specified.black,
             backgroundColor: theme.color.specified.green,
         },
         plateNumber: {
             marginLeft: deviceUI.moderateScale(10),
+            fontFamily: theme.font.fontFamily.pretendard.medium,
+            fontSize: deviceUI.moderateScale(15),
             color: theme.color.specified.black,
-            fontWeight: "bold",
-            ...theme.font.researved.h4,
         },
         communicationFuncContainer: {
             flexDirection: "row",
@@ -125,11 +73,11 @@ export default function useVehicleListStyles() {
             padding: deviceUI.moderateScale(3),
         },
         phoneIcon: {
-            width: deviceUI.moderateScale(40),
+            width: deviceUI.moderateScale(35),
             color: theme.color.specified.black,
         },
         letterIcon: {
-            width: deviceUI.moderateScale(50),
+            width: deviceUI.moderateScale(45),
             color: theme.color.specified.black,
         },
         detailFuncContainer: {
@@ -148,7 +96,6 @@ export default function useVehicleListStyles() {
 
     return {
         main,
-        header,
         body,
     };
 }

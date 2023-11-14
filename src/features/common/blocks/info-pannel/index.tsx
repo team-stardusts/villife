@@ -49,7 +49,7 @@ export default function InfoPannel(props: InfoPannelProps) {
             if (prev === null) return 0;
             return prev === snapToOffset.length - 1 ? 0 : prev + 1;
         });
-    }, 7000);
+    }, 6000);
 
     const getIconChunk = (type: Info["type"]): IconChunk => {
         const chunk: IconChunk = {

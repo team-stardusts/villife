@@ -79,7 +79,9 @@ function VehicleInfoRow(props: VehicleInfoRowProps) {
                     color={badgeStyle.color}
                     bgColor={badgeStyle.backgroundColor}
                 />
-                <Text style={props.styles.plateNumber}>{props.vehicle.plate_number}</Text>
+                <Text style={props.styles.plateNumber} adjustsFontSizeToFit numberOfLines={1}>
+                    {props.vehicle.plate_number}
+                </Text>
             </View>
             <View style={props.styles.communicationFuncContainer}>
                 {!isMyVehicle && (

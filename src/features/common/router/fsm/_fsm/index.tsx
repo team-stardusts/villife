@@ -83,8 +83,8 @@ export default function useRouteFSM() {
                             // 정상 로그인
                             navigation.reset({
                                 index: 0,
-                                //routes: [{ name: "home" }],
-                                routes: [{ name: "parking" }],
+                                routes: [{ name: "home" }],
+                                //routes: [{ name: "parking" }],
                                 //routes: [{ name: "set_building" }],
                                 //routes: [{ name: "welcome", params: { authority: 1 } }],
                                 //routes: [{ name: "test" }],
