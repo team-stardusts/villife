@@ -21,62 +21,58 @@ export default function ApprovalRequiredModal(props: ApprovalRequiredModalProps)
     }, []);
 
     const onRejectButtonPress = async () => {
-        if (props.convertedApprovalRequest) {
-            const result = await service.rejectUserApproval(props.convertedApprovalRequest.id);
+        const result = await service.rejectUserApproval(convertedApprovalRequest ? convertedApprovalRequest.id : 0);
+        console.log("[approvalReJect]", result.data?.data);
+
+        if (result.isSuccessful) {
+            new ApprovalEventEmitter().emitListUpdatedEvent();
+            setVisible(false);
+            setDeleteAlertVisible(false);
+
             console.log("[approvalReJect]", result.data?.data);
-
-            if (result.isSuccessful) {
-                new ApprovalEventEmitter().emitListUpdatedEvent();
-                setVisible(false);
-                setDeleteAlertVisible(false);
-
-                console.log("[approvalReJect]", result.data?.data);
-                Toast.show({
-                    type: "success",
-                    text1: messages.messages.main.approval.reject_success,
-                    position: "bottom",
-                    visibilityTime: 1500,
-                    bottomOffset: 100,
-                });
-            } else {
-                console.log("[approvalReJect]", result.data?.data);
-                Toast.show({
-                    type: "error",
-                    text1: messages.messages.main.approval.reject_error,
-                    position: "bottom",
-                    visibilityTime: 1500,
-                    bottomOffset: 100,
-                });
-            }
+            Toast.show({
+                type: "success",
+                text1: messages.messages.main.approval.reject_success,
+                position: "bottom",
+                visibilityTime: 1500,
+                bottomOffset: 100,
+            });
+        } else {
+            console.log("[approvalReJect]", result.data?.data);
+            Toast.show({
+                type: "error",
+                text1: messages.messages.main.approval.reject_error,
+                position: "bottom",
+                visibilityTime: 1500,
+                bottomOffset: 100,
+            });
         }
     };
 
     const onApcceptButtonPress = async () => {
-        if (props.convertedApprovalRequest) {
-            const result = await service.acceptUserApproval(props.convertedApprovalRequest.id);
+        const result = await service.acceptUserApproval(convertedApprovalRequest ? convertedApprovalRequest.id : 0);
 
-            if (result.isSuccessful) {
-                new ApprovalEventEmitter().emitListUpdatedEvent();
-                setVisible(false);
+        if (result.isSuccessful) {
+            new ApprovalEventEmitter().emitListUpdatedEvent();
+            setVisible(false);
 
-                console.log("[approvalAccept]", result.data?.data);
-                Toast.show({
-                    type: "success",
-                    text1: messages.messages.main.approval.accept_success,
-                    position: "bottom",
-                    visibilityTime: 1500,
-                    bottomOffset: 100,
-                });
-            } else {
-                console.log("[approvalAccept]", result.data?.data);
-                Toast.show({
-                    type: "error",
-                    text1: messages.messages.main.approval.accept_error,
-                    position: "bottom",
-                    visibilityTime: 1500,
-                    bottomOffset: 100,
-                });
-            }
+            console.log("[approvalAccept]", result.data?.data);
+            Toast.show({
+                type: "success",
+                text1: messages.messages.main.approval.accept_success,
+                position: "bottom",
+                visibilityTime: 1500,
+                bottomOffset: 100,
+            });
+        } else {
+            console.log("[approvalAccept]", result.data?.data);
+            Toast.show({
+                type: "error",
+                text1: messages.messages.main.approval.accept_error,
+                position: "bottom",
+                visibilityTime: 1500,
+                bottomOffset: 100,
+            });
         }
     };
 
@@ -107,12 +103,8 @@ export default function ApprovalRequiredModal(props: ApprovalRequiredModalProps)
             <View style={styles.container}>
                 <View style={styles.content}>
                     <View style={styles.textSection}>
-                        <Text style={styles.title}>
-                            {convertedApprovalRequest ? convertedApprovalRequest.title : ""}
-                        </Text>
-                        <Text style={styles.subtitle}>
-                            {convertedApprovalRequest ? convertedApprovalRequest.subTitle : ""}
-                        </Text>
+                        <Text style={styles.title}>{convertedApprovalRequest.title}</Text>
+                        <Text style={styles.subtitle}>{convertedApprovalRequest.subTitle}</Text>
                     </View>
                     {convertedApprovalRequest?.detailContent?.map((content, index) => {
                         return (

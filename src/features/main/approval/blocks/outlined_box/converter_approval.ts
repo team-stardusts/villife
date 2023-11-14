@@ -12,7 +12,7 @@ export class ApprovalDataConverter {
         this.request = request;
     }
 
-    convert(): ConvertedApprovalData {
+    convert(): ConvertedApprovalData | null {
         const message = useScreenMessage();
         const identifier = this.request.category * 1000 + this.request.detail_type;
         console.log("[Converter_approval] : ", this.request);
@@ -143,7 +143,7 @@ export type ConvertedApprovalData = {
     detailContent: DetailContents;
     createdAt: number;
     updatedAt: number;
-} | null;
+};
 
 type DetailContents = Array<DetailContent>;
 type DetailContent = {

@@ -31,7 +31,8 @@ export default function ComplaintHomeScreen({ navigation, route }: ComplaintHome
                 setDisplayMode={viewModel.setDisplayMode}
             />
             <ScrollView style={styles.topLevelContainer}>
-                <TouchableOpacity onPress={() => navigation.navigate("noti_home", {})}>
+                {/*자주 묻는 민원 버튼
+                 <TouchableOpacity onPress={() => navigation.navigate("noti_home", {})}>
                     <View style={styles.FAQContainer}>
                         <View style={styles.FAQTextContainer}>
                             <Text style={styles.FAQTitle}>
@@ -44,7 +45,7 @@ export default function ComplaintHomeScreen({ navigation, route }: ComplaintHome
                             />
                         </View>
                     </View>
-                </TouchableOpacity>
+                </TouchableOpacity> */}
                 {!user?.isAdmin && (
                     <TouchableOpacity
                         style={styles.registerContainer}

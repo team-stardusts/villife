@@ -145,17 +145,20 @@ export default function ComplaintDetailScreen({ navigation, route }: ComplaintDe
                     }}
                     scalesPageToFit={false}
                     viewportContent={"width=device-width, user-scalable=no"}></AutoHeightWebView>
-                <View>
+
+                <View style={styles.webViewContainerMinHeight}>
                     <View style={styles.replyTitleBox}>
                         <Text style={styles.replyTitle}>답글</Text>
                         <TouchableOpacity
+                            style={styles.replyTitleSection}
                             onPress={() => {
                                 callTo();
                             }}>
                             <Icon name="phone" size={styles.iconPhone.width} color={styles.iconPhone.color} />
+                            <Text style={styles.callText}>전화하기</Text>
                         </TouchableOpacity>
                     </View>
-                    <View style={styles.horizontalLine}></View>
+                    <View style={styles.horizontalLine} />
                     {uiState.replies.map((reply, inedx) => {
                         return (
                             <View key={reply.id} style={styles.replyItem}>

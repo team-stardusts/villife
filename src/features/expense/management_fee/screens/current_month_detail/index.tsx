@@ -30,7 +30,9 @@ export default function ManagementFeeCurrentMonthDetailScreen({ navigation, rout
 
                 return;
             } else {
-                VillifeToastMessage.showBottomToast("info", "아직 이번 달 관리비가 고지되지 않았어요.");
+                user?.authority === 3
+                    ? ""
+                    : VillifeToastMessage.showBottomToast("info", "아직 이번 달 관리비가 고지되지 않았어요.");
             }
         }
         // 이번 달 관리비 상세내역 진입 조건이 금월 관리비가 0원 이상인 경우 이므로

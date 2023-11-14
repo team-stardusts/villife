@@ -58,7 +58,6 @@ export default function useComplaintDetailSecreenStyle() {
         },
         webViewContainer: {
             opacity: 0.99,
-            minHeight: 200,
             marginLeft: leftMargin,
         },
         replyTitle: {
@@ -72,7 +71,7 @@ export default function useComplaintDetailSecreenStyle() {
         horizontalLine: {
             borderBottomWidth: deviceUI.moderateScale(1),
             borderBottomColor: theme.color.specified.blue,
-            marginVertical: 10,
+            marginVertical: deviceUI.moderateScale(16),
         },
         iconBuilding: {
             width: deviceUI.moderateScale(25),
@@ -97,13 +96,23 @@ export default function useComplaintDetailSecreenStyle() {
         replyItem: {
             marginBottom: deviceUI.moderateScale(20),
         },
+        replyTitleSection: {
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "center",
+        },
         absoulteWrapper: {
             position: "absolute",
             height: "100%",
         },
         iconPhone: {
-            paddingRight: deviceUI.moderateScale(30),
             width: deviceUI.moderateScale(36),
+            color: theme.color.specified.black,
+        },
+        callText: {
+            fontSize: deviceUI.moderateScale(16),
+            marginLeft: deviceUI.moderateScale(8),
+            fontFamily: "Pretendard-Bold",
             color: theme.color.specified.black,
         },
         replyTitleBox: {
@@ -112,6 +121,11 @@ export default function useComplaintDetailSecreenStyle() {
             alignItems: "center",
             justifyContent: "space-between",
             marginHorizontal: deviceUI.moderateScale(16),
+        },
+        webViewContainerMinHeight: {
+            minHeight: deviceUI.getScreenSize().height * 0.1,
+            justifyContent: "flex-end",
+            backgroundColor: "green",
         },
     });
     return styles;

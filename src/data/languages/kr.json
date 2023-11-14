@@ -112,10 +112,10 @@
             "complaint_received_and_in_progress": "진행중인 민원",
             "when_complaint_empty": "여기를 눌러 새로운 민원을 등록해주세요.",
             "when_complaint_empty_admin": "등록된 민원이 없습니다.",
-            "complaint_received_and_in_progress_menu": "진행중인 민원 보기 (접수,처리중)",
-            "complaint_received_menu": "접수된 민원만 보기",
-            "complaint_in_progress_menu": "처리중인 민원만 보기",
-            "complaint_done_menu": "완료된 민원보기"
+            "complaint_received_and_in_progress_menu": "진행중인 민원",
+            "complaint_received_menu": "접수된 민원",
+            "complaint_in_progress_menu": "처리중인 민원",
+            "complaint_done_menu": "지난 민원"
         },
         "payment": {
             "screen_title": "관리비"
@@ -148,9 +148,9 @@
         "approval": {
             "screen_title": "승인함",
             "reject_success": "요청을 거절하였습니다.",
-            "reject_error": "거절 실패하였습니다, 계속 실패하실 경우 제작사에 문의 부탁드립니다.",
+            "reject_error": "거절에 실패했어요. 계속 실패하실 경우 제작사에 문의해주세요..",
             "accept_success": "요청을 승인하였습니다.",
-            "accept_error": "승인에 실패하였습니다, 계속 실패하실 경우 제작사에 문의 부탁드립니다.",
+            "accept_error": "승인에 실패했어요. 계속 실패하실 경우 제작사에 문의해주세요.",
             "reject": "거절",
             "accept": "승인",
             "reject_title": "정말 거절하겠습니까?",
@@ -159,7 +159,7 @@
             "user_name": "이름",
             "phone_number": "전화번호",
             "title_1001": "신규 가입",
-            "sub_title": "정보 확인 후 수정사항 없을 시 수락 부탁드립니다.",
+            "sub_title": "정보 확인 후 수정사항 없을 시 승인해주세요.",
             "vehicle_number": "차량 번호",
             "vehicle_model": "차량 모델",
             "title_2001": "차량 정보 등록",

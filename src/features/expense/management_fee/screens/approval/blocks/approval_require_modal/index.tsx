@@ -8,23 +8,32 @@ import useScreenMessage from "../../../../../../common/hooks/multilingual/hooks"
 import useApprovalService from "../../services";
 import { ApprovalEventEmitter } from "../outlined_box_list/event";
 import Icon from "../../../../../../common/atoms/icon";
+import { useNavigation } from "@react-navigation/native";
+import { VillifeNavigation } from "../../../../../../common/router/types";
+import { UserPaymentManagerBase } from "../../../../services/payment/types";
+import useManagementFeeManager from "../../../../services/payment";
 
 export default function ExpenseApprovalRequiredModal(props: ApprovalRequiredModalProps) {
     const messages = useScreenMessage();
     const service = useApprovalService();
     const styles = useBottomEditModalStyles();
-    const { visible, setVisible, convertedApprovalRequest } = props;
+    const navigation = useNavigation<VillifeNavigation>();
 
+    const { visible, setVisible, convertedApprovalRequest } = props;
     const [deleteAlertVisible, setDeleteAlertVisible] = useState(false);
 
     useEffect(() => {
         if (!props.visible) setDeleteAlertVisible(false);
     }, []);
 
+    const currentMonthDetailBtn = () => {
+        navigation.navigate("management_fee_current_month_detail", {
+            unpaidFee: 100,
+        });
+    };
+
     const onRejectButtonPress = async () => {
-        const result = await service.rejectExpenseApproval(
-            props.convertedApprovalRequest ? props.convertedApprovalRequest.id : 0
-        );
+        const result = await service.rejectExpenseApproval(convertedApprovalRequest ? convertedApprovalRequest.id : 0);
 
         if (result.isSuccessful) {
             new ApprovalEventEmitter().emitListUpdatedEvent();
@@ -51,9 +60,7 @@ export default function ExpenseApprovalRequiredModal(props: ApprovalRequiredModa
     };
 
     const onApcceptButtonPress = async () => {
-        const result = await service.acceptExpenseApproval(
-            props.convertedApprovalRequest ? props.convertedApprovalRequest.id : 0
-        );
+        const result = await service.acceptExpenseApproval(convertedApprovalRequest ? convertedApprovalRequest.id : 0);
 
         if (result.isSuccessful) {
             new ApprovalEventEmitter().emitListUpdatedEvent();
@@ -87,32 +94,45 @@ export default function ExpenseApprovalRequiredModal(props: ApprovalRequiredModa
                 setVisible(!props.visible);
             }}
             style={[styles.wrapper, styles.wrapperTop]}>
+            <StardustModal
+                modalVisible={deleteAlertVisible}
+                setModalVisible={setDeleteAlertVisible}
+                title={messages.messages.main.approval.reject_title}
+                buttons={[
+                    {
+                        text: messages.messages.words.cancle,
+                        onPress: () => setDeleteAlertVisible(false),
+                    },
+                    {
+                        text: messages.messages.main.approval.reject,
+                        onPress: () => onRejectButtonPress(),
+                    },
+                ]}
+            />
             <View style={styles.container}>
                 <View style={styles.content}>
                     <View style={styles.textSection}>
-                        <Text style={styles.title}>
-                            {convertedApprovalRequest ? convertedApprovalRequest.title : ""}
-                        </Text>
-                        <Text style={styles.subtitle}>
-                            {convertedApprovalRequest ? convertedApprovalRequest.subTitle : ""}
-                        </Text>
+                        <Text style={styles.title}>{convertedApprovalRequest.title}</Text>
+                        <Text style={styles.subtitle}>{convertedApprovalRequest.subTitle}</Text>
                     </View>
                     {convertedApprovalRequest?.detailContent?.map((content, index) => {
                         return (
                             <View style={styles.childrenSection} key={index}>
-                                <Text>{content.title}</Text>
-                                <Text>{content.content}</Text>
+                                <Text style={styles.rightContentText}>{content.title}</Text>
+                                <Text style={styles.leftContentText}>{content.content}</Text>
                             </View>
                         );
                     })}
+                    {/* 추후 결정하자
                     <TouchableOpacity
                         style={styles.notedTextButton}
                         onPress={() => {
-                            console.log("상세내역으로 슈슝");
+                            setVisible(false);
+                            currentMonthDetailBtn();
                         }}>
                         <Text style={styles.notedText}>상세내역</Text>
                         <Icon name="arrow-right" size={styles.linkIcon.width} color={styles.linkIcon.color} />
-                    </TouchableOpacity>
+                    </TouchableOpacity> */}
                     <View style={styles.leftButtonSection}>
                         <TouchableOpacity
                             activeOpacity={0.7}
@@ -122,21 +142,6 @@ export default function ExpenseApprovalRequiredModal(props: ApprovalRequiredModa
                             style={styles.leftButton}>
                             <Text style={styles.leftButtonText}>{messages.messages.main.approval.reject}</Text>
                         </TouchableOpacity>
-                        <StardustModal
-                            modalVisible={deleteAlertVisible}
-                            setModalVisible={setDeleteAlertVisible}
-                            title={messages.messages.main.approval.reject_title}
-                            buttons={[
-                                {
-                                    text: messages.messages.words.cancle,
-                                    onPress: () => setDeleteAlertVisible(false),
-                                },
-                                {
-                                    text: messages.messages.main.approval.reject,
-                                    onPress: () => onRejectButtonPress,
-                                },
-                            ]}
-                        />
                         <TouchableOpacity
                             activeOpacity={0.7}
                             onPress={() => {
