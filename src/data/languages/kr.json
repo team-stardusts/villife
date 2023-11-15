@@ -45,7 +45,7 @@
                 "request_input_vehicle_info": "방문 일정과 차량 정보를 입력 해주세요.",
                 "vehicle_plate_number_input_placeholder": "000가 00000의 형식으로 입력해주세요.",
                 "phone_number_input_placeholder": "연락이 가능한 연락처를 기재해주세요.",
-                "visiting_perpose_input_placeholder": "방문 목적을 기재해주세요.",
+                "visiting_perpose_input_placeholder": "방문 목적을 5글자 이상 기재해주세요.",
                 "invalid_input_value": "입력한 정보들을 다시 확인해주세요."
             },
             "send_park_push_noti": {

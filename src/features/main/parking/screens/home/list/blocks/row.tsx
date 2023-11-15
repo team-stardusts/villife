@@ -1,49 +1,18 @@
 import { Alert, Text, TouchableOpacity, View } from "react-native";
-import { VehicleListBodyViewProps } from "../types";
+import { VehicleInfoRowProps } from "../types";
 import Badge from "../../../../../../common/atoms/badge";
-import useScreenMessage from "../../../../../../common/hooks/multilingual/hooks";
-import useVehicleListStyles from "../styles";
-import MultilingualMessage from "../../../../../../common/hooks/multilingual";
-import { Vehicle } from "../../../../services/states/types";
 import VillifeToastMessage from "../../../../../../common/atoms/toast";
 import Icon from "../../../../../../common/atoms/icon";
-import MessageSelectionModal from "../../../../blocks/modal/message_selection";
 import VehicleDetailModal from "../../../../blocks/modal/detail";
 import { useState } from "react";
-import useUserInformation from "../../../../../../common/hooks/service/user_info";
 import Telephone from "../../../../../../../libs/call";
 import { Callable } from "../../../../../../../libs/call/types";
+import BottomMessageSelectionModal from "../../../../blocks/modal/message";
 
-export default function VehicleListBodyView(props: VehicleListBodyViewProps) {
-    const messages = useScreenMessage().messages;
-    const user = useUserInformation();
-
-    // [TO-DO] Room number를 가져오는 function이 필요함
-    const getUserRoomNumber = (): number | undefined => {
-        return user?.roomNumber;
-    };
-
-    return (
-        <View style={props.styles.container}>
-            {props.vehicles.map((vehicle, index) => {
-                return (
-                    <VehicleInfoRow
-                        key={index}
-                        isAdmin={user?.isAdmin ?? false}
-                        userRoomNumber={getUserRoomNumber()}
-                        styles={props.styles}
-                        messages={messages}
-                        vehicle={vehicle}
-                    />
-                );
-            })}
-        </View>
-    );
-}
-
-function VehicleInfoRow(props: VehicleInfoRowProps) {
+export default function VehicleInfoRow(props: VehicleInfoRowProps) {
     const phone: Callable = new Telephone();
     const [detailVisible, setDetailVisible] = useState<boolean>(false);
+    const [messageModalVisible, setMessageModalVisible] = useState<boolean>(false);
     const badgeTitle =
         props.vehicle.ownerType !== "guest" ? props.vehicle.room_number.toString() : props.messages.words.visit;
     const badgeStyle = props.vehicle.ownerType !== "guest" ? props.styles.tenantBadge : props.styles.guestBadge;
@@ -71,7 +40,7 @@ function VehicleInfoRow(props: VehicleInfoRowProps) {
     };
 
     return (
-        <View style={props.styles.vehicleInfoContainer}>
+        <View style={props.styles.container}>
             <View style={props.styles.vehicleInfoBox}>
                 <Badge
                     title={badgeTitle}
@@ -84,21 +53,36 @@ function VehicleInfoRow(props: VehicleInfoRowProps) {
                 </Text>
             </View>
             <View style={props.styles.communicationFuncContainer}>
-                {!isMyVehicle && (
+                <TouchableOpacity
+                    activeOpacity={0.6}
+                    style={props.styles.communicationIconBox}
+                    disabled={isMyVehicle}
+                    onPress={callTo}>
+                    <Icon
+                        name="phone"
+                        size={props.styles.phoneIcon.width}
+                        color={isMyVehicle ? props.styles.disabledIcon.color : props.styles.icon.color}
+                    />
+                </TouchableOpacity>
+
+                {!props.isAdmin && (
                     <>
                         <TouchableOpacity
                             activeOpacity={0.6}
                             style={props.styles.communicationIconBox}
-                            onPress={callTo}>
+                            disabled={isMyVehicle}
+                            onPress={() => setMessageModalVisible(true)}>
                             <Icon
-                                name="phone"
-                                size={props.styles.phoneIcon.width}
-                                color={props.styles.phoneIcon.color}
+                                name="letter"
+                                size={props.styles.letterIcon.width}
+                                color={isMyVehicle ? props.styles.disabledIcon.color : props.styles.icon.color}
                             />
                         </TouchableOpacity>
-                        <View style={props.styles.communicationIconBox}>
-                            {!props.isAdmin && <MessageSelectionModal vehicleID={props.vehicle.id} />}
-                        </View>
+                        <BottomMessageSelectionModal
+                            vehicleID={props.vehicle.id}
+                            visible={messageModalVisible}
+                            setVisible={setMessageModalVisible}
+                        />
                     </>
                 )}
             </View>
@@ -111,7 +95,7 @@ function VehicleInfoRow(props: VehicleInfoRowProps) {
                     <Icon
                         name="three-dots-vertical"
                         size={props.styles.detailIcon.width}
-                        color={props.styles.detailIcon.color}
+                        color={props.styles.icon.color}
                     />
                 </TouchableOpacity>
                 <VehicleDetailModal
@@ -124,11 +108,3 @@ function VehicleInfoRow(props: VehicleInfoRowProps) {
         </View>
     );
 }
-
-type VehicleInfoRowProps = {
-    isAdmin: boolean;
-    messages: MultilingualMessage["messages"];
-    vehicle: Vehicle;
-    userRoomNumber: number | undefined;
-    styles: ReturnType<typeof useVehicleListStyles>["body"];
-};

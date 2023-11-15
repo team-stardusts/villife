@@ -13,7 +13,12 @@ export default function BuildingInfoView(props: BuildingInfoViewProps) {
     //const navigation = useNavigation<VillifeNavigation>();
 
     return (
-        <TitleCard title="건물 정보" headerButton={{ title: "편집하기", onPress: () => console.log("Hello") }}>
+        <TitleCard
+            title="건물 정보"
+            /* headerButton={
+                props.buildingInfo.isAdmin ? { title: "편집하기", onPress: () => console.log("Hello") } : undefined
+            } */
+        >
             <View style={styles.container}>
                 <View style={styles.section}>
                     <View style={styles.sectionRow}>

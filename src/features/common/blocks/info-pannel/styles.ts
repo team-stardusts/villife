@@ -19,6 +19,7 @@ export default function useInfoPannelStyles() {
             flexDirection: "row",
             justifyContent: "flex-start",
             alignItems: "center",
+            paddingHorizontal: deviceUI.moderateScale(10),
         },
         iconBox: {
             height: infoHeight * 0.55,
@@ -27,7 +28,6 @@ export default function useInfoPannelStyles() {
             backgroundColor: theme.color.specified.blue,
             justifyContent: "center",
             alignItems: "center",
-            marginHorizontal: deviceUI.moderateScale(10),
             transform: [
                 {
                     rotateZ: "180deg",
@@ -38,7 +38,12 @@ export default function useInfoPannelStyles() {
             width: infoHeight * 0.85,
             color: theme.color.specified.white,
         },
+        messageBox: {
+            paddingLeft: deviceUI.moderateScale(10),
+            paddingRight: deviceUI.moderateScale(5),
+        },
         message: {
+            maxWidth: "99%",
             fontFamily: theme.font.fontFamily.pretendard.regular,
             fontSize: deviceUI.moderateScale(14),
             color: theme.color.specified.black,

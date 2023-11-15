@@ -184,12 +184,14 @@ function useDateEtdaPickerStyles() {
             flexDirection: "row",
         },
         date: {
-            fontFamily: theme.font.fontFamily.pretendard.bold,
-            fontSize: 20,
+            fontFamily: theme.font.fontFamily.pretendard.semiBold,
+            fontSize: deviceUI.moderateScale(20),
+            color: theme.color.specified.black,
         },
         time: {
-            fontSize: 18,
-            fontFamily: theme.font.fontFamily.pretendard.medium,
+            fontFamily: theme.font.fontFamily.pretendard.regular,
+            fontSize: deviceUI.moderateScale(18),
+            color: theme.color.specified.black,
         },
         dateIsolationContainer: {
             width: "20%",

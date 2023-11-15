@@ -77,23 +77,27 @@ export default function ParkingScreen({ navigation, route }: ParkingScreenProps)
                 applyDefaultVerticalPadding: false,
             }}>
             <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
-                <InfoPannel
-                    infos={[
-                        {
-                            type: "info",
-                            message: "등록한 차량은 관리자 승인 이후 반영돼요!",
-                        },
-                        {
-                            type: "info",
-                            message: "차량 입차/출차 시간은 참고용 시간이에요.",
-                        },
-                        {
-                            type: "info",
-                            message: "이중주차를 하셨나요? 알림 메세지를 보내보세요!",
-                        },
-                    ]}
-                />
-                {!user?.isAdmin && <VehicleCardView vehicles={parkingLot.userVehicles} />}
+                {!user?.isAdmin && (
+                    <>
+                        <InfoPannel
+                            infos={[
+                                {
+                                    type: "info",
+                                    message: "등록한 차량은 관리자 승인 이후 반영돼요!",
+                                },
+                                {
+                                    type: "info",
+                                    message: "차량 입차/출차 시간은 참고용 시간이에요.",
+                                },
+                                {
+                                    type: "info",
+                                    message: "이중주차를 하셨나요? 알림 메세지를 보내보세요!",
+                                },
+                            ]}
+                        />
+                        <VehicleCardView vehicles={parkingLot.userVehicles} />
+                    </>
+                )}
                 <VehicleListView vehicles={sortAndSetVehiclesForRender()} />
             </ScrollView>
         </NavigationView>

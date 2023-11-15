@@ -26,16 +26,13 @@ export default function useVehicleListStyles() {
             width: "100%",
             justifyContent: "flex-start",
             alignItems: "center",
-        },
-    });
-
-    const body = StyleSheet.create({
-        container: {
-            width: "100%",
             paddingTop: deviceUI.moderateScale(5),
             paddingBottom: deviceUI.moderateScale(20),
         },
-        vehicleInfoContainer: {
+    });
+
+    const row = StyleSheet.create({
+        container: {
             width: "100%",
             flexDirection: "row",
             justifyContent: "flex-start",
@@ -49,12 +46,12 @@ export default function useVehicleListStyles() {
             marginVertical: deviceUI.moderateScale(15),
         },
         tenantBadge: {
-            width: deviceUI.moderateScale(15),
+            width: deviceUI.moderateScale(13),
             color: theme.color.specified.white,
             backgroundColor: theme.color.specified.grey,
         },
         guestBadge: {
-            width: deviceUI.moderateScale(15),
+            width: deviceUI.moderateScale(13),
             color: theme.color.specified.black,
             backgroundColor: theme.color.specified.green,
         },
@@ -69,16 +66,20 @@ export default function useVehicleListStyles() {
             justifyContent: "flex-start",
         },
         communicationIconBox: {
-            marginRight: deviceUI.moderateScale(10),
-            padding: deviceUI.moderateScale(3),
+            marginRight: deviceUI.moderateScale(5),
+            padding: deviceUI.moderateScale(5),
+        },
+        icon: {
+            color: theme.color.specified.black,
+        },
+        disabledIcon: {
+            color: theme.color.specified.lightgrey,
         },
         phoneIcon: {
             width: deviceUI.moderateScale(35),
-            color: theme.color.specified.black,
         },
         letterIcon: {
             width: deviceUI.moderateScale(45),
-            color: theme.color.specified.black,
         },
         detailFuncContainer: {
             position: "absolute",
@@ -87,6 +88,7 @@ export default function useVehicleListStyles() {
         },
         detailIconBox: {
             //backgroundColor: "teal",
+            padding: deviceUI.moderateScale(5),
         },
         detailIcon: {
             width: deviceUI.moderateScale(50),
@@ -96,6 +98,6 @@ export default function useVehicleListStyles() {
 
     return {
         main,
-        body,
+        row,
     };
 }

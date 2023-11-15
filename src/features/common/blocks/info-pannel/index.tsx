@@ -93,9 +93,11 @@ export default function InfoPannel(props: InfoPannelProps) {
                                 color={styles.icon.color}
                             />
                         </View>
-                        <Text style={styles.message} adjustsFontSizeToFit numberOfLines={1}>
-                            {item.message}
-                        </Text>
+                        <View style={styles.messageBox}>
+                            <Text style={styles.message} adjustsFontSizeToFit numberOfLines={1}>
+                                {item.message}
+                            </Text>
+                        </View>
                     </Animated.View>
                 )}
                 //onEndReachedThreshold={0} // 끝에 도달했을때 동작

@@ -85,15 +85,15 @@ export default function GuestVehicleInfoInputBox({
                         }
                         highlightColor={
                             guestVehicleInfo.visitingPerpose !== null &&
-                            !(VISITING_PERPOSE_MIN_LENGTH <= guestVehicleInfo.visitingPerpose.length) &&
-                            !(VISITING_PERPOSE_MAX_LENGTH >= guestVehicleInfo.visitingPerpose.length)
+                            (VISITING_PERPOSE_MIN_LENGTH > guestVehicleInfo.visitingPerpose.length ||
+                                VISITING_PERPOSE_MAX_LENGTH < guestVehicleInfo.visitingPerpose.length)
                                 ? (theme.color.specified.red as string)
                                 : undefined
                         }
                         lowlightColor={
                             guestVehicleInfo.visitingPerpose !== null &&
-                            !(VISITING_PERPOSE_MIN_LENGTH <= guestVehicleInfo.visitingPerpose.length) &&
-                            !(VISITING_PERPOSE_MAX_LENGTH >= guestVehicleInfo.visitingPerpose.length)
+                            (VISITING_PERPOSE_MIN_LENGTH > guestVehicleInfo.visitingPerpose.length ||
+                                VISITING_PERPOSE_MAX_LENGTH < guestVehicleInfo.visitingPerpose.length)
                                 ? (theme.color.specified.red as string)
                                 : undefined
                         }

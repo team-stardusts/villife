@@ -46,7 +46,7 @@ const UniversalTextInput = forwardRef((props: UniversalTextInputProps, ref: Forw
         input: {
             height: "100%",
             width: "100%",
-            minHeight: deviceUI.moderateScale(20),
+            minHeight: deviceUI.moderateScale(35),
             textAlignVertical: "center",
             backgroundColor: theme.color.specified.white,
             borderRadius: deviceUI.moderateScale(8),
