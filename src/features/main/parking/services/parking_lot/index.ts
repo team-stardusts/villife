@@ -1,7 +1,7 @@
 import { Parking } from "../../../../../libs/rest_apis/villife/parking/types";
 import { useRecoilState } from "recoil";
 import { Vehicle, VehicleOwnerType } from "../states/types";
-import { vehiclesState } from "../states";
+import { vehiclesRequestedState, vehiclesState } from "../states";
 import useUserInformation from "../../../../common/hooks/service/user_info";
 import ParkingServiceProvider from "./service";
 import type {
@@ -12,18 +12,40 @@ import type {
     RegisterGuestVehicleParams,
     RegisterUserVehicleParams,
 } from "./service/types";
-import type { IParkingLot } from "./types";
+import type { IParkingLot, ParkingLotRegisterUserVehicleParams } from "./types";
+import { useCallback, useEffect, useState } from "react";
+import VillifeStorage from "../../../../../libs/storage";
+import { RequestedVehicleData } from "../../../../../libs/storage/tables/vehicle/types";
 
 export default function useParkingLot(): IParkingLot {
     const [vehicles, setVehicles] = useRecoilState<Vehicle[]>(vehiclesState);
+    const [requestedVehicles, setRequestedVehicles] = useRecoilState<RequestedVehicleData[]>(vehiclesRequestedState);
     const user = useUserInformation();
     const service: IParkingServiceProvider = new ParkingServiceProvider();
+    const storage = VillifeStorage.getInstance();
+
+    const extractVehiclesApprovedNotYet = (requestedVehiclesInStorage: RequestedVehicleData[], vehciles: Vehicle[]) => {
+        return requestedVehiclesInStorage.filter(
+            (x) => !vehciles.find((y) => x.roomNumber === user?.roomNumber && x.plateNumber === y.plate_number)
+        );
+    };
 
     class ParkingLot implements IParkingLot {
         public readonly vehicles: Vehicle[] = vehicles;
 
         get userVehicles(): Vehicle[] {
             return vehicles.filter((vehicle) => vehicle.ownerType === "user");
+        }
+
+        get userVehiclesNotRegisted(): RequestedVehicleData[] {
+            /* if (requestedVehicles.length === 0) {
+                storage.vehicle.requetedTobeRegisted.get().then((r) => {
+                    const storedData = r === null ? [] : r;
+                    setRequestedVehicles(storedData);
+                });
+            }
+ */
+            return requestedVehicles;
         }
 
         get guestVehicles(): Vehicle[] {
@@ -35,13 +57,20 @@ export default function useParkingLot(): IParkingLot {
         }
 
         public async updateVehicles(ownerType?: VehicleOwnerType): Promise<void> {
+            const requestedVehicles = await storage.vehicle.requetedTobeRegisted.get().then((r) => {
+                const storedData = r === null ? [] : r;
+                return storedData;
+            });
+
             if (ownerType !== undefined) {
                 if (ownerType === "user" && user?.isAdmin) return;
 
-                setVehicles([
+                const newData = [
                     ...vehicles.filter((vehicle) => vehicle.ownerType !== ownerType),
                     ...(await service.getVehicles(ownerType)),
-                ]);
+                ];
+
+                setVehicles([...newData]);
 
                 return;
             }
@@ -73,6 +102,11 @@ export default function useParkingLot(): IParkingLot {
                 console.log(e);
             }
 
+            const approvedYet = extractVehiclesApprovedNotYet(requestedVehicles, newVehicles);
+
+            await storage.vehicle.requetedTobeRegisted.set(approvedYet);
+
+            setRequestedVehicles(approvedYet);
             setVehicles(newVehicles);
         }
 
@@ -92,12 +126,24 @@ export default function useParkingLot(): IParkingLot {
             return isSuccessful;
         }
 
-        public async registerUserVehicle(params: RegisterUserVehicleParams): Promise<boolean> {
-            const vehicle = await service.registerUserVehicle(params);
+        public async registerUserVehicle(params: ParkingLotRegisterUserVehicleParams): Promise<boolean> {
+            if (user?.roomID === undefined) {
+                console.error("[PARKING_LOT]", "User doesn't have the room ID.");
+
+                return false;
+            }
+            const vehicle = await service.registerUserVehicle({
+                ...params,
+            });
 
             if (vehicle === null) {
                 return false;
             }
+
+            await storage.vehicle.requetedTobeRegisted.set([
+                ...requestedVehicles,
+                { roomNumber: user.roomNumber, model: params.model, plateNumber: params.plateNumber },
+            ]);
 
             setVehicles([...vehicles, vehicle]);
             return true;

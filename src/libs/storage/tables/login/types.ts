@@ -1,8 +1,6 @@
 import { HostType as VillifeHostType } from "../../../rest_apis/villife/auth/types";
-import { ITableUsable } from "../types";
+import { TableUsable } from "../types";
 import { UserDataType } from "../user/types";
-
-export interface ILoginTable extends ITableUsable<LoginTableKey, LoginDataType> {}
 
 export type HostType = VillifeHostType;
 

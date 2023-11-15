@@ -6,7 +6,7 @@ export interface Storable {
     storage: LocalStorage;
 }
 
-export interface ITableUsable<KeyType, DataType> {
+export interface TableUsable<KeyType, DataType> {
     readonly key: KeyType;
 
     get(): Promise<DataType | null>;

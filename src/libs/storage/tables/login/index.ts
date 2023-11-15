@@ -1,10 +1,10 @@
 import { EventRegister } from "react-native-event-listeners";
 import { VillifeStorageEvents } from "../..";
-import LocalStorage from "../../localstorage";
-import ATable from "../absc";
-import { ILoginTable, LoginDataType, LoginTableKey } from "./types";
+import TableCommon from "../absc";
+import { LoginDataType, LoginTableKey } from "./types";
+import { TableUsable } from "../types";
 
-class LoginTable extends ATable implements ILoginTable {
+class LoginTable extends TableCommon implements TableUsable<LoginTableKey, LoginDataType> {
     readonly key: LoginTableKey = "login";
 
     public async get(): Promise<LoginDataType | null> {

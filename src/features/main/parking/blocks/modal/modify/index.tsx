@@ -96,14 +96,14 @@ export default function VehicleModifyModal(props: VehicleModifyModalProps) {
                 : messages.messages.main.parking.modify_modal.failed_to_delete
         );
 
-        navigation.reset({
+        /* navigation.reset({
             index: 0,
             routes: [
                 {
                     name: "parking",
                 },
             ],
-        });
+        }); */
     };
 
     return (

@@ -27,18 +27,16 @@ export class TextValidator {
 
     public static validateModel(model: string): boolean {
         const inCorrectLength: boolean = MODEL_MIN_LENGTH <= model.length && model.length <= MODEL_MAX_LENGTH;
-        let hadSpecialChar: boolean = false;
+        let hadNoSpecialChar: boolean = true;
 
         // 공백을 특수문자로 보기 때문에 아래와 같이 검사함
         model.split(" ").forEach((word) => {
             if (word === "" || this.validator.hasSpecialChar(word)) {
-                hadSpecialChar = true;
+                hadNoSpecialChar = false;
             }
         });
-        if (!hadSpecialChar && inCorrectLength) {
-            return true;
-        }
-        return false;
+
+        return hadNoSpecialChar && inCorrectLength;
     }
 
     public static validatePhoneNumber = (phoneNumber: string): boolean => {

@@ -46,20 +46,27 @@ export default function useVehicleCardViewStyles() {
         card: {
             width: cardWidth,
         },
-        noCardContainer: {
+        additionalCardConatiner: {
             width: cardWidth,
             minHeight: deviceUI.moderateScale(80),
             justifyContent: "center",
             alignItems: "center",
-        },
-        noCardTitleBox: {
-            justifyContent: "center",
-            alignItems: "center",
             marginBottom: deviceUI.moderateScale(10),
         },
+        waitingTitle: {
+            marginBottom: deviceUI.moderateScale(10),
+            fontFamily: theme.font.fontFamily.pretendard.medium,
+            fontSize: deviceUI.moderateScale(16),
+            color: theme.color.specified.black,
+        },
+        waitingSubtitle: {
+            fontFamily: theme.font.fontFamily.pretendard.medium,
+            fontSize: deviceUI.moderateScale(14),
+            color: theme.color.specified.lightblue,
+        },
         noCardTitle: {
-            marginBottom: deviceUI.moderateScale(5),
-            fontFamily: theme.font.fontFamily.pretendard.semiBold,
+            marginBottom: deviceUI.moderateScale(10),
+            fontFamily: theme.font.fontFamily.pretendard.medium,
             fontSize: deviceUI.moderateScale(16),
             color: theme.color.specified.blue,
         },

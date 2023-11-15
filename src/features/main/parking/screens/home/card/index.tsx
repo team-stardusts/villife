@@ -1,6 +1,6 @@
 import { View } from "react-native";
 import { VehicleCardViewProps } from "./types";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import useVehicleCardViewStyles from "./styles";
 import VehicleCardBottom from "./blocks/bottom";
 import VehicleCardBody from "./blocks/body";
@@ -10,18 +10,18 @@ import EditBtnCombo from "./blocks/btn-combo";
 import { VehicleModifyType } from "../../../blocks/modal/modify/types";
 import VehicleModifyModal from "../../../blocks/modal/modify";
 
-export default function VehicleCardView({ vehicles }: VehicleCardViewProps) {
+export default function VehicleCardView(params: VehicleCardViewProps) {
     const messages = useScreenMessage().messages;
-
     const [crrIndex, setCrrIndex] = useState<number>(0);
     const [editmode, setEditmode] = useState<boolean>(false);
     const [modalVisible, setModalVisible] = useState<boolean>(false);
     const [editType, setEditType] = useState<VehicleModifyType | null>(null);
+    const cardsCount = useMemo(() => params.vehicles.length + params.requestedVehicles.length + 1, [params]);
 
     const styles = useVehicleCardViewStyles();
 
     useEffect(() => {
-        if (editType === null || vehicles.length === 0) return;
+        if (editType === null || params.vehicles.length === 0) return;
         setModalVisible(true);
     }, [editType]);
 
@@ -30,7 +30,7 @@ export default function VehicleCardView({ vehicles }: VehicleCardViewProps) {
             if (editType === newEditType) setModalVisible(true);
             else setEditType(newEditType);
         },
-        [editType, vehicles]
+        [editType, params.vehicles]
     );
 
     return (
@@ -38,7 +38,7 @@ export default function VehicleCardView({ vehicles }: VehicleCardViewProps) {
             <TitleCard
                 title={messages.main.parking.home.my_vehicle_info}
                 headerButton={
-                    vehicles.length > 0 && vehicles.length !== crrIndex
+                    params.vehicles.length > 0 && params.vehicles.length > crrIndex
                         ? {
                               title: "수정하기",
                               onPress: () => setEditmode(!editmode),
@@ -47,27 +47,28 @@ export default function VehicleCardView({ vehicles }: VehicleCardViewProps) {
                 }>
                 <View style={styles.main.wrapper}>
                     <View style={styles.main.bodyContainer}>
-                        <VehicleCardBody styles={styles.body} vehicles={vehicles} onFlip={setCrrIndex} />
+                        <VehicleCardBody
+                            styles={styles.body}
+                            vehicles={params.vehicles}
+                            requestedVehicles={params.requestedVehicles}
+                            onFlip={setCrrIndex}
+                        />
                     </View>
-                    {editmode && vehicles.length >= crrIndex + 1 && (
+                    {editmode && params.vehicles.length > crrIndex && (
                         <View style={styles.main.btncomboContainer}>
                             <EditBtnCombo styles={styles.btncombo} onPressEditBtn={handlePressEditBtns} />
                         </View>
                     )}
                     <View style={styles.main.bottomCotainer}>
-                        <VehicleCardBottom
-                            styles={styles.bottom}
-                            length={vehicles.length + 1}
-                            currentIndex={crrIndex}
-                        />
+                        <VehicleCardBottom styles={styles.bottom} length={cardsCount} currentIndex={crrIndex} />
                     </View>
                 </View>
-                {editType !== null && vehicles.length >= crrIndex + 1 && (
+                {editType !== null && params.vehicles.length > crrIndex && (
                     <VehicleModifyModal
                         modifyType={editType}
                         visible={modalVisible}
                         setVisible={setModalVisible}
-                        vehilce={vehicles[crrIndex]}
+                        vehilce={params.vehicles[crrIndex]}
                     />
                 )}
             </TitleCard>

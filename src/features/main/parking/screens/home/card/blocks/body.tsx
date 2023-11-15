@@ -5,7 +5,7 @@ import useScreenMessage from "../../../../../../common/hooks/multilingual/hooks"
 import { useNavigation } from "@react-navigation/native";
 import { VillifeNavigation } from "../../../../../../common/router/types";
 
-export default function VehicleCardBody({ styles, vehicles, onFlip }: VehicleCardBodyProps) {
+export default function VehicleCardBody({ styles, vehicles, requestedVehicles, onFlip }: VehicleCardBodyProps) {
     //const messages = useScreenMessage().messages;
     const navigation = useNavigation<VillifeNavigation>();
 
@@ -34,31 +34,39 @@ export default function VehicleCardBody({ styles, vehicles, onFlip }: VehicleCar
                 {vehicles.map((vehicle, index) => (
                     <VehicleCard key={index} vehicle={vehicle} cardWidth={styles.card.width} />
                 ))}
+                {requestedVehicles.map((value, index) => (
+                    <View key={index} style={styles.additionalCardConatiner}>
+                        <Text style={styles.waitingTitle} adjustsFontSizeToFit numberOfLines={1}>
+                            관리자의 승인을 기다리고 있어요!
+                        </Text>
+                        <Text style={styles.waitingSubtitle} adjustsFontSizeToFit numberOfLines={1}>
+                            {value.model} / {value.plateNumber}
+                        </Text>
+                    </View>
+                ))}
                 <TouchableOpacity
-                    style={styles.noCardContainer}
+                    style={styles.additionalCardConatiner}
                     activeOpacity={0.5}
                     onPress={() => navigation.navigate("register_vehicle")}>
-                    <View style={styles.noCardTitleBox}>
-                        {vehicles.length === 0 ? (
-                            <>
-                                <Text style={styles.noCardTitle} adjustsFontSizeToFit numberOfLines={1}>
-                                    등록된 차량이 없어요!
-                                </Text>
-                                <Text style={styles.noCardSubtitle} adjustsFontSizeToFit numberOfLines={2}>
-                                    여기를 눌러서 차량을 등록해보세요.
-                                </Text>
-                            </>
-                        ) : (
-                            <>
-                                <Text style={styles.noCardTitle} adjustsFontSizeToFit numberOfLines={1}>
-                                    추가로 등록할 차량이 있으신가요?
-                                </Text>
-                                <Text style={styles.noCardSubtitle} adjustsFontSizeToFit numberOfLines={2}>
-                                    여기를 눌러 더 많은 차량을 등록해보세요.
-                                </Text>
-                            </>
-                        )}
-                    </View>
+                    {vehicles.length === 0 && requestedVehicles.length === 0 ? (
+                        <>
+                            <Text style={styles.noCardTitle} adjustsFontSizeToFit numberOfLines={1}>
+                                등록된 차량이 없어요!
+                            </Text>
+                            <Text style={styles.noCardSubtitle} adjustsFontSizeToFit numberOfLines={2}>
+                                여기를 눌러서 차량을 등록해보세요.
+                            </Text>
+                        </>
+                    ) : (
+                        <>
+                            <Text style={styles.noCardTitle} adjustsFontSizeToFit numberOfLines={1}>
+                                추가로 등록할 차량이 있으신가요?
+                            </Text>
+                            <Text style={styles.noCardSubtitle} adjustsFontSizeToFit numberOfLines={2}>
+                                여기를 눌러 더 많은 차량을 등록해보세요.
+                            </Text>
+                        </>
+                    )}
                 </TouchableOpacity>
             </ScrollView>
         </View>

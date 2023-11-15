@@ -1,11 +1,10 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import EncryptedStorage from 'react-native-encrypted-storage';
+import EncryptedStorage from "react-native-encrypted-storage";
 import { ILocalStorage, StorageType } from "./types";
 
-
-class LocalStorage implements ILocalStorage{
+class LocalStorage implements ILocalStorage {
     readonly Storage: StorageType;
-    
+
     constructor(encryption: boolean) {
         this.Storage = encryption ? EncryptedStorage : AsyncStorage;
     }
@@ -15,32 +14,29 @@ class LocalStorage implements ILocalStorage{
 
         try {
             const strVal: string = JSON.stringify(value);
-            
+
             await this.Storage.setItem(key, strVal);
-        } 
-        catch (e: any) {
+        } catch (e: any) {
             didSucceed = false;
             console.error("setItem Error", e.message);
-        }
-        finally {
+        } finally {
             return didSucceed;
         }
     }
 
     public async getItem(key: string): Promise<any | null> {
         try {
-            const value: string|null = await this.Storage.getItem(key);
-            
+            const value: string | null = await this.Storage.getItem(key);
+
             if (value !== null) {
                 const data: any = JSON.parse(value);
 
                 return data;
             }
         } catch (e: any) {
-            console.error("getItem Error", e.message);
+            console.log("getItem Error", e.message);
+            return null;
         }
-
-        return null;
     }
 
     public async removeItem(key: string): Promise<void> {

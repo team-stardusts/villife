@@ -2,16 +2,12 @@ import { View } from "react-native";
 import { InfoEditViewProps } from "../types";
 import VehicleInfoInputBox from "../../../../screens/register_vehicle/blocks/input_box";
 import { useEffect, useState } from "react";
-import { VehicleInfo, VehicleValidationResult } from "../../../../screens/register_vehicle/blocks/input_box/types";
+import { VehicleInfo } from "../../../../screens/register_vehicle/blocks/input_box/types";
 
 export default function InfoEditView(props: InfoEditViewProps) {
     const [info, setInfo] = useState<VehicleInfo>({
         plateNumber: "",
         model: "",
-    });
-    const [_, setValid] = useState<VehicleValidationResult>({
-        plateNumber: false,
-        model: false,
     });
 
     useEffect(() => {
@@ -20,11 +16,7 @@ export default function InfoEditView(props: InfoEditViewProps) {
 
     return (
         <View style={props.styles.infoContianer}>
-            <VehicleInfoInputBox
-                initialVehicleInfo={props.initialnfo}
-                onValidation={setValid}
-                onChangeVehicleInfo={setInfo}
-            />
+            <VehicleInfoInputBox initialVehicleInfo={props.initialnfo} onChangeVehicleInfo={setInfo} />
         </View>
     );
 }

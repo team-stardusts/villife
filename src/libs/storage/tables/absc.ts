@@ -2,7 +2,7 @@ import { EventRegister } from "react-native-event-listeners";
 import LocalStorage from "../localstorage";
 import { Storable } from "./types";
 
-abstract class ATable implements Storable {
+abstract class TableCommon implements Storable {
     readonly key: string = "";
     storage: LocalStorage = new LocalStorage(true); // EncriptStorage
 
@@ -11,4 +11,4 @@ abstract class ATable implements Storable {
     abstract remove(): Promise<void>;
 }
 
-export default ATable;
+export default TableCommon;

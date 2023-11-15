@@ -1,7 +1,7 @@
 import { Authority } from "../../../rest_apis/villife/types";
-import { ITableUsable } from "../types";
+import { TableUsable } from "../types";
 
-export interface IUserTable extends ITableUsable<UserTableKey, UserDataType> {}
+export interface IUserTable extends TableUsable<UserTableKey, UserDataType> {}
 
 export type UserTableKey = "user";
 

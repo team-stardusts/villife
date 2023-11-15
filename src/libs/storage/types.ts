@@ -1,4 +1,6 @@
 import type LoginTable from "./tables/login";
+import UserTable from "./tables/user";
+import VehicleRequestedTable from "./tables/vehicle";
 
 export type StorageListenerCallback = (newValue: any) => void;
 
@@ -8,7 +10,10 @@ export type VillifeStorageEvent =
     | "REMOVE_LOGIN_VALUE"
     | "GET_USER_VALUE"
     | "CHANGE_USER_VALUE"
-    | "REMOVE_USER_VALUE";
+    | "REMOVE_USER_VALUE"
+    | "GET_VEHICLE_REQUESTED_VALUE"
+    | "CHANGE_VEHICLE_REQUESTED_VALUE"
+    | "REMOVE_VEHICLE_REQUESTED_VALUE";
 
 export type VillifeStorageEvents = {
     login: {
@@ -16,6 +21,11 @@ export type VillifeStorageEvents = {
     };
     user: {
         [key: string]: VillifeStorageEvent;
+    };
+    vehicle: {
+        requetedTobeRegisted: {
+            [key: string]: VillifeStorageEvent;
+        };
     };
 };
 
@@ -27,4 +37,8 @@ export interface EventRegisterable {
 
 export default interface IVillifeStorage extends EventRegisterable {
     login: LoginTable;
+    user: UserTable;
+    vehicle: {
+        requetedTobeRegisted: VehicleRequestedTable;
+    };
 }

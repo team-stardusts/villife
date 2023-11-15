@@ -49,6 +49,7 @@ export default function VehicleInfoInputBox({ initialVehicleInfo, onChangeVehicl
                     <UniversalTextInput
                         name="model"
                         ref={refinput}
+                        value={vehicleInfo?.model ?? ""}
                         placeholder={
                             messages.messages.main.parking.register_vehicle.vehicle_model_number_input_placeholder
                         }
@@ -63,7 +64,7 @@ export default function VehicleInfoInputBox({ initialVehicleInfo, onChangeVehicl
                                 : undefined
                         }
                         onChangeText={(text) => {
-                            setVehicleInfo({ ...vehicleInfo, model: TextValidator.validateModel(text) ? text : null });
+                            setVehicleInfo({ ...vehicleInfo, model: text === "" ? null : text });
                         }}
                     />
                 </View>

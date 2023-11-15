@@ -95,7 +95,10 @@ export default function ParkingScreen({ navigation, route }: ParkingScreenProps)
                                 },
                             ]}
                         />
-                        <VehicleCardView vehicles={parkingLot.userVehicles} />
+                        <VehicleCardView
+                            vehicles={parkingLot.userVehicles}
+                            requestedVehicles={parkingLot.userVehiclesNotRegisted}
+                        />
                     </>
                 )}
                 <VehicleListView vehicles={sortAndSetVehiclesForRender()} />
