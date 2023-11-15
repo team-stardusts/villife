@@ -8,6 +8,7 @@ import { LoginDataType } from "../../../../libs/storage/tables/login/types";
 export interface IAuthServiceProvider {
     login(host: HostType, params?: LoginServiceParams | undefined): Promise<LoginResult>;
     join(host: HostType, params: JoinServiceParams | any): Response<SocialJoinResultType | any>;
+    refreshUserInfo(): Promise<boolean>;
 }
 
 export interface ILoginManager extends Verifiable, Joinable {}

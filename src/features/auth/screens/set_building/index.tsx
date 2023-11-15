@@ -13,6 +13,7 @@ import { BuildingInfo } from "../../services/set_building/type";
 import Badge from "../../../common/atoms/badge";
 import IStringValidator from "../../../../libs/string_validator/types";
 import StringValidator from "../../../../libs/string_validator";
+import useAuthService from "../../services/authentication";
 
 LogBox.ignoreLogs(["Did not receive response to shouldStartLoad in time"]);
 
@@ -24,6 +25,7 @@ type BadgeStatus = {
 export default function SetBuildingScreen({ navigation, route }: SetBuildingScreenProps) {
     const messages = useScreenMessage();
     const styles = useSetBuildingScreenStyles();
+    const authService = useAuthService();
 
     const [address, setAddress] = useRecoilState<SelectedAddressStateType>(selectedAddressState);
     const [buildingInfo, setBuildingInfo] = useState<BuildingInfo | null>(null);
@@ -60,7 +62,20 @@ export default function SetBuildingScreen({ navigation, route }: SetBuildingScre
                         building_id: buildingInfo.building_id,
                         room_number: parseInt(roomNumber),
                     })
+                    // 유저가 등록하려는 호수에 이미 유저랑 동일한 계약 정보가 등록되어 있다면, 자동 승인
                     .then((r) => {
+                        if (r.request_id === 0) {
+                            authService.refreshUserInfo().then((ok) => {
+                                if (ok) {
+                                    console.log("[SetBuildingScreen] exist contract matched with requester");
+                                    navigation.reset({
+                                        index: 0,
+                                        routes: [{ name: "home" }],
+                                    });
+                                    return;
+                                }
+                            });
+                        }
                         setIsWaitingForApprove(true);
                     })
                     .catch((r) => {

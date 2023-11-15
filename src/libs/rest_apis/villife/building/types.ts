@@ -4,9 +4,6 @@ import { Response, ResponseForTest } from "../../types";
 export default interface IVillifeBuildingManager extends BuildingVerifiable, BuildingAdministable {}
 
 interface BuildingVerifiable {
-    validateUserResidenceForTest(
-        params: Building.UserResidenceValidation.Params
-    ): Response<Building.UserResidenceValidation.Returns>;
     validateVehicleResidenceForTest(
         params: Building.VehicleResidenceValidation.Params
     ): Response<Building.VehicleResidenceValidation.Returns>;
@@ -69,7 +66,10 @@ export namespace Building {
             room_number: number;
         };
 
-        export type Returns = string;
+        export type Returns = {
+            msg: string;
+            request_id: number;
+        };
     }
 
     export namespace VehicleResidenceValidation {

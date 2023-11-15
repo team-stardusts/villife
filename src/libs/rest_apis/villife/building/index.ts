@@ -77,16 +77,6 @@ class VillifeBuildingManager extends AVillifeServerModule implements IVillifeBui
         });
     }
 
-    public async validateUserResidenceForTest(params: Building.UserResidenceValidation.Params): Response<string> {
-        let route: string = this.routes.test.testUserResidenceValidation;
-
-        return await this.requestAuthable<any, string>({
-            method: "post",
-            url: route,
-            data: params,
-        });
-    }
-
     public async validateVehicleResidenceForTest(params: Building.VehicleResidenceValidation.Params): Response<string> {
         let route: string = this.routes.test.testVehicleResidenceValidation;
 
@@ -97,10 +87,12 @@ class VillifeBuildingManager extends AVillifeServerModule implements IVillifeBui
         });
     }
 
-    public async requestValidationOfUserRegidence(params: Building.UserResidenceValidation.Params): Response<string> {
+    public async requestValidationOfUserRegidence(
+        params: Building.UserResidenceValidation.Params
+    ): Response<Building.UserResidenceValidation.Returns> {
         let route: string = this.routes.approval.residenceValidation;
 
-        return await this.requestAuthable<any, string>({
+        return await this.requestAuthable<any, Building.UserResidenceValidation.Returns>({
             method: "post",
             url: route,
             data: params,

@@ -15,17 +15,6 @@ class ValidateResidenceService implements IValidateResidenceService {
     private buildingRestClient: IVillifeBuildingManager = VillifeServer.getBuildingManager();
     private approvalRestClient: IVillifeApprovalManager = VillifeServer.getApprovalManager();
 
-    async ValidateUserResidenceForTest(params: Building.UserResidenceValidation.Params) {
-        const result = await this.buildingRestClient.validateUserResidenceForTest(params);
-
-        if (!result.isSuccessful) {
-            console.log("API Error Log:", result.data?.status);
-            throw new Error("validation of user residence has failed");
-        }
-        if (!result.data?.data) throw new Error("cannot get data from api result");
-        return result.data.data;
-    }
-
     async VerifyBuildingAddress(params: VerifyBuildingAddressParams) {
         const result = await this.approvalRestClient.verifyBuildingAddress(params);
 

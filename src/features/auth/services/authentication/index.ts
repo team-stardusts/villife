@@ -107,6 +107,39 @@ export default function useAuthService(): IAuthServiceProvider {
                 access_token: params.accessToken,
             });
         }
+
+        /**
+         * 유저 인포 갱신 함수
+         * Use case :
+         * 1. 유저의 주거인증 자동 승인
+         * @returns boolean
+         */
+        public async refreshUserInfo(): Promise<boolean> {
+            const loginData = await storage.login.get();
+            if (loginData === null) {
+                return false;
+            }
+
+            const userInfo = await userApi.getUserBasicInfo();
+
+            if (!userInfo.isSuccessful || userInfo.data?.data == undefined) {
+                console.error("[AUTH_SERVICE]", "Failed to get user information.");
+                await storage.login.set(null);
+                return false;
+            }
+
+            const newData = {
+                host: loginData.host,
+                accessToken: loginData.accessToken,
+                accessTokenExpiresAt: loginData.accessTokenExpiresAt,
+                refreshToken: loginData.refreshToken,
+                ...userInfo.data.data,
+            };
+
+            await storage.login.set(newData);
+
+            return true;
+        }
     }
 
     return new AuthServiceProvider();
