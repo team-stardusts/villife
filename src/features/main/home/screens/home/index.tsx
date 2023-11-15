@@ -23,7 +23,7 @@ export default function HomeScreen({ navigation, route }: HomeScreenProps) {
     useEffect(() => {
         if (user === null) return;
 
-        const _contents = [HomeContentFromNoti, HomeContentFromComplaint /* HomeContentFromParking */];
+        const _contents = [HomeContentFromNoti, HomeContentFromComplaint, HomeContentFromParking];
 
         if (user?.isAdmin) {
             // Add admin specific contents.
