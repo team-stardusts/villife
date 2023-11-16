@@ -23,22 +23,22 @@ export default function BillBox(props: ManagementFeeBillBoxProps) {
                     </View>
                     <View style={props.styles.body}>
                         <View style={props.styles.bodyRow}>
-                            <Text style={props.styles.bodyRowKey}>당월 청구액</Text>
+                            <Text style={props.styles.bodyRowKey}>당월 부과액</Text>
                             <Text style={props.styles.bodyRowValue}>
-                                {insertCommaToNumber(props.manangementFee?.amount_won ?? 0)} 원
-                            </Text>
-                        </View>
-                        <View style={props.styles.bodyRow}>
-                            <Text style={props.styles.bodyRowKey}>누적 연체료</Text>
-                            <Text style={props.styles.bodyRowValue}>
-                                {insertCommaToNumber(props.unpaidFee - (props.manangementFee?.overdue_interest ?? 0))}{" "}
-                                원
+                                {insertCommaToNumber(props.currentMonthlyCharge)}원
                             </Text>
                         </View>
                         <View style={props.styles.bodyRow}>
                             <Text style={props.styles.bodyRowKey}>미납액</Text>
-                            {/* TODO: 미납액 가져오기 */}
-                            <Text style={props.styles.bodyRowValue}>{insertCommaToNumber(props.unpaidFee)} 원</Text>
+                            <Text style={props.styles.bodyRowValue}>{insertCommaToNumber(props.unpaidFee)}원</Text>
+                        </View>
+                        <View style={props.styles.bodyRow}>
+                            <Text style={props.styles.bodyRowKey}>미납 연체료</Text>
+                            <Text style={props.styles.bodyRowValue}>{insertCommaToNumber(props.lateFee)}원</Text>
+                        </View>
+                        <View style={props.styles.bodyRow}>
+                            <Text style={props.styles.bodyRowKey}>오늘 입금 시</Text>
+                            <Text style={props.styles.bodyRowValue}>{insertCommaToNumber(props.feeToPay)}원</Text>
                         </View>
                     </View>
                 </View>

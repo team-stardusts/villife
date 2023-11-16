@@ -31,7 +31,7 @@ export default function useAdminMFStyles() {
             paddingBottom: deviceUI.moderateScale(8),
         },
         siturationTitle: {
-            fontFamily: theme.font.fontFamily.pretendard.bold,
+            fontFamily: theme.font.fontFamily.pretendard.semiBold,
             color: theme.color.specified.black,
             fontSize: deviceUI.moderateScale(24),
         },
@@ -52,9 +52,9 @@ export default function useAdminMFStyles() {
             marginBottom: deviceUI.moderateScale(15),
         },
         rowKey: {
-            fontFamily: theme.font.fontFamily.pretendard.semiBold,
+            fontFamily: theme.font.fontFamily.pretendard.medium,
             color: theme.color.specified.black,
-            fontSize: deviceUI.moderateScale(18),
+            fontSize: deviceUI.moderateScale(16),
         },
         rowValue: {
             fontFamily: theme.font.fontFamily.pretendard.regular,
@@ -79,7 +79,7 @@ export default function useAdminMFStyles() {
             alignItems: "center",
         },
         approvalTitle: {
-            fontFamily: theme.font.fontFamily.pretendard.bold,
+            fontFamily: theme.font.fontFamily.pretendard.semiBold,
             color: theme.color.specified.black,
             fontSize: deviceUI.moderateScale(24),
         },

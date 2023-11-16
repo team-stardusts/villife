@@ -133,21 +133,22 @@ function AccountInfo(props: AccountInfoProps) {
             <Text style={props.styles.rowKey} adjustsFontSizeToFit numberOfLines={1}>
                 {props.rowKey}
             </Text>
-            <Text style={props.styles.rowValue} adjustsFontSizeToFit numberOfLines={1}>
-                {props.rowValue}
-            </Text>
-            {props.copyable && props.rowValue && (
-                <TouchableOpacity
-                    style={props.styles.iconBtn}
-                    activeOpacity={0.6}
-                    onPress={() => {
-                        copyToClipboard(
-                            (props.rowRealValue !== undefined ? props.rowRealValue : props.rowValue) as string
-                        );
-                    }}>
-                    <Icon name="copy" size={props.styles.icon.width} color={props.styles.icon.color} />
-                </TouchableOpacity>
-            )}
+            <TouchableOpacity
+                style={{ flexDirection: "row", alignItems: "center" }}
+                disabled={!(props.copyable && props.rowValue)}
+                activeOpacity={0.5}
+                onPress={() => {
+                    copyToClipboard((props.rowRealValue !== undefined ? props.rowRealValue : props.rowValue) as string);
+                }}>
+                <Text style={props.styles.rowValue} adjustsFontSizeToFit numberOfLines={1}>
+                    {props.rowValue}
+                </Text>
+                {props.copyable && props.rowValue && (
+                    <View style={props.styles.iconBtn}>
+                        <Icon name="copy" size={props.styles.icon.width} color={props.styles.icon.color} />
+                    </View>
+                )}
+            </TouchableOpacity>
         </View>
     );
 }

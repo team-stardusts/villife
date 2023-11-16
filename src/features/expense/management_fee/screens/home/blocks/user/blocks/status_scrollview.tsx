@@ -37,7 +37,7 @@ export default function ManagementFeeStatusScrollView(props: ManagementFeeStatus
                     isLastElement={fees.length === index + 1}
                     styles={props.styles}
                     managementFee={fee}
-                    unpaidFee={props.unpaidFee}
+                    //feeToPay={props.feeToPay}
                 />
             ))}
         </ScrollView>
@@ -47,25 +47,11 @@ export default function ManagementFeeStatusScrollView(props: ManagementFeeStatus
 function PaymentByMonth(props: PaymentByMonthProps) {
     const navigation = useNavigation<VillifeNavigation>();
 
-    const handlePressPaymentBtn = () => {
-        /* navigation.navigate("confirm_payment_cost", {
-            title: "관리비 결제하기",
-            product_id: props.managementFee.bill_id,
-            product_name: "?",
-            product_type: "pt_management_fee",
-            price: props.managementFee.amount_won,
-            bill: {
-                관리용역비: 20000,
-                일반관리비: 45000,
-                소독비: 100,
-                화재보험료: 100,
-                수선유지비: 100,
-            },
-        }); */
+    /* const handlePressPaymentBtn = () => {
         navigation.navigate("wire_amount_manually", {
-            amount_won: props.unpaidFee,
+            amount_won: props.feeToPay,
         });
-    };
+    }; */
 
     return (
         <View
@@ -80,12 +66,26 @@ function PaymentByMonth(props: PaymentByMonthProps) {
                     style={props.styles.contentWrapper}
                     activeOpacity={0.6}
                     disabled={props.managementFee.is_paid || !props.isLastElement}
-                    onPress={handlePressPaymentBtn}>
+                    //onPress={handlePressPaymentBtn}
+                >
                     <View style={props.styles.monthBox}>
                         <Text style={props.styles.month}>{props.managementFee.month}월</Text>
                     </View>
                     <View style={props.styles.btnBox}>
                         {props.managementFee.is_paid ? (
+                            <View style={props.styles.iconBox}>
+                                <Icon
+                                    name="check"
+                                    size={props.styles.checkIcon.width}
+                                    color={props.styles.checkIcon.color}
+                                />
+                            </View>
+                        ) : (
+                            <View style={[props.styles.iconBox, { transform: [{ rotateZ: "45deg" }] }]}>
+                                <Icon name="plus" size={props.styles.xIcon.width} color={props.styles.xIcon.color} />
+                            </View>
+                        )}
+                        {/* {props.managementFee.is_paid ? (
                             <View style={props.styles.iconBox}>
                                 <Icon
                                     name="check"
@@ -103,7 +103,7 @@ function PaymentByMonth(props: PaymentByMonthProps) {
                             <View style={[props.styles.iconBox, { transform: [{ rotateZ: "45deg" }] }]}>
                                 <Icon name="plus" size={props.styles.xIcon.width} color={props.styles.xIcon.color} />
                             </View>
-                        )}
+                        )} */}
                     </View>
                 </TouchableOpacity>
             </ContentBox>
@@ -116,5 +116,5 @@ type PaymentByMonthProps = {
     isLastElement: boolean;
     styles: ReturnType<typeof useUserMFViewStyles>["managementFeeStatus"];
     managementFee: ManagementFee.ManagementFee;
-    unpaidFee: number;
+    //feeToPay: number;
 };

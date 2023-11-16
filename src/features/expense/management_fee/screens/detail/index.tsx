@@ -10,18 +10,18 @@ import Icon from "../../../../common/atoms/icon";
 import SelectModal from "./blocks/select_modal";
 import { ManagementFee } from "../../../../../libs/rest_apis/villife/expense/types";
 import useManagementFeeManager from "../../services/payment";
-import { UserPaymentManagerBase } from "../../services/payment/types";
+import { PaymentBill, UserPaymentManagerBase } from "../../services/payment/types";
 import { insertCommaToNumber } from "../../../../common/global_function";
+import SpinningWon from "../../blocks/icon/spinning_won";
 
 export default function ManagementFeeDetailScreen({ navigation, route }: ManagementFeeDetailScreenProps) {
     const styles = useManagementFeeDetailScreenStyles();
     const manager: UserPaymentManagerBase = useManagementFeeManager() as UserPaymentManagerBase;
     const user = useUserInformation();
     const [modalVisible, setModalVisible] = useState<boolean>(false);
-    const [paidDR, setPaidDR] = useState<PaidDateRange>({}); // Paid date range
+    const [paidDateRange, setPaidDateRaange] = useState<PaidDateRange>({}); // 납부 기간
     const [selectedDate, setSelectedDate] = useState<SelectedDate | null>(null);
-    const [selectedFee, setSelectedFee] = useState<ManagementFee.ManagementFee | undefined>(undefined);
-    const [feeOfSelectedMonth, setFeeOfSelectedMonth] = useState<number>(0);
+    const [billOfMonth, setBillOfMonth] = useState<PaymentBill | null>(null);
 
     // 고지 받은 기간을 추려 선택 가능한 Year, Month 정리
     useEffect(() => {
@@ -38,7 +38,7 @@ export default function ManagementFeeDetailScreen({ navigation, route }: Managem
             _paidPR[fee.year] = [fee.month];
         });
 
-        setPaidDR({ ..._paidPR });
+        setPaidDateRaange({ ..._paidPR });
 
         // Initial SelectedDate를 가장 최근 고지월로 설정
         if (manager.history.length > 0) {
@@ -55,17 +55,10 @@ export default function ManagementFeeDetailScreen({ navigation, route }: Managem
         // SelectedDate에 해당하는 fee를 선택
         const _fee = manager.history.find((fee) => fee.year === selectedDate.year && fee.month === selectedDate.month);
 
-        setSelectedFee(_fee);
+        if (_fee !== undefined) {
+            setBillOfMonth(manager.calcByPaymentItem([_fee]));
+        }
     }, [selectedDate]);
-
-    useEffect(() => {
-        let total = 0;
-
-        if (selectedFee?.amount_won !== undefined) total += selectedFee.amount_won;
-        if (selectedFee?.overdue_interest !== undefined) total += selectedFee.overdue_interest;
-
-        setFeeOfSelectedMonth(total);
-    }, [selectedFee]);
 
     const make2Digit = (num: number | undefined): string => {
         if (num === undefined) return "0";
@@ -96,7 +89,7 @@ export default function ManagementFeeDetailScreen({ navigation, route }: Managem
                 <SelectModal
                     modalVisible={modalVisible}
                     setModalVisible={setModalVisible}
-                    paidDateRange={paidDR}
+                    paidDateRange={paidDateRange}
                     onPick={setSelectedDate}
                 />
                 <TouchableOpacity
@@ -114,7 +107,8 @@ export default function ManagementFeeDetailScreen({ navigation, route }: Managem
                 </TouchableOpacity>
                 <View style={styles.main.container}>
                     <View style={styles.main.totalMFBox}>
-                        <Text style={styles.main.totalMF}>{insertCommaToNumber(feeOfSelectedMonth)} 원</Text>
+                        <SpinningWon />
+                        <Text style={styles.main.totalMF}>{insertCommaToNumber(billOfMonth?.feeToPay ?? 0)} 원</Text>
                     </View>
                     <View style={styles.main.billBox}>
                         <View style={styles.main.billBoxTitleBox}>
@@ -123,25 +117,19 @@ export default function ManagementFeeDetailScreen({ navigation, route }: Managem
                         <View style={styles.main.billBoxRow}>
                             <Text style={styles.main.billBoxRowMajorKey}>당월 부과액</Text>
                             <Text style={styles.main.billBoxRowMajorValue}>
-                                {insertCommaToNumber(feeOfSelectedMonth ?? 0)} 원
+                                {insertCommaToNumber(billOfMonth?.currentMonthlyCharge ?? 0)} 원
                             </Text>
                         </View>
                         <View style={styles.main.billBoxRow}>
                             <Text style={styles.main.billBoxRowMinorKey}>관리비</Text>
                             <Text style={styles.main.billBoxRowMinorValue}>
-                                {insertCommaToNumber(selectedFee?.amount_won ?? 0)} 원
+                                {insertCommaToNumber(billOfMonth?.currentMonthlyCharge ?? 0)} 원
                             </Text>
                         </View>
                         <View style={styles.main.billBoxRow}>
-                            <Text style={styles.main.billBoxRowMinorKey}>미납 연체료</Text>
-                            <Text style={styles.main.billBoxRowMinorValue}>
-                                {insertCommaToNumber(selectedFee?.overdue_interest ?? 0)} 원
-                            </Text>
-                        </View>
-                        <View style={styles.main.billBoxRow}>
-                            <Text style={styles.main.billBoxRowMajorKey}>미납액</Text>
+                            <Text style={styles.main.billBoxRowMajorKey}>연체료</Text>
                             <Text style={styles.main.billBoxRowMajorValue}>
-                                {insertCommaToNumber(selectedFee?.is_paid ? 0 : feeOfSelectedMonth)} 원
+                                {insertCommaToNumber(billOfMonth?.lateFee ?? 0)} 원
                             </Text>
                         </View>
                     </View>

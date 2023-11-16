@@ -19,7 +19,7 @@ export default function useWireAmountManuallyStyles() {
         residenceInfo: {
             fontFamily: theme.font.fontFamily.pretendard.regular,
             color: theme.color.specified.black,
-            fontSize: deviceUI.moderateScale(15),
+            fontSize: deviceUI.moderateScale(14),
         },
         paymentContainer: {
             flexDirection: "row",
@@ -29,9 +29,9 @@ export default function useWireAmountManuallyStyles() {
         },
         amountBox: {},
         amount: {
-            fontFamily: theme.font.fontFamily.pretendard.bold,
+            fontFamily: theme.font.fontFamily.pretendard.semiBold,
             color: theme.color.specified.black,
-            fontSize: deviceUI.moderateScale(25),
+            fontSize: deviceUI.moderateScale(26),
         },
         detailBtn: {
             paddingVertical: deviceUI.moderateScale(4),
@@ -56,7 +56,7 @@ export default function useWireAmountManuallyStyles() {
             paddingBottom: deviceUI.moderateScale(10),
         },
         header: {
-            fontFamily: theme.font.fontFamily.pretendard.semiBold,
+            fontFamily: theme.font.fontFamily.pretendard.medium,
             color: theme.color.specified.black,
             fontSize: deviceUI.moderateScale(15),
         },

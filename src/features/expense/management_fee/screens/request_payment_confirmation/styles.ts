@@ -21,22 +21,22 @@ export default function useRequestPaymentConfirmationStyles() {
             marginVertical: deviceUI.moderateScale(15),
         },
         rowKey: {
-            fontFamily: theme.font.fontFamily.pretendard.bold,
+            fontFamily: theme.font.fontFamily.pretendard.medium,
             color: theme.color.specified.blue,
-            fontSize: deviceUI.moderateScale(18),
+            fontSize: deviceUI.moderateScale(16),
         },
         rowValue: {
-            fontFamily: theme.font.fontFamily.pretendard.bold,
+            fontFamily: theme.font.fontFamily.pretendard.semiBold,
             color: theme.color.specified.black,
             fontSize: deviceUI.moderateScale(16),
         },
         iconBtn: {
             position: "absolute",
-            right: 0,
+            right: -deviceUI.moderateScale(35),
             padding: deviceUI.moderateScale(10),
         },
         icon: {
-            width: deviceUI.moderateScale(40),
+            width: deviceUI.moderateScale(35),
             color: theme.color.specified.black,
         },
     });

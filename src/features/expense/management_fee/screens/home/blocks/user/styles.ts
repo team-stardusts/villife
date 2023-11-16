@@ -33,7 +33,7 @@ export default function useUserMFViewStyles() {
             justifyContent: "flex-end",
         },
         headerText: {
-            fontFamily: theme.font.fontFamily.pretendard.bold,
+            fontFamily: theme.font.fontFamily.pretendard.semiBold,
             fontSize: deviceUI.moderateScale(13),
             color: theme.color.specified.black,
         },
@@ -89,8 +89,8 @@ export default function useUserMFViewStyles() {
             justifyContent: "space-between",
         },
         headerText: {
-            fontFamily: theme.font.fontFamily.pretendard.bold,
-            fontSize: deviceUI.moderateScale(22),
+            fontFamily: theme.font.fontFamily.pretendard.semiBold,
+            fontSize: deviceUI.moderateScale(20),
             color: theme.color.specified.black,
         },
         body: {
@@ -105,8 +105,8 @@ export default function useUserMFViewStyles() {
             marginBottom: deviceUI.moderateScale(10),
         },
         bodyRowKey: {
-            fontFamily: theme.font.fontFamily.pretendard.bold,
-            fontSize: deviceUI.moderateScale(15),
+            fontFamily: theme.font.fontFamily.pretendard.regular,
+            fontSize: deviceUI.moderateScale(14),
             color: theme.color.specified.black,
         },
         bodyRowValue: {
@@ -145,7 +145,7 @@ export default function useUserMFViewStyles() {
             paddingVertical: deviceUI.moderateScale(10),
         },
         text: {
-            fontFamily: theme.font.fontFamily.pretendard.bold,
+            fontFamily: theme.font.fontFamily.pretendard.semiBold,
             fontSize: deviceUI.moderateScale(22),
             color: theme.color.specified.black,
         },

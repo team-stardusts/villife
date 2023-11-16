@@ -1,6 +1,7 @@
 import { Building } from "../../../../../../libs/rest_apis/villife/building/types";
+import { ManagementFee } from "../../../../../../libs/rest_apis/villife/expense/types";
 import { UserInfo } from "../../../../../common/hooks/service/user_info/types";
-import { UserPaymentManagerBase, UserRequestMFPaymentConfirmationParams } from "../types";
+import { PaymentBill, UserPaymentManagerBase, UserRequestMFPaymentConfirmationParams } from "../types";
 import PaymentManager from "./abstract";
 
 class UserPaymentManager extends PaymentManager implements UserPaymentManagerBase {
@@ -9,6 +10,28 @@ class UserPaymentManager extends PaymentManager implements UserPaymentManagerBas
 
     get user(): UserInfo | null {
         return this._userInfo;
+    }
+
+    public calcByPaymentItem(history: ManagementFee.ManagementFee[]): PaymentBill {
+        const bill = { currentMonthlyCharge: 0, feeToPay: 0, lateFee: 0, unpaidFee: 0 };
+
+        history.forEach((f, i) => {
+            if (i === history.length - 1) {
+                bill.currentMonthlyCharge = f.amount_won;
+
+                if (!f.is_paid) {
+                    bill.lateFee += f.overdue_interest;
+                    bill.feeToPay = f.amount_won;
+                }
+            } else if (!f.is_paid) {
+                bill.unpaidFee += f.amount_won;
+                bill.lateFee += f.overdue_interest;
+            }
+        });
+
+        bill.feeToPay += bill.lateFee + bill.unpaidFee;
+
+        return bill;
     }
 
     public async requestPaymentConfirmation(params: UserRequestMFPaymentConfirmationParams): Promise<boolean> {

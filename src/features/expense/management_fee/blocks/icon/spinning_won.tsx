@@ -1,6 +1,10 @@
 import { useEffect, useRef } from "react";
 import { Animated, StyleSheet, Text } from "react-native";
-import { ANIMATION_DURATION_DEFAULT } from "../../../../common/constants";
+import {
+    ANIMATION_DURATION_DEFAULT,
+    ANIMATION_DURATION_FAST_LV3,
+    ANIMATION_DURATION_SLOW,
+} from "../../../../common/constants";
 import useStyler from "../../../../common/hooks/styler/hooks";
 
 export default function SpinningWon({ size }: SpinningWonProps) {
@@ -13,20 +17,30 @@ export default function SpinningWon({ size }: SpinningWonProps) {
     });
 
     useEffect(() => {
-        Animated.sequence([
+        const animation = Animated.sequence([
             Animated.timing(unitRotaionValue, {
                 toValue: 1,
+                duration: ANIMATION_DURATION_FAST_LV3,
+                useNativeDriver: true,
+            }),
+            Animated.timing(unitRotaionValue, {
+                toValue: 2,
                 duration: ANIMATION_DURATION_DEFAULT,
                 useNativeDriver: true,
             }),
             Animated.timing(unitRotaionValue, {
-                toValue: 0,
-                duration: ANIMATION_DURATION_DEFAULT,
+                toValue: 3,
+                duration: ANIMATION_DURATION_SLOW,
                 useNativeDriver: true,
             }),
-        ]).start();
+        ]);
 
-        return () => unitRotaionValue.stopAnimation();
+        animation.start();
+
+        return () => {
+            //unitRotaionValue.stopAnimation();
+            animation.reset();
+        };
     }, [unitRotaionValue]);
 
     return (

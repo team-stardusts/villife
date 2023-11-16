@@ -12,13 +12,16 @@ export default function useManagementFeeDetailScreenStyles() {
             flex: 1,
         },
         totalMFBox: {
-            justifyContent: "center",
+            flexDirection: "row",
+            justifyContent: "flex-start",
+            alignItems: "center",
             marginVertical: deviceUI.moderateScale(30),
         },
         totalMF: {
-            fontFamily: theme.font.fontFamily.pretendard.extraBold,
-            fontSize: deviceUI.moderateScale(30),
+            fontFamily: theme.font.fontFamily.pretendard.bold,
+            fontSize: deviceUI.moderateScale(26),
             color: theme.color.specified.black,
+            marginLeft: deviceUI.moderateScale(5),
         },
         selector: {
             position: "absolute",
@@ -26,11 +29,11 @@ export default function useManagementFeeDetailScreenStyles() {
             justifyContent: "center",
             alignItems: "center",
             height: deviceUI.moderateScale(30),
-            top: -deviceUI.moderateScale(50),
+            top: -deviceUI.moderateScale(33),
             right: 0,
         },
         selectorText: {
-            fontFamily: theme.font.fontFamily.pretendard.bold,
+            fontFamily: theme.font.fontFamily.pretendard.semiBold,
             fontSize: deviceUI.moderateScale(15),
             color: theme.color.specified.black,
             marginRight: deviceUI.moderateScale(5),
@@ -61,24 +64,24 @@ export default function useManagementFeeDetailScreenStyles() {
             marginVertical: deviceUI.moderateScale(10),
         },
         billBoxRowMajorKey: {
-            fontFamily: theme.font.fontFamily.pretendard.bold,
-            fontSize: deviceUI.moderateScale(18),
+            fontFamily: theme.font.fontFamily.pretendard.semiBold,
+            fontSize: deviceUI.moderateScale(16),
+            color: theme.color.specified.black,
+        },
+        billBoxRowMajorValue: {
+            fontFamily: theme.font.fontFamily.pretendard.regular,
+            fontSize: deviceUI.moderateScale(15),
             color: theme.color.specified.black,
         },
         billBoxRowMinorKey: {
             marginLeft: deviceUI.moderateScale(8),
-            fontFamily: theme.font.fontFamily.pretendard.bold,
-            fontSize: deviceUI.moderateScale(15),
+            fontFamily: theme.font.fontFamily.pretendard.medium,
+            fontSize: deviceUI.moderateScale(13),
             color: theme.color.series.grey.level4,
-        },
-        billBoxRowMajorValue: {
-            fontFamily: theme.font.fontFamily.pretendard.regular,
-            fontSize: deviceUI.moderateScale(16),
-            color: theme.color.specified.black,
         },
         billBoxRowMinorValue: {
             fontFamily: theme.font.fontFamily.pretendard.regular,
-            fontSize: deviceUI.moderateScale(14),
+            fontSize: deviceUI.moderateScale(12),
             color: theme.color.series.grey.level4,
         },
     });

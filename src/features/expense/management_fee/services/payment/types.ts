@@ -5,7 +5,7 @@ import { UserInfo } from "../../../../common/hooks/service/user_info/types";
 
 export type ManagementFeeManager = UserPaymentManagerBase | AdminPaymentManagerBase;
 
-export interface UserPaymentManagerBase extends PaymentManagerBase<ManagementFee.ManagementFee> {}
+export interface UserPaymentManagerBase extends PaymentManagerBase<ManagementFee.ManagementFee>, PaymentBillCalcable {}
 
 export interface AdminPaymentManagerBase extends PaymentManagerBase<ManagementFee.BuildingRenterHistory> {
     selectedBuilding: SimpleBuildingInfo | undefined;
@@ -43,6 +43,17 @@ export interface History<THistory> {
 export interface PaymentManageable {
     confirmPayment(params: any): Promise<boolean>;
 }
+
+export interface PaymentBillCalcable {
+    calcByPaymentItem(history: ManagementFee.ManagementFee[]): PaymentBill;
+}
+
+export type PaymentBill = {
+    currentMonthlyCharge: number; // 당월 부과액
+    feeToPay: number; // 지불해야할 총액
+    lateFee: number; // 연체 이자
+    unpaidFee: number; // 미납액
+};
 
 /* export interface Payable<Params, Returns> {
     pay(params: Params): Promise<Returns>;

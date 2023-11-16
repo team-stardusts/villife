@@ -155,12 +155,12 @@ function BackInfoBox(props: BackInfoBoxProps) {
         name: {
             fontFamily: theme.font.fontFamily.pretendard.regular,
             color: theme.color.specified.black,
-            fontSize: deviceUI.moderateScale(14),
+            fontSize: deviceUI.moderateScale(13),
         },
         accountNumber: {
-            fontFamily: theme.font.fontFamily.pretendard.bold,
+            fontFamily: theme.font.fontFamily.pretendard.semiBold,
             color: theme.color.specified.black,
-            fontSize: deviceUI.moderateScale(18),
+            fontSize: deviceUI.moderateScale(17),
         },
         btn: {
             paddingVertical: deviceUI.moderateScale(4),
