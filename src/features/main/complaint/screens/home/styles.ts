@@ -1,15 +1,13 @@
 import { StyleSheet } from "react-native";
-import { ComplaintHomeScreenStylesType } from "./types";
 import useStyler from "../../../../common/hooks/styler/hooks";
 
-export default function useComplaintHomeSecreenStyle(): ComplaintHomeScreenStylesType {
+export default function useComplaintHomeSecreenStyle() {
     const { deviceUI, theme } = useStyler();
 
-    const Style = StyleSheet.create({
-        topLevelContainer: {
+    const styles = StyleSheet.create({
+        container: {
             flex: 1,
             flexDirection: "column",
-            marginHorizontal: deviceUI.moderateScale(16),
         },
         FAQContainer: {
             width: "100%",
@@ -31,8 +29,8 @@ export default function useComplaintHomeSecreenStyle(): ComplaintHomeScreenStyle
             paddingRight: deviceUI.moderateScale(16),
         },
         FAQTitle: {
-            ...theme.font.researved.h2,
-            fontFamily: theme.font.fontFamily.pretendard.bold,
+            fontFamily: theme.font.fontFamily.pretendard.semiBold,
+            fontSize: deviceUI.moderateScale(24),
             color: theme.color.specified.black,
         },
         registerContainer: {
@@ -43,8 +41,8 @@ export default function useComplaintHomeSecreenStyle(): ComplaintHomeScreenStyle
             borderRadius: deviceUI.moderateScale(15),
         },
         registerTitle: {
-            ...theme.font.researved.h2,
-            fontFamily: theme.font.fontFamily.pretendard.bold,
+            fontFamily: theme.font.fontFamily.pretendard.semiBold,
+            fontSize: deviceUI.moderateScale(24),
             color: theme.color.specified.black,
         },
         registerTextContainer: {
@@ -67,16 +65,16 @@ export default function useComplaintHomeSecreenStyle(): ComplaintHomeScreenStyle
         },
         menuContainer: {
             width: "100%",
-            paddingLeft: deviceUI.moderateScale(16),
-            paddingRight: deviceUI.moderateScale(16),
             height: deviceUI.getScreenSize().height * 0.07,
             alignItems: "center",
             flexDirection: "row",
             justifyContent: "space-between",
+            paddingHorizontal: deviceUI.moderateScale(16),
+            marginBottom: deviceUI.moderateScale(3),
         },
         menuTitleText: {
+            fontFamily: theme.font.fontFamily.pretendard.semiBold,
             fontSize: deviceUI.moderateScale(24),
-            fontFamily: theme.font.fontFamily.pretendard.bold,
             color: theme.color.specified.black,
         },
         filterIcon: {
@@ -98,11 +96,11 @@ export default function useComplaintHomeSecreenStyle(): ComplaintHomeScreenStyle
         },
         whenEmptyCardText: {
             fontSize: deviceUI.moderateScale(16),
-            fontFamily: theme.font.fontFamily.pretendard.bold,
+            fontFamily: theme.font.fontFamily.pretendard.semiBold,
             color: theme.color.specified.black,
             marginBottom: deviceUI.moderateScale(24),
         },
     });
 
-    return Style;
+    return styles;
 }

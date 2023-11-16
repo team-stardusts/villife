@@ -31,8 +31,8 @@ export default function useComplaintContentCardStyles() {
             paddingHorizontal: deviceUI.moderateScale(16),
         },
         titleText: {
-            fontSize: deviceUI.moderateScale(18),
-            fontFamily: theme.font.fontFamily.pretendard.bold,
+            fontSize: deviceUI.moderateScale(17),
+            fontFamily: theme.font.fontFamily.pretendard.medium,
             color: theme.color.specified.black,
         },
         dateTimeText: {
@@ -67,7 +67,7 @@ export default function useComplaintContentCardStyles() {
         },
         statusText: {
             fontSize: deviceUI.moderateScale(12),
-            fontFamily: theme.font.fontFamily.pretendard.bold,
+            fontFamily: theme.font.fontFamily.pretendard.medium,
             color: theme.color.specified.black,
         },
         outerCircle: {

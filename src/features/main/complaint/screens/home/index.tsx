@@ -24,13 +24,13 @@ export default function ComplaintHomeScreen({ navigation, route }: ComplaintHome
             headerOptions={{
                 title: messages.messages.main.complaint.screen_title,
             }}
-            bodyOptions={{ applyDefaultVerticalPadding: false }}>
+            bodyOptions={{ applyDefaultVerticalPadding: false, applyDefaultHorizontalPadding: true }}>
             <ComplaintHomeEditModal
                 visible={editModalVisible}
                 setVisible={setEditModalVisible}
                 setDisplayMode={viewModel.setDisplayMode}
             />
-            <ScrollView style={styles.topLevelContainer}>
+            <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
                 {/*자주 묻는 민원 버튼
                  <TouchableOpacity onPress={() => navigation.navigate("noti_home", {})}>
                     <View style={styles.FAQContainer}>
