@@ -123,9 +123,8 @@ export default function useComplaintDetailSecreenStyle() {
             marginHorizontal: deviceUI.moderateScale(16),
         },
         webViewContainerMinHeight: {
-            minHeight: deviceUI.getScreenSize().height * 0.1,
+            minHeight: deviceUI.getScreenSize().height * 0.25,
             justifyContent: "flex-end",
-            backgroundColor: "green",
         },
     });
     return styles;

@@ -10,11 +10,15 @@ import HomeContentFromParking from "../../../parking/blocks/home_content";
 import HomeContentFromNoti from "../../../noti/blocks/home_content";
 import useUserInformation from "../../../../common/hooks/service/user_info";
 import HomeContentFromManagementFee from "../../../../expense/management_fee/blocks/home_content";
+import useBuildingRoomContractor from "../../../lease_contract/services/building_rooms";
 
 export default function HomeScreen({ navigation, route }: HomeScreenProps) {
     const messages = useScreenMessage();
     const styles = useHomeScreenStyles();
     const user = useUserInformation();
+    const contractor = useBuildingRoomContractor();
+    const [roomInfo, setRoomInfo] = useState(null);
+
     const [contents, setContents] = useState<(() => JSX.Element)[]>([]);
     //HomeContentFromManagementFee
 
@@ -23,9 +27,10 @@ export default function HomeScreen({ navigation, route }: HomeScreenProps) {
     useEffect(() => {
         if (user === null) return;
 
-        const _contents = [HomeContentFromNoti, HomeContentFromComplaint, HomeContentFromParking];
+        let _contents = [HomeContentFromNoti, HomeContentFromParking, HomeContentFromComplaint];
 
         if (user?.isAdmin) {
+            _contents = [HomeContentFromNoti, HomeContentFromComplaint, HomeContentFromParking];
             // Add admin specific contents.
         } else {
             _contents.unshift(HomeContentFromManagementFee);
@@ -41,6 +46,7 @@ export default function HomeScreen({ navigation, route }: HomeScreenProps) {
             headerOptions={{
                 title: messages.messages.main.home.screen_title,
                 navComponent: MenuButton,
+
                 /* navComponentProps: {
                     iconName: "speaker",
                     title: messages.messages.main.noti.screen_title,

@@ -47,7 +47,8 @@ export type IconSeries =
     | "three-dots-vertical"
     | "trash-can"
     | "filter-setting"
-    | "villife";
+    | "villife"
+    | "document_contract";
 
 export type ChildIconProps = CommonIconProps & {
     [key: string]: ColorValue | string | number | undefined;

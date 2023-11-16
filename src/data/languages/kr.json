@@ -3,7 +3,8 @@
         "home": {
             "screen_title": "홈",
             "building_info": "건물 정보",
-            "user_info": "개인 정보"
+            "user_info": "개인 정보",
+            "contract_info": "계약 정보"
         },
         "lease_contract": {
             "home": {

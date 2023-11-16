@@ -25,25 +25,36 @@ export default function BuildingSendMessageScreen({ route }: BuildingSendMessage
             icon: "pencil",
             text: "알림 작성하기",
             onPress: () => {
+                setNoticeModalVisible(false);
+                navigation.goBack();
                 navigation.navigate("compose_message", {
-                    contractID: 1,
+                    contractID: selectedRoom[0].contractInfo.contractID,
                 });
             },
         },
         {
             icon: "letter",
             text: "만기 임박 알림 보내기",
-            onPress: () => console.log("만기 임박 알림 보내기"),
+            onPress: () => {
+                setNoticeModalVisible(false);
+                console.log("만기 임박 알림 보내기");
+            },
         },
         {
             icon: "letter",
             text: "월세 미납 알림 보내기",
-            onPress: () => console.log("월세 미납 알림 보내기"),
+            onPress: () => {
+                setNoticeModalVisible(false);
+                console.log("월세 미납 알림 보내기");
+            },
         },
         {
             icon: "letter",
             text: "관리비 미납 알림 보내기",
-            onPress: () => console.log("관리비 미납 알림 보내기"),
+            onPress: () => {
+                setNoticeModalVisible(false);
+                console.log("관리비 미납 알림 보내기");
+            },
         },
     ];
 

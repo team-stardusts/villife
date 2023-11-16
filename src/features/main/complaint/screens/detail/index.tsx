@@ -29,7 +29,7 @@ export default function ComplaintDetailScreen({ navigation, route }: ComplaintDe
     const user = useUserInformation();
     const phone: Callable = new Telephone();
     const callTo = async () => {
-        console.log("민원", uiState.complaint.phone_number);
+        console.log("민원", user?.adminInfomation);
         Alert.alert(`${uiState.complaint.complainant_name}와 통화를 하시겠어요?`, undefined, [
             { text: "취소" },
             {
@@ -106,9 +106,10 @@ export default function ComplaintDetailScreen({ navigation, route }: ComplaintDe
                         <Text>{uiState.complaint.complainant_name}</Text>
                     </View>
                 </View>
-                <AutoHeightWebView
-                    style={styles.webViewContainer}
-                    customStyle={`${RemoteCSS.getPretendardRegular()}
+                <View style={styles.webViewContainerMinHeight}>
+                    <AutoHeightWebView
+                        style={styles.webViewContainer}
+                        customStyle={`${RemoteCSS.getPretendardRegular()}
                     body {
                       font-size: 14px;
                       font-family:"Pretendard-Regular";
@@ -123,9 +124,9 @@ export default function ComplaintDetailScreen({ navigation, route }: ComplaintDe
                         display:block;
                         border-radius: 15px;
                       }`}
-                    source={{ html: uiState.complaint.content }}
-                    cacheEnabled={false}
-                    customScript={`
+                        source={{ html: uiState.complaint.content }}
+                        cacheEnabled={false}
+                        customScript={`
                     try {
                         const images = document.getElementsByTagName('img'); 
                         for (const image of images) {
@@ -138,35 +139,34 @@ export default function ComplaintDetailScreen({ navigation, route }: ComplaintDe
                         window.ReactNativeWebView.postMessage(JSON.stringify("error"));    
                     }
                     `}
-                    javaScriptEnabled={true}
-                    onMessage={(event) => {
-                        const imageUri = JSON.parse(event.nativeEvent.data);
-                        navigation.navigate("image_detail_view", { uri: imageUri });
-                    }}
-                    scalesPageToFit={false}
-                    viewportContent={"width=device-width, user-scalable=no"}></AutoHeightWebView>
-
-                <View style={styles.webViewContainerMinHeight}>
-                    <View style={styles.replyTitleBox}>
-                        <Text style={styles.replyTitle}>답글</Text>
-                        <TouchableOpacity
-                            style={styles.replyTitleSection}
-                            onPress={() => {
-                                callTo();
-                            }}>
-                            <Icon name="phone" size={styles.iconPhone.width} color={styles.iconPhone.color} />
-                            <Text style={styles.callText}>전화하기</Text>
-                        </TouchableOpacity>
-                    </View>
-                    <View style={styles.horizontalLine} />
-                    {uiState.replies.map((reply, inedx) => {
-                        return (
-                            <View key={reply.id} style={styles.replyItem}>
-                                <ComplaintReplyItem data={reply} />
-                            </View>
-                        );
-                    })}
+                        javaScriptEnabled={true}
+                        onMessage={(event) => {
+                            const imageUri = JSON.parse(event.nativeEvent.data);
+                            navigation.navigate("image_detail_view", { uri: imageUri });
+                        }}
+                        scalesPageToFit={false}
+                        viewportContent={"width=device-width, user-scalable=no"}></AutoHeightWebView>
                 </View>
+
+                <View style={styles.replyTitleBox}>
+                    <Text style={styles.replyTitle}>답글</Text>
+                    <TouchableOpacity
+                        style={styles.replyTitleSection}
+                        onPress={() => {
+                            callTo();
+                        }}>
+                        <Icon name="phone" size={styles.iconPhone.width} color={styles.iconPhone.color} />
+                        <Text style={styles.callText}>전화하기</Text>
+                    </TouchableOpacity>
+                </View>
+                <View style={styles.horizontalLine} />
+                {uiState.replies.map((reply, inedx) => {
+                    return (
+                        <View key={reply.id} style={styles.replyItem}>
+                            <ComplaintReplyItem data={reply} />
+                        </View>
+                    );
+                })}
             </KeyboardAwareScrollView>
             <ReplyInputSection complaintID={uiState.complaint.id} />
         </NavigationView>

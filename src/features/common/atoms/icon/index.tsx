@@ -33,6 +33,7 @@ import IconAppleLogo from "./apple_logo";
 import IconNaverLogo from "./naver_logo";
 import IconInfoMark from "./info_mark";
 import IconCautionMark from "./caution_mark";
+import IconDocumentContract from "./document_contract";
 
 export default function Icon(props: IconProps) {
     /* let iconProps: ChildIconProps = {
@@ -120,6 +121,8 @@ export default function Icon(props: IconProps) {
             return <IconFilterSetting {...iconProps} />;
         case "villife":
             return <IconVillife {...iconProps} />;
+        case "document_contract":
+            return <IconDocumentContract {...iconProps} />;
         default:
             return <IconHome {...iconProps} />;
     }

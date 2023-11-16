@@ -11,6 +11,7 @@ export type MessagesByLanguage = {
             screen_title: string;
             building_info: string;
             user_info: string;
+            contract_info: string;
         };
         lease_contract: {
             home: {

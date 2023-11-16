@@ -17,6 +17,9 @@ export default function ComplaintHomeViewModel(): ComplaintHomeUiState {
     );
 
     const fetchReceivedAndInProgressComplaint = async () => {
+        //admin 로그인 시 할당 된 Building.id가 없는데 가져오는 문제 해결
+        if (user?.adminInfomation?.selectedBuilding.id == undefined) return;
+
         const resReceived = user?.isAdmin
             ? await service.getBuildingComplaints({
                   building_id: user.adminInfomation?.selectedBuilding.id || 0,

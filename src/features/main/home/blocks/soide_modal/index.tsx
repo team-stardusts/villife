@@ -10,6 +10,7 @@ import { useNavigation } from "@react-navigation/native";
 import { VillifeNavigation } from "../../../../common/router/types";
 import VillifeToastMessage from "../../../../common/atoms/toast";
 import useUserInformation from "../../../../common/hooks/service/user_info";
+import useBuildingRoomContractor from "../../../lease_contract/services/building_rooms";
 
 export default function HomeSideModal(props: HomeSideMoalProps) {
     const message = useScreenMessage();
@@ -37,7 +38,7 @@ export default function HomeSideModal(props: HomeSideMoalProps) {
                 navigation.navigate("noti_home", {});
             },
         },
-        {
+        /* {
             name: "question-mark",
             size: deviceUI.moderateScale(40),
             color: theme.color.specified.black,
@@ -46,7 +47,7 @@ export default function HomeSideModal(props: HomeSideMoalProps) {
                 setVisible(false);
                 VillifeToastMessage.showBottomToast("error", message.messages.boilerplate.preparing_service);
             },
-        },
+        }, */
         {
             name: "building",
             size: deviceUI.moderateScale(40),
@@ -94,6 +95,16 @@ export default function HomeSideModal(props: HomeSideMoalProps) {
                 VillifeToastMessage.showBottomToast("error", message.messages.boilerplate.preparing_service);
             },
         },
+        {
+            name: "document_contract",
+            size: deviceUI.moderateScale(40),
+            color: theme.color.specified.black,
+            title: message.messages.main.home.contract_info,
+            onPress: () => {
+                setVisible(false);
+                navigation.navigate("contract_information", {});
+            },
+        },
     ];
 
     const adminData: RenderData = [
@@ -117,7 +128,8 @@ export default function HomeSideModal(props: HomeSideMoalProps) {
                 navigation.navigate("approval_home", {});
             },
         },
-        {
+
+        /*         {
             name: "question-mark",
             size: deviceUI.moderateScale(40),
             color: theme.color.specified.black,
@@ -126,7 +138,7 @@ export default function HomeSideModal(props: HomeSideMoalProps) {
                 setVisible(false);
                 VillifeToastMessage.showBottomToast("error", message.messages.boilerplate.preparing_service);
             },
-        },
+        }, */
         {
             name: "building",
             size: deviceUI.moderateScale(40),
@@ -188,7 +200,12 @@ export default function HomeSideModal(props: HomeSideMoalProps) {
             <View style={styles.container}>
                 <View style={styles.content}>
                     <View style={styles.infoContainer}>
-                        <View style={styles.infoWrapper}>
+                        <TouchableOpacity
+                            style={styles.infoWrapper}
+                            onPress={() => {
+                                setVisible(false);
+                                navigation.navigate("my_page", {});
+                            }}>
                             <Icon name={"person"} size={deviceUI.moderateScale(80)} color="black" />
                             <View>
                                 <Text style={styles.infoText} adjustsFontSizeToFit numberOfLines={1}>
@@ -200,7 +217,7 @@ export default function HomeSideModal(props: HomeSideMoalProps) {
                                     {user?.name}
                                 </Text>
                             </View>
-                        </View>
+                        </TouchableOpacity>
                     </View>
                     <View style={styles.menuContainer}>
                         {user?.isRenter
