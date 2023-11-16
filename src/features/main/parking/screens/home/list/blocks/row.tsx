@@ -70,12 +70,16 @@ export default function VehicleInfoRow(props: VehicleInfoRowProps) {
                         <TouchableOpacity
                             activeOpacity={0.6}
                             style={props.styles.communicationIconBox}
-                            disabled={isMyVehicle}
+                            disabled={isMyVehicle || props.vehicle.ownerType === "guest"}
                             onPress={() => setMessageModalVisible(true)}>
                             <Icon
                                 name="letter"
                                 size={props.styles.letterIcon.width}
-                                color={isMyVehicle ? props.styles.disabledIcon.color : props.styles.icon.color}
+                                color={
+                                    isMyVehicle || props.vehicle.ownerType === "guest"
+                                        ? props.styles.disabledIcon.color
+                                        : props.styles.icon.color
+                                }
                             />
                         </TouchableOpacity>
                         <BottomMessageSelectionModal
