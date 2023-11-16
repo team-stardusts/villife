@@ -10,7 +10,6 @@ import { insertCommaToNumber } from "../../../../common/global_function";
 import { Building } from "../../../../../libs/rest_apis/villife/building/types";
 import useStyler from "../../../../common/hooks/styler/hooks";
 import Icon from "../../../../common/atoms/icon";
-import VillifeToastMessage from "../../../../common/atoms/toast";
 
 export default function WireAmountManually(props: WireAmountManuallyScreenProps) {
     const styles = useWireAmountManuallyStyles();

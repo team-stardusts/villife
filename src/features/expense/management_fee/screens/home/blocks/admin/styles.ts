@@ -39,7 +39,7 @@ export default function useAdminMFStyles() {
             paddingVertical: deviceUI.moderateScale(10),
         },
         linkIcon: {
-            width: deviceUI.moderateScale(50),
+            width: deviceUI.moderateScale(40),
             color: theme.color.specified.black,
         },
         table: {

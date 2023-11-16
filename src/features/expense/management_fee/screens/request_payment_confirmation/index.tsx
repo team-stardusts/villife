@@ -11,11 +11,19 @@ import { Building } from "../../../../../libs/rest_apis/villife/building/types";
 import Icon from "../../../../common/atoms/icon";
 import Clipboard from "@react-native-clipboard/clipboard";
 import VillifeToastMessage from "../../../../common/atoms/toast";
+import { StardustAlertContent } from "../../../../common/blocks/universial/stardust_alert/types";
+import StardustAlert from "../../../../common/blocks/universial/stardust_alert";
 
 export default function RequestPaymentConfirmationScreen(props: RequestPaymentConfirmationScreenProps) {
     const styles = useRequestPaymentConfirmationStyles();
     const manager: UserPaymentManagerBase = useManagementFeeManager() as UserPaymentManagerBase;
     const [bankAccount, setBankAccount] = useState<Building.BuildingBankAccountInfo | null>(null);
+    const [alert, setAlert] = useState<StardustAlertContent>({
+        type: "primary",
+        title: "관리비를 이체하셨나요?",
+        message: "관리자에게 입금 확인을 요청하겠습니다.",
+        visible: false,
+    });
 
     useEffect(() => {
         manager.getBuildingDetailInfo().then((r) => {
@@ -32,6 +40,13 @@ export default function RequestPaymentConfirmationScreen(props: RequestPaymentCo
         });
     }, []);
 
+    const cancleRequestApproval = () => {
+        setAlert({
+            ...alert,
+            visible: false,
+        });
+    };
+
     const requestApproval = async () => {
         // [TO-DO] Amount가 0원일때에 대한 예외처리 필요
         const result = await manager.requestPaymentConfirmation({
@@ -45,11 +60,21 @@ export default function RequestPaymentConfirmationScreen(props: RequestPaymentCo
             result ? "확인 요청을 전송했어요." : "요청이 전송되지 않았어요. 잠시후 다시 시도해주세요."
         );
 
-        props.navigation.canGoBack() && props.navigation.goBack();
+        if (result) {
+            props.navigation.reset({
+                index: 0,
+                routes: [
+                    {
+                        name: "management_fee",
+                    },
+                ],
+            });
+        }
     };
 
     return (
         <>
+            <StardustAlert {...alert} setAlert={setAlert} />
             <NavigationView
                 headerOptions={{
                     title: "이체하기",
@@ -77,7 +102,21 @@ export default function RequestPaymentConfirmationScreen(props: RequestPaymentCo
                     ]}
                     bottomButton={{
                         title: "납부 확인 요청",
-                        onPress: () => requestApproval(),
+                        onPress: () =>
+                            setAlert({
+                                ...alert,
+                                visible: true,
+                                buttons: [
+                                    {
+                                        text: "취소",
+                                        onPress: cancleRequestApproval,
+                                    },
+                                    {
+                                        text: "확인",
+                                        onPress: requestApproval,
+                                    },
+                                ],
+                            }),
                     }}
                     disablePaddingTop>
                     <ScrollView style={styles.container}>
