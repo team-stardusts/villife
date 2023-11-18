@@ -45,7 +45,7 @@ export default function WireAmountManually(props: WireAmountManuallyScreenProps)
     return (
         <NavigationView
             headerOptions={{
-                title: "이체하기",
+                title: "이체정보 확인",
                 hideBuidingSelector: true,
                 style: {
                     borderBottomColor: styles.navContainer.backgroundColor,
@@ -61,7 +61,7 @@ export default function WireAmountManually(props: WireAmountManuallyScreenProps)
                 shown: false,
             }}>
             <ScreenTitleView
-                titles={["관리비 이체하기"]}
+                titles={["관리비 이체정보 확인하기"]}
                 subtitles={[
                     `우리 건물은 ${bankAccounts.length}개의 은행 계좌를 보유하고 있어요.`,
                     "계좌이체 하실 때 예금주명에",

@@ -46,7 +46,10 @@ export default function HomeContentFromManagementFee() {
             /* navigation.navigate("management_fee_current_month_detail", {
                 unpaidFee: unpaidFee,
             }); */
-            navigation.navigate("wire_amount_manually");
+            navigation.navigate("management_fee_current_month_detail", {
+                ...bill,
+            });
+            //navigation.navigate("wire_amount_manually");
         }
     };
 

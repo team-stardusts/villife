@@ -9,6 +9,7 @@ import {
     BuildingRoomContract,
     RegisterContract,
 } from "../../main/lease_contract/services/building_rooms/provider/types";
+import { PaymentBill } from "../../expense/management_fee/services/payment/types";
 
 export type VillifeRootStackParamList = {
     login?: {};
@@ -153,9 +154,7 @@ export type VillifeStackParamList = VillifeRootStackParamList & {
     company_introduction?: {};
     expense_approval?: {};
     refund_policy?: {};
-    management_fee_current_month_detail: {
-        unpaidFee: number;
-    };
+    management_fee_current_month_detail: PaymentBill;
     //building: {};
 };
 

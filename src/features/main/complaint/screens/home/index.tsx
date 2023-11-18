@@ -72,7 +72,7 @@ export default function ComplaintHomeScreen({ navigation, route }: ComplaintHome
                         </TouchableOpacity>
                     </View>
                     {viewModel.uiState.complaintsWillBeDisplayed.map((item) => {
-                        console.log("[complaint 변경 ComplaintHomeScreen] : ", item);
+                        //console.log("[complaint 변경 ComplaintHomeScreen] : ", item);
                         return (
                             <View key={item.id} style={{ alignItems: "center" }}>
                                 <ComplaintContentCard

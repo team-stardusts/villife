@@ -45,7 +45,7 @@ export default function RefundPolicyScreen() {
             }}>
             {contents.map((content, index) => {
                 return (
-                    <View style={styles.main.container}>
+                    <View key={index} style={styles.main.container}>
                         <Text style={styles.main.topText}>{content.title}</Text>
                         <Text style={styles.main.bottomText}>{content.content}</Text>
                     </View>

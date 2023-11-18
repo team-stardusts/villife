@@ -6,7 +6,7 @@ import { ManagementFeeBillBoxProps } from "../types";
 import { insertCommaToNumber } from "../../../../../../../common/global_function";
 
 export default function BillBox(props: ManagementFeeBillBoxProps) {
-    //const navigation = useNavigation<VillifeNavigation>();
+    const navigation = useNavigation<VillifeNavigation>();
 
     return (
         <View style={props.styles.container}>
@@ -14,12 +14,16 @@ export default function BillBox(props: ManagementFeeBillBoxProps) {
                 <View style={props.styles.contentWrapper}>
                     <View style={props.styles.header}>
                         <Text style={props.styles.headerText}>청구금액</Text>
-                        {/* <TouchableOpacity
+                        <TouchableOpacity
                             style={props.styles.detailBtn}
                             activeOpacity={0.6}
-                            onPress={() => navigation.navigate("management_fee_detail")}>
+                            onPress={() =>
+                                navigation.navigate("management_fee_current_month_detail", {
+                                    ...props,
+                                })
+                            }>
                             <Text style={props.styles.detailText}>상세내역</Text>
-                        </TouchableOpacity> */}
+                        </TouchableOpacity>
                     </View>
                     <View style={props.styles.body}>
                         <View style={props.styles.bodyRow}>
