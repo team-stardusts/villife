@@ -56,7 +56,7 @@ import SetAccountScreen from "../../auth/screens/set_account";
 import ManagementFeeCurrentMonthDetailScreen from "../../expense/management_fee/screens/current_month_detail";
 import BuildingInfoScreen from "../screens/building_info";
 import ExpenseComposeMessageScreen from "../../expense/management_fee/screens/compose_message";
-import ContractInformationScreen from "../../main/lease_contract/screens/contract_information";
+import TenantContractInfoScreen from "../../main/lease_contract/screens/contract_information";
 
 enableScreens(true);
 
@@ -103,7 +103,7 @@ export default function ScreenRouter() {
                     component={BuildingSendMessageScreen}
                 />
                 <Stack.Screen name={"compose_message"} component={ComposeMessageScreen} />
-                <Stack.Screen name={"contract_information"} component={ContractInformationScreen} />
+                <Stack.Screen name={"contract_information"} component={TenantContractInfoScreen} />
             </Stack.Group>
             <Stack.Group>
                 <Stack.Screen name={"parking"} component={ParkingScreen} />

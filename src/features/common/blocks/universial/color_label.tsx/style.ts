@@ -15,8 +15,8 @@ export default function useColorLableStyle(): UseColorLableStylesType {
         },
 
         textStyle: {
-            ...theme.font.researved.h5,
-            fontWeight: "700",
+            fontSize: deviceUI.moderateScale(13),
+            fontFamily: theme.font.fontFamily.pretendard.medium,
             color: "white",
         },
     });

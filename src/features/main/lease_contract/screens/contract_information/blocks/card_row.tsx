@@ -1,5 +1,5 @@
 import { View, Text } from "react-native";
-import type useTenantDetailScreenStyles from "../styles";
+import useContractInformationScreenStyles from "../styles";
 
 export default function CardRow(props: CardRowProps) {
     return (
@@ -11,7 +11,7 @@ export default function CardRow(props: CardRowProps) {
 }
 
 type CardRowProps = {
-    styles: ReturnType<typeof useTenantDetailScreenStyles>;
+    styles: ReturnType<typeof useContractInformationScreenStyles>;
     rowKey: string;
     rowValue: string | undefined;
 };

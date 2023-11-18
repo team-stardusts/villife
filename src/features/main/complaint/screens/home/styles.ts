@@ -42,7 +42,7 @@ export default function useComplaintHomeSecreenStyle() {
         },
         registerTitle: {
             fontFamily: theme.font.fontFamily.pretendard.semiBold,
-            fontSize: deviceUI.moderateScale(24),
+            fontSize: deviceUI.moderateScale(22),
             color: theme.color.specified.black,
         },
         registerTextContainer: {
@@ -74,7 +74,7 @@ export default function useComplaintHomeSecreenStyle() {
         },
         menuTitleText: {
             fontFamily: theme.font.fontFamily.pretendard.semiBold,
-            fontSize: deviceUI.moderateScale(24),
+            fontSize: deviceUI.moderateScale(22),
             color: theme.color.specified.black,
         },
         filterIcon: {

@@ -106,12 +106,12 @@ export default function useUserMFViewStyles() {
         },
         bodyRowKey: {
             fontFamily: theme.font.fontFamily.pretendard.regular,
-            fontSize: deviceUI.moderateScale(14),
+            fontSize: deviceUI.moderateScale(15),
             color: theme.color.specified.black,
         },
         bodyRowValue: {
             fontFamily: theme.font.fontFamily.pretendard.regular,
-            fontSize: deviceUI.moderateScale(14),
+            fontSize: deviceUI.moderateScale(15),
             color: theme.color.specified.black,
         },
         detailBtn: {
@@ -146,7 +146,7 @@ export default function useUserMFViewStyles() {
         },
         text: {
             fontFamily: theme.font.fontFamily.pretendard.semiBold,
-            fontSize: deviceUI.moderateScale(22),
+            fontSize: deviceUI.moderateScale(20),
             color: theme.color.specified.black,
         },
         icon: {

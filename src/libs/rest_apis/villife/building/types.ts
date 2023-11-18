@@ -22,6 +22,7 @@ interface BuildingAdministable {
     modifyContract(params: Building.ModifyContract.Params): Response<Building.ModifyContract.Returns>;
     deleteContract(params: Building.DeleteContract.Params): Response<Building.DeleteContract.Returns>;
     requestNotification(params: Building.RequestNotification.Params): Response<Building.RequestNotification.Returns>;
+    getContractInfoByRenter(): Response<Building.Contract>;
 }
 
 export namespace Building {
@@ -132,6 +133,7 @@ export namespace Building {
         monthly_rent: number;
         rent_type: RentType;
         start_date: number;
+        phone_number: string;
         //created_at: number;
         //updated_at: number;
     };

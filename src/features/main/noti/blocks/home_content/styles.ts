@@ -19,7 +19,7 @@ export default function useHomeContentCardStyle() {
         },
         text: {
             fontSize: deviceUI.moderateScale(16),
-            fontFamily: theme.font.fontFamily.pretendard.medium,
+            fontFamily: theme.font.fontFamily.pretendard.regular,
             color: theme.color.specified.black,
             textAlign: "center",
         },

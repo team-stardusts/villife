@@ -19,7 +19,7 @@ export default function useHomeContentFromManagementFeeStyles() {
             justifyContent: "flex-end",
         },
         headerText: {
-            fontFamily: theme.font.fontFamily.pretendard.bold,
+            fontFamily: theme.font.fontFamily.pretendard.semiBold,
             fontSize: deviceUI.moderateScale(15),
             color: theme.color.specified.black,
         },

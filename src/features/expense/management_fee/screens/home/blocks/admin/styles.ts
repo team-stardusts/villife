@@ -33,7 +33,7 @@ export default function useAdminMFStyles() {
         siturationTitle: {
             fontFamily: theme.font.fontFamily.pretendard.semiBold,
             color: theme.color.specified.black,
-            fontSize: deviceUI.moderateScale(24),
+            fontSize: deviceUI.moderateScale(22),
         },
         linkPressiable: {
             paddingVertical: deviceUI.moderateScale(10),
@@ -81,7 +81,7 @@ export default function useAdminMFStyles() {
         approvalTitle: {
             fontFamily: theme.font.fontFamily.pretendard.semiBold,
             color: theme.color.specified.black,
-            fontSize: deviceUI.moderateScale(24),
+            fontSize: deviceUI.moderateScale(22),
         },
     });
 }

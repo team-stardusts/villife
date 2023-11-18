@@ -1,5 +1,5 @@
 import StardustDateParser from "../../../../../../libs/date_parser";
-import { Responsable } from "../../../../../../libs/rest_apis/types";
+import { Responsable, Response } from "../../../../../../libs/rest_apis/types";
 import VillifeServer from "../../../../../../libs/rest_apis/villife";
 import IVillifeApprovalManager from "../../../../../../libs/rest_apis/villife/approval/types";
 import IVillifeBuildingManager, { Building } from "../../../../../../libs/rest_apis/villife/building/types";
@@ -114,20 +114,8 @@ class BuildingManagementServiceProvider extends AServiceProvider implements IBui
         return true;
     }
 
-    public async requestNotification(params: RequestNotification.Params): Promise<boolean> {
-        const result = await this._buildingApi.requestNotification({
-            contract_id: params.contractID,
-            content: params.content,
-            title: params.title,
-        });
-
-        if (!result.isSuccessful || result.data?.data === undefined) {
-            this.printWhyFailed(result.data, "Failed to request notification.");
-
-            return false;
-        }
-
-        return true;
+    public async getRenterContract(): Response<Building.Contract> {
+        return await this._buildingApi.getContractInfoByRenter();
     }
 
     public async verifyBuildingAddress(params: VerifyBuildingAddress.Params): Promise<VerifyBuildingAddress.Returns> {
@@ -149,6 +137,22 @@ class BuildingManagementServiceProvider extends AServiceProvider implements IBui
         };
     }
 
+    public async requestNotification(params: RequestNotification.Params): Promise<boolean> {
+        const result = await this._buildingApi.requestNotification({
+            contract_id: params.contractID,
+            content: params.content,
+            title: params.title,
+        });
+
+        if (!result.isSuccessful || result.data?.data === undefined) {
+            this.printWhyFailed(result.data, "Failed to request notification.");
+
+            return false;
+        }
+
+        return true;
+    }
+
     private convertRoomInfoForUse(tenant: Building.RoomInfo): BuildingRoomInfo {
         const contractInfo = {
             contractID: tenant.contract_info.contract_id,
@@ -160,6 +164,7 @@ class BuildingManagementServiceProvider extends AServiceProvider implements IBui
             managementFee: tenant.contract_info.management_fee,
             startDate: StardustDateParser.deserialize(tenant.contract_info.start_date),
             expirationDate: StardustDateParser.deserialize(tenant.contract_info.expiration_date),
+            phoneNumber: tenant.contract_info.phone_number,
             //createdAt: StardustDateParser.deserialize(tenant.contract_info.created_at),
             //updatedAt: StardustDateParser.deserialize(tenant.contract_info.updated_at),
         };

@@ -1,3 +1,4 @@
+import { Response } from "../../../../../../libs/rest_apis/types";
 import type { VerifyBuildingAddressResult } from "../../../../../../libs/rest_apis/villife/approval/types";
 import type { Building } from "../../../../../../libs/rest_apis/villife/building/types";
 import { SelectedAddressType } from "../../../../../common/hooks/states/atoms/address/selected_address/types";
@@ -26,6 +27,7 @@ export interface IRoomContractAdministrable {
     modifyContract(params: ModifyContract.Params): Promise<boolean>;
     deleteContract(contractID: DeleteContract.Params): Promise<boolean>;
     requestNotification(params: RequestNotification.Params): Promise<boolean>;
+    getRenterContract(): Response<Building.Contract>;
 }
 
 export namespace RegisterContract {
@@ -110,6 +112,7 @@ export type BuildingRoomContract = {
     monthlyRent: number;
     rentType: Building.Contract["rent_type"];
     startDate: Date;
+    phoneNumber: string;
     //createdAt: Date;
     //updatedAt: Date;
 };

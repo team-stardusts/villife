@@ -4,6 +4,8 @@ import { BuildingRoomInfo, ModifyContract, RegisterContract, RequestNotification
 import BuildingManagementServiceProvider from "./provider";
 import useUserInformation from "../../../../common/hooks/service/user_info";
 import { IBuildingRooms } from "./types";
+import { Response } from "../../../../../libs/rest_apis/types";
+import { Building } from "../../../../../libs/rest_apis/villife/building/types";
 
 export default function useBuildingRoomContractor(): IBuildingRooms {
     const [buildingRooms, setBuildingRooms] = useRecoilState<BuildingRoomInfo[]>(buildingRoomsState);
@@ -54,6 +56,11 @@ export default function useBuildingRoomContractor(): IBuildingRooms {
             const isSuccessful = await service.requestNotification(params);
 
             return isSuccessful;
+        }
+
+        public async getRenterContract(): Response<Building.Contract> {
+            const result = await service.getRenterContract();
+            return result;
         }
     }
 

@@ -30,7 +30,7 @@ export default function useHomeContentFromParkingStyles(didGetFavoritVehilce: bo
         },
         text: {
             ...theme.font.researved.h4,
-            fontFamily: theme.font.fontFamily.pretendard.medium,
+            fontFamily: theme.font.fontFamily.pretendard.regular,
             color: theme.color.specified.black,
         },
         btnBox: {
@@ -88,7 +88,8 @@ export default function useHomeContentFromParkingStyles(didGetFavoritVehilce: bo
         text: {
             textAlign: "center",
             color: theme.color.specified.black,
-            ...theme.font.researved.h3,
+            ...theme.font.researved.h4,
+            fontFamily: theme.font.fontFamily.pretendard.medium,
         },
     });
 
