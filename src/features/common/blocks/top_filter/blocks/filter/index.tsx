@@ -12,7 +12,7 @@ export default function Filter(props: FilterProps) {
         if (selectedItems === null) return;
 
         props.onFilterData(props.data.filter((datum) => props.filter(datum, selectedItems)));
-    }, [selectedItems]);
+    }, [selectedItems, props.data]);
 
     return (
         <View style={styles.main.container}>

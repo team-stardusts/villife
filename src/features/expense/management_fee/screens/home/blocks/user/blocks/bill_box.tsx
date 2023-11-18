@@ -14,7 +14,7 @@ export default function BillBox(props: ManagementFeeBillBoxProps) {
                 <View style={props.styles.contentWrapper}>
                     <View style={props.styles.header}>
                         <Text style={props.styles.headerText}>청구금액</Text>
-                        <TouchableOpacity
+                        {/* <TouchableOpacity
                             style={props.styles.detailBtn}
                             activeOpacity={0.6}
                             onPress={() =>
@@ -23,7 +23,7 @@ export default function BillBox(props: ManagementFeeBillBoxProps) {
                                 })
                             }>
                             <Text style={props.styles.detailText}>상세내역</Text>
-                        </TouchableOpacity>
+                        </TouchableOpacity> */}
                     </View>
                     <View style={props.styles.body}>
                         <View style={props.styles.bodyRow}>

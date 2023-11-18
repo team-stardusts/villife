@@ -104,8 +104,8 @@ export default function useMyPageHomeScreenStyles() {
             alignItems: "flex-start",
         },
         btnText: {
-            fontFamily: theme.font.fontFamily.pretendard.bold,
-            fontSize: deviceUI.moderateScale(18),
+            fontFamily: theme.font.fontFamily.pretendard.medium,
+            fontSize: deviceUI.moderateScale(16),
             color: theme.color.specified.black,
         },
     });

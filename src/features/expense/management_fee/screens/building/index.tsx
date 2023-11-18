@@ -5,26 +5,19 @@ import useBuildingMFHistoryScreenStyles from "./styles";
 import ScreenTopFilter from "../../../../common/blocks/top_filter";
 import { AdminPaymentManagerBase } from "../../services/payment/types";
 import useManagementFeeManager from "../../services/payment";
-import { useEffect, useState } from "react";
+import { useMemo, useState } from "react";
 import { Filter } from "../../../../common/blocks/top_filter/types";
 import { ManagementFee } from "../../../../../libs/rest_apis/villife/expense/types";
 import buildingManagementFeeFilter from "./filter";
 import MFHistoryCardView from "../../blocks/card";
-import SimpleFuncButton from "../../../../common/blocks/button/simple_func_button";
 import Message from "./blocks/message";
 
-export default function BuildingMFHistoryScreen({ navigation, route }: BuildingMFHistoryScreenProps) {
+export default function BuildingMFHistoryScreen({ navigation }: BuildingMFHistoryScreenProps) {
     const styles = useBuildingMFHistoryScreenStyles();
 
     const manager: AdminPaymentManagerBase = useManagementFeeManager() as AdminPaymentManagerBase;
-    const [filters, setFilters] = useState<Filter<ManagementFee.BuildingRenterHistory>[]>(buildingManagementFeeFilter);
     const [filteredHistory, setFilteredHistory] = useState<ManagementFee.BuildingRenterHistory[]>([]);
-
-    useEffect(() => {
-        setFilterFloors();
-    }, [manager.history]);
-
-    const setFilterFloors = () => {
+    const filters = useMemo<Filter<ManagementFee.BuildingRenterHistory>[]>(() => {
         let floors = manager.history.map((f) => Math.floor(f.room_number / 100).toString());
 
         // 중복 제거
@@ -34,18 +27,18 @@ export default function BuildingMFHistoryScreen({ navigation, route }: BuildingM
             })
             .sort();
 
-        const floorFilterIndex = filters.findIndex((f) => f.name === "층");
+        const floorFilterIndex = buildingManagementFeeFilter.findIndex((f) => f.name === "층");
 
         if (floorFilterIndex === -1) {
             Alert.alert("필터에서 예기치 않은 문제가 발생했습니다.");
             navigation.reset({ index: 0, routes: [{ name: "home" }] });
         }
 
-        const _filter = [...filters];
+        const _filter = [...buildingManagementFeeFilter];
         _filter[floorFilterIndex].conditions = floors;
 
-        setFilters([..._filter]);
-    };
+        return _filter;
+    }, manager.history);
 
     return (
         <NavigationView

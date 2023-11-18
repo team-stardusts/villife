@@ -8,50 +8,30 @@ import { VillifeNavigation } from "../../../../../../common/router/types";
 import useAdminMFStyles from "./styles";
 import ContentBox from "../../../../../../common/blocks/content_box";
 import Icon from "../../../../../../common/atoms/icon";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Building } from "../../../../../../../libs/rest_apis/villife/building/types";
 import StardustDateParser from "../../../../../../../libs/date_parser";
 
 export default function AdminMFView(props: AdminMFViewProps) {
     const navigation = useNavigation<VillifeNavigation>();
     const styles = useAdminMFStyles();
-    const [buidingInfo, setBuildingInfo] = useState<Building.BuildingInfo | null>(null);
-    const [unnoticedCnt, setUnnoticedCnt] = useState<number | null>(null);
-    const [nonPaymentCnt, setNonPaymentCnt] = useState<number | null>(null);
-    const [status, setStatus] = useState<string>("");
-
     const manager: AdminPaymentManagerBase = useManagementFeeManager() as AdminPaymentManagerBase;
 
-    useEffect(() => {
-        manager.updateHistory();
-    }, [manager.selectedBuilding]);
+    const [buidingInfo, setBuildingInfo] = useState<Building.BuildingInfo | null>(null);
 
-    useEffect(() => {
-        manager.getBuildingDetailInfo().then(setBuildingInfo);
-        setCnts();
-    }, [manager.history]);
-
-    useEffect(() => {
-        if (unnoticedCnt === 0 && nonPaymentCnt === 0) {
-            setStatus("이상 없음");
-
-            return;
-        }
-
-        setStatus("점검 필요");
-    }, [unnoticedCnt, nonPaymentCnt]);
-
-    const setCnts = () => {
+    const notFulfilledItemsCnt = useMemo<NotFulfilledItemCnt>(() => {
         const today = StardustDateParser.changeGMT(new Date(), "kr");
-        let _unnoticedCnt = 0;
-        let _nonPaymentCnt = 0;
+        const cnt: NotFulfilledItemCnt = {
+            unnoticed: 0,
+            unpaied: 0,
+        };
 
         for (let i = 0; i < manager.history.length; i++) {
             if (
                 manager.history[i].lastest_noti_year !== today.getFullYear() ||
                 manager.history[i].lastest_noti_month !== today.getMonth() + 1
             ) {
-                _unnoticedCnt++;
+                cnt.unnoticed++;
             }
 
             /* if (
@@ -64,13 +44,28 @@ export default function AdminMFView(props: AdminMFViewProps) {
             } */
 
             if (manager.history[i].total_unpaid_fee > 0) {
-                _nonPaymentCnt++;
+                cnt.unpaied++;
             }
         }
 
-        setUnnoticedCnt(_unnoticedCnt);
-        setNonPaymentCnt(_nonPaymentCnt);
-    };
+        return cnt;
+    }, [manager.history]);
+
+    const status = useMemo<string>(() => {
+        if (notFulfilledItemsCnt.unnoticed === 0 && notFulfilledItemsCnt.unpaied === 0) {
+            return "이상 없음";
+        }
+
+        return "점검 필요";
+    }, [notFulfilledItemsCnt]);
+
+    useEffect(() => {
+        manager.updateHistory();
+    }, [manager.selectedBuilding]);
+
+    useEffect(() => {
+        manager.getBuildingDetailInfo().then(setBuildingInfo);
+    }, [manager.history]);
 
     return (
         <ScrollView style={styles.container}>
@@ -113,11 +108,11 @@ export default function AdminMFView(props: AdminMFViewProps) {
                         </View>
                         <View style={styles.row}>
                             <Text style={styles.rowKey}>미고지 건수</Text>
-                            <Text style={styles.rowValue}>{unnoticedCnt}건</Text>
+                            <Text style={styles.rowValue}>{notFulfilledItemsCnt.unnoticed}건</Text>
                         </View>
                         <View style={styles.row}>
                             <Text style={styles.rowKey}>미납 건수</Text>
-                            <Text style={styles.rowValue}>{nonPaymentCnt}건</Text>
+                            <Text style={styles.rowValue}>{notFulfilledItemsCnt.unpaied}건</Text>
                         </View>
                     </View>
                 </View>
@@ -125,3 +120,8 @@ export default function AdminMFView(props: AdminMFViewProps) {
         </ScrollView>
     );
 }
+
+type NotFulfilledItemCnt = {
+    unnoticed: number;
+    unpaied: number;
+};

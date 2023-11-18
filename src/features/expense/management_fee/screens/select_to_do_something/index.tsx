@@ -10,6 +10,7 @@ import MFHistoryCardView from "../../blocks/card";
 import Icon from "../../../../common/atoms/icon";
 import StardustModal from "../../../../common/blocks/universial/stardust_modal";
 import { makeChunk } from "../../../../common/global_function";
+import VillifeToastMessage from "../../../../common/atoms/toast";
 
 export default function MFSelectToDoSomethingScreen({ navigation, route }: MFSelectToDoSomethingScreenProps) {
     const styles = useMFDepositCheckScreenStyles();
@@ -42,6 +43,9 @@ export default function MFSelectToDoSomethingScreen({ navigation, route }: MFSel
         }
 
         await manager.updateHistory();
+
+        VillifeToastMessage.showBottomToast("success", "입금을 확인했어요! 잘 처리 되었는지 꼭 확인해주세요.");
+
         navigation.canGoBack() && navigation.goBack();
     };
 
@@ -163,7 +167,7 @@ export default function MFSelectToDoSomethingScreen({ navigation, route }: MFSel
                         onPress={() => pressBottomBtn()}
                         disabled={checkedFees.length === 0}>
                         <Text style={styles.bottomBtnTxt}>
-                            {route.params.dowhat === "confirm-deposit" ? "입금 확인" : "메세지 작성하기"}
+                            {route.params.dowhat === "confirm-deposit" ? "입금 확인하기" : "메세지 작성하기"}
                         </Text>
                     </TouchableOpacity>
                 </View>
