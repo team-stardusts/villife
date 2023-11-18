@@ -20,7 +20,7 @@ export default function useSetBuildingScreenStyles() {
             paddingTop: deviceUI.moderateScale(20),
         },
         inputBox: {
-            height: deviceUI.moderateScale(80),
+            height: deviceUI.moderateScale(70),
             marginBottom: deviceUI.moderateScale(7),
         },
         addressBadgeBox: {
@@ -45,9 +45,9 @@ export default function useSetBuildingScreenStyles() {
             marginBottom: deviceUI.getScreenSize().width * 0.02,
         },
         btnTitle: {
+            fontFamily: theme.font.fontFamily.pretendard.semiBold,
             color: theme.color.specified.white,
             fontSize: deviceUI.getScreenSize().width * 0.04,
-            fontWeight: "700",
         },
     });
 

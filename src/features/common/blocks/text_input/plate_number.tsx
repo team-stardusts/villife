@@ -19,6 +19,12 @@ export default function InputPlateNumber(props: InputProps) {
     }, [props.focus]);
 
     useEffect(() => {
+        if (props.initialData !== undefined && props.initialData.length === 3) {
+            setPlateNumber([...props.initialData]);
+        }
+    }, []);
+
+    useEffect(() => {
         for (let i = 0; i < 3; i++) {
             const token = plateNumber[i];
 

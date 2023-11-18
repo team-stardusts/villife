@@ -15,7 +15,7 @@ export default function useStyler(): StylerReturnType {
 
     useEffect(() => {
         const handler = Dimensions.addEventListener("change" as any, ({ window }) => {
-            console.log("[STYLER]", "The size of the window has been changed.");
+            //console.log("[STYLER]", "The size of the window has been changed.");
             setDeviceUI(new DeviceUiInfoProvider(window));
         });
 

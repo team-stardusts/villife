@@ -13,6 +13,7 @@ class FirebaseMessagingEventHandler
         "new-vehicle-registration",
         "vehicle-parking-notification",
         "vehicle-registration-approval-notification",
+        "residence-approved",
     ];
 
     public emit(eventName: MessagingEvent, eventData: MessagingEventData): void {

@@ -5,7 +5,7 @@ import { LoginResult as VillifeLoginResult } from "../../../../libs/rest_apis/vi
 import { Authority } from "../../../../libs/rest_apis/villife/types";
 import { LoginDataType } from "../../../../libs/storage/tables/login/types";
 
-export interface IAuthServiceProvider {
+export interface IAuthServiceProvider extends UserInfoRefreshable {
     login(host: HostType, params?: LoginServiceParams | undefined): Promise<LoginResult>;
     join(host: HostType, params: JoinServiceParams | any): Response<SocialJoinResultType | any>;
     refreshUserInfo(): Promise<boolean>;
@@ -19,6 +19,10 @@ export interface Verifiable {
 
 export interface Joinable {
     join(params: any): Promise<any>;
+}
+
+export interface UserInfoRefreshable {
+    refreshUserInfo(): Promise<boolean>;
 }
 
 export type LoginServiceResult = Responsable<VillifeLoginResult> & {

@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { SafeAreaView, View, LogBox, Alert, Text } from "react-native";
+import { useEffect, useMemo, useState } from "react";
+import { SafeAreaView, View, LogBox, Alert, Text, AppState } from "react-native";
 import useScreenMessage from "../../../common/hooks/multilingual/hooks";
 import AuthScreenCommonInput from "../../blocks/input";
 import ScreenTitleView from "../../../common/blocks/title_view";
@@ -14,6 +14,7 @@ import Badge from "../../../common/atoms/badge";
 import IStringValidator from "../../../../libs/string_validator/types";
 import StringValidator from "../../../../libs/string_validator";
 import useAuthService from "../../services/authentication";
+import useUserInformation from "../../../common/hooks/service/user_info";
 
 LogBox.ignoreLogs(["Did not receive response to shouldStartLoad in time"]);
 
@@ -26,6 +27,8 @@ export default function SetBuildingScreen({ navigation, route }: SetBuildingScre
     const messages = useScreenMessage();
     const styles = useSetBuildingScreenStyles();
     const authService = useAuthService();
+    const auth = useAuthService();
+    const user = useUserInformation();
 
     const [address, setAddress] = useRecoilState<SelectedAddressStateType>(selectedAddressState);
     const [buildingInfo, setBuildingInfo] = useState<BuildingInfo | null>(null);
@@ -135,6 +138,22 @@ export default function SetBuildingScreen({ navigation, route }: SetBuildingScre
 
         setAddress(null);
     }, []);
+
+    useEffect(() => {
+        if (isWaitingForApprove) {
+            /* 
+            만약 정상적인 Building ID와 Room ID를 가진 User Infor가 만들어진다면,
+            Route State Machine에 의해 Home으로 이동될 것임
+            */
+            const handle = AppState.addEventListener("change", (state) => {
+                if (state === "active" || state === "background") {
+                    auth.refreshUserInfo();
+                }
+            });
+
+            return () => handle.remove();
+        }
+    }, [isWaitingForApprove]);
 
     if (isWaitingForApprove) {
         return (

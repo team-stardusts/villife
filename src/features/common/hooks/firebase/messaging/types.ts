@@ -5,7 +5,8 @@ export type MessagingEvent =
     | "new-complaint-registration"
     | "new-vehicle-registration"
     | "vehicle-parking-notification"
-    | "vehicle-registration-approval-notification";
+    | "vehicle-registration-approval-notification"
+    | "residence-approved";
 /* | "double-parking"
 | "change-request" */
 

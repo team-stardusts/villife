@@ -24,8 +24,12 @@ export default function useFirebaseMessagingEmitter() {
                 case "차량 등록 요청 결과":
                     category = "vehicle-registration-approval-notification";
                     break;
+                case "승인 완료":
+                    if (message.notification.body === "거주 승인이 완료 되었습니다, 정상적으로 앱을 이용하시면 됩니다.")
+                        category = "residence-approved";
             }
-            console.log(category, message.notification.title);
+
+            console.log("[PUSH_NOTI]", category, message.notification.title);
             if (category !== null) {
                 emitter.emit(category as MessagingEvent, message.notification);
                 return;

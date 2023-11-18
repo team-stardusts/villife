@@ -15,7 +15,7 @@ export default function useAuthScreenCommonInputStyles() {
         },
         title: {
             color: theme.color.specified.blue,
-            fontFamily: theme.font.fontFamily.pretendard.bold,
+            fontFamily: theme.font.fontFamily.pretendard.semiBold,
             fontSize: deviceUI.moderateScale(18),
         },
         inputBox: {

@@ -25,6 +25,27 @@ export default function VehicleInfoInputBox({ initialVehicleInfo, onChangeVehicl
         onChangeVehicleInfo(vehicleInfo);
     }, [vehicleInfo]);
 
+    const makeInitialPlateNumberToFitInputParam = (): string[] | undefined => {
+        if (initialVehicleInfo !== undefined && typeof initialVehicleInfo.plateNumber === "string") {
+            let plateNumberItems = initialVehicleInfo.plateNumber.split(" ");
+
+            if (plateNumberItems.length !== 2) return undefined;
+
+            try {
+                if (plateNumberItems[0].length < 3) return undefined;
+
+                const item1 = plateNumberItems[0].substring(0, plateNumberItems[0].length - 1);
+                const item2 = plateNumberItems[0][plateNumberItems[0].length - 1];
+                const item3 = plateNumberItems[1];
+                return [item1, item2, item3];
+            } catch {
+                return undefined;
+            }
+        }
+
+        return undefined;
+    };
+
     return (
         <View style={styles.container}>
             <View style={styles.vehicleInfoInputContainer}>
@@ -32,6 +53,7 @@ export default function VehicleInfoInputBox({ initialVehicleInfo, onChangeVehicl
                 <View style={styles.vehicleInfoInputWrapper}>
                     <ReusableTextInput
                         type="plate-number"
+                        initialData={makeInitialPlateNumberToFitInputParam()}
                         onInputValidValue={(plateNumber) => {
                             setVehicleInfo({
                                 ...vehicleInfo,

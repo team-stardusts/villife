@@ -96,7 +96,7 @@ export default function useRouteFSM() {
                                 //routes: [{ name: "home" }, { name: "register_building" }],
                                 //routes: [{ name: "building_management" }],
                             });
-                        } else if (routes[0].name === "welcome") {
+                        } else if (routes[0].name === "set_building") {
                             navigation.reset({
                                 index: 0,
                                 routes: [{ name: "home" }],
@@ -110,7 +110,7 @@ export default function useRouteFSM() {
                     break;
 
                 case Situation.NO_BUILDING:
-                    console.log("[ONLOGIN] User has no room , navigate to Set Building Page");
+                    console.log("[ONLOGIN] User has no room, navigate to Set Building Page");
 
                     navigation.reset({
                         index: 0,
@@ -119,7 +119,7 @@ export default function useRouteFSM() {
                     break;
 
                 case Situation.NO_ROOM:
-                    console.log("[ONLOGIN] User has no room , navigate to Set Building Page");
+                    console.log("[ONLOGIN] User has no room, navigate to Set Building Page");
 
                     navigation.reset({
                         index: 0,
