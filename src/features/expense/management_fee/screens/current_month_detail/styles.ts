@@ -65,14 +65,14 @@ export default function useManagementFeeCurrentMonthDetailScreenStyles() {
             flexDirection: "row",
             justifyContent: "space-between",
             alignItems: "center",
-            marginVertical: deviceUI.moderateScale(8),
+            marginVertical: deviceUI.moderateScale(10),
         },
         subitemRow: {
             width: "100%",
             flexDirection: "row",
             justifyContent: "space-between",
             alignItems: "center",
-            marginVertical: deviceUI.moderateScale(4),
+            marginVertical: deviceUI.moderateScale(6),
             paddingHorizontal: deviceUI.moderateScale(10),
         },
         key: {
