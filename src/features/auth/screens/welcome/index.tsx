@@ -16,7 +16,17 @@ export default function WelcomeScreen({ route }: WelcomScreenProps) {
     const auth: IAuthServiceProvider = useAuthService();
 
     const handlePressNextBtn = () => {
-        auth.refreshUserInfo();
+        const { host, id, password } = route.params;
+        const params =
+            id && password
+                ? {
+                      id,
+                      password,
+                  }
+                : undefined;
+
+        auth.login(host, params);
+        //auth.refreshUserInfo();
     };
 
     return (

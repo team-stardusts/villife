@@ -21,7 +21,7 @@ export default function VehicleModifyModal(props: VehicleModifyModalProps) {
     const initialEtda = convertVehicleEtdaToEtdaTime(props.vehilce);
     const styles = useVehicleModifyModalStyles();
     const parkingLot = useParkingLot();
-    const navigation = useNavigation<VillifeNavigation>();
+    //const navigation = useNavigation<VillifeNavigation>();
     const [etda, setEtda] = useState<EtdaTime | null>(null);
     const [info, setInfo] = useState<VehicleInfo | null>(null);
     const [deleteAlert, setDeleteAlert] = useState<StardustAlertContent>({

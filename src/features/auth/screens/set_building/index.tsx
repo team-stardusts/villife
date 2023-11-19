@@ -173,9 +173,11 @@ export default function SetBuildingScreen({ navigation, route }: SetBuildingScre
                 titles={[messages.messages.auth.set_building.title]}
                 subtitles={[messages.messages.auth.set_building.subtitle]}
                 bottomButton={{
-                    title: IsEditMode
+                    title: messages.messages.auth.set_building.next_btn_title,
+                    /* IsEditMode
                         ? messages.messages.auth.set_building.next_btn_title
-                        : messages.messages.auth.set_building.next_btn_title_when_change_next,
+                        : messages.messages.auth.set_building.next_btn_title_when_change_next, */
+                    disabled: address === null || roomNumber === null,
                     onPress: () => {
                         IsEditMode
                             ? onPressNextButton()
