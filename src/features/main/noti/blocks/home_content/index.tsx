@@ -1,4 +1,4 @@
-import { Text, TouchableOpacity, View } from "react-native";
+import { Pressable, Text, TouchableOpacity, View } from "react-native";
 import MiniContent from "../../../../common/blocks/mini_content";
 import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
 import { useNavigation } from "@react-navigation/native";
@@ -8,6 +8,7 @@ import useStyler from "../../../../common/hooks/styler/hooks";
 import useHomeContentCardStyle from "./styles";
 import useNotiViewModel from "../outlined_box_list/useNotiViewModel";
 import useUserInformation from "../../../../common/hooks/service/user_info";
+import Icon from "../../../../common/atoms/icon";
 
 export default function HomeContentFromNoti() {
     const messages = useScreenMessage();
@@ -23,17 +24,25 @@ export default function HomeContentFromNoti() {
             navigation={{ to: "noti_home" }}
             eanbleShadow={false}>
             {viewModel?.length == 0 ? (
-                <TouchableOpacity
-                    style={style.whenEmptyContainer}
+                <Pressable
                     onPress={() => {
                         if (user?.isAdmin) navigation.navigate("noti_register", {});
-                    }}>
-                    <Text style={style.text}>
-                        {user?.isAdmin
-                            ? message.messages.main.noti.when_noti_empty_admin
-                            : message.messages.main.noti.when_noti_empty}
+                    }}
+                    style={style.whenEmpty}>
+                    <Text style={style.whenEmptyCardText}>
+                        {user?.isAdmin ? (
+                            <View style={style.whenEmptyText}>
+                                <Text style={style.whenEmptyCardText}>현재 공지사항이 없어요.</Text>
+                                <Text style={style.whenEmptyCardText}>클릭 하시면 공지사항 등록 가능해요.</Text>
+                            </View>
+                        ) : (
+                            "현재 등록되어 있는 공지사항이 없어요."
+                        )}
                     </Text>
-                </TouchableOpacity>
+                    <View style={style.whenEmptyIcon}>
+                        <Icon name="document_illustration" size={10} />
+                    </View>
+                </Pressable>
             ) : (
                 <View style={style.contentContainer}>
                     {viewModel === undefined ? (

@@ -7,8 +7,10 @@ export default function useExpenseApprovalViewModel() {
     const service = useExpenseApprovalService();
     const [approvals, setApprovals] = React.useState<ReadonlyArray<Approval>>([]);
     const [refresh, setRefresh] = React.useState({});
+    const [loading, setIsLoading] = React.useState(true);
 
     const fetchApprovals = async () => {
+        setIsLoading(true);
         const fetchedApprovals = await service.getExpenseApproval();
         if (!fetchedApprovals.isSuccessful) return [];
         if (fetchedApprovals.data?.data) {
@@ -18,6 +20,7 @@ export default function useExpenseApprovalViewModel() {
         } else {
             setApprovals([]);
         }
+        setIsLoading(false);
     };
 
     React.useEffect(() => {
@@ -34,5 +37,5 @@ export default function useExpenseApprovalViewModel() {
         fetchApprovals();
     }, [refresh]);
 
-    return approvals;
+    return { approvals, loading };
 }

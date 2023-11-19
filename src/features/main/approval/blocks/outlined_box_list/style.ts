@@ -5,18 +5,22 @@ import useStyler from "../../../../common/hooks/styler/hooks";
 export default function useApprovalOutLinedBoxListStyles(): UseApprovalOutLinedBoxListStylesType {
     const { deviceUI, theme } = useStyler();
     return StyleSheet.create({
-        contentContainer: { alignItems: "center", width: "100%", paddingVertical: deviceUI.moderateScale(10) },
-        whenEmptyCard: {
-            width: deviceUI.getScreenSize().width * 0.9,
-            height: deviceUI.getScreenSize().height * 0.16,
-            borderRadius: deviceUI.moderateScale(15),
-            justifyContent: "center",
+        contentContainer: {
             alignItems: "center",
-            marginTop: deviceUI.moderateScale(20),
+            width: "100%",
+            paddingVertical: deviceUI.moderateScale(10),
+        },
+
+        whenEmptyCard: {
+            minHeight: deviceUI.moderateScale(400),
+            justifyContent: "center",
+            alignContent: "center",
         },
 
         whenEmptyCardText: {
-            color: theme.color.specified.white,
+            alignItems: "center",
+            justifyContent: "center",
+            color: theme.color.specified.black,
             fontFamily: theme.font.fontFamily.pretendard.bold,
             fontSize: deviceUI.moderateScale(17),
             marginBottom: deviceUI.moderateScale(10),

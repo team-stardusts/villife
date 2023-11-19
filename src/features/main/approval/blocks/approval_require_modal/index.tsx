@@ -109,8 +109,8 @@ export default function ApprovalRequiredModal(props: ApprovalRequiredModalProps)
                     {convertedApprovalRequest?.detailContent?.map((content, index) => {
                         return (
                             <View style={styles.childrenSection} key={index}>
-                                <Text>{content.title}</Text>
-                                <Text>{content.content}</Text>
+                                <Text style={styles.rightContentText}>{content.title}</Text>
+                                <Text style={styles.leftContentText}>{content.content}</Text>
                             </View>
                         );
                     })}

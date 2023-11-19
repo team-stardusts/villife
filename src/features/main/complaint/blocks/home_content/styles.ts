@@ -34,6 +34,27 @@ export default function useHomeContentCardStyle() {
             color: theme.color.specified.black,
             backgroundColor: theme.color.specified.grey,
         },
+        whenEmpty: {
+            justifyContent: "center",
+            alignItems: "center",
+            alignContent: "center",
+            flex: 1,
+        },
+        whenEmptyIcon: {
+            position: "absolute",
+            justifyContent: "center",
+            alignItems: "center",
+            opacity: 0.2,
+        },
+        whenEmptyText: {
+            alignItems: "center",
+            justifyContent: "center",
+        },
+        whenEmptyCardText: {
+            fontSize: deviceUI.moderateScale(16),
+            fontFamily: theme.font.fontFamily.pretendard.semiBold,
+            color: theme.color.specified.black,
+        },
     });
     return Style;
 }

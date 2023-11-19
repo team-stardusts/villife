@@ -40,6 +40,7 @@ export default function TenantDetailScreen({ route }: TenantDetailScreenProps) {
             icon: "pencil",
             text: "알림 작성하기",
             onPress: () => {
+                setNoticeModalVisible(false);
                 navigation.navigate("compose_message", { contractID: route.params.contractID });
             },
         },

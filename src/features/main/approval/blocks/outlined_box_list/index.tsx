@@ -5,6 +5,7 @@ import useApprovalViewModel from "./useApprovalViewModel";
 import useApprovalOutLinedBoxListStyles from "./style";
 import useStyler from "../../../../common/hooks/styler/hooks";
 import { useEffect } from "react";
+import Icon from "../../../../common/atoms/icon";
 
 function FlatListOutlinedContentsBox() {
     const styles = useApprovalOutLinedBoxListStyles();
@@ -29,7 +30,10 @@ function FlatListOutlinedContentsBox() {
                     </View>
                 ) : (
                     <View style={styles.whenEmptyCard}>
-                        <Text style={styles.whenEmptyCardText}>승인이 없습니다.</Text>
+                        <Text style={styles.whenEmptyCardText}>현재 승인이 없어요.</Text>
+                        <View style={{ alignItems: "center" }}>
+                            <Icon name="check_illustration" size={5} />
+                        </View>
                     </View>
                 );
             }}

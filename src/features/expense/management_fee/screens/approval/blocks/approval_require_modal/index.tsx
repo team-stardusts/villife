@@ -7,17 +7,14 @@ import ApprovalRequiredModalProps from "./type";
 import useScreenMessage from "../../../../../../common/hooks/multilingual/hooks";
 import useApprovalService from "../../services";
 import { ApprovalEventEmitter } from "../outlined_box_list/event";
-import Icon from "../../../../../../common/atoms/icon";
 import { useNavigation } from "@react-navigation/native";
 import { VillifeNavigation } from "../../../../../../common/router/types";
-import { UserPaymentManagerBase } from "../../../../services/payment/types";
-import useManagementFeeManager from "../../../../services/payment";
 
 export default function ExpenseApprovalRequiredModal(props: ApprovalRequiredModalProps) {
     const messages = useScreenMessage();
     const service = useApprovalService();
     const styles = useBottomEditModalStyles();
-    const navigation = useNavigation<VillifeNavigation>();
+    //const navigation = useNavigation<VillifeNavigation>();
 
     const { visible, setVisible, convertedApprovalRequest } = props;
     const [deleteAlertVisible, setDeleteAlertVisible] = useState(false);
@@ -26,11 +23,11 @@ export default function ExpenseApprovalRequiredModal(props: ApprovalRequiredModa
         if (!props.visible) setDeleteAlertVisible(false);
     }, []);
 
-    const currentMonthDetailBtn = () => {
+    /*   const currentMonthDetailBtn = () => {
         navigation.navigate("management_fee_current_month_detail", {
             unpaidFee: 100,
         });
-    };
+    }; */
 
     const onRejectButtonPress = async () => {
         const result = await service.rejectExpenseApproval(convertedApprovalRequest ? convertedApprovalRequest.id : 0);

@@ -9,6 +9,7 @@ import { VillifeNavigation } from "../../../../common/router/types";
 import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
 import useUserInformation from "../../../../common/hooks/service/user_info";
 import useStyler from "../../../../common/hooks/styler/hooks";
+import Icon from "../../../../common/atoms/icon";
 
 function FlatListOutlinedContentsBox() {
     const styles = useNotiOutLinedBoxListStyles();
@@ -47,21 +48,31 @@ function FlatListOutlinedContentsBox() {
                         <ActivityIndicator size="large" color={theme.color.specified.grey} />
                     </View>
                 ) : (
-                    <TouchableOpacity
-                        style={styles.whenEmptyCard}
-                        onPress={() => {
-                            navigation.navigate("noti_register", {});
-                        }}>
-                        <Text style={styles.whenEmptyCardText}>
-                            {user?.isAdmin
-                                ? messages.messages.main.noti.when_noti_empty_admin
-                                : messages.messages.main.noti.when_noti_empty}
-                        </Text>
-                    </TouchableOpacity>
+                    <View style={styles.whenEmptyCard}>
+                        {user?.isAdmin ? (
+                            <View style={styles.whenEmptyText}>
+                                <Text style={styles.whenEmptyCardText}>
+                                    {messages.messages.main.noti.when_noti_empty_admin1}
+                                </Text>
+                                <Text style={styles.whenEmptyCardText}>
+                                    {messages.messages.main.noti.when_noti_empty_admin2}
+                                </Text>
+                            </View>
+                        ) : (
+                            <Text style={styles.whenEmptyCardText}>{messages.messages.main.noti.when_noti_empty}</Text>
+                        )}
+
+                        <View style={{ alignItems: "center" }}>
+                            <Icon name="document_illustration" size={5} />
+                        </View>
+                    </View>
                 );
             }}
         />
     );
 }
+/*                        {user?.isAdmin
+? messages.messages.main.noti.when_noti_empty_admin1
+: messages.messages.main.noti.when_noti_empty} */
 
 export default FlatListOutlinedContentsBox;

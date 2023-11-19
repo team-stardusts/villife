@@ -11,18 +11,18 @@ export default function useNotiOutLinedBoxListStyles(): UseNotiOutLinedBoxListSt
             paddingVertical: deviceUI.moderateScale(10),
         },
         whenEmptyCard: {
-            backgroundColor: theme.color.specified.darkgrey,
-            width: deviceUI.getScreenSize().width * 0.9,
-            height: deviceUI.getScreenSize().height * 0.16,
-            borderRadius: deviceUI.moderateScale(15),
+            minHeight: deviceUI.moderateScale(400),
             justifyContent: "center",
             alignItems: "center",
-            marginTop: deviceUI.moderateScale(20),
+        },
+        whenEmptyText: {
+            alignItems: "center",
+            justifyContent: "center",
         },
         whenEmptyCardText: {
-            fontSize: deviceUI.moderateScale(16),
+            color: theme.color.specified.black,
             fontFamily: theme.font.fontFamily.pretendard.bold,
-            color: theme.color.specified.white,
+            fontSize: deviceUI.moderateScale(17),
             marginBottom: deviceUI.moderateScale(10),
         },
     });

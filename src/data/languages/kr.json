@@ -143,8 +143,9 @@
             "noti_title_error": "제목 또는 내용을 입력해주세요",
             "noti_important_modal": "중요",
             "noti_general_modal": "일반",
-            "when_noti_empty": "등록된 공지사항이 없습니다.",
-            "when_noti_empty_admin": "등록된 공지사항이 없습니다.\n \n여기를 눌러 공지사항을 등록해주세요."
+            "when_noti_empty": "현재 등록되어 있는 공지사항이 없어요.",
+            "when_noti_empty_admin1": "현재 등록되어 있는 공지사항이 없어요.",
+            "when_noti_empty_admin2": "등록하기를 눌러 공지사항을 등록해주세요."
         },
         "approval": {
             "screen_title": "승인함",

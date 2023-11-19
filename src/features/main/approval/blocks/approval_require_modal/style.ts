@@ -69,12 +69,14 @@ export default function useApprovalRequiredModalStyles(): UseApprovalRequiredMod
             ...theme.font.researved.h5,
         },
         leftButtonText: {
+            fontFamily: theme.font.fontFamily.pretendard.bold,
+            fontSize: deviceUI.moderateScale(13),
             color: theme.color.specified.black,
-            ...theme.font.researved.h5,
         },
         rightButtonText: {
+            fontFamily: theme.font.fontFamily.pretendard.bold,
+            fontSize: deviceUI.moderateScale(13),
             color: theme.color.specified.white,
-            ...theme.font.researved.h5,
         },
         leftButton: {
             height: "80%",
@@ -84,6 +86,8 @@ export default function useApprovalRequiredModalStyles(): UseApprovalRequiredMod
             borderRadius: deviceUI.moderateScale(8),
             marginRight: deviceUI.moderateScale(10),
             backgroundColor: theme.color.specified.lightgrey,
+            opacity: 0.6,
+            zIndex: -1,
         },
         rightButton: {
             height: "80%",
@@ -92,6 +96,16 @@ export default function useApprovalRequiredModalStyles(): UseApprovalRequiredMod
             alignItems: "center",
             backgroundColor: theme.color.specified.blue,
             borderRadius: deviceUI.moderateScale(8),
+        },
+        rightContentText: {
+            fontFamily: theme.font.fontFamily.pretendard.regular,
+            fontSize: deviceUI.moderateScale(12),
+            color: theme.color.specified.black,
+        },
+        leftContentText: {
+            fontFamily: theme.font.fontFamily.pretendard.regular,
+            fontSize: deviceUI.moderateScale(14),
+            color: theme.color.specified.black,
         },
     });
 }

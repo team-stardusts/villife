@@ -151,7 +151,8 @@ export type MessagesByLanguage = {
             noti_important_modal: string;
             noti_general_modal: string;
             when_noti_empty: string;
-            when_noti_empty_admin: string;
+            when_noti_empty_admin1: string;
+            when_noti_empty_admin2: string;
         };
         approval: {
             screen_title: string;

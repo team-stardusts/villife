@@ -95,7 +95,9 @@ export default function ComplaintHomeScreen({ navigation, route }: ComplaintHome
                     ) : (
                         <View style={styles.whenEmpty}>
                             <Text style={styles.whenEmptyCardText}>현재 민원이 없어요.</Text>
-                            <Icon name="check_illustration" size={4} />
+                            <View style={{ alignContent: "center" }}>
+                                <Icon name="check_illustration" size={4} />
+                            </View>
                         </View>
                     )}
                 </View>

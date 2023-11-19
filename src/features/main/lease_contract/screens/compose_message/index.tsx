@@ -33,7 +33,7 @@ export default function ComposeMessageScreen(props: ComposeMessageScreenProps) {
         setLoading(false);
         isSuccessful = await contractor.requestNotification(params);
         if (isSuccessful) {
-            VillifeToastMessage.showBottomToast("error", "알림 성공");
+            VillifeToastMessage.showBottomToast("success", "알림 성공");
             props.navigation.reset({
                 index: 0,
                 routes: [{ name: "lease_contract" }],
