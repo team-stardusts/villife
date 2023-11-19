@@ -17,10 +17,8 @@ export default function useExpenseApprovalOutLinedBoxListStyles(): UseExpenseApp
         },
 
         whenEmptyCardText: {
-            alignItems: "center",
-            justifyContent: "center",
             color: theme.color.specified.black,
-            fontFamily: theme.font.fontFamily.pretendard.bold,
+            fontFamily: theme.font.fontFamily.pretendard.semiBold,
             fontSize: deviceUI.moderateScale(17),
             marginBottom: deviceUI.moderateScale(10),
         },

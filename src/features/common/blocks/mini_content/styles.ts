@@ -21,7 +21,8 @@ export default function useHomeScreenContentStyles() {
             width: "100%",
             flexDirection: "row",
             justifyContent: "space-between",
-            alignItems: "flex-start",
+            alignItems: "center",
+            paddingBottom: deviceUI.moderateScale(5),
         },
         navigationTitle: {
             fontFamily: theme.font.fontFamily.pretendard.semiBold,
@@ -31,7 +32,7 @@ export default function useHomeScreenContentStyles() {
             //...theme.font.researved.h2,
         },
         linkIcon: {
-            width: deviceUI.moderateScale(50),
+            width: deviceUI.moderateScale(40),
             color: theme.color.specified.black,
         },
         childrenBox: {

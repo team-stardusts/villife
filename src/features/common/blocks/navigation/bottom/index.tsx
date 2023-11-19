@@ -1,12 +1,11 @@
 import { Animated, Text, TouchableOpacity, View } from "react-native";
 import useNavigationViewBottomStyles from "./styles";
 import Icon from "../../../atoms/icon";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import useRootLinks from "../root_links";
 import { useNavigation } from "@react-navigation/native";
-import { VillifeRouterParams, VillifeStackParamList } from "../../../router/types";
+import { VillifeRouterParams } from "../../../router/types";
 import { RootLink } from "../types";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
 import useUserInformation from "../../../hooks/service/user_info";
 import { ANIMATION_DURATION_FAST_LV3 } from "../../../constants";
 
@@ -15,8 +14,10 @@ export default function NavigationViewBottom() {
     const styles = useNavigationViewBottomStyles();
     const rootLinks = useRootLinks();
     const user = useUserInformation();
-    const [currentRootScreen, setCurrentRootScreen] = useState<keyof VillifeStackParamList>("home");
     const translateYValue = useRef(new Animated.Value(30)).current;
+    const currentRootScreen = useMemo(() => {
+        return navigation.getState().routes[0].name;
+    }, [navigation.getState().routes]);
 
     const handleLinkPress = (link: RootLink) => {
         // 현재 스크린의 버튼 클릭 시 routing 되지 않도록 함.
@@ -27,10 +28,6 @@ export default function NavigationViewBottom() {
             routes: [link.screen],
         });
     };
-
-    useEffect(() => {
-        setCurrentRootScreen(navigation.getState().routes[0].name);
-    }, [navigation.getState().routes]);
 
     useEffect(() => {
         Animated.timing(translateYValue, {

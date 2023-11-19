@@ -1,8 +1,13 @@
 import { StyleSheet } from "react-native";
 import useStyler from "../../../hooks/styler/hooks";
+import changeNavigationBarColor from "react-native-navigation-bar-color";
 
 export default function useNavigationViewBottomStyles() {
     const { deviceUI, theme } = useStyler();
+
+    const backgroundColor = theme.color.specified.white;
+
+    changeNavigationBarColor(backgroundColor as string, true, true);
 
     return StyleSheet.create({
         container: {
@@ -16,7 +21,7 @@ export default function useNavigationViewBottomStyles() {
             width: "100%",
             height: deviceUI.getScreenSize().height * 0.3,
             bottom: deviceUI.getScreenSize().height * -0.3 + 1,
-            backgroundColor: theme.color.specified.white,
+            backgroundColor: backgroundColor,
         },
         menuBox: {
             width: "101%",
@@ -25,7 +30,7 @@ export default function useNavigationViewBottomStyles() {
             alignItems: "flex-start",
             justifyContent: "center",
             paddingTop: deviceUI.moderateScale(5),
-            backgroundColor: theme.color.specified.white,
+            backgroundColor: backgroundColor,
             borderColor: theme.color.specified.lightgrey,
             borderWidth: deviceUI.moderateScale(1),
             borderBottomWidth: 0,

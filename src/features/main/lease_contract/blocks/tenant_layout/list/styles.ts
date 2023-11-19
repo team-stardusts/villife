@@ -58,7 +58,7 @@ export default function useBuildingTenantListViewStyles() {
         },
         roomNumber: {
             color: theme.color.specified.black,
-            fontFamily: theme.font.fontFamily.pretendard.bold,
+            fontFamily: theme.font.fontFamily.pretendard.semiBold,
             fontSize: deviceUI.moderateScale(15),
         },
         contractType: {
@@ -72,7 +72,7 @@ export default function useBuildingTenantListViewStyles() {
             alignItems: "flex-end",
         },
         expirationNoti: {
-            fontFamily: theme.font.fontFamily.pretendard.bold,
+            fontFamily: theme.font.fontFamily.pretendard.semiBold,
             fontSize: deviceUI.moderateScale(14),
         },
         expiration: {
@@ -111,7 +111,7 @@ export default function useBuildingTenantListViewStyles() {
             alignItems: "center",
         },
         detailIcon: {
-            width: deviceUI.moderateScale(50),
+            width: deviceUI.moderateScale(30),
             color: theme.color.specified.black,
         },
     });

@@ -33,9 +33,9 @@ export default function BankInfoBox(props: BankInfoBoxProps) {
             fontSize: deviceUI.moderateScale(14),
         },
         accountNumber: {
-            fontFamily: theme.font.fontFamily.pretendard.bold,
+            fontFamily: theme.font.fontFamily.pretendard.medium,
             color: theme.color.specified.black,
-            fontSize: deviceUI.moderateScale(18),
+            fontSize: deviceUI.moderateScale(17),
         },
         btn: {
             paddingVertical: deviceUI.moderateScale(4),

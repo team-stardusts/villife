@@ -84,6 +84,17 @@ export default function useRouteFSM() {
                             navigation.reset({
                                 index: 0,
                                 routes: [{ name: "home" }],
+                                /* routes: [
+                                    {
+                                        name: "welcome",
+                                        params: {
+                                            authority: 1,
+                                            host: "villife",
+                                            id: "qls056",
+                                            password: "ghdtjdqls1!",
+                                        },
+                                    },
+                                ], */
                                 //routes: [{ name: "parking" }],
                                 //routes: [{ name: "set_building" }],
                                 //routes: [{ name: "welcome", params: { authority: 1 } }],
@@ -95,6 +106,11 @@ export default function useRouteFSM() {
                                 //routes: [{ name: "home" }, { name: "building_management" }],
                                 //routes: [{ name: "home" }, { name: "register_building" }],
                                 //routes: [{ name: "building_management" }],
+                            });
+                        } else if (routes[0].name === "welcome") {
+                            navigation.reset({
+                                index: 0,
+                                routes: [{ name: "home" }],
                             });
                         } else if (routes[0].name === "set_building") {
                             navigation.reset({

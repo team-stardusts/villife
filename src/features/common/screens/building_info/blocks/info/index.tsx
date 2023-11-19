@@ -22,12 +22,21 @@ export default function BuildingInfoView(props: BuildingInfoViewProps) {
             <View style={styles.container}>
                 <View style={styles.section}>
                     <View style={styles.sectionRow}>
-                        <Text style={styles.sectionRowKey}>주소</Text>
-                        <Text style={styles.sectionRowValue}>{props.buildingInfo.address}</Text>
+                        <View>
+                            <Text style={styles.sectionRowKey}>주소</Text>
+                        </View>
+                        <Text
+                            style={[styles.sectionRowValue, { width: "80%", textAlign: "right" }]}
+                            adjustsFontSizeToFit
+                            numberOfLines={1}>
+                            {props.buildingInfo.address}
+                        </Text>
                     </View>
                     <View style={styles.sectionRow}>
                         <Text style={styles.sectionRowKey}>이름</Text>
-                        <Text style={styles.sectionRowValue}>{props.buildingInfo.name}</Text>
+                        <Text style={styles.sectionRowValue} adjustsFontSizeToFit numberOfLines={1}>
+                            {props.buildingInfo.name}
+                        </Text>
                     </View>
                 </View>
                 <View style={styles.section}>

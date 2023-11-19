@@ -1,14 +1,12 @@
-import { ScrollView, Text, TouchableOpacity, View } from "react-native";
+import { Text, TouchableOpacity, View } from "react-native";
 import NavigationView from "../../../../common/blocks/navigation";
 import ScreenTitleView from "../../../../common/blocks/title_view";
 import useUserInformation from "../../../../common/hooks/service/user_info";
 import useManagementFeeDetailScreenStyles from "./styles";
 import ManagementFeeDetailScreenProps, { PaidDateRange, SelectedDate } from "./types";
-import usePayer from "../../services/payer_legacy";
 import { useEffect, useState } from "react";
 import Icon from "../../../../common/atoms/icon";
 import SelectModal from "./blocks/select_modal";
-import { ManagementFee } from "../../../../../libs/rest_apis/villife/expense/types";
 import useManagementFeeManager from "../../services/payment";
 import { PaymentBill, UserPaymentManagerBase } from "../../services/payment/types";
 import { insertCommaToNumber } from "../../../../common/global_function";
@@ -87,6 +85,7 @@ export default function ManagementFeeDetailScreen({ navigation, route }: Managem
             }}>
             <ScreenTitleView titles={[`${user?.roomNumber}호`]} disablePaddingTop={true}>
                 <SelectModal
+                    initailSelectedDate={selectedDate}
                     modalVisible={modalVisible}
                     setModalVisible={setModalVisible}
                     paidDateRange={paidDateRange}

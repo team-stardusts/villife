@@ -25,7 +25,7 @@ export default function WelcomeScreen({ route }: WelcomScreenProps) {
                   }
                 : undefined;
 
-        auth.login(host, params);
+        auth.login(host, params).then((r) => console.log(r));
         //auth.refreshUserInfo();
     };
 
