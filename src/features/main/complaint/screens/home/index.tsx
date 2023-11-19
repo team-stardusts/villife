@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, Pressable, ScrollView } from "react-native";
+import { View, Text, TouchableOpacity, Pressable, ScrollView, ActivityIndicator } from "react-native";
 import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
 import NavigationView from "../../../../common/blocks/navigation";
 import ComplaintHomeScreenProps from "./types";
@@ -6,14 +6,19 @@ import useComplaintHomeSecreenStyle from "./styles";
 import IconPlus from "../../../../common/atoms/icon/plus";
 import ComplaintContentCard from "../../blocks/content_card";
 import ComplaintHomeViewModel from "./view_model";
-import React from "react";
+import React, { useEffect } from "react";
 import ComplaintHomeEditModal from "../../blocks/home_bottom_edit";
 import IconArrow from "../../../../common/atoms/icon/arrow";
 import IconFilterSetting from "../../../../common/atoms/icon/filter_setting";
 import useUserInformation from "../../../../common/hooks/service/user_info";
+import IllustrationDocument from "../../../../common/atoms/icon/document_illustration";
+import Icon from "../../../../common/atoms/icon";
+import useStyler from "../../../../common/hooks/styler/hooks";
 
 export default function ComplaintHomeScreen({ navigation, route }: ComplaintHomeScreenProps) {
     const messages = useScreenMessage();
+    const { deviceUI, theme } = useStyler();
+
     const styles = useComplaintHomeSecreenStyle();
     const viewModel = ComplaintHomeViewModel();
     const user = useUserInformation();
@@ -71,17 +76,28 @@ export default function ComplaintHomeScreen({ navigation, route }: ComplaintHome
                             />
                         </TouchableOpacity>
                     </View>
-                    {viewModel.uiState.complaintsWillBeDisplayed.map((item) => {
-                        //console.log("[complaint 변경 ComplaintHomeScreen] : ", item);
-                        return (
-                            <View key={item.id} style={{ alignItems: "center" }}>
-                                <ComplaintContentCard
-                                    info={item}
-                                    onPress={() => navigation.navigate("complaint_detail", item)}
-                                />
-                            </View>
-                        );
-                    })}
+                    {viewModel.uiState.loading ? (
+                        <View style={{ justifyContent: "center", minHeight: deviceUI.moderateScale(320) }}>
+                            <ActivityIndicator size="large" color={theme.color.specified.grey} />
+                        </View>
+                    ) : viewModel.uiState.complaintsWillBeDisplayed.length > 0 ? (
+                        viewModel.uiState.complaintsWillBeDisplayed.map((item) => {
+                            //console.log("[complaint 변경 ComplaintHomeScreen] : ", item);
+                            return (
+                                <View key={item.id} style={{ alignItems: "center" }}>
+                                    <ComplaintContentCard
+                                        info={item}
+                                        onPress={() => navigation.navigate("complaint_detail", item)}
+                                    />
+                                </View>
+                            );
+                        })
+                    ) : (
+                        <View style={styles.whenEmpty}>
+                            <Text style={styles.whenEmptyCardText}>현재 민원이 없어요.</Text>
+                            <Icon name="check_illustration" size={4} />
+                        </View>
+                    )}
                 </View>
             </ScrollView>
         </NavigationView>

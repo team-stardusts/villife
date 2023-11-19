@@ -10,11 +10,13 @@ export default function ComplaintHomeViewModel(): ComplaintHomeUiState {
     const service = useComplaintService();
     const user = useUserInformation();
     const messages = useScreenMessage();
+
     const [complaints, setComplaints] = React.useState<Array<ComplaintInfo>>([]);
     const [displayMode, setDisplayMode] = React.useState<ComplaintHomeDisplayMode>("received_and_in_progress");
     const [menuTitle, setMenuTitle] = React.useState(
         messages.messages.main.complaint.complaint_received_and_in_progress
     );
+    const [loading, setIsLoading] = React.useState(true);
 
     const fetchReceivedAndInProgressComplaint = async () => {
         //admin 로그인 시 할당 된 Building.id가 없는데 가져오는 문제 해결
@@ -43,6 +45,7 @@ export default function ComplaintHomeViewModel(): ComplaintHomeUiState {
             if (!concatnatedComplaints) return;
             setComplaints([]);
             setComplaints(concatnatedComplaints);
+            setIsLoading(false);
         }
     };
     const fetchReceivedComplaint = async () => {
@@ -58,6 +61,7 @@ export default function ComplaintHomeViewModel(): ComplaintHomeUiState {
         if (res.data?.data) {
             setComplaints([]);
             setComplaints(res.data.data);
+            setIsLoading(false);
         }
     };
     const fetchInProgressComplaint = async () => {
@@ -73,6 +77,7 @@ export default function ComplaintHomeViewModel(): ComplaintHomeUiState {
         if (res.data?.data) {
             setComplaints([]);
             setComplaints(res.data.data);
+            setIsLoading(false);
         }
     };
     const fetchCompletedComplaint = async () => {
@@ -89,6 +94,7 @@ export default function ComplaintHomeViewModel(): ComplaintHomeUiState {
 
         if (res.data?.data) {
             setComplaints(res.data.data);
+            setIsLoading(false);
         }
     };
     const fetchComplaintByDisplayMode = async () => {
@@ -114,8 +120,19 @@ export default function ComplaintHomeViewModel(): ComplaintHomeUiState {
     };
 
     React.useEffect(() => {
-        fetchComplaintByDisplayMode();
-        console.info("[ComplaintHomeViewModel] fetchComplaintsByDisplayMode()");
+        (async () => {
+            setIsLoading(true);
+            console.log("1", loading);
+            await fetchComplaintByDisplayMode().catch((r) => {
+                console.log(r, "fetching compaints has been failed");
+
+                return;
+            });
+
+            console.info("[ComplaintHomeViewModel] fetchComplaintsByDisplayMode()");
+            console.log("[ComDis]", displayMode);
+            console.log("[ComBuilding]", user?.adminInfomation?.selectedBuilding);
+        })();
     }, [displayMode, user?.adminInfomation?.selectedBuilding]);
 
     React.useEffect(() => {
@@ -129,6 +146,7 @@ export default function ComplaintHomeViewModel(): ComplaintHomeUiState {
     return {
         uiState: {
             menuTitle: menuTitle,
+            loading: loading,
             complaintsWillBeDisplayed: complaints,
         },
         setDisplayMode: (displayMode: ComplaintHomeDisplayMode) => {
@@ -140,7 +158,9 @@ export default function ComplaintHomeViewModel(): ComplaintHomeUiState {
 type ComplaintHomeUiState = {
     uiState: {
         menuTitle: string;
+        loading: boolean;
         complaintsWillBeDisplayed: Array<ComplaintInfo>;
     };
+
     setDisplayMode: (displayMode: ComplaintHomeDisplayMode) => void;
 };

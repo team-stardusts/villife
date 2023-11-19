@@ -53,17 +53,18 @@ export default function PageIndicator({ length, currentIndex, size, activeColor,
 
     return (
         <View style={styles.indicatorsBox}>
-            {Array(length)
-                .fill(null)
-                .map((value, index) => (
-                    <Indicator
-                        key={index}
-                        isOn={index === currentIndex}
-                        size={size}
-                        activeColor={activeColor}
-                        deactiveColor={deactiveColor}
-                    />
-                ))}
+            {length > 0 &&
+                Array(length)
+                    .fill(null)
+                    .map((value, index) => (
+                        <Indicator
+                            key={index}
+                            isOn={index === currentIndex}
+                            size={size}
+                            activeColor={activeColor}
+                            deactiveColor={deactiveColor}
+                        />
+                    ))}
         </View>
     );
 }

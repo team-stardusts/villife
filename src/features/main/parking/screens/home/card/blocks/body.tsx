@@ -31,7 +31,7 @@ export default function VehicleCardBody({ styles, vehicles, requestedVehicles, o
                 pagingEnabled
                 scrollEventThrottle={5}
                 onScroll={(e) => onFlip(getCurrentPage(e, styles.card.width))}>
-                {vehicles.map((vehicle, index) => (
+                {vehicles?.map((vehicle, index) => (
                     <VehicleCard key={index} vehicle={vehicle} cardWidth={styles.card.width} />
                 ))}
                 {requestedVehicles.map((value, index) => (

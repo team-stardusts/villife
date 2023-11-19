@@ -16,7 +16,7 @@ export default function VehicleCardView(params: VehicleCardViewProps) {
     const [editmode, setEditmode] = useState<boolean>(false);
     const [modalVisible, setModalVisible] = useState<boolean>(false);
     const [editType, setEditType] = useState<VehicleModifyType | null>(null);
-    const cardsCount = useMemo(() => params.vehicles.length + params.requestedVehicles.length + 1, [params]);
+    const cardsCount = useMemo(() => params.vehicles.length + params.requestedVehicles?.length + 1, [params]);
 
     const styles = useVehicleCardViewStyles();
 

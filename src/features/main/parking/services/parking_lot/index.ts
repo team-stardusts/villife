@@ -27,9 +27,11 @@ export default function useParkingLot(): IParkingLot {
     const extractVehiclesApprovedNotYet = (requestedVehiclesInStorage: RequestedVehicleData[], vehciles: Vehicle[]) => {
         // 디버깅을 해도 requestedVehiclesInStorage가 undefined인 경우를 찾을 수 없었지만
         // Reload 되는 타이밍에 쓰레기 값이 들어가는게 아닌가 하는 추측으로 Undefined 검사 코드를 추가함
-        return requestedVehiclesInStorage?.filter(
+
+        const filtered = requestedVehiclesInStorage?.filter(
             (x) => !vehciles.find((y) => x.roomNumber === user?.roomNumber && x.plateNumber === y.plate_number)
         );
+        return filtered === undefined ? [] : filtered;
     };
 
     class ParkingLot implements IParkingLot {

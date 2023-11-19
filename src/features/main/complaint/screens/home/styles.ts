@@ -88,9 +88,8 @@ export default function useComplaintHomeSecreenStyle() {
             justifyContent: "center",
             alignItems: "center",
         },
-        whenEmptyCard: {
-            paddingVertical: deviceUI.moderateScale(120),
-            paddingHorizontal: deviceUI.moderateScale(16),
+        whenEmpty: {
+            minHeight: deviceUI.moderateScale(320),
             justifyContent: "center",
             alignItems: "center",
         },
@@ -98,7 +97,7 @@ export default function useComplaintHomeSecreenStyle() {
             fontSize: deviceUI.moderateScale(16),
             fontFamily: theme.font.fontFamily.pretendard.semiBold,
             color: theme.color.specified.black,
-            marginBottom: deviceUI.moderateScale(24),
+            marginBottom: deviceUI.moderateScale(16),
         },
     });
 

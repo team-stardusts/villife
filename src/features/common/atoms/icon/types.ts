@@ -48,7 +48,9 @@ export type IconSeries =
     | "trash-can"
     | "filter-setting"
     | "villife"
-    | "document_contract";
+    | "document_contract"
+    | "document_illustration"
+    | "check_illustration";
 
 export type ChildIconProps = CommonIconProps & {
     [key: string]: ColorValue | string | number | undefined;
