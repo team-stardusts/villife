@@ -15,9 +15,6 @@ export default function NavigationViewBottom() {
     const rootLinks = useRootLinks();
     const user = useUserInformation();
     const translateYValue = useRef(new Animated.Value(30)).current;
-    const currentRootScreen = useMemo(() => {
-        return navigation.getState().routes[0].name;
-    }, [navigation.getState().routes]);
 
     const currentRootScreen = useMemo(() => {
         return navigation.getState().routes[0].name;
