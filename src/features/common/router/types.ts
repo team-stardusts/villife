@@ -92,6 +92,9 @@ export type VillifeStackParamList = VillifeRootStackParamList & {
     };
     welcome: {
         authority: Authority["ADMIN"] | Authority["RENTER"];
+        host: HostType;
+        id?: string;
+        password?: string;
     };
     wire_amount_manually?: {};
     permission_request?: {};

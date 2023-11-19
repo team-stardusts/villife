@@ -124,6 +124,7 @@ export default function useRouteFSM() {
                     navigation.reset({
                         index: 0,
                         routes: [{ name: "set_building" }],
+                        //routes: [{ name: "welcome", params: { authority: 1 } }],
                     });
                     break;
 

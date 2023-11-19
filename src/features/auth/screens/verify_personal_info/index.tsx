@@ -27,8 +27,8 @@ export default function VerifyPersonalInfoScreen({ navigation, route }: VerifyPe
         setPersonalInfo({
             ...personalInfo,
             mobileCarrier: name,
-        }),
-            setModalVisible(false);
+        });
+        setModalVisible(false);
     };
 
     const isDone = (): boolean => {
