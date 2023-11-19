@@ -41,6 +41,15 @@ export default function HomeScreen({ navigation, route }: HomeScreenProps) {
     }, [user?.authority]);
     //const contents = [HomeContentFromComplaint, HomeContentFromNoti, HomeContentFromParking];
 
+    useEffect(() => {
+        if (user?.isAdmin && (user.adminInfomation?.managedBuildings?.length as any) === 0) {
+            navigation.reset({
+                index: 0,
+                routes: [{ name: "building_addition_guide" }],
+            });
+        }
+    }, [user?.adminInfomation?.managedBuildings]);
+
     return (
         <NavigationView
             headerOptions={{

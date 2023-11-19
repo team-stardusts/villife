@@ -36,6 +36,7 @@ export const VILLIFE_ROOT_STACK_PARAMS: Array<keyof VillifeRootStackParamList> =
 
 export type VillifeStackParamList = VillifeRootStackParamList & {
     approval_home: {};
+    building_addition_guide?: {};
     building_info?: {};
     building_mf_history?: {};
     confirm_payment_cost: VillifeStackParamList["payment_window"] & {

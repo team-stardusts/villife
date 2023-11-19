@@ -19,6 +19,18 @@ export default function NavigationViewBottom() {
         return navigation.getState().routes[0].name;
     }, [navigation.getState().routes]);
 
+    const currentRootScreen = useMemo(() => {
+        return navigation.getState().routes[0].name;
+    }, [navigation.getState().routes]);
+
+    const activatedNavs = useMemo<Array<RootLink["screen"]["name"]> | null>(() => {
+        if (user?.isAdmin && (user.adminInfomation?.managedBuildings?.length as any) === 0) {
+            return ["home", "my_page"];
+        }
+
+        return null;
+    }, [user?.adminInfomation?.managedBuildings]);
+
     const handleLinkPress = (link: RootLink) => {
         // 현재 스크린의 버튼 클릭 시 routing 되지 않도록 함.
         if (link.screen.name === currentRootScreen) return;
@@ -47,37 +59,45 @@ export default function NavigationViewBottom() {
                         return;
                     }
 
+                    const isActivated =
+                        activatedNavs === null ? true : activatedNavs.find((v) => v === link.screen.name) !== undefined;
+
                     return (
                         <TouchableOpacity
                             key={index}
                             activeOpacity={1}
+                            disabled={!isActivated}
                             style={styles.wrapper}
                             onPress={() => handleLinkPress(link)}>
-                            <View style={styles.iconBox}>
-                                <Icon
-                                    name={link.icon}
-                                    size={styles.icon.width}
-                                    color={
-                                        currentRootScreen === link.screen.name
-                                            ? styles.selected.color
-                                            : styles.unselected.color
-                                    }
-                                />
-                            </View>
-                            <View style={styles.captionBox}>
-                                <Text
-                                    style={[
-                                        styles.caption,
-                                        {
-                                            color:
+                            {isActivated && (
+                                <>
+                                    <View style={styles.iconBox}>
+                                        <Icon
+                                            name={link.icon}
+                                            size={styles.icon.width}
+                                            color={
                                                 currentRootScreen === link.screen.name
                                                     ? styles.selected.color
-                                                    : styles.unselected.color,
-                                        },
-                                    ]}>
-                                    {link.caption}
-                                </Text>
-                            </View>
+                                                    : styles.unselected.color
+                                            }
+                                        />
+                                    </View>
+                                    <View style={styles.captionBox}>
+                                        <Text
+                                            style={[
+                                                styles.caption,
+                                                {
+                                                    color:
+                                                        currentRootScreen === link.screen.name
+                                                            ? styles.selected.color
+                                                            : styles.unselected.color,
+                                                },
+                                            ]}>
+                                            {link.caption}
+                                        </Text>
+                                    </View>
+                                </>
+                            )}
                         </TouchableOpacity>
                     );
                 })}

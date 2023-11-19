@@ -57,6 +57,7 @@ import ManagementFeeCurrentMonthDetailScreen from "../../expense/management_fee/
 import BuildingInfoScreen from "../screens/building_info";
 import ExpenseComposeMessageScreen from "../../expense/management_fee/screens/compose_message";
 import TenantContractInfoScreen from "../../main/lease_contract/screens/contract_information";
+import BuildingAdditionGuideScreen from "../../main/home/screens/building-addition-guide";
 
 enableScreens(true);
 
@@ -90,6 +91,7 @@ export default function ScreenRouter() {
             </Stack.Group>
             <Stack.Group>
                 <Stack.Screen name={"home"} component={HomeScreen} />
+                <Stack.Screen name="building_addition_guide" component={BuildingAdditionGuideScreen} />
             </Stack.Group>
             <Stack.Group>
                 <Stack.Screen name={"lease_contract"} component={LeaseContractHomeScreen} />

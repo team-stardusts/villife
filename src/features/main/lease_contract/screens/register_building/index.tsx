@@ -36,7 +36,13 @@ export default function RegisterBuildingScreen({ navigation, route }: RegisterBu
     const isProperlyPrepared = (): boolean => {
         const isValidFloorValue = floors.filter((floor) => floor !== 0 && floor !== null).length !== 0;
 
-        return buildingInfo !== null && mfdata.dueDay !== null && mfdata.notiDay !== null && isValidFloorValue;
+        return (
+            buildingInfo !== null &&
+            mfdata.dueDay !== null &&
+            mfdata.notiDay !== null &&
+            mfdata.bankAccounts.length > 0 &&
+            isValidFloorValue
+        );
     };
 
     const registerBuilding = async () => {
@@ -93,7 +99,7 @@ export default function RegisterBuildingScreen({ navigation, route }: RegisterBu
             }}>
             <ScreenTitleView
                 titles={["건물 정보 추가하기"]}
-                subtitles={["설정을 마치고 빌라이프 운영진의 승인을 기다려주세요."]}
+                //subtitles={["설정을 마치고 빌라이프 운영진의 승인을 기다려주세요."]}
                 bottomButton={{
                     title: messages.words.okay,
                     disabled: !isProperlyPrepared(),

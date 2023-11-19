@@ -70,7 +70,11 @@ export default function useRouteFSM() {
             return this;
         }
 
-        onChangeSituation(): void {
+        onChangeSituation(situation?: Situation): void {
+            if (situation !== undefined) {
+                this.situation = situation;
+            }
+
             switch (this.situation) {
                 case Situation.NORMAL:
                     console.log("[ONLOGIN]", "Refresh the access token.");
@@ -165,6 +169,8 @@ export default function useRouteFSM() {
                         index: 0,
                         routes: [{ name: "login" }, { name: "test" }],
                     });
+
+                    break;
             }
         }
     }
