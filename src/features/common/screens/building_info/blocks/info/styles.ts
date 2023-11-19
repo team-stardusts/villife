@@ -8,7 +8,9 @@ export default function useBuildingInfoViewStyles() {
         contentBox: {
             backgroundColor: theme.color.specified.white,
         },
-        container: {},
+        container: {
+            marginTop: deviceUI.moderateScale(10),
+        },
         editBtn: {
             justifyContent: "center",
             alignItems: "center",
@@ -33,23 +35,24 @@ export default function useBuildingInfoViewStyles() {
             marginBottom: deviceUI.moderateScale(5),
         },
         sectionTitle: {
-            fontFamily: theme.font.fontFamily.pretendard.bold,
-            fontSize: deviceUI.moderateScale(20),
+            fontFamily: theme.font.fontFamily.pretendard.semiBold,
+            fontSize: deviceUI.moderateScale(18),
             color: theme.color.specified.black,
         },
         sectionRow: {
+            width: "100%",
             flexDirection: "row",
             justifyContent: "space-between",
             alignItems: "center",
             marginVertical: deviceUI.moderateScale(5),
         },
         sectionRowKey: {
-            fontFamily: theme.font.fontFamily.pretendard.bold,
-            fontSize: deviceUI.moderateScale(18),
+            fontFamily: theme.font.fontFamily.pretendard.regular,
+            fontSize: deviceUI.moderateScale(16),
             color: theme.color.specified.black,
         },
         sectionRowValue: {
-            fontFamily: theme.font.fontFamily.pretendard.regular,
+            fontFamily: theme.font.fontFamily.pretendard.medium,
             fontSize: deviceUI.moderateScale(16),
             color: theme.color.specified.black,
         },

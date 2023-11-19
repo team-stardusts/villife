@@ -150,7 +150,7 @@ export default function useUserMFViewStyles() {
             color: theme.color.specified.black,
         },
         icon: {
-            width: deviceUI.moderateScale(40),
+            width: deviceUI.moderateScale(35),
             color: theme.color.specified.black,
         },
     });

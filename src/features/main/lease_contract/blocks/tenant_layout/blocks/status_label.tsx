@@ -63,19 +63,19 @@ function useTenantRoomStateLabelStyles() {
         empty: {
             backgroundColor: theme.color.status.secondary,
             color: theme.color.specified.black,
-            fontFamily: theme.font.fontFamily.pretendard.bold,
+            fontFamily: theme.font.fontFamily.pretendard.semiBold,
             fontSize: deviceUI.moderateScale(13),
         },
         signed: {
             backgroundColor: theme.color.status.primary,
             color: theme.color.specified.white,
-            fontFamily: theme.font.fontFamily.pretendard.bold,
+            fontFamily: theme.font.fontFamily.pretendard.semiBold,
             fontSize: deviceUI.moderateScale(13),
         },
         unsigned: {
             backgroundColor: theme.color.status.danger,
             color: theme.color.specified.white,
-            fontFamily: theme.font.fontFamily.pretendard.bold,
+            fontFamily: theme.font.fontFamily.pretendard.semiBold,
             fontSize: deviceUI.moderateScale(13),
         },
     });

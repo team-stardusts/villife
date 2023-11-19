@@ -20,8 +20,8 @@ export default function useExpenseApprovalOutLinedBoxListStyles(): UseExpenseApp
         },
 
         whenEmptyCardText: {
-            color: theme.color.specified.white,
-            fontFamily: theme.font.fontFamily.pretendard.bold,
+            color: theme.color.specified.black,
+            fontFamily: theme.font.fontFamily.pretendard.semiBold,
             fontSize: deviceUI.moderateScale(17),
             marginBottom: deviceUI.moderateScale(10),
         },

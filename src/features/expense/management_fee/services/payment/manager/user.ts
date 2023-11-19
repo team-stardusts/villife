@@ -14,7 +14,12 @@ class UserPaymentManager extends PaymentManager implements UserPaymentManagerBas
 
     public calcByPaymentItem(history: ManagementFee.ManagementFee[]): PaymentBill {
         const bill = { currentMonthlyCharge: 0, feeToPay: 0, lateFee: 0, unpaidFee: 0 };
-
+        /* 
+        currentMonthlyCharge: number; // 당월 부과액
+        feeToPay: number; // 지불해야할 총액
+        lateFee: number; // 연체 이자료
+        unpaidFee: number; // 미납액
+        */
         history.forEach((f, i) => {
             if (i === history.length - 1) {
                 bill.currentMonthlyCharge = f.amount_won;
@@ -58,6 +63,26 @@ class UserPaymentManager extends PaymentManager implements UserPaymentManagerBas
         if (this._userInfo === null) return this;
 
         const history = await this._api.getUserHistory({});
+
+        /* let amount_won = 0;
+        let total_overdue = 0;
+
+        history.forEach((v) => {
+            amount_won += v.amount_won;
+            total_overdue += v.overdue_interest;
+        });
+
+        history.forEach((v, i) => {
+            console.log(`${i}.`, v.year, v.month, v.overdue_interest);
+        }); */
+
+        /* console.log("=============================================");
+        console.log("전체:", history.length);
+        console.log("안낸거:", history.filter((v) => !v.is_paid).length);
+        console.log("total_amount_won:", amount_won);
+        console.log("total_late_fee:", total_overdue);
+        console.log("total:", amount_won + total_overdue);
+        console.log("=============================================\n"); */
 
         this._historyStateSetter(history);
 

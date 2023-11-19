@@ -13,7 +13,7 @@ export default function useBuildingRoomContractor(): IBuildingRooms {
     const user = useUserInformation();
 
     class BuildingRooms implements IBuildingRooms {
-        private _buildingID: number | undefined = user?.adminInfomation?.selectedBuilding.id;
+        private _buildingID: number | undefined = user?.adminInfomation?.selectedBuilding?.id;
 
         get buildingID(): number {
             if (this._buildingID === undefined) return 0;

@@ -4,7 +4,7 @@ import { TenantInfoProps } from "../types";
 import StardustDateParser from "../../../../../../libs/date_parser";
 import CardRow from "./card_row";
 import ListBottomSlidableModal from "../../../../../common/blocks/modal/bottom_list";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ModalFeature } from "../../../../../common/blocks/modal/bottom_list/types";
 import { useNavigation } from "@react-navigation/native";
 import { VillifeRouterParams } from "../../../../../common/router/types";

@@ -148,6 +148,7 @@ function BuildingTenantView(props: BuildingTenantProps) {
                     </View>
                     <View style={props.styles.elementWrapper}>
                         <Text style={props.styles.roomNumber}>
+                            {props.roomInfo.roomNumber < 100 && "지하 "}
                             {props.roomInfo.roomNumber}
                             {props.messages.words.room_postfix}
                         </Text>

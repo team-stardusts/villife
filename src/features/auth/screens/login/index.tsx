@@ -6,12 +6,10 @@ import UniversalTextInput from "../../../common/blocks/universial/textinput";
 import { useEffect, useState } from "react";
 import ScreenTitleView from "../../../common/blocks/title_view";
 import { HostType } from "../../../../libs/storage/tables/login/types";
-import useAuthService, { LOGIN_BUILDING_ID_TEMP } from "../../services/authentication";
+import useAuthService from "../../services/authentication";
 import { LoginServiceParams } from "../../services/authentication/types";
-import VillifeToastMessage from "../../../common/atoms/toast";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import LoginButton from "./blocks/button";
-import useStyler from "../../../common/hooks/styler/hooks";
 
 export default function LoginScreen({ navigation }: LoginScreenProps) {
     const auth = useAuthService();

@@ -1,6 +1,5 @@
 import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import BottomSlidableModal from "../../../../../common/blocks/universial/slidemodal_bottom";
-import ElementPicker from "../../../../../common/atoms/element_picker";
 import { PaidDateRange, SelectedDate } from "../types";
 import useStyler from "../../../../../common/hooks/styler/hooks";
 import { useEffect, useState } from "react";
@@ -16,6 +15,7 @@ export default function SelectModal(props: SelectModalProps) {
             height={styles.container.height}>
             <View style={styles.wrapper}>
                 <Picker
+                    initailSelectedDate={props.initailSelectedDate}
                     paidDateRange={props.paidDateRange}
                     onPick={(selectedDate) => {
                         props.setModalVisible(false);
@@ -170,6 +170,7 @@ function useSelectModalStyles() {
 }
 
 type PickerProps = {
+    initailSelectedDate: SelectedDate | null;
     paidDateRange: PaidDateRange;
     onPick(selectedData: SelectedDate): void;
 };
