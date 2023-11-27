@@ -31,14 +31,19 @@ export default function useComplaintDetailSecreenStyle() {
             width: "100%",
             alignItems: "center",
             justifyContent: "space-between",
+            paddingVertical: deviceUI.moderateScale(14),
         },
         title: {
             fontSize: deviceUI.moderateScale(24),
             fontFamily: theme.font.fontFamily.pretendard.bold,
             marginLeft: leftMargin,
             color: theme.color.specified.black,
-            marginTop: deviceUI.moderateScale(15),
-            marginBottom: deviceUI.moderateScale(10),
+        },
+        titleSmall: {
+            fontSize: deviceUI.moderateScale(18),
+            fontFamily: theme.font.fontFamily.pretendard.bold,
+            marginLeft: leftMargin,
+            color: theme.color.specified.black,
         },
         editButton: {
             //height: deviceUI.moderateScale(30),
@@ -81,13 +86,19 @@ export default function useComplaintDetailSecreenStyle() {
             width: deviceUI.moderateScale(30),
             color: theme.color.specified.black,
         },
-        blockWithIcon: {
+        blockWithRoomNumber: {
             flexDirection: "row",
             justifyContent: "center",
             alignItems: "center",
-            height: deviceUI.moderateScale(20),
-            marginLeft: deviceUI.moderateScale(15),
+            marginLeft: deviceUI.moderateScale(16),
         },
+        blockWithName: {
+            flexDirection: "row",
+            justifyContent: "center",
+            alignItems: "center",
+            marginLeft: deviceUI.moderateScale(8),
+        },
+
         blockWithIconText: {
             fontSize: deviceUI.moderateScale(10),
             fontFamily: theme.font.fontFamily.pretendard.regular,
@@ -125,6 +136,18 @@ export default function useComplaintDetailSecreenStyle() {
         webViewContainerMinHeight: {
             minHeight: deviceUI.getScreenSize().height * 0.25,
             justifyContent: "flex-end",
+        },
+        textRoomNumber: {
+            marginLeft: deviceUI.moderateScale(4),
+            fontFamily: theme.font.fontFamily.pretendard.regular,
+            fontSize: deviceUI.moderateScale(12),
+            color: theme.color.specified.black,
+        },
+        textRenterName: {
+            marginLeft: deviceUI.moderateScale(4),
+            fontFamily: theme.font.fontFamily.pretendard.regular,
+            fontSize: deviceUI.moderateScale(12),
+            color: theme.color.specified.black,
         },
     });
     return styles;

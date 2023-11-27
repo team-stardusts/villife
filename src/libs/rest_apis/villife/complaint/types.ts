@@ -34,6 +34,7 @@ export type Complaint = {
     created_at: string;
     updated_at: string;
     phone_number: string;
+    room_number: number;
 };
 export type GetComplaintsResult = Array<Complaint>;
 

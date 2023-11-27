@@ -76,7 +76,10 @@ export default function ComplaintDetailScreen({ navigation, route }: ComplaintDe
             <KeyboardAwareScrollView style={[styles.topLevelBox]} scrollEventThrottle={20}>
                 <>
                     <View style={styles.titleSection}>
-                        <Text style={styles.title}>{uiState.complaint.title}</Text>
+                        {/* <Text style={styles.title}>{uiState.complaint.title}</Text> */}
+                        <Text style={uiState.complaint.title.length < 12 ? styles.title : styles.titleSmall}>
+                            {uiState.complaint.title}
+                        </Text>
                         <TouchableOpacity
                             style={styles.editButton}
                             onPress={() => {
@@ -97,13 +100,13 @@ export default function ComplaintDetailScreen({ navigation, route }: ComplaintDe
                 </>
                 <View style={styles.statusBarSection}>
                     <ComplaintStatusLable status={uiState.complaint.status} />
-                    <View style={styles.blockWithIcon}>
-                        <Icon name="building" size={styles.iconBuilding.width} color={styles.iconBuilding.color} />
-                        <Text>{uiState.complaint.building_name}</Text>
+                    <View style={styles.blockWithRoomNumber}>
+                        <Icon name="home" size={styles.iconBuilding.width} color={styles.iconBuilding.color} />
+                        <Text style={styles.textRoomNumber}>{uiState.complaint.room_number}</Text>
                     </View>
-                    <View style={styles.blockWithIcon}>
+                    <View style={styles.blockWithName}>
                         <Icon name="person" size={styles.iconPerson.width} color={styles.iconPerson.color} />
-                        <Text>{uiState.complaint.complainant_name}</Text>
+                        <Text style={styles.textRenterName}>{uiState.complaint.complainant_name}</Text>
                     </View>
                 </View>
                 <View style={styles.webViewContainerMinHeight}>

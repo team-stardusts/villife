@@ -31,7 +31,12 @@ export default function useComplaintContentCardStyles() {
             paddingHorizontal: deviceUI.moderateScale(16),
         },
         titleText: {
-            fontSize: deviceUI.moderateScale(17),
+            fontSize: deviceUI.moderateScale(18),
+            fontFamily: theme.font.fontFamily.pretendard.medium,
+            color: theme.color.specified.black,
+        },
+        titleTextSmall: {
+            fontSize: deviceUI.moderateScale(12),
             fontFamily: theme.font.fontFamily.pretendard.medium,
             color: theme.color.specified.black,
         },

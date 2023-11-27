@@ -64,7 +64,11 @@ function ComplaintContentCard(props: ComplaintContentCardProps) {
             <ContentBox backgroundColor={styles.contentBox.backgroundColor} enableShadow onPress={props.onPress}>
                 <View style={styles.wrapper}>
                     <View style={styles.titleSection}>
-                        <Text style={styles.titleText}>{props.info.title}</Text>
+                        {props.info.title.length <= 12 ? (
+                            <Text style={styles.titleText}>{props.info.title}</Text>
+                        ) : (
+                            <Text style={styles.titleText}>{props.info.title.slice(0, 12) + "..."}</Text>
+                        )}
                         <Text style={styles.dateTimeText}>
                             {props.info.created_at.substring(0, 4) == "0001"
                                 ? props.info.updated_at.substring(0, 10)

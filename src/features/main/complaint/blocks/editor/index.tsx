@@ -17,9 +17,9 @@ function ComplaintEditor(props: ComplaintEditorProps) {
             <TextInput
                 style={styles.main.title}
                 onChangeText={(text) => {
-                    console.log("onchange", text);
                     props.titleRef.current = text;
                 }}
+                maxLength={16}
                 placeholder="제목을 입력하세요"
                 placeholderTextColor={styles.main.placeHolderColor.color}
                 defaultValue={props.titleRef.current}
