@@ -122,7 +122,6 @@ export default function ComplaintHomeViewModel(): ComplaintHomeUiState {
     React.useEffect(() => {
         (async () => {
             setIsLoading(true);
-            console.log("1", loading);
             await fetchComplaintByDisplayMode().catch((r) => {
                 console.log(r, "fetching compaints has been failed");
 

@@ -81,17 +81,22 @@ export default function ComplaintHomeScreen({ navigation, route }: ComplaintHome
                             <ActivityIndicator size="large" color={theme.color.specified.grey} />
                         </View>
                     ) : viewModel.uiState.complaintsWillBeDisplayed.length > 0 ? (
-                        viewModel.uiState.complaintsWillBeDisplayed.map((item) => {
-                            //console.log("[complaint 변경 ComplaintHomeScreen] : ", item);
-                            return (
-                                <View key={item.id} style={{ alignItems: "center" }}>
-                                    <ComplaintContentCard
-                                        info={item}
-                                        onPress={() => navigation.navigate("complaint_detail", item)}
-                                    />
-                                </View>
-                            );
-                        })
+                        viewModel.uiState.complaintsWillBeDisplayed
+                            /* .sort((a, b) => {
+                                return (
+                                    new Date(b.updated_at.substring(0, 10)) - new Date(a.updated_at.substring(0, 10))
+                                );
+                            }) */
+                            .map((item) => {
+                                return (
+                                    <View key={item.id} style={{ alignItems: "center" }}>
+                                        <ComplaintContentCard
+                                            info={item}
+                                            onPress={() => navigation.navigate("complaint_detail", item)}
+                                        />
+                                    </View>
+                                );
+                            })
                     ) : (
                         <View style={styles.whenEmpty}>
                             <Text style={styles.whenEmptyCardText}>현재 민원이 없어요.</Text>

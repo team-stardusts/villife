@@ -19,6 +19,8 @@ import VillifeExpenseRestClient from "./expense";
 import IVillifeExpenseRestClient from "./expense/types";
 import IVillifePaymentRestClient from "./payment/types";
 import VillifePaymentRestClient from "./payment";
+import IVillifeMessageRestClient from "./message/types";
+import VillifeMessageRestClient from "./message";
 
 const env: DotEnv = new DotEnv();
 
@@ -56,6 +58,9 @@ class VillifeServer {
     }
     static getPaymentRestClient(): IVillifePaymentRestClient {
         return new VillifePaymentRestClient();
+    }
+    static getMessageRestClient(): IVillifeMessageRestClient {
+        return new VillifeMessageRestClient();
     }
 
     static getBaseURL(): string {

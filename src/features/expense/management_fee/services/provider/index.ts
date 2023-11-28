@@ -4,6 +4,8 @@ import type { AxiosResponse } from "axios";
 import type { ManagementFee } from "../../../../../libs/rest_apis/villife/expense/types";
 import { ManagementFeePaymentServiceBase } from "./types";
 import { Building } from "../../../../../libs/rest_apis/villife/building/types";
+import { MessageData } from "../../../../../libs/rest_apis/villife/message/types";
+import { Response } from "../../../../../libs/rest_apis/types";
 
 export default class ManagementFeePaymentServiceProvider
     extends AServiceProvider
@@ -12,6 +14,7 @@ export default class ManagementFeePaymentServiceProvider
     protected readonly errorTag = "PAYMENT_SERVICE";
     private readonly _buildingAPI = VillifeServer.getBuildingManager();
     private readonly _expenseAPI = VillifeServer.getExpenseRestClient();
+    private readonly _messageAPI = VillifeServer.getMessageRestClient();
 
     /* public async createOrder(params: ManagementFee.CreateOrder.Params): Promise<ManagementFee.CreateOrder.Result> {
         const result = await this._api.createOrderForm(params);
@@ -95,5 +98,10 @@ export default class ManagementFeePaymentServiceProvider
         }
 
         return true;
+    }
+    public async sendPushMessage(params: MessageData): Promise<Response<string>> {
+        const result = await this._messageAPI.sendPushMessage(params);
+
+        return result;
     }
 }

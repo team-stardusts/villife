@@ -78,6 +78,10 @@ namespace Routes {
     export type Payment = {
         order: string;
     };
+
+    export type Message = {
+        sendPushMessage: string;
+    };
 }
 
 export type RoutesType = {
@@ -92,4 +96,5 @@ export type RoutesType = {
     userInfo: Routes.UserInformation;
     expense: Routes.Expense;
     payment: Routes.Payment;
+    message: Routes.Message;
 };

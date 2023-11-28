@@ -55,7 +55,6 @@ class NoticeService implements INoticeService {
             new NoticeEventEmitter().emitListUpdatedEvent();
             VillifeToastMessage.showBottomToast("success", message.messages.main.noti.noti_sucess);
         } else VillifeToastMessage.showBottomToast("error", message.messages.main.noti.noti_error);
-        console.log(result);
         return result;
     }
 
