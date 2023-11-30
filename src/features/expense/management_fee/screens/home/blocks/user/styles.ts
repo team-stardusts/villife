@@ -16,7 +16,6 @@ export default function useUserMFViewStyles() {
 
     const managementFee = StyleSheet.create({
         container: {
-            marginTop: deviceUI.moderateScale(10),
             height: deviceUI.moderateScale(150),
         },
         contentBox: {

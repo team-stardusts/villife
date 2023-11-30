@@ -98,13 +98,13 @@ export default function AddressSetter(props: AddressSetterProps) {
 
     const handleEndEditingBuildingName = () => {
         if (buildingName === null) {
-            VillifeToastMessage.showBottomToast("error", "빌라 이름을 입력해주세요.");
+            VillifeToastMessage.showBottomToast("error", "빌라의 이름을 입력해주세요.");
             setIsBuildingNameOkay(false);
             return;
         }
 
         if (!isBuildingNameOkay) {
-            VillifeToastMessage.showBottomToast("error", "빌라 이름에는 모음과 자음을 단독으로 사용할 수 없습니다.");
+            VillifeToastMessage.showBottomToast("error", "빌라 이름에는 모음과 자음을 단독으로 사용할 수 없어요!.");
         }
     };
 
@@ -117,7 +117,7 @@ export default function AddressSetter(props: AddressSetterProps) {
             <View style={props.styles.inputBox}>
                 <View style={props.styles.inputWrapper}>
                     <UniversalTextInput
-                        placeholder="빌라의 주소를 검색해주세요."
+                        placeholder="빌라의 주소를 입력해주세요."
                         value={address?.roadAddress ? address.roadAddress : ""}
                         onPressIn={() => navigation.navigate("search_address")}
                     />

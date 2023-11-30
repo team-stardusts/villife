@@ -10,6 +10,7 @@ import TextInput from "../../../atoms/textinput";
 import UniversalTextInputProps from "./types";
 import { StyleSheet } from "react-native";
 import useStyler from "../../../hooks/styler/hooks";
+import { View } from "react-native";
 
 const UniversalTextInput = forwardRef((props: UniversalTextInputProps, ref: ForwardedRef<OriginTextInput>) => {
     const { deviceUI, theme } = useStyler();
@@ -43,11 +44,11 @@ const UniversalTextInput = forwardRef((props: UniversalTextInputProps, ref: Forw
             justifyContent: "center",
             paddingHorizontal: deviceUI.moderateScale(1),
         }, */
-        input: {
-            height: "100%",
+        wrapper: {
+            //height: "100%",
             width: "100%",
-            minHeight: deviceUI.moderateScale(35),
-            textAlignVertical: "center",
+            alignItems: "center",
+            justifyContent: "center",
             backgroundColor: theme.color.specified.white,
             borderRadius: deviceUI.moderateScale(8),
             borderWidth: isFocusing ? deviceUI.moderateScale(2) : deviceUI.moderateScale(1),
@@ -55,6 +56,11 @@ const UniversalTextInput = forwardRef((props: UniversalTextInputProps, ref: Forw
                 ? highlightColor ?? theme.color.specified.blue
                 : lowlightColor ?? theme.color.specified.lightgrey,
             paddingHorizontal: deviceUI.moderateScale(10),
+        },
+        input: {
+            width: "100%",
+            minHeight: deviceUI.moderateScale(38),
+            textAlignVertical: "center",
             fontFamily: theme.font.fontFamily.pretendard.regular,
         },
     });
@@ -95,17 +101,19 @@ const UniversalTextInput = forwardRef((props: UniversalTextInputProps, ref: Forw
     };
 
     return (
-        <TextInput
-            ref={ref}
-            style={[styles.input]}
-            {...props}
-            placeholderTextColor={getPlaceholderTextColor()}
-            onChange={onChange}
-            onChangeText={onChangeText}
-            onFocus={onFocus}
-            onBlur={onBlur}
-            allowFontScaling
-        />
+        <View style={styles.wrapper}>
+            <TextInput
+                ref={ref}
+                style={[styles.input]}
+                {...props}
+                placeholderTextColor={getPlaceholderTextColor()}
+                onChange={onChange}
+                onChangeText={onChangeText}
+                onFocus={onFocus}
+                onBlur={onBlur}
+                allowFontScaling
+            />
+        </View>
     );
 });
 

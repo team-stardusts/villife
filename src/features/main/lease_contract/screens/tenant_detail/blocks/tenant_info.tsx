@@ -42,7 +42,7 @@ export default function TenantInfo(props: TenantInfoProps) {
                     roomID: props.tenant.roomID,
                     previous: {
                         contractID: props.tenant.contractInfo.contractID,
-                        contractorName: props.tenant.contractInfo.contractorName,
+                        contractorName: props.tenant.residentName,
                         delinquencyRate: props.tenant.contractInfo.delinquencyRate,
                         deposit: props.tenant.contractInfo.deposit,
                         managementFee: props.tenant.contractInfo.managementFee,

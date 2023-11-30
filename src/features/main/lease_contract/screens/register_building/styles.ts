@@ -41,12 +41,12 @@ export default function useBuildingManagementScreenStyles() {
             fontSize: deviceUI.moderateScale(17),
         },
         inputBox: {
-            height: deviceUI.moderateScale(30),
+            height: deviceUI.moderateScale(40),
             justifyContent: "center",
             marginVertical: deviceUI.moderateScale(5),
         },
         inputWrapper: {
-            height: "90%",
+            height: "100%",
         },
         villaNameInputInvalid: {
             color: theme.color.specified.red,

@@ -6,10 +6,10 @@ export default function useAuthScreenCommonInputStyles() {
 
     return StyleSheet.create({
         container: {
-            flex: 1,
+            justifyContent: "center",
         },
         titleBox: {
-            flex: 5,
+            height: deviceUI.getScreenSize().height * 0.04,
             //marginBottom: deviceUI.moderateScale(3),
             justifyContent: "center",
         },
@@ -19,12 +19,11 @@ export default function useAuthScreenCommonInputStyles() {
             fontSize: deviceUI.moderateScale(18),
         },
         inputBox: {
-            flex: 5,
+            height: deviceUI.getScreenSize().height * 0.05,
         },
         validatorBox: {
             alignItems: "center",
-            height: deviceUI.moderateScale(50),
-            paddingTop: deviceUI.moderateScale(4),
+            height: deviceUI.getScreenSize().height * 0.05,
             flexDirection: "row",
         },
     });

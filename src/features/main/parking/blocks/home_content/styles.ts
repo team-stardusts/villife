@@ -37,16 +37,17 @@ export default function useHomeContentFromParkingStyles(didGetFavoritVehilce: bo
             flex: 8,
             width: "100%",
             flexDirection: "row",
-            justifyContent: "space-between",
             //paddingHorizontal: deviceUI.moderateScale(5),
+            marginLeft: deviceUI.moderateScale(12),
         },
     });
 
     const menu = StyleSheet.create({
         container: {
             height: "100%",
-            width: "30%",
-            //marginHorizontal: deviceUI.moderateScale(10),
+            flex: 1,
+            //marginHorizontal: deviceUI.moderateScale(7),
+            marginRight: deviceUI.moderateScale(12),
             borderRadius: deviceUI.moderateScale(10),
             backgroundColor: theme.color.specified.white,
             justifyContent: "center",

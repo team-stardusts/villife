@@ -35,8 +35,8 @@ export default function useSetAccountScreenStyles(host: HostType) {
     const input = StyleSheet.create({
         container: {},
         inputBox: {
-            height: deviceUI.moderateScale(120),
-            marginBottom: deviceUI.moderateScale(10),
+            //height: deviceUI.moderateScale(120),
+            marginBottom: deviceUI.moderateScale(30),
         },
         btnBox: {
             marginBottom: deviceUI.moderateScale(10),

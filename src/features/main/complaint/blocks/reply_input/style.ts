@@ -13,7 +13,14 @@ export default function useReplyInputStyle() {
 
     const styles = StyleSheet.create({
         replyInputContainer: {
-            bottom: isKeyboardFold ? 0 : keyboardHeight - safetyEdgeSize.bottom,
+            ...deviceUI.select({
+                android: {
+                    bottom: 0,
+                },
+                ios: {
+                    bottom: isKeyboardFold ? 0 : keyboardHeight - safetyEdgeSize.bottom,
+                },
+            }),
             backgroundColor: theme.color.specified.white,
         },
         replyImageSection: {

@@ -35,7 +35,14 @@ export default function useNotiEditorStyles() {
             width: deviceUI.getScreenSize().width,
             height: richBarHeight,
             backgroundColor: "rgba(83, 156, 241,0.2)",
-            bottom: isKeyboardFold ? 0 : keyboardHeight - safetyEdgeSize.bottom,
+            ...deviceUI.select({
+                android: {
+                    bottom: 0,
+                },
+                ios: {
+                    bottom: isKeyboardFold ? 0 : keyboardHeight - safetyEdgeSize.bottom,
+                },
+            }),
         },
         // SafetyAreaView의 backgroundColor로 인해
         // 커버되지 않는 구간을 커버하기 위함

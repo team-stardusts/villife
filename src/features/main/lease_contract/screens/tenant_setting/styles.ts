@@ -15,7 +15,7 @@ export default function useTenantSettingScreenStyles() {
         wrapper: {},
         row: {
             width: "100%",
-            height: deviceUI.moderateScale(35),
+            height: deviceUI.moderateScale(38),
             flexDirection: "row",
             justifyContent: "space-between",
             alignItems: "center",
@@ -72,7 +72,7 @@ export default function useTenantSettingScreenStyles() {
         },
         moneyInputBox: {
             height: "100%",
-            width: "65%",
+            width: "60%",
             flexDirection: "row",
             justifyContent: "flex-end",
             alignItems: "center",

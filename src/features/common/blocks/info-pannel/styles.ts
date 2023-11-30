@@ -11,7 +11,7 @@ export default function useInfoPannelStyles() {
             height: infoHeight,
             //width: "100%",
             backgroundColor: theme.color.series.blue.level1,
-            borderRadius: deviceUI.moderateScale(5),
+            borderRadius: deviceUI.moderateScale(15),
             marginVertical: deviceUI.moderateScale(5),
         },
         wrapper: {
@@ -43,7 +43,7 @@ export default function useInfoPannelStyles() {
             paddingRight: deviceUI.moderateScale(5),
         },
         message: {
-            maxWidth: "99%",
+            maxWidth: "95%",
             fontFamily: theme.font.fontFamily.pretendard.regular,
             fontSize: deviceUI.moderateScale(14),
             color: theme.color.specified.black,

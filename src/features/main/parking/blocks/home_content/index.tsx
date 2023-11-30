@@ -11,12 +11,14 @@ import useParkingLot from "../../services/parking_lot";
 import { Vehicle } from "../../services/states/types";
 import { PRESSABLE_MENU_TYPE, PressableMenuProps } from "./types";
 import VehicleModifyModal from "../modal/modify";
+import useUserInformation from "../../../../common/hooks/service/user_info";
 
 export default function HomeContentFromParking() {
     const messages = useScreenMessage().messages;
     const [favoritVehicle, setFavoriteVehicle] = useState<Vehicle | null>(null);
     const styles = useHomeContentFromParkingStyles(favoritVehicle !== null);
     const parkingLot = useParkingLot();
+    const user = useUserInformation();
 
     const setFavoriteVehicleFromVehicles = async (): Promise<void> => {
         if (parkingLot.userVehicles.length === 0) {
@@ -33,13 +35,15 @@ export default function HomeContentFromParking() {
 
     useEffect(() => {
         //updateVehicles("user");
-        parkingLot.updateVehicles("user");
+        if (user?.isRenter) {
+            parkingLot.updateVehicles("user");
+        }
     }, []);
 
     return (
         <MiniContent title={messages.main.parking.home_content.screen_title} eanbleShadow={false}>
             <View style={styles.main.container}>
-                {favoritVehicle && (
+                {favoritVehicle && user?.isRenter && (
                     <View style={styles.main.textBox}>
                         <View style={styles.main.printWrapper}>
                             <Text style={styles.main.text}>
@@ -56,15 +60,20 @@ export default function HomeContentFromParking() {
                     </View>
                 )}
                 <View style={styles.main.btnBox}>
-                    {Object.values(PRESSABLE_MENU_TYPE).map((value, index) => (
-                        <PressableMenu
-                            key={index}
-                            type={value}
-                            styles={styles.menu}
-                            vehicle={favoritVehicle}
-                            messages={messages.main.parking.home_content}
-                        />
-                    ))}
+                    {Object.values(PRESSABLE_MENU_TYPE).map((value, index) => {
+                        if (user?.isAdmin && value === "vehicle_departure_management") {
+                            return;
+                        }
+                        return (
+                            <PressableMenu
+                                key={index}
+                                type={value}
+                                styles={styles.menu}
+                                vehicle={favoritVehicle}
+                                messages={messages.main.parking.home_content}
+                            />
+                        );
+                    })}
                 </View>
             </View>
         </MiniContent>
