@@ -1,12 +1,15 @@
 namespace Villife {
     export type Response<T> = {
-        isSuccessful: boolean;
-        statusCode: number | undefined;
-        //errorCode: number;
-        data: T | undefined;
+        data: T;
     };
 
-    export type PromiseResponse<T> = Promise<Response<T>>;
+    export type ResponseBase<T> = {
+        data: T | null;
+        msg: string;
+        errorCode: number;
+    };
+
+    export type AsyncResponse<T> = Promise<Response<T>>;
 
     export interface SessionTable {
         getTokens(): Promise<Tokens | null>;
@@ -20,4 +23,4 @@ namespace Villife {
     };
 }
 
-export default Villife;
+export type { Villife };
