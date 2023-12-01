@@ -1,7 +1,7 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { ComplaintEditorProps } from "./types";
 import { IconRecord, RichEditor, RichToolbar, actions } from "react-native-pell-rich-editor";
-import { Text, TextInput, View } from "react-native";
+import { BackHandler, Keyboard, Text, TextInput, View } from "react-native";
 import useComplaintEditorStyle from "./styles";
 import useComplaintService from "../../services";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
@@ -11,6 +11,17 @@ function ComplaintEditor(props: ComplaintEditorProps) {
     const richText = useRef<RichEditor>(null);
     const scrollRef = useRef<KeyboardAwareScrollView>(null);
     const service = useComplaintService();
+
+    useEffect(() => {
+        const backAction = () => {
+            Keyboard.dismiss();
+            return true; // 이벤트를 여기서 종료합니다. false를 반환하면 기본 동작이 실행됩니다.
+        };
+
+        const backHandler = BackHandler.addEventListener("hardwareBackPress", backAction);
+
+        return () => backHandler.remove(); // 컴포넌트 unmount 시에 이벤트 리스너를 제거합니다.
+    }, []);
 
     return (
         <>
@@ -34,7 +45,8 @@ function ComplaintEditor(props: ComplaintEditorProps) {
                 <RichEditor
                     initialContentHTML={props.contentRef.current}
                     onChange={(text) => {
-                        props.contentRef.current = text;
+                        const cleanText = text.replace(/<\/?div>/g, "");
+                        props.contentRef.current = cleanText;
                     }}
                     onBlur={console.log}
                     editorStyle={styles.editorCSS}

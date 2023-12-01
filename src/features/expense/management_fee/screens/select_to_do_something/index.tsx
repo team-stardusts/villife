@@ -131,7 +131,7 @@ export default function MFSelectToDoSomethingScreen({ navigation, route }: MFSel
                             totalCardCount={elements.length}
                             checkmode={{
                                 checkAll: selectAll,
-                                disabled: fee.total_unpaid_fee === 0,
+                                disabled: route.params.dowhat === "message-to" ? false : fee.total_unpaid_fee === 0,
                                 onCheck: (check) => {
                                     if (check) {
                                         if (!checkedFees.find((v) => v.room_number === fee.room_number)) {

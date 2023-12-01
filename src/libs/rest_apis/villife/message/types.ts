@@ -1,7 +1,7 @@
 import { Response } from "../../types";
 
 export interface MessageSendable {
-    sendPushMessage(messageData: MessageData): Response<string>;
+    sendPushMessage(messageData: MessageData): Response<MessageData>;
 }
 
 export type MessageData = {

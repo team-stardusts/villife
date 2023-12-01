@@ -82,11 +82,12 @@ export default function ComplaintHomeScreen({ navigation, route }: ComplaintHome
                         </View>
                     ) : viewModel.uiState.complaintsWillBeDisplayed.length > 0 ? (
                         viewModel.uiState.complaintsWillBeDisplayed
-                            /* .sort((a, b) => {
+                            .sort((a, b) => {
                                 return (
-                                    new Date(b.updated_at.substring(0, 10)) - new Date(a.updated_at.substring(0, 10))
+                                    new Date(b.created_at.substring(0, 10)).getTime() -
+                                    new Date(a.created_at.substring(0, 10)).getTime()
                                 );
-                            }) */
+                            })
                             .map((item) => {
                                 return (
                                     <View key={item.id} style={{ alignItems: "center" }}>

@@ -80,7 +80,7 @@ namespace Routes {
     };
 
     export type Message = {
-        sendPushMessage: string;
+        sendMessage: string;
     };
 }
 

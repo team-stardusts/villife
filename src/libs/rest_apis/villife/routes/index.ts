@@ -73,7 +73,7 @@ const routes: RoutesType = {
         order: "payment/order",
     },
     message: {
-        sendPushMessage: "msg/push/renter",
+        sendMessage: "msg/push/renter",
     },
 } as const;
 

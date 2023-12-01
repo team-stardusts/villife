@@ -1,5 +1,5 @@
-import React, { useRef } from "react";
-import { TextInput, Text, View } from "react-native";
+import React, { useEffect, useRef } from "react";
+import { TextInput, Text, View, Keyboard, BackHandler } from "react-native";
 import { IconRecord, RichEditor, RichToolbar, actions } from "react-native-pell-rich-editor";
 import NotiEditorProps from "./type";
 import useNotiEditorStyles from "./styles";
@@ -11,6 +11,17 @@ export default function NotiEditor(props: NotiEditorProps) {
     const richText = useRef<RichEditor>(null);
     const scrollRef = useRef<KeyboardAwareScrollView>(null);
     const service = useNoticeService();
+
+    useEffect(() => {
+        const backAction = () => {
+            Keyboard.dismiss();
+            return true; // 이벤트를 여기서 종료합니다. false를 반환하면 기본 동작이 실행됩니다.
+        };
+
+        const backHandler = BackHandler.addEventListener("hardwareBackPress", backAction);
+
+        return () => backHandler.remove(); // 컴포넌트 unmount 시에 이벤트 리스너를 제거합니다.
+    }, []);
 
     return (
         <>
@@ -34,7 +45,8 @@ export default function NotiEditor(props: NotiEditorProps) {
                 <RichEditor
                     initialContentHTML={props.contentRef.current}
                     onChange={(text) => {
-                        props.contentRef.current = text;
+                        const cleanText = text.replace(/<\/?div>/g, "");
+                        props.contentRef.current = cleanText;
                     }}
                     editorStyle={styles.editorCSS}
                     ref={richText}

@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import NavigationView from "../../../../common/blocks/navigation";
 import VillifeToastMessage from "../../../../common/atoms/toast";
 import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
@@ -22,28 +22,26 @@ export default function ExpenseComposeMessageScreen(props: ExpenseComposeMessage
     const [loading, setLoading] = React.useState(false);
 
     const onSubmit = async () => {
-        console.log(user?.buildingID);
         setLoading(true);
         if (title.current == "" || content.current == "") {
             setLoading(false);
             return VillifeToastMessage.showBottomToast("info", message.messages.main.noti.noti_title_error);
         }
-        let isSuccessful: boolean = false;
-        if (user?.buildingID === undefined) {
+
+        if (user?.adminInfomation?.selectedBuilding.id === undefined) {
             return;
         }
         const params = {
             title: title.current,
             content: content.current,
             room_number: props.route.params.room_number,
-            building_id: user?.buildingID,
+            building_id: user?.adminInfomation?.selectedBuilding.id,
         };
-        console.log(params);
         setLoading(false);
         const result = await service.sendPushMessage(params);
-        console.log("[onSubmit]", result.isSuccessful);
+        console.log("[ExpenseComposeMessageScreen]", result.data);
 
-        if (isSuccessful) {
+        if (result.isSuccessful) {
             VillifeToastMessage.showBottomToast("error", "알림 성공");
             props.navigation.reset({
                 index: 0,

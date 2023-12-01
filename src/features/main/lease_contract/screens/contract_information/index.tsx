@@ -18,7 +18,7 @@ export default function TenantContractInfoScreen({ route }: ContractInformationS
         const fetchRenterContract = async () => {
             const result = await contractor.getRenterContract();
             const data = result.data?.data;
-            console.log("[Tenant22]", data);
+            console.log("[Tenant22]", result.data);
 
             if (data) {
                 setContractInfo({

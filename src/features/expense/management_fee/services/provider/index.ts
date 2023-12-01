@@ -99,7 +99,7 @@ export default class ManagementFeePaymentServiceProvider
 
         return true;
     }
-    public async sendPushMessage(params: MessageData): Promise<Response<string>> {
+    public async sendPushMessage(params: MessageData): Promise<Response<MessageData>> {
         const result = await this._messageAPI.sendPushMessage(params);
 
         return result;

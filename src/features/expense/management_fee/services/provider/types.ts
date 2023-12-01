@@ -1,7 +1,13 @@
+import { Response } from "../../../../../libs/rest_apis/types";
 import { Building } from "../../../../../libs/rest_apis/villife/building/types";
 import { ManagementFee } from "../../../../../libs/rest_apis/villife/expense/types";
+import { MessageData } from "../../../../../libs/rest_apis/villife/message/types";
 
-export interface ManagementFeePaymentServiceBase extends BuildingInfoGettable, HistoryGettable, Confirmable {}
+export interface ManagementFeePaymentServiceBase
+    extends BuildingInfoGettable,
+        HistoryGettable,
+        Confirmable,
+        MessageSendable {}
 
 /* interface IPaymentOrderable {
     createOrder(params: ManagementFee.CreateOrder.Params): Promise<ManagementFee.CreateOrder.Result>;
@@ -19,4 +25,8 @@ export interface HistoryGettable {
 export interface Confirmable {
     requestPaymentConfirmation(params: ManagementFee.RequestPamentConfirmaion.Params): Promise<boolean>;
     confirmPayment(params: ManagementFee.ConfirmPayment.Params): Promise<boolean>;
+}
+
+export interface MessageSendable {
+    sendPushMessage(params: MessageData): Promise<Response<MessageData>>;
 }

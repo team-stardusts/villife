@@ -30,6 +30,7 @@ export default function ComposeMessageScreen(props: ComposeMessageScreenProps) {
             content: content.current,
             contractID: props.route.params.contractID,
         };
+        console.log("ComposeMessageScreen", params);
         setLoading(false);
         isSuccessful = await contractor.requestNotification(params);
         if (isSuccessful) {

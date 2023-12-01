@@ -1,8 +1,10 @@
 import StardustDateParser from "../../../../../../libs/date_parser";
+import PushMessageSender, { IMessageSender } from "../../../../../../libs/message/sender";
 import { Responsable, Response } from "../../../../../../libs/rest_apis/types";
 import VillifeServer from "../../../../../../libs/rest_apis/villife";
 import IVillifeApprovalManager from "../../../../../../libs/rest_apis/villife/approval/types";
 import IVillifeBuildingManager, { Building } from "../../../../../../libs/rest_apis/villife/building/types";
+import { MessageData } from "../../../../../../libs/rest_apis/villife/message/types";
 import AServiceProvider from "../../../../../common/hooks/service/provider/absc";
 import {
     BuildingRoomInfo,
@@ -18,6 +20,7 @@ class BuildingManagementServiceProvider extends AServiceProvider implements IBui
     protected readonly errorTag = "BUILDING_MANAGEMENT_SERVICE";
     private readonly _buildingApi: IVillifeBuildingManager = VillifeServer.getBuildingManager();
     private readonly _approvalApi: IVillifeApprovalManager = VillifeServer.getApprovalManager();
+    private readonly _messageApi: IMessageSender = new PushMessageSender();
 
     public async getRoomInfos(buildingID: number): Promise<BuildingRoomInfo[]> {
         const tenants = await this.getRoomInfosFromServer(buildingID);
@@ -135,6 +138,16 @@ class BuildingManagementServiceProvider extends AServiceProvider implements IBui
             id: result.data.data.building_id,
             name: result.data.data.building_name,
         };
+    }
+
+    public async sendPushMessage(params: MessageData): Promise<Response<MessageData>> {
+        const result = await this._messageApi.sendMessage(params);
+        if (!result.isSuccessful || result.data?.data === undefined) {
+            this.printWhyFailed(result.data, "Failed to request notification.");
+        }
+        console.log("sendPushMessage", result);
+
+        return result;
     }
 
     public async requestNotification(params: RequestNotification.Params): Promise<boolean> {
