@@ -6,10 +6,22 @@ import SpinningWon from "../../../../../blocks/icon/spinning_won";
 import { ManagementFeeBoxProps } from "../types";
 import useUserInformation from "../../../../../../../common/hooks/service/user_info";
 import { useEffect, useState } from "react";
+import useManagementFeeManager from "../../../../../services/payment";
+import { UserPaymentManagerBase } from "../../../../../services/payment/types";
+import VillifeToastMessage from "../../../../../../../common/atoms/toast";
+import { StardustAlertContent } from "../../../../../../../common/blocks/universial/stardust_alert/types";
+import StardustAlert from "../../../../../../../common/blocks/universial/stardust_alert";
 
 export default function ManagementFeeBox(props: ManagementFeeBoxProps) {
     const navigation = useNavigation<VillifeNavigation>();
     const user = useUserInformation();
+    const manager: UserPaymentManagerBase = useManagementFeeManager() as UserPaymentManagerBase;
+    const [alert, setAlert] = useState<StardustAlertContent>({
+        type: "primary",
+        title: "이미 관리비를 납부하셨나요?",
+        message: "관리자가 고객님의 납부 내역을 확인할 수 있도록 알림을 보낼게요!",
+        visible: false,
+    });
     /* const [dueDate, setDueDate] = useState<Date | null>(null);
 
     useEffect(() => {
@@ -48,8 +60,33 @@ export default function ManagementFeeBox(props: ManagementFeeBoxProps) {
         }
     };
 
+    const hideAlert = () => {
+        setAlert({
+            ...alert,
+            visible: false,
+        });
+    };
+
+    const requestApproval = async () => {
+        if (props.feeToPay === undefined || props.feeToPay === 0) return;
+
+        const result = await manager.requestPaymentConfirmation({
+            amountWon: props.feeToPay,
+            billIDs: manager.history.filter((h) => !h.is_paid).map((h) => h.bill_id),
+            sender: manager.user?.roomNumber.toString(),
+        });
+
+        VillifeToastMessage.showBottomToast(
+            result ? "success" : "error",
+            result ? "확인 요청을 전송했어요." : "요청이 전송되지 않았어요. 잠시후 다시 시도해주세요."
+        );
+
+        hideAlert();
+    };
+
     return (
         <View style={props.styles.container}>
+            <StardustAlert {...alert} setAlert={setAlert} />
             <ContentBox backgroundColor={props.styles.contentBox.color} enableShadow={false}>
                 <View style={props.styles.contentWrapper}>
                     <View style={props.styles.header}>
@@ -72,6 +109,33 @@ export default function ManagementFeeBox(props: ManagementFeeBoxProps) {
                                 disabled={props.feeToPay === 0}>
                                 <Text style={[props.styles.paymentText]}>{/* 결제하기 */}이체하기</Text>
                             </TouchableOpacity>
+                        )}
+                    </View>
+                    <View style={props.styles.confirmationShortCutBox}>
+                        {props.feeToPay !== undefined && props.feeToPay > 0 && (
+                            <>
+                                <Text style={props.styles.confirmationShortCutQuestionText}>이미 납부 하셨나요?</Text>
+                                <TouchableOpacity
+                                    style={props.styles.confirmationShortCutBtn}
+                                    onPress={() =>
+                                        setAlert({
+                                            ...alert,
+                                            visible: true,
+                                            buttons: [
+                                                {
+                                                    text: "취소",
+                                                    onPress: () => hideAlert(),
+                                                },
+                                                {
+                                                    text: "보내기",
+                                                    onPress: () => requestApproval(),
+                                                },
+                                            ],
+                                        })
+                                    }>
+                                    <Text style={props.styles.confirmationShortCutBtnText}>납부확인요청</Text>
+                                </TouchableOpacity>
+                            </>
                         )}
                     </View>
                 </View>

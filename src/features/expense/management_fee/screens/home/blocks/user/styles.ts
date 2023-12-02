@@ -15,21 +15,18 @@ export default function useUserMFViewStyles() {
     });
 
     const managementFee = StyleSheet.create({
-        container: {
-            height: deviceUI.moderateScale(150),
-        },
+        container: {},
         contentBox: {
             color: theme.color.specified.white,
         },
         contentWrapper: {
-            height: "100%",
             width: "100%",
             paddingHorizontal: deviceUI.moderateScale(20),
         },
         header: {
-            flex: 3,
             width: "100%",
             justifyContent: "flex-end",
+            paddingVertical: deviceUI.moderateScale(20),
         },
         headerText: {
             fontFamily: theme.font.fontFamily.pretendard.semiBold,
@@ -37,11 +34,9 @@ export default function useUserMFViewStyles() {
             color: theme.color.specified.black,
         },
         body: {
-            flex: 7,
             flexDirection: "row",
             alignItems: "center",
             justifyContent: "space-between",
-            marginBottom: deviceUI.moderateScale(20),
         },
         managementFeeBox: {
             flexDirection: "row",
@@ -64,6 +59,25 @@ export default function useUserMFViewStyles() {
             fontFamily: theme.font.fontFamily.pretendard.regular,
             fontSize: deviceUI.moderateScale(12),
             color: theme.color.specified.black,
+        },
+        confirmationShortCutBox: {
+            width: "100%",
+            flexDirection: "row",
+            justifyContent: "center",
+            paddingVertical: deviceUI.moderateScale(20),
+        },
+        confirmationShortCutQuestionText: {
+            fontFamily: theme.font.fontFamily.pretendard.regular,
+            fontSize: deviceUI.moderateScale(13),
+            color: theme.color.specified.black,
+        },
+        confirmationShortCutBtn: {
+            marginLeft: deviceUI.moderateScale(5),
+        },
+        confirmationShortCutBtnText: {
+            fontFamily: theme.font.fontFamily.pretendard.regular,
+            fontSize: deviceUI.moderateScale(13),
+            color: theme.color.specified.blue,
         },
     });
 

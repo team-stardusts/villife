@@ -2,6 +2,9 @@ import { Authority as _Authority } from "./data/types";
 
 namespace Villife {
     export type Authority = _Authority;
+
+    export interface Client {}
+
     export type AsyncResponse<T> = Promise<Response<T>>;
     export type Response<T> = T;
 
@@ -23,7 +26,7 @@ namespace Villife {
     export interface SessionStorage {
         getTokens(): Promise<Tokens | null>;
         setTokens(tokens: Tokens): Promise<boolean>;
-        clearTokens(): Promise<boolean>;
+        clearTokens(): Promise<void>;
     }
 
     export type Tokens = {

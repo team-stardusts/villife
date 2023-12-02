@@ -14,22 +14,43 @@ export default function useHomeContentFromManagementFeeStyles() {
             alignItems: "center",
         },
         header: {
-            flex: 3,
+            flex: 2,
             width: "100%",
             justifyContent: "flex-end",
         },
         headerText: {
             fontFamily: theme.font.fontFamily.pretendard.semiBold,
-            fontSize: deviceUI.moderateScale(15),
+            fontSize: deviceUI.moderateScale(13),
             color: theme.color.specified.black,
         },
         body: {
-            flex: 7,
+            flex: 5,
             width: "100%",
             flexDirection: "row",
             alignItems: "center",
             justifyContent: "space-between",
-            marginBottom: deviceUI.moderateScale(20),
+            //marginBottom: deviceUI.moderateScale(20),
+        },
+        bottom: {
+            flex: 2,
+            width: "100%",
+            flexDirection: "row",
+            alignItems: "flex-start",
+            justifyContent: "center",
+            //marginBottom: deviceUI.moderateScale(20),
+        },
+        bottomText: {
+            fontFamily: theme.font.fontFamily.pretendard.regular,
+            fontSize: deviceUI.moderateScale(13),
+            color: theme.color.specified.black,
+        },
+        confirmationShortCutBtn: {
+            marginLeft: deviceUI.moderateScale(5),
+        },
+        confirmationShortCutBtnText: {
+            fontFamily: theme.font.fontFamily.pretendard.regular,
+            fontSize: deviceUI.moderateScale(13),
+            color: theme.color.specified.blue,
         },
         managementFeeBox: {
             flexDirection: "row",
