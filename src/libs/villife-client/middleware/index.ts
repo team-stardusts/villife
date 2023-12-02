@@ -1,22 +1,22 @@
+import { AxiosResponse } from "axios";
 import { Builder } from "./types";
 
 class RequestMiddleware implements Builder {
-    [key: string]: (params: any) => this | any;
+    [key: string]: any | ((params: any) => this | any);
 
-    public test() {
-        return this;
+    private _response: AxiosResponse;
+
+    constructor(response: AxiosResponse) {
+        this._response = response;
     }
+
     public toSnake() {
         return this;
     }
 }
 
 class ResponseMiddleware implements Builder {
-    [key: string]: (params: any) => this | any;
-
-    public test() {
-        return this;
-    }
+    [key: string]: any | ((params: any) => this | any);
 
     public toCamel() {
         return this;

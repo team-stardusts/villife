@@ -1,3 +1,3 @@
 export interface Builder {
-    [key: string]: (params: any) => this | any;
+    [key: string]: any | ((params: any) => this | any);
 }
