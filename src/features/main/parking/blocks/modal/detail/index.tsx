@@ -90,12 +90,12 @@ export default function VehicleDetailModal(props: VehicleDetailAlertProps) {
                 { key: messages.words.plate_number, value: props.vehicle.plate_number },
                 { key: messages.words.vehicle_model, value: props.vehicle.model },
                 {
-                    key: messages.words.vehicle_departure_time,
-                    value: makeVehicleDetailModalDate(props.vehicle.etd).time,
-                },
-                {
                     key: messages.words.vehicle_arrival_time,
                     value: makeVehicleDetailModalDate(props.vehicle.eta).time,
+                },
+                {
+                    key: messages.words.vehicle_departure_time,
+                    value: makeVehicleDetailModalDate(props.vehicle.etd).time,
                 },
             ];
         }
