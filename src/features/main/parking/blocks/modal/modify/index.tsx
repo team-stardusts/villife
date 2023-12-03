@@ -156,12 +156,12 @@ export default function VehicleModifyModal(props: VehicleModifyModalProps) {
 function convertVehicleEtdaToEtdaTime(vehicle: Vehicle): EtdaTime {
     return {
         etd: {
-            hour: vehicle.etd.getHours(),
-            minute: vehicle.etd.getMinutes(),
+            hour: vehicle.etd.getUTCHours(),
+            minute: vehicle.etd.getUTCMinutes(),
         },
         eta: {
-            hour: vehicle.eta.getHours(),
-            minute: vehicle.eta.getMinutes(),
+            hour: vehicle.eta.getUTCHours(),
+            minute: vehicle.eta.getUTCMinutes(),
         },
     };
 }

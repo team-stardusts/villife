@@ -56,10 +56,26 @@ class ParkingServiceProvider implements IParkingServiceProvider {
     }
 
     public async updateUserVehicleETDA(params: MyVehicleEtdaUpdateParams): Promise<boolean> {
+        console.log(params.etda);
+
+        let stdDate = new Date("8888-12-31");
+
+        const etd: Date = StardustDateParser.changeTime(
+            stdDate,
+            { hours: params.etda.etd.hour as number, min: params.etda.etd.minute as number },
+            "kr"
+        );
+
+        const eta: Date = StardustDateParser.changeTime(
+            stdDate,
+            { hours: params.etda.eta.hour as number, min: params.etda.eta.minute as number },
+            "kr"
+        );
+
         const _params = {
             vehicleID: params.vehicleID,
-            etd: StardustDateParser.serialize(new Date(`9999-12-31T${params.etda.etd.hour}:${params.etda.etd.minute}`)),
-            eta: StardustDateParser.serialize(new Date(`9999-12-31T${params.etda.eta.hour}:${params.etda.eta.minute}`)),
+            etd: StardustDateParser.serialize(etd),
+            eta: StardustDateParser.serialize(eta),
         };
 
         return (await this._api.updateUserVehicleEtda(_params)).isSuccessful;
@@ -72,8 +88,8 @@ class ParkingServiceProvider implements IParkingServiceProvider {
     public async registerUserVehicle(params: RegisterUserVehicleParams): Promise<Vehicle | null> {
         const _params = {
             ...params,
-            eta: StardustDateParser.serialize(new Date(`9999-12-31T${params.eta.hour}:${params.eta.minute}`)),
-            etd: StardustDateParser.serialize(new Date(`9999-12-31T${params.etd.hour}:${params.etd.minute}`)),
+            eta: StardustDateParser.serialize(new Date(`8888-12-31T${params.eta.hour}:${params.eta.minute}`)),
+            etd: StardustDateParser.serialize(new Date(`8888-12-31T${params.etd.hour}:${params.etd.minute}`)),
         };
 
         const result = await this._api.registerUserVehicle(_params);

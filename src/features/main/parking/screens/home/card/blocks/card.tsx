@@ -6,11 +6,12 @@ import useVehicleCardViewStyles from "../styles";
 export default function VehicleCard({ vehicle, cardWidth }: VehicleCardProps) {
     const messages = useScreenMessage();
     const styles = useVehicleCardViewStyles().card;
-
-    const etdHour = vehicle.etd.getHours().toString();
-    const etdMin = vehicle.etd.getMinutes().toString();
-    const etaHour = vehicle.eta.getHours().toString();
-    const etaMin = vehicle.eta.getMinutes().toString();
+    /* console.log("ETA", vehicle.plate_number, vehicle.eta);
+    console.log("ETD", vehicle.plate_number, vehicle.etd); */
+    const etdHour = vehicle.etd.getUTCHours().toString();
+    const etdMin = vehicle.etd.getUTCMinutes().toString();
+    const etaHour = vehicle.eta.getUTCHours().toString();
+    const etaMin = vehicle.eta.getUTCMinutes().toString();
 
     const cardData: Array<{ rowKey: string; rowValue: string }> = [
         {
@@ -22,12 +23,12 @@ export default function VehicleCard({ vehicle, cardWidth }: VehicleCardProps) {
             rowValue: vehicle.model,
         },
         {
-            rowKey: messages.messages.words.vehicle_departure_time,
-            rowValue: `${etdHour.length === 1 ? 0 + etdHour : etdHour}:${etdMin.length === 1 ? 0 + etdMin : etdMin}`,
-        },
-        {
             rowKey: messages.messages.words.vehicle_arrival_time,
             rowValue: `${etaHour.length === 1 ? 0 + etaHour : etaHour}:${etaMin.length === 1 ? 0 + etaMin : etaMin}`,
+        },
+        {
+            rowKey: messages.messages.words.vehicle_departure_time,
+            rowValue: `${etdHour.length === 1 ? 0 + etdHour : etdHour}:${etdMin.length === 1 ? 0 + etdMin : etdMin}`,
         },
     ];
 
