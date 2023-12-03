@@ -25,13 +25,6 @@ export default function InfoPannel(props: InfoPannelProps) {
     useEffect(() => {
         if (crrIndex === null) return;
 
-        if (crrIndex !== snapToOffset.length) {
-            flatListRef.current?.scrollToOffset({
-                animated: crrIndex !== 0, // Index 0에 도달했을때 스크롤이 올라가는걸 방지
-                offset: snapToOffset[crrIndex],
-            });
-        }
-
         if (crrIndex === 0) {
             const anmiationHandler = Animated.timing(translateY, {
                 toValue: 0,
@@ -41,6 +34,17 @@ export default function InfoPannel(props: InfoPannelProps) {
             anmiationHandler.start();
 
             return () => anmiationHandler.reset();
+        }
+    }, [crrIndex]);
+
+    useEffect(() => {
+        if (crrIndex === null) return;
+
+        if (crrIndex !== snapToOffset.length) {
+            flatListRef.current?.scrollToOffset({
+                animated: crrIndex !== 0, // Index 0에 도달했을때 스크롤이 올라가는걸 방지
+                offset: snapToOffset[crrIndex],
+            });
         }
     }, [crrIndex, snapToOffset]);
 

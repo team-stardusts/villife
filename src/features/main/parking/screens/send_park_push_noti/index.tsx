@@ -21,7 +21,7 @@ export default function SendParkPushNotiScreen({ navigation, route }: SendParkPu
     const [visible, setVisible] = useState<boolean>(false);
     const [alert, setAlert] = useState<StardustAlertContent>({
         type: "primary",
-        title: "등록된 차량이 없습니다.\n차량 등록 후 이용해주세요.",
+        title: "등록된 차량이 있어야 이용할 수 있어요!\n차량 등록 후 이용해주세요.",
         visible: false,
         buttons: [
             {
@@ -54,7 +54,7 @@ export default function SendParkPushNotiScreen({ navigation, route }: SendParkPu
                 },
                 navComponent: SimpleNavComponent,
                 navComponentProps: {
-                    title: messages.words.register,
+                    title: "보내기", //messages.words.register,
                     onPress: async () => {
                         console.log("[SEND_PARK_PUSH_NOTI]", route.params.vehicleID);
                         const isSuccessful: boolean = await parkingLot.sendMessage({
