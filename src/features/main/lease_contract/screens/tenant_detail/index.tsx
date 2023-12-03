@@ -109,7 +109,7 @@ export default function TenantDetailScreen({ route }: TenantDetailScreenProps) {
     return (
         <NavigationView
             headerOptions={{
-                title: "세입자 정보",
+                title: "계약 정보",
                 style: {
                     backgroundColor: styles.nav.backgroundColor,
                 },

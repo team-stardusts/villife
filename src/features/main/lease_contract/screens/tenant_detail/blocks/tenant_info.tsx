@@ -163,7 +163,7 @@ export default function TenantInfo(props: TenantInfoProps) {
                 features={features}
             />
             <TitleCard
-                title="세입자 정보"
+                title="계약 정보"
                 headerButton={{
                     title: "수정",
                     onPress: () => setModalVisible(true),
