@@ -143,7 +143,8 @@ export default function InputPlateNumber(props: InputProps) {
                             !validator.isKoreanConsonant(text) &&
                             text.length === 1
                         ) {
-                            refInput3.current?.focus();
+                            //refInput3.current?.focus();
+                            // --> 천지인 키보드를 사용하는 경우 '무' 같은 글자를 입력할 수 없음
                         }
                     }}
                 />

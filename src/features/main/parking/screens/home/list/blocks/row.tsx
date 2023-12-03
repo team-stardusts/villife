@@ -53,7 +53,7 @@ export default function VehicleInfoRow(props: VehicleInfoRowProps) {
                 </Text>
             </View>
             <View style={props.styles.communicationFuncContainer}>
-                <TouchableOpacity
+                {/* <TouchableOpacity
                     activeOpacity={0.6}
                     style={props.styles.communicationIconBox}
                     disabled={isMyVehicle}
@@ -63,7 +63,7 @@ export default function VehicleInfoRow(props: VehicleInfoRowProps) {
                         size={props.styles.phoneIcon.width}
                         color={isMyVehicle ? props.styles.disabledIcon.color : props.styles.icon.color}
                     />
-                </TouchableOpacity>
+                </TouchableOpacity> */}
 
                 {!props.isAdmin && (
                     <>
