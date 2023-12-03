@@ -41,6 +41,7 @@ export default function useUserMFViewStyles() {
         managementFeeBox: {
             flexDirection: "row",
             alignItems: "center",
+            marginVertical: deviceUI.moderateScale(10),
         },
         managementFee: {
             fontFamily: theme.font.fontFamily.pretendard.extraBold,

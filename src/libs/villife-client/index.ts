@@ -5,7 +5,7 @@ class VillifeClient implements Villife.Client {
     constructor(private baseURL: string, private session: Villife.SessionStorage) {}
 
     get auth() {
-        return;
+        return; // new VillifeAuthClient(baseURL, session);
     }
 }
 

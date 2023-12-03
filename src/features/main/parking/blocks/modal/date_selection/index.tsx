@@ -26,8 +26,8 @@ export default function GuestVehicleDateSelectionModal(props: GuestVehicleDateSe
         const startDate = StardustDateParser.changeTime(
             dates.startDate,
             {
-                hours: etda.etd.hour as number,
-                min: etda.etd.minute as number,
+                hours: etda.eta.hour as number,
+                min: etda.eta.minute as number,
                 sec: 0,
                 ms: 0,
             },
@@ -36,8 +36,8 @@ export default function GuestVehicleDateSelectionModal(props: GuestVehicleDateSe
         const endDate = StardustDateParser.changeTime(
             dates.endDate,
             {
-                hours: etda.eta.hour as number,
-                min: etda.eta.minute as number,
+                hours: etda.etd.hour as number,
+                min: etda.etd.minute as number,
                 sec: 0,
                 ms: 0,
             },

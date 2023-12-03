@@ -22,7 +22,6 @@ abstract class VillifeClientCommon implements Villife.Refresher {
                 "The request timed out.\
                 Check the Stardusts server.",
         });
-
         this._requester.interceptors.request.use(this.onRequestFulfilled, this.onRequestRejected);
         this._requester.interceptors.response.use(this.onResponseFulfilled, this.onResponseRejected);
     }

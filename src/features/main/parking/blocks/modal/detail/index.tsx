@@ -48,8 +48,8 @@ export default function VehicleDetailModal(props: VehicleDetailAlertProps) {
         // getUCT*로 시작하지 않을 시 GMT+9로 변환됨. 이미 변환된 상태라 변환되면 안됨
         const months = keepDoubleDigits(date.getUTCMonth() + 1); // month는 0부터 시작
         const days = keepDoubleDigits(date.getUTCDate());
-        const hours = keepDoubleDigits(date.getUTCHours());
-        const mins = keepDoubleDigits(date.getUTCMinutes());
+        const hours = keepDoubleDigits(date.getHours());
+        const mins = keepDoubleDigits(date.getMinutes());
 
         return {
             date: `${months}-${days}`,

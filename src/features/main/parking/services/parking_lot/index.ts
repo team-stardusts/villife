@@ -136,6 +136,7 @@ export default function useParkingLot(): IParkingLot {
 
                 return false;
             }
+
             const vehicle = await service.registerUserVehicle({
                 ...params,
             });

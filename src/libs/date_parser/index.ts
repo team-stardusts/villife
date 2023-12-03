@@ -12,12 +12,13 @@ class StardustDateParser {
     public static changeGMT(date: Date, GMT: ByGmtType): Date {
         // GMT+{GMT}의 timezone offset(ms)로 변환
         //const gmt = date.getTime() + date.getTimezoneOffset() * 60 * 1000;
+        const _date = new Date(date);
         const timezoneOffsetInMs = ByGMT[GMT] * 60 * 60 * 1000;
         //const targetTimestamp = gmt + timezoneOffsetInMs;
 
-        date.setMilliseconds(timezoneOffsetInMs);
+        _date.setMilliseconds(timezoneOffsetInMs);
 
-        return date;
+        return _date;
     }
 
     public static changeTime(date: Date, time: Time, GMT?: ByGmtType | undefined): Date {
