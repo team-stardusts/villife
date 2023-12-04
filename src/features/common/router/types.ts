@@ -8,7 +8,6 @@ import {
     BuildingRoomInfo,
 } from "../../main/lease_contract/services/building_rooms/provider/types";
 import { PaymentBill } from "../../expense/management_fee/services/payment/types";
-import { MemoEditType } from "../../main/lease_contract/screens/memo/types";
 
 export type VillifeRootStackParamList = {
     login?: {};
@@ -60,14 +59,12 @@ export type VillifeStackParamList = VillifeRootStackParamList & {
         host: HostType;
         access_token?: string | undefined;
     };
+    contract_memo_edit?: {};
     set_account: {
         authority: Authority["ADMIN"] | Authority["RENTER"];
     };
     image_detail_view: {
         uri: string;
-    };
-    contract_memo_edit: {
-        type: MemoEditType;
     };
     mypage: {};
     management_fee_detail?: {};

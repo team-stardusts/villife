@@ -88,10 +88,7 @@ export default function useRouteFSM() {
                             navigation.reset({
                                 index: 0,
                                 //routes: [{ name: "home" }],
-                                routes: [
-                                    { name: "home" },
-                                    { name: "contract_memo_edit", params: { type: "registration" } },
-                                ],
+                                routes: [{ name: "home" }, { name: "contract_memo_edit" }],
                                 /* routes: [
                                     {
                                         name: "welcome",

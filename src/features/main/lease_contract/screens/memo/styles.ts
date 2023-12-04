@@ -36,7 +36,8 @@ export default function useMemoEditScreenStyles() {
         },
         inputWrapper: {},
         input: {
-            //backgroundColor: "red",
+            textAlignVertical: "top",
+            minHeight: deviceUI.getScreenSize().height * 0.3,
         },
     });
 }
