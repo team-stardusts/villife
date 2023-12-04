@@ -87,7 +87,11 @@ export default function useRouteFSM() {
                             // 정상 로그인
                             navigation.reset({
                                 index: 0,
-                                routes: [{ name: "home" }],
+                                //routes: [{ name: "home" }],
+                                routes: [
+                                    { name: "home" },
+                                    { name: "contract_memo_edit", params: { type: "registration" } },
+                                ],
                                 /* routes: [
                                     {
                                         name: "welcome",

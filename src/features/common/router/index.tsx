@@ -58,6 +58,7 @@ import BuildingInfoScreen from "../screens/building_info";
 import ExpenseComposeMessageScreen from "../../expense/management_fee/screens/compose_message";
 import TenantContractInfoScreen from "../../main/lease_contract/screens/contract_information";
 import BuildingAdditionGuideScreen from "../../main/home/screens/building-addition-guide";
+import ContractMemoEditScreen from "../../main/lease_contract/screens/memo";
 
 enableScreens(true);
 
@@ -99,6 +100,11 @@ export default function ScreenRouter() {
                 <Stack.Screen name={"tenant_detail"} component={TenantDetailScreen} />
                 <Stack.Screen name={"tenant_setting"} component={TenantSettingScreen} />
 
+                <Stack.Screen
+                    options={{ presentation: "modal" }}
+                    name={"contract_memo_edit"}
+                    component={ContractMemoEditScreen}
+                />
                 <Stack.Screen
                     options={{ presentation: "modal" }}
                     name={"send_message_to_building_tenants"}

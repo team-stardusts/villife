@@ -3,14 +3,12 @@ import { Authority } from "../../../libs/rest_apis/villife/types";
 import { HostType } from "../../../libs/rest_apis/villife/auth/types";
 import { Complaint } from "../../../libs/rest_apis/villife/complaint/types";
 import { LayoutType } from "../../main/lease_contract/screens/home/blocks/layout/types";
-import { Building } from "../../../libs/rest_apis/villife/building/types";
-import { ManagementFee } from "../../../libs/rest_apis/villife/expense/types";
 import {
     BuildingRoomContract,
     BuildingRoomInfo,
-    RegisterContract,
 } from "../../main/lease_contract/services/building_rooms/provider/types";
 import { PaymentBill } from "../../expense/management_fee/services/payment/types";
+import { MemoEditType } from "../../main/lease_contract/screens/memo/types";
 
 export type VillifeRootStackParamList = {
     login?: {};
@@ -67,6 +65,9 @@ export type VillifeStackParamList = VillifeRootStackParamList & {
     };
     image_detail_view: {
         uri: string;
+    };
+    contract_memo_edit: {
+        type: MemoEditType;
     };
     mypage: {};
     management_fee_detail?: {};
