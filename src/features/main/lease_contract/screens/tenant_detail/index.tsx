@@ -13,6 +13,7 @@ import { VillifeNavigation } from "../../../../common/router/types";
 import { useNavigation } from "@react-navigation/native";
 import useBuildingRoomContractor from "../../services/building_rooms";
 import VillifeToastMessage from "../../../../common/atoms/toast";
+import MemoRegistrationBox from "./blocks/memo/registration";
 
 export default function TenantDetailScreen({ route }: TenantDetailScreenProps) {
     const styles = useTenantDetailScreenStyles();
@@ -112,6 +113,7 @@ export default function TenantDetailScreen({ route }: TenantDetailScreenProps) {
                         <View></View>
                     </TitleCard>
                 </View> */}
+                <MemoRegistrationBox />
             </ScrollView>
             <ListBottomSlidableModal
                 modalVisible={noticeModalVisible}

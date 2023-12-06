@@ -2,7 +2,7 @@ import { TextInput, View, Text, StyleProp } from "react-native";
 import NavigationView from "../../../../common/blocks/navigation";
 import useMemoEditScreenStyles from "./styles";
 import ContractMemoEditScreenProps from "./types";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import MemoPallet from "./blocks/pallet";
 import { MemoColor } from "./blocks/pallet/types";
 import SimpleNavComponent from "../../../../common/blocks/navigation/header/navcomponent";

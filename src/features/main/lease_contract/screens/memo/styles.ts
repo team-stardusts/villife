@@ -32,7 +32,7 @@ export default function useMemoEditScreenStyles() {
                 ios: {
                     //shadowColor: theme.color.specified.darkgrey,
                     shadowOpacity: 0.4,
-                    shadowRadius: deviceUI.moderateScale(10),
+                    shadowRadius: deviceUI.moderateScale(3),
                     shadowOffset: {
                         height: 0,
                         width: 0,
