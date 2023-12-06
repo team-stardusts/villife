@@ -1,21 +1,46 @@
 import { ColorValue, TouchableOpacity, View } from "react-native";
-import { ColorAvailable, PalletProps } from "./types";
+import { ColorAvailable, MemoColor, MemoPalletProps, Pallet } from "./types";
 import useStyler from "../../../../../../common/hooks/styler/hooks";
 import { useEffect, useState } from "react";
 
-export default function Pallet(props: PalletProps) {
+export default function MemoPallet(props: MemoPalletProps) {
     const { theme, deviceUI } = useStyler();
-    const [selectedColor, setSelectedColor] = useState<ColorAvailable>("blue");
-    const colors: Colors = {
-        blue: theme.color.status.info,
-        red: theme.color.status.danger,
-        yellow: theme.color.status.warning,
-        green: theme.color.status.success,
-        grey: theme.color.status.secondary,
+    const pallet: Pallet = {
+        blue: {
+            name: "blue",
+            background: theme.color.series.blue.level2,
+            cursor: theme.color.series.blue.level6,
+            font: theme.color.series.blue.level9,
+        },
+        green: {
+            name: "green",
+            background: theme.color.series.green.level2,
+            cursor: theme.color.series.green.level6,
+            font: theme.color.series.green.level9,
+        },
+        yellow: {
+            name: "yellow",
+            background: theme.color.series.yellow.level2,
+            cursor: theme.color.series.yellow.level8,
+            font: theme.color.series.yellow.level9,
+        },
+        red: {
+            name: "red",
+            background: theme.color.series.red.level2,
+            cursor: theme.color.series.red.level7,
+            font: theme.color.series.red.level9,
+        },
+        grey: {
+            name: "grey",
+            background: theme.color.series.grey.level2,
+            cursor: theme.color.series.grey.level6,
+            font: theme.color.series.grey.level9,
+        },
     };
+    const [selectedColor, setSelectedColor] = useState<MemoColor>(pallet.blue);
 
     useEffect(() => {
-        props.onSelection(colors[selectedColor]);
+        props.onSelection(selectedColor);
     }, [selectedColor]);
 
     return (
@@ -27,7 +52,7 @@ export default function Pallet(props: PalletProps) {
                 justifyContent: "space-around",
                 marginTop: deviceUI.moderateScale(15),
             }}>
-            {Object.entries(colors).map((color, index) => (
+            {Object.values(pallet).map((color, index) => (
                 <TouchableOpacity
                     key={index}
                     style={[
@@ -35,14 +60,14 @@ export default function Pallet(props: PalletProps) {
                             width: "15%",
                             height: deviceUI.moderateScale(20),
                             borderRadius: deviceUI.moderateScale(10),
-                            backgroundColor: color[1],
+                            backgroundColor: color.background,
                         },
-                        selectedColor === color[0] && {
-                            borderColor: theme.color.specified.darkgrey,
-                            borderWidth: 1,
+                        selectedColor.name === color.name && {
+                            borderColor: color.cursor, //theme.color.specified.darkgrey,
+                            borderWidth: 3,
                         },
                     ]}
-                    onPress={() => setSelectedColor(color[0] as ColorAvailable)}
+                    onPress={() => setSelectedColor(color)}
                 />
             ))}
         </View>

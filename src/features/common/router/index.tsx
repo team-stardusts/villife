@@ -101,7 +101,7 @@ export default function ScreenRouter() {
                 <Stack.Screen name={"tenant_setting"} component={TenantSettingScreen} />
 
                 <Stack.Screen
-                    options={{ presentation: "modal" }}
+                    //options={{ presentation: "modal" }}
                     name={"contract_memo_edit"}
                     component={ContractMemoEditScreen}
                 />

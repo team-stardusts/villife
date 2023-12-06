@@ -1,8 +1,18 @@
 import { StyleSheet } from "react-native";
 import useStyler from "../../../../common/hooks/styler/hooks";
+import useNavigationViewSpace from "../../../../common/blocks/navigation/service";
+import useOnKeyboardEvent from "../../../../common/hooks/keyboard";
 
 export default function useMemoEditScreenStyles() {
     const { deviceUI, theme } = useStyler();
+    const space = useNavigationViewSpace({
+        isHeaderShown: false,
+        isBottomNavShown: false,
+        applyDefaultVerticalPadding: false,
+        applyDefaultHorizontalPadding: true,
+    });
+
+    const keyboardHeight = useOnKeyboardEvent();
 
     return StyleSheet.create({
         nav: {
@@ -13,11 +23,10 @@ export default function useMemoEditScreenStyles() {
             flex: 1,
         },
         inputBox: {
-            minHeight: deviceUI.getScreenSize().height * 0.3,
+            //minHeight: deviceUI.getScreenSize().height * 0.3,
             backgroundColor: theme.color.specified.lightblue,
             borderRadius: deviceUI.moderateScale(10),
             marginVertical: deviceUI.moderateScale(20),
-            paddingTop: deviceUI.moderateScale(10),
             paddingHorizontal: deviceUI.moderateScale(10),
             ...deviceUI.select({
                 ios: {
@@ -34,10 +43,24 @@ export default function useMemoEditScreenStyles() {
                 },
             }),
         },
-        inputWrapper: {},
+        inputWrapper: {
+            height: keyboardHeight === 0 ? space.height * 0.7 : space.height * 0.75 - keyboardHeight,
+        },
         input: {
+            paddingTop: deviceUI.moderateScale(10),
             textAlignVertical: "top",
-            minHeight: deviceUI.getScreenSize().height * 0.3,
+            fontFamily: theme.font.fontFamily.pretendard.regular,
+            fontSize: deviceUI.moderateScale(16),
+            color: theme.color.specified.black,
+        },
+        txtLenWrapper: {
+            alignItems: "flex-end",
+            marginVertical: deviceUI.moderateScale(10),
+            paddingRight: deviceUI.moderateScale(10),
+        },
+        txtLen: {
+            fontFamily: theme.font.fontFamily.pretendard.regular,
+            fontSize: deviceUI.moderateScale(13),
         },
     });
 }

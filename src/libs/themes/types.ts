@@ -75,7 +75,10 @@ export type StatusColor = {
 
 export type ColorSeriesSet = {
     blue: ColorSeries;
+    green: ColorSeries;
     grey: ColorSeries;
+    red: ColorSeries;
+    yellow: ColorSeries;
 };
 
 export type ColorSeries = {
