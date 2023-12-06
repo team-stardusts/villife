@@ -35,6 +35,23 @@ export default function TenantDetailScreen({ route }: TenantDetailScreenProps) {
         });
     }, [route.params.roomInfo]);
 
+    const sendNotification = async (title: string, content: string) => {
+        let isSuccessful: boolean = false;
+        const params = {
+            title,
+            content,
+            contractID: route.params.contractID,
+        };
+        isSuccessful = await contractor.requestNotification(params);
+        if (isSuccessful) {
+            VillifeToastMessage.showBottomToast("success", "알림 완료");
+            setNoticeModalVisible(false);
+        } else {
+            VillifeToastMessage.showBottomToast("error", "알림 실패");
+            setNoticeModalVisible(false);
+        }
+    };
+
     const notiModalFeatures: ModalFeature[] = [
         {
             icon: "pencil",
@@ -47,62 +64,26 @@ export default function TenantDetailScreen({ route }: TenantDetailScreenProps) {
         {
             icon: "letter",
             text: "만기 임박 알림 보내기",
-            onPress: async () => {
-                let isSuccessful: boolean = false;
-                const params = {
-                    title: "만기 임박 알림",
-                    content: "만기가 3달 남았습니다. 만기 시  연장 및  퇴실 여부 확인 부탁드립니다.",
-                    contractID: route.params.contractID,
-                };
-                isSuccessful = await contractor.requestNotification(params);
-                if (isSuccessful) {
-                    VillifeToastMessage.showBottomToast("success", "알림 완료");
-                    setNoticeModalVisible(false);
-                } else {
-                    VillifeToastMessage.showBottomToast("error", "알림 실패");
-                    setNoticeModalVisible(false);
-                }
-            },
+            onPress: () =>
+                sendNotification(
+                    "만기 임박 알림",
+                    "만기가 3달 남았습니다. 만기 시 연장 및 퇴실 여부 확인 부탁드립니다."
+                ),
         },
         {
             icon: "letter",
             text: "월세 미납 알림 보내기",
-            onPress: async () => {
-                let isSuccessful: boolean = false;
-                const params = {
-                    title: "월세 미납 알림",
-                    content: "월세가 미납되었습니다. 다음달까지 미납시 미납연체료가 부가됩니다.",
-                    contractID: route.params.contractID,
-                };
-                isSuccessful = await contractor.requestNotification(params);
-                if (isSuccessful) {
-                    VillifeToastMessage.showBottomToast("success", "알림 완료");
-                    setNoticeModalVisible(false);
-                } else {
-                    VillifeToastMessage.showBottomToast("error", "알림 실패");
-                    setNoticeModalVisible(false);
-                }
-            },
+            onPress: () =>
+                sendNotification("월세 미납 알림", "월세가 미납되었습니다. 다음달까지 미납시 미납연체료가 부가됩니다."),
         },
         {
             icon: "letter",
             text: "관리비 미납 알림 보내기",
-            onPress: async () => {
-                let isSuccessful: boolean = false;
-                const params = {
-                    title: "관리비 미납 알림",
-                    content: "관리비가 미납되었습니다. 다음달까지 미납시 미납연체료가 부가됩니다.",
-                    contractID: route.params.contractID,
-                };
-                isSuccessful = await contractor.requestNotification(params);
-                if (isSuccessful) {
-                    VillifeToastMessage.showBottomToast("success", "알림 완료");
-                    setNoticeModalVisible(false);
-                } else {
-                    VillifeToastMessage.showBottomToast("error", "알림 실패");
-                    setNoticeModalVisible(false);
-                }
-            },
+            onPress: () =>
+                sendNotification(
+                    "관리비 미납 알림",
+                    "관리비가 미납되었습니다. 다음달까지 미납시 미납연체료가 부가됩니다."
+                ),
         },
     ];
 

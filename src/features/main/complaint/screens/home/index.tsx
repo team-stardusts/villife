@@ -83,6 +83,14 @@ export default function ComplaintHomeScreen({ navigation, route }: ComplaintHome
                     ) : viewModel.uiState.complaintsWillBeDisplayed.length > 0 ? (
                         viewModel.uiState.complaintsWillBeDisplayed
                             .sort((a, b) => {
+                                if (a.status !== b.status) {
+                                    if (a.status === "received" || a.status === "in_progress") {
+                                        return -1;
+                                    }
+                                    if (b.status === "received" || b.status === "in_progress") {
+                                        return 1;
+                                    }
+                                }
                                 return (
                                     new Date(b.created_at.substring(0, 10)).getTime() -
                                     new Date(a.created_at.substring(0, 10)).getTime()

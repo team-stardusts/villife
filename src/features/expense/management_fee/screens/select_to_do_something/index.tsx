@@ -55,8 +55,9 @@ export default function MFSelectToDoSomethingScreen({ navigation, route }: MFSel
         } else {
             for (const fee of checkedFees) {
                 console.log("select", fee.room_number);
+
                 navigation.navigate("expense_compose_message", {
-                    room_number: fee.room_number,
+                    room_numbers: checkedFees.map((f) => f.room_number),
                 });
             }
         }

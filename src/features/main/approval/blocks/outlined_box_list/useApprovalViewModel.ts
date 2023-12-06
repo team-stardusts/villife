@@ -7,9 +7,11 @@ export default function useApprovalViewModel() {
     const service = useApprovalService();
     const [approvals, setApprovals] = React.useState<ReadonlyArray<Approval>>([]);
     const [refresh, setRefresh] = React.useState({});
+    const [loading, setIsLoading] = React.useState(true);
 
     const fetchApprovals = async () => {
         console.log("[ApprovalViewModel] Fetching approvals ...");
+        setIsLoading(true);
         const fetchedApprovals = await service.getUserApproval();
         if (!fetchedApprovals.isSuccessful) return [];
         if (fetchedApprovals.data?.data) {
@@ -19,6 +21,7 @@ export default function useApprovalViewModel() {
         } else {
             setApprovals([]);
         }
+        setIsLoading(false);
     };
 
     React.useEffect(() => {
@@ -35,5 +38,5 @@ export default function useApprovalViewModel() {
         fetchApprovals();
     }, [refresh]);
 
-    return approvals;
+    return { approvals, loading };
 }

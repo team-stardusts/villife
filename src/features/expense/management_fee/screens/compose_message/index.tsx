@@ -31,24 +31,36 @@ export default function ExpenseComposeMessageScreen(props: ExpenseComposeMessage
         if (user?.adminInfomation?.selectedBuilding.id === undefined) {
             return;
         }
-        const params = {
-            title: title.current,
-            content: content.current,
-            room_number: props.route.params.room_number,
-            building_id: user?.adminInfomation?.selectedBuilding.id,
-        };
-        setLoading(false);
-        const result = await service.sendPushMessage(params);
-        console.log("[ExpenseComposeMessageScreen]", result.data);
 
-        if (result.isSuccessful) {
-            VillifeToastMessage.showBottomToast("error", "알림 성공");
+        const failedRooms: number[] = [];
+
+        for (const roomNumber of props.route.params.room_numbers) {
+            const params = {
+                title: title.current,
+                content: content.current,
+                room_number: roomNumber,
+                building_id: user?.adminInfomation?.selectedBuilding.id,
+            };
+            const result = await service.sendPushMessage(params);
+            console.log("[ExpenseComposeMessageScreen]", result.data);
+
+            if (!result.isSuccessful) {
+                failedRooms.push(roomNumber);
+            }
+        }
+        setLoading(false);
+
+        if (failedRooms.length === 0) {
+        }
+
+        if (failedRooms.length === 0) {
+            VillifeToastMessage.showBottomToast("success", "모든 알림이 성공적으로 전송되었습니다.");
             props.navigation.reset({
                 index: 0,
                 routes: [{ name: "management_fee" }],
             });
         } else {
-            VillifeToastMessage.showBottomToast("error", "알림 실패");
+            VillifeToastMessage.showBottomToast("error", `알림 전송에 실패한 방 번호: ${failedRooms.join(", ")}`);
             props.navigation.reset({
                 index: 0,
                 routes: [{ name: "management_fee" }],

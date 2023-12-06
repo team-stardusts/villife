@@ -1,27 +1,74 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { ComplaintEditorProps } from "./types";
 import { IconRecord, RichEditor, RichToolbar, actions } from "react-native-pell-rich-editor";
 import { BackHandler, Keyboard, Text, TextInput, View } from "react-native";
 import useComplaintEditorStyle from "./styles";
 import useComplaintService from "../../services";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import { StardustAlertContent } from "../../../../common/blocks/universial/stardust_alert/types";
+import { useNavigation } from "@react-navigation/native";
+import { VillifeRouterParams } from "../../../../common/router/types";
+import StardustAlert from "../../../../common/blocks/universial/stardust_alert";
 
 function ComplaintEditor(props: ComplaintEditorProps) {
     const styles = useComplaintEditorStyle();
     const richText = useRef<RichEditor>(null);
     const scrollRef = useRef<KeyboardAwareScrollView>(null);
+    const navigation = useNavigation<VillifeRouterParams["navigation"]>();
+    const [keyboardOpen, setKeyboardOpen] = useState(false);
+
     const service = useComplaintService();
+    const [withdrawalAlert, setWithdrawalAlert] = useState<StardustAlertContent>({
+        type: "primary",
+        title: "",
+        message: "",
+        visible: false,
+    });
+    useEffect(() => {
+        Keyboard.addListener("keyboardDidShow", () => setKeyboardOpen(true));
+        Keyboard.addListener("keyboardDidHide", () => setKeyboardOpen(false));
+
+        return () => {
+            Keyboard.removeAllListeners("keyboardDidShow");
+            Keyboard.removeAllListeners("keyboardDidHide");
+        };
+    }, []);
 
     useEffect(() => {
         const backAction = () => {
-            Keyboard.dismiss();
-            return true; // 이벤트를 여기서 종료합니다. false를 반환하면 기본 동작이 실행됩니다.
+            if (keyboardOpen) {
+                return true;
+            }
+            if (props.titleRef.current && props.contentRef.current) {
+                setWithdrawalAlert({
+                    type: "primary",
+                    title: "화면을 떠나려고 하시나요?",
+                    message: "화면을 떠나면 입력하신 내용은 유지되지 않아요.",
+                    visible: true,
+                    buttons: [
+                        {
+                            text: "취소",
+                            onPress: () => setWithdrawalAlert({ ...withdrawalAlert, visible: false }),
+                        },
+                        {
+                            text: "확인",
+                            onPress: () => {
+                                setWithdrawalAlert({ ...withdrawalAlert, visible: false });
+                                navigation.goBack();
+                            },
+                        },
+                    ],
+                });
+            } else {
+                navigation.goBack();
+            }
+            return true;
         };
 
         const backHandler = BackHandler.addEventListener("hardwareBackPress", backAction);
 
-        return () => backHandler.remove(); // 컴포넌트 unmount 시에 이벤트 리스너를 제거합니다.
-    }, []);
+        return () => backHandler.remove();
+    }, [keyboardOpen]);
 
     return (
         <>
@@ -35,6 +82,7 @@ function ComplaintEditor(props: ComplaintEditorProps) {
                 placeholderTextColor={styles.main.placeHolderColor.color}
                 defaultValue={props.titleRef.current}
             />
+            <StardustAlert {...withdrawalAlert} setAlert={setWithdrawalAlert} />
             <KeyboardAwareScrollView
                 style={[styles.main.scroll]}
                 keyboardDismissMode={"interactive"}

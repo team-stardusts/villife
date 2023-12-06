@@ -43,7 +43,7 @@ function OutlinedBox(props: OutlinedBoxProps) {
             {convertedApprovals !== null ? (
                 <View style={styles.container}>
                     <Pressable
-                        onPressOut={() => {
+                        onPress={() => {
                             setModalVisible(true);
                         }}>
                         <Shadow style={styles.innerBox} startColor={styles.shadowColor.color} distance={6}>

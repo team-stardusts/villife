@@ -7,6 +7,7 @@ import { Building } from "../../../libs/rest_apis/villife/building/types";
 import { ManagementFee } from "../../../libs/rest_apis/villife/expense/types";
 import {
     BuildingRoomContract,
+    BuildingRoomInfo,
     RegisterContract,
 } from "../../main/lease_contract/services/building_rooms/provider/types";
 import { PaymentBill } from "../../expense/management_fee/services/payment/types";
@@ -45,10 +46,11 @@ export type VillifeStackParamList = VillifeRootStackParamList & {
         };
     };
     compose_message: {
-        contractID: number;
+        contractID?: number;
+        selectedRoom?: BuildingRoomInfo[];
     };
     expense_compose_message: {
-        room_number: number;
+        room_numbers: number[];
     };
     common_complaint_home: {};
     common_complaint_modify: {};
