@@ -14,6 +14,7 @@ import leaseFilter from "./filter";
 import { Filter } from "../../../../common/blocks/top_filter/types";
 import { LayoutType } from "./blocks/layout/types";
 import LayoutSelector from "./blocks/layout";
+import useRoomViewModel from "../../viewmodel/room";
 
 export default function LeaseContractHomeScreen({ navigation, route }: LeaseContractHomeScreenProps) {
     const messages = useScreenMessage().messages;
@@ -24,9 +25,11 @@ export default function LeaseContractHomeScreen({ navigation, route }: LeaseCont
     const [filters, setFilters] = useState<Filter<BuildingRoomInfo>[]>([...leaseFilter]);
     const [filteredRoomInfos, setFilteredRoomInfo] = useState<BuildingRoomInfo[]>([]);
     console.log("[BUILDING_MANAGEMENT_SCREEN]", "On Create");
+    const viewmodel = useRoomViewModel();
 
     useEffect(() => {
         if (!user?.adminInfomation?.selectedBuilding) return;
+        //viewmodel?.update()
 
         contractor.updateRooms();
     }, [user?.adminInfomation?.selectedBuilding]);

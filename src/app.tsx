@@ -16,6 +16,8 @@ const { UIManager } = NativeModules;
 
 UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true);
 
+global.Buffer = global.Buffer || require("buffer").Buffer;
+
 export default function App(): JSX.Element {
     return (
         <RecoilRoot>

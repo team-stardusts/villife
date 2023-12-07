@@ -1,11 +1,16 @@
+import VillifeContractClient from "./clients/contract";
 import { VILLIFE_AUTHORITY } from "./data/authority";
-import { Villife } from "./types";
+import Villife from "./types";
 
-class VillifeClient implements Villife.Client {
-    constructor(private baseURL: string, private session: Villife.SessionStorage) {}
+class VillifeClient implements Villife.IntegratedInstance {
+    constructor(private baseURL: string, private session: any /* Villife.Utility.SessionStorage */) {}
 
     get auth() {
         return; // new VillifeAuthClient(baseURL, session);
+    }
+
+    get contract() {
+        return new VillifeContractClient(this.baseURL, this.session);
     }
 }
 

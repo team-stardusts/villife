@@ -21,7 +21,7 @@ export default function ContractMemoEditScreen({ navigation, route }: ContractMe
 
     const onPressRegisteration = () => {
         if (!memo) {
-            VillifeToastMessage.showBottomToast("info", "메모장에 내용이 없어요!");
+            VillifeToastMessage.showBottomToast("info", "메모장에 입력된 내용이 없어요!");
         }
     };
 

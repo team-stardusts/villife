@@ -1,15 +1,15 @@
+import Villife from "../../villife-client/types";
 import VillifeStorage from "../../storage";
 import LoginTable from "../../storage/tables/login";
-import { Villife } from "../../villife-client/types";
 
-class VillifeSessionAdaptor implements Villife.SessionStorage {
+class VillifeSessionAdaptor implements Villife.Utility.SessionStorage {
     private readonly _storage: LoginTable;
 
     constructor() {
         this._storage = VillifeStorage.getInstance().login;
     }
 
-    public async getTokens(): Promise<Villife.Tokens | null> {
+    public async getTokens(): Promise<Villife.Utility.Tokens | null> {
         const loginData = await this._storage.get();
 
         if (loginData === null) return null;
@@ -19,7 +19,7 @@ class VillifeSessionAdaptor implements Villife.SessionStorage {
         };
     }
 
-    public async setTokens(tokens: Villife.Tokens): Promise<boolean> {
+    public async setTokens(tokens: Villife.Utility.Tokens): Promise<boolean> {
         const loginData = await this._storage.get();
 
         if (loginData === null) return false;

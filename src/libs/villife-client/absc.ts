@@ -1,18 +1,17 @@
 import axios, { AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse, InternalAxiosRequestConfig } from "axios";
-import DotEnv from "../dotenv";
-import { Villife } from "./types";
 import { objectToCamel, objectToSnake } from "ts-case-convert";
 import { RoutesType } from "./data/types";
 import routes from "./data/routes";
+import VillifeUtility from "./clients/types/utility";
 
 //const env = new DotEnv();
 
-abstract class VillifeClientCommon implements Villife.Refresher {
+abstract class VillifeClientCommon implements VillifeUtility.Refresher {
     private readonly _requester: AxiosInstance;
-    private readonly _session: Villife.SessionStorage;
+    private readonly _session: VillifeUtility.SessionStorage;
     protected readonly _routes: RoutesType = routes;
 
-    constructor(baseURL: string, sessionStorage: Villife.SessionStorage) {
+    constructor(baseURL: string, sessionStorage: VillifeUtility.SessionStorage) {
         this._session = sessionStorage;
 
         this._requester = axios.create({
@@ -62,7 +61,9 @@ abstract class VillifeClientCommon implements Villife.Refresher {
         }
     } */
 
-    public async refresh(params?: Villife.TokensForRefresh): Villife.AsyncResponse<Villife.RefreshedToken> {
+    public async refresh(
+        params?: VillifeUtility.TokensForRefresh
+    ): VillifeUtility.AsyncResponse<VillifeUtility.RefreshedToken> {
         const tokens = await this._session.getTokens();
 
         if (tokens === null) {
@@ -78,7 +79,7 @@ abstract class VillifeClientCommon implements Villife.Refresher {
             };
         }
         const route: string = this._routes.auth.loginRefresh;
-        const refresh = await this.request<Villife.TokensForRefresh, Villife.RefreshedToken>({
+        const refresh = await this.request<VillifeUtility.TokensForRefresh, VillifeUtility.RefreshedToken>({
             method: "post",
             url: route,
             data: params,
@@ -102,7 +103,7 @@ abstract class VillifeClientCommon implements Villife.Refresher {
 
     protected async requestWithAuth<Payload = any, Return = any>(
         config: AxiosRequestConfig<Payload>
-    ): Villife.AsyncResponse<Return> {
+    ): VillifeUtility.AsyncResponse<Return> {
         const tokens = await this._session.getTokens();
 
         if (config.headers === undefined) {
@@ -116,7 +117,7 @@ abstract class VillifeClientCommon implements Villife.Refresher {
 
     protected async request<Payload = any, Return = any>(
         config: AxiosRequestConfig<Payload>
-    ): Villife.AsyncResponse<Return> {
+    ): VillifeUtility.AsyncResponse<Return> {
         if (config.params) {
             config.params = objectToSnake(config.params);
         }
@@ -126,10 +127,15 @@ abstract class VillifeClientCommon implements Villife.Refresher {
         }
 
         const result = await this._requester(config)
-            .then((res: AxiosResponse<Villife.VanillaResponse<Return>, Payload>) => {
+            .then((res: AxiosResponse<VillifeUtility.VanillaResponse<Return>, Payload>) => {
                 if (res.data.errorCode) {
                     // Throw error with message.
                     throw "[TO-DO]: VillifeError";
+                }
+
+                // Villife Legacy API와의 호환성을 위한 코드
+                if (res.data?.data === undefined) {
+                    return objectToCamel(res.data) as Return;
                 }
 
                 if (res.data.data === null) {
