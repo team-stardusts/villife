@@ -160,13 +160,13 @@ function BuildingTenant(props: BuildingTenantProps) {
                 if (props.targetCheckMode) {
                     setIsCheck(!isCheck);
                 } else {
-                    if (props.roomInfo.roomState === "empty" && props.roomInfo.roomID !== undefined) {
+                    if (props.roomInfo.roomState === "empty" && props.roomInfo.roomId !== undefined) {
                         navigation.navigate("tenant_setting", {
-                            roomID: props.roomInfo.roomID,
+                            roomID: props.roomInfo.roomId,
                         });
                     } else {
                         navigation.navigate("tenant_detail", {
-                            contractID: props.roomInfo.contractInfo.contractID,
+                            contractId: props.roomInfo.contractInfo.contractId,
                             roomInfo: JSON.stringify(props.roomInfo),
                         });
                     }

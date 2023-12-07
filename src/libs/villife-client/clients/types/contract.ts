@@ -1,9 +1,25 @@
-import VillifeUtility from "./utility";
-
 namespace VillifeContract {
     export interface Client {
-        getRoomsInBuilding(buildingId: number): VillifeUtility.AsyncResponse<Room[]>;
+        //requestToVerifyUserLiving()
+        // Building
+        getBuilding(buildingId: number): Promise<Building>;
+        getRoomsInBuilding(buildingId: number): Promise<Room[]>;
+        registerBuilding(params: BuildingRequestForm): Promise<BuildingBreifInfo>;
+        // Contract
+        createContract(params: RequestForm): Promise<string>;
+        getContract(): Promise<Contract>;
+        updateContract(params: UpdateForm): Promise<string>;
+        deleteContract(contractId: Contract["contractId"]): Promise<string>;
+        sendNotification(params: NotiForm): Promise<string>;
     }
+
+    export type BankAccount = {
+        accountId: number;
+        accountNumber: string;
+        accountType: string;
+        bankName: string;
+        ownerName: string;
+    };
 
     export type Building = {
         bankAccounts: BankAccount[];
@@ -15,12 +31,25 @@ namespace VillifeContract {
         roadAddr: string;
     };
 
-    export type BankAccount = {
-        accountId: number;
-        accountNumber: string;
-        accountType: string;
-        bankName: string;
+    export type BuildingBreifInfo = {
+        buildingId: number;
+        roadAddr: string;
+    };
+
+    export type BuildingRequestForm = {
+        accountRegiReqForms: Array<{
+            accountNumber: string;
+            accountType: string;
+            bankName: string;
+            ownerName: string;
+        }>;
+        basementInfo: number;
+        buildingName: string;
+        mfDueDate: number;
+        mfNotiDate: number;
         ownerName: string;
+        roadAddr: string;
+        roomInfo: number[];
     };
 
     export type Contract = {
@@ -37,6 +66,30 @@ namespace VillifeContract {
         startDate: number;
     };
 
+    export type RequestForm = {
+        autoMfBilling: boolean;
+        contractorName: Contract["contractorName"];
+        delinquencyRate: Contract["delinquencyRate"];
+        deposit: Contract["deposit"];
+        expirationDate: Contract["expirationDate"];
+        managementFee: Contract["managementFee"];
+        monthlyRent: Contract["monthlyRent"];
+        rentType: Contract["rentType"];
+        roomId: Room["roomId"];
+        startDate: Contract["startDate"];
+        phoneNumber: Contract["phoneNumber"];
+    };
+
+    export type UpdateForm = RequestForm & {
+        contractId: Contract["contractId"];
+    };
+
+    export type NotiForm = {
+        contractId: Contract["contractId"];
+        content: string;
+        title: string;
+    };
+
     export type Memo = {
         content: string;
         memoId: number;
@@ -48,7 +101,7 @@ namespace VillifeContract {
         contractState: ContractStatus;
         floor: number;
         residentName: string;
-        residentPhone_number: string;
+        residentPhoneNumber: string;
         roomNumber: number;
         roomId: number;
         roomState: RoomState;

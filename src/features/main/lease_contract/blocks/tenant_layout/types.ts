@@ -1,11 +1,11 @@
+import Villife from "../../../../../libs/villife-client/types";
 import { LayoutType } from "../../screens/home/blocks/layout/types";
-import { BuildingRoomInfo } from "../../services/building_rooms/provider/types";
 
 export type TentantLayoutProps = TentantLayoutDefaultProps & {
-    roomInfos: BuildingRoomInfo[];
+    roomInfos: Villife.Contract.Room[];
     layout: LayoutType;
     checkmode: boolean;
-    onCheckTarget?(tenants: BuildingRoomInfo[]): void;
+    onCheckTarget?(tenants: Villife.Contract.Room[]): void;
 };
 
 export type TenantLayoutViewProps = TentantLayoutDefaultProps & {
@@ -14,7 +14,7 @@ export type TenantLayoutViewProps = TentantLayoutDefaultProps & {
 };
 
 export type TentantLayoutDefaultProps = {
-    roomInfos: BuildingRoomInfo[];
+    roomInfos: Villife.Contract.Room[];
     layout: LayoutType;
     checkmode: boolean;
 };

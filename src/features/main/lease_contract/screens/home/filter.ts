@@ -1,9 +1,8 @@
-import { Building } from "../../../../../libs/rest_apis/villife/building/types";
+import Villife from "../../../../../libs/villife-client/types";
 import { Filter } from "../../../../common/blocks/top_filter/types";
 import { ArrayElement } from "../../../../common/global_interface";
-import { BuildingRoomInfo } from "../../services/building_rooms/provider/types";
 
-const leaseFilter: Filter<BuildingRoomInfo>[] = [
+const leaseFilter: Filter<Villife.Contract.Room>[] = [
     {
         name: "층",
         conditions: [],

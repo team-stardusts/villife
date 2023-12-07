@@ -6,15 +6,14 @@ import useStyler from "../../../../common/hooks/styler/hooks";
 import Editor from "./blocks/editor";
 import ComposeMessageScreenProps from "./type";
 import SendButton from "./blocks/send_button";
-
-import useBuildingRoomContractor from "../../services/building_rooms";
+import useRoomViewModel from "../../viewmodel/room";
 
 export default function ComposeMessageScreen(props: ComposeMessageScreenProps) {
     const message = useScreenMessage();
     const content = useRef("");
     const title = useRef("");
-    const { deviceUI, theme } = useStyler();
-    const contractor = useBuildingRoomContractor();
+    const { theme } = useStyler();
+    const viewModel = useRoomViewModel();
 
     const [loading, setLoading] = React.useState(false);
 
@@ -29,7 +28,13 @@ export default function ComposeMessageScreen(props: ComposeMessageScreenProps) {
     };
 
     const onSubmit = async () => {
+        if (viewModel === null) {
+            VillifeToastMessage.showBottomToast("error", "예기치 않은 오류가 발생했습니다.");
+            return;
+        }
+
         setLoading(true);
+
         if (title.current == "" || content.current == "") {
             setLoading(false);
             return VillifeToastMessage.showBottomToast("info", message.messages.main.noti.noti_title_error);
@@ -37,23 +42,27 @@ export default function ComposeMessageScreen(props: ComposeMessageScreenProps) {
 
         if (props.route.params.contractID) {
             const params = {
-                title: title.current,
+                contractId: props.route.params.contractID,
                 content: content.current,
-                contractID: props.route.params.contractID,
+                title: title.current,
             };
             setLoading(false);
-            const isSuccessful = await contractor.requestNotification(params);
+
+            const isSuccessful = await viewModel.sendNotification(params);
             resetAndToast(isSuccessful);
         } else if (props.route.params.selectedRoom) {
             setLoading(false);
+
             let isSuccessful = true;
+
             for (const selectedRoom of props.route.params.selectedRoom) {
                 const params = {
-                    title: title.current,
+                    contractId: selectedRoom.contractInfo.contractID,
                     content: content.current,
-                    contractID: selectedRoom.contractInfo.contractID,
+                    title: title.current,
                 };
-                isSuccessful = await contractor.requestNotification(params);
+
+                isSuccessful = await viewModel.sendNotification(params);
                 if (!isSuccessful) break;
             }
             resetAndToast(isSuccessful);

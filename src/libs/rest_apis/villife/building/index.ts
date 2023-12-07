@@ -110,6 +110,7 @@ class VillifeBuildingManager extends AVillifeServerModule implements IVillifeBui
             data: params,
         });
     }
+
     public async getContractInfoByRenter(): Response<Building.Contract> {
         let route: string = this.routes.budilingAndContract.contract;
 

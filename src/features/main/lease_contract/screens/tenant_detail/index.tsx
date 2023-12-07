@@ -11,15 +11,15 @@ import ListBottomSlidableModal from "../../../../common/blocks/modal/bottom_list
 import { ModalFeature } from "../../../../common/blocks/modal/bottom_list/types";
 import { VillifeNavigation } from "../../../../common/router/types";
 import { useNavigation } from "@react-navigation/native";
-import useBuildingRoomContractor from "../../services/building_rooms";
 import VillifeToastMessage from "../../../../common/atoms/toast";
 import MemoRegistrationBox from "./blocks/memo/registration";
+import useRoomViewModel from "../../viewmodel/room";
 
 export default function TenantDetailScreen({ route }: TenantDetailScreenProps) {
     const styles = useTenantDetailScreenStyles();
     const navigation = useNavigation<VillifeNavigation>();
     const messages = useScreenMessage().messages;
-    const contractor = useBuildingRoomContractor();
+    const viewModel = useRoomViewModel();
     const [tenant, setTenant] = useState<BuildingRoomInfo>(JSON.parse(route.params.roomInfo));
     const [noticeModalVisible, setNoticeModalVisible] = useState<boolean>(false);
 
@@ -38,12 +38,17 @@ export default function TenantDetailScreen({ route }: TenantDetailScreenProps) {
 
     const sendNotification = async (title: string, content: string) => {
         let isSuccessful: boolean = false;
+
         const params = {
-            title,
+            contractId: route.params.contractId,
             content,
-            contractID: route.params.contractID,
+            title,
         };
-        isSuccessful = await contractor.requestNotification(params);
+
+        if (viewModel !== null) {
+            isSuccessful = await viewModel.sendNotification(params);
+        }
+
         if (isSuccessful) {
             VillifeToastMessage.showBottomToast("success", "알림 완료");
             setNoticeModalVisible(false);
@@ -59,7 +64,7 @@ export default function TenantDetailScreen({ route }: TenantDetailScreenProps) {
             text: "알림 작성하기",
             onPress: () => {
                 setNoticeModalVisible(false);
-                navigation.navigate("compose_message", { contractID: route.params.contractID });
+                navigation.navigate("compose_message", { contractID: route.params.contractId });
             },
         },
         {

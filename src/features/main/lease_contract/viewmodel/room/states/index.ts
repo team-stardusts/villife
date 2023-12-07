@@ -1,5 +1,5 @@
 import { atom } from "recoil";
-import { Villife } from "../../../../../../libs/villife-client";
+import Villife from "../../../../../../libs/villife-client/types";
 
 const roomsState = atom<Villife.Contract.Room[]>({
     key: "contract_room_state",

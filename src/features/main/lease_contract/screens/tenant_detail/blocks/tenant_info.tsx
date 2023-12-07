@@ -4,7 +4,7 @@ import { TenantInfoProps } from "../types";
 import StardustDateParser from "../../../../../../libs/date_parser";
 import CardRow from "./card_row";
 import ListBottomSlidableModal from "../../../../../common/blocks/modal/bottom_list";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { ModalFeature } from "../../../../../common/blocks/modal/bottom_list/types";
 import { useNavigation } from "@react-navigation/native";
 import { VillifeRouterParams } from "../../../../../common/router/types";
@@ -29,7 +29,7 @@ export default function TenantInfo(props: TenantInfoProps) {
             icon: "pencil",
             text: "수정하기",
             onPress: () => {
-                if (props.tenant.roomID === undefined) {
+                if (props.tenant.roomId === undefined) {
                     VillifeToastMessage.showBottomToast(
                         "error",
                         "등록되지 않은 방 번호 입니다. 빌라이프 관리자에게 문의해주세요."
@@ -39,16 +39,16 @@ export default function TenantInfo(props: TenantInfoProps) {
 
                 // [TO-DO] 이름과 전화번호를 계약 상의 데이터로 변경해야함
                 navigation.navigate("tenant_setting", {
-                    roomID: props.tenant.roomID,
+                    roomID: props.tenant.roomId,
                     previous: {
-                        contractID: props.tenant.contractInfo.contractID,
+                        contractId: props.tenant.contractInfo.contractId,
                         contractorName: props.tenant.residentName,
                         delinquencyRate: props.tenant.contractInfo.delinquencyRate,
                         deposit: props.tenant.contractInfo.deposit,
                         managementFee: props.tenant.contractInfo.managementFee,
                         monthlyRent: props.tenant.contractInfo.monthlyRent,
                         rentType: props.tenant.contractInfo.rentType,
-                        roomId: props.tenant.roomID,
+                        roomId: props.tenant.roomId,
                         expirationDate: JSON.stringify(props.tenant.contractInfo.expirationDate),
                         startDate: JSON.stringify(props.tenant.contractInfo.startDate),
                         phoneNumber: props.tenant.residentPhoneNumber,
@@ -96,7 +96,7 @@ export default function TenantInfo(props: TenantInfoProps) {
             return;
         }
 
-        const isSuccessful = await contractor.deleteContract(props.tenant.contractInfo.contractID);
+        const isSuccessful = await contractor.deleteContract(props.tenant.contractInfo.contractId);
 
         setAlert({
             ...alert,
@@ -197,19 +197,23 @@ export default function TenantInfo(props: TenantInfoProps) {
                     <CardRow
                         styles={props.styles}
                         rowKey={"입주일"}
-                        rowValue={convertDateToString(props.tenant.contractInfo.startDate)}
+                        rowValue={convertDateToString(
+                            StardustDateParser.deserialize(props.tenant.contractInfo.startDate)
+                        )}
                     />
                     <CardRow
                         styles={props.styles}
                         rowKey={"만기일"}
-                        rowValue={convertDateToString(props.tenant.contractInfo.expirationDate)}
+                        rowValue={convertDateToString(
+                            StardustDateParser.deserialize(props.tenant.contractInfo.expirationDate)
+                        )}
                     />
                     <CardRow
                         styles={props.styles}
                         rowKey={"남은기간"}
                         rowValue={
                             getDateDiff(
-                                props.tenant.contractInfo.expirationDate,
+                                StardustDateParser.deserialize(props.tenant.contractInfo.expirationDate),
                                 StardustDateParser.changeGMT(new Date(), "kr")
                             ).toString() + " 일"
                         }

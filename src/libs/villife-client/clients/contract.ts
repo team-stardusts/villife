@@ -2,15 +2,90 @@ import Villife from "../types";
 import VillifeClientCommon from "../absc";
 
 class VillifeContractClient extends VillifeClientCommon implements Villife.Contract.Client {
-    public async getRoomsInBuilding(buildingId: number): Villife.Utility.AsyncResponse<Villife.Contract.Room[]> {
+    public async getBuilding(buildingId: number): Promise<Villife.Contract.Building> {
+        const route: string = this._routes.budilingAndContract.building;
+
+        return await this.requestWithAuth({
+            method: "post",
+            url: route,
+            data: {
+                buildingId,
+            },
+        });
+    }
+
+    public async getRoomsInBuilding(buildingId: number): Promise<Villife.Contract.Room[]> {
         const route = this._routes.budilingAndContract.totalInfo;
 
         return await this.requestWithAuth({
             method: "get",
             url: route,
             params: {
-                buildingId: buildingId,
+                buildingId,
             },
+        });
+    }
+
+    public async registerBuilding(
+        params: Villife.Contract.BuildingRequestForm
+    ): Promise<Villife.Contract.BuildingBreifInfo> {
+        const route: string = this._routes.budilingAndContract.building;
+
+        return await this.requestWithAuth({
+            method: "post",
+            url: route,
+            data: params,
+        });
+    }
+
+    public async createContract(params: Villife.Contract.RequestForm): Promise<string> {
+        const route: string = this._routes.budilingAndContract.contract;
+
+        return await this.requestWithAuth({
+            method: "post",
+            url: route,
+            data: params,
+        });
+    }
+
+    public async updateContract(params: Villife.Contract.UpdateForm): Promise<string> {
+        const route: string = this._routes.budilingAndContract.contract;
+
+        return await this.requestWithAuth({
+            method: "patch",
+            url: route,
+            data: params,
+        });
+    }
+
+    public async deleteContract(contractId: number): Promise<string> {
+        const route: string = this._routes.budilingAndContract.contract;
+
+        return await this.requestWithAuth({
+            method: "delete",
+            url: route,
+            params: {
+                contractId,
+            },
+        });
+    }
+
+    public async getContract(): Promise<Villife.Contract.Contract> {
+        let route: string = this._routes.budilingAndContract.contract;
+
+        return await this.requestWithAuth({
+            method: "get",
+            url: route,
+        });
+    }
+
+    public async sendNotification(params: Villife.Contract.NotiForm): Promise<string> {
+        const route: string = this._routes.budilingAndContract.buildingNoti;
+
+        return await this.requestWithAuth({
+            method: "post",
+            url: route,
+            data: params,
         });
     }
 }

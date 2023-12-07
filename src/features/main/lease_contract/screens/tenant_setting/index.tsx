@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import NavigationView from "../../../../common/blocks/navigation";
 import useTenantSettingScreenStyles from "./styles";
 import TenantSettingScreenProps, { MoneyTypes, TenantInfo } from "./types";
@@ -13,15 +13,16 @@ import { Dates } from "../../../../common/blocks/modal/calendar/types";
 import StardustAlert from "../../../../common/blocks/universial/stardust_alert";
 import { StardustAlertContent } from "../../../../common/blocks/universial/stardust_alert/types";
 import VillifeToastMessage from "../../../../common/atoms/toast";
-import useBuildingRoomContractor from "../../services/building_rooms";
 import TenantInfoInput from "./blocks/tenant_info";
 import LateFeeRate from "./blocks/latefee";
-import { RegisterContract } from "../../services/building_rooms/provider/types";
+import useRoomViewModel from "../../viewmodel/room";
+import Villife from "../../../../../libs/villife-client/types";
+import StardustDateParser from "../../../../../libs/date_parser";
 
 export default function TenantSettingScreen({ navigation, route }: TenantSettingScreenProps) {
     const styles = useTenantSettingScreenStyles();
     const messages = useScreenMessage().messages;
-    const contractor = useBuildingRoomContractor();
+    const viewModel = useRoomViewModel();
     const navTitle = route.params?.previous ? "세입자 정보 수정" : "세입자 정보 추가";
     const screenTitle = route.params?.previous ? "세입자 정보 수정하기" : "세입자 정보 추가하기";
     const screenSubtitle = route.params?.previous
@@ -85,28 +86,33 @@ export default function TenantSettingScreen({ navigation, route }: TenantSetting
             return;
         }
 
+        if (viewModel === null) {
+            VillifeToastMessage.showBottomToast("error", "예기치 않은 오류가 발생했어요.");
+            return;
+        }
+
         let isSuccessful: boolean = false;
-        const params: RegisterContract.Params = {
-            autoMFBilling: true,
+        const params: Villife.Contract.RequestForm = {
+            autoMfBilling: true,
             contractorName: tenantInfo.name,
             delinquencyRate: lateFeeRate,
             deposit: moneys.deposit.value,
             monthlyRent: moneys.monthlyRent.value,
             managementFee: moneys.managementFee.value,
             roomId: route.params.roomID,
-            startDate: dates.startDate,
-            expirationDate: dates.endDate,
+            startDate: StardustDateParser.serialize(dates.startDate),
+            expirationDate: StardustDateParser.serialize(dates.endDate),
             rentType: contract,
             phoneNumber: tenantInfo.phoneNumber,
         };
 
         if (route.params.previous) {
-            isSuccessful = await contractor.modifyContract({
+            isSuccessful = await viewModel.updateContract({
+                contractId: route.params.previous.contractId,
                 ...params,
-                contractID: route.params.previous.contractID,
             });
         } else {
-            isSuccessful = await contractor.registerContract(params);
+            isSuccessful = await viewModel.createContract(params);
         }
 
         setAlert({

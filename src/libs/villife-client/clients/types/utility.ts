@@ -3,9 +3,6 @@ import { Authority as _Authority } from "../../data/types";
 namespace VillifeUtility {
     export type Authority = _Authority;
 
-    export type AsyncResponse<T> = Promise<Response<T>>;
-    export type Response<T> = T;
-
     export type VanillaResponse<T> = {
         data: T | null;
         msg: string;
@@ -13,7 +10,7 @@ namespace VillifeUtility {
     };
 
     export interface Refresher {
-        refresh(params?: TokensForRefresh): AsyncResponse<RefreshedToken>;
+        refresh(params?: TokensForRefresh): Promise<RefreshedToken>;
     }
 
     export type RefreshedToken = {

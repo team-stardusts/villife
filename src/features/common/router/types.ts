@@ -116,14 +116,14 @@ export type VillifeStackParamList = VillifeRootStackParamList & {
     };
     tenant_detail: {
         roomInfo: string; //BuildingRoomInfo;
-        contractID: number;
+        contractId: number;
     };
     contract_information: {};
     terms_of_service?: {};
     tenant_setting: {
         roomID: number;
         previous?: {
-            contractID: number;
+            contractId: number;
             contractorName: string;
             delinquencyRate: number;
             deposit: number;

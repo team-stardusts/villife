@@ -8,38 +8,38 @@ import { useEffect, useState } from "react";
 import TentantLayout from "../../blocks/tenant_layout";
 import { BuildingRoomInfo } from "../../services/building_rooms/provider/types";
 import useUserInformation from "../../../../common/hooks/service/user_info";
-import useBuildingRoomContractor from "../../services/building_rooms";
 import ScreenTopFilter from "../../../../common/blocks/top_filter";
 import leaseFilter from "./filter";
 import { Filter } from "../../../../common/blocks/top_filter/types";
 import { LayoutType } from "./blocks/layout/types";
 import LayoutSelector from "./blocks/layout";
 import useRoomViewModel from "../../viewmodel/room";
+import Villife from "../../../../../libs/villife-client/types";
 
 export default function LeaseContractHomeScreen({ navigation, route }: LeaseContractHomeScreenProps) {
     const messages = useScreenMessage().messages;
     const styles = useBuildingManagementScreenStyles();
     const user = useUserInformation();
-    const contractor = useBuildingRoomContractor();
     const [layout, setLayout] = useState<LayoutType>("list");
-    const [filters, setFilters] = useState<Filter<BuildingRoomInfo>[]>([...leaseFilter]);
-    const [filteredRoomInfos, setFilteredRoomInfo] = useState<BuildingRoomInfo[]>([]);
-    console.log("[BUILDING_MANAGEMENT_SCREEN]", "On Create");
+    const [filters, setFilters] = useState<Filter<Villife.Contract.Room>[]>([...leaseFilter]);
+    const [filteredRoomInfos, setFilteredRoomInfo] = useState<Villife.Contract.Room[]>([]);
     const viewmodel = useRoomViewModel();
+    console.log("[BUILDING_MANAGEMENT_SCREEN]", "On Create");
 
     useEffect(() => {
-        if (!user?.adminInfomation?.selectedBuilding) return;
+        /* if (!user?.adminInfomation?.selectedBuilding) return;
         //viewmodel?.update()
-
-        contractor.updateRooms();
+        */
+        viewmodel?.update();
     }, [user?.adminInfomation?.selectedBuilding]);
 
     useEffect(() => {
         setFilterFloors();
-    }, [contractor.rooms]);
+    }, [viewmodel?.data]);
 
     const setFilterFloors = () => {
-        let floors = contractor.rooms.map((r) => r.floor.toString());
+        if (viewmodel === null) return;
+        let floors = viewmodel.data.map((r) => r.floor.toString());
 
         // 중복 제거
         floors = floors
@@ -90,8 +90,8 @@ export default function LeaseContractHomeScreen({ navigation, route }: LeaseCont
                     selectedBackgroundColor: styles.selectedFilter.backgroundColor,
                     backgroundColor: styles.filter.backgroundColor,
                 }}
-                data={contractor.rooms}
-                onFilterData={(data: BuildingRoomInfo[]) => {
+                data={viewmodel?.data ?? []}
+                onFilterData={(data: Villife.Contract.Room[]) => {
                     const _filteredHistory = data.sort((a, b) => {
                         if (a.roomNumber > b.roomNumber) return 1;
                         if (a.roomNumber === b.roomNumber) return 0;

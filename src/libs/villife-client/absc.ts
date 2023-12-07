@@ -61,9 +61,7 @@ abstract class VillifeClientCommon implements VillifeUtility.Refresher {
         }
     } */
 
-    public async refresh(
-        params?: VillifeUtility.TokensForRefresh
-    ): VillifeUtility.AsyncResponse<VillifeUtility.RefreshedToken> {
+    public async refresh(params?: VillifeUtility.TokensForRefresh): Promise<VillifeUtility.RefreshedToken> {
         const tokens = await this._session.getTokens();
 
         if (tokens === null) {
@@ -101,9 +99,7 @@ abstract class VillifeClientCommon implements VillifeUtility.Refresher {
         return refresh;
     }
 
-    protected async requestWithAuth<Payload = any, Return = any>(
-        config: AxiosRequestConfig<Payload>
-    ): VillifeUtility.AsyncResponse<Return> {
+    protected async requestWithAuth<Payload = any, Return = any>(config: AxiosRequestConfig<Payload>): Promise<Return> {
         const tokens = await this._session.getTokens();
 
         if (config.headers === undefined) {
@@ -115,9 +111,7 @@ abstract class VillifeClientCommon implements VillifeUtility.Refresher {
         return await this.request<Payload, Return>(config);
     }
 
-    protected async request<Payload = any, Return = any>(
-        config: AxiosRequestConfig<Payload>
-    ): VillifeUtility.AsyncResponse<Return> {
+    protected async request<Payload = any, Return = any>(config: AxiosRequestConfig<Payload>): Promise<Return> {
         if (config.params) {
             config.params = objectToSnake(config.params);
         }
@@ -130,6 +124,7 @@ abstract class VillifeClientCommon implements VillifeUtility.Refresher {
             .then((res: AxiosResponse<VillifeUtility.VanillaResponse<Return>, Payload>) => {
                 if (res.data.errorCode) {
                     // Throw error with message.
+                    console.log("TQ");
                     throw "[TO-DO]: VillifeError";
                 }
 
@@ -157,6 +152,8 @@ abstract class VillifeClientCommon implements VillifeUtility.Refresher {
                 } else {
                     // 오류를 발생시킨 요청을 설정하는 도중 문제가 발생함.
                 }
+
+                console.log(err.response?.data);
 
                 throw err.response;
             });

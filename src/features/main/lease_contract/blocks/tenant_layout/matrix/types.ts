@@ -1,14 +1,15 @@
+import Villife from "../../../../../../libs/villife-client/types";
 import useScreenMessage from "../../../../../common/hooks/multilingual/hooks";
 import { BuildingRoomInfo } from "../../../services/building_rooms/provider/types";
 import { SelectAllStatus, TenantLayoutViewProps } from "../types";
 import useBuildingTenantMatrixViewStyles from "./styles";
 
 export type BuildingTenantMatrixViewProps = TenantLayoutViewProps & {
-    roomInfos: BuildingRoomInfo[];
+    roomInfos: Villife.Contract.Room[];
 };
 
 export type BuildingTenantFloorViewProps = {
-    roomInfos: BuildingRoomInfo[];
+    roomInfos: Villife.Contract.Room[];
     messages: ReturnType<typeof useScreenMessage>["messages"];
     styles: ReturnType<typeof useBuildingTenantMatrixViewStyles>["floor"];
     targetCheckMode: boolean;
@@ -19,7 +20,7 @@ export type BuildingTenantFloorViewProps = {
 export type BuildingTenantProps = {
     messages: ReturnType<typeof useScreenMessage>["messages"];
     styles: ReturnType<typeof useBuildingTenantMatrixViewStyles>["floor"];
-    roomInfo: BuildingRoomInfo;
+    roomInfo: Villife.Contract.Room;
     targetCheckMode: boolean;
     selectAllStatus: SelectAllStatus;
     onCheck(props: OnBuildingTenantCheck): void;
@@ -27,5 +28,5 @@ export type BuildingTenantProps = {
 
 export type OnBuildingTenantCheck = {
     isCheck: boolean;
-    tenant: BuildingRoomInfo;
+    tenant: Villife.Contract.Room;
 };

@@ -1,5 +1,5 @@
 import { SetterOrUpdater, useRecoilState } from "recoil";
-import { Villife } from "../../../../../libs/villife-client";
+import Villife from "../../../../../libs/villife-client/types";
 import useUserInformation from "../../../../common/hooks/service/user_info";
 import { UserInfo } from "../../../../common/hooks/service/user_info/types";
 import ViewModelCommmon from "../../../../common/model/absc";
@@ -11,7 +11,7 @@ export default function useRoomViewModel() {
 
     if (user === null) return null;
 
-    class RoomViewModel extends ViewModelCommmon<Villife.Contract.Room[]> {
+    class RoomContractViewModel extends ViewModelCommmon<Villife.Contract.Room[]> {
         private _api: Villife.Contract.Client;
         protected _data: Villife.Contract.Room[] = rooms;
         protected _setData: SetterOrUpdater<Villife.Contract.Room[]> = setRooms;
@@ -32,7 +32,49 @@ export default function useRoomViewModel() {
                     console.log(err);
                 });
         }
+
+        public async createContract(params: Villife.Contract.RequestForm): Promise<boolean> {
+            return await this._api
+                .createContract(params)
+                .then(() => true)
+                .catch((err) => {
+                    console.log(err);
+                    return false;
+                });
+        }
+
+        public async updateContract(params: Villife.Contract.UpdateForm): Promise<boolean> {
+            return await this._api
+                .updateContract(params)
+                .then(() => true)
+                .catch((err) => {
+                    console.log(err);
+                    return false;
+                });
+        }
+
+        public async deleteContract(contractId: number): Promise<boolean> {
+            return await this._api
+                .deleteContract(contractId)
+                .then(() => true)
+                .catch((err) => {
+                    console.log(err);
+                    return false;
+                });
+        }
+
+        public async sendNotification(params: Villife.Contract.NotiForm): Promise<boolean> {
+            return await this._api
+                .sendNotification(params)
+                .then(() => {
+                    return true;
+                })
+                .catch((err) => {
+                    //console.error(err);
+                    return false;
+                });
+        }
     }
 
-    return new RoomViewModel(user);
+    return new RoomContractViewModel(user);
 }
