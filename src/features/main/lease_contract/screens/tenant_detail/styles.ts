@@ -1,11 +1,12 @@
 import { StyleSheet } from "react-native";
 import useStyler from "../../../../common/hooks/styler/hooks";
 import useNavigationViewSpace from "../../../../common/blocks/navigation/service";
+import { SCREEN_PADDING_HORIZONTAL_STANDARD_VALUE } from "../../../../common/constants";
 
 export default function useTenantDetailScreenStyles() {
     const { deviceUI, theme } = useStyler();
     const space = useNavigationViewSpace({
-        applyDefaultHorizontalPadding: true,
+        applyDefaultHorizontalPadding: false,
         applyDefaultVerticalPadding: false,
         isHeaderShown: true,
         isBottomNavShown: true,
@@ -21,6 +22,7 @@ export default function useTenantDetailScreenStyles() {
         },
         tenantInfoContainer: {
             marginBottom: deviceUI.moderateScale(15),
+            paddingHorizontal: deviceUI.moderateScale(SCREEN_PADDING_HORIZONTAL_STANDARD_VALUE),
         },
         tenantVehicleInfoConainer: {
             //height: "30%",

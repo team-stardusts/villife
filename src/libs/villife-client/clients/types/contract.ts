@@ -4,13 +4,17 @@ namespace VillifeContract {
         // Building
         getBuilding(buildingId: number): Promise<Building>;
         getRoomsInBuilding(buildingId: number): Promise<Room[]>;
-        registerBuilding(params: BuildingRequestForm): Promise<BuildingBreifInfo>;
+        registerBuilding(params: BuildingRegisterForm): Promise<BuildingBreifInfo>;
         // Contract
-        createContract(params: RequestForm): Promise<string>;
+        createContract(params: CreateForm): Promise<string>;
         getContract(): Promise<Contract>;
         updateContract(params: UpdateForm): Promise<string>;
         deleteContract(contractId: Contract["contractId"]): Promise<string>;
         sendNotification(params: NotiForm): Promise<string>;
+        // Memo
+        createMemo(params: MemoCreationForm): Promise<string>;
+        updateMemo(params: MemoUpdateForm): Promise<string>;
+        deleteMemo(params: MemoDeletionForm): Promise<string>;
     }
 
     export type BankAccount = {
@@ -36,7 +40,7 @@ namespace VillifeContract {
         roadAddr: string;
     };
 
-    export type BuildingRequestForm = {
+    export type BuildingRegisterForm = {
         accountRegiReqForms: Array<{
             accountNumber: string;
             accountType: string;
@@ -66,7 +70,7 @@ namespace VillifeContract {
         startDate: number;
     };
 
-    export type RequestForm = {
+    export type CreateForm = {
         autoMfBilling: boolean;
         contractorName: Contract["contractorName"];
         delinquencyRate: Contract["delinquencyRate"];
@@ -80,7 +84,7 @@ namespace VillifeContract {
         phoneNumber: Contract["phoneNumber"];
     };
 
-    export type UpdateForm = RequestForm & {
+    export type UpdateForm = CreateForm & {
         contractId: Contract["contractId"];
     };
 
@@ -94,6 +98,22 @@ namespace VillifeContract {
         content: string;
         memoId: number;
         memoType: string;
+    };
+
+    export type MemoCreationForm = {
+        buildingId: Building["buildingId"];
+        content: string;
+        contractId: Contract["contractId"];
+        memoType: string;
+    };
+
+    export type MemoDeletionForm = {
+        buildingId: Building["buildingId"];
+        memoId: number;
+    };
+
+    export type MemoUpdateForm = MemoDeletionForm & {
+        content: string;
     };
 
     export type Room = {

@@ -1,6 +1,6 @@
 import { Animated, View } from "react-native";
 import { SpinnerCircleProps, SpinnerProps } from "./types";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import useInterval from "../../hooks/utility/interval";
 
 export default function Spinner(props: SpinnerProps) {
@@ -30,31 +30,29 @@ export default function Spinner(props: SpinnerProps) {
 }
 
 function SpinnerCircle(props: SpinnerCircleProps) {
+    const duration = 400;
+    const [cnt, setCnt] = useState<number>(0);
     const opacityValue = useRef(new Animated.Value(0)).current;
     const scaleValue = useRef(new Animated.Value(0)).current;
-    const degree = (360 / props.totalCount) * (props.index + 1);
-    const duration = 400;
-    const delay = (duration / 10) * props.totalCount;
-    const timeout = (delay / props.totalCount) * props.index;
 
-    /* useEffect(() => {
-        const animation = getAnimation();
+    const degree = useMemo(() => (360 / props.totalCount) * (props.index + 1), [props.totalCount, props.index]);
+    const delay = useMemo(() => (duration / 10) * props.totalCount, [props.totalCount]);
+    const timeout = useMemo(() => (delay / props.totalCount) * props.index, [delay, props.index, props.totalCount]);
 
-        return () => {
-            animation.stop();
-            opacityValue.stopAnimation();
-            scaleValue.stopAnimation();
-        };
-    }, []); */
-
-    useInterval(() => {
+    useEffect(() => {
         const animation = getAnimation();
         setTimeout(() => animation.start(), timeout);
 
         return () => {
             animation.stop();
             animation.reset();
+            opacityValue.stopAnimation();
+            scaleValue.stopAnimation();
         };
+    }, [cnt]);
+
+    useInterval(() => {
+        setCnt((prev) => prev + 1);
     }, delay);
 
     const getAnimation = useCallback(() => {

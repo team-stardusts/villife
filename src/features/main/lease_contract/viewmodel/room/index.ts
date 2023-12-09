@@ -3,7 +3,7 @@ import Villife from "../../../../../libs/villife-client/types";
 import useUserInformation from "../../../../common/hooks/service/user_info";
 import { UserInfo } from "../../../../common/hooks/service/user_info/types";
 import ViewModelCommmon from "../../../../common/model/absc";
-import roomsState from "./states";
+import roomsState, { RoomInfo } from "./states";
 
 export default function useRoomViewModel() {
     const user = useUserInformation();
@@ -11,10 +11,10 @@ export default function useRoomViewModel() {
 
     if (user === null) return null;
 
-    class RoomContractViewModel extends ViewModelCommmon<Villife.Contract.Room[]> {
+    class RoomContractViewModel extends ViewModelCommmon<RoomInfo[]> {
         private _api: Villife.Contract.Client;
-        protected _data: Villife.Contract.Room[] = rooms;
-        protected _setData: SetterOrUpdater<Villife.Contract.Room[]> = setRooms;
+        protected _data: RoomInfo[] = rooms;
+        protected _setData: SetterOrUpdater<RoomInfo[]> = setRooms;
         public readonly feature: string = "contract-room";
 
         constructor(user: UserInfo) {
@@ -27,13 +27,26 @@ export default function useRoomViewModel() {
 
             await this._api
                 .getRoomsInBuilding(this._user.adminInfomation.selectedBuilding.id)
-                .then((res) => setRooms(res))
+                .then((res) => {
+                    const rooms: RoomInfo[] = [];
+
+                    for (let room of res) {
+                        const _room: any = room;
+                        _room.contractInfo.expirationDate = new Date(room.contractInfo.expirationDate);
+                        _room.contractInfo.startDate = new Date(room.contractInfo.startDate);
+
+                        rooms.push(_room);
+                    }
+
+                    this._setData(rooms);
+                    return true;
+                })
                 .catch((err) => {
                     console.log(err);
                 });
         }
 
-        public async createContract(params: Villife.Contract.RequestForm): Promise<boolean> {
+        public async createContract(params: Villife.Contract.CreateForm): Promise<boolean> {
             return await this._api
                 .createContract(params)
                 .then(() => true)
@@ -67,6 +80,67 @@ export default function useRoomViewModel() {
             return await this._api
                 .sendNotification(params)
                 .then(() => {
+                    return true;
+                })
+                .catch((err) => {
+                    //console.error(err);
+                    return false;
+                });
+        }
+
+        public async createMemo(contractId: number, memoType: string, content: string): Promise<boolean> {
+            if (user?.adminInfomation?.selectedBuilding === undefined) {
+                return false;
+            }
+
+            return await this._api
+                .createMemo({
+                    buildingId: user.adminInfomation.selectedBuilding.id,
+                    contractId,
+                    content,
+                    memoType,
+                })
+                .then(async () => {
+                    await this.update();
+                    return true;
+                })
+                .catch((err) => {
+                    return false;
+                });
+        }
+
+        public async deleteMemo(memoId: number): Promise<boolean> {
+            if (user?.adminInfomation?.selectedBuilding === undefined) {
+                return false;
+            }
+
+            return await this._api
+                .deleteMemo({
+                    buildingId: user.adminInfomation.selectedBuilding.id,
+                    memoId,
+                })
+                .then(async () => {
+                    await this.update();
+                    return true;
+                })
+                .catch((err) => {
+                    return false;
+                });
+        }
+
+        public async updateMemo(memoId: number, content: string): Promise<boolean> {
+            if (user?.adminInfomation?.selectedBuilding === undefined) {
+                return false;
+            }
+
+            return await this._api
+                .updateMemo({
+                    buildingId: user.adminInfomation.selectedBuilding.id,
+                    content,
+                    memoId,
+                })
+                .then(async () => {
+                    await this.update();
                     return true;
                 })
                 .catch((err) => {

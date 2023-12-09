@@ -28,6 +28,7 @@ namespace Routes {
         contract: string;
         totalInfo: string;
         buildingNoti: string;
+        contractMemo: string;
     };
 
     export type Complaint = {

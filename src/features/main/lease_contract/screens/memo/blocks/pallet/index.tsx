@@ -1,65 +1,34 @@
-import { ColorValue, TouchableOpacity, View } from "react-native";
-import { ColorAvailable, MemoColor, MemoPalletProps, Pallet } from "./types";
-import useStyler from "../../../../../../common/hooks/styler/hooks";
+import { TouchableOpacity, View } from "react-native";
+import { MemoPalletProps } from "./types";
 import { useEffect, useState } from "react";
+import useMemoPalletStyles from "./styles";
+import useMemoPallet from "../../hooks/memo-pallet";
+import { ColorAvailable, MemoColor } from "../../hooks/memo-pallet/types";
 
 export default function MemoPallet(props: MemoPalletProps) {
-    const { theme, deviceUI } = useStyler();
-    const pallet: Pallet = {
-        blue: {
-            name: "blue",
-            background: theme.color.series.blue.level2,
-            cursor: theme.color.series.blue.level6,
-            font: theme.color.series.blue.level9,
-        },
-        green: {
-            name: "green",
-            background: theme.color.series.green.level2,
-            cursor: theme.color.series.green.level6,
-            font: theme.color.series.green.level9,
-        },
-        yellow: {
-            name: "yellow",
-            background: theme.color.series.yellow.level2,
-            cursor: theme.color.series.yellow.level8,
-            font: theme.color.series.yellow.level9,
-        },
-        red: {
-            name: "red",
-            background: theme.color.series.red.level2,
-            cursor: theme.color.series.red.level7,
-            font: theme.color.series.red.level9,
-        },
-        grey: {
-            name: "grey",
-            background: theme.color.series.grey.level2,
-            cursor: theme.color.series.grey.level6,
-            font: theme.color.series.grey.level9,
-        },
-    };
+    const styles = useMemoPalletStyles();
+    const pallet = useMemoPallet();
+    const palletColors: (keyof typeof pallet)[] = ["blue", "green", "grey", "red", "yellow"];
     const [selectedColor, setSelectedColor] = useState<MemoColor>(pallet.blue);
+
+    useEffect(() => {
+        if (palletColors.find((v) => v === props.initialColor)) {
+            setSelectedColor(pallet[props.initialColor as ColorAvailable]);
+        }
+    }, [props.initialColor]);
 
     useEffect(() => {
         props.onSelection(selectedColor);
     }, [selectedColor]);
 
     return (
-        <View
-            style={{
-                width: "100%",
-                flexDirection: "row",
-                alignItems: "center",
-                justifyContent: "space-around",
-                marginTop: deviceUI.moderateScale(15),
-            }}>
+        <View style={styles.container}>
             {Object.values(pallet).map((color, index) => (
                 <TouchableOpacity
                     key={index}
                     style={[
+                        styles.colorSelector,
                         {
-                            width: "15%",
-                            height: deviceUI.moderateScale(20),
-                            borderRadius: deviceUI.moderateScale(10),
                             backgroundColor: color.background,
                         },
                         selectedColor.name === color.name && {
@@ -73,7 +42,3 @@ export default function MemoPallet(props: MemoPalletProps) {
         </View>
     );
 }
-
-type Colors = {
-    [key in ColorAvailable]: ColorValue;
-};

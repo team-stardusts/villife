@@ -28,6 +28,7 @@ const routes: RoutesType = {
     budilingAndContract: {
         building: "building-and-contract/building",
         contract: "building-and-contract/contract",
+        contractMemo: "building-and-contract/contract/memo",
         totalInfo: "building-and-contract/total-info",
         buildingNoti: "building-and-contract/noti",
     },

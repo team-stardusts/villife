@@ -153,7 +153,7 @@ abstract class VillifeClientCommon implements VillifeUtility.Refresher {
                     // 오류를 발생시킨 요청을 설정하는 도중 문제가 발생함.
                 }
 
-                console.log(err.response?.data);
+                console.error("[AxiosError]", err, err.cause, err.response?.data);
 
                 throw err.response;
             });

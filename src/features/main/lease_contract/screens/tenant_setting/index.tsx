@@ -92,7 +92,7 @@ export default function TenantSettingScreen({ navigation, route }: TenantSetting
         }
 
         let isSuccessful: boolean = false;
-        const params: Villife.Contract.RequestForm = {
+        const params: Villife.Contract.CreateForm = {
             autoMfBilling: true,
             contractorName: tenantInfo.name,
             delinquencyRate: lateFeeRate,

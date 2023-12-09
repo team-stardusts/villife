@@ -87,7 +87,7 @@ export default function useRouteFSM() {
                             // 정상 로그인
                             navigation.reset({
                                 index: 0,
-                                //routes: [{ name: "home" }],
+                                routes: [{ name: "home" }],
                                 //routes: [{ name: "home" }, { name: "contract_memo_edit" }],
                                 //routes: [{ name: "parking" }],
                                 //routes: [{ name: "set_building" }],
@@ -95,7 +95,7 @@ export default function useRouteFSM() {
                                 //routes: [{ name: "test" }],
                                 //routes: [{ name: "verify_personal_info", params: { authority: 1 } }],
                                 //routes: [{ name: "verify_auth_code", params: { authority: 1 } }],
-                                routes: [{ name: "lease_contract" }],
+                                //routes: [{ name: "lease_contract" }],
                                 //routes: [{ name: "management_fee" }],
                                 //routes: [{ name: "home" }, { name: "building_management" }],
                                 //routes: [{ name: "home" }, { name: "register_building" }],

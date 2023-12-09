@@ -3,8 +3,7 @@ import NavigationView from "../../../../common/blocks/navigation";
 import BuildingTentantMessage from "../../blocks/message";
 import useTenantDetailScreenStyles from "./styles";
 import TenantDetailScreenProps from "./types";
-import { useEffect, useState } from "react";
-import { BuildingRoomInfo } from "../../services/building_rooms/provider/types";
+import { useMemo, useState } from "react";
 import TenantInfo from "./blocks/tenant_info";
 import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
 import ListBottomSlidableModal from "../../../../common/blocks/modal/bottom_list";
@@ -12,48 +11,45 @@ import { ModalFeature } from "../../../../common/blocks/modal/bottom_list/types"
 import { VillifeNavigation } from "../../../../common/router/types";
 import { useNavigation } from "@react-navigation/native";
 import VillifeToastMessage from "../../../../common/atoms/toast";
-import MemoRegistrationBox from "./blocks/memo/registration";
+import ContractMemoRegistrationBox from "./blocks/memo/registration";
 import useRoomViewModel from "../../viewmodel/room";
+import ContractMemo from "./blocks/memo/memo";
+import SimpleNavComponent from "../../../../common/blocks/navigation/header/navcomponent";
 
 export default function TenantDetailScreen({ route }: TenantDetailScreenProps) {
     const styles = useTenantDetailScreenStyles();
     const navigation = useNavigation<VillifeNavigation>();
     const messages = useScreenMessage().messages;
     const viewModel = useRoomViewModel();
-    const [tenant, setTenant] = useState<BuildingRoomInfo>(JSON.parse(route.params.roomInfo));
+    const [isMemoEditMode, setIsMemoEditMode] = useState<boolean>(false);
     const [noticeModalVisible, setNoticeModalVisible] = useState<boolean>(false);
 
-    useEffect(() => {
-        const _tenant = JSON.parse(route.params.roomInfo);
-        setTenant({
-            ...tenant,
-            ..._tenant,
-            contractInfo: {
-                ...tenant.contractInfo,
-                startDate: new Date(tenant.contractInfo.startDate),
-                expirationDate: new Date(tenant.contractInfo.expirationDate),
-            },
-        });
-    }, [route.params.roomInfo]);
+    const room = useMemo(() => {
+        if (viewModel === null) return null;
+
+        const _room = viewModel.data.find((v) => v.roomId === route.params.roomId);
+
+        return _room === undefined ? null : _room;
+    }, [route.params.roomId, viewModel?.data]);
 
     const sendNotification = async (title: string, content: string) => {
-        let isSuccessful: boolean = false;
+        if (room === null || viewModel === null) {
+            return;
+        }
 
         const params = {
-            contractId: route.params.contractId,
+            contractId: room.contractInfo.contractId,
             content,
             title,
         };
 
-        if (viewModel !== null) {
-            isSuccessful = await viewModel.sendNotification(params);
-        }
+        const isSuccessful = await viewModel.sendNotification(params);
 
         if (isSuccessful) {
-            VillifeToastMessage.showBottomToast("success", "알림 완료");
+            VillifeToastMessage.showBottomToast("success", "알림을 보냈어요!");
             setNoticeModalVisible(false);
         } else {
-            VillifeToastMessage.showBottomToast("error", "알림 실패");
+            VillifeToastMessage.showBottomToast("error", "알림을 보내지 못했어요...");
             setNoticeModalVisible(false);
         }
     };
@@ -64,7 +60,7 @@ export default function TenantDetailScreen({ route }: TenantDetailScreenProps) {
             text: "알림 작성하기",
             onPress: () => {
                 setNoticeModalVisible(false);
-                navigation.navigate("compose_message", { contractID: route.params.contractId });
+                navigation.navigate("compose_message", { contractID: room?.contractInfo.contractId });
             },
         },
         {
@@ -101,24 +97,45 @@ export default function TenantDetailScreen({ route }: TenantDetailScreenProps) {
                     backgroundColor: styles.nav.backgroundColor,
                 },
                 hideBuidingSelector: true,
-                navComponent: BuildingTentantMessage,
-                navComponentProps: {
-                    onPress: () => setNoticeModalVisible(true),
-                },
+                navComponent: isMemoEditMode ? SimpleNavComponent : BuildingTentantMessage,
+                navComponentProps: isMemoEditMode
+                    ? {
+                          title: "취소",
+                          onPress: () => setIsMemoEditMode(false),
+                      }
+                    : {
+                          onPress: () => setNoticeModalVisible(true),
+                      },
             }}
             bodyOptions={{
                 backgroundColor: styles.nav.backgroundColor,
-                applyDefaultHorizontalPadding: true,
+                applyDefaultHorizontalPadding: false,
                 applyDefaultVerticalPadding: false,
             }}>
             <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
-                <TenantInfo styles={styles} tenant={tenant} messages={messages} />
-                {/* <View style={styles.tenantVehicleInfoConainer}>
-                    <TitleCard title="세입자 정보">
-                        <View></View>
-                    </TitleCard>
-                </View> */}
-                <MemoRegistrationBox />
+                {room && (
+                    <>
+                        <TenantInfo styles={styles} room={room} messages={messages} />
+                        <ContractMemoRegistrationBox contractId={room.contractInfo.contractId} />
+                        {room.contractInfo.memo !== undefined &&
+                            [...room.contractInfo.memo]
+                                // Memo ID 내림차순 (늦게 등록했을 수록 위에)
+                                .sort((a, b) => {
+                                    if (a.memoId > b.memoId) return -1;
+                                    else if (a.memoId < b.memoId) return 1;
+                                    else return 0;
+                                })
+                                .map((memo, index) => (
+                                    <ContractMemo
+                                        key={index}
+                                        contractId={room.contractInfo.contractId}
+                                        isEditMode={isMemoEditMode}
+                                        setIsEditMode={setIsMemoEditMode}
+                                        {...memo}
+                                    />
+                                ))}
+                    </>
+                )}
             </ScrollView>
             <ListBottomSlidableModal
                 modalVisible={noticeModalVisible}

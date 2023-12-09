@@ -1,11 +1,16 @@
 import { StyleSheet } from "react-native";
 import useStyler from "../../../../../../../common/hooks/styler/hooks";
+import { SCREEN_PADDING_HORIZONTAL_STANDARD_VALUE } from "../../../../../../../common/constants";
 
 export default function useMemoRegistrationBoxStyles() {
     const { deviceUI, theme } = useStyler();
 
     return StyleSheet.create({
         container: {
+            marginBottom: deviceUI.moderateScale(10),
+            paddingHorizontal: deviceUI.moderateScale(SCREEN_PADDING_HORIZONTAL_STANDARD_VALUE),
+        },
+        contentBox: {
             backgroundColor: theme.color.specified.white,
         },
         wrapper: {

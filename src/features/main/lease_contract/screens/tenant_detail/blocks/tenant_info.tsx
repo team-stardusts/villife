@@ -29,7 +29,7 @@ export default function TenantInfo(props: TenantInfoProps) {
             icon: "pencil",
             text: "수정하기",
             onPress: () => {
-                if (props.tenant.roomId === undefined) {
+                if (props.room.roomId === undefined) {
                     VillifeToastMessage.showBottomToast(
                         "error",
                         "등록되지 않은 방 번호 입니다. 빌라이프 관리자에게 문의해주세요."
@@ -39,19 +39,19 @@ export default function TenantInfo(props: TenantInfoProps) {
 
                 // [TO-DO] 이름과 전화번호를 계약 상의 데이터로 변경해야함
                 navigation.navigate("tenant_setting", {
-                    roomID: props.tenant.roomId,
+                    roomID: props.room.roomId,
                     previous: {
-                        contractId: props.tenant.contractInfo.contractId,
-                        contractorName: props.tenant.residentName,
-                        delinquencyRate: props.tenant.contractInfo.delinquencyRate,
-                        deposit: props.tenant.contractInfo.deposit,
-                        managementFee: props.tenant.contractInfo.managementFee,
-                        monthlyRent: props.tenant.contractInfo.monthlyRent,
-                        rentType: props.tenant.contractInfo.rentType,
-                        roomId: props.tenant.roomId,
-                        expirationDate: JSON.stringify(props.tenant.contractInfo.expirationDate),
-                        startDate: JSON.stringify(props.tenant.contractInfo.startDate),
-                        phoneNumber: props.tenant.residentPhoneNumber,
+                        contractId: props.room.contractInfo.contractId,
+                        contractorName: props.room.residentName,
+                        delinquencyRate: props.room.contractInfo.delinquencyRate,
+                        deposit: props.room.contractInfo.deposit,
+                        managementFee: props.room.contractInfo.managementFee,
+                        monthlyRent: props.room.contractInfo.monthlyRent,
+                        rentType: props.room.contractInfo.rentType,
+                        roomId: props.room.roomId,
+                        expirationDate: JSON.stringify(props.room.contractInfo.expirationDate),
+                        startDate: JSON.stringify(props.room.contractInfo.startDate),
+                        phoneNumber: props.room.residentPhoneNumber,
                     },
                 });
                 setModalVisible(false);
@@ -88,7 +88,7 @@ export default function TenantInfo(props: TenantInfoProps) {
     };
 
     const deleteRoomInfo = async () => {
-        if (props.tenant.contractInfo === undefined) {
+        if (props.room.contractInfo === undefined) {
             VillifeToastMessage.showBottomToast(
                 "error",
                 "등록되지 않은 계약 정보 입니다. 빌라이프 관리자에게 문의해주세요."
@@ -96,7 +96,7 @@ export default function TenantInfo(props: TenantInfoProps) {
             return;
         }
 
-        const isSuccessful = await contractor.deleteContract(props.tenant.contractInfo.contractId);
+        const isSuccessful = await contractor.deleteContract(props.room.contractInfo.contractId);
 
         setAlert({
             ...alert,
@@ -112,7 +112,7 @@ export default function TenantInfo(props: TenantInfoProps) {
     };
 
     const switchContractType = () => {
-        switch (props.tenant.contractInfo?.rentType) {
+        switch (props.room.contractInfo?.rentType) {
             case "lump-sum-deposit":
                 return props.messages.words.lump_sum_deposit;
             case "monthly-rent":
@@ -170,42 +170,38 @@ export default function TenantInfo(props: TenantInfoProps) {
                 }}
                 minHeight={props.styles.tenantInfo.minHeight}>
                 <View style={props.styles.tenantInfo}>
-                    <CardRow
-                        styles={props.styles}
-                        rowKey={"호수"}
-                        rowValue={`${props.tenant.roomNumber.toString()}호`}
-                    />
-                    <CardRow styles={props.styles} rowKey={"이름"} rowValue={props.tenant.residentName} />
-                    <CardRow styles={props.styles} rowKey={"전화번호"} rowValue={props.tenant.residentPhoneNumber} />
+                    <CardRow styles={props.styles} rowKey={"호수"} rowValue={`${props.room.roomNumber.toString()}호`} />
+                    <CardRow styles={props.styles} rowKey={"이름"} rowValue={props.room.residentName} />
+                    <CardRow styles={props.styles} rowKey={"전화번호"} rowValue={props.room.residentPhoneNumber} />
                     <CardRow styles={props.styles} rowKey={"계약"} rowValue={switchContractType()} />
                     <CardRow styles={props.styles} rowKey={"자동고지"} rowValue={"사용"} />
                     <CardRow
                         styles={props.styles}
                         rowKey={"관리비"}
-                        rowValue={insertCommaToMoney(props.tenant.contractInfo?.managementFee) + " 원"}
+                        rowValue={insertCommaToMoney(props.room.contractInfo?.managementFee) + " 원"}
                     />
                     <CardRow
                         styles={props.styles}
                         rowKey={"월세"}
-                        rowValue={insertCommaToMoney(props.tenant.contractInfo?.monthlyRent) + " 원"}
+                        rowValue={insertCommaToMoney(props.room.contractInfo?.monthlyRent) + " 원"}
                     />
                     <CardRow
                         styles={props.styles}
                         rowKey={"보증금"}
-                        rowValue={insertCommaToMoney(props.tenant.contractInfo?.deposit) + " 원"}
+                        rowValue={insertCommaToMoney(props.room.contractInfo?.deposit) + " 원"}
                     />
                     <CardRow
                         styles={props.styles}
                         rowKey={"입주일"}
                         rowValue={convertDateToString(
-                            StardustDateParser.deserialize(props.tenant.contractInfo.startDate)
+                            StardustDateParser.deserialize(props.room.contractInfo.startDate)
                         )}
                     />
                     <CardRow
                         styles={props.styles}
                         rowKey={"만기일"}
                         rowValue={convertDateToString(
-                            StardustDateParser.deserialize(props.tenant.contractInfo.expirationDate)
+                            StardustDateParser.deserialize(props.room.contractInfo.expirationDate)
                         )}
                     />
                     <CardRow
@@ -213,7 +209,7 @@ export default function TenantInfo(props: TenantInfoProps) {
                         rowKey={"남은기간"}
                         rowValue={
                             getDateDiff(
-                                StardustDateParser.deserialize(props.tenant.contractInfo.expirationDate),
+                                StardustDateParser.deserialize(props.room.contractInfo.expirationDate),
                                 StardustDateParser.changeGMT(new Date(), "kr")
                             ).toString() + " 일"
                         }

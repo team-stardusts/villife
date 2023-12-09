@@ -1,12 +1,13 @@
-import { Animated, Text, TextInput, Touchable, TouchableOpacity, View } from "react-native";
+import { Animated, Text, TouchableOpacity, View } from "react-native";
 import ContentBox from "../../../../../../../common/blocks/content_box";
 import useMemoRegistrationBoxStyles from "./styles";
 import { useEffect, useRef, useState } from "react";
 import useInterval from "../../../../../../../common/hooks/utility/interval";
 import { useNavigation } from "@react-navigation/native";
 import { VillifeNavigation } from "../../../../../../../common/router/types";
+import { ContractMemoRegistrationBoxProps } from "./types";
 
-export default function MemoRegistrationBox() {
+export default function ContractMemoRegistrationBox(props: ContractMemoRegistrationBoxProps) {
     const navigation = useNavigation<VillifeNavigation>();
     const styles = useMemoRegistrationBoxStyles();
     const [cnt, setCnt] = useState<number>(0);
@@ -28,22 +29,27 @@ export default function MemoRegistrationBox() {
     useInterval(() => {
         setCnt((prev) => {
             if (prev === null) return 0;
+            if (prev > 1000) return 0;
             return prev + 1;
         });
     }, 550);
 
     return (
-        <ContentBox backgroundColor={styles.container.backgroundColor}>
-            <View style={styles.wrapper}>
-                <Animated.View style={[styles.cursor, { opacity: opacityValue }]} />
-                <TouchableOpacity
-                    activeOpacity={0.6}
-                    onPress={() => {
-                        navigation.navigate("contract_memo_edit");
-                    }}>
-                    <Text style={styles.text}>메모를 입력해주세요.</Text>
-                </TouchableOpacity>
-            </View>
-        </ContentBox>
+        <View style={styles.container}>
+            <ContentBox backgroundColor={styles.contentBox.backgroundColor}>
+                <View style={styles.wrapper}>
+                    <Animated.View style={[styles.cursor, { opacity: opacityValue }]} />
+                    <TouchableOpacity
+                        activeOpacity={0.6}
+                        onPress={() => {
+                            navigation.navigate("contract_memo_edit", {
+                                contractId: props.contractId,
+                            });
+                        }}>
+                        <Text style={styles.text}>메모를 입력해주세요.</Text>
+                    </TouchableOpacity>
+                </View>
+            </ContentBox>
+        </View>
     );
 }

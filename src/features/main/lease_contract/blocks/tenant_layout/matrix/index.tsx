@@ -166,8 +166,7 @@ function BuildingTenant(props: BuildingTenantProps) {
                         });
                     } else {
                         navigation.navigate("tenant_detail", {
-                            contractId: props.roomInfo.contractInfo.contractId,
-                            roomInfo: JSON.stringify(props.roomInfo),
+                            roomId: props.roomInfo.roomId,
                         });
                     }
                 }

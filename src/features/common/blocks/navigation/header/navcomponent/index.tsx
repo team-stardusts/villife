@@ -1,13 +1,10 @@
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
-import useSystemInfo from "../../../../hooks/systeminfo/hooks";
-import useAppThemeLegacy from "../../../../hooks/themes_legacy/hooks";
 import Icon from "../../../../atoms/icon";
 import { SimpleNavComponentProps } from "./types";
 import useStyler from "../../../../hooks/styler/hooks";
 
 export default function SimpleNavComponent(props: SimpleNavComponentProps) {
     const { deviceUI, theme } = useStyler();
-
     const styles = StyleSheet.create({
         container: {
             flex: 1,
@@ -30,6 +27,7 @@ export default function SimpleNavComponent(props: SimpleNavComponentProps) {
                 props.iconName !== undefined
                     ? theme.font.fontFamily.pretendard.regular
                     : theme.font.fontFamily.pretendard.bold,
+            fontSize: props.iconName !== undefined ? deviceUI.moderateScale(13) : deviceUI.moderateScale(15),
             color: theme.color.specified.black,
         },
     });

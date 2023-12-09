@@ -59,7 +59,14 @@ export type VillifeStackParamList = VillifeRootStackParamList & {
         host: HostType;
         access_token?: string | undefined;
     };
-    contract_memo_edit?: {};
+    contract_memo_edit: {
+        contractId: number;
+        updateInfo?: {
+            content: string;
+            memoId: number;
+            memoType: string;
+        };
+    };
     set_account: {
         authority: Authority["ADMIN"] | Authority["RENTER"];
     };
@@ -115,8 +122,7 @@ export type VillifeStackParamList = VillifeRootStackParamList & {
         billIDs: number[];
     };
     tenant_detail: {
-        roomInfo: string; //BuildingRoomInfo;
-        contractId: number;
+        roomId: number;
     };
     contract_information: {};
     terms_of_service?: {};

@@ -1,5 +1,5 @@
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback } from "react";
 import { Alert, BackHandler, SafeAreaView, StatusBar, View } from "react-native";
 import useScreenMessage from "../../hooks/multilingual/hooks";
 import useNavigationViewStyles from "./styles";
@@ -13,6 +13,8 @@ import { IEventListenable } from "../../global_interface";
 import { NetInfoEvents } from "../../../../libs/netinfo/types";
 import { NetInfoState } from "@react-native-community/netinfo";
 import VillifeSpinner from "../../atoms/spinner/villife";
+import { useRecoilValue } from "recoil";
+import { isConnetedToNetworkState } from "../../hooks/states/atoms/network";
 
 export default function NavigationView({
     headerOptions,
@@ -28,7 +30,7 @@ export default function NavigationView({
     const styles = useNavigationViewStyles(bodyOptions);
     const navigation = useNavigation<VillifeRouterParams["navigation"]>();
     const netinfo: IEventListenable<NetInfoEvents, NetInfoState> = new NetInfoEventHandler();
-    const [isConnectedToNetwork, setIsConnectedToNetwork] = useState<boolean>(false);
+    const isConnectedToNetwork = useRecoilValue<boolean>(isConnetedToNetworkState);
     //navigation.reset(navigation.getState())
 
     const headerBackGroundColor = headerOptions?.style?.backgroundColor ?? styles.container.backgroundColor;
@@ -40,18 +42,6 @@ export default function NavigationView({
     // Navigation child에 props를 넣어주기 위함
     let navComponentProps = headerOptions.navComponentProps;
     navComponentProps = navComponentProps !== undefined ? navComponentProps : {};
-
-    // Network가 연결되지 않은 경우 예외 처리를 위함
-    useEffect(() => {
-        netinfo.listen("changed", (_, state) => {
-            //setIsConnectedToNetwork(state.isConnected ?? false);
-            setIsConnectedToNetwork(false);
-        });
-
-        return () => {
-            netinfo.removeAllListeners();
-        };
-    }, []);
 
     // Android back button 대비 코드
     useFocusEffect(
