@@ -44,7 +44,8 @@ export default function NavigationView({
     // Network가 연결되지 않은 경우 예외 처리를 위함
     useEffect(() => {
         netinfo.listen("changed", (_, state) => {
-            setIsConnectedToNetwork(state.isConnected ?? false);
+            //setIsConnectedToNetwork(state.isConnected ?? false);
+            setIsConnectedToNetwork(false);
         });
 
         return () => {

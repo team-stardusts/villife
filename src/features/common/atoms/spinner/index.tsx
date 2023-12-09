@@ -1,6 +1,7 @@
 import { Animated, View } from "react-native";
 import { SpinnerCircleProps, SpinnerProps } from "./types";
 import { useCallback, useEffect, useRef, useState } from "react";
+import useInterval from "../../hooks/utility/interval";
 
 export default function Spinner(props: SpinnerProps) {
     const defaultSize = 100;
@@ -36,47 +37,53 @@ function SpinnerCircle(props: SpinnerCircleProps) {
     const delay = (duration / 10) * props.totalCount;
     const timeout = (delay / props.totalCount) * props.index;
 
-    useEffect(() => {
+    /* useEffect(() => {
         const animation = getAnimation();
-        setTimeout(() => animation.start(), timeout);
 
         return () => {
             animation.stop();
             opacityValue.stopAnimation();
             scaleValue.stopAnimation();
         };
-    }, []);
+    }, []); */
+
+    useInterval(() => {
+        const animation = getAnimation();
+        setTimeout(() => animation.start(), timeout);
+
+        return () => {
+            animation.stop();
+            animation.reset();
+        };
+    }, delay);
 
     const getAnimation = useCallback(() => {
-        return Animated.loop(
-            Animated.sequence([
-                Animated.parallel([
-                    Animated.timing(opacityValue, {
-                        toValue: 1,
-                        duration: 0,
-                        useNativeDriver: true,
-                    }),
-                    Animated.timing(scaleValue, {
-                        toValue: 1,
-                        duration: 0,
-                        useNativeDriver: true,
-                    }),
-                ]),
-                Animated.parallel([
-                    Animated.timing(scaleValue, {
-                        toValue: 0,
-                        duration: duration,
-                        useNativeDriver: true,
-                    }),
-                    Animated.timing(opacityValue, {
-                        toValue: 0,
-                        duration: duration,
-                        useNativeDriver: true,
-                    }),
-                ]),
-                Animated.delay(delay),
-            ])
-        );
+        return Animated.sequence([
+            Animated.parallel([
+                Animated.timing(opacityValue, {
+                    toValue: 1,
+                    duration: 0,
+                    useNativeDriver: true,
+                }),
+                Animated.timing(scaleValue, {
+                    toValue: 1,
+                    duration: 0,
+                    useNativeDriver: true,
+                }),
+            ]),
+            Animated.parallel([
+                Animated.timing(scaleValue, {
+                    toValue: 0,
+                    duration: duration,
+                    useNativeDriver: true,
+                }),
+                Animated.timing(opacityValue, {
+                    toValue: 0,
+                    duration: duration,
+                    useNativeDriver: true,
+                }),
+            ]),
+        ]);
     }, [opacityValue, scaleValue]);
 
     return (
