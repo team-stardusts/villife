@@ -28,11 +28,12 @@ public class MainApplication extends Application implements ReactApplication {
           List<ReactPackage> packages = new PackageList(this).getPackages();
           // Packages that cannot be autolinked yet can be added manually here, for example:
           // packages.add(new MyReactNativePackage());
-          //packages.add(new RNCConfigPackage()); // added by seongbinhong for .env.
+          // packages.add(new RNCConfigPackage()); // added by seongbinhong for .env.
 
             // Added to insert React Native Android Native Module
             Log.d(VilllifeLog.DEBUG_TAG,"Android native package added");
             packages.add(new MyAppPackage());
+            //packages.add(new RNReactNativeHapticFeedbackPackage());
           return packages;
         }
 

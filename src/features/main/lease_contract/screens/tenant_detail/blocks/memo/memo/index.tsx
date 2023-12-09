@@ -1,3 +1,4 @@
+import ReactNativeHapticFeedback from "react-native-haptic-feedback";
 import { useNavigation } from "@react-navigation/native";
 import { VillifeNavigation } from "../../../../../../../common/router/types";
 import useMemoPallet from "../../../../memo/hooks/memo-pallet";
@@ -52,6 +53,12 @@ export default function ContractMemo(props: ContractMemoProps) {
 
     useEffect(() => {
         if (props.isEditMode) {
+            const options = {
+                enableVibrateFallback: false,
+                ignoreAndroidSystemSettings: false,
+            };
+
+            ReactNativeHapticFeedback.trigger("impactMedium", options);
             const animation = Animated.loop(
                 Animated.sequence([
                     Animated.timing(rotateValue, {
@@ -148,17 +155,20 @@ export default function ContractMemo(props: ContractMemoProps) {
                     <TouchableOpacity
                         style={styles.wrapper}
                         activeOpacity={0.6}
-                        disabled={props.isEditMode}
-                        onPress={() =>
-                            navigation.navigate("contract_memo_edit", {
-                                contractId: props.contractId,
-                                updateInfo: {
-                                    content: props.content,
-                                    memoId: props.memoId,
-                                    memoType: props.memoType,
-                                },
-                            })
-                        }
+                        onPress={() => {
+                            if (props.isEditMode) {
+                                props.setIsEditMode(false);
+                            } else {
+                                navigation.navigate("contract_memo_edit", {
+                                    contractId: props.contractId,
+                                    updateInfo: {
+                                        content: props.content,
+                                        memoId: props.memoId,
+                                        memoType: props.memoType,
+                                    },
+                                });
+                            }
+                        }}
                         onLongPress={() => props.setIsEditMode(true)}>
                         <View style={styles.memoBox}>
                             <Text
