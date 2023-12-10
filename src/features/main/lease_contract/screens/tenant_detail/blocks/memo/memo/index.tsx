@@ -39,16 +39,6 @@ export default function ContractMemo(props: ContractMemoProps) {
         visible: false,
         title: "메모를 삭제하실건가요?",
         message: "삭제한 메모는 복구할 수 없습니다.",
-        buttons: [
-            {
-                text: "확인",
-                onPress: () => deleteMemo(),
-            },
-            {
-                text: "취소",
-                onPress: () => cancleMEmoDeletion(),
-            },
-        ],
     });
 
     useEffect(() => {
@@ -143,7 +133,22 @@ export default function ContractMemo(props: ContractMemoProps) {
                         <TouchableOpacity
                             style={styles.deleteBtn}
                             activeOpacity={0.5}
-                            onPress={() => setAlert({ ...alert, visible: true })}>
+                            onPress={() =>
+                                setAlert({
+                                    ...alert,
+                                    visible: true,
+                                    buttons: [
+                                        {
+                                            text: "확인",
+                                            onPress: () => deleteMemo(),
+                                        },
+                                        {
+                                            text: "취소",
+                                            onPress: () => cancleMEmoDeletion(),
+                                        },
+                                    ],
+                                })
+                            }>
                             <Icon name="plus" size={styles.deleteIcon.width} color={styles.deleteIcon.color} />
                         </TouchableOpacity>
                     </>

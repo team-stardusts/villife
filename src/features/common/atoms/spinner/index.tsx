@@ -52,7 +52,10 @@ function SpinnerCircle(props: SpinnerCircleProps) {
     }, [cnt]);
 
     useInterval(() => {
-        setCnt((prev) => prev + 1);
+        setCnt((prev) => {
+            if (prev > 1000) return 0;
+            return prev + 1;
+        });
     }, delay);
 
     const getAnimation = useCallback(() => {

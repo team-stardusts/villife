@@ -22,7 +22,7 @@ export default function useRoomViewModel() {
             this._api = this._clientInstance.contract;
         }
 
-        public async update(): Promise<void> {
+        public override async update(): Promise<void> {
             if (this._user.adminInfomation?.selectedBuilding === undefined) return;
 
             await this._api

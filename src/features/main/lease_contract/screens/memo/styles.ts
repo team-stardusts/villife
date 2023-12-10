@@ -44,7 +44,7 @@ export default function useMemoEditScreenStyles() {
             }),
         },
         inputWrapper: {
-            height: keyboardHeight === 0 ? space.height * 0.7 : space.height * 0.75 - keyboardHeight,
+            height: keyboardHeight === 0 ? space.height * 0.75 : space.height * 0.77 - keyboardHeight,
         },
         input: {
             paddingTop: deviceUI.moderateScale(10),
