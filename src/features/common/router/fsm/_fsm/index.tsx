@@ -9,6 +9,7 @@ import { loginDataState } from "../../../hooks/states/atoms/login";
 import { useState } from "react";
 import useAdminInfoService from "../../../hooks/service/user_info/service";
 import { UserInfo } from "../../../hooks/service/user_info/types";
+import { Linking } from "react-native";
 
 export default function useRouteFSM() {
     const setLoginData = useSetRecoilState<LoginDataType | null>(loginDataState);

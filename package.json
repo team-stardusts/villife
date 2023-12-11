@@ -29,6 +29,7 @@
         "react-native": "^0.71.3",
         "react-native-autoheight-webview": "^1.6.5",
         "react-native-calendar-picker": "^7.1.4",
+        "react-native-code-push": "^8.1.0",
         "react-native-config": "^1.4.12",
         "react-native-encrypted-storage": "^4.0.3",
         "react-native-event-listeners": "^1.0.7",

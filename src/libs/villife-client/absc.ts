@@ -3,6 +3,7 @@ import { objectToCamel, objectToSnake } from "ts-case-convert";
 import { RoutesType } from "./data/types";
 import routes from "./data/routes";
 import VillifeUtility from "./clients/types/utility";
+import VillifeError from "./errors";
 
 //const env = new DotEnv();
 
@@ -21,6 +22,12 @@ abstract class VillifeClientCommon implements VillifeUtility.Refresher {
                 "The request timed out.\
                 Check the Stardusts server.",
         });
+
+        this.onRequestFulfilled = this.onRequestFulfilled.bind(this);
+        this.onRequestRejected = this.onRequestRejected.bind(this);
+        this.onResponseFulfilled = this.onResponseFulfilled.bind(this);
+        this.onResponseRejected = this.onResponseRejected.bind(this);
+
         this._requester.interceptors.request.use(this.onRequestFulfilled, this.onRequestRejected);
         this._requester.interceptors.response.use(this.onResponseFulfilled, this.onResponseRejected);
     }
@@ -39,18 +46,20 @@ abstract class VillifeClientCommon implements VillifeUtility.Refresher {
         return response;
     }
 
-    private onResponseRejected(error: unknown): any | Promise<any> {
+    private async onResponseRejected(error: unknown): Promise<any> {
         if (axios.isAxiosError(error) && error.response) {
             switch (error.response.status) {
                 case 511:
-                    return this.refresh().then(() => this.requestWithAuth(error.config as AxiosRequestConfig<any>));
+                    return await this.refresh().then(
+                        async () => await this.requestWithAuth(error.config as AxiosRequestConfig<any>)
+                    );
                 default:
                     console.error(`[${error.name}]`, error.message);
-                    return Promise.reject(error);
+                    throw error;
             }
         }
 
-        return Promise.reject(error);
+        throw error;
     }
 
     /* private isSuccessful(statusCode: number | undefined): boolean {
@@ -67,7 +76,7 @@ abstract class VillifeClientCommon implements VillifeUtility.Refresher {
         if (tokens === null) {
             // [TO-DO] Refresh failed error로 교체해야함
             console.debug("[REFRESH_FAILED]", "There are no tokens.");
-            throw {};
+            throw new VillifeError("[REFRESH_FAILED] There are no tokens.");
         }
 
         if (params === undefined) {
@@ -87,14 +96,18 @@ abstract class VillifeClientCommon implements VillifeUtility.Refresher {
                 return res;
             })
             .catch((err) => {
-                console.error("[REFRESH_ERROR]");
+                console.error("[REFRESH_ERROR]", err);
                 throw err;
             });
 
-        await this._session.setTokens({
+        const setResult = await this._session.setTokens({
             ...tokens,
             accessToken: refresh.accessToken,
         });
+
+        if (!setResult) {
+            throw new VillifeError("[REFRESH_ERROR] Failed to save tokens.");
+        }
 
         return refresh;
     }
@@ -107,7 +120,6 @@ abstract class VillifeClientCommon implements VillifeUtility.Refresher {
         }
 
         config.headers.Authorization = `Bearer ${tokens?.accessToken}`;
-
         return await this.request<Payload, Return>(config);
     }
 
@@ -122,10 +134,9 @@ abstract class VillifeClientCommon implements VillifeUtility.Refresher {
 
         const result = await this._requester(config)
             .then((res: AxiosResponse<VillifeUtility.VanillaResponse<Return>, Payload>) => {
-                if (res.data.errorCode) {
+                if (res.data?.errorCode) {
                     // Throw error with message.
-                    console.log("TQ");
-                    throw "[TO-DO]: VillifeError";
+                    throw new VillifeError("[TO-DO]: VillifeError");
                 }
 
                 // Villife Legacy API와의 호환성을 위한 코드
@@ -134,7 +145,7 @@ abstract class VillifeClientCommon implements VillifeUtility.Refresher {
                 }
 
                 if (res.data.data === null) {
-                    throw "[TO-DO]: VillifeError";
+                    throw new VillifeError("[TO-DO]: VillifeError");
                 }
 
                 if (typeof res.data.data === "object") {
@@ -144,18 +155,18 @@ abstract class VillifeClientCommon implements VillifeUtility.Refresher {
                 return res.data.data;
             })
             .catch((err: AxiosError<Return, Payload>) => {
-                if (err.response) {
+                if (err?.response) {
                     // 요청이 이루어졌으며 서버에게서 원하지 않는 결과를 받음. (not 2xx)
-                } else if (err.request) {
+                } else if (err?.request) {
                     // 요청이 이루어졌으나, 응답을 받지 못함.
                     // 서버 측의 문제일 가능성이 높은 구문.
                 } else {
                     // 오류를 발생시킨 요청을 설정하는 도중 문제가 발생함.
                 }
 
-                console.error("[AxiosError]", err, err.cause, err.response?.data);
+                console.error("[AxiosError]", err, err.status, err.cause, err.response?.data);
 
-                throw err.response;
+                throw err;
             });
 
         //console.log(this.isSuccessful(result?.status));
