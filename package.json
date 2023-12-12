@@ -9,7 +9,11 @@
         "start": "react-native start",
         "test": "jest",
         "android-bundle": "react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res/",
-        "build-release": "react-native build-android --mode=release"
+        "build-release": "react-native build-android --mode=release",
+        "codepush:stating:aos": "appcenter codepush release-react -a team-stardust/villife-aos -d Staging",
+        "codepush:stating:ios": "appcenter codepush release-react -a team-stardust/villife-ios -d Staging",
+        "codepush:production:aos": "appcenter codepush release-react -a team-stardust/villife-aos -d Production",
+        "codepush:production:ios": "appcenter codepush release-react -a team-stardust/villife-ios -d Production"
     },
     "dependencies": {
         "@actbase/react-daum-postcode": "^1.0.4",

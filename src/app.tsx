@@ -9,9 +9,11 @@ import React from "react";
 import ScreenRouter from "./features/common/router";
 import { RecoilRoot } from "recoil";
 import { LinkingOptions, NavigationContainer } from "@react-navigation/native";
-import { Linking, NativeModules } from "react-native";
+import { NativeModules } from "react-native";
 import Toast from "react-native-toast-message";
 import { VillifeRootStackParamList } from "./features/common/router/types";
+import CodePush from "react-native-code-push";
+import codePushOptions from "./code-push-options";
 
 const { UIManager } = NativeModules;
 
@@ -20,7 +22,7 @@ UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationE
 // Naming convention을 변경하는 function들을 위함.
 global.Buffer = global.Buffer || require("buffer").Buffer;
 
-export default function App(): JSX.Element {
+function App(): JSX.Element {
     const linking: LinkingOptions<VillifeRootStackParamList> = {
         prefixes: ["villife://"],
         config: {
@@ -62,6 +64,8 @@ export default function App(): JSX.Element {
         </RecoilRoot>
     );
 }
+
+export default CodePush(codePushOptions)(App);
 //<RecoilRoot>
 //  <ScreenRouter />
 //</RecoilRoot>

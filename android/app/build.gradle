@@ -117,6 +117,7 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
+        resValue 'string', "CODE_PUSH_APK_BUILD_TIME", String.format("\"%d\"", System.currentTimeMillis())
     }
 
     // Added for Naver login.
@@ -155,7 +156,12 @@ android {
         debug {
             signingConfig signingConfigs.debug
             matchingFallbacks = ["debug", "release"] // added by seongbinhong.
-            resValue "string", "CodePushDeploymentKey", CODEPUSH_DEPLOYMENT_KEY_DEBUG
+            resValue "string", "CodePushDeploymentKey", ""
+        }
+        releaseStaging {
+            initWith release
+            resValue "string", "CodePushDeploymentKey", CODEPUSH_DEPLOYMENT_KEY_STAGING
+            matchingFallbacks = ['release']
         }
         release {
             // Caution! In production, you need to generate your own keystore file.
@@ -164,11 +170,6 @@ android {
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
             resValue "string", "CodePushDeploymentKey", CODEPUSH_DEPLOYMENT_KEY_PRODUCTION
-        }
-        releaseStaging {
-            initWith release
-            resValue "string", "CodePushDeploymentKey", CODEPUSH_DEPLOYMENT_KEY_STAGING
-            matchingFallbacks = ['release']
         }
     }
 
@@ -203,6 +204,7 @@ dependencies {
     debugImplementation("com.facebook.flipper:flipper-fresco-plugin:${FLIPPER_VERSION}")
     if (hermesEnabled.toBoolean()) {
         implementation("com.facebook.react:hermes-android")
+        //releaseStagingImplementation files(hermesPath + "hermes-release.aar") // Added by seonginbin relate to code-push.
     } else {
         implementation jscFlavor
     }
