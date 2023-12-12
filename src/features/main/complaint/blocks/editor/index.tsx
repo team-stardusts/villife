@@ -93,8 +93,7 @@ function ComplaintEditor(props: ComplaintEditorProps) {
                 <RichEditor
                     initialContentHTML={props.contentRef.current}
                     onChange={(text) => {
-                        const cleanText = text.replace(/<\/?div>/g, "");
-                        props.contentRef.current = cleanText;
+                        props.contentRef.current = text;
                     }}
                     onBlur={console.log}
                     editorStyle={styles.editorCSS}
@@ -116,31 +115,7 @@ function ComplaintEditor(props: ComplaintEditorProps) {
                 onPressAddImage={() => {
                     service.uploadAndInsertImage(richText);
                 }}
-                actions={[
-                    actions.heading1,
-                    actions.heading2,
-                    actions.heading3,
-                    actions.heading4,
-                    actions.insertImage,
-                    actions.setBold,
-                    actions.alignLeft,
-                    actions.alignCenter,
-                    actions.alignRight,
-                ]}
-                iconMap={{
-                    [actions.heading1]: ({ tintColor }: IconRecord) => (
-                        <Text style={[styles.main.tib, { color: tintColor }]}>H1</Text>
-                    ),
-                    [actions.heading2]: ({ tintColor }: IconRecord) => (
-                        <Text style={[styles.main.tib, { color: tintColor }]}>H2</Text>
-                    ),
-                    [actions.heading3]: ({ tintColor }: IconRecord) => (
-                        <Text style={[styles.main.tib, { color: tintColor }]}>H3</Text>
-                    ),
-                    [actions.heading4]: ({ tintColor }: IconRecord) => (
-                        <Text style={[styles.main.tib, { color: tintColor }]}>H4</Text>
-                    ),
-                }}
+                actions={[actions.insertImage, actions.setBold]}
             />
             <View style={styles.main.richBarDummyView} />
         </>

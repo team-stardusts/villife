@@ -93,8 +93,7 @@ export default function NotiEditor(props: NotiEditorProps) {
                 <RichEditor
                     initialContentHTML={props.contentRef.current}
                     onChange={(text) => {
-                        const cleanText = text.replace(/<\/?div>/g, "");
-                        props.contentRef.current = cleanText;
+                        props.contentRef.current = text;
                     }}
                     editorStyle={styles.editorCSS}
                     ref={richText}
@@ -115,31 +114,7 @@ export default function NotiEditor(props: NotiEditorProps) {
                 onPressAddImage={() => {
                     service.uploadAndInsertImage(richText);
                 }}
-                actions={[
-                    actions.heading1,
-                    actions.heading2,
-                    actions.heading3,
-                    actions.heading4,
-                    actions.insertImage,
-                    actions.setBold,
-                    actions.alignLeft,
-                    actions.alignCenter,
-                    actions.alignRight,
-                ]}
-                iconMap={{
-                    [actions.heading1]: ({ tintColor }: IconRecord) => (
-                        <Text style={[styles.main.tib, { color: tintColor }]}>H1</Text>
-                    ),
-                    [actions.heading2]: ({ tintColor }: IconRecord) => (
-                        <Text style={[styles.main.tib, { color: tintColor }]}>H2</Text>
-                    ),
-                    [actions.heading3]: ({ tintColor }: IconRecord) => (
-                        <Text style={[styles.main.tib, { color: tintColor }]}>H3</Text>
-                    ),
-                    [actions.heading4]: ({ tintColor }: IconRecord) => (
-                        <Text style={[styles.main.tib, { color: tintColor }]}>H4</Text>
-                    ),
-                }}
+                actions={[actions.insertImage, actions.setBold]}
             />
             <View style={styles.main.richBarDummyView} />
         </>

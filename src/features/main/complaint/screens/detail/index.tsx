@@ -121,8 +121,8 @@ export default function ComplaintDetailScreen({ navigation, route }: ComplaintDe
                       color: #333;
                     }
                     img {
-                        width: 50vw !important;
-                        height: 50vw !important;
+                        width: 80vw !important;
+                        min-height: 80vw !important;
                         object-fit: cover;
                         display:block;
                         border-radius: 15px;
