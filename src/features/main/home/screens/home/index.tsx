@@ -10,14 +10,11 @@ import HomeContentFromParking from "../../../parking/blocks/home_content";
 import HomeContentFromNoti from "../../../noti/blocks/home_content";
 import useUserInformation from "../../../../common/hooks/service/user_info";
 import HomeContentFromManagementFee from "../../../../expense/management_fee/blocks/home_content";
-import useBuildingRoomContractor from "../../../lease_contract/services/building_rooms";
 
 export default function HomeScreen({ navigation, route }: HomeScreenProps) {
     const messages = useScreenMessage();
     const styles = useHomeScreenStyles();
     const user = useUserInformation();
-    const contractor = useBuildingRoomContractor();
-    const [roomInfo, setRoomInfo] = useState(null);
 
     const [contents, setContents] = useState<(() => JSX.Element)[]>([]);
     //HomeContentFromManagementFee
@@ -69,7 +66,6 @@ export default function HomeScreen({ navigation, route }: HomeScreenProps) {
                 applyDefaultVerticalPadding: false,
             }}>
             <View style={styles.container}>
-                {/* <MenuButton /> */}
                 <ScrollView style={styles.contentsScrollBox} showsVerticalScrollIndicator={false}>
                     {contents.map((Content, index) => (
                         <Content key={index} />

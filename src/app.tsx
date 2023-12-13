@@ -9,7 +9,7 @@ import React from "react";
 import ScreenRouter from "./features/common/router";
 import { RecoilRoot } from "recoil";
 import { LinkingOptions, NavigationContainer } from "@react-navigation/native";
-import { NativeModules } from "react-native";
+import { Linking, NativeModules } from "react-native";
 import Toast from "react-native-toast-message";
 import { VillifeRootStackParamList } from "./features/common/router/types";
 import CodePush from "react-native-code-push";
@@ -40,6 +40,20 @@ function App(): JSX.Element {
                     path: "lease-contract",
                 },
             },
+        },
+        subscribe(listener) {
+            console.log("linking subscribe to ", listener);
+            const onReceiveURL = (event: any) => {
+                const { url } = event;
+                console.log("link has url", url, event);
+                return listener(url);
+            };
+
+            const handle = Linking.addEventListener("url", onReceiveURL);
+            return () => {
+                console.log("linking unsubscribe to ", listener);
+                handle.remove();
+            };
         },
         /* subscribe: (listener) => {
             // <---- 5
