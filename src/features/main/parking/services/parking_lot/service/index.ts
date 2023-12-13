@@ -88,8 +88,12 @@ class ParkingServiceProvider implements IParkingServiceProvider {
     public async registerUserVehicle(params: RegisterUserVehicleParams): Promise<Vehicle | null> {
         const _params = {
             ...params,
-            eta: StardustDateParser.serialize(new Date(`8888-12-31T${params.eta.hour}:${params.eta.minute}`)),
-            etd: StardustDateParser.serialize(new Date(`8888-12-31T${params.etd.hour}:${params.etd.minute}`)),
+            eta: StardustDateParser.serialize(
+                StardustDateParser.changeGMT(new Date(`8888-12-31T${params.eta.hour}:${params.eta.minute}`), "kr")
+            ),
+            etd: StardustDateParser.serialize(
+                StardustDateParser.changeGMT(new Date(`8888-12-31T${params.etd.hour}:${params.etd.minute}`), "kr")
+            ),
         };
 
         const result = await this._api.registerUserVehicle(_params);
