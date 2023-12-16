@@ -11,12 +11,17 @@ abstract class ViewModelCommmon<ViewData = any> implements ViewModel<ViewData> {
     protected abstract _setData: SetterOrUpdater<ViewData>;
     protected _user: UserInfo;
     protected _storageKey: string;
-    protected readonly _storage: Storage<ViewData> = new ViewModelStorage();
+    protected readonly _storage: Storage<ViewData>;
     public abstract readonly feature: string;
 
     constructor(user: UserInfo) {
         this._user = user;
         this._storageKey = this.createStorageKey(user);
+        this._storage = new ViewModelStorage(this._storageKey);
+    }
+
+    get user(): UserInfo {
+        return this._user;
     }
 
     get data(): ViewData {
@@ -42,13 +47,13 @@ abstract class ViewModelCommmon<ViewData = any> implements ViewModel<ViewData> {
     public abstract update(params: any): Promise<void>;
 
     public async restore(): Promise<void> {
-        const result = await this._storage.getItem(this._storageKey);
+        const result = await this._storage.getItem();
 
         if (result !== null) this._setData(result);
     }
 
     public async save(): Promise<void> {
-        const result = await this._storage.setItem(this._storageKey, this._data);
+        const result = await this._storage.setItem(this._data);
         !result && console.log("[ViewModelCommon]", "Failed to save data into storage");
     }
 }

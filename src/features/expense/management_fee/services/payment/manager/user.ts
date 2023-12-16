@@ -32,6 +32,7 @@ class UserPaymentManager extends PaymentManager implements UserPaymentManagerBas
                 bill.unpaidFee += f.amount_won;
                 bill.lateFee += f.overdue_interest;
             }
+            f.detail_bill;
         });
 
         bill.feeToPay += bill.lateFee + bill.unpaidFee;

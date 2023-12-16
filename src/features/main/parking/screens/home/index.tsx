@@ -3,69 +3,30 @@ import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
 import NavigationView from "../../../../common/blocks/navigation";
 import ParkingScreenProps from "./types";
 import useParkingLot from "../../services/parking_lot";
-import { useCallback, useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import VehicleCardView from "./card";
 import useParkingHomeScreenStyles from "./styles";
-import { Vehicle } from "../../services/states/types";
 import useUserInformation from "../../../../common/hooks/service/user_info";
 import VehicleListView from "./list";
 import InfoPannel from "../../../../common/blocks/info-pannel";
+import useParkingViewmodel from "../../viewmodel";
+import { Vehicle } from "../../viewmodel/states";
 
 export default function ParkingScreen({ navigation, route }: ParkingScreenProps) {
     const messages = useScreenMessage();
     const styles = useParkingHomeScreenStyles();
-    const user = useUserInformation();
     const parkingLot = useParkingLot();
+    const viewModel = useParkingViewmodel();
+    const vehicles = useMemo<Vehicle[]>(() => {
+        if (viewModel === null) return [];
+
+        return viewModel.data;
+    }, [viewModel?.data]);
 
     useEffect(() => {
+        viewModel?.update();
         parkingLot.updateVehicles();
-    }, [user?.adminInfomation?.selectedBuilding]);
-
-    useEffect(() => {
-        sortAndSetVehiclesForRender();
-    }, [parkingLot.vehicles]);
-
-    const sortAndSetVehiclesForRender = useCallback((): Vehicle[] => {
-        const newVehiclesForRender: Vehicle[] = [];
-
-        if (user?.isAdmin) {
-            newVehiclesForRender.push(...parkingLot.vehicles);
-        } else {
-            newVehiclesForRender.push(...parkingLot.vehicles.filter((vehicle) => vehicle.ownerType !== "user"));
-        }
-
-        return (
-            newVehiclesForRender
-                // 차량번호 1 -> 2
-                .sort((vehicleA, vehicleB) => {
-                    try {
-                        let _vehicleANumber = vehicleA.plate_number.split(" ")[0];
-                        let _vehicleBNumber = vehicleB.plate_number.split(" ")[0];
-
-                        _vehicleANumber = _vehicleANumber.slice(0, _vehicleANumber.length - 1);
-                        _vehicleBNumber = _vehicleBNumber.slice(0, _vehicleBNumber.length - 1);
-
-                        return parseInt(_vehicleANumber) - parseInt(_vehicleBNumber);
-                    } catch {
-                        return 0;
-                    }
-                })
-                // Room number 오름차순
-                .sort((vehicleA, vehicleB) => {
-                    return vehicleA.room_number - vehicleB.room_number;
-                })
-                // 방문자 -> 거주자
-                .sort((vehicleA, vehicleB) => {
-                    if (vehicleA.ownerType === vehicleB.ownerType) {
-                        return 0;
-                    } else if (vehicleA.ownerType === "guest" && vehicleB.ownerType !== "guest") {
-                        return -1;
-                    }
-
-                    return 1;
-                })
-        );
-    }, [parkingLot.vehicles]);
+    }, [viewModel?.user?.adminInfomation?.selectedBuilding]);
 
     return (
         <NavigationView
@@ -77,7 +38,7 @@ export default function ParkingScreen({ navigation, route }: ParkingScreenProps)
                 applyDefaultVerticalPadding: false,
             }}>
             <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
-                {!user?.isAdmin && (
+                {!viewModel?.user?.isAdmin && (
                     <>
                         <InfoPannel
                             infos={[
@@ -96,12 +57,12 @@ export default function ParkingScreen({ navigation, route }: ParkingScreenProps)
                             ]}
                         />
                         <VehicleCardView
-                            vehicles={parkingLot.userVehicles}
-                            requestedVehicles={parkingLot.userVehiclesNotRegisted}
+                            vehicles={vehicles.filter((v) => v.ownerType === "user")}
+                            requestedVehicles={[] /* parkingLot.userVehiclesNotRegisted */}
                         />
                     </>
                 )}
-                <VehicleListView vehicles={sortAndSetVehiclesForRender()} />
+                <VehicleListView vehicles={vehicles} />
             </ScrollView>
         </NavigationView>
     );

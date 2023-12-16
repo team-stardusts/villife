@@ -1,8 +1,15 @@
 import VillifeContract from "./contract";
 import VillifeUtility from "./utility";
+import VillifeParking from "./parking";
 
 interface VillifeClientInstance {
     contract: VillifeContract.Client;
+    parking: VillifeParking.Client;
 }
 
-export type { VillifeContract as Contract, VillifeUtility as Utility, VillifeClientInstance as IntegratedInstance };
+export type {
+    VillifeContract as Contract,
+    VillifeClientInstance as IntegratedInstance,
+    VillifeParking as Parking,
+    VillifeUtility as Utility,
+};

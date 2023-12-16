@@ -1,4 +1,5 @@
 import VillifeContractClient from "./clients/contract";
+import VillifeParkingClient from "./clients/parking";
 import { VILLIFE_AUTHORITY } from "./data/authority";
 import Villife from "./types";
 
@@ -11,6 +12,10 @@ class VillifeClient implements Villife.IntegratedInstance {
 
     get contract() {
         return new VillifeContractClient(this.baseURL, this.session);
+    }
+
+    get parking() {
+        return new VillifeParkingClient(this.baseURL, this.session);
     }
 }
 

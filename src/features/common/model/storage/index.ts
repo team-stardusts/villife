@@ -2,9 +2,19 @@ import EncryptedStorage from "react-native-encrypted-storage";
 import { Storage } from "./type";
 
 class ViewModelStorage<T> implements Storage<T> {
-    public async getItem(key: string): Promise<T | null> {
+    public readonly _key: string;
+
+    constructor(key: string) {
+        this._key = key;
+    }
+
+    get key(): string {
+        return this._key;
+    }
+
+    public async getItem(): Promise<T | null> {
         try {
-            const value = await EncryptedStorage.getItem(key);
+            const value = await EncryptedStorage.getItem(this._key);
 
             if (value !== null) {
                 return JSON.parse(value);
@@ -18,13 +28,13 @@ class ViewModelStorage<T> implements Storage<T> {
             return null;
         }
     }
-    public async setItem(key: string, value: T): Promise<boolean> {
+    public async setItem(value: T): Promise<boolean> {
         let didSucceed: boolean = true;
 
         try {
             const strVal: string = JSON.stringify(value);
 
-            await EncryptedStorage.setItem(key, strVal);
+            await EncryptedStorage.setItem(this._key, strVal);
         } catch (e: any) {
             didSucceed = false;
             console.log("Error setting items into view model storage.");
@@ -33,11 +43,11 @@ class ViewModelStorage<T> implements Storage<T> {
 
         return didSucceed;
     }
-    public async removeItem(key: string): Promise<boolean> {
+    public async removeItem(): Promise<boolean> {
         let didSucceed: boolean = true;
 
         try {
-            await EncryptedStorage.removeItem(key);
+            await EncryptedStorage.removeItem(this._key);
         } catch (e: any) {
             didSucceed = false;
             console.log("Error removing items in view model storage.");

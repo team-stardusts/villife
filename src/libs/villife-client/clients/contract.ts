@@ -5,7 +5,7 @@ class VillifeContractClient extends VillifeClientCommon implements Villife.Contr
     public async getBuilding(buildingId: number): Promise<Villife.Contract.Building> {
         const route: string = this._routes.budilingAndContract.building;
 
-        return await this.requestWithAuth({
+        return await this.requestWithCredential({
             method: "post",
             url: route,
             data: {
@@ -17,7 +17,7 @@ class VillifeContractClient extends VillifeClientCommon implements Villife.Contr
     public async getRoomsInBuilding(buildingId: number): Promise<Villife.Contract.Room[]> {
         const route = this._routes.budilingAndContract.totalInfo;
 
-        return await this.requestWithAuth({
+        return await this.requestWithCredential({
             method: "get",
             url: route,
             params: {
@@ -31,7 +31,7 @@ class VillifeContractClient extends VillifeClientCommon implements Villife.Contr
     ): Promise<Villife.Contract.BuildingBreifInfo> {
         const route: string = this._routes.budilingAndContract.building;
 
-        return await this.requestWithAuth({
+        return await this.requestWithCredential({
             method: "post",
             url: route,
             data: params,
@@ -41,7 +41,7 @@ class VillifeContractClient extends VillifeClientCommon implements Villife.Contr
     public async createContract(params: Villife.Contract.CreateForm): Promise<string> {
         const route: string = this._routes.budilingAndContract.contract;
 
-        return await this.requestWithAuth({
+        return await this.requestWithCredential({
             method: "post",
             url: route,
             data: params,
@@ -51,7 +51,7 @@ class VillifeContractClient extends VillifeClientCommon implements Villife.Contr
     public async updateContract(params: Villife.Contract.UpdateForm): Promise<string> {
         const route: string = this._routes.budilingAndContract.contract;
 
-        return await this.requestWithAuth({
+        return await this.requestWithCredential({
             method: "patch",
             url: route,
             data: params,
@@ -61,7 +61,7 @@ class VillifeContractClient extends VillifeClientCommon implements Villife.Contr
     public async deleteContract(contractId: number): Promise<string> {
         const route: string = this._routes.budilingAndContract.contract;
 
-        return await this.requestWithAuth({
+        return await this.requestWithCredential({
             method: "delete",
             url: route,
             params: {
@@ -73,7 +73,7 @@ class VillifeContractClient extends VillifeClientCommon implements Villife.Contr
     public async getContract(): Promise<Villife.Contract.Contract> {
         let route: string = this._routes.budilingAndContract.contract;
 
-        return await this.requestWithAuth({
+        return await this.requestWithCredential({
             method: "get",
             url: route,
         });
@@ -82,7 +82,7 @@ class VillifeContractClient extends VillifeClientCommon implements Villife.Contr
     public async sendNotification(params: Villife.Contract.NotiForm): Promise<string> {
         const route: string = this._routes.budilingAndContract.buildingNoti;
 
-        return await this.requestWithAuth({
+        return await this.requestWithCredential({
             method: "post",
             url: route,
             data: params,
@@ -92,7 +92,7 @@ class VillifeContractClient extends VillifeClientCommon implements Villife.Contr
     public async createMemo(params: Villife.Contract.MemoCreationForm): Promise<string> {
         const route: string = this._routes.budilingAndContract.contractMemo;
 
-        return await this.requestWithAuth({
+        return await this.requestWithCredential({
             method: "post",
             url: route,
             data: params,
@@ -102,7 +102,7 @@ class VillifeContractClient extends VillifeClientCommon implements Villife.Contr
     public async updateMemo(params: Villife.Contract.MemoUpdateForm): Promise<string> {
         const route: string = this._routes.budilingAndContract.contractMemo;
 
-        return await this.requestWithAuth({
+        return await this.requestWithCredential({
             method: "patch",
             url: route,
             data: params,
@@ -112,7 +112,7 @@ class VillifeContractClient extends VillifeClientCommon implements Villife.Contr
     public async deleteMemo(params: Villife.Contract.MemoDeletionForm): Promise<string> {
         const route: string = this._routes.budilingAndContract.contractMemo;
 
-        return await this.requestWithAuth({
+        return await this.requestWithCredential({
             method: "delete",
             url: route,
             data: params,

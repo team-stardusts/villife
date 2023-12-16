@@ -34,7 +34,7 @@ export default function VehicleDetailModal(props: VehicleDetailAlertProps) {
         props.vehicle.ownerType === "guest"
             ? `${messages.words.guest} ${messages.words.info}`
             : `${messages.words.tenant} ${messages.words.info}`;
-    const isMyGuest = props.vehicle.ownerType === "guest" && props.vehicle.room_number === props.userRoomNumber;
+    const isMyGuest = props.vehicle.ownerType === "guest" && props.vehicle.roomNumber === props.userRoomNumber;
 
     const makeVehicleDetailModalDate = (date: Date): VehicleDetailModalDate => {
         const keepDoubleDigits = (num: number): string => {
@@ -78,16 +78,16 @@ export default function VehicleDetailModal(props: VehicleDetailAlertProps) {
                     key: messages.words.vehicle_departure_time,
                     value: makeVehicleDetailModalDate(props.vehicle.etd).time,
                 },
-                { key: messages.words.plate_number, value: props.vehicle.plate_number },
+                { key: messages.words.plate_number, value: props.vehicle.plateNumber },
                 {
                     key: messages.words.visiting_room_number,
-                    value: props.vehicle.room_number.toString() + messages.words.room_postfix,
+                    value: props.vehicle.roomNumber.toString() + messages.words.room_postfix,
                 },
-                { key: messages.words.visiting_perpose, value: props.vehicle?.visiting_purpose || "-" },
+                { key: messages.words.visiting_perpose, value: props.vehicle?.visitingPurpose || "-" },
             ];
         } else {
             return [
-                { key: messages.words.plate_number, value: props.vehicle.plate_number },
+                { key: messages.words.plate_number, value: props.vehicle.plateNumber },
                 { key: messages.words.vehicle_model, value: props.vehicle.model },
                 {
                     key: messages.words.vehicle_arrival_time,

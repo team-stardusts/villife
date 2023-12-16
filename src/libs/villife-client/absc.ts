@@ -51,7 +51,7 @@ abstract class VillifeClientCommon implements VillifeUtility.Refresher {
             switch (error.response.status) {
                 case 511:
                     return await this.refresh().then(
-                        async () => await this.requestWithAuth(error.config as AxiosRequestConfig<any>)
+                        async () => await this.requestWithCredential(error.config as AxiosRequestConfig<any>)
                     );
                 default:
                     console.error(`[${error.name}]`, error.message);
@@ -112,7 +112,9 @@ abstract class VillifeClientCommon implements VillifeUtility.Refresher {
         return refresh;
     }
 
-    protected async requestWithAuth<Payload = any, Return = any>(config: AxiosRequestConfig<Payload>): Promise<Return> {
+    protected async requestWithCredential<Payload = any, Return = any>(
+        config: AxiosRequestConfig<Payload>
+    ): Promise<Return> {
         const tokens = await this._session.getTokens();
 
         if (config.headers === undefined) {

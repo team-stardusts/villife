@@ -14,15 +14,15 @@ export default function VehicleInfoRow(props: VehicleInfoRowProps) {
     const [detailVisible, setDetailVisible] = useState<boolean>(false);
     const [messageModalVisible, setMessageModalVisible] = useState<boolean>(false);
     const badgeTitle =
-        props.vehicle.ownerType !== "guest" ? props.vehicle.room_number.toString() : props.messages.words.visit;
+        props.vehicle.ownerType !== "guest" ? props.vehicle.roomNumber.toString() : props.messages.words.visit;
     const badgeStyle = props.vehicle.ownerType !== "guest" ? props.styles.tenantBadge : props.styles.guestBadge;
-    const isMyVehicle = props.vehicle.room_number === props.userRoomNumber;
+    const isMyVehicle = props.vehicle.roomNumber === props.userRoomNumber;
 
     const callTo = async () => {
         const who =
             props.vehicle.ownerType === "guest"
-                ? `${props.vehicle.room_number}호 방문자`
-                : `${props.vehicle.room_number}호`;
+                ? `${props.vehicle.roomNumber}호 방문자`
+                : `${props.vehicle.roomNumber}호`;
 
         Alert.alert(`${who}와 전화통화 하시겠어요?`, undefined, [
             {
@@ -31,7 +31,7 @@ export default function VehicleInfoRow(props: VehicleInfoRowProps) {
             {
                 text: "확인",
                 onPress: async () => {
-                    if (!(await phone.call(props.vehicle.phone_number))) {
+                    if (!(await phone.call(props.vehicle.phoneNumber))) {
                         VillifeToastMessage.showBottomToast("error", "죄송합니다. 전화를 연결하지 못했어요.");
                     }
                 },
@@ -49,7 +49,7 @@ export default function VehicleInfoRow(props: VehicleInfoRowProps) {
                     bgColor={badgeStyle.backgroundColor}
                 />
                 <Text style={props.styles.plateNumber} adjustsFontSizeToFit numberOfLines={1}>
-                    {props.vehicle.plate_number}
+                    {props.vehicle.plateNumber}
                 </Text>
             </View>
             <View style={props.styles.communicationFuncContainer}>

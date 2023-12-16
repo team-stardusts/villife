@@ -1,7 +1,6 @@
 import { View } from "react-native";
 import StardustModal from "../../../../../common/blocks/universial/stardust_modal";
 import useScreenMessage from "../../../../../common/hooks/multilingual/hooks";
-import { Vehicle } from "../../../services/states/types";
 import { EtdaTime } from "../../etad_time_picker/types";
 import { VehicleModifyModalProps } from "./types";
 import EtdaEditView from "./blocks/etda";
@@ -15,6 +14,7 @@ import { StardustAlertContent } from "../../../../../common/blocks/universial/st
 import VillifeToastMessage from "../../../../../common/atoms/toast";
 import { useNavigation } from "@react-navigation/native";
 import { VillifeNavigation } from "../../../../../common/router/types";
+import { Vehicle } from "../../../viewmodel/states";
 
 export default function VehicleModifyModal(props: VehicleModifyModalProps) {
     const messages = useScreenMessage();
@@ -140,7 +140,7 @@ export default function VehicleModifyModal(props: VehicleModifyModalProps) {
                         <InfoEditView
                             styles={styles}
                             initialnfo={{
-                                plateNumber: props.vehilce.plate_number,
+                                plateNumber: props.vehilce.plateNumber,
                                 model: props.vehilce.model,
                             }}
                             onChangeInfo={setInfo}

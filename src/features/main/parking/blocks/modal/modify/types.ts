@@ -1,7 +1,7 @@
-import { Vehicle } from "../../../services/states/types";
 import { EtdaTime } from "../../etad_time_picker/types";
 import { VehicleInfo } from "../../../screens/register_vehicle/blocks/input_box/types";
 import useVehicleModifyModalStyles from "./styles";
+import { Vehicle } from "../../../viewmodel/states";
 
 export type VehicleModifyModalProps = {
     modifyType: VehicleModifyType;
