@@ -16,12 +16,17 @@ export default function useHomeContentFromManagementFeeStyles() {
         header: {
             flex: 2,
             width: "100%",
-            justifyContent: "flex-end",
+            flexDirection: "row",
+            alignItems: "flex-end",
+            justifyContent: "flex-start",
         },
         headerText: {
-            fontFamily: theme.font.fontFamily.pretendard.semiBold,
+            fontFamily: theme.font.fontFamily.pretendard.medium,
             fontSize: deviceUI.moderateScale(13),
             color: theme.color.specified.black,
+        },
+        dueDate: {
+            color: theme.color.specified.blue,
         },
         body: {
             flex: 5,
@@ -36,7 +41,7 @@ export default function useHomeContentFromManagementFeeStyles() {
             width: "100%",
             flexDirection: "row",
             alignItems: "flex-start",
-            justifyContent: "center",
+            justifyContent: "flex-start",
             //marginBottom: deviceUI.moderateScale(20),
         },
         bottomText: {

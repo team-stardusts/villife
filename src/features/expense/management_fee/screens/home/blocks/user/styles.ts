@@ -25,13 +25,17 @@ export default function useUserMFViewStyles() {
         },
         header: {
             width: "100%",
-            justifyContent: "flex-end",
-            paddingVertical: deviceUI.moderateScale(20),
+            justifyContent: "flex-start",
+            paddingVertical: deviceUI.moderateScale(10),
         },
         headerText: {
-            fontFamily: theme.font.fontFamily.pretendard.semiBold,
-            fontSize: deviceUI.moderateScale(13),
+            fontFamily: theme.font.fontFamily.pretendard.medium,
+            fontSize: deviceUI.moderateScale(15),
             color: theme.color.specified.black,
+        },
+        dueDate: {
+            marginTop: deviceUI.moderateScale(3),
+            color: theme.color.specified.blue,
         },
         body: {
             flexDirection: "row",
@@ -64,7 +68,7 @@ export default function useUserMFViewStyles() {
         confirmationShortCutBox: {
             width: "100%",
             flexDirection: "row",
-            justifyContent: "center",
+            justifyContent: "flex-start",
             paddingVertical: deviceUI.moderateScale(20),
         },
         confirmationShortCutQuestionText: {

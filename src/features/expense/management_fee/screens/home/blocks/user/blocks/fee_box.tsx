@@ -11,11 +11,13 @@ import { UserPaymentManagerBase } from "../../../../../services/payment/types";
 import VillifeToastMessage from "../../../../../../../common/atoms/toast";
 import { StardustAlertContent } from "../../../../../../../common/blocks/universial/stardust_alert/types";
 import StardustAlert from "../../../../../../../common/blocks/universial/stardust_alert";
+import StardustDateParser from "../../../../../../../../libs/date_parser";
 
 export default function ManagementFeeBox(props: ManagementFeeBoxProps) {
     const navigation = useNavigation<VillifeNavigation>();
     const user = useUserInformation();
     const manager: UserPaymentManagerBase = useManagementFeeManager() as UserPaymentManagerBase;
+    const [dueDate, setDueDate] = useState<Date | null>(null);
     const [alert, setAlert] = useState<StardustAlertContent>({
         type: "primary",
         title: "이미 관리비를 납부하셨나요?",
@@ -29,6 +31,18 @@ export default function ManagementFeeBox(props: ManagementFeeBoxProps) {
 
         console.log(new Date(props.manangementFee.year, props.manangementFee.month));
     }, []); */
+
+    useEffect(() => {
+        if (props.feeToPay !== undefined && props.feeToPay > 0) {
+            manager.getBuildingDetailInfo().then((r) => {
+                if (r === null) return;
+                const date = StardustDateParser.changeGMT(new Date(), "kr");
+                date.setDate(date.getDate() + r.mf_due_date);
+
+                setDueDate(date);
+            });
+        }
+    }, [props.feeToPay]);
 
     const insertCommaToMoney = (money: number): string => {
         if (money == undefined) return "0";
@@ -91,6 +105,13 @@ export default function ManagementFeeBox(props: ManagementFeeBoxProps) {
                 <View style={props.styles.contentWrapper}>
                     <View style={props.styles.header}>
                         <Text style={props.styles.headerText}>{user?.roomNumber}호 관리비</Text>
+                        {dueDate !== null && (
+                            <>
+                                <Text style={[props.styles.headerText, props.styles.dueDate]}>
+                                    납부 마감일 {dueDate.getUTCMonth() + 1}월 {dueDate.getUTCDate()}일
+                                </Text>
+                            </>
+                        )}
                     </View>
                     <View style={props.styles.body}>
                         <View style={props.styles.managementFeeBox}>

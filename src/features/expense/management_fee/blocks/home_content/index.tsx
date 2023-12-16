@@ -14,12 +14,14 @@ import { ManagementFee } from "../../../../../libs/rest_apis/villife/expense/typ
 import VillifeToastMessage from "../../../../common/atoms/toast";
 import { StardustAlertContent } from "../../../../common/blocks/universial/stardust_alert/types";
 import StardustAlert from "../../../../common/blocks/universial/stardust_alert";
+import StardustDateParser from "../../../../../libs/date_parser";
 
 export default function HomeContentFromManagementFee() {
     const navigation = useNavigation<VillifeNavigation>();
     const styles = useHomeContentFromManagementFeeStyles();
     const user = useUserInformation();
     const manager: UserPaymentManagerBase = useManagementFeeManager() as UserPaymentManagerBase;
+    const [dueDate, setDueDate] = useState<Date | null>(null);
     const [alert, setAlert] = useState<StardustAlertContent>({
         type: "primary",
         title: "이미 관리비를 납부하셨나요?",
@@ -35,6 +37,18 @@ export default function HomeContentFromManagementFee() {
     useEffect(() => {
         setBill(manager.calcByPaymentItem(manager.history));
     }, [manager.history]);
+
+    useEffect(() => {
+        if (bill !== null && bill.feeToPay > 0) {
+            manager.getBuildingDetailInfo().then((r) => {
+                if (r === null) return;
+                const date = StardustDateParser.changeGMT(new Date(), "kr");
+                date.setDate(date.getDate() + r.mf_due_date);
+
+                setDueDate(date);
+            });
+        }
+    }, [bill]);
 
     const handlePressPaymentBtn = () => {
         if (bill) {
@@ -98,7 +112,15 @@ export default function HomeContentFromManagementFee() {
             <StardustAlert {...alert} setAlert={setAlert} />
             <View style={styles.container}>
                 <View style={styles.header}>
-                    {<Text style={styles.headerText}>{user?.roomNumber}호 납부 필요 관리비</Text>}
+                    <Text style={styles.headerText}>{user?.roomNumber}호</Text>
+                    {dueDate !== null && (
+                        <>
+                            <Text style={[styles.headerText, styles.dueDate]}>
+                                {" "}
+                                납부 마감일 {dueDate.getUTCMonth() + 1}월 {dueDate.getUTCDate()}일
+                            </Text>
+                        </>
+                    )}
                 </View>
                 <View style={styles.body}>
                     <View style={styles.managementFeeBox}>

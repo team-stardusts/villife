@@ -37,7 +37,6 @@ export default function ManagementFeeStatusScrollView(props: ManagementFeeStatus
                     isLastElement={fees.length === index + 1}
                     styles={props.styles}
                     managementFee={fee}
-                    //feeToPay={props.feeToPay}
                 />
             ))}
         </ScrollView>
@@ -116,5 +115,4 @@ type PaymentByMonthProps = {
     isLastElement: boolean;
     styles: ReturnType<typeof useUserMFViewStyles>["managementFeeStatus"];
     managementFee: ManagementFee.ManagementFee;
-    //feeToPay: number;
 };

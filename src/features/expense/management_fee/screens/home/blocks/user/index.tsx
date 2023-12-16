@@ -12,7 +12,6 @@ import InfoPannel from "../../../../../../common/blocks/info-pannel";
 export default function UserMFView() {
     const styles = useUserMFViewStyles();
     const manager: UserPaymentManagerBase = useManagementFeeManager() as UserPaymentManagerBase;
-    const [unpaidMF, setUnpaidMF] = useState<number>(0);
     const [bill, setBill] = useState<PaymentBill | null>(null);
 
     useEffect(() => {
@@ -21,20 +20,6 @@ export default function UserMFView() {
 
     useEffect(() => {
         setBill(manager.calcByPaymentItem(manager.history));
-        if (manager.history.length > 0) {
-            let _unpaidMF = 0;
-
-            manager.history.forEach((element) => {
-                // [TO-DO] is_paid == undefined는 임시로 필요한 조건이며
-                // API 업데이트 시 불필요함
-                if (!element.is_paid) {
-                    _unpaidMF += element.amount_won;
-                    _unpaidMF += element.overdue_interest;
-                }
-            });
-
-            setUnpaidMF(_unpaidMF);
-        }
     }, [manager.history]);
 
     return (
@@ -56,7 +41,6 @@ export default function UserMFView() {
                     <ManagementFeeStatusScrollView
                         styles={styles.managementFeeStatus}
                         manangementFees={manager.history}
-                        feeToPay={unpaidMF}
                     />
                 )}
                 <View style={styles.main.wrapper}>
