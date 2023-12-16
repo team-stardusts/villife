@@ -58,7 +58,7 @@ export default function InputPlateNumber(props: InputProps) {
                 break;
             case "second":
                 index = 1;
-                lengthLimit = 1;
+                lengthLimit = 2;
                 break;
             case "third":
                 index = 2;
@@ -75,7 +75,7 @@ export default function InputPlateNumber(props: InputProps) {
             _phoneNumber[index] = null;
         } else if (index === 1 && validator.isKoreanConsonant(text)) {
             _phoneNumber[index] = text;
-        } else if (text.length < lengthLimit) {
+        } else if (text.length <= lengthLimit) {
             _phoneNumber[index] = text;
         } else if (!validator.validatePieceOfPlateNumber(index, text) || text.length > lengthLimit) {
             return false;
