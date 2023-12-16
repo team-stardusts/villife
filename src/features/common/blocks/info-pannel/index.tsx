@@ -48,12 +48,15 @@ export default function InfoPannel(props: InfoPannelProps) {
         }
     }, [crrIndex, snapToOffset]);
 
-    useInterval(() => {
-        setCrrIndex((prev) => {
-            if (prev === null) return 0;
-            return prev === snapToOffset.length - 1 ? 0 : prev + 1;
-        });
-    }, 6000);
+    useInterval(
+        () => {
+            setCrrIndex((prev) => {
+                if (prev === null) return 0;
+                return prev === snapToOffset.length - 1 ? 0 : prev + 1;
+            });
+        },
+        crrIndex === null ? 0 : 5000
+    );
 
     const getIconChunk = (type: Info["type"]): IconChunk => {
         const chunk: IconChunk = {

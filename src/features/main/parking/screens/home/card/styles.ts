@@ -68,12 +68,12 @@ export default function useVehicleCardViewStyles() {
             marginBottom: deviceUI.moderateScale(10),
             fontFamily: theme.font.fontFamily.pretendard.medium,
             fontSize: deviceUI.moderateScale(16),
-            color: theme.color.specified.blue,
+            color: theme.color.specified.black,
         },
         noCardSubtitle: {
             fontFamily: theme.font.fontFamily.pretendard.regular,
             fontSize: deviceUI.moderateScale(14),
-            color: theme.color.specified.black,
+            color: theme.color.specified.blue,
         },
         registerIcon: {
             color: theme.color.specified.black,
