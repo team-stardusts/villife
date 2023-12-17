@@ -1,17 +1,12 @@
 import { atom } from "recoil";
-import Villife from "../../../../../libs/villife-client/types";
+import { RequestedVehicle, Vehicle } from "../types";
 
-export type VehicleOwnerType = "user" | "tenant" | "guest";
-export type Vehicle = Villife.Parking.TenantVehicle & {
-    ownerType: VehicleOwnerType;
-    etd: Date;
-    eta: Date;
-    visitingPurpose?: string;
-};
-
-const vehiclesState = atom<Vehicle[]>({
-    key: "parking_vehicle_state",
+export const vehiclesState = atom<Vehicle[]>({
+    key: "parking_vehicles_state",
     default: [],
 });
 
-export default vehiclesState;
+export const requestedVehiclesState = atom<RequestedVehicle[]>({
+    key: "parking_requested_vehicles_state",
+    default: [],
+});

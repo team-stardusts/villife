@@ -2,20 +2,17 @@ import { ScrollView } from "react-native";
 import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
 import NavigationView from "../../../../common/blocks/navigation";
 import ParkingScreenProps from "./types";
-import useParkingLot from "../../services/parking_lot";
 import { useEffect, useMemo } from "react";
 import VehicleCardView from "./card";
 import useParkingHomeScreenStyles from "./styles";
-import useUserInformation from "../../../../common/hooks/service/user_info";
 import VehicleListView from "./list";
 import InfoPannel from "../../../../common/blocks/info-pannel";
 import useParkingViewmodel from "../../viewmodel";
-import { Vehicle } from "../../viewmodel/states";
+import { Vehicle } from "../../viewmodel/types";
 
 export default function ParkingScreen({ navigation, route }: ParkingScreenProps) {
     const messages = useScreenMessage();
     const styles = useParkingHomeScreenStyles();
-    const parkingLot = useParkingLot();
     const viewModel = useParkingViewmodel();
     const vehicles = useMemo<Vehicle[]>(() => {
         if (viewModel === null) return [];
@@ -25,7 +22,6 @@ export default function ParkingScreen({ navigation, route }: ParkingScreenProps)
 
     useEffect(() => {
         viewModel?.update();
-        parkingLot.updateVehicles();
     }, [viewModel?.user?.adminInfomation?.selectedBuilding]);
 
     return (
@@ -58,7 +54,7 @@ export default function ParkingScreen({ navigation, route }: ParkingScreenProps)
                         />
                         <VehicleCardView
                             vehicles={vehicles.filter((v) => v.ownerType === "user")}
-                            requestedVehicles={[] /* parkingLot.userVehiclesNotRegisted */}
+                            requestedVehicles={viewModel?.requestedVehicles ?? []}
                         />
                     </>
                 )}

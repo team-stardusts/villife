@@ -1,17 +1,16 @@
 import { VehicleModifyType } from "../../../blocks/modal/modify/types";
 import useVehicleCardViewStyles from "./styles";
-import { RequestedVehicleData } from "../../../../../../libs/storage/tables/vehicle/types";
-import { Vehicle } from "../../../viewmodel/states";
+import { RequestedVehicle, Vehicle } from "../../../viewmodel/types";
 
 export type VehicleCardViewProps = {
     vehicles: Vehicle[];
-    requestedVehicles: RequestedVehicleData[];
+    requestedVehicles: RequestedVehicle[];
 };
 
 export type VehicleCardBodyProps = {
     styles: ReturnType<typeof useVehicleCardViewStyles>["body"];
     vehicles: Vehicle[];
-    requestedVehicles: RequestedVehicleData[];
+    requestedVehicles: RequestedVehicle[];
     onFlip(index: number): void;
 };
 

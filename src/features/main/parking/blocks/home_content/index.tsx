@@ -1,49 +1,41 @@
-import { Alert, Text, TouchableHighlight, TouchableOpacity, View } from "react-native";
+import { Alert, Text, TouchableHighlight, View } from "react-native";
 import MiniContent from "../../../../common/blocks/mini_content";
 import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
 import useHomeContentFromParkingStyles from "./styles";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { IconSeries } from "../../../../common/atoms/icon/types";
 import Icon from "../../../../common/atoms/icon";
 import { VillifeRouterParams } from "../../../../common/router/types";
 import { useNavigation } from "@react-navigation/native";
-import useParkingLot from "../../services/parking_lot";
-import { Vehicle } from "../../services/states/types";
 import { PRESSABLE_MENU_TYPE, PressableMenuProps } from "./types";
 import VehicleModifyModal from "../modal/modify";
-import useUserInformation from "../../../../common/hooks/service/user_info";
+import useParkingViewmodel from "../../viewmodel";
+import { Vehicle } from "../../viewmodel/types";
 
 export default function HomeContentFromParking() {
     const messages = useScreenMessage().messages;
-    const [favoritVehicle, setFavoriteVehicle] = useState<Vehicle | null>(null);
+    const viewModel = useParkingViewmodel();
+    const favoritVehicle = useMemo<Vehicle | null>(() => {
+        if (viewModel === null) return null;
+
+        const userVehicles = viewModel.data.filter((v) => v.ownerType === "user");
+
+        if (userVehicles.length > 0) return userVehicles[0];
+        return null;
+    }, [viewModel?.data]);
+
     const styles = useHomeContentFromParkingStyles(favoritVehicle !== null);
-    const parkingLot = useParkingLot();
-    const user = useUserInformation();
-
-    const setFavoriteVehicleFromVehicles = async (): Promise<void> => {
-        if (parkingLot.userVehicles.length === 0) {
-            return;
-        }
-
-        // [TO-DO] 차량 즐겨찾기 기능을 추가하여 즐겨찾는 차량이 선택되도록 변경해야함
-        setFavoriteVehicle(parkingLot.userVehicles[0]);
-    };
 
     useEffect(() => {
-        setFavoriteVehicleFromVehicles();
-    }, [parkingLot.vehicles]);
-
-    useEffect(() => {
-        //updateVehicles("user");
-        if (user?.isRenter) {
-            parkingLot.updateVehicles("user");
+        if (viewModel?.user?.isRenter) {
+            viewModel?.update();
         }
-    }, []);
+    }, [viewModel?.user.isRenter]);
 
     return (
         <MiniContent title={messages.main.parking.home_content.screen_title} eanbleShadow={false}>
             <View style={styles.main.container}>
-                {favoritVehicle && user?.isRenter && (
+                {favoritVehicle && viewModel?.user?.isRenter && (
                     <View style={styles.main.textBox}>
                         <View style={styles.main.printWrapper}>
                             <Text style={styles.main.text}>
@@ -61,7 +53,7 @@ export default function HomeContentFromParking() {
                 )}
                 <View style={styles.main.btnBox}>
                     {Object.values(PRESSABLE_MENU_TYPE).map((value, index) => {
-                        if (user?.isAdmin && value === "vehicle_departure_management") {
+                        if (viewModel?.user?.isAdmin && value === "vehicle_departure_management") {
                             return;
                         }
                         return (

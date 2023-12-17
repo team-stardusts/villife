@@ -92,9 +92,7 @@ class VillifeParkingClient extends VillifeClientCommon implements Villife.Parkin
      * @param params
      * @returns
      */
-    public async registerUserVehicle(
-        params: Villife.Parking.VehicleRegistrationForm
-    ): Promise<Villife.Parking.TenantVehicle> {
+    public async registerUserVehicle(params: Villife.Parking.VehicleRegistrationForm): Promise<number> {
         return await this.requestWithCredential({
             method: "post",
             url: this._routes.approval.registerUserVehicle,

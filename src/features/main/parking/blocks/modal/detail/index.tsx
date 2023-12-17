@@ -3,16 +3,16 @@ import { Text, View } from "react-native";
 import useScreenMessage from "../../../../../common/hooks/multilingual/hooks";
 import useVehicleDetailModalStyles from "./styles";
 import { VehicleDetailAlertProps, VehicleDetailModalDate, VehicleKeyValuePair } from "./types";
-import useParkingLot from "../../../services/parking_lot";
 import VillifeToastMessage from "../../../../../common/atoms/toast";
 import StardustAlert from "../../../../../common/blocks/universial/stardust_alert";
 import { useState } from "react";
 import { StardustAlertContent } from "../../../../../common/blocks/universial/stardust_alert/types";
+import useParkingViewmodel from "../../../viewmodel";
 
 export default function VehicleDetailModal(props: VehicleDetailAlertProps) {
     const messages = useScreenMessage().messages;
     const styles = useVehicleDetailModalStyles();
-    const parkingLot = useParkingLot();
+    const viewModel = useParkingViewmodel();
     const [deleteAlert, setDeleteAlert] = useState<StardustAlertContent>({
         visible: false,
         title: messages.boilerplate.are_you_sure_to_delete,
@@ -102,10 +102,12 @@ export default function VehicleDetailModal(props: VehicleDetailAlertProps) {
     };
 
     const deleteVehicle = async () => {
-        const isSuccessful = await parkingLot.deleteVehicle({
-            type: "guest",
-            vehicleID: props.vehicle.id,
-        });
+        if (viewModel === null) {
+            VillifeToastMessage.showBottomToast("error", "오류가 발생했어요. 잠시 후 다시 시도해주세요.");
+            return;
+        }
+
+        const isSuccessful = await viewModel.deleteVehicle("guest", props.vehicle.id);
 
         props.setVisible(false);
 

@@ -1,23 +1,24 @@
 import { View } from "react-native";
 import NavigationView from "../../../../common/blocks/navigation";
 import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
-import RegisterVehicleScreenProps, { Vehicle } from "./types";
+import RegisterVehicleScreenProps, { VehicleChunk } from "./types";
 import useRegisterVehicleScreenStyles from "./styles";
 import EtdaTimePicker from "../../blocks/etad_time_picker";
 import { useState } from "react";
 import VehicleInfoInputBox from "./blocks/input_box";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import useParkingLot from "../../services/parking_lot";
 import ScreenTitleView from "../../../../common/blocks/title_view";
 import { StardustAlertContent } from "../../../../common/blocks/universial/stardust_alert/types";
 import StardustAlert from "../../../../common/blocks/universial/stardust_alert";
+import useParkingViewmodel from "../../viewmodel";
+import VillifeToastMessage from "../../../../common/atoms/toast";
 
 export default function RegisterVehicleScreen({ navigation, route }: RegisterVehicleScreenProps) {
     const messages = useScreenMessage();
     const styles = useRegisterVehicleScreenStyles();
-    const parkingLot = useParkingLot();
+    const viewModel = useParkingViewmodel();
 
-    const [vehicle, setVehicle] = useState<Vehicle>({
+    const [vehicle, setVehicle] = useState<VehicleChunk>({
         plateNumber: null,
         model: null,
         eta: {
@@ -36,10 +37,17 @@ export default function RegisterVehicleScreen({ navigation, route }: RegisterVeh
     });
 
     const handlePressRegisterBtn = async () => {
+        if (viewModel === null) {
+            VillifeToastMessage.showBottomToast("error", "알 수 없는 오류가 발생했습니다.");
+
+            return;
+        }
+
         if (vehicle.model && vehicle.plateNumber) {
-            // [TO-DO] Regsiter Service 등록
-            const isSuccessful: boolean = await parkingLot.registerUserVehicle({
-                ...vehicle,
+            const isSuccessful: boolean = await viewModel.registerVehicle({
+                ownerType: "user",
+                eta: viewModel.convertUserVehicleTime(vehicle.eta),
+                etd: viewModel.convertUserVehicleTime(vehicle.etd),
                 plateNumber: vehicle.plateNumber,
                 model: vehicle.model,
                 vehicleType: "4WD",

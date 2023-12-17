@@ -5,20 +5,19 @@ import RegisterGuestVehicleScreenProps, { GuestVehicle } from "./types";
 import useRegisterVehicleScreenStyles from "./styles";
 import { useState } from "react";
 import GuestVehicleInfoInputBox from "./blocks/input_box";
-import { GuestVehicleValidationResult } from "./blocks/input_box/types";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import useParkingLot from "../../services/parking_lot";
 import DateRangePicker from "./blocks/date_etda_picker";
 import type { DateRange } from "../../blocks/modal/date_selection/types";
-import StardustDateParser from "../../../../../libs/date_parser";
 import ScreenTitleView from "../../../../common/blocks/title_view";
 import { StardustAlertContent } from "../../../../common/blocks/universial/stardust_alert/types";
 import StardustAlert from "../../../../common/blocks/universial/stardust_alert";
+import VillifeToastMessage from "../../../../common/atoms/toast";
+import useParkingViewmodel from "../../viewmodel";
 
 export default function RegisterGuestVehicleScreen({ navigation, route }: RegisterGuestVehicleScreenProps) {
     const messages = useScreenMessage();
     const styles = useRegisterVehicleScreenStyles();
-    const parkingLot = useParkingLot();
+    const viewModel = useParkingViewmodel();
     const [dateTimeRange, setDateTimeRange] = useState<DateRange | null>(null);
     const [guestVehicle, setGuestVehicle] = useState<GuestVehicle>({
         model: "guest_vehicle",
@@ -33,10 +32,16 @@ export default function RegisterGuestVehicleScreen({ navigation, route }: Regist
     });
 
     const handlePressRegisterBtn = async () => {
+        if (viewModel === null) {
+            VillifeToastMessage.showBottomToast("error", "알 수 없는 오류가 발생했습니다.");
+            return;
+        }
+
         if (guestVehicle.phoneNumber && guestVehicle.plateNumber && guestVehicle.visitingPerpose && dateTimeRange) {
-            const isSuccessful = await parkingLot.registerGuestVehicle({
-                eta: StardustDateParser.serialize(dateTimeRange.startDate),
-                etd: StardustDateParser.serialize(dateTimeRange.endDate),
+            const isSuccessful = await viewModel.registerVehicle({
+                ownerType: "guest",
+                eta: dateTimeRange.startDate,
+                etd: dateTimeRange.endDate,
                 guestPhoneNumber: guestVehicle.phoneNumber,
                 model: guestVehicle.model,
                 plateNumber: guestVehicle.plateNumber,

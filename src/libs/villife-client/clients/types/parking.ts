@@ -5,7 +5,7 @@ namespace VillifeParking {
         getUserVehicles(): Promise<TenantVehicle[]>;
         getVehicles(buildingId: number): Promise<TenantVehicle[]>;
         getGuestVehicles(buildingId: number): Promise<GuestVehicle[]>;
-        registerUserVehicle(params: VehicleRegistrationForm): Promise<TenantVehicle>;
+        registerUserVehicle(params: VehicleRegistrationForm): Promise<number>;
         registerGuestVehicle(params: GuestVehicleRegistrationForm): Promise<GuestVehicle>;
         sendPushNotification(params: NotificationForm): Promise<string>;
         updateUserVehicleETDA(params: VehicleETDAUpdateForm): Promise<string>;
@@ -40,14 +40,14 @@ namespace VillifeParking {
 
     export type VehicleETDAUpdateForm = {
         vehicleId: number;
-        etd: number;
         eta: number;
+        etd: number;
     };
 
     export type VehicleInfoUpdateForm = {
         vehicleId: number;
-        model: number;
-        plateNumber: number;
+        model: string;
+        plateNumber: string;
     };
 
     export type VehicleRegistrationForm = {

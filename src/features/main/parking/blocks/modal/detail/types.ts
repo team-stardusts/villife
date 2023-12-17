@@ -1,4 +1,4 @@
-import { Vehicle } from "../../../viewmodel/states";
+import { Vehicle } from "../../../viewmodel/types";
 
 export type VehicleDetailAlertProps = {
     visible: boolean;

@@ -5,6 +5,6 @@ import { VehicleInfo } from "./blocks/input_box/types";
 
 type RegisterVehicleScreenProps = NativeStackScreenProps<VillifeStackParamList, "register_vehicle">;
 
-export type Vehicle = EtdaTime & VehicleInfo;
+export type VehicleChunk = EtdaTime & VehicleInfo;
 
 export default RegisterVehicleScreenProps;

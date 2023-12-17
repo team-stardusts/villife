@@ -1,5 +1,5 @@
 import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
-import { Vehicle } from "../../services/states/types";
+import { Vehicle } from "../../viewmodel/types";
 import useHomeContentFromParkingStyles from "./styles";
 
 export const PRESSABLE_MENU_TYPE = {

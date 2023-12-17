@@ -7,15 +7,16 @@ import { TimePickerTime } from "../../../../common/atoms/time_picker/types";
 import { useEffect, useState } from "react";
 import useSendParkPushNotiScreenStyles from "./styles";
 import TimePicker from "../../../../common/atoms/time_picker";
-import useParkingLot from "../../services/parking_lot";
 import ScreenTitleView from "../../../../common/blocks/title_view";
 import ListBottomSlidableModal from "../../../../common/blocks/modal/bottom_list";
 import StardustAlert from "../../../../common/blocks/universial/stardust_alert";
 import { StardustAlertContent } from "../../../../common/blocks/universial/stardust_alert/types";
+import useParkingViewmodel from "../../viewmodel";
+import VillifeToastMessage from "../../../../common/atoms/toast";
 
 export default function SendParkPushNotiScreen({ navigation, route }: SendParkPushNotiScreenProps) {
     const messages = useScreenMessage().messages;
-    const parkingLot = useParkingLot();
+    const viewModel = useParkingViewmodel();
     const styles = useSendParkPushNotiScreenStyles();
     const [content, setContent] = useState<string>("");
     const [visible, setVisible] = useState<boolean>(false);
@@ -37,13 +38,13 @@ export default function SendParkPushNotiScreen({ navigation, route }: SendParkPu
     const [myVehicleNumber, setMyVehicleNumber] = useState<string | null>(null);
 
     useEffect(() => {
-        if (parkingLot.userVehicles.length === 0) {
+        if (viewModel === null || viewModel.data.length === 0) {
             setAlert({ ...alert, visible: true });
             return;
         }
 
-        setMyVehicleNumber(parkingLot.userVehicles[0].plate_number);
-    }, []);
+        setMyVehicleNumber(viewModel.data[0].plateNumber);
+    }, [viewModel?.data]);
 
     return (
         <NavigationView
@@ -56,9 +57,14 @@ export default function SendParkPushNotiScreen({ navigation, route }: SendParkPu
                 navComponentProps: {
                     title: "보내기", //messages.words.register,
                     onPress: async () => {
+                        if (viewModel === null) {
+                            VillifeToastMessage.showBottomToast("error", "알 수 없는 오류가 발생했습니다.");
+                            return;
+                        }
+
                         console.log("[SEND_PARK_PUSH_NOTI]", route.params.vehicleID);
-                        const isSuccessful: boolean = await parkingLot.sendMessage({
-                            vehicleID: route.params.vehicleID,
+                        const isSuccessful: boolean = await viewModel.sendNotification({
+                            vehicleId: route.params.vehicleID,
                             title: messages.main.parking.send_park_push_noti.screen_title,
                             content: content,
                         });
@@ -114,30 +120,16 @@ export default function SendParkPushNotiScreen({ navigation, route }: SendParkPu
             <ListBottomSlidableModal
                 modalVisible={visible}
                 setModalVisible={setVisible}
-                features={parkingLot.userVehicles
-                    .sort((vehicleA, vehicleB) => {
-                        try {
-                            let _vehicleANumber = vehicleA.plate_number.split(" ")[0];
-                            let _vehicleBNumber = vehicleB.plate_number.split(" ")[0];
-
-                            _vehicleANumber = _vehicleANumber.slice(0, _vehicleANumber.length - 1);
-                            _vehicleBNumber = _vehicleBNumber.slice(0, _vehicleBNumber.length - 1);
-
-                            return parseInt(_vehicleANumber) - parseInt(_vehicleBNumber);
-                        } catch {
-                            return 0;
-                        }
-                    })
-                    .map((vehicle) => {
-                        return {
-                            icon: "car",
-                            text: vehicle.plate_number,
-                            onPress: () => {
-                                setMyVehicleNumber(vehicle.plate_number);
-                                setVisible(false);
-                            },
-                        };
-                    })}
+                features={(viewModel?.data.filter((v) => v.ownerType === "user") ?? []).map((vehicle) => {
+                    return {
+                        icon: "car",
+                        text: vehicle.plateNumber,
+                        onPress: () => {
+                            setMyVehicleNumber(vehicle.plateNumber);
+                            setVisible(false);
+                        },
+                    };
+                })}
             />
         </NavigationView>
     );

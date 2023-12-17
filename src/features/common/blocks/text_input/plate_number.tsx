@@ -125,6 +125,9 @@ export default function InputPlateNumber(props: InputProps) {
                     inputMode="text"
                     keyboardType="default"
                     textAlign="center"
+                    onEndEditing={() => {
+                        refInput3.current?.focus();
+                    }}
                     highlightColor={
                         (plateNumber[1] !== null && plateNumber[1]?.length !== 1) ||
                         (plateNumber[1]?.length === 1 && validator.isKoreanConsonant(plateNumber[1]))

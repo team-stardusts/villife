@@ -6,8 +6,3 @@ export const vehiclesState = atom<Vehicle[]>({
     key: "vehiclesState",
     default: [],
 });
-
-export const vehiclesRequestedState = atom<RequestedVehicleData[]>({
-    key: "vehiclesRequested",
-    default: [],
-});
