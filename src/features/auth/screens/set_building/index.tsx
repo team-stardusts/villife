@@ -130,7 +130,7 @@ export default function SetBuildingScreen({ navigation, route }: SetBuildingScre
         validateService
             .CheckUserIsWaitingForRegidenceApproval()
             .then((r) => {
-                if (r.is_waiting) setIsWaitingForApprove(true);
+                if (r.length > 0) setIsWaitingForApprove(true);
             })
             .catch((r) => {
                 console.error("[SetBuildingScreen]", r);

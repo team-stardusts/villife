@@ -99,22 +99,19 @@ class VillifeApprovalManager extends AVillifeServerModule implements IVillifeApp
     public async checkUserIsWaitingForApproval(
         category: number,
         detailType: number
-    ): Response<CheckUserIsWaitingForApprovalResult> {
+    ): Response<CheckUserIsWaitingForApprovalResult[]> {
         let route = this.routes.approval.checkUserIsWaitingForApproval;
         const reqBody = {
             category: category,
             detail_type: detailType,
         };
 
-        return await this.requestAuthable<any, CheckUserIsWaitingForApprovalResult>({
+        return await this.requestAuthable<any, CheckUserIsWaitingForApprovalResult[]>({
             method: "post",
             url: route,
             data: reqBody,
         });
     }
-
-
-    
 
     public async verifyRoom(params: VerifyRoomParams): Response<string> {
         let route: string = this.routes.auth.verifyRoom;
