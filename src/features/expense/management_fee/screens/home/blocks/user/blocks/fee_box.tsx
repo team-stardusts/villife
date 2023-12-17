@@ -104,11 +104,11 @@ export default function ManagementFeeBox(props: ManagementFeeBoxProps) {
             <ContentBox backgroundColor={props.styles.contentBox.color} enableShadow={false}>
                 <View style={props.styles.contentWrapper}>
                     <View style={props.styles.header}>
-                        <Text style={props.styles.headerText}>{user?.roomNumber}호 관리비</Text>
+                        <Text style={props.styles.headerText}>{user?.roomNumber}호 </Text>
                         {dueDate !== null && (
                             <>
                                 <Text style={[props.styles.headerText, props.styles.dueDate]}>
-                                    납부 마감일 {dueDate.getUTCMonth() + 1}월 {dueDate.getUTCDate()}일
+                                    관리비 납부 마감일 {dueDate.getUTCMonth() + 1}월 {dueDate.getUTCDate()}일
                                 </Text>
                             </>
                         )}

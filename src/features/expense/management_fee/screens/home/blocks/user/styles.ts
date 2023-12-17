@@ -25,16 +25,18 @@ export default function useUserMFViewStyles() {
         },
         header: {
             width: "100%",
+            flexDirection: "row",
             justifyContent: "flex-start",
+            alignItems: "center",
             paddingVertical: deviceUI.moderateScale(10),
+            marginTop: deviceUI.moderateScale(10),
         },
         headerText: {
-            fontFamily: theme.font.fontFamily.pretendard.medium,
-            fontSize: deviceUI.moderateScale(15),
+            fontFamily: theme.font.fontFamily.pretendard.regular,
+            fontSize: deviceUI.moderateScale(13),
             color: theme.color.specified.black,
         },
         dueDate: {
-            marginTop: deviceUI.moderateScale(3),
             color: theme.color.specified.blue,
         },
         body: {
@@ -73,7 +75,7 @@ export default function useUserMFViewStyles() {
         },
         confirmationShortCutQuestionText: {
             fontFamily: theme.font.fontFamily.pretendard.regular,
-            fontSize: deviceUI.moderateScale(13),
+            fontSize: deviceUI.moderateScale(12),
             color: theme.color.specified.black,
         },
         confirmationShortCutBtn: {
@@ -81,7 +83,7 @@ export default function useUserMFViewStyles() {
         },
         confirmationShortCutBtnText: {
             fontFamily: theme.font.fontFamily.pretendard.regular,
-            fontSize: deviceUI.moderateScale(13),
+            fontSize: deviceUI.moderateScale(12),
             color: theme.color.specified.blue,
         },
     });
