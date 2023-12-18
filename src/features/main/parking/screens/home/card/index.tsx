@@ -10,18 +10,18 @@ import EditBtnCombo from "./blocks/btn-combo";
 import { VehicleModifyType } from "../../../blocks/modal/modify/types";
 import VehicleModifyModal from "../../../blocks/modal/modify";
 
-export default function VehicleCardView(params: VehicleCardViewProps) {
+export default function VehicleCardView(props: VehicleCardViewProps) {
     const messages = useScreenMessage().messages;
     const [crrIndex, setCrrIndex] = useState<number>(0);
     const [editmode, setEditmode] = useState<boolean>(false);
     const [modalVisible, setModalVisible] = useState<boolean>(false);
     const [editType, setEditType] = useState<VehicleModifyType | null>(null);
-    const cardsCount = useMemo(() => params.vehicles.length + params.requestedVehicles?.length + 1, [params]);
+    const cardsCount = useMemo(() => props.vehicles.length + props.requestedVehicles?.length + 1, [props]);
 
     const styles = useVehicleCardViewStyles();
 
     useEffect(() => {
-        if (editType === null || params.vehicles.length === 0) return;
+        if (editType === null || props.vehicles.length === 0) return;
         setModalVisible(true);
     }, [editType]);
 
@@ -30,7 +30,7 @@ export default function VehicleCardView(params: VehicleCardViewProps) {
             if (editType === newEditType) setModalVisible(true);
             else setEditType(newEditType);
         },
-        [editType, params.vehicles]
+        [editType, props.vehicles]
     );
 
     return (
@@ -38,7 +38,7 @@ export default function VehicleCardView(params: VehicleCardViewProps) {
             <TitleCard
                 title={messages.main.parking.home.my_vehicle_info}
                 headerButton={
-                    params.vehicles.length > 0 && params.vehicles.length > crrIndex
+                    props.vehicles.length > 0 && props.vehicles.length > crrIndex
                         ? {
                               title: "수정하기",
                               onPress: () => setEditmode(!editmode),
@@ -49,12 +49,12 @@ export default function VehicleCardView(params: VehicleCardViewProps) {
                     <View style={styles.main.bodyContainer}>
                         <VehicleCardBody
                             styles={styles.body}
-                            vehicles={params.vehicles}
-                            requestedVehicles={params.requestedVehicles}
+                            vehicles={props.vehicles}
+                            requestedVehicles={props.requestedVehicles}
                             onFlip={setCrrIndex}
                         />
                     </View>
-                    {editmode && params.vehicles.length > crrIndex && (
+                    {editmode && props.vehicles.length > crrIndex && (
                         <View style={styles.main.btncomboContainer}>
                             <EditBtnCombo styles={styles.btncombo} onPressEditBtn={handlePressEditBtns} />
                         </View>
@@ -63,12 +63,13 @@ export default function VehicleCardView(params: VehicleCardViewProps) {
                         <VehicleCardBottom styles={styles.bottom} length={cardsCount} currentIndex={crrIndex} />
                     </View>
                 </View>
-                {editType !== null && params.vehicles.length > crrIndex && (
+                {editType !== null && props.vehicles.length > crrIndex && (
                     <VehicleModifyModal
                         modifyType={editType}
                         visible={modalVisible}
                         setVisible={setModalVisible}
-                        vehilce={params.vehicles[crrIndex]}
+                        vehilce={props.vehicles[crrIndex]}
+                        viewModel={props.viewModel}
                     />
                 )}
             </TitleCard>

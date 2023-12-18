@@ -10,7 +10,7 @@ import InfoPannel from "../../../../common/blocks/info-pannel";
 import useParkingViewmodel from "../../viewmodel";
 import { Vehicle } from "../../viewmodel/types";
 
-export default function ParkingScreen({ navigation, route }: ParkingScreenProps) {
+export default function ParkingSrcreen({ navigation, route }: ParkingScreenProps) {
     const messages = useScreenMessage();
     const styles = useParkingHomeScreenStyles();
     const viewModel = useParkingViewmodel();
@@ -21,6 +21,7 @@ export default function ParkingScreen({ navigation, route }: ParkingScreenProps)
     }, [viewModel?.data]);
 
     useEffect(() => {
+        console.log("ParkingHome");
         viewModel?.update();
     }, [viewModel?.user?.adminInfomation?.selectedBuilding]);
 
@@ -55,6 +56,7 @@ export default function ParkingScreen({ navigation, route }: ParkingScreenProps)
                         <VehicleCardView
                             vehicles={vehicles.filter((v) => v.ownerType === "user")}
                             requestedVehicles={viewModel?.requestedVehicles ?? []}
+                            viewModel={viewModel}
                         />
                     </>
                 )}

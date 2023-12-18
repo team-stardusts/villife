@@ -12,13 +12,11 @@ import StardustAlert from "../../../../../common/blocks/universial/stardust_aler
 import { StardustAlertContent } from "../../../../../common/blocks/universial/stardust_alert/types";
 import VillifeToastMessage from "../../../../../common/atoms/toast";
 import { Vehicle } from "../../../viewmodel/types";
-import useParkingViewmodel from "../../../viewmodel";
 
 export default function VehicleModifyModal(props: VehicleModifyModalProps) {
     const messages = useScreenMessage();
     const initialEtda = convertVehicleEtdaToEtdaTime(props.vehilce);
     const styles = useVehicleModifyModalStyles();
-    const viewModel = useParkingViewmodel();
 
     const [etda, setEtda] = useState<EtdaTime | null>(null);
     const [info, setInfo] = useState<VehicleInfo | null>(null);
@@ -40,13 +38,13 @@ export default function VehicleModifyModal(props: VehicleModifyModalProps) {
     });
 
     const handlePressModifyBtn = async () => {
-        if (viewModel === null) {
+        if (props.viewModel === null) {
             VillifeToastMessage.showBottomToast("error", "알 수 없는 오류가 발생했습니다.");
             return;
         }
 
         if (props.modifyType === "etda" && etda !== null) {
-            const isSuccessful = await viewModel.updateUserVehilceETDA({
+            const isSuccessful = await props.viewModel.updateUserVehilceETDA({
                 vehicleId: props.vehilce.id,
                 etda,
             });
@@ -60,7 +58,7 @@ export default function VehicleModifyModal(props: VehicleModifyModalProps) {
                     : messages.messages.main.parking.modify_modal.fail_to_change_etda
             );
         } else if (info?.plateNumber && info?.model) {
-            const isSuccessful = await viewModel.updateUserVehilceInfo({
+            const isSuccessful = await props.viewModel.updateUserVehilceInfo({
                 vehicleId: props.vehilce.id,
                 plateNumber: info.plateNumber,
                 model: info.model,
@@ -84,10 +82,10 @@ export default function VehicleModifyModal(props: VehicleModifyModalProps) {
     }, [etda, info]); */
 
     const deleteVehicle = async (): Promise<void> => {
-        if (viewModel === null) {
+        if (props.viewModel === null) {
             VillifeToastMessage.showBottomToast("error", "알 수 없는 오류가 발생했습니다.");
         }
-        const isSuccessful = await viewModel?.deleteVehicle("user", props.vehilce.id);
+        const isSuccessful = await props.viewModel?.deleteVehicle("user", props.vehilce.id);
 
         props.setVisible(false);
         setDeleteAlert({ ...deleteAlert, visible: false });

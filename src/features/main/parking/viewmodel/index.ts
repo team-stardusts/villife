@@ -9,20 +9,15 @@ import { UserInfo } from "../../../common/hooks/service/user_info/types";
 import { TimePickerTime } from "../../../common/atoms/time_picker/types";
 
 export default function useParkingViewmodel() {
-    const user = useUserInformation();
+    const user = useUserInformation() as UserInfo;
     const [vehicles, setVehicles] = useRecoilState(vehiclesState);
     const [requestedVehicles, setRequestedVehicles] = useRecoilState(requestedVehiclesState);
 
-    if (user === null) return null;
-
     class ParkingViewModel extends ViewModelCommmon<Vehicle[]> {
         private _api: Villife.Parking.Client;
-        protected _data: Vehicle[] = vehicles;
-        protected _setData: SetterOrUpdater<Vehicle[]> = setVehicles;
-        public readonly feature: string = "parking";
 
-        constructor(user: UserInfo) {
-            super(user);
+        constructor(user: UserInfo, data: Vehicle[], setData: SetterOrUpdater<Vehicle[]>) {
+            super(user, "parking", data, setData);
             this._api = this._clientInstance.parking;
         }
 
@@ -41,6 +36,11 @@ export default function useParkingViewmodel() {
             const tenants: Vehicle[] = await this._api
                 .getVehicles(buildingId)
                 .then((r) => {
+                    if (!(r instanceof Array)) {
+                        console.error("PARKING_VIEWMODEL_TENANT", r);
+                        return [];
+                    }
+
                     return r.map((v) => {
                         let ownerType: VehicleOwnerType = "tenant";
                         if (v.roomNumber === user?.roomNumber) {
@@ -63,18 +63,28 @@ export default function useParkingViewmodel() {
                     return [];
                 });
 
-            const _vehciles = this.sortVehicles([...tenants, ...guests]);
+            const _vehicles = this.sortVehicles([...tenants, ...guests]);
 
-            if (_vehciles.length === 0) {
-                const storedVehicles = await this._storage.getItem();
-
-                storedVehicles !== null && setVehicles([...storedVehicles]);
+            if (_vehicles.length === 0) {
+                await this.restore()
+                    .then((r) => {
+                        this._setData(
+                            r.map((v) => {
+                                const _v = v;
+                                _v.eta = new Date(v.eta);
+                                _v.etd = new Date(v.etd);
+                                return _v;
+                            })
+                        );
+                    })
+                    .catch((err) => {
+                        console.error("[PARKING_VIEWMODEL]", "[GET_ITEMS]", err);
+                    });
 
                 return;
             }
 
-            await this._storage.setItem(_vehciles);
-            setVehicles(_vehciles);
+            await this.save(_vehicles);
 
             if (user?.isRenter) {
                 await this._clientInstance.approval.checkUserIsWaitingForApproval<RequestedVehicle>(2, 1).then((r) => {
@@ -106,8 +116,7 @@ export default function useParkingViewmodel() {
             return result
                 .then(async () => {
                     const _vehicles = this.data.filter((v) => v.id !== vehicleId);
-                    await this._storage.setItem(_vehicles);
-                    setVehicles(_vehicles);
+                    await this.save(_vehicles);
 
                     return true;
                 })
@@ -138,9 +147,8 @@ export default function useParkingViewmodel() {
                 .then(async (r) => {
                     if (ownerType === "guest") {
                         const newVehicle = this.toViewModel(ownerType, r as Villife.Parking.GuestVehicle);
-                        const vehciles = this.sortVehicles([...this.data, newVehicle]);
-                        await this._storage.setItem(vehicles);
-                        setVehicles(vehciles);
+                        const _vehicles = this.sortVehicles([...this.data, newVehicle]);
+                        await this.save(_vehicles);
 
                         return true;
                     } else {
@@ -183,8 +191,7 @@ export default function useParkingViewmodel() {
                     vehicles[index].eta = eta;
                     vehicles[index].etd = etd;
 
-                    await this._storage.setItem(vehicles);
-                    setVehicles(vehicles);
+                    await this.save(vehicles);
 
                     return true;
                 })
@@ -205,8 +212,7 @@ export default function useParkingViewmodel() {
                     vehicles[index].model = params.model;
                     vehicles[index].plateNumber = params.plateNumber;
 
-                    await this._storage.setItem(vehicles);
-                    setVehicles(vehicles);
+                    await this.save(vehicles);
 
                     return true;
                 })
@@ -263,5 +269,5 @@ export default function useParkingViewmodel() {
         }
     }
 
-    return new ParkingViewModel(user);
+    return new ParkingViewModel(user, vehicles, setVehicles);
 }

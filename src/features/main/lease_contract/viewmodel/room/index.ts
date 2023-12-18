@@ -13,12 +13,9 @@ export default function useRoomViewModel() {
 
     class RoomContractViewModel extends ViewModelCommmon<RoomInfo[]> {
         private _api: Villife.Contract.Client;
-        protected _data: RoomInfo[] = rooms;
-        protected _setData: SetterOrUpdater<RoomInfo[]> = setRooms;
-        public readonly feature: string = "contract-room";
 
-        constructor(user: UserInfo) {
-            super(user);
+        constructor(user: UserInfo, data: RoomInfo[], setData: SetterOrUpdater<RoomInfo[]>) {
+            super(user, "contract-room", data, setData);
             this._api = this._clientInstance.contract;
         }
 
@@ -150,5 +147,5 @@ export default function useRoomViewModel() {
         }
     }
 
-    return new RoomContractViewModel(user);
+    return new RoomContractViewModel(user, rooms, setRooms);
 }

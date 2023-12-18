@@ -15,22 +15,24 @@ import { Vehicle } from "../../viewmodel/types";
 export default function HomeContentFromParking() {
     const messages = useScreenMessage().messages;
     const viewModel = useParkingViewmodel();
+
     const favoritVehicle = useMemo<Vehicle | null>(() => {
         if (viewModel === null) return null;
 
         const userVehicles = viewModel.data.filter((v) => v.ownerType === "user");
-
-        if (userVehicles.length > 0) return userVehicles[0];
+        if (userVehicles.length > 0) {
+            return userVehicles[0];
+        }
         return null;
     }, [viewModel?.data]);
 
     const styles = useHomeContentFromParkingStyles(favoritVehicle !== null);
 
     useEffect(() => {
-        if (viewModel?.user?.isRenter) {
+        if (viewModel !== null && viewModel.user.isRenter) {
             viewModel?.update();
         }
-    }, [viewModel?.user.isRenter]);
+    }, []);
 
     return (
         <MiniContent title={messages.main.parking.home_content.screen_title} eanbleShadow={false}>
@@ -63,6 +65,7 @@ export default function HomeContentFromParking() {
                                 styles={styles.menu}
                                 vehicle={favoritVehicle}
                                 messages={messages.main.parking.home_content}
+                                viewModel={viewModel}
                             />
                         );
                     })}
@@ -72,7 +75,7 @@ export default function HomeContentFromParking() {
     );
 }
 
-function PressableMenu({ type, styles, vehicle, messages }: PressableMenuProps) {
+function PressableMenu({ type, styles, vehicle, viewModel, messages }: PressableMenuProps) {
     const navigation = useNavigation<VillifeRouterParams["navigation"]>();
     const [text, setText] = useState<string>("");
     const [iconName, setIconName] = useState<IconSeries>("people-round");
@@ -131,7 +134,13 @@ function PressableMenu({ type, styles, vehicle, messages }: PressableMenuProps) 
                 </>
             </TouchableHighlight>
             {vehicle !== null && (
-                <VehicleModifyModal modifyType={"etda"} visible={visible} setVisible={setVisible} vehilce={vehicle} />
+                <VehicleModifyModal
+                    modifyType={"etda"}
+                    visible={visible}
+                    setVisible={setVisible}
+                    vehilce={vehicle}
+                    viewModel={viewModel}
+                />
             )}
         </>
     );

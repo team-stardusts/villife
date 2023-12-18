@@ -1,10 +1,12 @@
 import { VehicleModifyType } from "../../../blocks/modal/modify/types";
 import useVehicleCardViewStyles from "./styles";
 import { RequestedVehicle, Vehicle } from "../../../viewmodel/types";
+import useParkingViewmodel from "../../../viewmodel";
 
 export type VehicleCardViewProps = {
     vehicles: Vehicle[];
     requestedVehicles: RequestedVehicle[];
+    viewModel: ReturnType<typeof useParkingViewmodel>;
 };
 
 export type VehicleCardBodyProps = {

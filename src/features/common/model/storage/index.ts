@@ -2,10 +2,19 @@ import EncryptedStorage from "react-native-encrypted-storage";
 import { Storage } from "./type";
 
 class ViewModelStorage<T> implements Storage<T> {
+    private static _instance: Storage | null = null;
     public readonly _key: string;
 
-    constructor(key: string) {
+    private constructor(key: string) {
         this._key = key;
+    }
+
+    public static getInstance(key: string): Storage<any> {
+        if (ViewModelStorage._instance === null) {
+            ViewModelStorage._instance = new ViewModelStorage(key);
+        }
+
+        return ViewModelStorage._instance;
     }
 
     get key(): string {

@@ -1,4 +1,5 @@
 import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
+import useParkingViewmodel from "../../viewmodel";
 import { Vehicle } from "../../viewmodel/types";
 import useHomeContentFromParkingStyles from "./styles";
 
@@ -15,4 +16,5 @@ export type PressableMenuProps = {
     type: PressableMenuType;
     styles: ReturnType<typeof useHomeContentFromParkingStyles>["menu"];
     vehicle: Vehicle | null;
+    viewModel: ReturnType<typeof useParkingViewmodel>;
 };
