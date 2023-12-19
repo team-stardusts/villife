@@ -1,5 +1,6 @@
 import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
-import { Vehicle } from "../../services/states/types";
+import useParkingViewmodel from "../../viewmodel";
+import { Vehicle } from "../../viewmodel/types";
 import useHomeContentFromParkingStyles from "./styles";
 
 export const PRESSABLE_MENU_TYPE = {
@@ -15,4 +16,5 @@ export type PressableMenuProps = {
     type: PressableMenuType;
     styles: ReturnType<typeof useHomeContentFromParkingStyles>["menu"];
     vehicle: Vehicle | null;
+    viewModel: ReturnType<typeof useParkingViewmodel>;
 };

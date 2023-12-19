@@ -5,7 +5,7 @@ import useScreenMessage from "../../../../../../common/hooks/multilingual/hooks"
 import { useNavigation } from "@react-navigation/native";
 import { VillifeNavigation } from "../../../../../../common/router/types";
 
-export default function VehicleCardBody({ styles, vehicles, requestedVehicles, onFlip }: VehicleCardBodyProps) {
+export default function VehicleCardBody(props: VehicleCardBodyProps) {
     //const messages = useScreenMessage().messages;
     const navigation = useNavigation<VillifeNavigation>();
 
@@ -23,46 +23,46 @@ export default function VehicleCardBody({ styles, vehicles, requestedVehicles, o
     };
 
     return (
-        <View style={styles.container}>
+        <View style={props.styles.container}>
             <ScrollView
-                style={[styles.scrollview, { width: styles.card.width }]}
+                style={[props.styles.scrollview, { width: props.styles.card.width }]}
                 showsHorizontalScrollIndicator={false}
                 horizontal
                 pagingEnabled
                 scrollEventThrottle={5}
-                onScroll={(e) => onFlip(getCurrentPage(e, styles.card.width))}>
-                {vehicles?.map((vehicle, index) => (
-                    <VehicleCard key={index} vehicle={vehicle} cardWidth={styles.card.width} />
+                onScroll={(e) => props.onFlip(getCurrentPage(e, props.styles.card.width))}>
+                {props.vehicles?.map((vehicle, index) => (
+                    <VehicleCard key={index} vehicle={vehicle} cardWidth={props.styles.card.width} />
                 ))}
-                {requestedVehicles.map((value, index) => (
-                    <View key={index} style={styles.additionalCardConatiner}>
-                        <Text style={styles.waitingTitle} adjustsFontSizeToFit numberOfLines={1}>
+                {props.requestedVehicles.map((value, index) => (
+                    <View key={index} style={props.styles.additionalCardConatiner}>
+                        <Text style={props.styles.waitingTitle} adjustsFontSizeToFit numberOfLines={1}>
                             관리자의 승인을 기다리고 있어요!
                         </Text>
-                        <Text style={styles.waitingSubtitle} adjustsFontSizeToFit numberOfLines={1}>
-                            {value.model} / {value.plateNumber}
+                        <Text style={props.styles.waitingSubtitle} adjustsFontSizeToFit numberOfLines={1}>
+                            {value.vehicleModel} / {value.plateNumber}
                         </Text>
                     </View>
                 ))}
                 <TouchableOpacity
-                    style={styles.additionalCardConatiner}
+                    style={props.styles.additionalCardConatiner}
                     activeOpacity={0.5}
                     onPress={() => navigation.navigate("register_vehicle")}>
-                    {vehicles.length === 0 && requestedVehicles.length === 0 ? (
+                    {props.vehicles.length === 0 && props.requestedVehicles.length === 0 ? (
                         <>
-                            <Text style={styles.noCardTitle} adjustsFontSizeToFit numberOfLines={1}>
+                            <Text style={props.styles.noCardTitle} adjustsFontSizeToFit numberOfLines={1}>
                                 등록된 차량이 없어요!
                             </Text>
-                            <Text style={styles.noCardSubtitle} adjustsFontSizeToFit numberOfLines={2}>
+                            <Text style={props.styles.noCardSubtitle} adjustsFontSizeToFit numberOfLines={2}>
                                 여기를 눌러서 차량을 등록해보세요.
                             </Text>
                         </>
                     ) : (
                         <>
-                            <Text style={styles.noCardTitle} adjustsFontSizeToFit numberOfLines={1}>
+                            <Text style={props.styles.noCardTitle} adjustsFontSizeToFit numberOfLines={1}>
                                 추가로 등록할 차량이 있으신가요?
                             </Text>
-                            <Text style={styles.noCardSubtitle} adjustsFontSizeToFit numberOfLines={2}>
+                            <Text style={props.styles.noCardSubtitle} adjustsFontSizeToFit numberOfLines={2}>
                                 여기를 눌러 더 많은 차량을 등록해보세요.
                             </Text>
                         </>

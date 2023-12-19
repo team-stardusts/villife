@@ -1,27 +1,23 @@
 import { View } from "react-native";
 import StardustModal from "../../../../../common/blocks/universial/stardust_modal";
 import useScreenMessage from "../../../../../common/hooks/multilingual/hooks";
-import { Vehicle } from "../../../services/states/types";
 import { EtdaTime } from "../../etad_time_picker/types";
 import { VehicleModifyModalProps } from "./types";
 import EtdaEditView from "./blocks/etda";
 import useVehicleModifyModalStyles from "./styles";
 import InfoEditView from "./blocks/info";
 import { VehicleInfo } from "../../../screens/register_vehicle/blocks/input_box/types";
-import useParkingLot from "../../../services/parking_lot";
-import { useCallback, useState } from "react";
+import { useState } from "react";
 import StardustAlert from "../../../../../common/blocks/universial/stardust_alert";
 import { StardustAlertContent } from "../../../../../common/blocks/universial/stardust_alert/types";
 import VillifeToastMessage from "../../../../../common/atoms/toast";
-import { useNavigation } from "@react-navigation/native";
-import { VillifeNavigation } from "../../../../../common/router/types";
+import { Vehicle } from "../../../viewmodel/types";
 
 export default function VehicleModifyModal(props: VehicleModifyModalProps) {
     const messages = useScreenMessage();
     const initialEtda = convertVehicleEtdaToEtdaTime(props.vehilce);
     const styles = useVehicleModifyModalStyles();
-    const parkingLot = useParkingLot();
-    //const navigation = useNavigation<VillifeNavigation>();
+
     const [etda, setEtda] = useState<EtdaTime | null>(null);
     const [info, setInfo] = useState<VehicleInfo | null>(null);
     const [deleteAlert, setDeleteAlert] = useState<StardustAlertContent>({
@@ -42,10 +38,15 @@ export default function VehicleModifyModal(props: VehicleModifyModalProps) {
     });
 
     const handlePressModifyBtn = async () => {
+        if (props.viewModel === null) {
+            VillifeToastMessage.showBottomToast("error", "알 수 없는 오류가 발생했습니다.");
+            return;
+        }
+
         if (props.modifyType === "etda" && etda !== null) {
-            const isSuccessful = await parkingLot.updateUserVehicleEtda({
-                vehicleID: props.vehilce.id,
-                etda: etda,
+            const isSuccessful = await props.viewModel.updateUserVehilceETDA({
+                vehicleId: props.vehilce.id,
+                etda,
             });
 
             props.setVisible(false);
@@ -57,8 +58,8 @@ export default function VehicleModifyModal(props: VehicleModifyModalProps) {
                     : messages.messages.main.parking.modify_modal.fail_to_change_etda
             );
         } else if (info?.plateNumber && info?.model) {
-            const isSuccessful = await parkingLot.updateUserVehicleInfo({
-                vehicleID: props.vehilce.id,
+            const isSuccessful = await props.viewModel.updateUserVehilceInfo({
+                vehicleId: props.vehilce.id,
                 plateNumber: info.plateNumber,
                 model: info.model,
             });
@@ -81,10 +82,10 @@ export default function VehicleModifyModal(props: VehicleModifyModalProps) {
     }, [etda, info]); */
 
     const deleteVehicle = async (): Promise<void> => {
-        const isSuccessful = await parkingLot.deleteVehicle({
-            type: "user",
-            vehicleID: props.vehilce.id,
-        });
+        if (props.viewModel === null) {
+            VillifeToastMessage.showBottomToast("error", "알 수 없는 오류가 발생했습니다.");
+        }
+        const isSuccessful = await props.viewModel?.deleteVehicle("user", props.vehilce.id);
 
         props.setVisible(false);
         setDeleteAlert({ ...deleteAlert, visible: false });
@@ -95,15 +96,6 @@ export default function VehicleModifyModal(props: VehicleModifyModalProps) {
                 ? messages.messages.main.parking.modify_modal.success_to_delete
                 : messages.messages.main.parking.modify_modal.failed_to_delete
         );
-
-        /* navigation.reset({
-            index: 0,
-            routes: [
-                {
-                    name: "parking",
-                },
-            ],
-        }); */
     };
 
     return (
@@ -140,7 +132,7 @@ export default function VehicleModifyModal(props: VehicleModifyModalProps) {
                         <InfoEditView
                             styles={styles}
                             initialnfo={{
-                                plateNumber: props.vehilce.plate_number,
+                                plateNumber: props.vehilce.plateNumber,
                                 model: props.vehilce.model,
                             }}
                             onChangeInfo={setInfo}

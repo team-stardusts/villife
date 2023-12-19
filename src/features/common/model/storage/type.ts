@@ -1,5 +1,6 @@
 export interface Storage<T = any> {
-    getItem(key: string): Promise<T | null>;
-    setItem(key: string, value: T | null): Promise<boolean>;
-    removeItem(key: string): Promise<boolean>;
+    key: string;
+    getItem(): Promise<T | null>;
+    setItem(value: T | null): Promise<boolean>;
+    removeItem(): Promise<boolean>;
 }

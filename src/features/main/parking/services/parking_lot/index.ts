@@ -1,7 +1,7 @@
 import { Parking } from "../../../../../libs/rest_apis/villife/parking/types";
 import { useRecoilState } from "recoil";
 import { Vehicle, VehicleOwnerType } from "../states/types";
-import { vehiclesRequestedState, vehiclesState } from "../states";
+import { vehiclesState } from "../states";
 import useUserInformation from "../../../../common/hooks/service/user_info";
 import ParkingServiceProvider from "./service";
 import type {
@@ -10,21 +10,19 @@ import type {
     MyVehicleEtdaUpdateParams,
     MyVehicleInfoUpdateParams,
     RegisterGuestVehicleParams,
-    RegisterUserVehicleParams,
 } from "./service/types";
 import type { IParkingLot, ParkingLotRegisterUserVehicleParams } from "./types";
-import { useCallback, useEffect, useState } from "react";
 import VillifeStorage from "../../../../../libs/storage";
 import { RequestedVehicleData } from "../../../../../libs/storage/tables/vehicle/types";
 
 export default function useParkingLot(): IParkingLot {
     const [vehicles, setVehicles] = useRecoilState<Vehicle[]>(vehiclesState);
-    const [requestedVehicles, setRequestedVehicles] = useRecoilState<RequestedVehicleData[]>(vehiclesRequestedState);
+    //const [requestedVehicles, setRequestedVehicles] = useRecoilState<RequestedVehicleData[]>(vehiclesRequestedState);
     const user = useUserInformation();
     const service: IParkingServiceProvider = new ParkingServiceProvider();
     const storage = VillifeStorage.getInstance();
 
-    const extractVehiclesApprovedNotYet = (requestedVehiclesInStorage: RequestedVehicleData[], vehciles: Vehicle[]) => {
+    /* const extractVehiclesApprovedNotYet = (requestedVehiclesInStorage: RequestedVehicleData[], vehciles: Vehicle[]) => {
         // 디버깅을 해도 requestedVehiclesInStorage가 undefined인 경우를 찾을 수 없었지만
         // Reload 되는 타이밍에 쓰레기 값이 들어가는게 아닌가 하는 추측으로 Undefined 검사 코드를 추가함
 
@@ -33,7 +31,7 @@ export default function useParkingLot(): IParkingLot {
         );
         return filtered === undefined ? [] : filtered;
     };
-
+ */
     class ParkingLot implements IParkingLot {
         public readonly vehicles: Vehicle[] = vehicles;
 
@@ -47,9 +45,10 @@ export default function useParkingLot(): IParkingLot {
                     const storedData = r === null ? [] : r;
                     setRequestedVehicles(storedData);
                 });
-            }
- */
-            return requestedVehicles;
+            } */
+
+            //return requestedVehicles;
+            return [];
         }
 
         get guestVehicles(): Vehicle[] {
@@ -106,11 +105,11 @@ export default function useParkingLot(): IParkingLot {
                 console.log(e);
             }
 
-            const approvedYet = extractVehiclesApprovedNotYet(requestedVehicles, newVehicles);
+            /* const approvedYet = extractVehiclesApprovedNotYet(requestedVehicles, newVehicles);
 
             await storage.vehicle.requetedTobeRegisted.set(approvedYet);
 
-            setRequestedVehicles(approvedYet);
+            setRequestedVehicles(approvedYet); */
             setVehicles(newVehicles);
         }
 
@@ -145,10 +144,10 @@ export default function useParkingLot(): IParkingLot {
                 return false;
             }
 
-            await storage.vehicle.requetedTobeRegisted.set([
+            /* await storage.vehicle.requetedTobeRegisted.set([
                 ...requestedVehicles,
                 { roomNumber: user.roomNumber, model: params.model, plateNumber: params.plateNumber },
-            ]);
+            ]); */
 
             setVehicles([...vehicles, vehicle]);
             return true;

@@ -16,7 +16,7 @@ export default function VehicleCard({ vehicle, cardWidth }: VehicleCardProps) {
     const cardData: Array<{ rowKey: string; rowValue: string }> = [
         {
             rowKey: messages.messages.words.plate_number,
-            rowValue: vehicle.plate_number,
+            rowValue: vehicle.plateNumber,
         },
         {
             rowKey: messages.messages.words.vehicle_info,

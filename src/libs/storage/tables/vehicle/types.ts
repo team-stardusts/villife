@@ -1,7 +1,7 @@
 export type VehiclesRequestedKey = "vehicles-requested-to-be-registered";
 
 export type RequestedVehicleData = {
-    roomNumber: number;
+    id: number;
     model: string;
     plateNumber: string;
 };

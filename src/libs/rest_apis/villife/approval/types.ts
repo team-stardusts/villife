@@ -29,7 +29,9 @@ export type Approval = {
 };
 
 export type CheckUserIsWaitingForApprovalResult = {
-    is_waiting: boolean;
+    category: number;
+    content: string;
+    detailType: number;
 };
 
 export type getApprovalsResult = Array<Approval>;
@@ -42,7 +44,10 @@ interface Approavalable {
     getExpenseApproval(): Response<getApprovalsResult>;
     rejectExpenseApproval(request_id: number): Response<string>;
     acceptExpenseApproval(request_id: number): Response<string>;
-    checkUserIsWaitingForApproval(category: number, detailType: number): Response<CheckUserIsWaitingForApprovalResult>;
+    checkUserIsWaitingForApproval(
+        category: number,
+        detailType: number
+    ): Response<CheckUserIsWaitingForApprovalResult[]>;
     verifyRoom(params: VerifyRoomParams): Response<string>;
 }
 

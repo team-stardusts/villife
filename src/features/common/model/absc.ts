@@ -7,16 +7,24 @@ import { ViewModel } from "./types";
 
 abstract class ViewModelCommmon<ViewData = any> implements ViewModel<ViewData> {
     protected _clientInstance: VillifeNativeClient = new VillifeNativeClient();
-    protected abstract _data: ViewData;
-    protected abstract _setData: SetterOrUpdater<ViewData>;
+    protected _data: ViewData;
+    protected _setData: SetterOrUpdater<ViewData>;
     protected _user: UserInfo;
     protected _storageKey: string;
-    protected readonly _storage: Storage<ViewData> = new ViewModelStorage();
-    public abstract readonly feature: string;
+    protected readonly _storage: Storage<ViewData>;
+    public readonly featureName: string;
 
-    constructor(user: UserInfo) {
+    constructor(user: UserInfo, featureName: string, data: ViewData, setData: SetterOrUpdater<ViewData>) {
+        this._data = data;
+        this._setData = setData;
+        this.featureName = featureName;
         this._user = user;
         this._storageKey = this.createStorageKey(user);
+        this._storage = ViewModelStorage.getInstance(this._storageKey);
+    }
+
+    get user(): UserInfo {
+        return this._user;
     }
 
     get data(): ViewData {
@@ -34,21 +42,25 @@ abstract class ViewModelCommmon<ViewData = any> implements ViewModel<ViewData> {
             }
         }
 
-        keyArr.push(this.feature);
+        keyArr.push(this.featureName);
 
         return keyArr.join("_");
     }
 
     public abstract update(params: any): Promise<void>;
 
-    public async restore(): Promise<void> {
-        const result = await this._storage.getItem(this._storageKey);
+    public async restore(): Promise<ViewData> {
+        const result = await this._storage.getItem();
 
-        if (result !== null) this._setData(result);
+        if (result === null) throw Error("Failed to restore");
+
+        return result;
     }
 
-    public async save(): Promise<void> {
-        const result = await this._storage.setItem(this._storageKey, this._data);
+    public async save(data?: ViewData): Promise<void> {
+        const result = await this._storage.setItem(data ?? this._data);
+
+        if (result) this._setData(data ?? this._data);
         !result && console.log("[ViewModelCommon]", "Failed to save data into storage");
     }
 }

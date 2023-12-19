@@ -1,5 +1,5 @@
 import MultilingualMessage from "../../../../../common/hooks/multilingual";
-import { Vehicle } from "../../../services/states/types";
+import { Vehicle } from "../../../viewmodel/states";
 import useVehicleListStyles from "./styles";
 
 export type VehicleListViewProps = {

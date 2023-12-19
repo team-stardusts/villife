@@ -12,7 +12,7 @@ export interface IValidateResidenceService {
         params: Building.UserResidenceValidation.Params
     ): Promise<Building.UserResidenceValidation.Returns>;
     VerifyRoom(params: VerifyRoomParams): Promise<string>;
-    CheckUserIsWaitingForRegidenceApproval(): Promise<CheckUserIsWaitingForApprovalResult>;
+    CheckUserIsWaitingForRegidenceApproval(): Promise<CheckUserIsWaitingForApprovalResult[]>;
 }
 
 export type BuildingInfo = VerifyBuildingAddressResult;

@@ -21,7 +21,7 @@ export default function useHomeContentFromManagementFeeStyles() {
             justifyContent: "flex-start",
         },
         headerText: {
-            fontFamily: theme.font.fontFamily.pretendard.medium,
+            fontFamily: theme.font.fontFamily.pretendard.regular,
             fontSize: deviceUI.moderateScale(13),
             color: theme.color.specified.black,
         },
@@ -46,7 +46,7 @@ export default function useHomeContentFromManagementFeeStyles() {
         },
         bottomText: {
             fontFamily: theme.font.fontFamily.pretendard.regular,
-            fontSize: deviceUI.moderateScale(13),
+            fontSize: deviceUI.moderateScale(12),
             color: theme.color.specified.black,
         },
         confirmationShortCutBtn: {
@@ -54,7 +54,7 @@ export default function useHomeContentFromManagementFeeStyles() {
         },
         confirmationShortCutBtnText: {
             fontFamily: theme.font.fontFamily.pretendard.regular,
-            fontSize: deviceUI.moderateScale(13),
+            fontSize: deviceUI.moderateScale(12),
             color: theme.color.specified.blue,
         },
         managementFeeBox: {
