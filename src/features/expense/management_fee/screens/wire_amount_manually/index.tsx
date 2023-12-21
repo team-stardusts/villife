@@ -3,26 +3,26 @@ import NavigationView from "../../../../common/blocks/navigation";
 import ScreenTitleView from "../../../../common/blocks/title_view";
 import useWireAmountManuallyStyles from "./styles";
 import WireAmountManuallyScreenProps from "./types";
-import useManagementFeeManager from "../../services/payment";
-import { UserPaymentManagerBase } from "../../services/payment/types";
 import { useEffect, useState } from "react";
 import { insertCommaToNumber } from "../../../../common/global_function";
 import { Building } from "../../../../../libs/rest_apis/villife/building/types";
 import useStyler from "../../../../common/hooks/styler/hooks";
 import Icon from "../../../../common/atoms/icon";
+import useRenterMFViewModel from "../../viewmodel/renter";
+import Villife from "../../../../../libs/villife-client/types";
 
 export default function WireAmountManually(props: WireAmountManuallyScreenProps) {
     const styles = useWireAmountManuallyStyles();
-    const manager: UserPaymentManagerBase = useManagementFeeManager() as UserPaymentManagerBase;
+    const viewModel = useRenterMFViewModel();
     const [buildingName, setBuildingName] = useState<string>("");
     const [unpaidFee, setUnpaidFee] = useState<number>(0);
     const [billIDs, setBillIDs] = useState<number[]>([]);
-    const [bankAccounts, setBankAccounts] = useState<Building.BuildingBankAccountInfo[]>([]);
+    const [bankAccounts, setBankAccounts] = useState<Villife.Contract.BankAccount[]>([]);
 
     useEffect(() => {
-        manager.getBuildingDetailInfo().then((r) => {
-            if (r?.building_name !== undefined) setBuildingName(r.building_name);
-            if (r?.bank_accounts !== undefined) setBankAccounts(r.bank_accounts);
+        viewModel.getBuildingInfo().then((r) => {
+            if (r?.buildingName !== undefined) setBuildingName(r.buildingName);
+            if (r?.bankAccounts !== undefined) setBankAccounts(r.bankAccounts);
         });
     }, []);
 
@@ -30,17 +30,17 @@ export default function WireAmountManually(props: WireAmountManuallyScreenProps)
         let _unpaidFee = 0;
         let _billIDs: number[] = [];
 
-        manager.history.forEach((v) => {
-            if (!v.is_paid) {
-                _unpaidFee += v.amount_won;
-                _unpaidFee += v.overdue_interest;
-                _billIDs.push(v.bill_id);
+        viewModel.data.forEach((v) => {
+            if (!v.isPaid) {
+                _unpaidFee += v.amountWon;
+                _unpaidFee += v.overdueInterest;
+                _billIDs.push(v.billId);
             }
         });
 
         setUnpaidFee(_unpaidFee);
         setBillIDs([..._billIDs]);
-    }, [manager.history]);
+    }, [viewModel.data]);
 
     return (
         <NavigationView
@@ -74,7 +74,7 @@ export default function WireAmountManually(props: WireAmountManuallyScreenProps)
                     <View style={styles.billContainer}>
                         <View style={styles.residenceInfoBox}>
                             <Text style={styles.residenceInfo}>
-                                {buildingName} {manager.user?.roomNumber}호
+                                {buildingName} {viewModel.user?.roomNumber}호
                             </Text>
                         </View>
                         <View style={styles.paymentContainer}>
@@ -99,10 +99,10 @@ export default function WireAmountManually(props: WireAmountManuallyScreenProps)
                             {bankAccounts.map((account, index) => (
                                 <BackInfoBox
                                     key={index}
-                                    accountID={account.account_id}
-                                    accountHolder={account.owner_name}
-                                    accountNumber={account.account_number}
-                                    backName={account.bank_name}
+                                    accountID={account.accountId}
+                                    accountHolder={account.ownerName}
+                                    accountNumber={account.accountNumber}
+                                    backName={account.bankName}
                                     onPressWireAmount={(accountID) => {
                                         props.navigation.navigate("request_payment_confirmation", {
                                             amountWon: unpaidFee,

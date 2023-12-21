@@ -6,9 +6,9 @@ class VillifeContractClient extends VillifeClientCommon implements Villife.Contr
         const route: string = this._routes.budilingAndContract.building;
 
         return await this.requestWithCredential({
-            method: "post",
+            method: "get",
             url: route,
-            data: {
+            params: {
                 buildingId,
             },
         });

@@ -11,6 +11,7 @@ class FirebaseMessagingEventHandler
         "new-complaint-registration",
         "new-noti-registration",
         "new-vehicle-registration",
+        "management-fee-deposit-confirmation",
         "vehicle-parking-notification",
         "vehicle-registration-approval-notification",
         "residence-approved",

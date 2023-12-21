@@ -1,5 +1,4 @@
-import { ManagementFee } from "../../../../../../../libs/rest_apis/villife/expense/types";
-import { PaymentBill } from "../../../../services/payment/types";
+import { PaymentBill, UserManagementFee } from "../../../../viewmodel/renter/types";
 import type useUserMFViewStyles from "./styles";
 
 export type ManagementFeeBoxProps = {
@@ -13,7 +12,7 @@ export type ManagementFeeBillBoxProps = PaymentBill & {
 
 export type ManagementFeeStatusScrollViewProps = {
     styles: ReturnType<typeof useUserMFViewStyles>["managementFeeStatus"];
-    manangementFees: ManagementFee.ManagementFee[];
+    mfs: UserManagementFee[];
 };
 
 export type ManagementFeeHistoryBoxProps = {

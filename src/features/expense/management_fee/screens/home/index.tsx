@@ -14,6 +14,7 @@ export default function ManagementFeeHomeScreen({ navigation, route }: Managemen
     const manager: History<any> = useManagementFeeManager();
 
     useEffect(() => {
+        /* if (user?.isRenter)  return */
         manager.updateHistory();
     }, [user?.adminInfomation?.selectedBuilding]);
 

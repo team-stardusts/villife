@@ -6,17 +6,16 @@ import SpinningWon from "../../../../../blocks/icon/spinning_won";
 import { ManagementFeeBoxProps } from "../types";
 import useUserInformation from "../../../../../../../common/hooks/service/user_info";
 import { useEffect, useState } from "react";
-import useManagementFeeManager from "../../../../../services/payment";
-import { UserPaymentManagerBase } from "../../../../../services/payment/types";
 import VillifeToastMessage from "../../../../../../../common/atoms/toast";
 import { StardustAlertContent } from "../../../../../../../common/blocks/universial/stardust_alert/types";
 import StardustAlert from "../../../../../../../common/blocks/universial/stardust_alert";
 import StardustDateParser from "../../../../../../../../libs/date_parser";
+import useRenterMFViewModel from "../../../../../viewmodel/renter";
 
 export default function ManagementFeeBox(props: ManagementFeeBoxProps) {
     const navigation = useNavigation<VillifeNavigation>();
     const user = useUserInformation();
-    const manager: UserPaymentManagerBase = useManagementFeeManager() as UserPaymentManagerBase;
+    const viewModel = useRenterMFViewModel();
     const [dueDate, setDueDate] = useState<Date | null>(null);
     const [alert, setAlert] = useState<StardustAlertContent>({
         type: "primary",
@@ -34,10 +33,10 @@ export default function ManagementFeeBox(props: ManagementFeeBoxProps) {
 
     useEffect(() => {
         if (props.feeToPay !== undefined && props.feeToPay > 0) {
-            manager.getBuildingDetailInfo().then((r) => {
+            viewModel.getBuildingInfo().then((r) => {
                 if (r === null) return;
                 const date = StardustDateParser.changeGMT(new Date(), "kr");
-                date.setDate(date.getDate() + r.mf_due_date);
+                date.setDate(date.getDate() + r.mfDueDate);
 
                 setDueDate(date);
             });
@@ -83,11 +82,15 @@ export default function ManagementFeeBox(props: ManagementFeeBoxProps) {
 
     const requestApproval = async () => {
         if (props.feeToPay === undefined || props.feeToPay === 0) return;
+        if (viewModel.user.roomNumber === undefined) {
+            VillifeToastMessage.showBottomToast("error", "사용자의 호수가 확인되지 않습니다.");
+            return;
+        }
 
-        const result = await manager.requestPaymentConfirmation({
+        const result = await viewModel.requestPaymentConfirmation({
             amountWon: props.feeToPay,
-            billIDs: manager.history.filter((h) => !h.is_paid).map((h) => h.bill_id),
-            sender: manager.user?.roomNumber.toString(),
+            billIds: viewModel.data.filter((h) => !h.isPaid).map((h) => h.billId),
+            depositorName: viewModel.user?.roomNumber.toString() ?? "Unknown",
         });
 
         VillifeToastMessage.showBottomToast(

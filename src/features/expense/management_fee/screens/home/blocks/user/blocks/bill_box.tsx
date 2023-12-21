@@ -1,4 +1,4 @@
-import { Text, TouchableOpacity, View } from "react-native";
+import { Text, View } from "react-native";
 import ContentBox from "../../../../../../../common/blocks/content_box";
 import { useNavigation } from "@react-navigation/native";
 import { VillifeNavigation } from "../../../../../../../common/router/types";

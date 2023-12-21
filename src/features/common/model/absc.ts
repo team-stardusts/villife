@@ -49,7 +49,7 @@ abstract class ViewModelCommmon<ViewData = any> implements ViewModel<ViewData> {
 
     public abstract update(params: any): Promise<void>;
 
-    public async restore(): Promise<ViewData> {
+    protected async restore(): Promise<ViewData> {
         const result = await this._storage.getItem();
 
         if (result === null) throw Error("Failed to restore");
@@ -57,7 +57,7 @@ abstract class ViewModelCommmon<ViewData = any> implements ViewModel<ViewData> {
         return result;
     }
 
-    public async save(data?: ViewData): Promise<void> {
+    protected async save(data?: ViewData): Promise<void> {
         const result = await this._storage.setItem(data ?? this._data);
 
         if (result) this._setData(data ?? this._data);

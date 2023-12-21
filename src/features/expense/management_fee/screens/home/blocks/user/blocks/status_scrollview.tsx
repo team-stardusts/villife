@@ -3,25 +3,25 @@ import useUserMFViewStyles from "../styles";
 import { useEffect, useRef, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { ManagementFeeStatusScrollViewProps } from "../types";
-import { ManagementFee } from "../../../../../../../../libs/rest_apis/villife/expense/types";
 import { VillifeNavigation } from "../../../../../../../common/router/types";
 import ContentBox from "../../../../../../../common/blocks/content_box";
 import Icon from "../../../../../../../common/atoms/icon";
+import { UserManagementFee } from "../../../../../viewmodel/renter/types";
 
 export default function ManagementFeeStatusScrollView(props: ManagementFeeStatusScrollViewProps) {
-    const [fees, setFees] = useState<ManagementFee.ManagementFee[]>([]);
+    const [fees, setFees] = useState<UserManagementFee[]>([]);
     const scrollviewRef = useRef<ScrollView>(null);
 
     useEffect(() => {
-        if (props.manangementFees === null || props.manangementFees === undefined) return;
+        if (props.mfs === null || props.mfs === undefined) return;
 
-        if (props.manangementFees.length > 12) {
-            setFees([...props.manangementFees.slice(props.manangementFees.length - 12, props.manangementFees.length)]);
+        if (props.mfs.length > 12) {
+            setFees([...props.mfs.slice(props.mfs.length - 12, props.mfs.length)]);
         } else {
-            setFees([...props.manangementFees]);
+            setFees([...props.mfs]);
         }
         scrollviewRef.current?.scrollToEnd({ animated: true });
-    }, [props.manangementFees]);
+    }, [props.mfs]);
 
     return (
         <ScrollView
@@ -36,7 +36,7 @@ export default function ManagementFeeStatusScrollView(props: ManagementFeeStatus
                     isFirstElement={index === 0}
                     isLastElement={fees.length === index + 1}
                     styles={props.styles}
-                    managementFee={fee}
+                    mf={fee}
                 />
             ))}
         </ScrollView>
@@ -64,14 +64,14 @@ function PaymentByMonth(props: PaymentByMonthProps) {
                 <TouchableOpacity
                     style={props.styles.contentWrapper}
                     activeOpacity={0.6}
-                    disabled={props.managementFee.is_paid || !props.isLastElement}
+                    disabled={props.mf.isPaid || !props.isLastElement}
                     //onPress={handlePressPaymentBtn}
                 >
                     <View style={props.styles.monthBox}>
-                        <Text style={props.styles.month}>{props.managementFee.month}월</Text>
+                        <Text style={props.styles.month}>{props.mf.month}월</Text>
                     </View>
                     <View style={props.styles.btnBox}>
-                        {props.managementFee.is_paid ? (
+                        {props.mf.isPaid ? (
                             <View style={props.styles.iconBox}>
                                 <Icon
                                     name="check"
@@ -114,5 +114,5 @@ type PaymentByMonthProps = {
     isFirstElement: boolean;
     isLastElement: boolean;
     styles: ReturnType<typeof useUserMFViewStyles>["managementFeeStatus"];
-    managementFee: ManagementFee.ManagementFee;
+    mf: UserManagementFee;
 };

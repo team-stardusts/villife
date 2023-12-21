@@ -45,6 +45,25 @@ export default function useFirebaseMessagingListener() {
                 ];
             }
 
+            if (name === "management-fee-deposit-confirmation") {
+                buttons = [
+                    {
+                        text: "확인",
+                        onPress: () => {
+                            const routes = navigation.getState().routes;
+                            const rootRoute = routes[0].name;
+
+                            if (rootRoute === "management_fee" || rootRoute === "home") {
+                                navigation.reset({
+                                    index: 0,
+                                    routes: [...(routes as any)],
+                                });
+                            }
+                        },
+                    },
+                ];
+            }
+
             Alert.alert(data.title, data.body, buttons);
         });
 

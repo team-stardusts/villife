@@ -4,6 +4,7 @@ export type MessagingEvent =
     | "new-noti-registration"
     | "new-complaint-registration"
     | "new-vehicle-registration"
+    | "management-fee-deposit-confirmation"
     | "vehicle-parking-notification"
     | "vehicle-registration-approval-notification"
     | "residence-approved";

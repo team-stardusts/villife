@@ -3,21 +3,20 @@ import NavigationView from "../../../../common/blocks/navigation";
 import ScreenTitleView from "../../../../common/blocks/title_view";
 import useRequestPaymentConfirmationStyles from "./styles";
 import RequestPaymentConfirmationScreenProps, { AccountInfoProps } from "./types";
-import useManagementFeeManager from "../../services/payment";
-import { UserPaymentManagerBase } from "../../services/payment/types";
 import { useEffect, useState } from "react";
 import { insertCommaToNumber } from "../../../../common/global_function";
-import { Building } from "../../../../../libs/rest_apis/villife/building/types";
 import Icon from "../../../../common/atoms/icon";
 import Clipboard from "@react-native-clipboard/clipboard";
 import VillifeToastMessage from "../../../../common/atoms/toast";
 import { StardustAlertContent } from "../../../../common/blocks/universial/stardust_alert/types";
 import StardustAlert from "../../../../common/blocks/universial/stardust_alert";
+import useRenterMFViewModel from "../../viewmodel/renter";
+import Villife from "../../../../../libs/villife-client/types";
 
 export default function RequestPaymentConfirmationScreen(props: RequestPaymentConfirmationScreenProps) {
     const styles = useRequestPaymentConfirmationStyles();
-    const manager: UserPaymentManagerBase = useManagementFeeManager() as UserPaymentManagerBase;
-    const [bankAccount, setBankAccount] = useState<Building.BuildingBankAccountInfo | null>(null);
+    const viewModel = useRenterMFViewModel();
+    const [bankAccount, setBankAccount] = useState<Villife.Contract.BankAccount | null>(null);
     const [alert, setAlert] = useState<StardustAlertContent>({
         type: "primary",
         title: "관리비를 이체하셨나요?",
@@ -26,11 +25,11 @@ export default function RequestPaymentConfirmationScreen(props: RequestPaymentCo
     });
 
     useEffect(() => {
-        manager.getBuildingDetailInfo().then((r) => {
+        viewModel.getBuildingInfo().then((r) => {
             let _bankAccount;
 
-            if (r?.bank_accounts !== undefined) {
-                _bankAccount = r.bank_accounts.find((v) => v.account_id === props.route.params.accountID);
+            if (r?.bankAccounts !== undefined) {
+                _bankAccount = r.bankAccounts.find((v) => v.accountId === props.route.params.accountID);
             }
 
             if (_bankAccount)
@@ -49,10 +48,10 @@ export default function RequestPaymentConfirmationScreen(props: RequestPaymentCo
 
     const requestApproval = async () => {
         // [TO-DO] Amount가 0원일때에 대한 예외처리 필요
-        const result = await manager.requestPaymentConfirmation({
+        const result = await viewModel.requestPaymentConfirmation({
             amountWon: props.route.params.amountWon === 0 ? 1000 : props.route.params.amountWon,
-            billIDs: props.route.params.billIDs,
-            sender: manager.user?.roomNumber.toString(),
+            billIds: props.route.params.billIDs,
+            depositorName: viewModel.user?.roomNumber.toString(),
         });
 
         VillifeToastMessage.showBottomToast(
@@ -120,18 +119,13 @@ export default function RequestPaymentConfirmationScreen(props: RequestPaymentCo
                     }}
                     disablePaddingTop>
                     <ScrollView style={styles.container}>
-                        <AccountInfo styles={styles} rowKey="은행명" rowValue={bankAccount?.bank_name} />
-                        <AccountInfo
-                            styles={styles}
-                            rowKey="계좌번호"
-                            rowValue={bankAccount?.account_number}
-                            copyable
-                        />
-                        <AccountInfo styles={styles} rowKey="예금주" rowValue={bankAccount?.owner_name} />
+                        <AccountInfo styles={styles} rowKey="은행명" rowValue={bankAccount?.bankName} />
+                        <AccountInfo styles={styles} rowKey="계좌번호" rowValue={bankAccount?.accountNumber} copyable />
+                        <AccountInfo styles={styles} rowKey="예금주" rowValue={bankAccount?.ownerName} />
                         <AccountInfo
                             styles={styles}
                             rowKey="받는 분 통장 표시"
-                            rowValue={manager.user?.roomNumber.toString()}
+                            rowValue={viewModel.user?.roomNumber.toString()}
                             copyable
                         />
                         <AccountInfo

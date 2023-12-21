@@ -138,16 +138,24 @@ abstract class VillifeClientCommon implements VillifeUtility.Refresher {
             .then((res: AxiosResponse<VillifeUtility.VanillaResponse<Return>, Payload>) => {
                 if (res.data?.errorCode) {
                     // Throw error with message.
-                    throw new VillifeError("[TO-DO]: VillifeError");
+                    // [TO-DO] Make sure the VillifeError object.
+                    // Add error handler.
+                    throw new VillifeError(
+                        `Got an error code ${res.data.errorCode}. [${res.config.method}]` + res.config.url
+                    );
                 }
 
                 // Villife Legacy API와의 호환성을 위한 코드
                 if (res.data?.data === undefined) {
+                    if (res.data === undefined) {
+                        throw new VillifeError(`No data in response. [${res.config.method}]` + res.config.url);
+                    }
+
                     return objectToCamel(res.data) as Return;
                 }
 
                 if (res.data.data === null) {
-                    throw new VillifeError("[TO-DO]: VillifeError");
+                    throw new VillifeError(`No data in response. [${res.config.method}]` + res.config.url);
                 }
 
                 if (typeof res.data.data === "object") {
@@ -156,17 +164,36 @@ abstract class VillifeClientCommon implements VillifeUtility.Refresher {
 
                 return res.data.data;
             })
-            .catch((err: AxiosError<Return, Payload>) => {
-                if (err?.response) {
-                    // 요청이 이루어졌으며 서버에게서 원하지 않는 결과를 받음. (not 2xx)
-                } else if (err?.request) {
-                    // 요청이 이루어졌으나, 응답을 받지 못함.
-                    // 서버 측의 문제일 가능성이 높은 구문.
-                } else {
-                    // 오류를 발생시킨 요청을 설정하는 도중 문제가 발생함.
+            .catch((err: AxiosError<Return, Payload> | VillifeError) => {
+                if (axios.isAxiosError(err)) {
+                    if (err?.response) {
+                        // 요청이 이루어졌으며 서버에게서 원하지 않는 결과를 받음. (not 2xx)
+                    } else if (err?.request) {
+                        // 요청이 이루어졌으나, 응답을 받지 못함.
+                        // 서버 측의 문제일 가능성이 높은 구문.
+                    } else {
+                        // 오류를 발생시킨 요청을 설정하는 도중 문제가 발생함.
+                    }
+
+                    console.error(
+                        `[${err.name}]`,
+                        "\n\t- message:",
+                        err.message,
+                        "\n\t- request:",
+                        `${err.config?.method}/${err.config?.url}`,
+                        err.config?.data,
+                        "\n\t- status:",
+                        err.status,
+                        "\n\t- cause:",
+                        err.cause,
+                        "\n\t- data:",
+                        err.response?.data
+                    );
                 }
 
-                console.error("[AxiosError]", err, err.status, err.cause, err.response?.data);
+                if (err instanceof VillifeError) {
+                    console.error("[VillifeClientError]", err);
+                }
 
                 throw err;
             });

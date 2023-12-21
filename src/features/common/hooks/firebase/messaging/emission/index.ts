@@ -28,6 +28,9 @@ export default function useFirebaseMessagingEmitter() {
                     if (message.notification.body === "거주 승인이 완료 되었습니다, 정상적으로 앱을 이용하시면 됩니다.")
                         category = "residence-approved";
                     break;
+                case "관리비 입금 확인 알림":
+                    category = "management-fee-deposit-confirmation";
+                    break;
             }
 
             console.log("[PUSH_NOTI]", category, message.notification.title);

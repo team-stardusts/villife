@@ -7,15 +7,14 @@ import ManagementFeeDetailScreenProps, { PaidDateRange, SelectedDate } from "./t
 import { useEffect, useState } from "react";
 import Icon from "../../../../common/atoms/icon";
 import SelectModal from "./blocks/select_modal";
-import useManagementFeeManager from "../../services/payment";
-import { PaymentBill, UserPaymentManagerBase } from "../../services/payment/types";
 import { insertCommaToNumber } from "../../../../common/global_function";
 import SpinningWon from "../../blocks/icon/spinning_won";
+import useRenterMFViewModel from "../../viewmodel/renter";
+import { PaymentBill } from "../../viewmodel/renter/types";
 
 export default function ManagementFeeDetailScreen({ navigation, route }: ManagementFeeDetailScreenProps) {
     const styles = useManagementFeeDetailScreenStyles();
-    const manager: UserPaymentManagerBase = useManagementFeeManager() as UserPaymentManagerBase;
-    const user = useUserInformation();
+    const viewModel = useRenterMFViewModel();
     const [modalVisible, setModalVisible] = useState<boolean>(false);
     const [paidDateRange, setPaidDateRaange] = useState<PaidDateRange>({}); // 납부 기간
     const [selectedDate, setSelectedDate] = useState<SelectedDate | null>(null);
@@ -25,7 +24,7 @@ export default function ManagementFeeDetailScreen({ navigation, route }: Managem
     useEffect(() => {
         const _paidPR: PaidDateRange = {};
 
-        manager.history.forEach((fee) => {
+        viewModel.data.forEach((fee) => {
             if (Object.keys(_paidPR).find((year) => parseInt(year) === fee.year)) {
                 if (!_paidPR[fee.year].find((month) => month === fee.month)) {
                     _paidPR[fee.year].push(fee.month);
@@ -39,22 +38,22 @@ export default function ManagementFeeDetailScreen({ navigation, route }: Managem
         setPaidDateRaange({ ..._paidPR });
 
         // Initial SelectedDate를 가장 최근 고지월로 설정
-        if (manager.history.length > 0) {
+        if (viewModel.data.length > 0) {
             setSelectedDate({
-                year: manager.history[manager.history.length - 1].year,
-                month: manager.history[manager.history.length - 1].month,
+                year: viewModel.data[viewModel.data.length - 1].year,
+                month: viewModel.data[viewModel.data.length - 1].month,
             });
         }
-    }, [manager.history]);
+    }, [viewModel.data]);
 
     useEffect(() => {
         if (selectedDate === null) return;
 
         // SelectedDate에 해당하는 fee를 선택
-        const _fee = manager.history.find((fee) => fee.year === selectedDate.year && fee.month === selectedDate.month);
+        const _fee = viewModel.data.find((fee) => fee.year === selectedDate.year && fee.month === selectedDate.month);
 
         if (_fee !== undefined) {
-            setBillOfMonth(manager.calcByPaymentItem([_fee]));
+            setBillOfMonth(viewModel.calcByPaymentItem([_fee]));
         }
     }, [selectedDate]);
 
@@ -83,7 +82,7 @@ export default function ManagementFeeDetailScreen({ navigation, route }: Managem
             bottomNavOptions={{
                 shown: false,
             }}>
-            <ScreenTitleView titles={[`${user?.roomNumber}호`]} disablePaddingTop={true}>
+            <ScreenTitleView titles={[`${viewModel.user?.roomNumber}호`]} disablePaddingTop={true}>
                 <SelectModal
                     initailSelectedDate={selectedDate}
                     modalVisible={modalVisible}

@@ -3,24 +3,24 @@ import ManagementFeeBox from "./blocks/fee_box";
 import BillBox from "./blocks/bill_box";
 import ManagementFeeStatusScrollView from "./blocks/status_scrollview";
 import useUserMFViewStyles from "./styles";
-import useManagementFeeManager from "../../../../services/payment";
 import { useEffect, useState } from "react";
-import { PaymentBill, UserPaymentManagerBase } from "../../../../services/payment/types";
 import PaymentHistoryBox from "./blocks/history_box";
 import InfoPannel from "../../../../../../common/blocks/info-pannel";
+import useRenterMFViewModel from "../../../../viewmodel/renter";
+import { PaymentBill } from "../../../../services/payment/types";
 
 export default function UserMFView() {
     const styles = useUserMFViewStyles();
-    const manager: UserPaymentManagerBase = useManagementFeeManager() as UserPaymentManagerBase;
+    const viewModel = useRenterMFViewModel();
     const [bill, setBill] = useState<PaymentBill | null>(null);
 
     useEffect(() => {
-        manager.updateHistory();
+        viewModel.update();
     }, []);
 
     useEffect(() => {
-        setBill(manager.calcByPaymentItem(manager.history));
-    }, [manager.history]);
+        setBill(viewModel.calcByPaymentItem(viewModel.data));
+    }, [viewModel.data]);
 
     return (
         <>
@@ -37,11 +37,8 @@ export default function UserMFView() {
                     <ManagementFeeBox styles={styles.managementFee} feeToPay={bill?.feeToPay} />
                     {bill !== null && <BillBox styles={styles.bill} {...bill} />}
                 </View>
-                {manager.history.length > 0 && (
-                    <ManagementFeeStatusScrollView
-                        styles={styles.managementFeeStatus}
-                        manangementFees={manager.history}
-                    />
+                {viewModel.data.length > 0 && (
+                    <ManagementFeeStatusScrollView styles={styles.managementFeeStatus} mfs={viewModel.data} />
                 )}
                 <View style={styles.main.wrapper}>
                     <PaymentHistoryBox styles={styles.history} />
