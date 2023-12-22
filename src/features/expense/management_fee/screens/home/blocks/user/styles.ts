@@ -15,7 +15,9 @@ export default function useUserMFViewStyles() {
     });
 
     const managementFee = StyleSheet.create({
-        container: {},
+        container: {
+            width: "100%",
+        },
         contentBox: {
             color: theme.color.specified.white,
         },
@@ -54,15 +56,18 @@ export default function useUserMFViewStyles() {
             fontSize: deviceUI.moderateScale(25),
             color: theme.color.specified.black,
         },
+        paymentBtnCombo: {
+            flexDirection: "row",
+            alignItems: "center",
+        },
+        paymentBtnSeparator: {
+            marginHorizontal: deviceUI.moderateScale(4),
+        },
         paymentBtn: {
-            borderRadius: deviceUI.moderateScale(20),
-            backgroundColor: theme.color.series.grey.level1,
             alignItems: "center",
             justifyContent: "center",
-            paddingHorizontal: deviceUI.moderateScale(10),
-            paddingVertical: deviceUI.moderateScale(5),
         },
-        paymentText: {
+        paymentBtnText: {
             fontFamily: theme.font.fontFamily.pretendard.regular,
             fontSize: deviceUI.moderateScale(12),
             color: theme.color.specified.black,

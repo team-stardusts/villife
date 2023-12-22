@@ -180,7 +180,7 @@ abstract class VillifeClientCommon implements VillifeUtility.Refresher {
                         "\n\t- message:",
                         err.message,
                         "\n\t- request:",
-                        `${err.config?.method}/${err.config?.url}`,
+                        `/${err.config?.url}`, //${err.config?.method}
                         err.config?.data,
                         "\n\t- status:",
                         err.status,

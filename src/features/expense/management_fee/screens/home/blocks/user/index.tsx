@@ -8,6 +8,7 @@ import PaymentHistoryBox from "./blocks/history_box";
 import InfoPannel from "../../../../../../common/blocks/info-pannel";
 import useRenterMFViewModel from "../../../../viewmodel/renter";
 import { PaymentBill } from "../../../../viewmodel/renter/types";
+import ContentBox from "../../../../../../common/blocks/content_box";
 
 export default function UserMFView() {
     const styles = useUserMFViewStyles();
@@ -34,7 +35,9 @@ export default function UserMFView() {
             </View>
             <ScrollView style={styles.main.container}>
                 <View style={styles.main.wrapper}>
-                    <ManagementFeeBox styles={styles.managementFee} feeToPay={bill?.feeToPay} />
+                    <ContentBox backgroundColor={styles.managementFee.contentBox.color} enableShadow={false}>
+                        <ManagementFeeBox styles={styles.managementFee} feeToPay={bill?.feeToPay} />
+                    </ContentBox>
                     {bill !== null && <BillBox styles={styles.bill} {...bill} />}
                 </View>
                 {viewModel.data.length > 0 && (
