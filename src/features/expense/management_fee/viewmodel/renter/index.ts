@@ -2,9 +2,9 @@ import { SetterOrUpdater, useRecoilState } from "recoil";
 import useUserInformation from "../../../../common/hooks/service/user_info";
 import { UserInfo } from "../../../../common/hooks/service/user_info/types";
 import ViewModelCommmon from "../../../../common/model/absc";
-import { userManagementFeesState } from "./states/index";
 import { PaymentBill, PaymentConfirmaionRequestForm, RenterMFViewModelBase, UserManagementFee } from "./types";
 import Villife from "../../../../../libs/villife-client/types";
+import { userManagementFeesState } from "./states";
 
 export default function useRenterMFViewModel(): RenterMFViewModelBase {
     const user = useUserInformation() as UserInfo;
@@ -20,13 +20,13 @@ export default function useRenterMFViewModel(): RenterMFViewModelBase {
 
         public override async update(): Promise<void> {
             this._api
-                .getUserMFHistory(true)
+                .getUserMFHistory()
                 .then(async (r) => {
                     this.save(r ?? []);
                 })
                 .catch(async (err) => {
-                    console.error("[USER_MF_VIEWMODEL]", err, "occured while update data.");
-                    this.save(await this.restore());
+                    console.error("[USER_MF_VIEWMODEL]", "occured while update data.", err);
+                    this.save((await this.restore()) ?? []);
                 });
         }
 

@@ -55,14 +55,14 @@ export default function MFHistoryCardView(props: MFHistoryCardViewProps) {
     const isNotiRequired = (): boolean => {
         const today = StardustDateParser.changeGMT(new Date(), "kr");
 
-        return !(props.lastest_noti_year === today.getFullYear() && props.lastest_noti_month === today.getMonth() + 1);
+        return !(props.lastestNotiYear === today.getFullYear() && props.lastestNotiMonth === today.getMonth() + 1);
     };
 
     const isUnpaid = (): boolean => {
         //const today = StardustDateParser.changeGMT(new Date(), "kr");
 
         //return props.LastestPaidYear !== today.getFullYear() || props.LastestPaidMonth !== today.getMonth() + 1;
-        return props.total_unpaid_fee > 0;
+        return props.totalUnpaidFee > 0;
     };
 
     function NotiMark() {
@@ -96,7 +96,7 @@ export default function MFHistoryCardView(props: MFHistoryCardViewProps) {
                 }}
                 disabled={props.checkmode !== undefined ? props.checkmode.disabled : true}>
                 <View style={styles.row}>
-                    <Text style={styles.roomNumber}>{props.room_number}호</Text>
+                    <Text style={styles.roomNumber}>{props.roomNumber}호</Text>
                     {props.checkmode && (
                         <View style={styles.checkIndicator}>
                             <Icon name="check" size={styles.checkIcon.width} color={styles.checkIcon.color} />
@@ -111,9 +111,9 @@ export default function MFHistoryCardView(props: MFHistoryCardViewProps) {
                         {isNotiRequired() && <NotiMark />}
                     </View>
                     <Text style={styles.rowValue}>
-                        {props.lastest_noti_year === undefined || props.lastest_noti_month === undefined
+                        {props.lastestNotiYear === undefined || props.lastestNotiMonth === undefined
                             ? "고지이력 없음"
-                            : `${props.lastest_noti_year}년 ${props.lastest_noti_month}월`}
+                            : `${props.lastestNotiYear}년 ${props.lastestNotiMonth}월`}
                     </Text>
                 </View>
                 <View style={[styles.row]}>
@@ -121,9 +121,9 @@ export default function MFHistoryCardView(props: MFHistoryCardViewProps) {
                         최근납부
                     </Text>
                     <Text style={styles.rowValue}>
-                        {props.lastest_paid_year === undefined || props.lastest_paid_month === undefined
+                        {props.lastestPaidYear === undefined || props.lastestPaidMonth === undefined
                             ? "납부이력 없음"
-                            : `${props.lastest_paid_year}년 ${props.lastest_paid_month}월`}
+                            : `${props.lastestPaidYear}년 ${props.lastestPaidMonth}월`}
                     </Text>
                 </View>
                 <View style={[styles.row]}>
@@ -133,7 +133,7 @@ export default function MFHistoryCardView(props: MFHistoryCardViewProps) {
                         </Text>
                         {isUnpaid() && <NotiMark />}
                     </View>
-                    <Text style={styles.rowValue}>{insertCommaToNumber(props.total_unpaid_fee || 0) + "원"}</Text>
+                    <Text style={styles.rowValue}>{insertCommaToNumber(props.totalUnpaidFee || 0) + "원"}</Text>
                 </View>
             </TouchableOpacity>
         </Animated.View>

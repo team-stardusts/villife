@@ -2,29 +2,28 @@ import { ScrollView, Text, TouchableOpacity, View } from "react-native";
 import NavigationView from "../../../../common/blocks/navigation";
 import MFSelectToDoSomethingScreenProps from "./types";
 import useMFDepositCheckScreenStyles from "./styles";
-import { AdminPaymentManagerBase } from "../../services/payment/types";
-import useManagementFeeManager from "../../services/payment";
 import { useEffect, useState } from "react";
-import { ManagementFee } from "../../../../../libs/rest_apis/villife/expense/types";
 import MFHistoryCardView from "../../blocks/card";
 import Icon from "../../../../common/atoms/icon";
 import StardustModal from "../../../../common/blocks/universial/stardust_modal";
 import { makeChunk } from "../../../../common/global_function";
 import VillifeToastMessage from "../../../../common/atoms/toast";
+import useAdminMFViewModel from "../../viewmodel/admin";
+import { BuildingMFHistory } from "../../viewmodel/admin/types";
 
 export default function MFSelectToDoSomethingScreen({ navigation, route }: MFSelectToDoSomethingScreenProps) {
     const styles = useMFDepositCheckScreenStyles();
     const [depositCheckModalVisible, setDepositCheckModalVisible] = useState<boolean>(false);
-    const [fees, setFees] = useState<ManagementFee.BuildingRenterHistory[]>([]);
+    const [fees, setFees] = useState<BuildingMFHistory[]>([]);
     /* 
         if selectAll is true => "전체 선택" 상태
         if selectAll is false => "전체 선택" 상태 해제로 일괄 선택 해제
         if selectAll is null => "전체 선택" 상태에서 부분 항목 선택 해제로 인한 "전체 선택" 상태 해제
     */
     const [selectAll, setSelectAll] = useState<boolean | null>(null);
-    const [checkedFees, setCheckedFees] = useState<ManagementFee.BuildingRenterHistory[]>([]);
+    const [checkedFees, setCheckedFees] = useState<BuildingMFHistory[]>([]);
 
-    const manager: AdminPaymentManagerBase = useManagementFeeManager() as AdminPaymentManagerBase;
+    const viewModel = useAdminMFViewModel();
 
     useEffect(() => {
         setFees(JSON.parse(route.params.fees));
@@ -36,13 +35,13 @@ export default function MFSelectToDoSomethingScreen({ navigation, route }: MFSel
 
     const confirm = async () => {
         for (const fee of checkedFees) {
-            const failed = await manager.requestPaymentConfirmation({
-                unpaidBills: fee.unpaid_bills,
+            const failed = await viewModel.confirmPaymentRequest({
+                unpaidBills: fee.unpaidBills,
             });
-            console.log(fee.room_number, failed);
+            console.log(fee.roomNumber, failed);
         }
 
-        await manager.updateHistory();
+        await viewModel.update();
 
         VillifeToastMessage.showBottomToast("success", "입금을 확인했어요! 잘 처리 되었는지 꼭 확인해주세요.");
 
@@ -54,10 +53,10 @@ export default function MFSelectToDoSomethingScreen({ navigation, route }: MFSel
             setDepositCheckModalVisible(true);
         } else {
             for (const fee of checkedFees) {
-                console.log("select", fee.room_number);
+                console.log("select", fee.roomNumber);
 
                 navigation.navigate("expense_compose_message", {
-                    room_numbers: checkedFees.map((f) => f.room_number),
+                    room_numbers: checkedFees.map((f) => f.roomNumber),
                 });
             }
         }
@@ -99,11 +98,11 @@ export default function MFSelectToDoSomethingScreen({ navigation, route }: MFSel
                         <View key={i} style={styles.confirmModalRow}>
                             {chunk.map((fee) => (
                                 <Text
-                                    key={fee.room_number}
+                                    key={fee.roomNumber}
                                     style={styles.confirmModalTxt}
                                     adjustsFontSizeToFit
                                     numberOfLines={1}>
-                                    {fee.room_number}
+                                    {fee.roomNumber}
                                 </Text>
                             ))}
                         </View>
@@ -132,10 +131,10 @@ export default function MFSelectToDoSomethingScreen({ navigation, route }: MFSel
                             totalCardCount={elements.length}
                             checkmode={{
                                 checkAll: selectAll,
-                                disabled: route.params.dowhat === "message-to" ? false : fee.total_unpaid_fee === 0,
+                                disabled: route.params.dowhat === "message-to" ? false : fee.totalUnpaidFee === 0,
                                 onCheck: (check) => {
                                     if (check) {
-                                        if (!checkedFees.find((v) => v.room_number === fee.room_number)) {
+                                        if (!checkedFees.find((v) => v.roomNumber === fee.roomNumber)) {
                                             setCheckedFees((previous) => {
                                                 const newVal = [...previous];
                                                 newVal.push(fee);
@@ -151,9 +150,7 @@ export default function MFSelectToDoSomethingScreen({ navigation, route }: MFSel
 
                                     // N회 업데이트 되는 현상 방지
                                     if (checkedFees.length !== 0) {
-                                        setCheckedFees([
-                                            ...checkedFees.filter((v) => v.room_number !== fee.room_number),
-                                        ]);
+                                        setCheckedFees([...checkedFees.filter((v) => v.roomNumber !== fee.roomNumber)]);
                                     }
                                 },
                             }}

@@ -1,6 +1,6 @@
-import { ManagementFee } from "../../../../../libs/rest_apis/villife/expense/types";
+import { BuildingMFHistory } from "../../viewmodel/admin/types";
 
-export type MFHistoryCardViewProps = ManagementFee.BuildingRenterHistory & {
+export type MFHistoryCardViewProps = BuildingMFHistory & {
     index: number;
     totalCardCount: number;
     checkmode?: {

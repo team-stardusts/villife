@@ -3,22 +3,21 @@ import NavigationView from "../../../../common/blocks/navigation";
 import BuildingMFHistoryScreenProps from "./types";
 import useBuildingMFHistoryScreenStyles from "./styles";
 import ScreenTopFilter from "../../../../common/blocks/top_filter";
-import { AdminPaymentManagerBase } from "../../services/payment/types";
-import useManagementFeeManager from "../../services/payment";
 import { useMemo, useState } from "react";
 import { Filter } from "../../../../common/blocks/top_filter/types";
-import { ManagementFee } from "../../../../../libs/rest_apis/villife/expense/types";
 import buildingManagementFeeFilter from "./filter";
 import MFHistoryCardView from "../../blocks/card";
 import Message from "./blocks/message";
+import useAdminMFViewModel from "../../viewmodel/admin";
+import { BuildingMFHistory } from "../../viewmodel/admin/types";
 
 export default function BuildingMFHistoryScreen({ navigation }: BuildingMFHistoryScreenProps) {
     const styles = useBuildingMFHistoryScreenStyles();
 
-    const manager: AdminPaymentManagerBase = useManagementFeeManager() as AdminPaymentManagerBase;
-    const [filteredHistory, setFilteredHistory] = useState<ManagementFee.BuildingRenterHistory[]>([]);
-    const filters = useMemo<Filter<ManagementFee.BuildingRenterHistory>[]>(() => {
-        let floors = manager.history.map((f) => Math.floor(f.room_number / 100).toString());
+    const viewModel = useAdminMFViewModel();
+    const [filteredHistory, setFilteredHistory] = useState<BuildingMFHistory[]>([]);
+    const filters = useMemo<Filter<BuildingMFHistory>[]>(() => {
+        let floors = viewModel.data.map((f) => Math.floor(f.roomNumber / 100).toString());
 
         // 중복 제거
         floors = floors
@@ -38,7 +37,7 @@ export default function BuildingMFHistoryScreen({ navigation }: BuildingMFHistor
         _filter[floorFilterIndex].conditions = floors;
 
         return _filter;
-    }, manager.history);
+    }, viewModel.data);
 
     return (
         <NavigationView
@@ -67,12 +66,12 @@ export default function BuildingMFHistoryScreen({ navigation }: BuildingMFHistor
                         selectedBackgroundColor: styles.selectedFilter.backgroundColor,
                         backgroundColor: styles.filter.backgroundColor,
                     }}
-                    data={manager.history}
-                    onFilterData={(data: ManagementFee.BuildingRenterHistory[]) => {
+                    data={viewModel.data}
+                    onFilterData={(data: BuildingMFHistory[]) => {
                         const _filteredHistory = data.sort((a, b) => {
-                            if (a.room_number > b.room_number) {
+                            if (a.roomNumber > b.roomNumber) {
                                 return 1;
-                            } else if (a.room_number < b.room_number) {
+                            } else if (a.roomNumber < b.roomNumber) {
                                 return -1;
                             }
                             return 0;
@@ -87,11 +86,11 @@ export default function BuildingMFHistoryScreen({ navigation }: BuildingMFHistor
                         <TouchableOpacity
                             style={[
                                 styles.depositCheckBtn,
-                                filteredHistory.filter((v) => v.total_unpaid_fee > 0).length === 0 &&
+                                filteredHistory.filter((v) => v.totalUnpaidFee > 0).length === 0 &&
                                     styles.depositCheckBtnDisabled,
                             ]}
                             activeOpacity={0.6}
-                            disabled={filteredHistory.filter((v) => v.total_unpaid_fee > 0).length === 0}
+                            disabled={filteredHistory.filter((v) => v.totalUnpaidFee > 0).length === 0}
                             onPress={() => {
                                 navigation.navigate("mf_select_to_do_something", {
                                     dowhat: "confirm-deposit",
@@ -101,7 +100,7 @@ export default function BuildingMFHistoryScreen({ navigation }: BuildingMFHistor
                             <Text
                                 style={[
                                     styles.depositCheckTxt,
-                                    filteredHistory.filter((v) => v.total_unpaid_fee > 0).length === 0 &&
+                                    filteredHistory.filter((v) => v.totalUnpaidFee > 0).length === 0 &&
                                         styles.depositCheckTxtDisabled,
                                 ]}
                                 adjustsFontSizeToFit

@@ -1,23 +1,21 @@
 import { ScrollView, Text, TouchableOpacity, View } from "react-native";
-import useStyler from "../../../../../../common/hooks/styler/hooks";
 import { AdminMFViewProps } from "./types";
-import { AdminPaymentManagerBase } from "../../../../services/payment/types";
-import useManagementFeeManager from "../../../../services/payment";
 import { useNavigation } from "@react-navigation/native";
 import { VillifeNavigation } from "../../../../../../common/router/types";
 import useAdminMFStyles from "./styles";
 import ContentBox from "../../../../../../common/blocks/content_box";
 import Icon from "../../../../../../common/atoms/icon";
 import { useEffect, useMemo, useState } from "react";
-import { Building } from "../../../../../../../libs/rest_apis/villife/building/types";
 import StardustDateParser from "../../../../../../../libs/date_parser";
+import useAdminMFViewModel from "../../../../viewmodel/admin";
+import Villife from "../../../../../../../libs/villife-client/types";
 
 export default function AdminMFView(props: AdminMFViewProps) {
     const navigation = useNavigation<VillifeNavigation>();
     const styles = useAdminMFStyles();
-    const manager: AdminPaymentManagerBase = useManagementFeeManager() as AdminPaymentManagerBase;
+    const viewModel = useAdminMFViewModel();
 
-    const [buidingInfo, setBuildingInfo] = useState<Building.BuildingInfo | null>(null);
+    const [buidingInfo, setBuildingInfo] = useState<Villife.Contract.Building | null>(null);
 
     const notFulfilledItemsCnt = useMemo<NotFulfilledItemCnt>(() => {
         const today = StardustDateParser.changeGMT(new Date(), "kr");
@@ -26,10 +24,10 @@ export default function AdminMFView(props: AdminMFViewProps) {
             unpaied: 0,
         };
 
-        for (let i = 0; i < manager.history.length; i++) {
+        for (let i = 0; i < viewModel.data.length; i++) {
             if (
-                manager.history[i].lastest_noti_year !== today.getFullYear() ||
-                manager.history[i].lastest_noti_month !== today.getMonth() + 1
+                viewModel.data[i].lastestNotiYear !== today.getFullYear() ||
+                viewModel.data[i].lastestNotiMonth !== today.getMonth() + 1
             ) {
                 cnt.unnoticed++;
             }
@@ -43,13 +41,13 @@ export default function AdminMFView(props: AdminMFViewProps) {
                 _nonPaymentCnt++;
             } */
 
-            if (manager.history[i].total_unpaid_fee > 0) {
+            if (viewModel.data[i].totalUnpaidFee > 0) {
                 cnt.unpaied++;
             }
         }
 
         return cnt;
-    }, [manager.history]);
+    }, [viewModel.data]);
 
     const status = useMemo<string>(() => {
         if (notFulfilledItemsCnt.unnoticed === 0 && notFulfilledItemsCnt.unpaied === 0) {
@@ -60,12 +58,12 @@ export default function AdminMFView(props: AdminMFViewProps) {
     }, [notFulfilledItemsCnt]);
 
     useEffect(() => {
-        manager.updateHistory();
-    }, [manager.selectedBuilding]);
+        viewModel.update();
+    }, [viewModel.user.adminInfomation?.selectedBuilding]);
 
     useEffect(() => {
-        manager.getBuildingDetailInfo().then(setBuildingInfo);
-    }, [manager.history]);
+        viewModel.getBuildingInfo().then(setBuildingInfo);
+    }, [viewModel.data]);
 
     return (
         <ScrollView style={styles.container}>
@@ -100,11 +98,11 @@ export default function AdminMFView(props: AdminMFViewProps) {
                         </View>
                         <View style={styles.row}>
                             <Text style={styles.rowKey}>고지일</Text>
-                            <Text style={styles.rowValue}>매달 {buidingInfo?.mf_noti_date}일</Text>
+                            <Text style={styles.rowValue}>매달 {buidingInfo?.mfNotiDate}일</Text>
                         </View>
                         <View style={styles.row}>
                             <Text style={styles.rowKey}>마감일</Text>
-                            <Text style={styles.rowValue}>고지 이후 {buidingInfo?.mf_due_date}일</Text>
+                            <Text style={styles.rowValue}>고지 이후 {buidingInfo?.mfDueDate}일</Text>
                         </View>
                         <View style={styles.row}>
                             <Text style={styles.rowKey}>미고지 건수</Text>
