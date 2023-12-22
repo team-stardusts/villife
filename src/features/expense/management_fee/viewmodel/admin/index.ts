@@ -79,6 +79,10 @@ export default function useAdminMFViewModel(): AdminMFViewModelBase {
 
             return result;
         }
+
+        public async sendMessage(params: Villife.Messaging.MessageForm): Promise<boolean> {
+            return this._clientInstance.messaging.sendMessage(params);
+        }
     }
 
     return new AdminMFViewModel(user, mfs, setMFs);

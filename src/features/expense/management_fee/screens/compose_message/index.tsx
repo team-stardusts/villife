@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useRef } from "react";
 import NavigationView from "../../../../common/blocks/navigation";
 import VillifeToastMessage from "../../../../common/atoms/toast";
 import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
@@ -6,18 +6,15 @@ import useStyler from "../../../../common/hooks/styler/hooks";
 import Editor from "./blocks/editor";
 import SendButton from "./blocks/send_button";
 import ExpenseComposeMessageScreenProps from "./type";
-import ManagementFeePaymentServiceProvider from "../../services/provider";
-import useUserInformation from "../../../../common/hooks/service/user_info";
-import routes from "../../../../../libs/rest_apis/villife/routes";
+import useAdminMFViewModel from "../../viewmodel/admin";
 
 export default function ExpenseComposeMessageScreen(props: ExpenseComposeMessageScreenProps) {
     const message = useScreenMessage();
     const content = useRef("");
     const title = useRef("");
-    const service = new ManagementFeePaymentServiceProvider();
-    const user = useUserInformation();
+    const viewModel = useAdminMFViewModel();
 
-    const { deviceUI, theme } = useStyler();
+    const { theme } = useStyler();
 
     const [loading, setLoading] = React.useState(false);
 
@@ -28,7 +25,7 @@ export default function ExpenseComposeMessageScreen(props: ExpenseComposeMessage
             return VillifeToastMessage.showBottomToast("info", message.messages.main.noti.noti_title_error);
         }
 
-        if (user?.adminInfomation?.selectedBuilding.id === undefined) {
+        if (viewModel.user?.adminInfomation?.selectedBuilding.id === undefined) {
             return;
         }
 
@@ -36,15 +33,15 @@ export default function ExpenseComposeMessageScreen(props: ExpenseComposeMessage
 
         for (const roomNumber of props.route.params.room_numbers) {
             const params = {
-                title: title.current,
+                buildingId: viewModel.user?.adminInfomation?.selectedBuilding.id,
                 content: content.current,
-                room_number: roomNumber,
-                building_id: user?.adminInfomation?.selectedBuilding.id,
+                roomNumber: roomNumber,
+                title: title.current,
             };
-            const result = await service.sendPushMessage(params);
-            console.log("[ExpenseComposeMessageScreen]", result.data);
+            const isSuccessful = await viewModel.sendMessage(params);
+            console.log("[ExpenseComposeMessageScreen]", params);
 
-            if (!result.isSuccessful) {
+            if (!isSuccessful) {
                 failedRooms.push(roomNumber);
             }
         }

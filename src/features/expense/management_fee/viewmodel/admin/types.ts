@@ -8,8 +8,9 @@ export type BuildingMFHistory = Villife.Expense.BuildingMFHistory;
 export interface AdminMFViewModelBase extends ViewModel<BuildingMFHistory[]> {
     user: UserInfo;
     update(): Promise<void>;
-    getBuildingInfo(): Promise<Villife.Contract.Building | null>;
     confirmPaymentRequest(params: PaymentConfirmationForm): Promise<ConfirmPaymentResult>;
+    getBuildingInfo(): Promise<Villife.Contract.Building | null>;
+    sendMessage(params: Villife.Messaging.MessageForm): Promise<boolean>;
 }
 
 export type PaymentConfirmationForm = {
