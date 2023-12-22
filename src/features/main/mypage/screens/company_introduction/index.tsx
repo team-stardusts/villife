@@ -27,20 +27,21 @@ export default function CompanyIntroductionScreen(props: CompanyIntroductionScre
             content: "정지혜",
         },
         {
-            title: "주소",
-            content: "인천광역시 부평구 충선로8번길 31 1003호",
+            title: "전화",
+            content: "010-5502-7723",
+        },
+        {
+            title: "사업자번호",
+            content: "522-88-03029",
         },
         {
             title: "이메일",
             content: "corpstardust0726@gamil.com",
         },
+
         {
-            title: "전화",
-            content: "010-5502-7723",
-        },
-        {
-            title: "사업자등록번호",
-            content: "522-88-03029",
+            title: "주소",
+            content: "인천광역시 부평구 충선로8번길 31 1003호",
         },
     ];
 
@@ -75,11 +76,10 @@ export default function CompanyIntroductionScreen(props: CompanyIntroductionScre
                     {contents.map((content, index) => {
                         return (
                             <View style={styles.main.childrenSection} key={index}>
-                                <Text style={styles.main.leftText}>{content.title}</Text>
-                                <Text
-                                    style={
-                                        index === 2 || index === 3 ? styles.main.rightSmallText : styles.main.rightText
-                                    }>
+                                <Text style={styles.main.key} adjustsFontSizeToFit numberOfLines={1}>
+                                    {content.title}
+                                </Text>
+                                <Text style={styles.main.value} adjustsFontSizeToFit numberOfLines={1}>
                                     {content.content}
                                 </Text>
                             </View>

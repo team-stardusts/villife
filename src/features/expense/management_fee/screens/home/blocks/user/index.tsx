@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import PaymentHistoryBox from "./blocks/history_box";
 import InfoPannel from "../../../../../../common/blocks/info-pannel";
 import useRenterMFViewModel from "../../../../viewmodel/renter";
-import { PaymentBill } from "../../../../services/payment/types";
+import { PaymentBill } from "../../../../viewmodel/renter/types";
 
 export default function UserMFView() {
     const styles = useUserMFViewStyles();

@@ -27,19 +27,17 @@ export default function useCompanyIntroductionScreenStyles() {
             paddingVertical: deviceUI.moderateScale(8),
             paddingHorizontal: deviceUI.moderateScale(16),
         },
-        leftText: {
-            fontFamily: theme.font.fontFamily.pretendard.bold,
-            fontSize: deviceUI.moderateScale(18),
+        key: {
+            width: "30%",
+            fontFamily: theme.font.fontFamily.pretendard.medium,
+            fontSize: deviceUI.moderateScale(14),
             color: theme.color.specified.blue,
         },
-        rightText: {
-            fontFamily: theme.font.fontFamily.pretendard.bold,
-            fontSize: deviceUI.moderateScale(22),
-            color: theme.color.specified.black,
-        },
-        rightSmallText: {
-            fontFamily: theme.font.fontFamily.pretendard.bold,
-            fontSize: deviceUI.moderateScale(14),
+        value: {
+            width: "70%",
+            textAlign: "right",
+            fontFamily: theme.font.fontFamily.pretendard.medium,
+            fontSize: deviceUI.moderateScale(15),
             color: theme.color.specified.black,
         },
     });
