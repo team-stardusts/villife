@@ -12,6 +12,7 @@ export default function Notification(props: NotificationProps) {
         if (props.title.includes("관리비")) return "payment";
         else if (props.title.includes("주차")) return "parking-lot";
         else if (props.title.includes("공지사항")) return "speaker";
+        else if (props.title.includes("민원")) return "messenger";
         else return "letter";
     }, [props.title]);
 
