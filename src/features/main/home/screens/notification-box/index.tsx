@@ -1,9 +1,10 @@
-import { View } from "react-native";
+import { FlatList, View } from "react-native";
 import NavigationView from "../../../../common/blocks/navigation";
 import useNotificationBoxScreenStyles from "./styles";
 import NotificationBoxScreenProps from "./types";
 import { useEffect } from "react";
 import useNotificationBoxViewModel from "./viewmodel";
+import Notification from "./blocks/noti";
 
 export function NotificationBoxScreen({ navigation, route }: NotificationBoxScreenProps) {
     const styles = useNotificationBoxScreenStyles();
@@ -13,9 +14,7 @@ export function NotificationBoxScreen({ navigation, route }: NotificationBoxScre
         viewModel.update();
     }, []);
 
-    useEffect(() => {
-        console.log(viewModel.data);
-    }, [viewModel.data]);
+    useEffect(() => {}, [viewModel.data]);
 
     return (
         <NavigationView
@@ -29,7 +28,12 @@ export function NotificationBoxScreen({ navigation, route }: NotificationBoxScre
                 applyDefaultHorizontalPadding: false,
                 applyDefaultVerticalPadding: false,
             }}>
-            <View style={styles.container}></View>
+            <View style={styles.container}>
+                <FlatList
+                    data={[...viewModel.data].sort((a, b) => b.id - a.id)}
+                    renderItem={({ item }) => <Notification {...item} />}
+                />
+            </View>
         </NavigationView>
     );
 }

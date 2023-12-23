@@ -13,6 +13,7 @@ namespace VillifeMessaging {
 
     export type PushMessageLog = {
         content: string;
+        createdAt: number;
         id: number;
         intent: string;
         senderBuildingId: number;

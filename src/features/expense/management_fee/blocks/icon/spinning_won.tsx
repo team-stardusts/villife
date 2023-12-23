@@ -65,11 +65,11 @@ function useSpinningWonStyles(size: number) {
             width: deviceUI.moderateScale(size),
             height: deviceUI.moderateScale(size),
             borderRadius: deviceUI.moderateScale(size),
-            marginRight: deviceUI.moderateScale(size * 0.25),
             justifyContent: "center",
             alignItems: "center",
         },
         text: {
+            textAlign: "center",
             fontFamily: theme.font.fontFamily.pretendard.bold,
             fontSize: deviceUI.moderateScale(size * 0.5),
             color: theme.color.specified.white,

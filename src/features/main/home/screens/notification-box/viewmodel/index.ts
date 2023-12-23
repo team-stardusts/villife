@@ -5,6 +5,7 @@ import { notificationBoxState } from "./states";
 import ViewModelCommmon from "../../../../../common/model/absc";
 import Villife from "../../../../../../libs/villife-client/types";
 import { PushMessageLog } from "./types";
+import StardustDateParser from "../../../../../../libs/date_parser";
 
 export default function useNotificationBoxViewModel() {
     const user = useUserInformation() as UserInfo;
@@ -22,7 +23,9 @@ export default function useNotificationBoxViewModel() {
             this._api
                 .getPushMessageLogs()
                 .then(async (r) => {
-                    await this.save(r ?? []);
+                    if (r !== undefined) {
+                        await this.save(r.map(this.toViewModel));
+                    }
                 })
                 .catch(async (err) => {
                     console.error("[NOTI_BOX_VIEWMODEL]", "occured while update data.", err);
@@ -30,8 +33,25 @@ export default function useNotificationBoxViewModel() {
                         console.error(err.stack);
                     }
 
-                    this.save((await this.restore()) ?? []);
+                    const storedData = await this.restore();
+
+                    if (storedData !== null) {
+                        this.save(
+                            storedData.map((v) => {
+                                v.createdAt = new Date(v.createdAt);
+
+                                return v;
+                            })
+                        );
+                    }
                 });
+        }
+
+        private toViewModel(data: Villife.Messaging.PushMessageLog): PushMessageLog {
+            const _data: any = data;
+            _data.createdAt = StardustDateParser.deserialize(data.createdAt);
+
+            return _data;
         }
     }
 

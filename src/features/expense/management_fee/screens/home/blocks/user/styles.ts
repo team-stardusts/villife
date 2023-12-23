@@ -55,6 +55,7 @@ export default function useUserMFViewStyles() {
             fontFamily: theme.font.fontFamily.pretendard.extraBold,
             fontSize: deviceUI.moderateScale(25),
             color: theme.color.specified.black,
+            marginLeft: deviceUI.moderateScale(7),
         },
         paymentBtnCombo: {
             flexDirection: "row",

@@ -4,9 +4,8 @@ import Villife from "../types";
 class VillifeMessagingClient extends VillifeClientCommon implements Villife.Messaging.Client {
     public async getPushMessageLogs(): Promise<Villife.Messaging.PushMessageLog[]> {
         return this.requestWithCredential({
-            method: "post",
+            method: "get",
             url: this._routes.message.pushMessageLogs,
-            data: {},
         });
     }
 
