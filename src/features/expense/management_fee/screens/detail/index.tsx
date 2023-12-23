@@ -53,7 +53,9 @@ export default function ManagementFeeDetailScreen({ navigation, route }: Managem
             setBillOfMonth({
                 ...viewModel.calcByPaymentItem([_fee]),
                 isPaid: _fee.isPaid,
-                paidFee: _fee.isPaid ? _fee.amountWon + _fee.overdueInterest : 0,
+                totalPaidFee: _fee.isPaid ? _fee.amountWon + _fee.overdueInterest : 0,
+                paidMonthlyCharge: _fee.amountWon,
+                paidLateFee: _fee.overdueInterest,
             });
         }
     }, [selectedDate]);
@@ -113,7 +115,7 @@ export default function ManagementFeeDetailScreen({ navigation, route }: Managem
                                     billOfMonth === null
                                         ? 0
                                         : billOfMonth.isPaid
-                                        ? billOfMonth.paidFee
+                                        ? billOfMonth.totalPaidFee
                                         : billOfMonth.feeToPay
                                 )}{" "}
                                 원
@@ -150,7 +152,14 @@ export default function ManagementFeeDetailScreen({ navigation, route }: Managem
                         <View style={styles.main.billBoxRow}>
                             <Text style={styles.main.billBoxRowMajorKey}>연체료</Text>
                             <Text style={styles.main.billBoxRowMajorValue}>
-                                {insertCommaToNumber(billOfMonth?.lateFee ?? 0)} 원
+                                {insertCommaToNumber(
+                                    billOfMonth === null
+                                        ? 0
+                                        : billOfMonth.isPaid
+                                        ? billOfMonth.paidLateFee
+                                        : billOfMonth.lateFee ?? 0
+                                )}{" "}
+                                원
                             </Text>
                         </View>
                     </View>

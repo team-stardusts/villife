@@ -12,6 +12,7 @@ export type IconSeries =
     | "arrow-down"
     | "arrow-right-with-midline"
     | "apple-logo"
+    | "bell"
     | "building"
     | "calendar"
     | "car"

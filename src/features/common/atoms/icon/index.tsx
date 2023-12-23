@@ -14,10 +14,8 @@ import IconPencil from "./pencil";
 import IconArrowWithMidline from "./arrow_with_midline";
 import IconBuilding from "./building";
 import IconMenu from "./menu";
-
 import IconList from "./list";
 import IconParkingLot from "./parking";
-
 import IconQuestionMark from "./question_mark";
 import IconThreeDotsVertical from "./three_dots_vertical";
 import IconMatrix from "./matrix";
@@ -36,6 +34,7 @@ import IconCautionMark from "./caution_mark";
 import IconDocumentContract from "./document_contract";
 import IllustrationDocument from "./document_illustration";
 import IllustrationCheck from "./check_illustration";
+import IconBell from "./bell";
 
 export default function Icon(props: IconProps) {
     /* let iconProps: ChildIconProps = {
@@ -61,6 +60,8 @@ export default function Icon(props: IconProps) {
             return <IconArrowWithMidline {...iconProps} />;
         case "apple-logo":
             return <IconAppleLogo {...iconProps} />;
+        case "bell":
+            return <IconBell {...iconProps} />;
         case "building":
             return <IconBuilding {...iconProps} />;
         case "calendar":

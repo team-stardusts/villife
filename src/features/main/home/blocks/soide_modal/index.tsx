@@ -1,16 +1,14 @@
-import { Alert, ColorValue, Dimensions, Modal, Pressable, Text, TouchableOpacity, View } from "react-native";
-import React, { useEffect, useState } from "react";
+import { Alert, Modal, Pressable, Text, TouchableOpacity, View } from "react-native";
+import React, { useEffect } from "react";
 import useBottomEditModalStyles from "./style";
 import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
 import HomeSideMoalProps, { RenderData } from "./type";
 import useStyler from "../../../../common/hooks/styler/hooks";
 import Icon from "../../../../common/atoms/icon";
-import { IconSeries } from "../../../../common/atoms/icon/types";
 import { useNavigation } from "@react-navigation/native";
 import { VillifeNavigation } from "../../../../common/router/types";
 import VillifeToastMessage from "../../../../common/atoms/toast";
 import useUserInformation from "../../../../common/hooks/service/user_info";
-import useBuildingRoomContractor from "../../../lease_contract/services/building_rooms";
 
 export default function HomeSideModal(props: HomeSideMoalProps) {
     const message = useScreenMessage();
@@ -85,7 +83,7 @@ export default function HomeSideModal(props: HomeSideMoalProps) {
                 });
             },
         },
-        {
+        /* {
             name: "round-person",
             size: deviceUI.moderateScale(35),
             color: theme.color.specified.black,
@@ -94,7 +92,7 @@ export default function HomeSideModal(props: HomeSideMoalProps) {
                 setVisible(false);
                 VillifeToastMessage.showBottomToast("error", message.messages.boilerplate.preparing_service);
             },
-        },
+        }, */
         {
             name: "document_contract",
             size: deviceUI.moderateScale(40),
@@ -103,6 +101,16 @@ export default function HomeSideModal(props: HomeSideMoalProps) {
             onPress: () => {
                 setVisible(false);
                 navigation.navigate("contract_information", {});
+            },
+        },
+        {
+            name: "bell",
+            size: deviceUI.moderateScale(40),
+            color: theme.color.specified.black,
+            title: "알림",
+            onPress: () => {
+                setVisible(false);
+                navigation.navigate("notification_box", {});
             },
         },
     ];
@@ -177,7 +185,7 @@ export default function HomeSideModal(props: HomeSideMoalProps) {
                 });
             },
         },
-        {
+        /* {
             name: "round-person",
             size: deviceUI.moderateScale(35),
             color: theme.color.specified.black,
@@ -185,6 +193,16 @@ export default function HomeSideModal(props: HomeSideMoalProps) {
             onPress: () => {
                 setVisible(false);
                 VillifeToastMessage.showBottomToast("error", message.messages.boilerplate.preparing_service);
+            },
+        }, */
+        {
+            name: "bell",
+            size: deviceUI.moderateScale(40),
+            color: theme.color.specified.black,
+            title: "알림",
+            onPress: () => {
+                setVisible(false);
+                navigation.navigate("notification_box", {});
             },
         },
     ];

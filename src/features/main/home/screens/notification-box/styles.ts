@@ -1,17 +1,16 @@
-import { Platform, StyleSheet } from "react-native";
+import { StyleSheet } from "react-native";
 import useStyler from "../../../../common/hooks/styler/hooks";
 
-export default function useHomeContentFromManagementFeeStyles() {
+export default function useNotificationBoxScreenStyles() {
     const { deviceUI, theme } = useStyler();
 
     return StyleSheet.create({
-        contentsBox: {
-            color: theme.color.specified.black,
+        nav: {
             backgroundColor: theme.color.specified.white,
         },
         container: {
             flex: 1,
-            alignItems: "center",
+            backgroundColor: theme.color.specified.white,
         },
     });
 }

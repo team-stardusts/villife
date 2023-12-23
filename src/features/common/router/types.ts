@@ -7,7 +7,7 @@ import {
     BuildingRoomContract,
     BuildingRoomInfo,
 } from "../../main/lease_contract/services/building_rooms/provider/types";
-import { PaymentBill } from "../../expense/management_fee/services/payment/types";
+import { PaymentBill } from "../../expense/management_fee/viewmodel/renter/types";
 
 export type VillifeRootStackParamList = {
     login?: {};
@@ -88,6 +88,7 @@ export type VillifeStackParamList = VillifeRootStackParamList & {
         notiID: number;
         priority: number;
     };
+    notification_box: {};
     set_building?: {};
     search_address?: {};
     send_message_to_building_tenants: {

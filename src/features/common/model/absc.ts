@@ -20,7 +20,7 @@ abstract class ViewModelCommmon<ViewData = any> implements ViewModel<ViewData> {
         this.featureName = featureName;
         this._user = user;
         this._storageKey = this.createStorageKey(user);
-        this._storage = ViewModelStorage.getInstance(this._storageKey);
+        this._storage = ViewModelStorage.getInstance();
     }
 
     get user(): UserInfo {
@@ -43,18 +43,17 @@ abstract class ViewModelCommmon<ViewData = any> implements ViewModel<ViewData> {
         }
 
         keyArr.push(this.featureName);
-
         return keyArr.join("_");
     }
 
     public abstract update(params: any): Promise<void>;
 
     protected async restore(): Promise<ViewData | null> {
-        return await this._storage.getItem();
+        return await this._storage.getItem(this._storageKey);
     }
 
     protected async save(data?: ViewData): Promise<void> {
-        const result = await this._storage.setItem(data ?? this._data);
+        const result = await this._storage.setItem(this._storageKey, data ?? this._data);
 
         if (result) this._setData(data ?? this._data);
         !result && console.log("[ViewModelCommon]", "Failed to save data into storage");

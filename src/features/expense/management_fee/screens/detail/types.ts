@@ -17,5 +17,7 @@ export type SelectedDate = {
 
 export type PaymentBillByMonth = PaymentBill & {
     isPaid: boolean;
-    paidFee: number;
+    totalPaidFee: number;
+    paidMonthlyCharge: number;
+    paidLateFee: number;
 };

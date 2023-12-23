@@ -80,8 +80,9 @@ namespace Routes {
         order: string;
     };
 
-    export type Message = {
+    export type Messaging = {
         sendPushMessage: string;
+        pushMessageLogs: string;
     };
 }
 
@@ -97,7 +98,7 @@ export type RoutesType = {
     userInfo: Routes.UserInformation;
     expense: Routes.Expense;
     payment: Routes.Payment;
-    message: Routes.Message;
+    message: Routes.Messaging;
 };
 
 export type Authority = {

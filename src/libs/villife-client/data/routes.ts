@@ -75,6 +75,7 @@ const routes: RoutesType = {
     },
     message: {
         sendPushMessage: "msg/push/renter",
+        pushMessageLogs: "msg/push/logs",
     },
 } as const;
 

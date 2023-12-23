@@ -54,7 +54,6 @@ abstract class VillifeClientCommon implements VillifeUtility.Refresher {
                         async () => await this.requestWithCredential(error.config as AxiosRequestConfig<any>)
                     );
                 default:
-                    console.error(`[${error.name}]`, error.message);
                     throw error;
             }
         }
@@ -134,28 +133,29 @@ abstract class VillifeClientCommon implements VillifeUtility.Refresher {
             config.data = objectToSnake(config.data) as Payload;
         }
 
-        const result = await this._requester(config)
+        const result = await this._requester
+            .request(config)
             .then((res: AxiosResponse<VillifeUtility.VanillaResponse<Return>, Payload>) => {
                 if (res.data?.errorCode) {
                     // Throw error with message.
                     // [TO-DO] Make sure the VillifeError object.
                     // Add error handler.
                     throw new VillifeError(
-                        `Got an error code ${res.data.errorCode}. [${res.config.method}]` + res.config.url
+                        `Got an error code ${res.data.errorCode}. [${res.config?.method}]` + res.config?.url
                     );
                 }
 
                 // Villife Legacy API와의 호환성을 위한 코드
                 if (res.data?.data === undefined) {
                     if (res.data === undefined) {
-                        throw new VillifeError(`No data in response. [${res.config.method}]` + res.config.url);
+                        throw new VillifeError(`No data in response. [${res.config?.method}]` + res.config?.url);
                     }
 
                     return objectToCamel(res.data) as Return;
                 }
 
                 if (res.data.data === null) {
-                    throw new VillifeError(`No data in response. [${res.config.method}]` + res.config.url);
+                    throw new VillifeError(`No data in response. [${res.config?.method}]` + res.config?.url);
                 }
 
                 if (typeof res.data.data === "object") {
@@ -180,7 +180,7 @@ abstract class VillifeClientCommon implements VillifeUtility.Refresher {
                         "\n\t- message:",
                         err.message,
                         "\n\t- request:",
-                        `/${err.config?.url}`, //${err.config?.method}
+                        `${err.config?.method}/${err.config?.url}`,
                         err.config?.data,
                         "\n\t- status:",
                         err.status,
