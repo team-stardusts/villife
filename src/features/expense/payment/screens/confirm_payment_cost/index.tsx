@@ -52,7 +52,7 @@ export default function ConfirmPaymentCostScreen({ navigation, route }: ConfirmP
                             Object.keys(bill).map((billKey, index) => (
                                 <View key={index} style={styles.main.billRow}>
                                     <Text style={styles.main.billKey}>{billKey}</Text>
-                                    <Text style={styles.main.billRow}>{insertCommaToMoney(bill[billKey])} 원</Text>
+                                    <Text style={styles.main.billValue}>{insertCommaToMoney(bill[billKey])} 원</Text>
                                 </View>
                             ))}
                     </ScrollView>

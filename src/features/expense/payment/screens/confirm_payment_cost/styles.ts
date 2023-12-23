@@ -13,17 +13,17 @@ export default function useConfirmPaymentScreenStyles() {
             paddingHorizontal: deviceUI.moderateScale(10),
         },
         priceContainer: {
-            flex: 0.1,
             justifyContent: "flex-end",
-            marginBottom: deviceUI.moderateScale(20),
+            paddingVertical: deviceUI.moderateScale(40),
+            borderBottomWidth: 1,
+            borderBottomColor: theme.color.specified.lightgrey,
         },
         price: {
-            fontFamily: theme.font.fontFamily.pretendard.extraBold,
-            fontSize: deviceUI.moderateScale(23),
+            fontFamily: theme.font.fontFamily.pretendard.bold,
+            fontSize: deviceUI.moderateScale(27),
             color: theme.color.specified.black,
         },
         billContainer: {
-            flex: 0.9,
             paddingVertical: deviceUI.moderateScale(10),
         },
         billRow: {
@@ -33,13 +33,13 @@ export default function useConfirmPaymentScreenStyles() {
             marginBottom: deviceUI.moderateScale(10),
         },
         billKey: {
-            fontFamily: theme.font.fontFamily.pretendard.semiBold,
-            fontSize: deviceUI.moderateScale(17),
+            fontFamily: theme.font.fontFamily.pretendard.medium,
+            fontSize: deviceUI.moderateScale(16),
             color: theme.color.specified.black,
         },
         billValue: {
             fontFamily: theme.font.fontFamily.pretendard.regular,
-            fontSize: deviceUI.moderateScale(16),
+            fontSize: deviceUI.moderateScale(14),
             color: theme.color.specified.black,
         },
     });
