@@ -1,4 +1,4 @@
-import { Text, TouchableOpacity, View } from "react-native";
+import { Alert, Text, TouchableOpacity, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { VillifeNavigation } from "../../../../../../../common/router/types";
 import SpinningWon from "../../../../../blocks/icon/spinning_won";
@@ -52,24 +52,35 @@ export default function ManagementFeeBox(props: ManagementFeeBoxProps) {
     const handlePressPaymentBtn = (type: "card" | "account") => {
         if (props.bill !== null) {
             if (type === "card") {
-                navigation.navigate("confirm_payment_cost", {
-                    title: "관리비 결제하기",
-                    product_id: 0, //props.manangementFee.bill_id,
-                    product_name: "?",
-                    product_type: "pt_management_fee",
-                    price: props.bill.feeToPay, //props.manangementFee.amount_won,
-                    bill: {
-                        당월부과액: props.bill.currentMonthlyCharge,
-                        연체이자: props.bill.lateFee,
-                        미납액: props.bill.unpaidFee,
-                        총액: props.bill.feeToPay,
-                        /* 관리용역비: 20000,
-                        일반관리비: 45000,
-                        소독비: 100,
-                        화재보험료: 100,
-                        수선유지비: 100, */
+                Alert.alert("카드 결제는 체험 기능이에요!", "한 번 체험 해보시겠어요?\n실제로 출금되지는 않습니다.", [
+                    {
+                        text: "취소",
                     },
-                });
+                    {
+                        text: "확인",
+                        onPress: () => {
+                            if (props.bill !== null)
+                                navigation.navigate("confirm_payment_cost", {
+                                    title: "관리비 결제하기",
+                                    product_id: props.bill.latestBillId,
+                                    product_name: "관리비",
+                                    product_type: "pt_management_fee",
+                                    price: props.bill.feeToPay, //props.manangementFee.amount_won,
+                                    bill: {
+                                        당월부과액: props.bill.currentMonthlyCharge,
+                                        연체이자: props.bill.lateFee,
+                                        미납액: props.bill.unpaidFee,
+                                        총액: props.bill.feeToPay,
+                                        /* 관리용역비: 20000,
+                                    일반관리비: 45000,
+                                    소독비: 100,
+                                    화재보험료: 100,
+                                    수선유지비: 100, */
+                                    },
+                                });
+                        },
+                    },
+                ]);
             } else {
                 navigation.navigate("wire_amount_manually", {
                     amount_won: props.bill,

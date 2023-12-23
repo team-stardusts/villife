@@ -19,6 +19,7 @@ export type PaymentConfirmaionRequestForm = {
 };
 
 export type PaymentBill = {
+    latestBillId: number;
     currentMonthlyCharge: number; // 당월 부과액
     feeToPay: number; // 지불해야할 총액
     lateFee: number; // 연체 이자

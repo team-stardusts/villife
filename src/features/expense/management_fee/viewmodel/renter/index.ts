@@ -34,12 +34,20 @@ export default function useRenterMFViewModel(): RenterMFViewModelBase {
         }
 
         public calcByPaymentItem(history: UserManagementFee[]): PaymentBill {
-            const bill = { currentMonthlyCharge: 0, feeToPay: 0, lateFee: 0, unpaidFee: 0 };
-
             // currentMonthlyCharge: number; // 당월 부과액
             // feeToPay: number; // 지불해야할 총액
             // lateFee: number; // 연체 이자료
             // unpaidFee: number; // 미납액
+            const bill: PaymentBill = {
+                latestBillId: 0,
+                currentMonthlyCharge: 0,
+                feeToPay: 0,
+                lateFee: 0,
+                unpaidFee: 0,
+            };
+
+            if (history.length === 0) return bill;
+
             history.forEach((f, i) => {
                 if (i === history.length - 1) {
                     bill.currentMonthlyCharge = f.amountWon;
@@ -54,7 +62,7 @@ export default function useRenterMFViewModel(): RenterMFViewModelBase {
                 }
                 f.detailBill;
             });
-
+            bill.latestBillId = history[history.length - 1].billId;
             bill.feeToPay += bill.lateFee + bill.unpaidFee;
 
             return bill;
