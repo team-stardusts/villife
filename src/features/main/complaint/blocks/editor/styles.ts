@@ -54,7 +54,7 @@ export default function useComplaintEditorStyle() {
             backgroundColor: "rgba(83, 156, 241,0.2)",
         },
         title: {
-            height: titleHeight,
+            minHeight: titleHeight,
             fontSize: deviceUI.moderateScale(30),
             marginLeft: "3%",
             fontFamily: theme.font.fontFamily.pretendard.bold,

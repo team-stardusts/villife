@@ -73,14 +73,14 @@ function ComplaintEditor(props: ComplaintEditorProps) {
     return (
         <>
             <TextInput
+                defaultValue={props.titleRef.current}
                 style={styles.main.title}
                 onChangeText={(text) => {
                     props.titleRef.current = text;
                 }}
-                maxLength={16}
                 placeholder="제목을 입력하세요"
                 placeholderTextColor={styles.main.placeHolderColor.color}
-                defaultValue={props.titleRef.current}
+                multiline={true}
             />
             <StardustAlert {...withdrawalAlert} setAlert={setWithdrawalAlert} />
             <KeyboardAwareScrollView

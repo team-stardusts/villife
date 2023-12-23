@@ -39,7 +39,7 @@ export default function NotiRegisterModal(props: NavigationWithProps) {
         <BottomSlidableModal
             modalVisible={props.visible}
             setModalVisible={props.setVisible}
-            height={deviceUI.getScreenSize().height * 0.28}>
+            height={deviceUI.getScreenSize().height * 0.2}>
             <View style={styles.editModalContentContainer}>
                 <TouchableOpacity
                     onPress={() => {

@@ -76,8 +76,7 @@ export default function ComplaintDetailScreen({ navigation, route }: ComplaintDe
             <KeyboardAwareScrollView style={[styles.topLevelBox]} scrollEventThrottle={20}>
                 <>
                     <View style={styles.titleSection}>
-                        {/* <Text style={styles.title}>{uiState.complaint.title}</Text> */}
-                        <Text style={uiState.complaint.title.length < 12 ? styles.title : styles.titleSmall}>
+                        <Text style={styles.title} numberOfLines={3}>
                             {uiState.complaint.title}
                         </Text>
                         <TouchableOpacity

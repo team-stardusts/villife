@@ -53,7 +53,9 @@ export default function HomeContentFromNoti() {
                                 // Priority 숫자가 낮을 수록 우선 순위가 높음
                                 if (a.Priority < b.Priority) return -1;
                                 else if (a.Priority > b.Priority) return 1;
-                                return 0;
+                                const dateA = new Date(a.UpdatedAt || a.CreatedAt);
+                                const dateB = new Date(b.UpdatedAt || b.CreatedAt);
+                                return dateB.getTime() - dateA.getTime();
                             })
                             .map((noti, index) => {
                                 if (index > 2) return;
@@ -73,7 +75,9 @@ export default function HomeContentFromNoti() {
                                         }}
                                         key={noti.ID}
                                         style={style.itemContainer}>
-                                        <Text style={style.text}>{noti.Title}</Text>
+                                        <Text style={style.text}>
+                                            {noti.Title.length < 18 ? noti.Title : noti.Title.slice(0, 18) + "..."}
+                                        </Text>
                                         <ColorLable
                                             text={labelText}
                                             backgroundColor={labelStyle.backgroundColor}

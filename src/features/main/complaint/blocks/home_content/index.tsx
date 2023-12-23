@@ -85,7 +85,11 @@ export default function HomeContentFromComplaint() {
                                 }}
                                 key={complaint.id}
                                 style={style.itemContainer}>
-                                <Text style={style.text}>{complaint.title}</Text>
+                                <Text style={style.text}>
+                                    {complaint.title.length < 18
+                                        ? complaint.title
+                                        : complaint.title.slice(0, 18) + "..."}
+                                </Text>
                                 <ColorLable
                                     text={labelText}
                                     backgroundColor={labelStyle.backgroundColor}

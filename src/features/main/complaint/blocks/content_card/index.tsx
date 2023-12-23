@@ -64,10 +64,10 @@ function ComplaintContentCard(props: ComplaintContentCardProps) {
             <ContentBox backgroundColor={styles.contentBox.backgroundColor} enableShadow onPress={props.onPress}>
                 <View style={styles.wrapper}>
                     <View style={styles.titleSection}>
-                        {props.info.title.length <= 12 ? (
+                        {props.info.title.length <= 10 ? (
                             <Text style={styles.titleText}>{props.info.title}</Text>
                         ) : (
-                            <Text style={styles.titleText}>{props.info.title.slice(0, 12) + "..."}</Text>
+                            <Text style={styles.titleText}>{props.info.title.slice(0, 10) + "..."}</Text>
                         )}
                         <Text style={styles.dateTimeText}>
                             {

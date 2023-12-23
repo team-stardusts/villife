@@ -29,6 +29,8 @@ export default function useComplaintDetailSecreenStyle() {
         titleSection: {
             flexDirection: "row",
             width: "100%",
+            marginRight: deviceUI.moderateScale(10),
+
             alignItems: "center",
             justifyContent: "space-between",
             paddingVertical: deviceUI.moderateScale(14),
@@ -38,6 +40,7 @@ export default function useComplaintDetailSecreenStyle() {
             fontFamily: theme.font.fontFamily.pretendard.bold,
             marginLeft: leftMargin,
             color: theme.color.specified.black,
+            flex: 1,
         },
         titleSmall: {
             fontSize: deviceUI.moderateScale(18),

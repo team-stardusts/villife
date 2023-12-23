@@ -22,10 +22,12 @@ export default function useNotiOutlinedBoxStyles() {
         contentBox: {
             alignItems: "center",
             flexDirection: "row",
-            height: deviceUI.moderateScale(55),
+            minHeight: deviceUI.moderateScale(55),
         },
         titleTextBox: {
-            marginLeft: "5%",
+            width: "67%",
+            paddingLeft: "5%",
+            marginVertical: deviceUI.moderateScale(10),
         },
         absoluteWrapper: {
             position: "absolute",
@@ -68,7 +70,7 @@ export default function useNotiOutlinedBoxStyles() {
             color: theme.color.specified.grey,
         },
         indicator: {
-            size: deviceUI.moderateScale(30),
+            size: deviceUI.moderateScale(25),
             color: theme.color.status.info,
         },
     });

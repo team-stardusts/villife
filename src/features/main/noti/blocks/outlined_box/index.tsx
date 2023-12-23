@@ -65,8 +65,8 @@ function OutlinedBox(props: OutlinedBoxProps) {
                         <View style={styles.contentBox}>
                             <NotiLable priority={props.priority} />
                             <View style={styles.titleTextBox}>
-                                <Text style={props.title.length < 12 ? styles.titleText : styles.titleTextSmall}>
-                                    {props.title}
+                                <Text style={styles.titleText} numberOfLines={3}>
+                                    {unfold || props.title.length < 14 ? props.title : props.title.slice(0, 14) + "..."}
                                 </Text>
                                 <Text style={styles.subTitleText}>{props.wroteAt}</Text>
                             </View>
