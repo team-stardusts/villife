@@ -12,5 +12,12 @@ export default function useNotificationBoxScreenStyles() {
             flex: 1,
             backgroundColor: theme.color.specified.white,
         },
+        period: {
+            fontFamily: theme.font.fontFamily.pretendard.medium,
+            fontSize: deviceUI.moderateScale(18),
+            color: theme.color.specified.black,
+            paddingLeft: deviceUI.moderateScale(20),
+            marginVertical: deviceUI.moderateScale(10),
+        },
     });
 }
