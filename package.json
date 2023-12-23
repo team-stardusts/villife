@@ -12,8 +12,8 @@
         "build-release": "react-native build-android --mode=release",
         "codepush:stating:aos": "appcenter codepush release-react -a team-stardust/villife-aos -d Staging",
         "codepush:staging:ios": "appcenter codepush release-react -a team-stardust/villife-ios -d Staging",
-        "codepush:production:aos": "appcenter codepush release-react -a team-stardust/villife-aos -d Production",
-        "codepush:production:ios": "appcenter codepush release-react -a team-stardust/villife-ios -d Production"
+        "codepush:production:aos": "appcenter codepush release-react -a team-stardust/villife-aos -d Production -m",
+        "codepush:production:ios": "appcenter codepush release-react -a team-stardust/villife-ios -d Production -m"
     },
     "dependencies": {
         "@actbase/react-daum-postcode": "^1.0.4",
