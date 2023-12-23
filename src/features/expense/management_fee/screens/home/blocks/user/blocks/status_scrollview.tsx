@@ -64,7 +64,8 @@ function PaymentByMonth(props: PaymentByMonthProps) {
                 <TouchableOpacity
                     style={props.styles.contentWrapper}
                     activeOpacity={0.6}
-                    disabled={props.mf.isPaid || !props.isLastElement}
+                    //disabled={props.mf.isPaid || !props.isLastElement}
+                    disabled
                     //onPress={handlePressPaymentBtn}
                 >
                     <View style={props.styles.monthBox}>

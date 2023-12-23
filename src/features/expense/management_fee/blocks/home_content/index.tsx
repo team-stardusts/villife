@@ -42,7 +42,7 @@ export default function HomeContentFromManagementFee() {
             backgroundColor={styles.contentsBox.backgroundColor}
             eanbleShadow={false}>
             <View style={styles.container}>
-                <ManagementFeeBox feeToPay={bill?.feeToPay} styles={feeBox} />
+                <ManagementFeeBox bill={bill} styles={feeBox} />
             </View>
         </MiniContent>
     );

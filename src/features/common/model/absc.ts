@@ -49,12 +49,8 @@ abstract class ViewModelCommmon<ViewData = any> implements ViewModel<ViewData> {
 
     public abstract update(params: any): Promise<void>;
 
-    protected async restore(): Promise<ViewData> {
-        const result = await this._storage.getItem();
-
-        if (result === null) throw Error("Failed to restore");
-
-        return result;
+    protected async restore(): Promise<ViewData | null> {
+        return await this._storage.getItem();
     }
 
     protected async save(data?: ViewData): Promise<void> {

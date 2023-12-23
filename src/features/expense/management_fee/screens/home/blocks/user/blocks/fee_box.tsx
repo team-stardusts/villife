@@ -1,7 +1,6 @@
 import { Text, TouchableOpacity, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { VillifeNavigation } from "../../../../../../../common/router/types";
-import ContentBox from "../../../../../../../common/blocks/content_box";
 import SpinningWon from "../../../../../blocks/icon/spinning_won";
 import { ManagementFeeBoxProps } from "../types";
 import useUserInformation from "../../../../../../../common/hooks/service/user_info";
@@ -32,7 +31,7 @@ export default function ManagementFeeBox(props: ManagementFeeBoxProps) {
     }, []); */
 
     useEffect(() => {
-        if (props.feeToPay !== undefined && props.feeToPay > 0) {
+        if (props.bill !== null && props.bill.feeToPay > 0) {
             viewModel.getBuildingInfo().then((r) => {
                 if (r === null) {
                     setDueDate(r);
@@ -43,33 +42,37 @@ export default function ManagementFeeBox(props: ManagementFeeBoxProps) {
                 setDueDate(date);
             });
         }
-    }, [props.feeToPay]);
+    }, [props.bill]);
 
     const insertCommaToMoney = (money: number): string => {
-        if (money == undefined) return "0";
+        if (money == null) return "0";
         return money.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     };
 
     const handlePressPaymentBtn = (type: "card" | "account") => {
-        if (props.feeToPay !== undefined) {
+        if (props.bill !== null) {
             if (type === "card") {
                 navigation.navigate("confirm_payment_cost", {
                     title: "관리비 결제하기",
                     product_id: 0, //props.manangementFee.bill_id,
                     product_name: "?",
                     product_type: "pt_management_fee",
-                    price: 10, //props.manangementFee.amount_won,
+                    price: props.bill.feeToPay, //props.manangementFee.amount_won,
                     bill: {
-                        관리용역비: 20000,
+                        당월부과액: props.bill.currentMonthlyCharge,
+                        연체이자: props.bill.lateFee,
+                        미납액: props.bill.unpaidFee,
+                        총액: props.bill.feeToPay,
+                        /* 관리용역비: 20000,
                         일반관리비: 45000,
                         소독비: 100,
                         화재보험료: 100,
-                        수선유지비: 100,
+                        수선유지비: 100, */
                     },
                 });
             } else {
                 navigation.navigate("wire_amount_manually", {
-                    amount_won: props.feeToPay,
+                    amount_won: props.bill,
                 });
             }
             /* navigation.navigate("management_fee_current_month_detail", {
@@ -86,14 +89,14 @@ export default function ManagementFeeBox(props: ManagementFeeBoxProps) {
     };
 
     const requestApproval = async () => {
-        if (props.feeToPay === undefined || props.feeToPay === 0) return;
+        if (props.bill === null || props.bill.feeToPay === 0) return;
         if (viewModel.user.roomNumber === undefined) {
             VillifeToastMessage.showBottomToast("error", "사용자의 호수가 확인되지 않습니다.");
             return;
         }
 
         const result = await viewModel.requestPaymentConfirmation({
-            amountWon: props.feeToPay,
+            amountWon: props.bill.feeToPay,
             billIds: viewModel.data.filter((h) => !h.isPaid).map((h) => h.billId),
             depositorName: viewModel.user?.roomNumber.toString() ?? "Unknown",
         });
@@ -125,17 +128,17 @@ export default function ManagementFeeBox(props: ManagementFeeBoxProps) {
                         <SpinningWon size={20} />
                         {
                             <Text style={props.styles.managementFee}>
-                                {props.feeToPay ? insertCommaToMoney(props.feeToPay) : "0"}원
+                                {props.bill ? insertCommaToMoney(props.bill.feeToPay) : "0"}원
                             </Text>
                         }
                     </View>
-                    {props.feeToPay !== 0 && (
+                    {props.bill && props.bill.feeToPay !== 0 && (
                         <View style={props.styles.paymentBtnCombo}>
                             <TouchableOpacity
                                 style={[props.styles.paymentBtn]}
                                 activeOpacity={0.6}
                                 onPress={() => handlePressPaymentBtn("card")}
-                                disabled={props.feeToPay === 0}>
+                                disabled={props.bill?.feeToPay === 0}>
                                 <Text style={[props.styles.paymentBtnText]}>{/* 결제하기 */}카드결제</Text>
                             </TouchableOpacity>
                             <Text style={props.styles.paymentBtnSeparator}>|</Text>
@@ -143,14 +146,14 @@ export default function ManagementFeeBox(props: ManagementFeeBoxProps) {
                                 style={[props.styles.paymentBtn]}
                                 activeOpacity={0.6}
                                 onPress={() => handlePressPaymentBtn("account")}
-                                disabled={props.feeToPay === 0}>
+                                disabled={props.bill.feeToPay === 0}>
                                 <Text style={[props.styles.paymentBtnText]}>{/* 결제하기 */}계좌이체</Text>
                             </TouchableOpacity>
                         </View>
                     )}
                 </View>
                 <View style={props.styles.confirmationShortCutBox}>
-                    {props.feeToPay !== undefined && props.feeToPay > 0 && (
+                    {props.bill && props.bill.feeToPay > 0 && (
                         <>
                             <Text style={props.styles.confirmationShortCutQuestionText}>이미 납부 하셨나요?</Text>
                             <TouchableOpacity

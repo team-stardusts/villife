@@ -26,6 +26,9 @@ export default function useRenterMFViewModel(): RenterMFViewModelBase {
                 })
                 .catch(async (err) => {
                     console.error("[USER_MF_VIEWMODEL]", "occured while update data.", err);
+                    if (err instanceof Error) {
+                        console.error(err.stack);
+                    }
                     this.save((await this.restore()) ?? []);
                 });
         }

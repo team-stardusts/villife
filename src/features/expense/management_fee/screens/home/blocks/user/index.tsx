@@ -36,7 +36,7 @@ export default function UserMFView() {
             <ScrollView style={styles.main.container}>
                 <View style={styles.main.wrapper}>
                     <ContentBox backgroundColor={styles.managementFee.contentBox.color} enableShadow={false}>
-                        <ManagementFeeBox styles={styles.managementFee} feeToPay={bill?.feeToPay} />
+                        <ManagementFeeBox styles={styles.managementFee} bill={bill} />
                     </ContentBox>
                     {bill !== null && <BillBox styles={styles.bill} {...bill} />}
                 </View>

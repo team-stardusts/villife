@@ -1,5 +1,6 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { VillifeStackParamList } from "../../../../common/router/types";
+import { PaymentBill } from "../../viewmodel/renter/types";
 
 type ManagementFeeDetailScreenProps = NativeStackScreenProps<VillifeStackParamList, "management_fee_detail">;
 
@@ -12,4 +13,9 @@ export type PaidDateRange = {
 export type SelectedDate = {
     year: number;
     month: number;
+};
+
+export type PaymentBillByMonth = PaymentBill & {
+    isPaid: boolean;
+    paidFee: number;
 };

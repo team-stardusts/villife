@@ -34,12 +34,18 @@ export default function useRoomViewModel() {
 
                         rooms.push(_room);
                     }
-
-                    this._setData(rooms);
+                    this.save(rooms);
                     return true;
                 })
                 .catch((err) => {
-                    console.log(err);
+                    console.error("[ROOM_CONTRACT_VM]", "occured while update data.", err);
+                    if (err instanceof Error) {
+                        console.error(err.stack);
+                    }
+
+                    this.restore().then((r) => {
+                        r && this.save(r);
+                    });
                 });
         }
 

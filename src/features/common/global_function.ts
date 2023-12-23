@@ -12,7 +12,7 @@ export const hexToRGB = (hex: string, alpha?: number) => {
 
 export const insertCommaToNumber = (num: number): string => {
     if (typeof num !== "number") {
-        console.error("[insertCommaToNumber]", `'${num}' is not number.`);
+        console.warn("[insertCommaToNumber]", `'${num}' is not number.`);
         return "0";
     }
 

@@ -68,14 +68,16 @@ export default function useParkingViewmodel() {
             if (_vehicles.length === 0) {
                 await this.restore()
                     .then((r) => {
-                        this._setData(
-                            r.map((v) => {
-                                const _v = v;
-                                _v.eta = new Date(v.eta);
-                                _v.etd = new Date(v.etd);
-                                return _v;
-                            })
-                        );
+                        if (r !== null) {
+                            this.save(
+                                r.map((v) => {
+                                    const _v = v;
+                                    _v.eta = new Date(v.eta);
+                                    _v.etd = new Date(v.etd);
+                                    return _v;
+                                })
+                            );
+                        }
                     })
                     .catch((err) => {
                         console.error("[PARKING_VIEWMODEL]", "[GET_ITEMS]", err);

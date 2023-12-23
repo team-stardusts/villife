@@ -69,45 +69,53 @@ function Picker(props: PickerProps) {
     return (
         <View style={styles.pickerContainer}>
             <ScrollView style={styles.selectBox}>
-                {Object.keys(props.paidDateRange).map((year, index) => (
-                    <TouchableOpacity
-                        key={index}
-                        style={styles.elementBox}
-                        onPress={() => {
-                            if (selectedDate === null) return;
-
-                            setSelectedDate({
-                                ...selectedDate,
-                                year: parseInt(year),
-                            });
-                        }}>
-                        <Text style={[styles.year, parseInt(year) === selectedDate?.year && styles.selectedYear]}>
-                            {year}년
-                        </Text>
-                    </TouchableOpacity>
-                ))}
-            </ScrollView>
-            <ScrollView style={styles.selectBox}>
-                {selectedDate &&
-                    props.paidDateRange[selectedDate.year].map((month, index) => (
+                {Object.keys(props.paidDateRange)
+                    .sort((a, b) => parseInt(b) - parseInt(a))
+                    .map((year, index) => (
                         <TouchableOpacity
                             key={index}
-                            style={[styles.elementBox, styles.monthBox]}
+                            style={styles.elementBox}
                             onPress={() => {
                                 if (selectedDate === null) return;
+
                                 setSelectedDate({
                                     ...selectedDate,
-                                    month: month,
+                                    year: parseInt(year),
                                 });
                             }}>
-                            <View style={styles.monthIconBox}>
-                                <Icon name="calendar" size={styles.monthIcon.width} color={styles.monthIcon.color} />
-                            </View>
-                            <Text style={styles.month}>
-                                {month >= 10 ? month.toString() : "0" + month.toString()}월
+                            <Text style={[styles.year, parseInt(year) === selectedDate?.year && styles.selectedDate]}>
+                                {year}년
                             </Text>
                         </TouchableOpacity>
                     ))}
+            </ScrollView>
+            <ScrollView style={styles.selectBox}>
+                {selectedDate &&
+                    props.paidDateRange[selectedDate.year]
+                        .sort((a, b) => b - a)
+                        .map((month, index) => (
+                            <TouchableOpacity
+                                key={index}
+                                style={[styles.elementBox, styles.monthBox]}
+                                onPress={() => {
+                                    if (selectedDate === null) return;
+                                    setSelectedDate({
+                                        ...selectedDate,
+                                        month: month,
+                                    });
+                                }}>
+                                <View style={styles.monthIconBox}>
+                                    <Icon
+                                        name="calendar"
+                                        size={styles.monthIcon.width}
+                                        color={styles.monthIcon.color}
+                                    />
+                                </View>
+                                <Text style={styles.month}>
+                                    {month >= 10 ? month.toString() : "0" + month.toString()}월
+                                </Text>
+                            </TouchableOpacity>
+                        ))}
             </ScrollView>
         </View>
     );
@@ -146,18 +154,18 @@ function useSelectModalStyles() {
             flexDirection: "row",
         },
         year: {
-            fontFamily: theme.font.fontFamily.pretendard.semiBold,
+            fontFamily: theme.font.fontFamily.pretendard.medium,
             fontSize: deviceUI.moderateScale(17),
             color: theme.color.specified.black,
         },
-        selectedYear: {
-            fontFamily: theme.font.fontFamily.pretendard.bold,
-            color: theme.color.specified.blue,
-        },
         month: {
-            fontFamily: theme.font.fontFamily.pretendard.semiBold,
+            fontFamily: theme.font.fontFamily.pretendard.medium,
             fontSize: deviceUI.moderateScale(15),
             color: theme.color.specified.black,
+        },
+        selectedDate: {
+            fontFamily: theme.font.fontFamily.pretendard.semiBold,
+            color: theme.color.specified.blue,
         },
         monthIconBox: {
             marginRight: deviceUI.moderateScale(10),

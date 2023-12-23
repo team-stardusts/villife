@@ -5,9 +5,9 @@ import useUserInformation from "../../../../common/hooks/service/user_info";
 import useManagementFeeDetailScreenStyles from "./styles";
 import ManagementFeeDetailScreenProps from "./types";
 import { useMemo } from "react";
-import { PaymentBill, UserPaymentManagerBase } from "../../services/payment/types";
 import { insertCommaToNumber } from "../../../../common/global_function";
 import RefundPolicyButton from "../../../payment/screens/refund_policy/blocks/button";
+import { PaymentBill } from "../../viewmodel/renter/types";
 
 export default function ManagementFeeCurrentMonthDetailScreen({ navigation, route }: ManagementFeeDetailScreenProps) {
     const styles = useManagementFeeDetailScreenStyles();

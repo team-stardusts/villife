@@ -1,16 +1,14 @@
 import { Text, TouchableOpacity, View } from "react-native";
 import NavigationView from "../../../../common/blocks/navigation";
 import ScreenTitleView from "../../../../common/blocks/title_view";
-import useUserInformation from "../../../../common/hooks/service/user_info";
 import useManagementFeeDetailScreenStyles from "./styles";
-import ManagementFeeDetailScreenProps, { PaidDateRange, SelectedDate } from "./types";
+import ManagementFeeDetailScreenProps, { PaidDateRange, PaymentBillByMonth, SelectedDate } from "./types";
 import { useEffect, useState } from "react";
 import Icon from "../../../../common/atoms/icon";
 import SelectModal from "./blocks/select_modal";
 import { insertCommaToNumber } from "../../../../common/global_function";
 import SpinningWon from "../../blocks/icon/spinning_won";
 import useRenterMFViewModel from "../../viewmodel/renter";
-import { PaymentBill } from "../../viewmodel/renter/types";
 
 export default function ManagementFeeDetailScreen({ navigation, route }: ManagementFeeDetailScreenProps) {
     const styles = useManagementFeeDetailScreenStyles();
@@ -18,7 +16,7 @@ export default function ManagementFeeDetailScreen({ navigation, route }: Managem
     const [modalVisible, setModalVisible] = useState<boolean>(false);
     const [paidDateRange, setPaidDateRaange] = useState<PaidDateRange>({}); // 납부 기간
     const [selectedDate, setSelectedDate] = useState<SelectedDate | null>(null);
-    const [billOfMonth, setBillOfMonth] = useState<PaymentBill | null>(null);
+    const [billOfMonth, setBillOfMonth] = useState<PaymentBillByMonth | null>(null);
 
     // 고지 받은 기간을 추려 선택 가능한 Year, Month 정리
     useEffect(() => {
@@ -31,7 +29,6 @@ export default function ManagementFeeDetailScreen({ navigation, route }: Managem
                 }
                 return;
             }
-
             _paidPR[fee.year] = [fee.month];
         });
 
@@ -53,7 +50,11 @@ export default function ManagementFeeDetailScreen({ navigation, route }: Managem
         const _fee = viewModel.data.find((fee) => fee.year === selectedDate.year && fee.month === selectedDate.month);
 
         if (_fee !== undefined) {
-            setBillOfMonth(viewModel.calcByPaymentItem([_fee]));
+            setBillOfMonth({
+                ...viewModel.calcByPaymentItem([_fee]),
+                isPaid: _fee.isPaid,
+                paidFee: _fee.isPaid ? _fee.amountWon + _fee.overdueInterest : 0,
+            });
         }
     }, [selectedDate]);
 
@@ -105,8 +106,30 @@ export default function ManagementFeeDetailScreen({ navigation, route }: Managem
                 </TouchableOpacity>
                 <View style={styles.main.container}>
                     <View style={styles.main.totalMFBox}>
-                        <SpinningWon />
-                        <Text style={styles.main.totalMF}>{insertCommaToNumber(billOfMonth?.feeToPay ?? 0)} 원</Text>
+                        <View style={styles.main.totalMF}>
+                            <SpinningWon />
+                            <Text style={styles.main.totalMFText}>
+                                {insertCommaToNumber(
+                                    billOfMonth === null
+                                        ? 0
+                                        : billOfMonth.isPaid
+                                        ? billOfMonth.paidFee
+                                        : billOfMonth.feeToPay
+                                )}{" "}
+                                원
+                            </Text>
+                        </View>
+                        {billOfMonth !== null && (
+                            <View
+                                style={[
+                                    styles.main.paymentStatus,
+                                    billOfMonth.isPaid ? styles.main.paid : styles.main.unPaid,
+                                ]}>
+                                <Text style={styles.main.paymentStatusText}>
+                                    {billOfMonth.isPaid ? "납부 완료" : "미납"}
+                                </Text>
+                            </View>
+                        )}
                     </View>
                     <View style={styles.main.billBox}>
                         <View style={styles.main.billBoxTitleBox}>
