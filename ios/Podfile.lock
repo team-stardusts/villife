@@ -466,6 +466,8 @@ PODS:
   - RNNaverLogin (2.3.1):
     - naveridlogin-sdk-ios (~> 4.1.5)
     - React
+  - RNPermissions (4.0.1):
+    - React-Core
   - RNReactNativeHapticFeedback (2.2.0):
     - React-Core
   - RNScreens (3.20.0):
@@ -529,6 +531,7 @@ DEPENDENCIES:
   - "RNFBApp (from `../node_modules/@react-native-firebase/app`)"
   - "RNFBMessaging (from `../node_modules/@react-native-firebase/messaging`)"
   - "RNNaverLogin (from `../node_modules/@react-native-seoul/naver-login`)"
+  - RNPermissions (from `../node_modules/react-native-permissions`)
   - RNReactNativeHapticFeedback (from `../node_modules/react-native-haptic-feedback`)
   - RNScreens (from `../node_modules/react-native-screens`)
   - RNSVG (from `../node_modules/react-native-svg`)
@@ -648,6 +651,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/@react-native-firebase/messaging"
   RNNaverLogin:
     :path: "../node_modules/@react-native-seoul/naver-login"
+  RNPermissions:
+    :path: "../node_modules/react-native-permissions"
   RNReactNativeHapticFeedback:
     :path: "../node_modules/react-native-haptic-feedback"
   RNScreens:
@@ -720,12 +725,13 @@ SPEC CHECKSUMS:
   RNFBApp: d59efa0872fff4e27de03cca3c528c203a436ae5
   RNFBMessaging: 216693dd5ba4f18ba65fb39fc73a44a23c26190f
   RNNaverLogin: 55f822601e31a7c7feeaf167497029c0162115e6
+  RNPermissions: d291caf57e83fc4cc871c135e8f54161c301f767
   RNReactNativeHapticFeedback: ec56a5f81c3941206fd85625fa669ffc7b4545f9
   RNScreens: 218801c16a2782546d30bd2026bb625c0302d70f
   RNSVG: c1e76b81c76cdcd34b4e1188852892dc280eb902
   SSZipArchive: 62d4947b08730e4cda640473b0066d209ff033c9
   Yoga: 5ed1699acbba8863755998a4245daa200ff3817b
 
-PODFILE CHECKSUM: ca1b76f02964d810ef34aaf6a47bcd7b171be3ea
+PODFILE CHECKSUM: 6821a4c392dd473c79fdf53a1d88dc57eef81c84
 
 COCOAPODS: 1.11.3
