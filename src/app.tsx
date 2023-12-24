@@ -14,6 +14,8 @@ import Toast from "react-native-toast-message";
 import { VillifeRootStackParamList } from "./features/common/router/types";
 import CodePush from "react-native-code-push";
 import codePushOptions from "./code-push-options";
+// import
+import VersionCheck from "react-native-version-check";
 
 const { UIManager } = NativeModules;
 

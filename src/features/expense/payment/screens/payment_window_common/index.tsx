@@ -16,7 +16,6 @@ export default function CommonPaymentWindowScreen(params: CommonPaymentWindowScr
     });
     const styles = usePaymentCommonScreenStyles();
 
-    console.log(navParam);
     return (
         <NavigationView
             headerOptions={{

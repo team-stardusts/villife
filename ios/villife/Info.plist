@@ -45,6 +45,7 @@
 		<string>$(CURRENT_PROJECT_VERSION)</string>
 		<key>LSApplicationQueriesSchemes</key>
 		<array>
+			<string>itms-apps</string>
 			<string>kb-acp</string>
 			<string>liivbank</string>
 			<string>newliiv</string>

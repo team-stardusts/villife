@@ -4,6 +4,7 @@ import IDotEnv from "./types";
 class DotEnv implements IDotEnv {
     readonly app = {
         NAME: Config.APP_NAME,
+        APP_STORE_APP_ID: Config.APP_STORE_APP_ID,
     } as const;
 
     readonly api = {
