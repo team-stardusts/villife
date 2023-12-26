@@ -1,5 +1,6 @@
 import NavigationView from "../../../../common/blocks/navigation";
 import ScreenTitleView from "../../../../common/blocks/title_view";
+import RefundPolicyButton from "../refund_policy/blocks/button";
 import useConfirmPaymentScreenStyles from "./styles";
 import ConfirmPaymentCostScreenProps from "./types";
 import { ScrollView, Text, View } from "react-native";
@@ -55,6 +56,9 @@ export default function ConfirmPaymentCostScreen({ navigation, route }: ConfirmP
                                     <Text style={styles.main.billValue}>{insertCommaToMoney(bill[billKey])} 원</Text>
                                 </View>
                             ))}
+                        <View style={styles.main.refundPolicy}>
+                            <RefundPolicyButton />
+                        </View>
                     </ScrollView>
                 </View>
             </ScreenTitleView>

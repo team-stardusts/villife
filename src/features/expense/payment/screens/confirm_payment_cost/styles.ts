@@ -42,6 +42,9 @@ export default function useConfirmPaymentScreenStyles() {
             fontSize: deviceUI.moderateScale(14),
             color: theme.color.specified.black,
         },
+        refundPolicy: {
+            marginTop: deviceUI.moderateScale(10),
+        },
     });
 
     return {
