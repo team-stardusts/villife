@@ -15,7 +15,7 @@ export default function CalendarDatePicker(props: CalendarDatePickerProps) {
 
     useEffect(() => {
         if (dates.endDate === null) return;
-        props.onDateChange && props.onDateChange(dates as Dates);
+        props.onDateRangeChange && props.onDateRangeChange(dates as Dates);
     }, [dates]);
 
     const getPreviousNextComponent = (type: "previous" | "next"): React.ReactNode => {
@@ -29,6 +29,7 @@ export default function CalendarDatePicker(props: CalendarDatePickerProps) {
 
     const onDateChange: DateChangedCallback = (date, type): void => {
         if (date === null) return;
+        props.onDateChange && props.onDateChange(date.toDate());
 
         if (type === "START_DATE") {
             setDates({
@@ -48,7 +49,7 @@ export default function CalendarDatePicker(props: CalendarDatePickerProps) {
     return (
         <View>
             <CalendarPicker
-                allowRangeSelection
+                allowRangeSelection={props.allowRangeSelection !== undefined ? props.allowRangeSelection : true}
                 customDayHeaderStyles={() => {
                     return {
                         style: {},
@@ -59,6 +60,7 @@ export default function CalendarDatePicker(props: CalendarDatePickerProps) {
                 }}
                 initialDate={props.initialDate}
                 minDate={props.minDate}
+                maxDate={props.maxDate}
                 nextComponent={getPreviousNextComponent("next")}
                 onDateChange={(date, type) => onDateChange(date, type)}
                 previousComponent={getPreviousNextComponent("previous")}
@@ -66,7 +68,7 @@ export default function CalendarDatePicker(props: CalendarDatePickerProps) {
                 selectedEndDate={props.selectedEndData}
                 selectedDayColor={theme.color.specified.lightblue as string}
                 selectedDayTextColor={theme.color.specified.white as string}
-                todayBackgroundColor={theme.color.specified.green as string}
+                todayBackgroundColor={theme.color.series.grey.level2 as string}
                 showDayStragglers={false}
                 textStyle={{
                     fontFamily: theme.font.fontFamily.pretendard.regular,

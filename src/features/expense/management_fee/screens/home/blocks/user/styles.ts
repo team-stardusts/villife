@@ -14,86 +14,6 @@ export default function useUserMFViewStyles() {
         },
     });
 
-    const managementFee = StyleSheet.create({
-        container: {
-            width: "100%",
-        },
-        contentBox: {
-            color: theme.color.specified.white,
-        },
-        contentWrapper: {
-            width: "100%",
-            paddingHorizontal: deviceUI.moderateScale(20),
-        },
-        header: {
-            width: "100%",
-            flexDirection: "row",
-            justifyContent: "flex-start",
-            alignItems: "center",
-            paddingVertical: deviceUI.moderateScale(10),
-            marginTop: deviceUI.moderateScale(10),
-        },
-        headerText: {
-            fontFamily: theme.font.fontFamily.pretendard.regular,
-            fontSize: deviceUI.moderateScale(13),
-            color: theme.color.specified.black,
-        },
-        dueDate: {
-            color: theme.color.specified.blue,
-        },
-        body: {
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "space-between",
-        },
-        managementFeeBox: {
-            flexDirection: "row",
-            alignItems: "center",
-            marginVertical: deviceUI.moderateScale(10),
-        },
-        managementFee: {
-            fontFamily: theme.font.fontFamily.pretendard.extraBold,
-            fontSize: deviceUI.moderateScale(25),
-            color: theme.color.specified.black,
-            marginLeft: deviceUI.moderateScale(7),
-        },
-        paymentBtnCombo: {
-            flexDirection: "row",
-            alignItems: "center",
-        },
-        paymentBtnSeparator: {
-            marginHorizontal: deviceUI.moderateScale(4),
-        },
-        paymentBtn: {
-            alignItems: "center",
-            justifyContent: "center",
-        },
-        paymentBtnText: {
-            fontFamily: theme.font.fontFamily.pretendard.regular,
-            fontSize: deviceUI.moderateScale(12),
-            color: theme.color.specified.black,
-        },
-        confirmationShortCutBox: {
-            width: "100%",
-            flexDirection: "row",
-            justifyContent: "flex-start",
-            paddingVertical: deviceUI.moderateScale(20),
-        },
-        confirmationShortCutQuestionText: {
-            fontFamily: theme.font.fontFamily.pretendard.regular,
-            fontSize: deviceUI.moderateScale(12),
-            color: theme.color.specified.black,
-        },
-        confirmationShortCutBtn: {
-            marginLeft: deviceUI.moderateScale(5),
-        },
-        confirmationShortCutBtnText: {
-            fontFamily: theme.font.fontFamily.pretendard.regular,
-            fontSize: deviceUI.moderateScale(12),
-            color: theme.color.specified.blue,
-        },
-    });
-
     const bill = StyleSheet.create({
         container: {
             //height: deviceUI.moderateScale(150),
@@ -158,6 +78,7 @@ export default function useUserMFViewStyles() {
     const history = StyleSheet.create({
         container: {
             marginTop: deviceUI.moderateScale(20),
+            marginBottom: deviceUI.moderateScale(20),
         },
         contentBox: {
             color: theme.color.specified.white,
@@ -183,7 +104,7 @@ export default function useUserMFViewStyles() {
 
     const managementFeeStatus = StyleSheet.create({
         container: {
-            marginTop: deviceUI.moderateScale(20),
+            marginTop: deviceUI.moderateScale(15),
             //height: deviceUI.moderateScale(65),
         },
         managementFeeContainer: {
@@ -247,7 +168,6 @@ export default function useUserMFViewStyles() {
 
     return {
         main,
-        managementFee,
         bill,
         history,
         managementFeeStatus,

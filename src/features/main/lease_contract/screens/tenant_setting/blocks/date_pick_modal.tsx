@@ -35,7 +35,7 @@ export default function DatePickModal(props: DatePickModalProps) {
                     onPress: () => handlePressOkey(),
                 },
             ]}>
-            <CalendarDatePicker width={deviceUI.getScreenSize().width * 0.8} onDateChange={setDates} />
+            <CalendarDatePicker width={deviceUI.getScreenSize().width * 0.8} onDateRangeChange={setDates} />
         </StardustModal>
     );
 }

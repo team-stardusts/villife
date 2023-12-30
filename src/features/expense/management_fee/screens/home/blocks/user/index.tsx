@@ -1,5 +1,5 @@
 import { ScrollView, View } from "react-native";
-import ManagementFeeBox from "./blocks/fee_box";
+import ManagementFeeBox from "./blocks/fee";
 import BillBox from "./blocks/bill_box";
 import ManagementFeeStatusScrollView from "./blocks/status_scrollview";
 import useUserMFViewStyles from "./styles";
@@ -9,6 +9,7 @@ import InfoPannel from "../../../../../../common/blocks/info-pannel";
 import useRenterMFViewModel from "../../../../viewmodel/renter";
 import { PaymentBill } from "../../../../viewmodel/renter/types";
 import ContentBox from "../../../../../../common/blocks/content_box";
+import ManagementFeePaymentConfirmBox from "./blocks/confirm";
 
 export default function UserMFView() {
     const styles = useUserMFViewStyles();
@@ -35,14 +36,33 @@ export default function UserMFView() {
             </View>
             <ScrollView style={styles.main.container}>
                 <View style={styles.main.wrapper}>
-                    <ContentBox backgroundColor={styles.managementFee.contentBox.color} enableShadow={false}>
-                        <ManagementFeeBox styles={styles.managementFee} bill={bill} />
+                    <ContentBox backgroundColor={styles.bill.contentBox.color} enableShadow={false}>
+                        <ManagementFeeBox
+                            bill={bill}
+                            billCreatedAt={viewModel.data[viewModel.data.length - 1]?.createdAt}
+                        />
                     </ContentBox>
-                    {bill !== null && <BillBox styles={styles.bill} {...bill} />}
                 </View>
+
                 {viewModel.data.length > 0 && (
                     <ManagementFeeStatusScrollView styles={styles.managementFeeStatus} mfs={viewModel.data} />
                 )}
+
+                {bill !== null && bill.feeToPay > 0 && (
+                    <View style={styles.main.wrapper}>
+                        <ManagementFeePaymentConfirmBox
+                            bill={bill}
+                            billCreatedAt={viewModel.data[viewModel.data.length - 1]?.createdAt}
+                        />
+                    </View>
+                )}
+
+                {bill !== null && (
+                    <View style={styles.main.wrapper}>
+                        <BillBox styles={styles.bill} {...bill} />
+                    </View>
+                )}
+
                 <View style={styles.main.wrapper}>
                     <PaymentHistoryBox styles={styles.history} />
                 </View>

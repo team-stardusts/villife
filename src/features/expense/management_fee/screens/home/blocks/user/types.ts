@@ -1,11 +1,6 @@
 import { PaymentBill, UserManagementFee } from "../../../../viewmodel/renter/types";
 import type useUserMFViewStyles from "./styles";
 
-export type ManagementFeeBoxProps = {
-    styles: ReturnType<typeof useUserMFViewStyles>["managementFee"];
-    bill: PaymentBill | null;
-};
-
 export type ManagementFeeBillBoxProps = PaymentBill & {
     styles: ReturnType<typeof useUserMFViewStyles>["bill"];
 };

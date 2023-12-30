@@ -6,7 +6,7 @@ export type StardustModalProps = {
     modalVisible: boolean;
     setModalVisible: React.Dispatch<React.SetStateAction<boolean>>;
     title: string;
-    subtitle?: string;
+    subtitle?: string | string[];
     upperRightFunc?: {
         icon: IconSeries;
         color?: ColorValue;

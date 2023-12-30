@@ -65,16 +65,18 @@ export default function useStardustModalStyles() {
             color: theme.color.specified.black,
         },
         title: {
+            fontFamily: theme.font.fontFamily.pretendard.semiBold,
+            fontSize: deviceUI.moderateScale(18),
             color: theme.color.specified.black,
+            marginTop: deviceUI.moderateScale(20),
             textAlign: "center",
-            ...theme.font.researved.h3,
         },
         subtitle: {
-            marginTop: deviceUI.moderateScale(5),
-            color: theme.color.specified.grey,
-            textAlign: "center",
             fontFamily: theme.font.fontFamily.pretendard.regular,
             fontSize: deviceUI.moderateScale(13),
+            color: theme.color.specified.grey,
+            marginTop: deviceUI.moderateScale(5),
+            textAlign: "center",
         },
         buttonSection: {
             height: deviceUI.getScreenSize().height * 0.07,

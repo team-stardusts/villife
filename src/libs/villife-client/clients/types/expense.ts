@@ -26,6 +26,7 @@ namespace VillifeExpense {
         amountWon: number;
         billId: number;
         category: string;
+        createdAt: number;
         detailBill: string;
         formId: number;
         isPaid: boolean;

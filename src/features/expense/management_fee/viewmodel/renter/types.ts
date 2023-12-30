@@ -2,7 +2,19 @@ import Villife from "../../../../../libs/villife-client/types";
 import { UserInfo } from "../../../../common/hooks/service/user_info/types";
 import { ViewModel } from "../../../../common/model/types";
 
-export type UserManagementFee = Villife.Expense.ManagementFee;
+export type UserManagementFee = {
+    amountWon: Villife.Expense.ManagementFee["amountWon"];
+    billId: Villife.Expense.ManagementFee["billId"];
+    category: Villife.Expense.ManagementFee["category"];
+    createdAt: Date;
+    detailBill: Villife.Expense.ManagementFee["detailBill"];
+    formId: Villife.Expense.ManagementFee["formId"];
+    isPaid: Villife.Expense.ManagementFee["isPaid"];
+    month: Villife.Expense.ManagementFee["month"];
+    overdueInterest: Villife.Expense.ManagementFee["overdueInterest"];
+    paymentInfo: Villife.Expense.ManagementFee["paymentInfo"];
+    year: Villife.Expense.ManagementFee["year"];
+};
 
 export interface RenterMFViewModelBase extends ViewModel<UserManagementFee[]> {
     user: UserInfo;

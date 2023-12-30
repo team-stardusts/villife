@@ -1,12 +1,15 @@
 import type { Moment } from "moment";
 
 export type CalendarDatePickerProps = {
+    allowRangeSelection?: boolean;
     initialDate?: Date;
     selectedStartData?: Date;
     selectedEndData?: Date;
     width?: number;
     minDate?: Date | undefined;
-    onDateChange?(dates: Dates): void;
+    maxDate?: Date | undefined;
+    onDateRangeChange?(dates: Dates): void;
+    onDateChange?(date: Date): void;
 };
 
 export type PickedDates = {

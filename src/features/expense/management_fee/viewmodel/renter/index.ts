@@ -5,6 +5,7 @@ import ViewModelCommmon from "../../../../common/model/absc";
 import { PaymentBill, PaymentConfirmaionRequestForm, RenterMFViewModelBase, UserManagementFee } from "./types";
 import Villife from "../../../../../libs/villife-client/types";
 import { userManagementFeesState } from "./states";
+import StardustDateParser from "../../../../../libs/date_parser";
 
 export default function useRenterMFViewModel(): RenterMFViewModelBase {
     const user = useUserInformation() as UserInfo;
@@ -22,15 +23,35 @@ export default function useRenterMFViewModel(): RenterMFViewModelBase {
             this._api
                 .getUserMFHistory()
                 .then(async (r) => {
-                    this.save(r ?? []);
+                    if (r === undefined || r === null) return;
+
+                    this.save(this.toViewModel(r));
                 })
                 .catch(async (err) => {
                     console.error("[USER_MF_VIEWMODEL]", "occured while update data.", err);
                     if (err instanceof Error) {
                         console.error(err.stack);
                     }
-                    this.save((await this.restore()) ?? []);
+                    const restoredData = await this.restore().then((data) => {
+                        if (data === null) return [];
+
+                        return data.map((_data) => {
+                            const d = _data;
+                            d.createdAt = new Date(_data.createdAt);
+                            return d;
+                        });
+                    });
+
+                    this.save(restoredData);
                 });
+        }
+
+        private toViewModel(data: Villife.Expense.ManagementFee[]): UserManagementFee[] {
+            return data.map((v) => {
+                const d: any = v;
+                d.createdAt = StardustDateParser.deserialize(v.createdAt);
+                return d;
+            });
         }
 
         public calcByPaymentItem(history: UserManagementFee[]): PaymentBill {

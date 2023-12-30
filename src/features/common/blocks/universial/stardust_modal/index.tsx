@@ -102,7 +102,15 @@ export default function StardustModal(props: StardustModalProps) {
                         </View>
                         {props.subtitle && (
                             <View style={styles.titleBox}>
-                                <Text style={styles.subtitle}>{props.subtitle}</Text>
+                                {typeof props.subtitle === "string" ? (
+                                    <Text style={styles.subtitle}>{props.subtitle}</Text>
+                                ) : (
+                                    props.subtitle.map((v, i) => (
+                                        <Text key={i} style={styles.subtitle}>
+                                            {v}
+                                        </Text>
+                                    ))
+                                )}
                             </View>
                         )}
                     </View>
