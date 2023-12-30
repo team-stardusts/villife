@@ -29,9 +29,13 @@ export default function Notification(props: NotificationProps) {
             </View>
             <View style={styles.contentBox}>
                 <Text style={styles.title}>{props.title}</Text>
-                <Text style={styles.content} lineBreakMode="tail" numberOfLines={2}>
-                    {props.content}
-                </Text>
+                <View style={styles.content}>
+                    {props.content.split("\n").map((v, i) => (
+                        <Text key={i} style={styles.contentText} adjustsFontSizeToFit numberOfLines={1}>
+                            {v.replace(" ", "")}
+                        </Text>
+                    ))}
+                </View>
                 <Text style={styles.date}>{props.createdAt.toLocaleString()}</Text>
             </View>
         </View>
@@ -47,7 +51,7 @@ function useNotificationStyles() {
 
     return StyleSheet.create({
         container: {
-            height: deviceUI.getScreenSize().height * 0.12,
+            //minheight: deviceUI.getScreenSize().height * 0.15,
             flexDirection: "row",
             borderBottomColor: theme.color.series.grey.level1,
             borderBottomWidth: deviceUI.moderateScale(1),
@@ -73,23 +77,24 @@ function useNotificationStyles() {
         },
         contentBox: {
             flex: 8.5,
-            paddingRight: deviceUI.moderateScale(10),
+            paddingRight: deviceUI.moderateScale(15),
         },
         title: {
-            flex: 0.3,
             fontFamily: theme.font.fontFamily.pretendard.medium,
             fontSize: deviceUI.moderateScale(15),
             color: theme.color.specified.black,
-            marginBottom: deviceUI.moderateScale(2),
+            marginBottom: deviceUI.moderateScale(5),
         },
         content: {
-            flex: 0.5,
+            alignItems: "flex-start",
+            marginBottom: deviceUI.moderateScale(5),
+        },
+        contentText: {
             fontFamily: theme.font.fontFamily.pretendard.regular,
             fontSize: deviceUI.moderateScale(13),
             color: theme.color.specified.black,
         },
         date: {
-            flex: 0.2,
             fontFamily: theme.font.fontFamily.pretendard.regular,
             fontSize: deviceUI.moderateScale(11),
             color: theme.color.specified.grey,
