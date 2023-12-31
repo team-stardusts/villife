@@ -361,6 +361,8 @@ PODS:
     - RCTTypeSafety
     - React-Core
     - ReactCommon/turbomodule/core
+  - react-native-version-check (3.4.7):
+    - React-Core
   - react-native-webview (11.26.1):
     - React-Core
   - React-perflogger (0.71.3)
@@ -464,6 +466,8 @@ PODS:
   - RNNaverLogin (2.3.1):
     - naveridlogin-sdk-ios (~> 4.1.5)
     - React
+  - RNPermissions (4.0.1):
+    - React-Core
   - RNReactNativeHapticFeedback (2.2.0):
     - React-Core
   - RNScreens (3.20.0):
@@ -506,6 +510,7 @@ DEPENDENCIES:
   - react-native-image-picker (from `../node_modules/react-native-image-picker`)
   - "react-native-netinfo (from `../node_modules/@react-native-community/netinfo`)"
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
+  - react-native-version-check (from `../node_modules/react-native-version-check`)
   - react-native-webview (from `../node_modules/react-native-webview`)
   - React-perflogger (from `../node_modules/react-native/ReactCommon/reactperflogger`)
   - React-RCTActionSheet (from `../node_modules/react-native/Libraries/ActionSheetIOS`)
@@ -526,6 +531,7 @@ DEPENDENCIES:
   - "RNFBApp (from `../node_modules/@react-native-firebase/app`)"
   - "RNFBMessaging (from `../node_modules/@react-native-firebase/messaging`)"
   - "RNNaverLogin (from `../node_modules/@react-native-seoul/naver-login`)"
+  - RNPermissions (from `../node_modules/react-native-permissions`)
   - RNReactNativeHapticFeedback (from `../node_modules/react-native-haptic-feedback`)
   - RNScreens (from `../node_modules/react-native-screens`)
   - RNSVG (from `../node_modules/react-native-svg`)
@@ -603,6 +609,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/@react-native-community/netinfo"
   react-native-safe-area-context:
     :path: "../node_modules/react-native-safe-area-context"
+  react-native-version-check:
+    :path: "../node_modules/react-native-version-check"
   react-native-webview:
     :path: "../node_modules/react-native-webview"
   React-perflogger:
@@ -643,6 +651,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/@react-native-firebase/messaging"
   RNNaverLogin:
     :path: "../node_modules/@react-native-seoul/naver-login"
+  RNPermissions:
+    :path: "../node_modules/react-native-permissions"
   RNReactNativeHapticFeedback:
     :path: "../node_modules/react-native-haptic-feedback"
   RNScreens:
@@ -694,6 +704,7 @@ SPEC CHECKSUMS:
   react-native-image-picker: ec9b713e248760bfa0f879f0715391de4651a7cb
   react-native-netinfo: fefd4e98d75cbdd6e85fc530f7111a8afdf2b0c5
   react-native-safe-area-context: 39c2d8be3328df5d437ac1700f4f3a4f75716acc
+  react-native-version-check: 6cd36aad4e30b8e3216747e3b4ddeb09e0647af8
   react-native-webview: 9f111dfbcfc826084d6c507f569e5e03342ee1c1
   React-perflogger: af8a3d31546077f42d729b949925cc4549f14def
   React-RCTActionSheet: 57cc5adfefbaaf0aae2cf7e10bccd746f2903673
@@ -714,12 +725,13 @@ SPEC CHECKSUMS:
   RNFBApp: d59efa0872fff4e27de03cca3c528c203a436ae5
   RNFBMessaging: 216693dd5ba4f18ba65fb39fc73a44a23c26190f
   RNNaverLogin: 55f822601e31a7c7feeaf167497029c0162115e6
+  RNPermissions: d291caf57e83fc4cc871c135e8f54161c301f767
   RNReactNativeHapticFeedback: ec56a5f81c3941206fd85625fa669ffc7b4545f9
   RNScreens: 218801c16a2782546d30bd2026bb625c0302d70f
   RNSVG: c1e76b81c76cdcd34b4e1188852892dc280eb902
   SSZipArchive: 62d4947b08730e4cda640473b0066d209ff033c9
   Yoga: 5ed1699acbba8863755998a4245daa200ff3817b
 
-PODFILE CHECKSUM: d13852b500fd8050301c1c3319de0698812f78b4
+PODFILE CHECKSUM: 6821a4c392dd473c79fdf53a1d88dc57eef81c84
 
 COCOAPODS: 1.11.3
