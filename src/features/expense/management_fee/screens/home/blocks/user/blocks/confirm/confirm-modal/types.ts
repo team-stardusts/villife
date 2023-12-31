@@ -4,4 +4,5 @@ export type PaymentInfoInputModalProps = {
     bill: PaymentBill;
     visible: boolean;
     setVisible: React.Dispatch<React.SetStateAction<boolean>>;
+    onSendMessage(): void;
 };

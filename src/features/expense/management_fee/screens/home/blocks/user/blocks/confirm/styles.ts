@@ -79,7 +79,7 @@ export default function useManagementFeePaymentConfirmBoxStyles() {
         },
         footer: {
             width: "100%",
-            marginBottom: deviceUI.moderateScale(10),
+            marginBottom: deviceUI.moderateScale(15),
             flexDirection: "row",
             justifyContent: "center",
         },

@@ -109,6 +109,20 @@ export default function useRenterMFViewModel(): RenterMFViewModelBase {
                     return false;
                 });
         }
+
+        public async isWaitingForConfirmation(): Promise<boolean> {
+            return this._clientInstance.approval
+                .checkUserIsWaitingForApproval(3, 1)
+                .then((r) => {
+                    if (r === undefined || r.length === 0) {
+                        return false;
+                    }
+                    return true;
+                })
+                .catch(() => {
+                    return false;
+                });
+        }
     }
 
     return new RenterMFViewModel(user, userMFs, setUserMFs);

@@ -19,9 +19,10 @@ export type UserManagementFee = {
 export interface RenterMFViewModelBase extends ViewModel<UserManagementFee[]> {
     user: UserInfo;
     update(): Promise<void>;
+    calcByPaymentItem(history: UserManagementFee[]): PaymentBill;
     getBuildingInfo(): Promise<Villife.Contract.Building | null>;
     requestPaymentConfirmation(params: PaymentConfirmaionRequestForm): Promise<boolean>;
-    calcByPaymentItem(history: UserManagementFee[]): PaymentBill;
+    isWaitingForConfirmation(): Promise<boolean>;
 }
 
 export type PaymentConfirmaionRequestForm = {

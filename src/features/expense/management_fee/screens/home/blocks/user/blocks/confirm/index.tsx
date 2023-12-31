@@ -16,6 +16,7 @@ export default function ManagementFeePaymentConfirmBox(props: ManagementFeePayme
     const viewModel = useRenterMFViewModel();
     const [account, setAccount] = useState<Villife.Contract.BankAccount | null>(null);
     const [modalVisible, setModalVisible] = useState<boolean>(false);
+    const [isWaitingForConfirm, setIsWaitingForConfirm] = useState<boolean>(false);
 
     useEffect(() => {
         viewModel.getBuildingInfo().then((building) => {
@@ -30,12 +31,19 @@ export default function ManagementFeePaymentConfirmBox(props: ManagementFeePayme
         });
     }, []);
 
-    const onPressConfirmPaymentBtn = () => {};
+    useEffect(() => {
+        viewModel.isWaitingForConfirmation().then(setIsWaitingForConfirm);
+    }, [viewModel.data]);
 
     return (
         <>
             {props.bill.feeToPay > 0 && (
-                <PaymentInfoInputModal bill={props.bill} visible={modalVisible} setVisible={setModalVisible} />
+                <PaymentInfoInputModal
+                    bill={props.bill}
+                    visible={modalVisible}
+                    setVisible={setModalVisible}
+                    onSendMessage={() => setIsWaitingForConfirm(true)}
+                />
             )}
             <View style={styles.container}>
                 <ContentBox backgroundColor={styles.contentBox.color} enableShadow={false}>
@@ -72,17 +80,35 @@ export default function ManagementFeePaymentConfirmBox(props: ManagementFeePayme
                         </View>
                         {props.bill.feeToPay && props.billCreatedAt && (
                             <View style={styles.footer}>
-                                <Text
-                                    style={styles.confirmationShortCutQuestionText}
-                                    adjustsFontSizeToFit
-                                    numberOfLines={1}>
-                                    {props.billCreatedAt.getMonth() + 1}월 관리비를 이미 납부 하셨나요?
-                                </Text>
-                                <TouchableOpacity
-                                    style={styles.confirmationShortCutBtn}
-                                    onPress={() => setModalVisible(true)}>
-                                    <Text style={styles.confirmationShortCutBtnText}>납부확인요청</Text>
-                                </TouchableOpacity>
+                                {isWaitingForConfirm ? (
+                                    <>
+                                        <Text
+                                            style={styles.confirmationShortCutQuestionText}
+                                            adjustsFontSizeToFit
+                                            numberOfLines={1}>
+                                            {props.billCreatedAt.getMonth() + 1}월 관리비 승인을 기다리고 있어요!
+                                        </Text>
+                                        <TouchableOpacity
+                                            style={styles.confirmationShortCutBtn}
+                                            onPress={() => setModalVisible(true)}>
+                                            <Text style={styles.confirmationShortCutBtnText}>납부확인 재요청</Text>
+                                        </TouchableOpacity>
+                                    </>
+                                ) : (
+                                    <>
+                                        <Text
+                                            style={styles.confirmationShortCutQuestionText}
+                                            adjustsFontSizeToFit
+                                            numberOfLines={1}>
+                                            {props.billCreatedAt.getMonth() + 1}월 관리비를 이미 납부 하셨나요?
+                                        </Text>
+                                        <TouchableOpacity
+                                            style={styles.confirmationShortCutBtn}
+                                            onPress={() => setModalVisible(true)}>
+                                            <Text style={styles.confirmationShortCutBtnText}>납부확인요청</Text>
+                                        </TouchableOpacity>
+                                    </>
+                                )}
                             </View>
                         )}
                     </View>

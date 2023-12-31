@@ -31,6 +31,14 @@ export default function useFirebaseMessagingEmitter() {
                 case "관리비 입금 확인 알림":
                     category = "management-fee-deposit-confirmation";
                     break;
+                case "관리비 입금 확인 요청":
+                    if (
+                        message.notification.body ===
+                        "관리비 입금 확인이 거절 되었습니다.\n관리비 입금액,입금자명을 다시 확인해주세요."
+                    ) {
+                        category = "management-fee-deposit-confirmation-refused";
+                    }
+                    break;
             }
 
             console.log("[PUSH_NOTI]", category, message.notification.title);

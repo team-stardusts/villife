@@ -37,6 +37,10 @@ export default function PaymentInfoInputModal(props: PaymentInfoInputModalProps)
             result ? "확인 요청을 전송했어요." : "요청이 전송되지 않았어요. 잠시후 다시 시도해주세요."
         );
 
+        if (result) {
+            props.onSendMessage();
+        }
+
         setDepositor(null);
         setDepositDate(null);
         props.setVisible(false);

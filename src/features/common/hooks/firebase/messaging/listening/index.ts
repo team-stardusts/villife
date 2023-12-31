@@ -45,7 +45,10 @@ export default function useFirebaseMessagingListener() {
                 ];
             }
 
-            if (name === "management-fee-deposit-confirmation") {
+            if (
+                name === "management-fee-deposit-confirmation" ||
+                name === "management-fee-deposit-confirmation-refused"
+            ) {
                 buttons = [
                     {
                         text: "확인",
