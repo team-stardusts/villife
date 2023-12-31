@@ -14,9 +14,8 @@ import Toast from "react-native-toast-message";
 import { VillifeRootStackParamList } from "./features/common/router/types";
 import CodePush from "react-native-code-push";
 import codePushOptions from "./code-push-options";
-// import
-import VersionCheck from "react-native-version-check";
 import { checkNotifications } from "react-native-permissions";
+import villifeVersion from "./libs/villife-version";
 
 const { UIManager } = NativeModules;
 
@@ -26,7 +25,7 @@ UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationE
 global.Buffer = global.Buffer || require("buffer").Buffer;
 
 function App(): JSX.Element {
-    checkNotifications().then(console.log);
+    checkNotifications().then((r) => console.log("[NOTI_PERMISSION]", r));
     const linking: LinkingOptions<VillifeRootStackParamList> = {
         prefixes: ["villife://"],
         config: {

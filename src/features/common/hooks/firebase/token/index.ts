@@ -26,8 +26,10 @@ export function useGetFirebaseToken(): string {
                 console.error("The user is using an unexpected OS.");
                 return;
         }
-
-        const token = await firebaseModule.getAccessToken();
+        const token = await firebaseModule.getAccessToken().catch((err) => {
+            console.error(err);
+            return "";
+        });
         setToken(token);
     }, []);
 
@@ -69,6 +71,9 @@ export function useAutoRegisterFirebaseToken() {
                     //     console.log("and: ", firebaseToken);
                     // }
                     console.log("Register firebase result token", r.data?.data);
+                })
+                .catch((err) => {
+                    console.log(err);
                 });
         }
     }, [loginData?.accessToken, firebaseToken]);

@@ -29,7 +29,6 @@ export default function useRouteFSMEngine(): void {
         // 앱 시작 시 네트워크 스테이트 설정
         // Network가 연결되지 않은 경우 예외 처리를 위함
         netinfo.listen("changed", (_, state) => {
-            console.log("Network", Platform.OS, state.isConnected);
             setIsConnectedToNetwork(state.isConnected === null ? false : state.isConnected);
         });
 
