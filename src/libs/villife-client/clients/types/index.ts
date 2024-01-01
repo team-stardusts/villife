@@ -1,3 +1,4 @@
+import VillifeAuth from "./auth";
 import VillifeContract from "./contract";
 import VillifeUtility from "./utility";
 import VillifeParking from "./parking";
@@ -7,6 +8,7 @@ import VillifeMessaging from "./messaging";
 
 interface VillifeClientInstance {
     approval: VillifeApproval.Client;
+    auth: VillifeAuth.Client;
     contract: VillifeContract.Client;
     expense: VillifeExpense.Client;
     messaging: VillifeMessaging.Client;
@@ -15,6 +17,7 @@ interface VillifeClientInstance {
 
 export type {
     VillifeApproval as Approval,
+    VillifeAuth as Auth,
     VillifeClientInstance as IntegratedInstance,
     VillifeContract as Contract,
     VillifeExpense as Expense,

@@ -9,7 +9,6 @@ import { IVillifeUserInfoRestClient } from "../../../../libs/rest_apis/villife/u
 import IVillifeStorage from "../../../../libs/storage/types";
 import AppleLoginManager from "./social/apple";
 import { VILLIFE_AUTHORITY } from "../../../../libs/rest_apis/villife/absc";
-import { Authority } from "../../../../libs/rest_apis/villife/types";
 import { LoginDataType } from "../../../../libs/storage/tables/login/types";
 
 export class LoginManagerProvider {

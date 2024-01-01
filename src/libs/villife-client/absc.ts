@@ -9,7 +9,7 @@ import VillifeError from "./errors";
 
 abstract class VillifeClientCommon implements VillifeUtility.Refresher {
     private readonly _requester: AxiosInstance;
-    private readonly _session: VillifeUtility.SessionStorage;
+    protected readonly _session: VillifeUtility.SessionStorage;
     protected readonly _routes: RoutesType = routes;
 
     constructor(baseURL: string, sessionStorage: VillifeUtility.SessionStorage) {
