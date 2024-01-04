@@ -16,7 +16,7 @@ export class ApprovalDataConverter {
         console.log("this.request : ", this.request);
 
         const currentDate = new Date();
-        const formattedDate = currentDate.toLocaleString().slice(0, 2);
+        const formattedDate = currentDate.toLocaleString().slice(0, 2).replace("/", "");
 
         switch (identifier) {
             case 3001:

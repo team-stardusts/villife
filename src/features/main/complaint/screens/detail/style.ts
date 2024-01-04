@@ -66,6 +66,7 @@ export default function useComplaintDetailSecreenStyle() {
         },
         webViewContainer: {
             opacity: 0.99,
+            width: "90%",
             marginLeft: leftMargin,
         },
         replyTitle: {
