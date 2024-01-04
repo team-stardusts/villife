@@ -63,7 +63,7 @@ function FlatListOutlinedContentsBox() {
                         )}
 
                         <View style={{ alignItems: "center" }}>
-                            <Icon name="document_illustration" size={5} />
+                            <Icon name="illustration_document" size={5} />
                         </View>
                     </View>
                 );

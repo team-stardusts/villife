@@ -44,7 +44,7 @@ function FlatListOutlinedContentsBox() {
                     <View style={styles.whenEmptyCard}>
                         <Text style={styles.whenEmptyCardText}>현재 승인 요청이 없어요.</Text>
                         <View style={{ alignItems: "center" }}>
-                            <Icon name="check_illustration" size={5} />
+                            <Icon name="illustration_check" size={5} />
                         </View>
                     </View>
                 );

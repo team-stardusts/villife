@@ -40,7 +40,7 @@ export default function HomeContentFromNoti() {
                         )}
                     </Text>
                     <View style={style.whenEmptyIcon}>
-                        <Icon name="document_illustration" size={10} />
+                        <Icon name="illustration_document" size={10} />
                     </View>
                 </Pressable>
             ) : (

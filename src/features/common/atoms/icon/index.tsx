@@ -32,9 +32,10 @@ import IconNaverLogo from "./naver_logo";
 import IconInfoMark from "./info_mark";
 import IconCautionMark from "./caution_mark";
 import IconDocumentContract from "./document_contract";
-import IllustrationDocument from "./document_illustration";
-import IllustrationCheck from "./check_illustration";
+import IllustrationDocument from "./illustration_document";
+import IllustrationCheck from "./illustration_check";
 import IconBell from "./bell";
+import IllustrationCar from "./illustration_car";
 
 export default function Icon(props: IconProps) {
     /* let iconProps: ChildIconProps = {
@@ -126,10 +127,12 @@ export default function Icon(props: IconProps) {
             return <IconVillife {...iconProps} />;
         case "document_contract":
             return <IconDocumentContract {...iconProps} />;
-        case "document_illustration":
+        case "illustration_document":
             return <IllustrationDocument {...iconProps} />;
-        case "check_illustration":
+        case "illustration_check":
             return <IllustrationCheck {...iconProps} />;
+        case "illustration_car":
+            return <IllustrationCar {...iconProps} />;
         default:
             return <IconHome {...iconProps} />;
     }

@@ -50,8 +50,9 @@ export type IconSeries =
     | "filter-setting"
     | "villife"
     | "document_contract"
-    | "document_illustration"
-    | "check_illustration";
+    | "illustration_document"
+    | "illustration_check"
+    | "illustration_car";
 
 export type ChildIconProps = CommonIconProps & {
     [key: string]: ColorValue | string | number | undefined;

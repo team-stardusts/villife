@@ -29,6 +29,17 @@ export default function useVehicleListStyles() {
             paddingTop: deviceUI.moderateScale(5),
             paddingBottom: deviceUI.moderateScale(20),
         },
+        whenEmpty: {
+            minHeight: deviceUI.moderateScale(320),
+            justifyContent: "center",
+            alignItems: "center",
+        },
+        whenEmptyCardText: {
+            fontSize: deviceUI.moderateScale(18),
+            fontFamily: theme.font.fontFamily.pretendard.medium,
+            color: theme.color.specified.black,
+            marginBottom: deviceUI.moderateScale(-24),
+        },
     });
 
     const row = StyleSheet.create({

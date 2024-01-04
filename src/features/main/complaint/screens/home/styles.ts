@@ -94,10 +94,9 @@ export default function useComplaintHomeSecreenStyle() {
             alignItems: "center",
         },
         whenEmptyCardText: {
-            fontSize: deviceUI.moderateScale(16),
-            fontFamily: theme.font.fontFamily.pretendard.semiBold,
+            fontSize: deviceUI.moderateScale(18),
+            fontFamily: theme.font.fontFamily.pretendard.medium,
             color: theme.color.specified.black,
-            marginBottom: deviceUI.moderateScale(16),
         },
     });
 

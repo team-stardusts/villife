@@ -56,7 +56,7 @@ export default function HomeContentFromComplaint() {
                         )}
                     </Text>
                     <View style={style.whenEmptyIcon}>
-                        <Icon name="check_illustration" size={10} />
+                        <Icon name="illustration_check" size={10} />
                     </View>
                 </Pressable>
             ) : (

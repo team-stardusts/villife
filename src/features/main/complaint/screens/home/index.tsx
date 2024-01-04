@@ -11,7 +11,7 @@ import ComplaintHomeEditModal from "../../blocks/home_bottom_edit";
 import IconArrow from "../../../../common/atoms/icon/arrow";
 import IconFilterSetting from "../../../../common/atoms/icon/filter_setting";
 import useUserInformation from "../../../../common/hooks/service/user_info";
-import IllustrationDocument from "../../../../common/atoms/icon/document_illustration";
+import IllustrationDocument from "../../../../common/atoms/icon/illustration_document";
 import Icon from "../../../../common/atoms/icon";
 import useStyler from "../../../../common/hooks/styler/hooks";
 
@@ -80,7 +80,7 @@ export default function ComplaintHomeScreen({ navigation, route }: ComplaintHome
                         <View style={{ justifyContent: "center", minHeight: deviceUI.moderateScale(320) }}>
                             <ActivityIndicator size="large" color={theme.color.specified.grey} />
                         </View>
-                    ) : viewModel.uiState.complaintsWillBeDisplayed.length > 0 ? (
+                    ) : viewModel.uiState.complaintsWillBeDisplayed.length !== 0 ? (
                         viewModel.uiState.complaintsWillBeDisplayed
                             .sort((a, b) => {
                                 if (a.status !== b.status) {
@@ -110,7 +110,7 @@ export default function ComplaintHomeScreen({ navigation, route }: ComplaintHome
                         <View style={styles.whenEmpty}>
                             <Text style={styles.whenEmptyCardText}>현재 민원이 없어요.</Text>
                             <View style={{ alignContent: "center" }}>
-                                <Icon name="check_illustration" size={4} />
+                                <Icon name="illustration_document" size={5} />
                             </View>
                         </View>
                     )}
