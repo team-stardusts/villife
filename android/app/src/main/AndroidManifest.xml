@@ -48,7 +48,7 @@
         <action android:name="android.intent.action.VIEW"/>
         <category android:name="android.intent.category.DEFAULT"/>
         <category android:name="android.intent.category.BROWSABLE"/>
-        <data android:scheme="villife"/>
+        <data android:scheme="villife" android:host="*" android:pathPattern=".*"/>
       </intent-filter>
     </activity>
     <service android:name=".pushnoti.CloudMessagingService" android:exported="false">
