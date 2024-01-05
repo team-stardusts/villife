@@ -42,6 +42,10 @@ function App(): JSX.Element {
                     exact: true,
                     path: "lease-contract",
                 },
+                my_page: {
+                    exact: true,
+                    path: "my-page",
+                },
             },
         },
         subscribe(listener) {

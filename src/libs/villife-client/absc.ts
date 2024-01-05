@@ -38,36 +38,104 @@ abstract class VillifeClientCommon implements VillifeUtility.Refresher {
         return config;
     }
 
-    private onRequestRejected(error: unknown) {}
+    private onRequestRejected(error: unknown) {
+        return error;
+    }
 
-    private onResponseFulfilled(
-        response: AxiosResponse<any, any>
-    ): AxiosResponse<any, any> | Promise<AxiosResponse<any, any>> {
-        return response;
+    private async onResponseFulfilled<Payload = any, Return = any>(
+        response: AxiosResponse<VillifeUtility.VanillaResponse<Return>, Payload>
+    ): Promise<Return> {
+        if (response.data?.errorCode) {
+            // Throw error with message.
+            // [TO-DO] Make sure the VillifeError object.
+            // Add error handler.
+            throw new VillifeError(
+                `Got an error code ${response.data.errorCode}. [${response.config?.method}]` + response.config?.url
+            );
+        }
+
+        // Villife Legacy API와의 호환성을 위한 코드
+        if (response.data?.data === undefined) {
+            if (response.data === undefined) {
+                throw new VillifeError(
+                    `No data in response(Covered legacy API). [${response.config?.method}]` + response.config?.url
+                );
+            }
+
+            return objectToCamel(response.data) as Return;
+        }
+
+        if (response.data.data === null) {
+            throw new VillifeError(`No data in response. [${response.config?.method}]` + response.config?.url);
+        }
+
+        if (typeof response.data.data === "object") {
+            return objectToCamel(response.data.data) as Return;
+        }
+
+        return response.data.data;
     }
 
     private async onResponseRejected(error: unknown): Promise<any> {
-        if (axios.isAxiosError(error) && error.response) {
-            switch (error.response.status) {
-                case 511:
-                    return await this.refresh().then(
-                        async () => await this.requestWithCredential(error.config as AxiosRequestConfig<any>)
-                    );
-                default:
-                    throw error;
+        if (axios.isAxiosError(error)) {
+            if (error.response) {
+                // 요청이 이루어졌으며 서버에게서 원하지 않는 결과를 받음. (not 2xx)
+                switch (error.response.status) {
+                    case 511:
+                        console.log("원래 됐어야할 API는?!", error.config?.url);
+                        return await this.refresh().then(async (tokens) => {
+                            if (!error.config?.headers) {
+                                console.debug("[REFRESH] error.config doesn't have headers.");
+                                throw new VillifeError("[REFRESH] error.config doesn't have headers.");
+                            }
+
+                            error.config.headers.Authorization = `Bearer ${tokens.accessToken}`;
+                            return await this.request(error.config as AxiosRequestConfig<any>);
+                        });
+                    default:
+                        console.error(
+                            `[${error.name}]`,
+                            "\n\t- message:",
+                            error.message,
+                            "\n\t- request:",
+                            `${error.config?.method}/${error.config?.url}`,
+                            error.config?.data,
+                            "\n\t- status:",
+                            error.status,
+                            "\n\t- cause:",
+                            error.cause,
+                            "\n\t- data:"
+                        );
+                        return Promise.reject(error);
+                }
+            } else if (error.request) {
+                // 요청이 이루어졌으나, 응답을 받지 못함.
+                // 서버 측의 문제일 가능성이 높은 구문.
+            } else {
+                // 오류를 발생시킨 요청을 설정하는 도중 문제가 발생함.
+                // onRequestRejected에 할당하면 될 듯함.
             }
-        }
 
-        throw error;
-    }
-
-    /* private isSuccessful(statusCode: number | undefined): boolean {
-        if (statusCode === undefined) {
-            return false;
+            console.error(
+                `[${error.name}]`,
+                "\n\t- message:",
+                error.message,
+                "\n\t- request:",
+                `${error.config?.method}/${error.config?.url}`,
+                error.config?.data,
+                "\n\t- status:",
+                error.status,
+                "\n\t- cause:",
+                error.cause
+            );
+        } else if (error instanceof VillifeError) {
+            console.error("[VillifeClientError]", error);
         } else {
-            return 200 <= statusCode && statusCode <= 299 ? true : false;
+            console.error("[VillifeClient]", "unknown error occurtion.", error);
         }
-    } */
+
+        return Promise.reject(error);
+    }
 
     public async refresh(params?: VillifeUtility.TokensForRefresh): Promise<VillifeUtility.RefreshedToken> {
         const tokens = await this._session.getTokens();
@@ -116,11 +184,15 @@ abstract class VillifeClientCommon implements VillifeUtility.Refresher {
     ): Promise<Return> {
         const tokens = await this._session.getTokens();
 
+        if (tokens === null) {
+            throw new VillifeError("No tokens in session storage.");
+        }
+
         if (config.headers === undefined) {
             config.headers = {};
         }
 
-        config.headers.Authorization = `Bearer ${tokens?.accessToken}`;
+        config.headers.Authorization = `Bearer ${tokens.accessToken}`;
         return await this.request<Payload, Return>(config);
     }
 
@@ -133,70 +205,7 @@ abstract class VillifeClientCommon implements VillifeUtility.Refresher {
             config.data = objectToSnake(config.data) as Payload;
         }
 
-        const result = await this._requester
-            .request(config)
-            .then((res: AxiosResponse<VillifeUtility.VanillaResponse<Return>, Payload>) => {
-                if (res.data?.errorCode) {
-                    // Throw error with message.
-                    // [TO-DO] Make sure the VillifeError object.
-                    // Add error handler.
-                    throw new VillifeError(
-                        `Got an error code ${res.data.errorCode}. [${res.config?.method}]` + res.config?.url
-                    );
-                }
-
-                // Villife Legacy API와의 호환성을 위한 코드
-                if (res.data?.data === undefined) {
-                    if (res.data === undefined) {
-                        throw new VillifeError(`No data in response. [${res.config?.method}]` + res.config?.url);
-                    }
-
-                    return objectToCamel(res.data) as Return;
-                }
-
-                if (res.data.data === null) {
-                    throw new VillifeError(`No data in response. [${res.config?.method}]` + res.config?.url);
-                }
-
-                if (typeof res.data.data === "object") {
-                    return objectToCamel(res.data.data) as Return;
-                }
-
-                return res.data.data;
-            })
-            .catch((err: AxiosError<Return, Payload> | VillifeError) => {
-                if (axios.isAxiosError(err)) {
-                    if (err?.response) {
-                        // 요청이 이루어졌으며 서버에게서 원하지 않는 결과를 받음. (not 2xx)
-                    } else if (err?.request) {
-                        // 요청이 이루어졌으나, 응답을 받지 못함.
-                        // 서버 측의 문제일 가능성이 높은 구문.
-                    } else {
-                        // 오류를 발생시킨 요청을 설정하는 도중 문제가 발생함.
-                    }
-
-                    console.error(
-                        `[${err.name}]`,
-                        "\n\t- message:",
-                        err.message,
-                        "\n\t- request:",
-                        `${err.config?.method}/${err.config?.url}`,
-                        err.config?.data,
-                        "\n\t- status:",
-                        err.status,
-                        "\n\t- cause:",
-                        err.cause,
-                        "\n\t- data:",
-                        err.response?.data
-                    );
-                }
-
-                if (err instanceof VillifeError) {
-                    console.error("[VillifeClientError]", err);
-                }
-
-                throw err;
-            });
+        const result = (await this._requester.request(config)) as Return;
 
         //console.log(this.isSuccessful(result?.status));
         return result;

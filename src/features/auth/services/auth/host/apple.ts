@@ -9,7 +9,7 @@ const env = new DotEnv();
 class AppleSigner implements Signer {
     private _api = new VillifeNativeClient().auth;
 
-    public async signIn(params: any): Promise<SignInResult> {
+    public async signIn(): Promise<SignInResult> {
         // performs login request
         const appleAuthRequestResponse = await appleAuth
             .performRequest({
