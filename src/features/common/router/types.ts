@@ -159,6 +159,7 @@ export type VillifeStackParamList = VillifeRootStackParamList & {
         id: string;
         password: string;
     };
+    withdrawal?: {};
     company_introduction?: {};
     expense_approval?: {};
     refund_policy?: {};

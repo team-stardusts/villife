@@ -60,6 +60,7 @@ import TenantContractInfoScreen from "../../main/lease_contract/screens/contract
 import BuildingAdditionGuideScreen from "../../main/home/screens/building-addition-guide";
 import ContractMemoEditScreen from "../../main/lease_contract/screens/memo";
 import { NotificationBoxScreen } from "../../main/home/screens/notification-box";
+import WithdrawalScreen from "../../main/mypage/screens/withdrawal";
 
 enableScreens(true);
 
@@ -93,8 +94,8 @@ export default function ScreenRouter() {
             </Stack.Group>
             <Stack.Group>
                 <Stack.Screen name={"home"} component={HomeScreen} />
-                <Stack.Screen name="building_addition_guide" component={BuildingAdditionGuideScreen} />
-                <Stack.Screen name="notification_box" component={NotificationBoxScreen} />
+                <Stack.Screen name={"building_addition_guide"} component={BuildingAdditionGuideScreen} />
+                <Stack.Screen name={"notification_box"} component={NotificationBoxScreen} />
             </Stack.Group>
             <Stack.Group>
                 <Stack.Screen name={"lease_contract"} component={LeaseContractHomeScreen} />
@@ -140,6 +141,7 @@ export default function ScreenRouter() {
             <Stack.Group>
                 <Stack.Screen name={"my_page"} component={MyPageHomeScreen} />
                 <Stack.Screen name={"mypage"} component={MyPageScreen} />
+                <Stack.Screen name={"withdrawal"} component={WithdrawalScreen} />
             </Stack.Group>
             <Stack.Group>
                 <Stack.Screen name={"complaint"} component={ComplaintHomeScreen} />
