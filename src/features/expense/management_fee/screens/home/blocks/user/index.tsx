@@ -29,8 +29,8 @@ export default function UserMFView() {
             <View style={styles.main.wrapper}>
                 <InfoPannel
                     infos={[
-                        { type: "info", message: "타행에서 입급한 경우 반드시 '입금확인요청'을 하셔야 합니다." },
-                        { type: "info", message: "'입금확인요청'을 하지 않으면 연체료가 발생할 수 있습니다." },
+                        { type: "info", message: "타행에서 입급한 경우 반드시 '납부확인요청'을 하셔야 합니다." },
+                        { type: "info", message: "'납부확인요청'을 하지 않으면 연체료가 발생할 수 있습니다." },
                     ]}
                 />
             </View>

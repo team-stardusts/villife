@@ -21,7 +21,6 @@ export default function ParkingSrcreen({ navigation, route }: ParkingScreenProps
     }, [viewModel?.data]);
 
     useEffect(() => {
-        console.log("ParkingHome");
         viewModel?.update();
     }, [viewModel?.user?.adminInfomation?.selectedBuilding]);
 
@@ -41,7 +40,7 @@ export default function ParkingSrcreen({ navigation, route }: ParkingScreenProps
                             infos={[
                                 {
                                     type: "info",
-                                    message: "등록한 차량은 관리자 승인 이후 반영돼요!",
+                                    message: "등록한 차량은 관리자의 승인 이후 반영돼요!",
                                 },
                                 {
                                     type: "info",
