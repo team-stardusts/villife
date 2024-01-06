@@ -5,9 +5,10 @@ import { VILLIFE_AUTHORITY } from "../../../../../libs/rest_apis/villife/absc";
 import { UserInfo } from "./types";
 import { AdminInformation } from "../../states/atoms/user/admin_only/type";
 import { adminInfoState } from "../../states/atoms/user/admin_only";
-import { SimpleBuildingInfo } from "../../../../../libs/rest_apis/villife/user_info/types";
 import useAdminInfoService from "./service";
 import { LOGIN_BUILDING_ID_TEMP } from "../../../../auth/services/authentication";
+import Villife from "../../../../../libs/villife-client/types";
+import { useEffect } from "react";
 
 export default function useUserInformation(): UserInfo | null {
     const adminService = useAdminInfoService();
@@ -16,7 +17,7 @@ export default function useUserInformation(): UserInfo | null {
 
     //
     if (loginData === null || loginData === undefined) return null;
-    if (loginData.building_id === LOGIN_BUILDING_ID_TEMP) return null;
+    if (loginData.buildingId === LOGIN_BUILDING_ID_TEMP) return null;
 
     class UserInfoProvider implements UserInfo {
         public readonly rawdata: LoginDataType;
@@ -39,20 +40,20 @@ export default function useUserInformation(): UserInfo | null {
             return this.rawdata.authority;
         }
 
-        get roomID(): LoginDataType["room_id"] {
-            return this.rawdata.room_id;
+        get roomID(): LoginDataType["roomId"] {
+            return this.rawdata.roomId;
         }
 
-        get roomNumber(): LoginDataType["room_number"] {
-            return this.rawdata.room_number;
+        get roomNumber(): LoginDataType["roomNumber"] {
+            return this.rawdata.roomNumber;
         }
 
-        get buildingID(): LoginDataType["building_id"] {
-            return this.rawdata.building_id;
+        get buildingID(): LoginDataType["buildingId"] {
+            return this.rawdata.buildingId;
         }
 
-        get buildingRoadAddress(): LoginDataType["building_road_addr"] {
-            return this.rawdata.building_road_addr;
+        get buildingRoadAddress(): LoginDataType["buildingRoadAddr"] {
+            return this.rawdata.buildingRoadAddr;
         }
 
         get isRenter(): boolean {
@@ -77,7 +78,7 @@ export default function useUserInformation(): UserInfo | null {
 
         public setResidence(buildingID: number, roomID: number) {}
 
-        public changeAdminSelectedBuilding(building: SimpleBuildingInfo): void {
+        public changeAdminSelectedBuilding(building: Villife.User.SimpleBuildingInfo): void {
             return adminService.changeSelectedBulding(building);
         }
     }

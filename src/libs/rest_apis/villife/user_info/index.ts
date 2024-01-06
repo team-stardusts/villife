@@ -1,13 +1,12 @@
-import { UserDataType } from "../../../storage/tables/user/types";
 import { Response } from "../../types";
 import AVillifeServerModule from "../absc";
 import { SimpleBuildingInfo, IVillifeUserInfoRestClient } from "./types";
 
 class VillifeUserInfoRestClient extends AVillifeServerModule implements IVillifeUserInfoRestClient {
-    async getUserBasicInfo(): Response<UserDataType> {
+    async getUserBasicInfo(): Response<any /* UserDataType */> {
         let route: string = this.routes.userInfo.getUserBasicInfo;
 
-        return await this.requestAuthable<any, UserDataType>({
+        return await this.requestAuthable<any, any /* UserDataType */>({
             method: "get",
             url: route,
         });

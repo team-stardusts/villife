@@ -10,6 +10,7 @@ import { useState } from "react";
 import useAdminInfoService from "../../../hooks/service/user_info/service";
 import { UserInfo } from "../../../hooks/service/user_info/types";
 import { Linking } from "react-native";
+import { objectToCamel } from "ts-case-convert";
 
 export default function useRouteFSM() {
     const setLoginData = useSetRecoilState<LoginDataType | null>(loginDataState);
@@ -36,7 +37,10 @@ export default function useRouteFSM() {
 
             setTimeout(async () => {
                 await storage.login.get().then((data) => {
-                    setLoginData(data);
+                    // Naming convention이 CamelCase로 변경됨에 따라
+                    // 기존 스토리지에 저장된 login data와의 호환성을 위해
+                    // Snake to camel 변환을 해줌
+                    setLoginData(data === null ? data : objectToCamel(data));
                     setIsLoading(LoadingState.IDLE);
                 });
             }, 500);

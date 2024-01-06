@@ -1,8 +1,7 @@
-import { UserDataType } from "../../../storage/tables/user/types";
 import { Response } from "../../types";
 
 export interface IVillifeUserInfoRestClient {
-    getUserBasicInfo(): Response<UserDataType>;
+    getUserBasicInfo(): Response<any>;
     getBuildingsManagedByAdmin(): Response<Array<SimpleBuildingInfo>>;
 }
 

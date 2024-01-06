@@ -32,7 +32,7 @@ abstract class ViewModelCommmon<ViewData = any> implements ViewModel<ViewData> {
     }
 
     private createStorageKey(user: UserInfo): string {
-        const keyArr = [user.roomID.toString(), user.name];
+        const keyArr = [user.roomID?.toString(), user.name];
 
         if (user.isAdmin) {
             if (user.adminInfomation?.selectedBuilding !== undefined) {

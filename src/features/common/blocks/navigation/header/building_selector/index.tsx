@@ -5,8 +5,8 @@ import Icon from "../../../../atoms/icon";
 import useBuildingSelectorStyles from "./styles";
 import useScreenMessage from "../../../../hooks/multilingual/hooks";
 import BuildingSelectModal from "./bulidng_select_modal";
-import { SimpleBuildingInfo } from "../../../../../../libs/rest_apis/villife/user_info/types";
 import useUserInformation from "../../../../hooks/service/user_info";
+import Villife from "../../../../../../libs/villife-client/types";
 
 export default function BuildingSelector({}: BuildingSelectorType) {
     const message = useScreenMessage();
@@ -15,7 +15,7 @@ export default function BuildingSelector({}: BuildingSelectorType) {
 
     const [isModalUnfold, setIsModalUnfold] = useState<boolean>(false);
 
-    const changeSelectedBulding = (buildingInfo: SimpleBuildingInfo) => {
+    const changeSelectedBulding = (buildingInfo: Villife.User.SimpleBuildingInfo) => {
         //const isSuccess = user.changeSelectedBuildingOfAdmin(buildingInfo);
         //if (admininfo !== null) admininfo.selectedBuilding = buildingInfo;
         userinfo?.changeAdminSelectedBuilding(buildingInfo);

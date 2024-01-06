@@ -1,15 +1,6 @@
-import { Authority } from "../../../rest_apis/villife/types";
+import Villife from "../../../villife-client/types";
 import { TableUsable } from "../types";
 
-export interface IUserTable extends TableUsable<UserTableKey, UserDataType> {}
+export interface IUserTable extends TableUsable<UserTableKey, Villife.User.User> {}
 
 export type UserTableKey = "user";
-
-export type UserDataType = {
-    authority: Authority[keyof Authority];
-    building_id: number | undefined;
-    building_road_addr: string;
-    name: string;
-    room_id: number;
-    room_number: number;
-};

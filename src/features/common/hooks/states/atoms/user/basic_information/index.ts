@@ -1,7 +1,7 @@
 import { atom } from "recoil";
-import { UserDataType } from "../../../../../../../libs/storage/tables/user/types";
+import Villife from "../../../../../../../libs/villife-client/types";
 
-export const userBasicInfoState = atom<UserDataType | null>({
+export const userBasicInfoState = atom<Villife.User.User | null>({
     key: "userBasicInfoState",
     default: null,
 });

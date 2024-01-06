@@ -1,5 +1,5 @@
-import { SimpleBuildingInfo } from "../../../../../libs/rest_apis/villife/user_info/types";
 import { LoginDataType } from "../../../../../libs/storage/tables/login/types";
+import Villife from "../../../../../libs/villife-client/types";
 import { AdminInformation } from "../../states/atoms/user/admin_only/type";
 
 interface IInfoProvidable<T> {
@@ -10,15 +10,15 @@ interface IUserInfoProvidable {
     host: LoginDataType["host"];
     name: LoginDataType["name"];
     authority: LoginDataType["authority"];
-    roomID: LoginDataType["room_id"];
-    roomNumber: LoginDataType["room_number"];
-    buildingID: LoginDataType["building_id"];
-    buildingRoadAddress: LoginDataType["building_road_addr"];
+    roomID: LoginDataType["roomId"];
+    roomNumber: LoginDataType["roomNumber"];
+    buildingID: LoginDataType["buildingId"];
+    buildingRoadAddress: LoginDataType["buildingRoadAddr"];
 }
 
 interface IAdminInfoProvidable {
     adminInfomation: AdminInformation | null;
-    changeAdminSelectedBuilding(building: SimpleBuildingInfo): void;
+    changeAdminSelectedBuilding(building: Villife.User.SimpleBuildingInfo): void;
 }
 
 export interface UserInfo extends IInfoProvidable<LoginDataType>, IUserInfoProvidable, IAdminInfoProvidable {
