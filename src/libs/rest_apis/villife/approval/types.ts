@@ -41,7 +41,7 @@ interface Approavalable {
     getUserApprovals(): Response<getApprovalsResult>;
     rejectUserApproval(request_id: number): Response<string>;
     acceptUserApproval(request_id: number): Response<string>;
-    getExpenseApproval(): Response<getApprovalsResult>;
+    getExpenseApproval(buildingID: number): Response<getApprovalsResult>;
     rejectExpenseApproval(request_id: number): Response<string>;
     acceptExpenseApproval(request_id: number): Response<string>;
     checkUserIsWaitingForApproval(

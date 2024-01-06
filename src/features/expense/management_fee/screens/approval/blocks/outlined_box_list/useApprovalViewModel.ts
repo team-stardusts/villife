@@ -2,16 +2,19 @@ import React from "react";
 import { ApprovalListUpatedEventListener } from "./event";
 import useExpenseApprovalService from "../../services";
 import { Approval } from "../../../../../../../libs/rest_apis/villife/approval/types";
+import useUserInformation from "../../../../../../common/hooks/service/user_info";
 
 export default function useExpenseApprovalViewModel() {
     const service = useExpenseApprovalService();
+    const user = useUserInformation();
     const [approvals, setApprovals] = React.useState<ReadonlyArray<Approval>>([]);
     const [refresh, setRefresh] = React.useState({});
     const [loading, setIsLoading] = React.useState(true);
 
     const fetchApprovals = async () => {
         setIsLoading(true);
-        const fetchedApprovals = await service.getExpenseApproval();
+        if (user?.adminInfomation?.selectedBuilding.id == undefined) return;
+        const fetchedApprovals = await service.getExpenseApproval(user?.adminInfomation?.selectedBuilding.id);
         if (!fetchedApprovals.isSuccessful) return [];
         if (fetchedApprovals.data?.data) {
             console.log("[ExpenseApprovalViewModel] Fetched approval count :", fetchedApprovals.data?.data.length);

@@ -59,12 +59,14 @@ class VillifeApprovalManager extends AVillifeServerModule implements IVillifeApp
             data: reqBody,
         });
     }
-    public async getExpenseApproval(): Response<getApprovalsResult> {
-        let route: string = this.routes.approval.getApprovalRequests;
+    public async getExpenseApproval(buildingID: number): Response<getApprovalsResult> {
+        let route: string = this.routes.approval.requestMFPaymentConfirmation;
+        const params = { building_id: buildingID };
 
         return await this.requestAuthable<any, getApprovalsResult>({
             method: "get",
             url: route,
+            params,
         });
     }
     public async rejectExpenseApproval(request_id: number): Response<string> {

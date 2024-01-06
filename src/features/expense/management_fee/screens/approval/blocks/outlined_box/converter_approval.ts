@@ -11,7 +11,6 @@ export class ApprovalDataConverter {
     }
 
     convert(): ConvertedApprovalData | null {
-        const message = useScreenMessage();
         const identifier = this.request.category * 1000 + this.request.detail_type;
         console.log("this.request : ", this.request);
 
