@@ -8,7 +8,6 @@ import { adminInfoState } from "../../states/atoms/user/admin_only";
 import useAdminInfoService from "./service";
 import { LOGIN_BUILDING_ID_TEMP } from "../../../../auth/services/authentication";
 import Villife from "../../../../../libs/villife-client/types";
-import { useEffect } from "react";
 
 export default function useUserInformation(): UserInfo | null {
     const adminService = useAdminInfoService();
