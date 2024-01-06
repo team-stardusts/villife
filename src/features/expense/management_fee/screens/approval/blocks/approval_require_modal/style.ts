@@ -1,6 +1,7 @@
 import { StyleSheet } from "react-native";
 import { UseApprovalRequiredModalStylesType } from "./type";
 import useStyler from "../../../../../../common/hooks/styler/hooks";
+import { hexToRGB } from "../../../../../../common/global_function";
 
 export default function useApprovalRequiredModalStyles() {
     const { deviceUI, theme } = useStyler();
@@ -17,7 +18,7 @@ export default function useApprovalRequiredModalStyles() {
             left: 0,
             height: deviceUI.getScreenSize().height,
             width: deviceUI.getScreenSize().width,
-            backgroundColor: theme.color.specified.lightgrey,
+            backgroundColor: hexToRGB(theme.color.specified.lightgrey as string, 0.7),
 
             zIndex: -1,
         },

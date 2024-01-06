@@ -42,6 +42,7 @@ export default function MyPageHomeScreen(props: MyPageHomeScreenProps) {
         <NavigationView
             headerOptions={{
                 title: message.messages.main.mypage.screen_title,
+                hideBuidingSelector: true,
                 style: {
                     borderBottomColor: styles.main.navContainer.color,
                     backgroundColor: styles.main.navContainer.color,

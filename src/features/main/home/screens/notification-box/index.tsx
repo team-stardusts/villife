@@ -28,6 +28,7 @@ export function NotificationBoxScreen({ navigation, route }: NotificationBoxScre
         <NavigationView
             headerOptions={{
                 title: "알림",
+                hideBuidingSelector: true,
                 style: {
                     backgroundColor: styles.nav.backgroundColor,
                 },
