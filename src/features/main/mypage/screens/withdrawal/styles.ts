@@ -15,5 +15,8 @@ export default function useWithdrawalScreenStyles() {
         inputWrapper: {
             marginTop: deviceUI.moderateScale(50),
         },
+        placeholder: {
+            color: theme.color.specified.lightgrey,
+        },
     });
 }

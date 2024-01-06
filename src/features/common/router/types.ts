@@ -73,6 +73,10 @@ export type VillifeStackParamList = VillifeRootStackParamList & {
     image_detail_view: {
         uri: string;
     };
+    mypage_webview: {
+        title: string;
+        url: string;
+    };
     mypage: {};
     management_fee_detail?: {};
     mf_select_to_do_something: {

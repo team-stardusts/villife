@@ -2,9 +2,19 @@ import { ScrollView, Text, TouchableOpacity, View } from "react-native";
 import { NavButtonProps, ScrollNavProps } from "../types";
 import { useNavigation } from "@react-navigation/native";
 import { VillifeNavigation } from "../../../../../common/router/types";
+import useUserInformation from "../../../../../common/hooks/service/user_info";
+import { useMemo } from "react";
 
 export default function ScrollNav(props: ScrollNavProps) {
     const navigation = useNavigation<VillifeNavigation>();
+    const user = useUserInformation();
+    const manualUrl = useMemo<string>(() => {
+        if (user?.isAdmin) {
+            return "https://www.notion.so/villife/7b79c15773ee404985edf8cb635eb831";
+        } else {
+            return "https://www.notion.so/villife/38a1a08fbb9d46f7953959123025f529";
+        }
+    }, [user?.isAdmin]);
 
     return (
         <View style={props.styles.container}>
@@ -46,6 +56,37 @@ export default function ScrollNav(props: ScrollNavProps) {
                     styles={props.styles}
                     text={"회사 정보"}
                     onPress={() => navigation.navigate("company_introduction")}
+                />
+                <NavButton
+                    styles={props.styles}
+                    text={"매뉴얼"}
+                    onPress={() =>
+                        navigation.navigate("mypage_webview", {
+                            title: "매뉴얼",
+                            url: manualUrl,
+                        })
+                    }
+                />
+
+                <NavButton
+                    styles={props.styles}
+                    text={"이용약관"}
+                    onPress={() =>
+                        navigation.navigate("mypage_webview", {
+                            title: "이용약관",
+                            url: "https://www.notion.so/villife/d60bebc9a0c5400883375d8257ad4bfc",
+                        })
+                    }
+                />
+                <NavButton
+                    styles={props.styles}
+                    text={"개인정보처리방침"}
+                    onPress={() =>
+                        navigation.navigate("mypage_webview", {
+                            title: "개인정보처리방침",
+                            url: "https://www.notion.so/villife/4aa060ac489b44e7b8bdfaae6b4cab54",
+                        })
+                    }
                 />
                 <NavButton
                     styles={props.styles}

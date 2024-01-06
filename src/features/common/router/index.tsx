@@ -61,6 +61,7 @@ import BuildingAdditionGuideScreen from "../../main/home/screens/building-additi
 import ContractMemoEditScreen from "../../main/lease_contract/screens/memo";
 import { NotificationBoxScreen } from "../../main/home/screens/notification-box";
 import WithdrawalScreen from "../../main/mypage/screens/withdrawal";
+import MyPageWebViewScreen from "../../main/mypage/screens/webview";
 
 enableScreens(true);
 
@@ -142,6 +143,7 @@ export default function ScreenRouter() {
                 <Stack.Screen name={"my_page"} component={MyPageHomeScreen} />
                 <Stack.Screen name={"mypage"} component={MyPageScreen} />
                 <Stack.Screen name={"withdrawal"} component={WithdrawalScreen} />
+                <Stack.Screen name={"mypage_webview"} component={MyPageWebViewScreen} />
             </Stack.Group>
             <Stack.Group>
                 <Stack.Screen name={"complaint"} component={ComplaintHomeScreen} />

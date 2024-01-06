@@ -45,6 +45,7 @@ export default function WithdrawalScreen() {
         <NavigationView
             headerOptions={{
                 title: "빌라이프 탈퇴",
+                hideBuidingSelector: true,
                 style: {
                     backgroundColor: styles.nav.color,
                 },
@@ -97,6 +98,7 @@ export default function WithdrawalScreen() {
                 <View style={styles.container}>
                     <View style={styles.inputWrapper}>
                         <UniversalTextInput
+                            placeholderTextColor={styles.placeholder.color}
                             value={inputText ?? ""}
                             placeholder={WITHDRAWAL_MESSAGE}
                             onChangeText={(text) => setInputText(text === "" ? null : text)}

@@ -44,7 +44,7 @@ export default function ManagementFeeStatusScrollView(props: ManagementFeeStatus
 }
 
 function PaymentByMonth(props: PaymentByMonthProps) {
-    const navigation = useNavigation<VillifeNavigation>();
+    //const navigation = useNavigation<VillifeNavigation>();
 
     /* const handlePressPaymentBtn = () => {
         navigation.navigate("wire_amount_manually", {
