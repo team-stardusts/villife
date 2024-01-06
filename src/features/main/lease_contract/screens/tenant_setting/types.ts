@@ -35,6 +35,10 @@ export type ContractRange = InfoRowDefaultProps<Dates> & {
     };
 };
 
+export type PaymentMethodProps = InfoRowDefaultProps<Building.PaymentMethodType | null> & {
+    initialPaymentMethodType?: Building.PaymentMethodType;
+};
+
 export type InfoRowDefaultProps<T> = {
     styles: ReturnType<typeof useTenantSettingScreenStyles>;
     onChangeInfo(data: T): void;
@@ -47,7 +51,7 @@ export type TenantInfo = {
 
 export type MoneyTypes = {
     deposit: MoneyType;
-    monthlyRent: MoneyType;
+    monthlyRent?: MoneyType;
     managementFee: MoneyType;
 };
 

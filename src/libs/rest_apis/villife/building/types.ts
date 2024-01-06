@@ -199,4 +199,5 @@ export namespace Building {
     export type ContractStatus = "expired" | "ImminentExpiration" | "absense" | "normal";
     export type RoomState = "empty" | "signed" | "unsigned";
     export type RentType = "" | "lump-sum-deposit" | "monthly-rent";
+    export type PaymentMethodType = "" | "prepaid" | "postpaid";
 }

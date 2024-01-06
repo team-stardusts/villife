@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { SafeAreaView, View, Text } from "react-native";
+import { SafeAreaView, View, Text, ScrollView, TouchableOpacity, Linking, LayoutAnimation } from "react-native";
 import useScreenMessage from "../../../common/hooks/multilingual/hooks";
 import ScreenTitleView from "../../../common/blocks/title_view";
 import useTermsOfServiceScreenStyles from "./styles";
@@ -44,48 +44,89 @@ export default function TermsOfServiceScreen({ navigation, route }: TermsOfServi
                 subtitles={[messages.messages.auth.terms_of_service.subtitle]}
                 bottomButton={{
                     title: messages.messages.auth.create_account.next_btn_title,
-                    onPress: () => console.log("NOT IMPLEMENTED"),
+                    onPress: () => {
+                        console.log("회원가입 클릭");
+                        navigation.navigate("create_account", {
+                            host: "villife",
+                            access_token: undefined,
+                        });
+                    },
                     disabled: !isAllGranted,
                 }}>
-                <View style={Styles.main.contentsWrapper}>
+                <ScrollView style={Styles.input.container}>
                     <View style={Styles.input.barSort}>
-                        <AuthScreenSwitchButton
-                            onPress={() => {
-                                setIsAllGranted(!isAllGranted);
-                            }}
-                            disabled={isAllGranted}
-                        />
-                        <Text style={Styles.input.descriptionMessage}>
-                            {messages.messages.auth.terms_of_service.terms_of_service_all}
-                        </Text>
-                        <PressableVectorIcon providerName="right" diameter={iconDiameter} />
+                        <View style={Styles.input.lefrBox}>
+                            <AuthScreenSwitchButton
+                                onPress={() => {
+                                    LayoutAnimation.configureNext({
+                                        duration: 50,
+                                        update: {
+                                            type: LayoutAnimation.Types.linear,
+                                        },
+                                    });
+                                    setIsAllGranted(!isAllGranted);
+                                }}
+                                disabled={isAllGranted}
+                            />
+                            <Text style={Styles.input.descriptionMessage}>
+                                {messages.messages.auth.terms_of_service.terms_of_service_all}
+                            </Text>
+                        </View>
                     </View>
                     <View style={Styles.input.horizontalLine} />
                     <View style={Styles.input.barSort}>
-                        <AuthScreenSwitchButton
+                        <View style={Styles.input.lefrBox}>
+                            <AuthScreenSwitchButton
+                                onPress={() => {
+                                    LayoutAnimation.configureNext({
+                                        duration: 50,
+                                        update: {
+                                            type: LayoutAnimation.Types.linear,
+                                        },
+                                    });
+                                    setIsPrivacyGranted(!isPrivacyGranted);
+                                }}
+                                disabled={isPrivacyGranted}
+                            />
+                            <Text style={Styles.input.descriptionMessage}>
+                                {messages.messages.auth.terms_of_service.terms_of_service_Privacy}
+                            </Text>
+                        </View>
+                        <PressableVectorIcon
+                            providerName="right"
+                            diameter={iconDiameter}
                             onPress={() => {
-                                setIsPrivacyGranted(!isPrivacyGranted);
+                                Linking.openURL("https://www.notion.so/villife/4aa060ac489b44e7b8bdfaae6b4cab54");
                             }}
-                            disabled={isPrivacyGranted}
                         />
-                        <Text style={Styles.input.descriptionMessage}>
-                            {messages.messages.auth.terms_of_service.terms_of_service_Privacy}
-                        </Text>
-                        <PressableVectorIcon providerName="right" diameter={iconDiameter} />
                     </View>
                     <View style={Styles.input.barSort}>
-                        <AuthScreenSwitchButton
+                        <View style={Styles.input.lefrBox}>
+                            <AuthScreenSwitchButton
+                                onPress={() => {
+                                    LayoutAnimation.configureNext({
+                                        duration: 50,
+                                        update: {
+                                            type: LayoutAnimation.Types.linear,
+                                        },
+                                    });
+                                    setIsServiceGranted(!isServiceGranted);
+                                }}
+                                disabled={isServiceGranted}
+                            />
+                            <Text style={Styles.input.descriptionMessage}>
+                                {messages.messages.auth.terms_of_service.terms_of_service_service}
+                            </Text>
+                        </View>
+                        <PressableVectorIcon
+                            providerName="right"
+                            diameter={iconDiameter}
                             onPress={() => {
-                                setIsServiceGranted(!isServiceGranted);
+                                Linking.openURL("https://www.notion.so/villife/d60bebc9a0c5400883375d8257ad4bfc");
                             }}
-                            disabled={isServiceGranted}
                         />
-                        <Text style={Styles.input.descriptionMessage}>
-                            {messages.messages.auth.terms_of_service.terms_of_service_service}
-                        </Text>
-                        <PressableVectorIcon providerName="right" diameter={iconDiameter} />
                     </View>
-                </View>
+                </ScrollView>
             </ScreenTitleView>
         </SafeAreaView>
     );

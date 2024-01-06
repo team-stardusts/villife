@@ -33,14 +33,14 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
         switch (host) {
             case "apple":
                 if (loginData === null) {
-                    navigation.navigate("create_account", {
+                    navigation.navigate("terms_of_service", {
                         host: host,
                     });
                 }
                 break;
             case "naver":
                 if (loginData === null) {
-                    navigation.navigate("create_account", {
+                    navigation.navigate("terms_of_service", {
                         host: host,
                         access_token: socialAccessToken,
                     });
@@ -124,7 +124,7 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
                             activeOpacity={0.4}
                             onPress={() => {
                                 console.log("회원가입 클릭");
-                                navigation.navigate("create_account", {
+                                navigation.navigate("terms_of_service", {
                                     host: "villife",
                                     access_token: undefined,
                                 });

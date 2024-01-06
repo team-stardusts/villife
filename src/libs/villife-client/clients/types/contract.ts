@@ -77,7 +77,7 @@ namespace VillifeContract {
         deposit: Contract["deposit"];
         expirationDate: Contract["expirationDate"];
         managementFee: Contract["managementFee"];
-        monthlyRent: Contract["monthlyRent"];
+        monthlyRent?: Contract["monthlyRent"];
         rentType: Contract["rentType"];
         roomId: Room["roomId"];
         startDate: Contract["startDate"];
