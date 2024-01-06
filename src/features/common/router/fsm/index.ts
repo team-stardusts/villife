@@ -13,6 +13,7 @@ import { NetInfoState } from "@react-native-community/netinfo";
 import NetInfoEventHandler from "../../../../libs/netinfo";
 import { isConnetedToNetworkState } from "../../hooks/states/atoms/network";
 import { Platform } from "react-native";
+import { objectToCamel } from "ts-case-convert";
 
 export default function useRouteFSMEngine(): void {
     const setLoginData = useSetRecoilState<LoginDataType | null>(loginDataState);
@@ -33,7 +34,7 @@ export default function useRouteFSMEngine(): void {
         });
 
         storage.addEventListener("CHANGE_LOGIN_VALUE", (logindata) => {
-            setLoginData(logindata);
+            setLoginData(logindata === null ? null : (objectToCamel(logindata) as LoginDataType));
 
             if (logindata === null) {
                 fsm.situation = Situation.LOGGED_OUT;

@@ -4,6 +4,7 @@ import { RoutesType } from "./data/types";
 import routes from "./data/routes";
 import VillifeUtility from "./clients/types/utility";
 import VillifeError from "./errors";
+import { errorCode } from "./errors/code";
 
 //const env = new DotEnv();
 
@@ -50,6 +51,7 @@ abstract class VillifeClientCommon implements VillifeUtility.Refresher {
             // [TO-DO] Make sure the VillifeError object.
             // Add error handler.
             throw new VillifeError(
+                errorCode.UnknownedError,
                 `Got an error code ${response.data.errorCode}. [${response.config?.method}]` + response.config?.url
             );
         }
@@ -58,6 +60,7 @@ abstract class VillifeClientCommon implements VillifeUtility.Refresher {
         if (response.data?.data === undefined) {
             if (response.data === undefined) {
                 throw new VillifeError(
+                    errorCode.NoDataInLegacyAPIREsponse,
                     `No data in response(Covered legacy API). [${response.config?.method}]` + response.config?.url
                 );
             }
@@ -66,7 +69,10 @@ abstract class VillifeClientCommon implements VillifeUtility.Refresher {
         }
 
         if (response.data.data === null) {
-            throw new VillifeError(`No data in response. [${response.config?.method}]` + response.config?.url);
+            throw new VillifeError(
+                errorCode.NoDataInResponse,
+                `No data in response. [${response.config?.method}]` + response.config?.url
+            );
         }
 
         if (typeof response.data.data === "object") {
@@ -86,7 +92,10 @@ abstract class VillifeClientCommon implements VillifeUtility.Refresher {
                         return await this.refresh().then(async (tokens) => {
                             if (!error.config?.headers) {
                                 console.debug("[REFRESH] error.config doesn't have headers.");
-                                throw new VillifeError("[REFRESH] error.config doesn't have headers.");
+                                throw new VillifeError(
+                                    errorCode.NoHeadersInErrorConfig,
+                                    "[REFRESH] error.config doesn't have headers."
+                                );
                             }
 
                             error.config.headers.Authorization = `Bearer ${tokens.accessToken}`;
@@ -142,8 +151,8 @@ abstract class VillifeClientCommon implements VillifeUtility.Refresher {
 
         if (tokens === null) {
             // [TO-DO] Refresh failed error로 교체해야함
-            console.debug("[REFRESH_FAILED]", "There are no tokens.");
-            throw new VillifeError("[REFRESH_FAILED] There are no tokens.");
+            console.debug("[REFRESH]", "There are no tokens.");
+            throw new VillifeError(errorCode.NoTokensInStorage, "[REFRESH] There are no tokens.");
         }
 
         if (params === undefined) {
@@ -163,7 +172,6 @@ abstract class VillifeClientCommon implements VillifeUtility.Refresher {
                 return res;
             })
             .catch((err) => {
-                console.error("[REFRESH_ERROR]", err);
                 throw err;
             });
 
@@ -173,7 +181,7 @@ abstract class VillifeClientCommon implements VillifeUtility.Refresher {
         });
 
         if (!setResult) {
-            throw new VillifeError("[REFRESH_ERROR] Failed to save tokens.");
+            throw new VillifeError(errorCode.FailedToStoreTokens, "[REFRESH_ERROR] Failed to save tokens.");
         }
 
         return refresh;
@@ -185,7 +193,7 @@ abstract class VillifeClientCommon implements VillifeUtility.Refresher {
         const tokens = await this._session.getTokens();
 
         if (tokens === null) {
-            throw new VillifeError("No tokens in session storage.");
+            throw new VillifeError(errorCode.NoTokensInStorage, "No tokens in session storage.");
         }
 
         if (config.headers === undefined) {
