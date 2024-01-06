@@ -5,7 +5,9 @@ import VillifeContractClient from "./clients/contract";
 import VillifeExpenseClient from "./clients/expense";
 import VillifeMediaClient from "./clients/media";
 import VillifeMessagingClient from "./clients/messaging";
+import VillifeNoticeClient from "./clients/notice";
 import VillifeParkingClient from "./clients/parking";
+import VillifePaymentClient from "./clients/payment";
 import VillifeUserClient from "./clients/user";
 import { VILLIFE_AUTHORITY } from "./data/authority";
 import Villife from "./types";
@@ -41,8 +43,16 @@ class VillifeClient implements Villife.IntegratedInstance {
         return new VillifeMessagingClient(this.baseURL, this.session);
     }
 
+    get notice() {
+        return new VillifeNoticeClient(this.baseURL, this.session);
+    }
+
     get parking() {
         return new VillifeParkingClient(this.baseURL, this.session);
+    }
+
+    get payment() {
+        return new VillifePaymentClient(this.baseURL, this.session);
     }
 
     get user() {
