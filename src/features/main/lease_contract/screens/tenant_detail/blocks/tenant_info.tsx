@@ -4,19 +4,19 @@ import { TenantInfoProps } from "../types";
 import StardustDateParser from "../../../../../../libs/date_parser";
 import CardRow from "./card_row";
 import ListBottomSlidableModal from "../../../../../common/blocks/modal/bottom_list";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { ModalFeature } from "../../../../../common/blocks/modal/bottom_list/types";
 import { useNavigation } from "@react-navigation/native";
 import { VillifeRouterParams } from "../../../../../common/router/types";
 import VillifeToastMessage from "../../../../../common/atoms/toast";
 import StardustAlert from "../../../../../common/blocks/universial/stardust_alert";
 import { StardustAlertContent } from "../../../../../common/blocks/universial/stardust_alert/types";
-import useBuildingRoomContractor from "../../../services/building_rooms";
+import useRoomViewModel from "../../../viewmodel/room";
 
 export default function TenantInfo(props: TenantInfoProps) {
     const [modalVisible, setModalVisible] = useState<boolean>(false);
     const navigation = useNavigation<VillifeRouterParams["navigation"]>();
-    const contractor = useBuildingRoomContractor();
+    const viewModel = useRoomViewModel();
     const [alert, setAlert] = useState<StardustAlertContent>({
         visible: false,
         type: "warning",
@@ -24,61 +24,51 @@ export default function TenantInfo(props: TenantInfoProps) {
         message: "삭제된 정보는 복구 할 수 없습니다.",
     });
 
-    const [features] = useState<ModalFeature[]>([
-        {
-            icon: "pencil",
-            text: "수정하기",
-            onPress: () => {
-                if (props.room.roomId === undefined) {
-                    VillifeToastMessage.showBottomToast(
-                        "error",
-                        "등록되지 않은 방 번호 입니다. 빌라이프 관리자에게 문의해주세요."
-                    );
-                    return;
-                }
+    const features = useMemo<ModalFeature[]>(
+        () => [
+            {
+                icon: "pencil",
+                text: "수정하기",
+                onPress: () => {
+                    if (props.room.roomId === undefined) {
+                        VillifeToastMessage.showBottomToast(
+                            "error",
+                            "등록되지 않은 방 번호 입니다. 빌라이프 관리자에게 문의해주세요."
+                        );
+                        return;
+                    }
 
-                // [TO-DO] 이름과 전화번호를 계약 상의 데이터로 변경해야함
-                navigation.navigate("tenant_setting", {
-                    roomID: props.room.roomId,
-                    previous: {
-                        contractId: props.room.contractInfo.contractId,
-                        contractorName: props.room.residentName,
-                        delinquencyRate: props.room.contractInfo.delinquencyRate,
-                        deposit: props.room.contractInfo.deposit,
-                        managementFee: props.room.contractInfo.managementFee,
-                        monthlyRent: props.room.contractInfo.monthlyRent,
-                        rentType: props.room.contractInfo.rentType,
+                    // [TO-DO] 이름과 전화번호를 계약 상의 데이터로 변경해야함
+                    navigation.navigate("tenant_setting", {
                         roomId: props.room.roomId,
-                        expirationDate: JSON.stringify(props.room.contractInfo.expirationDate),
-                        startDate: JSON.stringify(props.room.contractInfo.startDate),
-                        phoneNumber: props.room.residentPhoneNumber,
-                    },
-                });
-                setModalVisible(false);
+                    });
+                    setModalVisible(false);
+                },
             },
-        },
-        {
-            icon: "trash-can",
-            text: "삭제하기",
-            onPress: () => {
-                setModalVisible(false);
-                setAlert({
-                    ...alert,
-                    visible: true,
-                    buttons: [
-                        {
-                            text: "취소",
-                            onPress: () => cancleAlert(),
-                        },
-                        {
-                            text: "확인",
-                            onPress: () => deleteRoomInfo(),
-                        },
-                    ],
-                });
+            {
+                icon: "trash-can",
+                text: "삭제하기",
+                onPress: () => {
+                    setModalVisible(false);
+                    setAlert({
+                        ...alert,
+                        visible: true,
+                        buttons: [
+                            {
+                                text: "취소",
+                                onPress: () => cancleAlert(),
+                            },
+                            {
+                                text: "확인",
+                                onPress: () => deleteRoomInfo(),
+                            },
+                        ],
+                    });
+                },
             },
-        },
-    ]);
+        ],
+        [props.room]
+    );
 
     const cancleAlert = () => {
         setAlert({
@@ -93,10 +83,17 @@ export default function TenantInfo(props: TenantInfoProps) {
                 "error",
                 "등록되지 않은 계약 정보 입니다. 빌라이프 관리자에게 문의해주세요."
             );
+            cancleAlert();
             return;
         }
 
-        const isSuccessful = await contractor.deleteContract(props.room.contractInfo.contractId);
+        if (viewModel === null) {
+            VillifeToastMessage.showBottomToast("error", "예기치 않은 오류가 발생했어요.");
+            cancleAlert();
+            return;
+        }
+
+        const isSuccessful = await viewModel?.deleteContract(props.room.contractInfo.contractId);
 
         setAlert({
             ...alert,
@@ -193,23 +190,19 @@ export default function TenantInfo(props: TenantInfoProps) {
                     <CardRow
                         styles={props.styles}
                         rowKey={"입주일"}
-                        rowValue={convertDateToString(
-                            StardustDateParser.deserialize(props.room.contractInfo.startDate)
-                        )}
+                        rowValue={convertDateToString(props.room.contractInfo.startDate)}
                     />
                     <CardRow
                         styles={props.styles}
                         rowKey={"만기일"}
-                        rowValue={convertDateToString(
-                            StardustDateParser.deserialize(props.room.contractInfo.expirationDate)
-                        )}
+                        rowValue={convertDateToString(props.room.contractInfo.expirationDate)}
                     />
                     <CardRow
                         styles={props.styles}
                         rowKey={"남은기간"}
                         rowValue={
                             getDateDiff(
-                                StardustDateParser.deserialize(props.room.contractInfo.expirationDate),
+                                props.room.contractInfo.expirationDate,
                                 StardustDateParser.changeGMT(new Date(), "kr")
                             ).toString() + " 일"
                         }

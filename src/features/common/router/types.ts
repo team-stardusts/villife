@@ -132,20 +132,7 @@ export type VillifeStackParamList = VillifeRootStackParamList & {
     contract_information: {};
     terms_of_service?: {};
     tenant_setting: {
-        roomID: number;
-        previous?: {
-            contractId: number;
-            contractorName: string;
-            delinquencyRate: number;
-            deposit: number;
-            managementFee: number;
-            monthlyRent: number;
-            rentType: BuildingRoomContract["rentType"];
-            roomId: number;
-            expirationDate: string;
-            startDate: string;
-            phoneNumber: string;
-        };
+        roomId: number;
     };
     verify_personal_info: {
         authority: Authority["ADMIN"] | Authority["RENTER"];

@@ -115,7 +115,7 @@ function BuildingTenantView(props: BuildingTenantProps) {
     const handlePressArrowRight = () => {
         if (props.roomInfo.roomState === "empty" && props.roomInfo.roomId !== undefined) {
             navigation.navigate("tenant_setting", {
-                roomID: props.roomInfo.roomId,
+                roomId: props.roomInfo.roomId,
             });
         } else {
             navigation.navigate("tenant_detail", {

@@ -5,13 +5,13 @@ import ViewModelStorage from "./storage";
 import { Storage } from "./storage/type";
 import { ViewModel } from "./types";
 
-abstract class ViewModelCommmon<ViewData = any> implements ViewModel<ViewData> {
+abstract class ViewModelCommmon<ViewData = any, StoredViewData = ViewData> implements ViewModel<ViewData> {
     protected _clientInstance: VillifeNativeClient = new VillifeNativeClient();
     protected _data: ViewData;
     protected _setData: SetterOrUpdater<ViewData>;
     protected _user: UserInfo;
     protected _storageKey: string;
-    protected readonly _storage: Storage<ViewData>;
+    protected readonly _storage: Storage<StoredViewData>;
     public readonly featureName: string;
 
     constructor(user: UserInfo, featureName: string, data: ViewData, setData: SetterOrUpdater<ViewData>) {
@@ -49,14 +49,26 @@ abstract class ViewModelCommmon<ViewData = any> implements ViewModel<ViewData> {
     public abstract update(params: any): Promise<void>;
 
     protected async restore(): Promise<ViewData | null> {
-        return await this._storage.getItem(this._storageKey);
+        return this.deserializeStoredData(await this._storage.getItem(this._storageKey));
     }
 
-    protected async save(data?: ViewData): Promise<void> {
-        const result = await this._storage.setItem(this._storageKey, data ?? this._data);
+    protected async save(data?: ViewData | StoredViewData): Promise<void> {
+        const dataIntoStorage = data ? this.serializeDataIntoStorage(data) : this.data;
+        const result = await this._storage.setItem(
+            this._storageKey,
+            dataIntoStorage ? this.serializeDataIntoStorage(dataIntoStorage) : null
+        );
 
-        if (result) this._setData(data ?? this._data);
+        if (data && result) this._setData(this.deserializeStoredData(data) as ViewData);
         !result && console.log("[ViewModelCommon]", "Failed to save data into storage");
+    }
+
+    protected serializeDataIntoStorage(data: ViewData | StoredViewData): StoredViewData {
+        return data as any;
+    }
+
+    protected deserializeStoredData(data: ViewData | StoredViewData | null): ViewData | null {
+        return data ? (data as any) : null;
     }
 }
 

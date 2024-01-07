@@ -10,7 +10,7 @@ export default function LateFeeRate(props: LateFeeRateProps) {
 
     useEffect(() => {
         if (props.initialRate) {
-            setLateFeeRate(props.initialRate);
+            setLateFeeRate(props.initialRate * 100);
         }
     }, []);
 

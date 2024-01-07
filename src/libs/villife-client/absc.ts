@@ -108,12 +108,14 @@ abstract class VillifeClientCommon implements VillifeUtility.Refresher {
                             error.message,
                             "\n\t- request:",
                             `${error.config?.method}/${error.config?.url}`,
-                            error.config?.data,
                             "\n\t- status:",
                             error.status,
                             "\n\t- cause:",
                             error.cause,
-                            "\n\t- data:"
+                            "\n\t- data:",
+                            error.config?.data,
+                            "\n\t- serverMessage:",
+                            error.response.data
                         );
                         return Promise.reject(error);
                 }

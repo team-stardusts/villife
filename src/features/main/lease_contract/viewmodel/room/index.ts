@@ -4,6 +4,7 @@ import useUserInformation from "../../../../common/hooks/service/user_info";
 import { UserInfo } from "../../../../common/hooks/service/user_info/types";
 import ViewModelCommmon from "../../../../common/model/absc";
 import roomsState, { RoomInfo } from "./states";
+import StardustDateParser from "../../../../../libs/date_parser";
 
 export default function useRoomViewModel() {
     const user = useUserInformation();
@@ -11,7 +12,7 @@ export default function useRoomViewModel() {
 
     if (user === null) return null;
 
-    class RoomContractViewModel extends ViewModelCommmon<RoomInfo[]> {
+    class RoomContractViewModel extends ViewModelCommmon<RoomInfo[], Villife.Contract.Room[]> {
         private _api: Villife.Contract.Client;
 
         constructor(user: UserInfo, data: RoomInfo[], setData: SetterOrUpdater<RoomInfo[]>) {
@@ -19,32 +20,55 @@ export default function useRoomViewModel() {
             this._api = this._clientInstance.contract;
         }
 
+        protected override serializeDataIntoStorage(
+            data: RoomInfo[] | Villife.Contract.Room[]
+        ): Villife.Contract.Room[] {
+            const rooms: Villife.Contract.Room[] = [];
+            for (let room of data) {
+                if (typeof room.contractInfo.expirationDate === "number") {
+                    return data;
+                }
+
+                const _room: any = room;
+                _room.contractInfo.expirationDate = StardustDateParser.serialize(room.contractInfo.expirationDate);
+                _room.contractInfo.startDate = StardustDateParser.serialize(room.contractInfo.startDate as Date);
+
+                rooms.push(_room);
+            }
+
+            return rooms;
+        }
+
+        protected override deserializeStoredData(data: Villife.Contract.Room[]): RoomInfo[] {
+            const rooms: RoomInfo[] = [];
+            for (let room of data) {
+                const _room: any = room;
+                _room.contractInfo.expirationDate = StardustDateParser.deserialize(room.contractInfo.expirationDate);
+                _room.contractInfo.startDate = StardustDateParser.deserialize(room.contractInfo.startDate);
+
+                rooms.push(_room);
+            }
+
+            return rooms;
+        }
+
         public override async update(): Promise<void> {
             if (this._user.adminInfomation?.selectedBuilding === undefined) return;
 
-            await this._api
+            this._api
                 .getRoomsInBuilding(this._user.adminInfomation.selectedBuilding.id)
                 .then((res) => {
-                    const rooms: RoomInfo[] = [];
-
-                    for (let room of res) {
-                        const _room: any = room;
-                        _room.contractInfo.expirationDate = new Date(room.contractInfo.expirationDate);
-                        _room.contractInfo.startDate = new Date(room.contractInfo.startDate);
-
-                        rooms.push(_room);
-                    }
-                    this.save(rooms);
+                    this.save(res);
                     return true;
                 })
-                .catch((err) => {
+                .catch(async (err) => {
                     console.error("[ROOM_CONTRACT_VM]", "occured while update data.", err);
                     if (err instanceof Error) {
                         console.error(err.stack);
                     }
 
                     this.restore().then((r) => {
-                        r && this.save(r);
+                        r && this._setData(r);
                     });
                 });
         }
@@ -52,7 +76,10 @@ export default function useRoomViewModel() {
         public async createContract(params: Villife.Contract.CreateForm): Promise<boolean> {
             return await this._api
                 .createContract(params)
-                .then(() => true)
+                .then(() => {
+                    this.update();
+                    return true;
+                })
                 .catch((err) => {
                     console.log(err);
                     return false;
@@ -62,7 +89,10 @@ export default function useRoomViewModel() {
         public async updateContract(params: Villife.Contract.UpdateForm): Promise<boolean> {
             return await this._api
                 .updateContract(params)
-                .then(() => true)
+                .then(() => {
+                    this.update();
+                    return true;
+                })
                 .catch((err) => {
                     console.log(err);
                     return false;
@@ -72,7 +102,11 @@ export default function useRoomViewModel() {
         public async deleteContract(contractId: number): Promise<boolean> {
             return await this._api
                 .deleteContract(contractId)
-                .then(() => true)
+                .then(() => {
+                    console.log("HOLLY");
+                    this.update();
+                    return true;
+                })
                 .catch((err) => {
                     console.log(err);
                     return false;
