@@ -12,7 +12,7 @@ export default function Money(props: MoneyProps) {
         if (props.initialMoney) {
             setMoney(props.initialMoney);
         }
-    }, []);
+    }, [props.initialMoney]);
 
     useEffect(() => {
         props.onChangeInfo(money === null ? 0 : money);

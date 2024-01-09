@@ -18,7 +18,7 @@ import LateFeeRate from "./blocks/latefee";
 import useRoomViewModel from "../../viewmodel/room";
 import Villife from "../../../../../libs/villife-client/types";
 import StardustDateParser from "../../../../../libs/date_parser";
-import PaymentMethod from "./blocks/paymentMethod";
+import PaymentMethod from "./blocks/payment_method";
 import { RoomInfo } from "../../viewmodel/room/states";
 
 export default function TenantSettingScreen({ navigation, route }: TenantSettingScreenProps) {
@@ -28,7 +28,7 @@ export default function TenantSettingScreen({ navigation, route }: TenantSetting
     const [contract, setContract] = useState<Building.RentType | null>(null);
     const [dates, setDates] = useState<Dates | null>(null);
     const [lateFeeRate, setLateFeeRate] = useState<number | null>(null);
-    const [paymentMethod, setPaymentMethod] = useState<Building.PaymentMethodType | null>(null);
+    const [paymentMethod, setPaymentMethod] = useState<Building.PaymentMethodType>();
     const [tenantInfo, setTenantInfo] = useState<TenantInfo>({
         name: null,
         phoneNumber: null,
@@ -177,6 +177,7 @@ export default function TenantSettingScreen({ navigation, route }: TenantSetting
             expirationDate: StardustDateParser.serialize(dates.endDate),
             rentType: contract,
             phoneNumber: tenantInfo.phoneNumber,
+            isPrePaidMr: paymentMethod ?? true,
         };
 
         if (previousRoomInfo) {
@@ -259,10 +260,6 @@ export default function TenantSettingScreen({ navigation, route }: TenantSetting
         });
     };
 
-    useEffect(() => {
-        console.log("INDEX :", contract);
-    }, [contract]);
-
     return (
         <NavigationView
             headerOptions={{
@@ -321,10 +318,6 @@ export default function TenantSettingScreen({ navigation, route }: TenantSetting
                                             initialMoney = previousRoomInfo.managementFee;
                                             break;
 
-                                        case "monthlyRent":
-                                            initialMoney = previousRoomInfo.monthlyRent;
-                                            break;
-
                                         case "deposit":
                                             initialMoney = previousRoomInfo.deposit;
                                             break;
@@ -371,7 +364,7 @@ export default function TenantSettingScreen({ navigation, route }: TenantSetting
                         <>
                             <PaymentMethod
                                 styles={styles}
-                                //initialRentType={route.params.previous ? route.params.previous.rentType : undefined}
+                                initialPaymentMethodType={previousRoomInfo ? previousRoomInfo.isPrePaidMr : undefined}
                                 onChangeInfo={setPaymentMethod}
                             />
                             {Object.keys(moneys).map((moneyType, index) => {

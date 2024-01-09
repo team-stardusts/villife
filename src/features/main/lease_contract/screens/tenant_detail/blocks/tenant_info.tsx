@@ -42,6 +42,7 @@ export default function TenantInfo(props: TenantInfoProps) {
                     navigation.navigate("tenant_setting", {
                         roomId: props.room.roomId,
                     });
+                    console.log("room id", props.room);
                     setModalVisible(false);
                 },
             },
@@ -150,6 +151,11 @@ export default function TenantInfo(props: TenantInfoProps) {
 
         return Math.floor(diffDate / (1000 * 60 * 60 * 24)) + 1; // 밀리세컨 * 초 * 분 * 시 = 일
     };
+    /* const isPhoneNumber = (phoneNumber: string | undefined) => {
+        if (phoneNumber === undefined) return "";
+        const formattedPhoneNumber = phoneNumber.replace(/^(\d{3})(\d{4})(\d{4})$/, "$1-$2-$3");
+        return formattedPhoneNumber;
+    }; */
 
     return (
         <View style={props.styles.tenantInfoContainer}>
@@ -170,18 +176,34 @@ export default function TenantInfo(props: TenantInfoProps) {
                     <CardRow styles={props.styles} rowKey={"호수"} rowValue={`${props.room.roomNumber.toString()}호`} />
                     <CardRow styles={props.styles} rowKey={"이름"} rowValue={props.room.residentName} />
                     <CardRow styles={props.styles} rowKey={"전화번호"} rowValue={props.room.residentPhoneNumber} />
+                    {/*<CardRow
+                        styles={props.styles}
+                        rowKey={"전화번호"}
+                        rowValue={isPhoneNumber(props.room.residentPhoneNumber)}
+                    /> */}
+
                     <CardRow styles={props.styles} rowKey={"계약"} rowValue={switchContractType()} />
-                    <CardRow styles={props.styles} rowKey={"자동고지"} rowValue={"사용"} />
+                    {/* 상세내역 후 추가할지 고민 <CardRow styles={props.styles} rowKey={"자동고지"} rowValue={"사용"} /> */}
+                    {switchContractType() === props.messages.words.monthly_rent && (
+                        <CardRow
+                            styles={props.styles}
+                            rowKey={"월세 선/후불"}
+                            rowValue={props.room.contractInfo?.isPrePaidMr ? "선불" : "후불"}
+                        />
+                    )}
+                    {switchContractType() === props.messages.words.monthly_rent && (
+                        <CardRow
+                            styles={props.styles}
+                            rowKey={"월세"}
+                            rowValue={insertCommaToMoney(props.room.contractInfo?.monthlyRent) + " 원"}
+                        />
+                    )}
                     <CardRow
                         styles={props.styles}
                         rowKey={"관리비"}
                         rowValue={insertCommaToMoney(props.room.contractInfo?.managementFee) + " 원"}
                     />
-                    <CardRow
-                        styles={props.styles}
-                        rowKey={"월세"}
-                        rowValue={insertCommaToMoney(props.room.contractInfo?.monthlyRent) + " 원"}
-                    />
+
                     <CardRow
                         styles={props.styles}
                         rowKey={"보증금"}

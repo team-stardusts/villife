@@ -69,6 +69,7 @@ class BuildingManagementServiceProvider extends AServiceProvider implements IBui
             room_id: params.roomId,
             start_date: StardustDateParser.serialize(params.startDate),
             phone_number: params.phoneNumber,
+            is_pre_paid_mr: params.isPrePaidMr,
         });
 
         if (!result.isSuccessful || result.data?.data === undefined) {
@@ -106,6 +107,7 @@ class BuildingManagementServiceProvider extends AServiceProvider implements IBui
             room_id: params.roomId,
             start_date: StardustDateParser.serialize(params.startDate),
             phone_number: params.phoneNumber,
+            is_pre_paid_mr: params.isPrePaidMr,
         });
 
         if (!result.isSuccessful || result.data?.data === undefined) {
@@ -178,6 +180,7 @@ class BuildingManagementServiceProvider extends AServiceProvider implements IBui
             startDate: StardustDateParser.deserialize(tenant.contract_info.start_date),
             expirationDate: StardustDateParser.deserialize(tenant.contract_info.expiration_date),
             phoneNumber: tenant.contract_info.phone_number,
+            isPrePaidMr: tenant.contract_info.is_pre_paid_mr,
             //createdAt: StardustDateParser.deserialize(tenant.contract_info.created_at),
             //updatedAt: StardustDateParser.deserialize(tenant.contract_info.updated_at),
         };

@@ -43,6 +43,7 @@ export namespace RegisterContract {
         expirationDate: Date;
         startDate: Date;
         phoneNumber: Building.RegisterContract.Params["phone_number"];
+        isPrePaidMr: Building.RegisterContract.Params["is_pre_paid_mr"];
     };
 }
 
@@ -113,6 +114,7 @@ export type BuildingRoomContract = {
     rentType: Building.Contract["rent_type"];
     startDate: Date;
     phoneNumber: string;
+    isPrePaidMr: boolean;
     //createdAt: Date;
     //updatedAt: Date;
 };

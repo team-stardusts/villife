@@ -7,25 +7,29 @@ import type { Building } from "../../../../../../libs/rest_apis/villife/building
 import { ModalFeature } from "../../../../../common/blocks/modal/bottom_list/types";
 
 export default function PaymentMethod(props: PaymentMethodProps) {
-    const [contract, setContract] = useState<Building.PaymentMethodType | null>(null);
+    const [isPrePaidMr, setisPrePaidMr] = useState<Building.PaymentMethodType | null>(
+        props.initialPaymentMethodType || null
+    );
     const [modalVisible, setModalVisible] = useState<boolean>(false);
 
     useEffect(() => {
         if (props.initialPaymentMethodType) {
-            setContract(props.initialPaymentMethodType);
+            setisPrePaidMr(props.initialPaymentMethodType);
+        } else {
+            setisPrePaidMr(null);
         }
     }, []);
 
     useEffect(() => {
-        props.onChangeInfo(contract);
-    }, [contract]);
+        props.onChangeInfo(isPrePaidMr ?? false);
+    }, [isPrePaidMr]);
 
     const features: ModalFeature[] = [
         {
             icon: "pencil",
             text: "선불",
             onPress: () => {
-                setContract("prepaid");
+                setisPrePaidMr(true);
                 setModalVisible(false);
             },
         },
@@ -33,17 +37,17 @@ export default function PaymentMethod(props: PaymentMethodProps) {
             icon: "pencil",
             text: "후불",
             onPress: () => {
-                setContract("postpaid");
+                setisPrePaidMr(false);
                 setModalVisible(false);
             },
         },
     ];
 
     const setContractText = () => {
-        switch (contract) {
-            case "prepaid":
+        switch (isPrePaidMr) {
+            case true:
                 return "선불";
-            case "postpaid":
+            case false:
                 return "후불";
             default:
                 return "선택";

@@ -68,6 +68,7 @@ namespace VillifeContract {
         phoneNumber: string;
         rentType: RentType;
         startDate: number;
+        isPrePaidMr: boolean;
     };
 
     export type CreateForm = {
@@ -82,6 +83,7 @@ namespace VillifeContract {
         roomId: Room["roomId"];
         startDate: Contract["startDate"];
         phoneNumber: Contract["phoneNumber"];
+        isPrePaidMr: boolean;
     };
 
     export type UpdateForm = CreateForm & {

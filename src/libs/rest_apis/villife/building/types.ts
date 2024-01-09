@@ -134,6 +134,7 @@ export namespace Building {
         rent_type: RentType;
         start_date: number;
         phone_number: string;
+        is_pre_paid_mr: boolean;
         //created_at: number;
         //updated_at: number;
     };
@@ -165,6 +166,7 @@ export namespace Building {
             room_id: RoomInfo["room_id"];
             start_date: Contract["start_date"];
             phone_number: string;
+            is_pre_paid_mr: boolean;
         };
 
         export type Returns = string;
@@ -199,5 +201,5 @@ export namespace Building {
     export type ContractStatus = "expired" | "ImminentExpiration" | "absense" | "normal";
     export type RoomState = "empty" | "signed" | "unsigned";
     export type RentType = "" | "lump-sum-deposit" | "monthly-rent";
-    export type PaymentMethodType = "" | "prepaid" | "postpaid";
+    export type PaymentMethodType = true | false;
 }

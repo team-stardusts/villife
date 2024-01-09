@@ -35,7 +35,7 @@ export type ContractRange = InfoRowDefaultProps<Dates> & {
     };
 };
 
-export type PaymentMethodProps = InfoRowDefaultProps<Building.PaymentMethodType | null> & {
+export type PaymentMethodProps = InfoRowDefaultProps<Building.PaymentMethodType> & {
     initialPaymentMethodType?: Building.PaymentMethodType;
 };
 
