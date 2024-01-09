@@ -110,7 +110,7 @@ export default function HomeSideModal(props: HomeSideMoalProps) {
             title: "알림",
             onPress: () => {
                 setVisible(false);
-                navigation.navigate("notification_box", {});
+                navigation.navigate("notification_box");
             },
         },
     ];
@@ -202,7 +202,7 @@ export default function HomeSideModal(props: HomeSideMoalProps) {
             title: "알림",
             onPress: () => {
                 setVisible(false);
-                navigation.navigate("notification_box", {});
+                navigation.navigate("notification_box");
             },
         },
     ];

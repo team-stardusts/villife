@@ -15,6 +15,9 @@ class ViewModelStorage<T> implements Storage<T> {
     public async getItem(key: string): Promise<T | null> {
         try {
             const value = await EncryptedStorage.getItem(key);
+            if (value === undefined) {
+                console.log("asdfasdf", key, await EncryptedStorage.getItem(key));
+            }
 
             if (value !== null) {
                 return JSON.parse(value);
@@ -23,7 +26,7 @@ class ViewModelStorage<T> implements Storage<T> {
             return null;
         } catch (e) {
             console.log("Error importing items from view model storage.");
-            console.log("Error:", e);
+            console.log("Error:", e, key);
 
             return null;
         }

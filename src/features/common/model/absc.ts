@@ -31,7 +31,7 @@ abstract class ViewModelCommmon<ViewData = any, StoredViewData = ViewData> imple
         return this._data;
     }
 
-    private createStorageKey(user: UserInfo): string {
+    protected createStorageKey(user: UserInfo): string {
         const keyArr = [user.roomID?.toString(), user.name];
 
         if (user.isAdmin) {
@@ -52,22 +52,24 @@ abstract class ViewModelCommmon<ViewData = any, StoredViewData = ViewData> imple
         return this.deserializeStoredData(await this._storage.getItem(this._storageKey));
     }
 
-    protected async save(data?: ViewData | StoredViewData): Promise<void> {
-        const dataIntoStorage = data ? this.serializeDataIntoStorage(data) : this.data;
+    protected async save(data?: ViewData): Promise<void> {
+        const dataIntoStorage = data ? data : this.data;
+
         const result = await this._storage.setItem(
             this._storageKey,
             dataIntoStorage ? this.serializeDataIntoStorage(dataIntoStorage) : null
         );
 
-        if (data && result) this._setData(this.deserializeStoredData(data) as ViewData);
+        if (result) this._setData(dataIntoStorage);
+
         !result && console.log("[ViewModelCommon]", "Failed to save data into storage");
     }
 
-    protected serializeDataIntoStorage(data: ViewData | StoredViewData): StoredViewData {
+    protected serializeDataIntoStorage(data: ViewData): StoredViewData {
         return data as any;
     }
 
-    protected deserializeStoredData(data: ViewData | StoredViewData | null): ViewData | null {
+    protected deserializeStoredData(data: StoredViewData | null): ViewData | null {
         return data ? (data as any) : null;
     }
 }

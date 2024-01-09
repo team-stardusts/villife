@@ -19,6 +19,13 @@ export default function Notification(props: NotificationProps) {
     return (
         <View style={styles.container}>
             <View style={styles.iconBox}>
+                {props.isNewer && (
+                    <View style={styles.newer}>
+                        <Text style={styles.newerTxt} adjustsFontSizeToFit numberOfLines={1}>
+                            N
+                        </Text>
+                    </View>
+                )}
                 <View style={styles.iconWrapper}>
                     {iconName === "payment" ? (
                         <SpinningWon />
@@ -42,7 +49,9 @@ export default function Notification(props: NotificationProps) {
     );
 }
 
-type NotificationProps = PushMessageLog;
+type NotificationProps = PushMessageLog & {
+    isNewer?: boolean;
+};
 
 type NotificationIcons = IconSeries | "payment";
 
@@ -57,6 +66,23 @@ function useNotificationStyles() {
             borderBottomWidth: deviceUI.moderateScale(1),
             paddingVertical: deviceUI.moderateScale(10),
             paddingLeft: deviceUI.moderateScale(10),
+        },
+        newer: {
+            width: deviceUI.moderateScale(14),
+            height: deviceUI.moderateScale(14),
+            borderRadius: deviceUI.moderateScale(14),
+            backgroundColor: theme.color.specified.red,
+            position: "absolute",
+            top: deviceUI.moderateScale(-5),
+            left: deviceUI.moderateScale(-2),
+            zIndex: 1,
+            justifyContent: "center",
+            alignItems: "center",
+        },
+        newerTxt: {
+            fontFamily: theme.font.fontFamily.pretendard.medium,
+            fontSize: deviceUI.moderateScale(10),
+            color: theme.color.specified.white,
         },
         iconBox: {
             flex: 1.5,

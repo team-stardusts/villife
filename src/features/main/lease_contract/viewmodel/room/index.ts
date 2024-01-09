@@ -29,7 +29,7 @@ export default function useRoomViewModel() {
                     return data;
                 }
 
-                const _room: any = room;
+                const _room: any = { ...room };
                 _room.contractInfo.expirationDate = StardustDateParser.serialize(room.contractInfo.expirationDate);
                 _room.contractInfo.startDate = StardustDateParser.serialize(room.contractInfo.startDate as Date);
 
@@ -42,7 +42,7 @@ export default function useRoomViewModel() {
         protected override deserializeStoredData(data: Villife.Contract.Room[]): RoomInfo[] {
             const rooms: RoomInfo[] = [];
             for (let room of data) {
-                const _room: any = room;
+                const _room: any = { ...room };
                 _room.contractInfo.expirationDate = StardustDateParser.deserialize(room.contractInfo.expirationDate);
                 _room.contractInfo.startDate = StardustDateParser.deserialize(room.contractInfo.startDate);
 
@@ -58,7 +58,7 @@ export default function useRoomViewModel() {
             this._api
                 .getRoomsInBuilding(this._user.adminInfomation.selectedBuilding.id)
                 .then((res) => {
-                    this.save(res);
+                    this.save(this.deserializeStoredData(res));
                     return true;
                 })
                 .catch(async (err) => {

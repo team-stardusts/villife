@@ -1,4 +1,4 @@
-import { ScrollView, Text, TouchableOpacity, View } from "react-native";
+import { Linking, ScrollView, Text, TouchableOpacity, View } from "react-native";
 import { NavButtonProps, ScrollNavProps } from "../types";
 import { useNavigation } from "@react-navigation/native";
 import { VillifeNavigation } from "../../../../../common/router/types";
@@ -54,20 +54,22 @@ export default function ScrollNav(props: ScrollNavProps) {
                 /> */}
                 <NavButton
                     styles={props.styles}
+                    text={"건물 정보"}
+                    onPress={() => navigation.navigate("building_info")}
+                />
+                {user?.isRenter && (
+                    <NavButton
+                        styles={props.styles}
+                        text={"계약 정보"}
+                        onPress={() => navigation.navigate("contract_information", {})}
+                    />
+                )}
+                <NavButton
+                    styles={props.styles}
                     text={"회사 정보"}
                     onPress={() => navigation.navigate("company_introduction")}
                 />
-                <NavButton
-                    styles={props.styles}
-                    text={"매뉴얼"}
-                    onPress={() =>
-                        navigation.navigate("mypage_webview", {
-                            title: "매뉴얼",
-                            url: manualUrl,
-                        })
-                    }
-                />
-
+                <NavButton styles={props.styles} text={"매뉴얼"} onPress={() => Linking.openURL(manualUrl)} />
                 <NavButton
                     styles={props.styles}
                     text={"이용약관"}

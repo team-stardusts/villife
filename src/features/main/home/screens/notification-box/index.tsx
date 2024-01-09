@@ -2,7 +2,7 @@ import { FlatList, ScrollView, Text, View } from "react-native";
 import NavigationView from "../../../../common/blocks/navigation";
 import useNotificationBoxScreenStyles from "./styles";
 import NotificationBoxScreenProps from "./types";
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import useNotificationBoxViewModel from "./viewmodel";
 import Notification from "./blocks/noti";
 import StardustDateParser from "../../../../../libs/date_parser";
@@ -10,11 +10,8 @@ import StardustDateParser from "../../../../../libs/date_parser";
 export function NotificationBoxScreen({ navigation, route }: NotificationBoxScreenProps) {
     const styles = useNotificationBoxScreenStyles();
     const viewModel = useNotificationBoxViewModel();
-    const today = useMemo<Date>(() => new Date(), []);
-
-    useEffect(() => {
-        viewModel.update();
-    }, []);
+    const today = useMemo<Date>(() => StardustDateParser.changeGMT(new Date(), "kr"), []);
+    const [newNotiIds, setNewNotiIds] = useState<number[]>([]);
 
     const isSameDate = (date1: Date, date2: Date) => {
         return (
@@ -23,6 +20,11 @@ export function NotificationBoxScreen({ navigation, route }: NotificationBoxScre
             date1.getDate() === date2.getDate()
         );
     };
+
+    useEffect(() => {
+        setNewNotiIds(viewModel.notReadNotiIds);
+        viewModel.processByReading();
+    }, [viewModel.data]);
 
     return (
         <NavigationView
@@ -44,14 +46,22 @@ export function NotificationBoxScreen({ navigation, route }: NotificationBoxScre
                         .filter((noti) => isSameDate(today, noti.createdAt))
                         .sort((a, b) => b.id - a.id)
                         .map((noti, i) => (
-                            <Notification key={i} {...noti} />
+                            <Notification
+                                key={i}
+                                {...noti}
+                                isNewer={newNotiIds.find((v) => v === noti.id) ? true : false}
+                            />
                         ))}
                     <Text style={styles.period}>이전</Text>
                     {viewModel.data
                         .filter((noti) => !isSameDate(today, noti.createdAt))
                         .sort((a, b) => b.id - a.id)
                         .map((noti, i) => (
-                            <Notification key={i} {...noti} />
+                            <Notification
+                                key={i}
+                                {...noti}
+                                isNewer={newNotiIds.find((v) => v === noti.id) ? true : false}
+                            />
                         ))}
                 </ScrollView>
             </View>

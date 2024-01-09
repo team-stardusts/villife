@@ -92,7 +92,9 @@ export type VillifeStackParamList = VillifeRootStackParamList & {
         notiID: number;
         priority: number;
     };
-    notification_box: {};
+    notification_box?: {
+        updateViewData: boolean;
+    };
     set_building?: {};
     search_address?: {};
     send_message_to_building_tenants: {

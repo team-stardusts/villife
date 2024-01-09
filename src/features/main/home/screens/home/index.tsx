@@ -1,28 +1,22 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { ScrollView, View } from "react-native";
 import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
 import NavigationView from "../../../../common/blocks/navigation";
 import HomeScreenProps from "./type";
 import useHomeScreenStyles from "./styles";
-import MenuButton from "../../blocks/menu_button";
 import HomeContentFromComplaint from "../../../complaint/blocks/home_content";
 import HomeContentFromParking from "../../../parking/blocks/home_content";
 import HomeContentFromNoti from "../../../noti/blocks/home_content";
 import useUserInformation from "../../../../common/hooks/service/user_info";
 import HomeContentFromManagementFee from "../../../../expense/management_fee/blocks/home_content";
+import NotiBoxShortcut from "../../blocks/noti-box";
 
 export default function HomeScreen({ navigation, route }: HomeScreenProps) {
     const messages = useScreenMessage();
     const styles = useHomeScreenStyles();
     const user = useUserInformation();
-
-    const [contents, setContents] = useState<(() => JSX.Element)[]>([]);
-    //HomeContentFromManagementFee
-
-    console.log("[HomeScreen] onCreate");
-
-    useEffect(() => {
-        if (user === null) return;
+    const contents = useMemo<(() => JSX.Element)[]>(() => {
+        if (user === null) return [];
 
         let _contents = [HomeContentFromNoti, HomeContentFromParking, HomeContentFromComplaint];
 
@@ -33,9 +27,13 @@ export default function HomeScreen({ navigation, route }: HomeScreenProps) {
             _contents.unshift(HomeContentFromManagementFee);
         }
 
-        setContents([..._contents]);
-        return;
-    }, [user?.authority]);
+        return _contents;
+    }, [user?.authority, user?.adminInfomation?.selectedBuilding]);
+
+    //HomeContentFromManagementFee
+
+    console.log("[HomeScreen] onCreate");
+
     //const contents = [HomeContentFromComplaint, HomeContentFromNoti, HomeContentFromParking];
 
     useEffect(() => {
@@ -51,7 +49,7 @@ export default function HomeScreen({ navigation, route }: HomeScreenProps) {
         <NavigationView
             headerOptions={{
                 title: messages.messages.main.home.screen_title,
-                navComponent: MenuButton,
+                navComponent: NotiBoxShortcut,
 
                 /* navComponentProps: {
                     iconName: "speaker",
