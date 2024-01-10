@@ -10,6 +10,7 @@ import HomeContentFromNoti from "../../../noti/blocks/home_content";
 import useUserInformation from "../../../../common/hooks/service/user_info";
 import HomeContentFromManagementFee from "../../../../expense/management_fee/blocks/home_content";
 import NotiBoxShortcut from "../../blocks/noti-box";
+import HomeContentApproval from "./approval";
 
 export default function HomeScreen({ navigation, route }: HomeScreenProps) {
     const messages = useScreenMessage();
@@ -18,16 +19,10 @@ export default function HomeScreen({ navigation, route }: HomeScreenProps) {
     const contents = useMemo<(() => JSX.Element)[]>(() => {
         if (user === null) return [];
 
-        let _contents = [HomeContentFromNoti, HomeContentFromParking, HomeContentFromComplaint];
+        if (user.isAdmin)
+            return [HomeContentApproval, HomeContentFromNoti, HomeContentFromComplaint, HomeContentFromParking];
 
-        if (user?.isAdmin) {
-            _contents = [HomeContentFromNoti, HomeContentFromComplaint, HomeContentFromParking];
-            // Add admin specific contents.
-        } else {
-            _contents.unshift(HomeContentFromManagementFee);
-        }
-
-        return _contents;
+        return [HomeContentFromManagementFee, HomeContentFromNoti, HomeContentFromParking, HomeContentFromComplaint];
     }, [user?.authority, user?.adminInfomation?.selectedBuilding]);
 
     //HomeContentFromManagementFee

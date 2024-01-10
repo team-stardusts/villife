@@ -1,8 +1,10 @@
 import { ColorValue } from "react-native";
 import { VillifeStackParamList } from "../../router/types";
+import useHomeScreenContentStyles from "./styles";
 
 export type MiniContentProps = {
     title: string;
+    styles?: ReturnType<typeof useHomeScreenContentStyles>;
     navigation?: {
         to: keyof VillifeStackParamList;
         params?: any; //VillifeStackParamList[MiniContentProps["navigation"]["to"]];

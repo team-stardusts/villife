@@ -11,7 +11,8 @@ import { ANIMATION_DURATION_SLOW } from "../../constants";
 
 export default function MiniContent(props: MiniContentProps) {
     const { theme } = useStyler();
-    const styles = useHomeScreenContentStyles();
+    const styles = props.styles ?? useHomeScreenContentStyles();
+
     const nav = useNavigation<VillifeNavigation>();
 
     const opacityValue = useRef(new Animated.Value(0)).current;
@@ -81,7 +82,7 @@ export default function MiniContent(props: MiniContentProps) {
                             />
                         )}
                     </TouchableOpacity>
-                    <View style={styles.childrenBox}>{props.children}</View>
+                    {props.children && <View style={styles.childrenBox}>{props.children}</View>}
                 </View>
             </ContentBox>
         </View>
