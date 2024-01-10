@@ -32,6 +32,7 @@ export default function TenantContractInfoScreen({ route }: ContractInformationS
                     rentType: data.rent_type,
                     startDate: new Date(data.start_date * 1000),
                     phoneNumber: data.phone_number,
+                    isPrePaidMr: data.is_pre_paid_mr, // Add the missing property 'isPrePaidMr' with a default value
                 });
             }
         };

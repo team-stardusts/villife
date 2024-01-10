@@ -38,6 +38,18 @@ class VillifeContractClient extends VillifeClientCommon implements Villife.Contr
         });
     }
 
+    public async modifyBuilding(
+        params: Villife.Contract.BuildingModifyForm
+    ): Promise<Villife.Contract.BuildingBreifInfo> {
+        const route: string = this._routes.budilingAndContract.building;
+
+        return await this.requestWithCredential({
+            method: "patch",
+            url: route,
+            data: params,
+        });
+    }
+
     public async createContract(params: Villife.Contract.CreateForm): Promise<string> {
         const route: string = this._routes.budilingAndContract.contract;
 

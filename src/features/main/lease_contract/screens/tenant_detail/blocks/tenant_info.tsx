@@ -176,11 +176,6 @@ export default function TenantInfo(props: TenantInfoProps) {
                     <CardRow styles={props.styles} rowKey={"호수"} rowValue={`${props.room.roomNumber.toString()}호`} />
                     <CardRow styles={props.styles} rowKey={"이름"} rowValue={props.room.residentName} />
                     <CardRow styles={props.styles} rowKey={"전화번호"} rowValue={props.room.residentPhoneNumber} />
-                    {/*<CardRow
-                        styles={props.styles}
-                        rowKey={"전화번호"}
-                        rowValue={isPhoneNumber(props.room.residentPhoneNumber)}
-                    /> */}
 
                     <CardRow styles={props.styles} rowKey={"계약"} rowValue={switchContractType()} />
                     {/* 상세내역 후 추가할지 고민 <CardRow styles={props.styles} rowKey={"자동고지"} rowValue={"사용"} /> */}

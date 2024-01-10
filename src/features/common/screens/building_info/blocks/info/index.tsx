@@ -7,19 +7,83 @@ import { makeChunk } from "../../../../global_function";
 import { useNavigation } from "@react-navigation/native";
 import { VillifeNavigation } from "../../../../router/types";
 import TitleCard from "../../../../blocks/title_card";
+import ListBottomSlidableModal from "../../../../blocks/modal/bottom_list";
+import { useMemo, useState } from "react";
+import { ModalFeature } from "../../../../blocks/modal/bottom_list/types";
+import { StardustAlertContent } from "../../../../blocks/universial/stardust_alert/types";
 
 export default function BuildingInfoView(props: BuildingInfoViewProps) {
+    const navigation = useNavigation<VillifeNavigation>();
     const styles = useBuildingInfoViewStyles();
-    //const navigation = useNavigation<VillifeNavigation>();
+
+    // 삭제하기 기능 나올 시 사용
+    /*  const [modalVisible, setModalVisible] = useState<boolean>(false);
+    const [alert, setAlert] = useState<StardustAlertContent>({
+        visible: false,
+        type: "warning",
+        title: "정말로 삭제하시겠습니까?",
+        message: "삭제된 정보는 복구 할 수 없습니다.",
+    });
+     const features = useMemo<ModalFeature[]>(
+        () => [
+            {
+                icon: "pencil",
+                text: "수정하기",
+                onPress: () => {
+                    navigation.navigate("register_building", {});
+                    setModalVisible(false);
+                },
+            },
+            {
+                icon: "trash-can",
+                text: "삭제하기",
+                onPress: () => {
+                    setModalVisible(false);
+                    setAlert({
+                        ...alert,
+                        visible: true,
+                        buttons: [
+                            {
+                                text: "취소",
+                                onPress: () => cancleAlert(),
+                            },
+                            {
+                                text: "확인",
+                                onPress: () => 삭제하기 아직 없음,
+                            },
+                        ],
+                    });
+                },
+            },
+        ],
+        []
+    );    
+    const cancleAlert = () => {
+        setAlert({
+            ...alert,
+            visible: false,
+        });
+    }; */
 
     return (
-        <TitleCard
-            title="건물 정보"
-            /* headerButton={
-                props.buildingInfo.isAdmin ? { title: "편집하기", onPress: () => console.log("Hello") } : undefined
-            } */
-        >
-            <View style={styles.container}>
+        <View style={styles.container}>
+            {/* <ListBottomSlidableModal
+                modalVisible={modalVisible}
+                setModalVisible={setModalVisible}
+                features={features}
+            /> */}
+            <TitleCard
+                title="건물 정보"
+                headerButton={
+                    props.buildingInfo.isAdmin
+                        ? {
+                              title: "수정하기",
+                              onPress: () => {
+                                  navigation.navigate("register_building");
+                              },
+                          }
+                        : undefined
+                }>
                 <View style={styles.section}>
                     <View style={styles.sectionRow}>
                         <View>
@@ -105,7 +169,7 @@ export default function BuildingInfoView(props: BuildingInfoViewProps) {
                         ))}
                     </View>
                 )}
-            </View>
-        </TitleCard>
+            </TitleCard>
+        </View>
     );
 }

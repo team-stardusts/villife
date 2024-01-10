@@ -21,6 +21,7 @@ import StardustDateParser from "../../../../../libs/date_parser";
 import PaymentMethod from "./blocks/payment_method";
 import { RoomInfo } from "../../viewmodel/room/states";
 
+
 export default function TenantSettingScreen({ navigation, route }: TenantSettingScreenProps) {
     const styles = useTenantSettingScreenStyles();
     const messages = useScreenMessage().messages;

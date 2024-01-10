@@ -56,6 +56,21 @@ namespace VillifeContract {
         roomInfo: number[];
     };
 
+    export type BuildingModifyForm = {
+        buildingId: Building["buildingId"];
+        buildingName: Building["buildingName"];
+        deletedAccounts: number[];
+        mfDueDate: Building["mfDueDate"];
+        mfNotiDate: Building["mfNotiDate"];
+        newAccounts: Array<{
+            accountNumber: string;
+            accountType: string;
+            bankName: string;
+            ownerName: string;
+        }>;
+        ownerName: Building["ownerName"];
+    };
+
     export type Contract = {
         contractId: number;
         contractorName: string;
@@ -134,6 +149,7 @@ namespace VillifeContract {
     export type ContractStatus = "expired" | "ImminentExpiration" | "absense" | "normal";
     export type RoomState = "empty" | "signed" | "unsigned";
     export type RentType = "" | "lump-sum-deposit" | "monthly-rent";
+    export type PaymentMethodType = true | false;
 }
 
 export default VillifeContract;
