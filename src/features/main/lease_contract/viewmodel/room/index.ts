@@ -20,18 +20,19 @@ export default function useRoomViewModel() {
             this._api = this._clientInstance.contract;
         }
 
-        protected override serializeDataIntoStorage(
-            data: RoomInfo[] | Villife.Contract.Room[]
-        ): Villife.Contract.Room[] {
+        protected override serializeDataIntoStorage(data: RoomInfo[]): Villife.Contract.Room[] {
             const rooms: Villife.Contract.Room[] = [];
-            for (let room of data) {
-                if (typeof room.contractInfo.expirationDate === "number") {
-                    return data;
-                }
 
-                const _room: any = { ...room };
-                _room.contractInfo.expirationDate = StardustDateParser.serialize(room.contractInfo.expirationDate);
-                _room.contractInfo.startDate = StardustDateParser.serialize(room.contractInfo.startDate as Date);
+            for (let i = 0; i < data.length; i++) {
+                /* if (typeof room.contractInfo.expirationDate === "number") {
+                    return data;
+                } */
+                const _room: any = JSON.parse(JSON.stringify(data[i]));
+
+                _room.contractInfo.expirationDate = StardustDateParser.serialize(
+                    new Date(data[i].contractInfo.expirationDate)
+                );
+                _room.contractInfo.startDate = StardustDateParser.serialize(new Date(data[i].contractInfo.startDate));
 
                 rooms.push(_room);
             }
@@ -41,10 +42,11 @@ export default function useRoomViewModel() {
 
         protected override deserializeStoredData(data: Villife.Contract.Room[]): RoomInfo[] {
             const rooms: RoomInfo[] = [];
-            for (let room of data) {
-                const _room: any = { ...room };
-                _room.contractInfo.expirationDate = StardustDateParser.deserialize(room.contractInfo.expirationDate);
-                _room.contractInfo.startDate = StardustDateParser.deserialize(room.contractInfo.startDate);
+
+            for (let i = 0; i < data.length; i++) {
+                const _room: any = JSON.parse(JSON.stringify(data[i]));
+                _room.contractInfo.expirationDate = StardustDateParser.deserialize(data[i].contractInfo.expirationDate);
+                _room.contractInfo.startDate = StardustDateParser.deserialize(data[i].contractInfo.startDate);
 
                 rooms.push(_room);
             }

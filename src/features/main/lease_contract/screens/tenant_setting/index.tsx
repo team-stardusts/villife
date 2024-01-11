@@ -35,12 +35,12 @@ export default function TenantSettingScreen({ navigation, route }: TenantSetting
         phoneNumber: null,
     });
     const [moneys, setMoneys] = useState<MoneyTypes>({
-        managementFee: {
-            text: "관리비",
-            value: 0,
-        },
         monthlyRent: {
             text: "월세",
+            value: 0,
+        },
+        managementFee: {
+            text: "관리비",
             value: 0,
         },
         deposit: {
@@ -92,17 +92,13 @@ export default function TenantSettingScreen({ navigation, route }: TenantSetting
     });
 
     useEffect(() => {
+        if (contract === null) return;
+
         switch (contract) {
             case "lump-sum-deposit":
                 setMoneys({
-                    managementFee: {
-                        text: "관리비",
-                        value: 0,
-                    },
-                    deposit: {
-                        text: "보증금",
-                        value: 0,
-                    },
+                    deposit: moneys.deposit,
+                    managementFee: moneys.managementFee,
                 });
                 break;
             case "monthly-rent":
@@ -138,7 +134,7 @@ export default function TenantSettingScreen({ navigation, route }: TenantSetting
                 });
                 break;
         }
-    }, [contract]);
+    }, [contract, previousRoomInfo]);
 
     const candleAlert = () => {
         setAlert({

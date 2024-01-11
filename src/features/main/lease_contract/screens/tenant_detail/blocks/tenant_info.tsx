@@ -198,11 +198,21 @@ export default function TenantInfo(props: TenantInfoProps) {
                         rowKey={"관리비"}
                         rowValue={insertCommaToMoney(props.room.contractInfo?.managementFee) + " 원"}
                     />
-
                     <CardRow
                         styles={props.styles}
                         rowKey={"보증금"}
                         rowValue={insertCommaToMoney(props.room.contractInfo?.deposit) + " 원"}
+                    />
+                    <CardRow
+                        styles={props.styles}
+                        rowKey={"연체요율"}
+                        rowValue={
+                            insertCommaToMoney(
+                                props.room.contractInfo?.delinquencyRate
+                                    ? props.room.contractInfo?.delinquencyRate * 100
+                                    : 0
+                            ) + "%"
+                        }
                     />
                     <CardRow
                         styles={props.styles}

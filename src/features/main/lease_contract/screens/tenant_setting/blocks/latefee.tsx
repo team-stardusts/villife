@@ -15,7 +15,7 @@ export default function LateFeeRate(props: LateFeeRateProps) {
     }, []);
 
     useEffect(() => {
-        props.onChangeInfo(lateFeeRate === null ? 0 : lateFeeRate);
+        props.onChangeInfo(lateFeeRate === null ? 0 : lateFeeRate / 100);
     }, [lateFeeRate]);
 
     const handleChangeRate = (text: string) => {

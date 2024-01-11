@@ -15,7 +15,7 @@ export default function TenantInfoInput(props: TenantInfoInputProps) {
 
     useEffect(() => {
         if (props.initialInfo) {
-            const phoneNumber = insertCommonIntoInitialInfoPhonenumber(props.initialInfo.phoneNumber);
+            const phoneNumber: string[] | null = splitInitialInfoPhonenumber(props.initialInfo.phoneNumber);
 
             setTenantInfo({
                 ...tenantInfo,
@@ -29,8 +29,12 @@ export default function TenantInfoInput(props: TenantInfoInputProps) {
         props.onChangeInfo(tenantInfo);
     }, [tenantInfo]);
 
-    const insertCommonIntoInitialInfoPhonenumber = (phoneNumber: string | undefined) => {
+    const splitInitialInfoPhonenumber = (phoneNumber: string | undefined) => {
         if (phoneNumber === undefined) return null;
+
+        const temp = phoneNumber.split("-");
+
+        if (temp.length === 3) return temp;
 
         let _phoneNumber: string[] | null = null;
         if (phoneNumber.length === 11) {
@@ -80,9 +84,7 @@ export default function TenantInfoInput(props: TenantInfoInputProps) {
                 <View style={props.styles.tenantInfoInputBox}>
                     <ReusableTextInput
                         type="phone-number"
-                        initialData={
-                            insertCommonIntoInitialInfoPhonenumber(props.initialInfo?.phoneNumber) ?? undefined
-                        }
+                        initialData={splitInitialInfoPhonenumber(props.initialInfo?.phoneNumber) ?? undefined}
                         lowlightColor={props.styles.moneyInputLowLight.color}
                         onInputValidValue={(value) =>
                             setTenantInfo({
