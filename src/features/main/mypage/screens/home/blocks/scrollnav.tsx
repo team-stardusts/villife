@@ -75,8 +75,8 @@ export default function ScrollNav(props: ScrollNavProps) {
                     text={"이용약관"}
                     onPress={() =>
                         navigation.navigate("mypage_webview", {
-                            title: "이용약관",
-                            url: "https://www.notion.so/villife/d60bebc9a0c5400883375d8257ad4bfc",
+                            title: "서비스 이용 약관",
+                            url: "https://villife.notion.site/d60bebc9a0c5400883375d8257ad4bfc",
                         })
                     }
                 />
@@ -85,8 +85,8 @@ export default function ScrollNav(props: ScrollNavProps) {
                     text={"개인정보처리방침"}
                     onPress={() =>
                         navigation.navigate("mypage_webview", {
-                            title: "개인정보처리방침",
-                            url: "https://www.notion.so/villife/4aa060ac489b44e7b8bdfaae6b4cab54",
+                            title: "개인정보 처리 방침",
+                            url: "https://villife.notion.site/4aa060ac489b44e7b8bdfaae6b4cab54",
                         })
                     }
                 />

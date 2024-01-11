@@ -64,8 +64,8 @@ export default function ManagementFeePaymentConfirmBox(props: ManagementFeePayme
                                     <AccountInfo styles={styles} rowKey="예금주" rowValue={account.ownerName} />
                                     <AccountInfo
                                         styles={styles}
-                                        rowKey="받는 분 통장 표시"
-                                        rowValue={viewModel.user?.roomNumber.toString()}
+                                        rowKey="받는 분에게 표시"
+                                        rowValue={viewModel.user?.name}
                                         copyable
                                     />
                                     <AccountInfo

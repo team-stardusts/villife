@@ -95,9 +95,12 @@ export default function TermsOfServiceScreen({ navigation, route }: TermsOfServi
                         <PressableVectorIcon
                             providerName="right"
                             diameter={iconDiameter}
-                            onPress={() => {
-                                Linking.openURL("https://www.notion.so/villife/4aa060ac489b44e7b8bdfaae6b4cab54");
-                            }}
+                            onPress={() =>
+                                navigation.navigate("mypage_webview", {
+                                    title: "서비스 이용 약관",
+                                    url: "https://villife.notion.site/d60bebc9a0c5400883375d8257ad4bfc",
+                                })
+                            }
                         />
                     </View>
                     <View style={Styles.input.barSort}>
@@ -121,9 +124,12 @@ export default function TermsOfServiceScreen({ navigation, route }: TermsOfServi
                         <PressableVectorIcon
                             providerName="right"
                             diameter={iconDiameter}
-                            onPress={() => {
-                                Linking.openURL("https://www.notion.so/villife/d60bebc9a0c5400883375d8257ad4bfc");
-                            }}
+                            onPress={() =>
+                                navigation.navigate("mypage_webview", {
+                                    title: "개인정보 처리 방침",
+                                    url: "https://villife.notion.site/4aa060ac489b44e7b8bdfaae6b4cab54",
+                                })
+                            }
                         />
                     </View>
                 </ScrollView>

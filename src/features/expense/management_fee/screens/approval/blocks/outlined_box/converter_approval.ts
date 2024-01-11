@@ -41,8 +41,8 @@ export class ApprovalDataConverter {
                     updatedAt: this.request.updated_at,
                     roomNumber: approvalContent3001.room_number,
                     buildingName: approvalContent3001.building_name,
-                    title: `${approvalContent3001.room_number}호 ${formattedDate}월 관리비`,
-                    subTitle: "상세내역 확인 후 승인해주세요.",
+                    title: `${approvalContent3001.room_number}호 관리비 납부 확인 요청`,
+                    subTitle: "내용 확인 후 승인해주세요.", //상세내역 확인 후 승인해주세요.
                     detailContent: detailArray3001,
                 };
 
