@@ -1,10 +1,11 @@
 import { SetterOrUpdater, useRecoilState } from "recoil";
-import Villife from "../../../../../libs/villife-client/types";
+
 import useUserInformation from "../../../../common/hooks/service/user_info";
 import { UserInfo } from "../../../../common/hooks/service/user_info/types";
 import ViewModelCommmon from "../../../../common/model/absc";
 import roomsState, { RoomInfo } from "./states";
 import StardustDateParser from "../../../../../libs/date_parser";
+import { Villife } from "@team-stardusts/villife-client";
 
 export default function useRoomViewModel() {
     const user = useUserInformation();

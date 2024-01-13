@@ -1,9 +1,9 @@
 import { Platform } from "react-native";
 import DotEnv from "../../../../../libs/dotenv";
-import Villife from "../../../../../libs/villife-client/types";
 import { SignInResult, Signer } from "./types";
 import { NaverLogin, TokenResponse } from "@react-native-seoul/naver-login";
 import VillifeNativeClient from "../../../../../libs/villife-native-client";
+import { Villife } from "@team-stardusts/villife-client";
 
 const env = new DotEnv();
 

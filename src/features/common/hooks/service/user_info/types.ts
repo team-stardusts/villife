@@ -1,5 +1,6 @@
+import { Villife } from "@team-stardusts/villife-client";
 import { LoginDataType } from "../../../../../libs/storage/tables/login/types";
-import Villife from "../../../../../libs/villife-client/types";
+
 import { AdminInformation } from "../../states/atoms/user/admin_only/type";
 
 interface IInfoProvidable<T> {

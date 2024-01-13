@@ -3,9 +3,10 @@ import useUserInformation from "../../../../common/hooks/service/user_info";
 import { UserInfo } from "../../../../common/hooks/service/user_info/types";
 import ViewModelCommmon from "../../../../common/model/absc";
 import { PaymentBill, PaymentConfirmaionRequestForm, RenterMFViewModelBase, UserManagementFee } from "./types";
-import Villife from "../../../../../libs/villife-client/types";
+
 import { userManagementFeesState } from "./states";
 import StardustDateParser from "../../../../../libs/date_parser";
+import { Villife } from "@team-stardusts/villife-client";
 
 export default function useRenterMFViewModel(): RenterMFViewModelBase {
     const user = useUserInformation() as UserInfo;

@@ -1,4 +1,4 @@
-import Villife from "../../../../../../libs/villife-client/types";
+import { Villife } from "@team-stardusts/villife-client";
 
 export type PushMessageLog = {
     content: Villife.Messaging.PushMessageLog["content"];

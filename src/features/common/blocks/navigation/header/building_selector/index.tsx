@@ -6,7 +6,7 @@ import useBuildingSelectorStyles from "./styles";
 import useScreenMessage from "../../../../hooks/multilingual/hooks";
 import BuildingSelectModal from "./bulidng_select_modal";
 import useUserInformation from "../../../../hooks/service/user_info";
-import Villife from "../../../../../../libs/villife-client/types";
+import { Villife } from "@team-stardusts/villife-client";
 
 export default function BuildingSelector({}: BuildingSelectorType) {
     const message = useScreenMessage();

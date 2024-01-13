@@ -4,7 +4,7 @@ import { buildingMFHistoryState } from "./states";
 import useUserInformation from "../../../../common/hooks/service/user_info";
 import { UserInfo } from "../../../../common/hooks/service/user_info/types";
 import ViewModelCommmon from "../../../../common/model/absc";
-import Villife from "../../../../../libs/villife-client/types";
+import { Villife } from "@team-stardusts/villife-client";
 
 export default function useAdminMFViewModel(): AdminMFViewModelBase {
     const user = useUserInformation() as UserInfo;

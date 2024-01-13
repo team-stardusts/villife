@@ -1,10 +1,11 @@
 import { useRecoilState, useRecoilValue } from "recoil";
 import { adminInfoState } from "../../../states/atoms/user/admin_only";
 import VillifeNativeClient from "../../../../../../libs/villife-native-client";
-import Villife from "../../../../../../libs/villife-client/types";
+
 import { Storage } from "../../../../model/storage/type";
 import ViewModelStorage from "../../../../model/storage";
 import { loginDataState } from "../../../states/atoms/login";
+import { Villife } from "@team-stardusts/villife-client";
 
 export default function useAdminInfoService() {
     const [adminInfo, setAdminInfo] = useRecoilState(adminInfoState);

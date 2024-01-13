@@ -1,7 +1,6 @@
+import { VILLIFE_AUTHORITY, Villife } from "@team-stardusts/villife-client";
 import VillifeStorage from "../../../../libs/storage";
 import IVillifeStorage from "../../../../libs/storage/types";
-import { VILLIFE_AUTHORITY } from "../../../../libs/villife-client";
-import Villife from "../../../../libs/villife-client/types";
 import VillifeNativeClient from "../../../../libs/villife-native-client";
 import SignerFactory from "./host";
 import { SignInResult, VillifeSignInForm } from "./host/types";

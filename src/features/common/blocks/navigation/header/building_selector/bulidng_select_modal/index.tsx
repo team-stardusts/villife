@@ -6,7 +6,7 @@ import useScreenMessage from "../../../../../hooks/multilingual/hooks";
 import { useNavigation } from "@react-navigation/native";
 import { VillifeRouterParams } from "../../../../../router/types";
 import type { AddBuildingComponentProps, BuildingComponentProps, BuildingSelectModalProps } from "./types";
-import Villife from "../../../../../../../libs/villife-client/types";
+import { Villife } from "@team-stardusts/villife-client";
 
 export default function BuildingSelectModal(props: BuildingSelectModalProps) {
     const styles = useBuildingSelectModalStyles().modal;

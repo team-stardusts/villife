@@ -1,7 +1,7 @@
+import { Villife } from "@team-stardusts/villife-client";
 import useScreenMessage from "../../../../../common/hooks/multilingual/hooks";
 import { SelectAllStatus, TenantLayoutViewProps } from "../types";
 import useBuildingTenantListViewStyles from "./styles";
-import Villife from "../../../../../../libs/villife-client/types";
 
 export type BuildingTenantListViewProps = TenantLayoutViewProps & {
     roomInfos: Villife.Contract.Room[];

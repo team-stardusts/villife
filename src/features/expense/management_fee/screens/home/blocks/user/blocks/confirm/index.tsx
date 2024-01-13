@@ -2,14 +2,14 @@ import { Text, TouchableOpacity, View } from "react-native";
 import ContentBox from "../../../../../../../../common/blocks/content_box";
 import useManagementFeePaymentConfirmBoxStyles from "./styles";
 import useRenterMFViewModel from "../../../../../../viewmodel/renter";
-import { useEffect, useMemo, useState } from "react";
-import Villife from "../../../../../../../../../libs/villife-client/types";
+import { useEffect, useState } from "react";
 import Clipboard from "@react-native-clipboard/clipboard";
 import VillifeToastMessage from "../../../../../../../../common/atoms/toast";
 import { AccountInfoProps, ManagementFeePaymentConfirmBoxProps } from "./types";
 import Icon from "../../../../../../../../common/atoms/icon";
 import { insertCommaToNumber } from "../../../../../../../../common/global_function";
 import PaymentInfoInputModal from "./confirm-modal";
+import { Villife } from "@team-stardusts/villife-client";
 
 export default function ManagementFeePaymentConfirmBox(props: ManagementFeePaymentConfirmBoxProps) {
     const styles = useManagementFeePaymentConfirmBoxStyles();

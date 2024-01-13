@@ -1,4 +1,4 @@
-import Villife from "../../../../../libs/villife-client/types";
+import { Villife } from "@team-stardusts/villife-client";
 import { Filter } from "../../../../common/blocks/top_filter/types";
 import { ArrayElement } from "../../../../common/global_interface";
 

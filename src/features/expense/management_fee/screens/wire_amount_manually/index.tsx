@@ -9,7 +9,7 @@ import { Building } from "../../../../../libs/rest_apis/villife/building/types";
 import useStyler from "../../../../common/hooks/styler/hooks";
 import Icon from "../../../../common/atoms/icon";
 import useRenterMFViewModel from "../../viewmodel/renter";
-import Villife from "../../../../../libs/villife-client/types";
+import { Villife } from "@team-stardusts/villife-client";
 
 export default function WireAmountManually(props: WireAmountManuallyScreenProps) {
     const styles = useWireAmountManuallyStyles();

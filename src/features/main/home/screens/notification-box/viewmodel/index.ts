@@ -3,11 +3,12 @@ import useUserInformation from "../../../../../common/hooks/service/user_info";
 import { UserInfo } from "../../../../../common/hooks/service/user_info/types";
 import { latestNotificationIdState, notificationBoxState } from "./states";
 import ViewModelCommmon from "../../../../../common/model/absc";
-import Villife from "../../../../../../libs/villife-client/types";
+
 import { PushMessageLog } from "./types";
 import StardustDateParser from "../../../../../../libs/date_parser";
 import { Storage } from "../../../../../common/model/storage/type";
 import ViewModelStorage from "../../../../../common/model/storage";
+import { Villife } from "@team-stardusts/villife-client";
 
 export default function useNotificationBoxViewModel() {
     const user = useUserInformation() as UserInfo;

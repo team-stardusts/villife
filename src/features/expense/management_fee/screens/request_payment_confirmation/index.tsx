@@ -11,7 +11,7 @@ import VillifeToastMessage from "../../../../common/atoms/toast";
 import { StardustAlertContent } from "../../../../common/blocks/universial/stardust_alert/types";
 import StardustAlert from "../../../../common/blocks/universial/stardust_alert";
 import useRenterMFViewModel from "../../viewmodel/renter";
-import Villife from "../../../../../libs/villife-client/types";
+import { Villife } from "@team-stardusts/villife-client";
 
 export default function RequestPaymentConfirmationScreen(props: RequestPaymentConfirmationScreenProps) {
     const styles = useRequestPaymentConfirmationStyles();

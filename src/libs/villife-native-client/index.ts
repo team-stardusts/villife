@@ -1,6 +1,5 @@
+import VillifeClient, { Villife } from "@team-stardusts/villife-client";
 import DotEnv from "../dotenv";
-import VillifeClient from "../villife-client";
-import Villife from "../villife-client/types";
 import VillifeSessionAdaptor from "./session";
 
 const env = new DotEnv();

@@ -1,4 +1,4 @@
-import Villife from "../../../../libs/villife-client/types";
+import { Villife } from "@team-stardusts/villife-client";
 import { EtdaTime } from "../blocks/etad_time_picker/types";
 
 export type GuestVehicleRegistrationForm = VehicleRegistrationFormCommon & {

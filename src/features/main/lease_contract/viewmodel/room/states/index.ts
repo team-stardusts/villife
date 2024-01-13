@@ -1,5 +1,5 @@
+import { Villife } from "@team-stardusts/villife-client";
 import { atom } from "recoil";
-import Villife from "../../../../../../libs/villife-client/types";
 
 export type RoomInfo = {
     contractInfo: Villife.Contract.Contract & {

@@ -1,4 +1,4 @@
-import Villife from "../../../../../libs/villife-client/types";
+import { Villife } from "@team-stardusts/villife-client";
 
 export interface Signer {
     signIn(params: VillifeSignInForm | any): Promise<SignInResult>;

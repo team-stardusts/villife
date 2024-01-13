@@ -7,8 +7,9 @@ import { useEffect, useMemo, useState } from "react";
 import useRenterMFViewModel from "../../../../../../viewmodel/renter";
 import { ManagementFeeBoxProps } from "./types";
 import useManagementFeeBoxStyles from "./styles";
-import Villife from "../../../../../../../../../libs/villife-client/types";
+
 import { insertCommaToNumber } from "../../../../../../../../common/global_function";
+import { Villife } from "@team-stardusts/villife-client";
 
 export default function ManagementFeeBox(props: ManagementFeeBoxProps) {
     const stylesOrigin = useManagementFeeBoxStyles();

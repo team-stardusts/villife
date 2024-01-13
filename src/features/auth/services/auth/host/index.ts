@@ -1,4 +1,4 @@
-import Villife from "../../../../../libs/villife-client/types";
+import { Villife } from "@team-stardusts/villife-client";
 import AppleSigner from "./apple";
 import NaverSigner from "./naver";
 import { Signer } from "./types";

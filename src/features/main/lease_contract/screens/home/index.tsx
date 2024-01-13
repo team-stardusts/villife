@@ -14,7 +14,7 @@ import { Filter } from "../../../../common/blocks/top_filter/types";
 import { LayoutType } from "./blocks/layout/types";
 import LayoutSelector from "./blocks/layout";
 import useRoomViewModel from "../../viewmodel/room";
-import Villife from "../../../../../libs/villife-client/types";
+import { Villife } from "@team-stardusts/villife-client";
 
 export default function LeaseContractHomeScreen({ navigation, route }: LeaseContractHomeScreenProps) {
     const messages = useScreenMessage().messages;

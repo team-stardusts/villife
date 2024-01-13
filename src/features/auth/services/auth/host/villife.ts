@@ -1,4 +1,4 @@
-import Villife from "../../../../../libs/villife-client/types";
+import { Villife } from "@team-stardusts/villife-client";
 import VillifeNativeClient from "../../../../../libs/villife-native-client";
 import { SignInResult, Signer, VillifeSignInForm } from "./types";
 

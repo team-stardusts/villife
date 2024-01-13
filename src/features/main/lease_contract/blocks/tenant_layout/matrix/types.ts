@@ -1,6 +1,6 @@
-import Villife from "../../../../../../libs/villife-client/types";
+import { Villife } from "@team-stardusts/villife-client";
 import useScreenMessage from "../../../../../common/hooks/multilingual/hooks";
-import { BuildingRoomInfo } from "../../../services/building_rooms/provider/types";
+
 import { SelectAllStatus, TenantLayoutViewProps } from "../types";
 import useBuildingTenantMatrixViewStyles from "./styles";
 

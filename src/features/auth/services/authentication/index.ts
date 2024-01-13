@@ -1,18 +1,13 @@
-import NaverLoginManager from "./social/naver";
-import VillifeLoginManager from "./villife";
-import { IAuthServiceProvider, ILoginManager, JoinServiceParams, LoginServiceParams, LoginResult } from "./types";
-import { HostType, SocialJoinResultType } from "../../../../libs/rest_apis/villife/auth/types";
+import { IAuthServiceProvider, JoinServiceParams, LoginServiceParams, LoginResult } from "./types";
+import { HostType } from "../../../../libs/rest_apis/villife/auth/types";
 import VillifeStorage from "../../../../libs/storage";
 import { Response } from "../../../../libs/rest_apis/types";
-import VillifeServer from "../../../../libs/rest_apis/villife";
-import { IVillifeUserInfoRestClient } from "../../../../libs/rest_apis/villife/user_info/types";
 import IVillifeStorage from "../../../../libs/storage/types";
-import AppleLoginManager from "./social/apple";
 import { VILLIFE_AUTHORITY } from "../../../../libs/rest_apis/villife/absc";
 import { LoginDataType } from "../../../../libs/storage/tables/login/types";
 import VillifeNativeClient from "../../../../libs/villife-native-client";
-import Villife from "../../../../libs/villife-client/types";
 import SignerFactory from "../auth/host";
+import { Villife } from "@team-stardusts/villife-client";
 
 /* export class LoginManagerProvider {
     static getLoginManager(host: HostType): ILoginManager {

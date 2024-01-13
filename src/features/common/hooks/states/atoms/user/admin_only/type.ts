@@ -1,4 +1,4 @@
-import Villife from "../../../../../../../libs/villife-client/types";
+import { Villife } from "@team-stardusts/villife-client";
 
 export type AdminInformation = {
     selectedBuilding: Villife.User.SimpleBuildingInfo;

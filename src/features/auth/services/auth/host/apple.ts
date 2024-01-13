@@ -2,7 +2,7 @@ import appleAuth from "@invertase/react-native-apple-authentication";
 import DotEnv from "../../../../../libs/dotenv";
 import { SignInResult, Signer } from "./types";
 import VillifeNativeClient from "../../../../../libs/villife-native-client";
-import Villife from "../../../../../libs/villife-client/types";
+import { Villife } from "@team-stardusts/villife-client";
 
 const env = new DotEnv();
 

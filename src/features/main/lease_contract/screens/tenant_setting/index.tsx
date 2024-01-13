@@ -16,11 +16,11 @@ import VillifeToastMessage from "../../../../common/atoms/toast";
 import TenantInfoInput from "./blocks/tenant_info";
 import LateFeeRate from "./blocks/latefee";
 import useRoomViewModel from "../../viewmodel/room";
-import Villife from "../../../../../libs/villife-client/types";
+
 import StardustDateParser from "../../../../../libs/date_parser";
 import PaymentMethod from "./blocks/payment_method";
 import { RoomInfo } from "../../viewmodel/room/states";
-
+import { Villife } from "@team-stardusts/villife-client";
 
 export default function TenantSettingScreen({ navigation, route }: TenantSettingScreenProps) {
     const styles = useTenantSettingScreenStyles();

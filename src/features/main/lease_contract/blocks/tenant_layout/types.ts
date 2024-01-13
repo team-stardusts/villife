@@ -1,4 +1,4 @@
-import Villife from "../../../../../libs/villife-client/types";
+import { Villife } from "@team-stardusts/villife-client";
 import { LayoutType } from "../../screens/home/blocks/layout/types";
 
 export type TentantLayoutProps = TentantLayoutDefaultProps & {

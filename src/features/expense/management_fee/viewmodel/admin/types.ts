@@ -1,4 +1,4 @@
-import Villife from "../../../../../libs/villife-client/types";
+import { Villife } from "@team-stardusts/villife-client";
 import { UserInfo } from "../../../../common/hooks/service/user_info/types";
 import { ViewModel } from "../../../../common/model/types";
 import { UserManagementFee } from "../renter/types";

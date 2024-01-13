@@ -7,7 +7,7 @@ import { AdminInformation } from "../../states/atoms/user/admin_only/type";
 import { adminInfoState } from "../../states/atoms/user/admin_only";
 import useAdminInfoService from "./service";
 import { LOGIN_BUILDING_ID_TEMP } from "../../../../auth/services/authentication";
-import Villife from "../../../../../libs/villife-client/types";
+import { Villife } from "@team-stardusts/villife-client";
 
 export default function useUserInformation(): UserInfo | null {
     const adminService = useAdminInfoService();

@@ -8,7 +8,7 @@ import Icon from "../../../../../../common/atoms/icon";
 import { useEffect, useMemo, useState } from "react";
 import StardustDateParser from "../../../../../../../libs/date_parser";
 import useAdminMFViewModel from "../../../../viewmodel/admin";
-import Villife from "../../../../../../../libs/villife-client/types";
+import { Villife } from "@team-stardusts/villife-client";
 
 export default function AdminMFView(props: AdminMFViewProps) {
     const navigation = useNavigation<VillifeNavigation>();
