@@ -21,6 +21,7 @@ export namespace Payment {
             product_type: Order["product_type"];
             product_name: string;
             price: number;
+            tax_free_amount: number;
         };
         export type Result = Order | null;
     }

@@ -119,6 +119,7 @@ export type VillifeStackParamList = VillifeRootStackParamList & {
         product_type: "pt_management_fee" | "pt_monthlt_rent";
         product_name: string;
         price: number;
+        tax_free_amount?: number;
     };
     register_vehicle?: {};
     register_guest_vehicle?: {};

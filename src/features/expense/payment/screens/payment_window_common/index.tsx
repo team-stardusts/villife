@@ -13,6 +13,7 @@ export default function CommonPaymentWindowScreen(params: CommonPaymentWindowScr
         product_type: navParam.product_type,
         product_name: navParam.product_name,
         price: navParam.price,
+        tax_free_amount: navParam.tax_free_amount ?? 0,
     });
     const styles = usePaymentCommonScreenStyles();
 
