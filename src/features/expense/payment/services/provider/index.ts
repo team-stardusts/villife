@@ -22,7 +22,7 @@ export default class PaymentServiceProvider extends AServiceProvider implements 
             return null;
         }
 
-        const url = `${this.env.api.villife.REST_API_BASE_URL}/payment/widget?order_unique_id=${result.data.data.unique_id}`;
+        const url = `${this.env.api.villife.REST_API_BASE_URL}payment/widget?order_unique_id=${result.data.data.unique_id}`;
 
         return url;
     }
