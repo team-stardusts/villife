@@ -28,6 +28,7 @@ export type ContractProps = InfoRowDefaultProps<Villife.Contract.RentType> & {
 export type MoneyProps = InfoRowDefaultProps<number> & {
     title: string;
     initialValue?: number;
+    unit: string;
 };
 
 export type ContractRange = InfoRowDefaultProps<Dates> & {

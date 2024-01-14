@@ -25,6 +25,11 @@ export default function Money(props: MoneyProps) {
         if (Number.isNaN(number)) {
             setMoney(null);
             VillifeToastMessage.showBottomToast("error", "숫자만 입력할 수 있습니다.");
+        } else if (props.unit === "%" && (number > 100 || number < 0)) {
+            setMoney(null);
+            VillifeToastMessage.showBottomToast("error", "0 이상, 100 이하의 숫자만 입력할 수 있어요.");
+
+            return;
         } else {
             setMoney(number);
         }
@@ -44,7 +49,7 @@ export default function Money(props: MoneyProps) {
                     onChangeText={(text) => handleChangeMoney(text)}
                 />
                 <View style={props.styles.moneyInputPostFixBox}>
-                    <Text style={props.styles.contractText}>원</Text>
+                    <Text style={props.styles.contractText}>{props.unit}</Text>
                 </View>
             </View>
         </View>

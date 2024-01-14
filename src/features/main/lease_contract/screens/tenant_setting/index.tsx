@@ -18,7 +18,6 @@ import PaymentMethod from "./blocks/payment_method";
 import { RoomInfo } from "../../viewmodel/room/states";
 import { Villife } from "@team-stardusts/villife-client";
 import { View } from "react-native";
-import LateFeeRate from "./blocks/latefee";
 
 export default function TenantSettingScreen({ navigation, route }: TenantSettingScreenProps) {
     const styles = useTenantSettingScreenStyles();
@@ -321,7 +320,7 @@ export default function TenantSettingScreen({ navigation, route }: TenantSetting
                             onChangeInfo={(info) => setIsPrePaidMr(info)}
                         />
                     )}
-                    {[monthlyRent, deposit, fee, latefeeRate].map((money, index) => {
+                    {[monthlyRent, fee, deposit, latefeeRate].map((money, index) => {
                         if (contract.type === "lump-sum-deposit" && money.text === "월세") {
                             return <View key={index} />;
                         }
@@ -343,25 +342,13 @@ export default function TenantSettingScreen({ navigation, route }: TenantSetting
                                 break;
                         }
 
-                        return money.text === "연체요율" ? (
-                            <LateFeeRate
-                                key={index}
-                                styles={styles}
-                                initialValue={previousRoomInfo?.delinquencyRate}
-                                title={money.text}
-                                onChangeInfo={(info) =>
-                                    setter({
-                                        text: money.text,
-                                        value: info,
-                                    })
-                                }
-                            />
-                        ) : (
+                        return (
                             <Money
                                 key={index}
                                 styles={styles}
                                 initialValue={money.value}
                                 title={money.text}
+                                unit={money.text === "연체요율" ? "%" : "원"}
                                 onChangeInfo={(info) =>
                                     setter({
                                         text: money.text,

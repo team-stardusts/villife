@@ -40,7 +40,23 @@ export default function ManagementFeeBox(props: ManagementFeeBoxProps) {
 
     const handlePressPaymentBtn = () => {
         if (props.bill !== null) {
-            Alert.alert("카드 결제는 체험 기능이에요!", "한 번 체험 해보시겠어요?\n실제로 출금되지는 않습니다.", [
+            const cardServiceFee = Math.floor(props.bill.feeToPay * 0.05);
+            navigation.navigate("confirm_payment_cost", {
+                title: "관리비 결제하기",
+                product_id: props.bill.latestBillId,
+                product_name: "관리비",
+                product_type: "pt_management_fee",
+                price: props.bill.feeToPay + cardServiceFee,
+                tax_free_amount: props.bill.feeToPay,
+                bill: {
+                    당월부과액: props.bill.currentMonthlyCharge,
+                    연체이자: props.bill.lateFee,
+                    미납액: props.bill.unpaidFee,
+                    서비스이용료: cardServiceFee,
+                    총액: props.bill.feeToPay + cardServiceFee,
+                },
+            });
+            /* Alert.alert("카드 결제는 체험 기능이에요!", "한 번 체험 해보시겠어요?\n실제로 출금되지는 않습니다.", [
                 {
                     text: "취소",
                 },
@@ -62,17 +78,12 @@ export default function ManagementFeeBox(props: ManagementFeeBoxProps) {
                                     미납액: props.bill.unpaidFee,
                                     서비스이용료: cardServiceFee,
                                     총액: props.bill.feeToPay + cardServiceFee,
-                                    /* 관리용역비: 20000,
-                                    일반관리비: 45000,
-                                    소독비: 100,
-                                    화재보험료: 100,
-                                    수선유지비: 100, */
                                 },
                             });
                         }
                     },
                 },
-            ]);
+            ]); */
         }
     };
 

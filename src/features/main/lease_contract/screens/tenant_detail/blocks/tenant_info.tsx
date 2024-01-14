@@ -208,9 +208,7 @@ export default function TenantInfo(props: TenantInfoProps) {
                         rowKey={"연체요율"}
                         rowValue={
                             insertCommaToMoney(
-                                props.room.contractInfo?.delinquencyRate
-                                    ? props.room.contractInfo?.delinquencyRate * 100
-                                    : 0
+                                props.room.contractInfo?.delinquencyRate ? props.room.contractInfo?.delinquencyRate : 0
                             ) + "%"
                         }
                     />
