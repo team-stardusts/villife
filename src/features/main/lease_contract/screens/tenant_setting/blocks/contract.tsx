@@ -3,12 +3,12 @@ import ListBottomSlidableModal from "../../../../../common/blocks/modal/bottom_l
 import Icon from "../../../../../common/atoms/icon";
 import { useEffect, useState } from "react";
 import type { ContractProps } from "../types";
-import type { Building } from "../../../../../../libs/rest_apis/villife/building/types";
 import { ModalFeature } from "../../../../../common/blocks/modal/bottom_list/types";
+import { Villife } from "@team-stardusts/villife-client";
 
 export default function Contract(props: ContractProps) {
     //const contracts: Building.RentType[] = ["lump-sum-deposit", "monthly-rent", "partial-lump-sum-deposit"];
-    const [contract, setContract] = useState<Building.RentType | null>(null);
+    const [contract, setContract] = useState<Villife.Contract.RentType | null>(null);
     const [modalVisible, setModalVisible] = useState<boolean>(false);
 
     useEffect(() => {
@@ -18,6 +18,8 @@ export default function Contract(props: ContractProps) {
     }, []);
 
     useEffect(() => {
+        if (contract === null) return;
+
         props.onChangeInfo(contract);
     }, [contract]);
 

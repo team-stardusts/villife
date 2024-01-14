@@ -9,10 +9,10 @@ export default function Money(props: MoneyProps) {
     const [money, setMoney] = useState<number | null>(null);
 
     useEffect(() => {
-        if (props.initialMoney) {
-            setMoney(props.initialMoney);
+        if (props.initialValue) {
+            setMoney(props.initialValue);
         }
-    }, [props.initialMoney]);
+    }, [props.initialValue]);
 
     useEffect(() => {
         props.onChangeInfo(money === null ? 0 : money);

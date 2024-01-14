@@ -7,21 +7,17 @@ import type { Building } from "../../../../../../libs/rest_apis/villife/building
 import { ModalFeature } from "../../../../../common/blocks/modal/bottom_list/types";
 
 export default function PaymentMethod(props: PaymentMethodProps) {
-    const [isPrePaidMr, setisPrePaidMr] = useState<Building.PaymentMethodType | null>(
-        props.initialPaymentMethodType || null
-    );
+    const [isPrePaidMr, setisPrePaidMr] = useState<Building.PaymentMethodType | null>(null);
     const [modalVisible, setModalVisible] = useState<boolean>(false);
 
     useEffect(() => {
-        if (props.initialPaymentMethodType) {
-            setisPrePaidMr(props.initialPaymentMethodType);
-        } else {
-            setisPrePaidMr(null);
-        }
+        if (props.initialPaymentMethodType !== undefined) setisPrePaidMr(props.initialPaymentMethodType);
     }, []);
 
     useEffect(() => {
-        props.onChangeInfo(isPrePaidMr ?? false);
+        if (isPrePaidMr === null) return;
+
+        props.onChangeInfo(isPrePaidMr);
     }, [isPrePaidMr]);
 
     const features: ModalFeature[] = [
@@ -44,14 +40,9 @@ export default function PaymentMethod(props: PaymentMethodProps) {
     ];
 
     const setContractText = () => {
-        switch (isPrePaidMr) {
-            case true:
-                return "선불";
-            case false:
-                return "후불";
-            default:
-                return "선택";
-        }
+        if (isPrePaidMr === null) return "선택";
+
+        return isPrePaidMr ? "선불" : "후불";
     };
 
     return (

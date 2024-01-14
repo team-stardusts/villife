@@ -1,5 +1,5 @@
 import { Text, View } from "react-native";
-import { TenantInfo, TenantInfoInputProps } from "../types";
+import { UserProfile, TenantInfoInputProps } from "../types";
 import ReusableTextInput from "../../../../../common/blocks/text_input";
 import UniversalTextInput from "../../../../../common/blocks/universial/textinput";
 import { useEffect, useState } from "react";
@@ -8,7 +8,7 @@ import VillifeToastMessage from "../../../../../common/atoms/toast";
 
 export default function TenantInfoInput(props: TenantInfoInputProps) {
     const vaildator = new StringValidator();
-    const [tenantInfo, setTenantInfo] = useState<TenantInfo>({
+    const [tenantInfo, setTenantInfo] = useState<UserProfile>({
         name: null,
         phoneNumber: null,
     });
@@ -18,7 +18,6 @@ export default function TenantInfoInput(props: TenantInfoInputProps) {
             const phoneNumber: string[] | null = splitInitialInfoPhonenumber(props.initialInfo.phoneNumber);
 
             setTenantInfo({
-                ...tenantInfo,
                 name: props.initialInfo.name === "" ? null : props.initialInfo.name,
                 phoneNumber: phoneNumber === null ? null : phoneNumber.join("-"),
             });

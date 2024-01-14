@@ -2,30 +2,32 @@ import type { NativeStackScreenProps } from "@react-navigation/native-stack";
 import type { VillifeStackParamList } from "../../../../common/router/types";
 import type useTenantSettingScreenStyles from "./styles";
 import type { Dates } from "../../../../common/blocks/modal/calendar/types";
-import type { Building } from "../../../../../libs/rest_apis/villife/building/types";
+import { Villife } from "@team-stardusts/villife-client";
 
 type TenantSettingScreenProps = NativeStackScreenProps<VillifeStackParamList, "tenant_setting">;
 
 export default TenantSettingScreenProps;
 
-export type TenantInfoInputProps = InfoRowDefaultProps<TenantInfo> & {
+export type ScreenTitle = {
+    nav: string;
+    main: string;
+    sub: string;
+};
+
+export type TenantInfoInputProps = InfoRowDefaultProps<UserProfile> & {
     initialInfo?: {
         name: string;
         phoneNumber: string;
     };
 };
 
-export type ContractProps = InfoRowDefaultProps<Building.RentType | null> & {
-    initialRentType?: Building.RentType;
+export type ContractProps = InfoRowDefaultProps<Villife.Contract.RentType> & {
+    initialRentType?: Villife.Contract.RentType;
 };
 
 export type MoneyProps = InfoRowDefaultProps<number> & {
     title: string;
-    initialMoney?: number;
-};
-
-export type LateFeeRateProps = InfoRowDefaultProps<number> & {
-    initialRate?: number;
+    initialValue?: number;
 };
 
 export type ContractRange = InfoRowDefaultProps<Dates> & {
@@ -35,8 +37,8 @@ export type ContractRange = InfoRowDefaultProps<Dates> & {
     };
 };
 
-export type PaymentMethodProps = InfoRowDefaultProps<Building.PaymentMethodType> & {
-    initialPaymentMethodType?: Building.PaymentMethodType;
+export type PaymentMethodProps = InfoRowDefaultProps<Villife.Contract.PaymentMethodType> & {
+    initialPaymentMethodType?: Villife.Contract.PaymentMethodType;
 };
 
 export type InfoRowDefaultProps<T> = {
@@ -44,18 +46,17 @@ export type InfoRowDefaultProps<T> = {
     onChangeInfo(data: T): void;
 };
 
-export type TenantInfo = {
+export type UserContract = {
+    type: Villife.Contract.RentType | null;
+    dates: Dates | null;
+};
+
+export type UserProfile = {
     name: string | null;
     phoneNumber: string | null;
 };
 
-export type MoneyTypes = {
-    deposit: MoneyType;
-    monthlyRent?: MoneyType;
-    managementFee: MoneyType;
-};
-
-type MoneyType = {
-    text: string;
+export type MoneyType = {
+    text: "보증금" | "관리비" | "월세" | "연체요율";
     value: number;
 };

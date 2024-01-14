@@ -2,15 +2,14 @@ import { useEffect, useState } from "react";
 import VillifeToastMessage from "../../../../../common/atoms/toast";
 import { View, Text } from "react-native";
 import UniversalTextInput from "../../../../../common/blocks/universial/textinput";
-import type { LateFeeRateProps } from "../types";
-import { insertCommaToNumber } from "../../../../../common/global_function";
+import type { MoneyProps } from "../types";
 
-export default function LateFeeRate(props: LateFeeRateProps) {
+export default function LateFeeRate(props: MoneyProps) {
     const [lateFeeRate, setLateFeeRate] = useState<number | null>(null);
 
     useEffect(() => {
-        if (props.initialRate) {
-            setLateFeeRate(props.initialRate * 100);
+        if (props.initialValue) {
+            setLateFeeRate(props.initialValue * 100);
         }
     }, []);
 
@@ -38,7 +37,7 @@ export default function LateFeeRate(props: LateFeeRateProps) {
     return (
         <View style={props.styles.row}>
             <View style={props.styles.rowTitleBox}>
-                <Text style={props.styles.title}>연체요율</Text>
+                <Text style={props.styles.title}>{props.title}</Text>
             </View>
             <View style={props.styles.moneyInputBox}>
                 <UniversalTextInput

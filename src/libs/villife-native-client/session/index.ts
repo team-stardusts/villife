@@ -1,4 +1,4 @@
-import Villife from "../../villife-client/types";
+import { Villife } from "@team-stardusts/villife-client";
 import VillifeStorage from "../../storage";
 import LoginTable from "../../storage/tables/login";
 
