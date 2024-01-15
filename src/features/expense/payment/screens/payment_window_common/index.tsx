@@ -45,8 +45,15 @@ export default function CommonPaymentWindowScreen(params: CommonPaymentWindowScr
                             console.log("onAccessibilityAction", e);
                         }}
                         onShouldStartLoadWithRequest={(event) => {
-                            console.log("onShouldstart");
-                            console.log(event.url);
+                            if (
+                                event.url.startsWith("https://myvillife.com/api-v1/payment/request-failure") ||
+                                event.url.startsWith("https://myvillife.com/api-v1/payment/approval-request")
+                            ) {
+                                setTimeout(() => {
+                                    params.navigation.navigate("management_fee");
+                                }, 3000);
+                            }
+
                             if (event.url.startsWith("http")) {
                                 return true;
                             }
