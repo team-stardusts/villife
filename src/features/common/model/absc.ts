@@ -55,13 +55,12 @@ abstract class ViewModelCommmon<ViewData = any, StoredViewData = ViewData> imple
      * @returns
      */
     protected createStorageKey(user: UserInfo): string {
-        const keyArr = [user.roomID?.toString(), user.name];
+        const keyArr = [user.roomID ? user.roomID.toString() : "UnknownedUser_UnexceptedCase", user.name];
 
         if (user.isAdmin) {
-            if (user.adminInfomation?.selectedBuilding !== undefined) {
-                keyArr.push(user.adminInfomation.selectedBuilding.id.toString());
-            } else {
-                keyArr.push("unknownBuilding");
+            if (user.isAdmin) {
+                const buildingID = user.adminInfomation?.selectedBuilding?.id;
+                keyArr.push(buildingID ? buildingID.toString() : "unknownBuilding");
             }
         }
 
