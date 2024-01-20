@@ -24,7 +24,7 @@ export default function useRouteFSM() {
 
     class RouteFSM implements RouteFiniteStateMachine {
         private _appState: VillifeAppState = appState;
-        private _situation: VillifeLoginState = loginState;
+        private _loginState: VillifeLoginState = loginState;
         //private _linking: string | null = linking;
 
         public get appState(): VillifeAppState {
@@ -44,7 +44,7 @@ export default function useRouteFSM() {
         } */
 
         public get loginState(): VillifeLoginState {
-            return this._situation;
+            return this._loginState;
         }
 
         public set loginState(newSituation: VillifeLoginState) {
@@ -102,6 +102,7 @@ export default function useRouteFSM() {
         }
 
         public onChangeUserState(): void {
+            console.log("Changed", this.loginState);
             switch (this.loginState) {
                 case VillifeLoginState.NORMAL:
                     this.onChangeLoginStateToNormal();
@@ -156,11 +157,11 @@ export default function useRouteFSM() {
             console.log("[ONLOGIN]", "Refresh the access token.");
 
             const routes = navigation.getState().routes;
-
+            console.log(routes);
             // Default screen이 splash이므로, 리프레쉬를 하더라도 0번 스택에 splash가 쌓임
             // Login을 못했거나, 로그인에 실패한 경우에는 이 분기에 도달하지 않음
             if (routes.length > 0) {
-                if (routes[0].name === "splash") {
+                if (routes[0].name === "splash" || routes[0].name === "login") {
                     navigation.reset({
                         index: 0,
                         routes: [{ name: "home" }],
