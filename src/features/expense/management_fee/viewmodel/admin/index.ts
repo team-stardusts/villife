@@ -42,6 +42,7 @@ export default function useAdminMFViewModel(): AdminMFViewModelBase {
 
             return this._clientInstance.contract
                 .getBuilding(this.user.adminInfomation?.selectedBuilding.id)
+                .then((r) => r)
                 .catch((err) => {
                     console.error("[ADMIN_MF_VIEWMODEL]", "occured while getting building info.", err);
                     return null;

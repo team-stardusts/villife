@@ -3,7 +3,7 @@ import NavigationView from "../../../../common/blocks/navigation";
 import BuildingMFHistoryScreenProps from "./types";
 import useBuildingMFHistoryScreenStyles from "./styles";
 import ScreenTopFilter from "../../../../common/blocks/top_filter";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Filter } from "../../../../common/blocks/top_filter/types";
 import buildingManagementFeeFilter from "./filter";
 import MFHistoryCardView from "../../blocks/card";
@@ -15,6 +15,7 @@ export default function BuildingMFHistoryScreen({ navigation }: BuildingMFHistor
     const styles = useBuildingMFHistoryScreenStyles();
 
     const viewModel = useAdminMFViewModel();
+    const [mfNotiDate, setMfNotiData] = useState<number | null>(null);
     const [filteredHistory, setFilteredHistory] = useState<BuildingMFHistory[]>([]);
     const filters = useMemo<Filter<BuildingMFHistory>[]>(() => {
         let floors = viewModel.data.map((f) => Math.floor(f.roomNumber / 100).toString());
@@ -38,6 +39,12 @@ export default function BuildingMFHistoryScreen({ navigation }: BuildingMFHistor
 
         return _filter;
     }, viewModel.data);
+
+    useEffect(() => {
+        viewModel.getBuildingInfo().then((r) => {
+            if (r) setMfNotiData(r.mfNotiDate);
+        });
+    }, [viewModel.user.adminInfomation?.selectedBuilding]);
 
     return (
         <NavigationView
@@ -110,14 +117,16 @@ export default function BuildingMFHistoryScreen({ navigation }: BuildingMFHistor
                         </TouchableOpacity>
                     </View>
                     <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
-                        {filteredHistory.map((element, index, elements) => (
-                            <MFHistoryCardView
-                                key={index}
-                                index={index}
-                                totalCardCount={elements.length}
-                                {...element}
-                            />
-                        ))}
+                        {mfNotiDate !== null &&
+                            filteredHistory.map((element, index, elements) => (
+                                <MFHistoryCardView
+                                    key={index}
+                                    index={index}
+                                    totalCardCount={elements.length}
+                                    mfNotiDate={mfNotiDate}
+                                    {...element}
+                                />
+                            ))}
                     </ScrollView>
                 </View>
             </View>

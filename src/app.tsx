@@ -8,14 +8,12 @@
 import React from "react";
 import ScreenRouter from "./features/common/router";
 import { RecoilRoot } from "recoil";
-import { LinkingOptions, NavigationContainer } from "@react-navigation/native";
-import { Linking, NativeModules } from "react-native";
+import { NavigationContainer } from "@react-navigation/native";
+import { NativeModules } from "react-native";
 import Toast from "react-native-toast-message";
-import { VillifeStackParamList } from "./features/common/router/types";
 import CodePush from "react-native-code-push";
 import codePushOptions from "./code-push-options";
 import { checkNotifications } from "react-native-permissions";
-import villifeVersion from "./libs/villife-version";
 import linking from "./features/common/router/link-options";
 
 const { UIManager } = NativeModules;

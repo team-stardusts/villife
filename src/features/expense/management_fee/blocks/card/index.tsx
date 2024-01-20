@@ -52,17 +52,21 @@ export default function MFHistoryCardView(props: MFHistoryCardViewProps) {
         }
     }, [props.checkmode?.checkAll]);
 
-    const isNotiRequired = (): boolean => {
-        const today = StardustDateParser.changeGMT(new Date(), "kr");
-
-        return !(props.lastestNotiYear === today.getFullYear() && props.lastestNotiMonth === today.getMonth() + 1);
-    };
-
-    const isUnpaid = (): boolean => {
+    const isPaid = (): boolean => {
         //const today = StardustDateParser.changeGMT(new Date(), "kr");
 
         //return props.LastestPaidYear !== today.getFullYear() || props.LastestPaidMonth !== today.getMonth() + 1;
-        return props.totalUnpaidFee > 0;
+        return props.totalUnpaidFee === 0;
+    };
+
+    const isNotiRequired = (): boolean => {
+        const today = StardustDateParser.changeGMT(new Date(), "kr");
+
+        return !(
+            props.lastestNotiYear === today.getUTCFullYear() &&
+            props.lastestNotiMonth === today.getUTCMonth() + 1 &&
+            props.mfNotiDate > today.getUTCDate()
+        );
     };
 
     function NotiMark() {
@@ -131,7 +135,7 @@ export default function MFHistoryCardView(props: MFHistoryCardViewProps) {
                         <Text style={styles.rowKey} adjustsFontSizeToFit numberOfLines={1}>
                             미 납 금
                         </Text>
-                        {isUnpaid() && <NotiMark />}
+                        {!isPaid() && <NotiMark />}
                     </View>
                     <Text style={styles.rowValue}>{insertCommaToNumber(props.totalUnpaidFee || 0) + "원"}</Text>
                 </View>
