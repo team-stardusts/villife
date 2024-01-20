@@ -62,15 +62,39 @@ import ContractMemoEditScreen from "../../main/lease_contract/screens/memo";
 import { NotificationBoxScreen } from "../../main/home/screens/notification-box";
 import WithdrawalScreen from "../../main/mypage/screens/withdrawal";
 import MyPageWebViewScreen from "../../main/mypage/screens/webview";
+import { useRecoilState } from "recoil";
+import { isConnetedToNetworkState } from "../hooks/states/atoms/network";
+import { useEffect } from "react";
+import { IEventListenable } from "../global_interface";
+import { NetInfoEvents } from "../../../libs/netinfo/types";
+import { NetInfoState } from "@react-native-community/netinfo";
+import NetInfoEventHandler from "../../../libs/netinfo";
+import useFirebaseMessagingListener from "../hooks/firebase/messaging/listening";
 
 enableScreens(true);
 
 const Stack = createNativeStackNavigator<VillifeStackParamList>();
 
 export default function ScreenRouter() {
+    const netinfo: IEventListenable<NetInfoEvents, NetInfoState> = new NetInfoEventHandler();
+    const [_, setIsConnectedToNetwork] = useRecoilState<boolean>(isConnetedToNetworkState);
+
     useFirebaseMessagingEmitter();
+    useFirebaseMessagingListener();
     useRouteFSMEngine();
     useAutoRegisterFirebaseToken();
+
+    useEffect(() => {
+        // 앱 시작 시 네트워크 스테이트 설정
+        // Network가 연결되지 않은 경우 예외 처리를 위함
+        netinfo.listen("changed", (_, state) => {
+            setIsConnectedToNetwork(state.isConnected === null ? false : state.isConnected);
+        });
+
+        return () => {
+            netinfo.removeAllListeners();
+        };
+    }, []);
 
     return (
         <Stack.Navigator
@@ -81,7 +105,7 @@ export default function ScreenRouter() {
                     android: "fade",
                 }),
             }}
-            initialRouteName={"login"}>
+            initialRouteName={"splash"}>
             <Stack.Group>
                 <Stack.Screen name={"permission_request"} component={PermissionRequestScreen} />
                 <Stack.Screen name={"login"} component={LoginScreen} />

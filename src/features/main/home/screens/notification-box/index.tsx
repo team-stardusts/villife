@@ -10,10 +10,20 @@ import StardustDateParser from "../../../../../libs/date_parser";
 export function NotificationBoxScreen({ navigation, route }: NotificationBoxScreenProps) {
     const styles = useNotificationBoxScreenStyles();
     const viewModel = useNotificationBoxViewModel();
-    const today = useMemo<Date>(() => StardustDateParser.changeGMT(new Date(), "kr"), []);
+    const today = useMemo<Date>(() => new Date(), []);
     const [newNotiIds, setNewNotiIds] = useState<number[]>([]);
 
     const isSameDate = (date1: Date, date2: Date) => {
+        console.log(
+            date1.getFullYear(),
+            date1.getMonth(),
+            date1.getDate(),
+            "VS",
+            date2.getFullYear(),
+            date2.getMonth(),
+            date2.getDate()
+        );
+
         return (
             date1.getFullYear() === date2.getFullYear() &&
             date1.getMonth() === date2.getMonth() &&

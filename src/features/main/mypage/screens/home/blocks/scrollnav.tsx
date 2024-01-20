@@ -10,9 +10,9 @@ export default function ScrollNav(props: ScrollNavProps) {
     const user = useUserInformation();
     const manualUrl = useMemo<string>(() => {
         if (user?.isAdmin) {
-            return "https://www.notion.so/villife/7b79c15773ee404985edf8cb635eb831";
+            return "https://villife.notion.site/7b79c15773ee404985edf8cb635eb831?pvs=4";
         } else {
-            return "https://www.notion.so/villife/38a1a08fbb9d46f7953959123025f529";
+            return "https://villife.notion.site/38a1a08fbb9d46f7953959123025f529?pvs=4";
         }
     }, [user?.isAdmin]);
 
@@ -76,7 +76,7 @@ export default function ScrollNav(props: ScrollNavProps) {
                     onPress={() =>
                         navigation.navigate("mypage_webview", {
                             title: "서비스 이용 약관",
-                            url: "https://villife.notion.site/d60bebc9a0c5400883375d8257ad4bfc",
+                            url: "https://villife.notion.site/d60bebc9a0c5400883375d8257ad4bfc?pvs=4",
                         })
                     }
                 />
@@ -86,7 +86,7 @@ export default function ScrollNav(props: ScrollNavProps) {
                     onPress={() =>
                         navigation.navigate("mypage_webview", {
                             title: "개인정보 처리 방침",
-                            url: "https://villife.notion.site/4aa060ac489b44e7b8bdfaae6b4cab54",
+                            url: "https://villife.notion.site/4aa060ac489b44e7b8bdfaae6b4cab54?pvs=4",
                         })
                     }
                 />

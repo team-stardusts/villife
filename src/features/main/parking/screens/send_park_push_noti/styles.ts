@@ -11,12 +11,6 @@ export default function useSendParkPushNotiScreenStyles() {
         container: {
             flex: 1,
         },
-        screenGuideBox: {
-            flex: 1.5,
-        },
-        messageBox: {
-            flex: 8.5,
-        },
     });
 
     const message = StyleSheet.create({
@@ -37,12 +31,12 @@ export default function useSendParkPushNotiScreenStyles() {
             backgroundColor: theme.color.specified.lightblue,
         },
         myVehicle: {
-            ...theme.font.researved.h4,
-            fontFamily: theme.font.fontFamily.pretendard.semiBold,
+            fontFamily: theme.font.fontFamily.pretendard.medium,
+            fontSize: deviceUI.moderateScale(15),
             color: theme.color.specified.white,
         },
         timeRow: {
-            height: deviceUI.moderateScale(120),
+            height: deviceUI.moderateScale(80),
             marginVertical: deviceUI.moderateScale(20),
         },
         timeFocused: {
@@ -52,7 +46,9 @@ export default function useSendParkPushNotiScreenStyles() {
             color: theme.color.specified.lightblue,
         },
         message: {
-            ...theme.font.researved.h2,
+            fontFamily: theme.font.fontFamily.pretendard.regular,
+            fontSize: deviceUI.moderateScale(18),
+            color: theme.color.specified.black,
         },
         pressableMessageWrapper: {
             marginRight: deviceUI.moderateScale(10),

@@ -28,13 +28,13 @@ export default function NotiBoxShortcut() {
     }, []); */
 
     useEffect(() => {
-        if (viewModel.user.isRenter) {
+        if (viewModel.user?.isRenter) {
             viewModel.update();
             return;
-        } else if (viewModel.user.isAdmin && viewModel.user.adminInfomation?.selectedBuilding) {
+        } else if (viewModel.user?.isAdmin && viewModel.user.adminInfomation?.selectedBuilding) {
             viewModel.update();
         }
-    }, [viewModel.user.adminInfomation?.selectedBuilding]);
+    }, [viewModel.user?.adminInfomation?.selectedBuilding]);
 
     return (
         <View style={styles.container}>

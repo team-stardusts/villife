@@ -3,7 +3,7 @@ import useNavigationViewBottomStyles from "./styles";
 import Icon from "../../../atoms/icon";
 import { useEffect, useMemo, useRef } from "react";
 import useRootLinks from "../root_links";
-import { useNavigation } from "@react-navigation/native";
+import { StackActions, useNavigation } from "@react-navigation/native";
 import { VillifeRouterParams } from "../../../router/types";
 import { RootLink } from "../types";
 import useUserInformation from "../../../hooks/service/user_info";
@@ -45,6 +45,32 @@ export default function NavigationViewBottom() {
             useNativeDriver: true,
         }).start();
     }, []);
+
+    useEffect(() => {
+        const linkNames = rootLinks.map((link) => link.screen.name);
+        const routes = navigation.getState().routes;
+        let rootlinkCnt = 0;
+
+        routes.forEach((route) => {
+            if (linkNames.findIndex((link) => link === route.name) != -1) {
+                rootlinkCnt += 1;
+            }
+        });
+
+        if (rootlinkCnt >= 2) {
+            navigation.reset({
+                index: 0,
+                routes: routes.slice(1).map((route) => {
+                    return {
+                        name: route.name,
+                        params: route.params,
+                        path: route.path,
+                        //"state": route.state
+                    };
+                }),
+            });
+        }
+    }, [navigation]);
 
     return (
         <View style={styles.container}>

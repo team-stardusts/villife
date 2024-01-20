@@ -11,7 +11,7 @@ import { RecoilRoot } from "recoil";
 import { LinkingOptions, NavigationContainer } from "@react-navigation/native";
 import { Linking, NativeModules } from "react-native";
 import Toast from "react-native-toast-message";
-import { VillifeRootStackParamList } from "./features/common/router/types";
+import { VillifeRootStackParamList, VillifeRouterParams, VillifeStackParamList } from "./features/common/router/types";
 import CodePush from "react-native-code-push";
 import codePushOptions from "./code-push-options";
 import { checkNotifications } from "react-native-permissions";
@@ -26,25 +26,37 @@ global.Buffer = global.Buffer || require("buffer").Buffer;
 
 function App(): JSX.Element {
     checkNotifications().then((r) => console.log("[NOTI_PERMISSION]", r));
-    const linking: LinkingOptions<VillifeRootStackParamList> = {
+    const linking: LinkingOptions<VillifeStackParamList> = {
         prefixes: ["villife://"],
         config: {
-            initialRouteName: "login",
+            initialRouteName: "home",
             screens: {
                 login: {
                     path: "login",
                 },
+                home: {
+                    path: "home",
+                },
                 parking: {
-                    exact: true,
                     path: "parking",
                 },
+                register_vehicle: {
+                    path: "register_vehicle",
+                },
                 lease_contract: {
-                    exact: true,
-                    path: "lease-contract",
+                    path: "lease_contract",
+                },
+                noti_home: {
+                    path: "noti_home",
+                },
+                notification_box: {
+                    path: "notification_box",
+                },
+                complaint: {
+                    path: "complaint",
                 },
                 my_page: {
-                    exact: true,
-                    path: "my-page",
+                    path: "my_page",
                 },
             },
         },

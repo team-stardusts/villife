@@ -66,7 +66,7 @@ export default function useVehicleCardViewStyles() {
         },
         noCardTitle: {
             marginBottom: deviceUI.moderateScale(10),
-            fontFamily: theme.font.fontFamily.pretendard.medium,
+            fontFamily: theme.font.fontFamily.pretendard.regular,
             fontSize: deviceUI.moderateScale(16),
             color: theme.color.specified.black,
         },

@@ -46,6 +46,43 @@ export default function SendParkPushNotiScreen({ navigation, route }: SendParkPu
         setMyVehicleNumber(viewModel.data[0].plateNumber);
     }, [viewModel?.data]);
 
+    const onPressSendBtn = async () => {
+        if (viewModel === null) {
+            VillifeToastMessage.showBottomToast("error", "알 수 없는 오류가 발생했습니다.");
+            return;
+        }
+
+        console.log("[SEND_PARK_PUSH_NOTI]", route.params.vehicleID);
+        const isSuccessful: boolean = await viewModel.sendNotification({
+            vehicleId: route.params.vehicleID,
+            title: messages.main.parking.send_park_push_noti.screen_title,
+            content: content,
+        });
+
+        const alertTitle: string = isSuccessful
+            ? messages.boilerplate.succeed_to_send_message
+            : messages.boilerplate.fail_to_send_message;
+        const alertMessage: string | undefined = isSuccessful ? undefined : messages.boilerplate.try_again_soon;
+        setAlert({
+            ...alert,
+            type: isSuccessful ? "primary" : "error",
+            title: alertTitle,
+            message: alertMessage,
+            visible: true,
+            buttons: [
+                {
+                    text: "확인",
+                    onPress: () => {
+                        navigation.reset({
+                            index: 0,
+                            routes: [{ name: "parking", params: {} }],
+                        });
+                    },
+                },
+            ],
+        });
+    };
+
     return (
         <NavigationView
             headerOptions={{
@@ -56,44 +93,7 @@ export default function SendParkPushNotiScreen({ navigation, route }: SendParkPu
                 navComponent: SimpleNavComponent,
                 navComponentProps: {
                     title: "보내기", //messages.words.register,
-                    onPress: async () => {
-                        if (viewModel === null) {
-                            VillifeToastMessage.showBottomToast("error", "알 수 없는 오류가 발생했습니다.");
-                            return;
-                        }
-
-                        console.log("[SEND_PARK_PUSH_NOTI]", route.params.vehicleID);
-                        const isSuccessful: boolean = await viewModel.sendNotification({
-                            vehicleId: route.params.vehicleID,
-                            title: messages.main.parking.send_park_push_noti.screen_title,
-                            content: content,
-                        });
-
-                        const alertTitle: string = isSuccessful
-                            ? messages.boilerplate.succeed_to_send_message
-                            : messages.boilerplate.fail_to_send_message;
-                        const alertMessage: string | undefined = isSuccessful
-                            ? undefined
-                            : messages.boilerplate.try_again_soon;
-                        setAlert({
-                            ...alert,
-                            type: isSuccessful ? "primary" : "error",
-                            title: alertTitle,
-                            message: alertMessage,
-                            visible: true,
-                            buttons: [
-                                {
-                                    text: "확인",
-                                    onPress: () => {
-                                        navigation.reset({
-                                            index: 0,
-                                            routes: [{ name: "parking", params: {} }],
-                                        });
-                                    },
-                                },
-                            ],
-                        });
-                    },
+                    onPress: () => onPressSendBtn(),
                 },
             }}
             bodyOptions={{
@@ -105,11 +105,11 @@ export default function SendParkPushNotiScreen({ navigation, route }: SendParkPu
                 titles={[messages.main.parking.send_park_push_noti.screen_title]}
                 subtitles={[messages.main.parking.send_park_push_noti.request_to_send_park_noti]}
                 disablePaddingTop>
-                <View style={styles.main.messageBox}>
+                <View style={styles.main.container}>
                     <Messages
+                        styles={styles.message}
                         myVehicleNumber={myVehicleNumber || ""}
                         screenMessages={messages}
-                        styles={styles.message}
                         messageType={route.params.messageType}
                         onMessageChange={setContent}
                         onMyVehicleNumberPress={() => setVisible(true)}

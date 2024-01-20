@@ -1,63 +1,82 @@
-import { useEffect } from "react";
-import { useRecoilState, useSetRecoilState } from "recoil";
+import { useEffect, useMemo } from "react";
+import { useSetRecoilState } from "recoil";
 import { loginDataState } from "../../hooks/states/atoms/login";
 import VillifeStorage from "../../../../libs/storage";
 import { LoginDataType } from "../../../../libs/storage/tables/login/types";
 import useUserInformation from "../../hooks/service/user_info";
-import useFirebaseMessagingListener from "../../hooks/firebase/messaging/listening";
-import useRouteFSM from "./_fsm";
-import { LoadingState, Situation } from "./_fsm/types";
-import { IEventListenable } from "../../global_interface";
-import { NetInfoEvents } from "../../../../libs/netinfo/types";
-import { NetInfoState } from "@react-native-community/netinfo";
-import NetInfoEventHandler from "../../../../libs/netinfo";
-import { isConnetedToNetworkState } from "../../hooks/states/atoms/network";
-import { Platform } from "react-native";
+import useRouteFSM from "./machine";
+import { RouteFiniteStateMachine, VillifeAppState, VillifeLoginState } from "./types";
 import { objectToCamel } from "ts-case-convert";
+import { Linking } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import { VillifeNavigation } from "../types";
 
 export default function useRouteFSMEngine(): void {
     const setLoginData = useSetRecoilState<LoginDataType | null>(loginDataState);
     const userinfo = useUserInformation();
     const storage = VillifeStorage.getInstance();
-    const fsm = useRouteFSM();
-    const netinfo: IEventListenable<NetInfoEvents, NetInfoState> = new NetInfoEventHandler();
-    const [isConnetedToNetwork, setIsConnectedToNetwork] = useRecoilState<boolean>(isConnetedToNetworkState);
+    const fsm: RouteFiniteStateMachine = useRouteFSM();
+    const navigation = useNavigation<VillifeNavigation>();
 
-    useFirebaseMessagingListener();
+    const getInitURL = async () => {
+        const initURL = await Linking.getInitialURL(); // 없을 경우 null을 반환한다.
+        if (initURL) {
+            const path = initURL.split("//")[1];
+            /* if (path.startsWith("wc?uri=")) {
+                const uri = decodeURIComponent(path.slice(7));
+                //navigation.navigate('작업 처리할 컴포넌트', { uri: uri ? uri : '' });
+            } */
+
+            return path;
+        }
+
+        return null;
+    };
 
     // Listening on change login value
     useEffect(() => {
-        // 앱 시작 시 네트워크 스테이트 설정
-        // Network가 연결되지 않은 경우 예외 처리를 위함
-        netinfo.listen("changed", (_, state) => {
-            setIsConnectedToNetwork(state.isConnected === null ? false : state.isConnected);
-        });
-
         storage.addEventListener("CHANGE_LOGIN_VALUE", (logindata) => {
             setLoginData(logindata === null ? null : (objectToCamel(logindata) as LoginDataType));
 
+            // 로그인 정보가 없으므로 로그아웃 처리
             if (logindata === null) {
-                fsm.situation = Situation.LOGGED_OUT;
-                fsm.onChangeSituation();
+                fsm.loginState = VillifeLoginState.SIGN_OUT;
             }
         });
 
-        if (fsm.loading === LoadingState.IDLE) {
+        if (fsm.appState === VillifeAppState.BUSY) {
             return;
         }
+
+        /* getInitURL().then((url) => {
+            console.log(url, "씨발아");
+            fsm.linkingUrl = url;
+        }); */
 
         fsm.onAccessIntoApp();
 
         return () => {
-            netinfo.removeAllListeners();
             storage.removeEventListener("CHANGE_LOGIN_VALUE");
         };
     }, []);
 
     useEffect(() => {
-        if (fsm.loading === LoadingState.BUSY) return;
+        if (fsm.appState === VillifeAppState.IDLE) return;
 
-        fsm.onLogin(userinfo).onChangeSituation();
+        fsm.onSignIn(userinfo);
         //userinfo === null ? handleFailedToLogin() : handleLogin();
-    }, [userinfo?.rawdata, fsm.loading]);
+    }, [userinfo?.rawdata, fsm.appState]);
+
+    useEffect(() => {
+        if (fsm.appState === VillifeAppState.IDLE) {
+            return;
+        }
+
+        /* if (navigation.getState() === undefined) {
+            console.log("undefined", "씨발아");
+            return;
+        } */
+
+        fsm.onChangeUserState();
+    }, [fsm.loginState, fsm.appState]);
 }
