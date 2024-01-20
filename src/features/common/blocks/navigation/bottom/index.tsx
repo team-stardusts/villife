@@ -3,7 +3,7 @@ import useNavigationViewBottomStyles from "./styles";
 import Icon from "../../../atoms/icon";
 import { useEffect, useMemo, useRef } from "react";
 import useRootLinks from "../root_links";
-import { StackActions, useNavigation } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
 import { VillifeRouterParams } from "../../../router/types";
 import { RootLink } from "../types";
 import useUserInformation from "../../../hooks/service/user_info";

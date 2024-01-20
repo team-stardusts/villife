@@ -14,16 +14,6 @@ export function NotificationBoxScreen({ navigation, route }: NotificationBoxScre
     const [newNotiIds, setNewNotiIds] = useState<number[]>([]);
 
     const isSameDate = (date1: Date, date2: Date) => {
-        console.log(
-            date1.getFullYear(),
-            date1.getMonth(),
-            date1.getDate(),
-            "VS",
-            date2.getFullYear(),
-            date2.getMonth(),
-            date2.getDate()
-        );
-
         return (
             date1.getFullYear() === date2.getFullYear() &&
             date1.getMonth() === date2.getMonth() &&
