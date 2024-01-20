@@ -36,3 +36,16 @@ export function makeChunk<T>(data: T[] = [], size: number = 1): T[][] {
 
     return arr;
 }
+
+export function insertHighpenIntoPhoneNumber(phoneNumber: string) {
+    if (phoneNumber.includes("-")) return phoneNumber;
+    if (!(phoneNumber.length === 10 || phoneNumber.length === 11)) {
+        return phoneNumber;
+    }
+
+    const first = phoneNumber.substring(0, 3);
+    const second = phoneNumber.substring(3, phoneNumber.length === 10 ? 6 : 7);
+    const third = phoneNumber.substring(phoneNumber.length === 10 ? 6 : 7);
+
+    return [first, second, third].join("-");
+}

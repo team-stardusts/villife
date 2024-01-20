@@ -4,7 +4,7 @@ import SendParkPushNotiScreenProps, { MessagesProps } from "./types";
 import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
 import SimpleNavComponent from "../../../../common/blocks/navigation/header/navcomponent";
 import { TimePickerTime } from "../../../../common/atoms/time_picker/types";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import useSendParkPushNotiScreenStyles from "./styles";
 import TimePicker from "../../../../common/atoms/time_picker";
 import ScreenTitleView from "../../../../common/blocks/title_view";
@@ -13,6 +13,8 @@ import StardustAlert from "../../../../common/blocks/universial/stardust_alert";
 import { StardustAlertContent } from "../../../../common/blocks/universial/stardust_alert/types";
 import useParkingViewmodel from "../../viewmodel";
 import VillifeToastMessage from "../../../../common/atoms/toast";
+import { Vehicle } from "../../viewmodel/types";
+import { insertHighpenIntoPhoneNumber } from "../../../../common/global_function";
 
 export default function SendParkPushNotiScreen({ navigation, route }: SendParkPushNotiScreenProps) {
     const messages = useScreenMessage().messages;
@@ -35,16 +37,36 @@ export default function SendParkPushNotiScreen({ navigation, route }: SendParkPu
             },
         ],
     });
+    const myVehicles = useMemo<Vehicle[]>(() => {
+        if (viewModel?.data) {
+            return viewModel.data.filter((v) => v.ownerType === "user");
+        }
+
+        return [];
+    }, [viewModel.data]);
+
     const [myVehicleNumber, setMyVehicleNumber] = useState<string | null>(null);
 
+    const phoneNumber = useMemo<string | null>(() => {
+        const vehicle = viewModel.data.find((v) => v.plateNumber === myVehicleNumber);
+
+        if (vehicle === undefined) return null;
+
+        return vehicle.phoneNumber;
+    }, [myVehicleNumber]);
+
     useEffect(() => {
-        if (viewModel === null || viewModel.data.length === 0) {
+        if (myVehicles.length === 0) {
             setAlert({ ...alert, visible: true });
             return;
         }
 
-        setMyVehicleNumber(viewModel.data[0].plateNumber);
+        setMyVehicleNumber(myVehicles[0].plateNumber);
     }, [viewModel?.data]);
+
+    useEffect(() => {
+        console.log(content);
+    }, [content]);
 
     const onPressSendBtn = async () => {
         if (viewModel === null) {
@@ -111,6 +133,7 @@ export default function SendParkPushNotiScreen({ navigation, route }: SendParkPu
                         myVehicleNumber={myVehicleNumber || ""}
                         screenMessages={messages}
                         messageType={route.params.messageType}
+                        phoneNumber={phoneNumber}
                         onMessageChange={setContent}
                         onMyVehicleNumberPress={() => setVisible(true)}
                     />
@@ -120,7 +143,7 @@ export default function SendParkPushNotiScreen({ navigation, route }: SendParkPu
             <ListBottomSlidableModal
                 modalVisible={visible}
                 setModalVisible={setVisible}
-                features={(viewModel?.data.filter((v) => v.ownerType === "user") ?? []).map((vehicle) => {
+                features={myVehicles.map((vehicle) => {
                     return {
                         icon: "car",
                         text: vehicle.plateNumber,
@@ -140,16 +163,29 @@ function Messages({
     screenMessages,
     styles,
     messageType,
+    phoneNumber,
     onMessageChange,
     onMyVehicleNumberPress,
 }: MessagesProps) {
+    const [isIncludePn, setIsIncludePn] = useState<boolean>(false);
     const [time, setTime] = useState<TimePickerTime>({
         hour: 0,
         minute: 0,
     });
-    const [message, setContent] = useState<string[]>([]);
+    const [messages, setMessages] = useState<string[]>([]);
 
     //const [timeSelectorVisable, setTimeSelectorVisable] = useState<boolean>(false);
+
+    useEffect(() => {
+        if (phoneNumber === null) return;
+        VillifeToastMessage.showBottomToast("info", `'연락처 ${isIncludePn ? "알림" : "알리지 않음"}'을 선택하셨어요!`);
+
+        if (isIncludePn) {
+            setMessages([...messages, `> 연락처: ${insertHighpenIntoPhoneNumber(phoneNumber)}`]);
+        } else {
+            setMessages([...messages.slice(0, messages.length - 1)]);
+        }
+    }, [isIncludePn]);
 
     useEffect(() => {
         const _message: string[] = [
@@ -164,12 +200,12 @@ function Messages({
 
         _message.unshift(`${myVehicleNumber} 차주 입니다.`);
 
-        setContent(_message);
+        setMessages(_message);
     }, [time]);
 
     useEffect(() => {
-        onMessageChange(message.join("\n"));
-    }, [message]);
+        onMessageChange(messages.join("\n"));
+    }, [messages]);
 
     return (
         <View style={styles.container}>
@@ -210,6 +246,23 @@ function Messages({
                     </Text>
                 )}
             </View>
+            {phoneNumber && (
+                <View style={styles.messageRow}>
+                    <TouchableOpacity
+                        style={styles.checkboxContainer}
+                        activeOpacity={0.6}
+                        onPress={() => setIsIncludePn(!isIncludePn)}>
+                        <View style={styles.checkbox}>
+                            <View
+                                style={[styles.checkboxInnerCircle, isIncludePn && styles.enabledCheckboxInnerCircle]}
+                            />
+                        </View>
+                        <Text style={[styles.message, !isIncludePn && styles.disabledMessage]}>
+                            연락처 알리기 ({insertHighpenIntoPhoneNumber(phoneNumber)})
+                        </Text>
+                    </TouchableOpacity>
+                </View>
+            )}
             {/* <TimeSelectionModal
                 visible={timeSelectorVisable}
                 setVisible={setTimeSelectorVisable}

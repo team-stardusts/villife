@@ -10,6 +10,7 @@ export default function useSendParkPushNotiScreenStyles() {
         },
         container: {
             flex: 1,
+            paddingTop: deviceUI.moderateScale(30),
         },
     });
 
@@ -50,15 +51,31 @@ export default function useSendParkPushNotiScreenStyles() {
             fontSize: deviceUI.moderateScale(18),
             color: theme.color.specified.black,
         },
-        pressableMessageWrapper: {
+        disabledMessage: {
+            color: theme.color.series.grey.level2,
+        },
+        checkboxContainer: {
+            flexDirection: "row",
+            alignItems: "center",
+        },
+        checkbox: {
+            width: deviceUI.getScreenSize().width * 0.065,
+            height: deviceUI.getScreenSize().width * 0.065,
+            borderRadius: deviceUI.getScreenSize().width * 0.065,
+            justifyContent: "center",
+            alignItems: "center",
+            borderWidth: 1,
+            borderColor: theme.color.specified.lightgrey,
+            backgroundColor: theme.color.series.grey.level1,
             marginRight: deviceUI.moderateScale(10),
         },
-        pressableMessage: {
-            color: theme.color.specified.blue,
-            ...theme.font.researved.h2,
+        checkboxInnerCircle: {
+            width: deviceUI.getScreenSize().width * 0.043,
+            height: deviceUI.getScreenSize().width * 0.043,
+            borderRadius: deviceUI.getScreenSize().width * 0.043,
         },
-        timeSelector: {
-            height: deviceUI.getScreenSize().height * 0.33,
+        enabledCheckboxInnerCircle: {
+            backgroundColor: theme.color.specified.blue,
         },
     });
 
