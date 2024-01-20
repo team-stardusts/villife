@@ -10,7 +10,6 @@ import useAdminInfoService from "../../hooks/service/user_info/service";
 import { UserInfo } from "../../hooks/service/user_info/types";
 import { objectToCamel } from "ts-case-convert";
 import { villifeAppState, villifeLoginState } from "./state";
-import { useState } from "react";
 
 export default function useRouteFSM() {
     const setLoginData = useSetRecoilState<LoginDataType | null>(loginDataState);
@@ -102,7 +101,6 @@ export default function useRouteFSM() {
         }
 
         public onChangeUserState(): void {
-            console.log("Changed", this.loginState);
             switch (this.loginState) {
                 case VillifeLoginState.NORMAL:
                     this.onChangeLoginStateToNormal();
@@ -157,7 +155,7 @@ export default function useRouteFSM() {
             console.log("[ONLOGIN]", "Refresh the access token.");
 
             const routes = navigation.getState().routes;
-            console.log(routes);
+
             // Default screen이 splash이므로, 리프레쉬를 하더라도 0번 스택에 splash가 쌓임
             // Login을 못했거나, 로그인에 실패한 경우에는 이 분기에 도달하지 않음
             if (routes.length > 0) {
