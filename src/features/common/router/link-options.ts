@@ -42,6 +42,7 @@ const linking: LinkingOptions<VillifeStackParamList> = {
         const deeplinkURL = buildDeepLinkFromNotificationData(message?.data);
 
         if (typeof deeplinkURL === "string") {
+            console.log("[DeepLinkingTo]", deeplinkURL);
             return deeplinkURL;
         }
     },
