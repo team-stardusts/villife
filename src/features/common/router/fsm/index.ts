@@ -34,6 +34,7 @@ export default function useRouteFSMEngine(): void {
     // Listening on change login value
     useEffect(() => {
         getInitURL().then((r) => r && console.log("Initial URL:", r));
+
         storage.addEventListener("CHANGE_LOGIN_VALUE", (logindata) => {
             setLoginData(logindata === null ? null : (objectToCamel(logindata) as LoginDataType));
             // 로그인 정보가 없으므로 로그아웃 처리

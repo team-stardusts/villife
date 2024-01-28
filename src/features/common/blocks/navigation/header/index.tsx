@@ -50,7 +50,10 @@ export default function NavigationViewHeader(props: NavigationViewHeaderProps) {
                 },
             ]}>
             <View style={styles.box}>
-                <TouchableOpacity style={styles.wrapper} disabled={crrNavIndex === 0} onPress={() => navigation.pop(1)}>
+                <TouchableOpacity
+                    style={styles.wrapper}
+                    disabled={crrNavIndex === 0}
+                    onPress={() => navigation.canGoBack() && navigation.goBack()}>
                     {crrNavIndex > 0 && (
                         <View style={styles.iconBox}>
                             <Icon name="arrow-left" size={styles.icon.width} color={styles.icon.color} />

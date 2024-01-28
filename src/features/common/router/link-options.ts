@@ -1,26 +1,79 @@
 import { LinkingOptions } from "@react-navigation/native";
 import { VillifeStackParamList } from "./types";
-import { Linking } from "react-native";
+import messaging, { FirebaseMessagingTypes } from "@react-native-firebase/messaging";
+import { Linking, PushNotification } from "react-native";
+
+function buildDeepLinkFromNotificationData(data: FirebaseMessagingTypes.RemoteMessage["data"]): string | null {
+    if (data?.link) {
+        return data.link;
+    }
+
+    /* const navigationId = data?.navigationId;
+    if (!["noti_home"].includes(navigationId as any)) {
+        console.warn("Unverified navigationId", navigationId);
+        return null;
+    }
+    if (navigationId === "home") {
+        return "villife://home";
+    }
+    if (navigationId === "settings") {
+        return "villife://settings";
+    }
+    const postId = data?.postId;
+    if (typeof postId === "string") {
+        return `villife://post/${postId}`;
+    }
+    console.warn("Missing postId"); */
+    return null;
+}
 
 const linking: LinkingOptions<VillifeStackParamList> = {
     prefixes: ["villife://"],
+    async getInitialURL() {
+        /* const sleep = (delay: number) => new Promise((resolve) => setTimeout(resolve, delay));
+        await sleep(2000); */
+        const url = await Linking.getInitialURL();
+        if (typeof url === "string") {
+            return url;
+        }
+        //getInitialNotification: When the application is opened from a quit state.
+        const message = await messaging().getInitialNotification();
+
+        const deeplinkURL = buildDeepLinkFromNotificationData(message?.data);
+
+        if (typeof deeplinkURL === "string") {
+            return deeplinkURL;
+        }
+    },
     subscribe(listener) {
-        console.log("linking subscribe to ", listener);
         const onReceiveURL = (event: any) => {
             const { url } = event;
             console.log("link has url", url, event);
             return listener(url);
         };
 
-        const handle = Linking.addEventListener("url", onReceiveURL);
+        // Listen to incoming links from deep linking
+        const linkingSubscription = Linking.addEventListener("url", onReceiveURL);
+
+        //onNotificationOpenedApp: When the application is running, but in the background.
+        const unsubscribe = messaging().onNotificationOpenedApp((remoteMessage) => {
+            const url = buildDeepLinkFromNotificationData(remoteMessage.data);
+            if (typeof url === "string") {
+                listener(url);
+            }
+        });
+
         return () => {
-            console.log("linking unsubscribe to ", listener);
-            handle.remove();
+            linkingSubscription.remove();
+            unsubscribe();
         };
     },
     config: {
         initialRouteName: "home",
         screens: {
+            approval_home: {
+                path: "approval_home",
+            },
             login: {
                 path: "login",
             },

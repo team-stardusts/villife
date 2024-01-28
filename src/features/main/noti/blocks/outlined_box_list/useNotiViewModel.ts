@@ -42,7 +42,7 @@ export default function useNotiViewModel() {
 
     React.useEffect(() => {
         getNotices();
-    }, [refresh, user?.adminInfomation?.selectedBuilding]);
+    }, [refresh, user?.isRenter, user?.adminInfomation?.selectedBuilding]);
 
     if (notices) {
         return notices.sort((a, b) => {

@@ -47,6 +47,7 @@ export default function NavigationViewBottom() {
     }, []);
 
     useEffect(() => {
+        if (!navigation.getState()) return;
         const linkNames = rootLinks.map((link) => link.screen.name);
         const routes = navigation.getState().routes;
         let rootlinkCnt = 0;
@@ -65,12 +66,11 @@ export default function NavigationViewBottom() {
                         name: route.name,
                         params: route.params,
                         path: route.path,
-                        //"state": route.state
                     };
                 }),
             });
         }
-    }, [navigation]);
+    }, [navigation.getState().routes]);
 
     return (
         <View style={styles.container}>

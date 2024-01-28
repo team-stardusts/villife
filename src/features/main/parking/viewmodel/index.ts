@@ -29,8 +29,8 @@ export default function useParkingViewmodel() {
         public override async update(): Promise<void> {
             let buildingId: number | undefined;
 
-            if (this._user.isRenter) buildingId = this._user.buildingID;
-            else buildingId = this._user.adminInfomation?.selectedBuilding.id;
+            if (this._user?.isRenter) buildingId = this._user.buildingID;
+            else buildingId = this._user?.adminInfomation?.selectedBuilding.id;
 
             if (buildingId === undefined) return;
 
