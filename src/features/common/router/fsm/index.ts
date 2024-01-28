@@ -7,6 +7,7 @@ import useUserInformation from "../../hooks/service/user_info";
 import useRouteFSM from "./machine";
 import { RouteFiniteStateMachine, VillifeAppState, VillifeLoginState } from "./types";
 import { objectToCamel } from "ts-case-convert";
+import { Linking } from "react-native";
 
 export default function useRouteFSMEngine(): void {
     const setLoginData = useSetRecoilState<LoginDataType | null>(loginDataState);
@@ -15,7 +16,7 @@ export default function useRouteFSMEngine(): void {
     const fsm: RouteFiniteStateMachine = useRouteFSM();
     //const navigation = useNavigation<VillifeNavigation>();
 
-    /* const getInitURL = async () => {
+    const getInitURL = async () => {
         const initURL = await Linking.getInitialURL(); // 없을 경우 null을 반환한다.
         if (initURL) {
             const path = initURL.split("//")[1];
@@ -28,10 +29,11 @@ export default function useRouteFSMEngine(): void {
         }
 
         return null;
-    }; */
+    };
 
     // Listening on change login value
     useEffect(() => {
+        getInitURL().then((r) => r && console.log("Initial URL:", r));
         storage.addEventListener("CHANGE_LOGIN_VALUE", (logindata) => {
             setLoginData(logindata === null ? null : (objectToCamel(logindata) as LoginDataType));
             // 로그인 정보가 없으므로 로그아웃 처리

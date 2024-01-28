@@ -64,10 +64,6 @@ export default function SendParkPushNotiScreen({ navigation, route }: SendParkPu
         setMyVehicleNumber(myVehicles[0].plateNumber);
     }, [viewModel?.data]);
 
-    useEffect(() => {
-        console.log(content);
-    }, [content]);
-
     const onPressSendBtn = async () => {
         if (viewModel === null) {
             VillifeToastMessage.showBottomToast("error", "알 수 없는 오류가 발생했습니다.");
