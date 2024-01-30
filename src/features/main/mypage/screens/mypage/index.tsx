@@ -43,7 +43,7 @@ export default function MyPageScreen({ navigation, route }: MyPageScreenProps) {
                 <Button
                     onPress={() => {
                         if (user?.adminInfomation) {
-                            user?.changeAdminSelectedBuilding(user?.adminInfomation?.managedBuildings[2]);
+                            user?.changeAdminSelectedBuilding(user?.adminInfomation?.managedBuildings[2].id);
                         }
 
                         console.log(user?.adminInfomation);

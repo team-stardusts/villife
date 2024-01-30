@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo } from "react";
 import { ScrollView, View } from "react-native";
 import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
 import NavigationView from "../../../../common/blocks/navigation";
@@ -30,7 +30,6 @@ export default function HomeScreen({ navigation, route }: HomeScreenProps) {
     console.log("[HomeScreen] onCreate");
 
     //const contents = [HomeContentFromComplaint, HomeContentFromNoti, HomeContentFromParking];
-
     useEffect(() => {
         if (user?.isAdmin && (user.adminInfomation?.managedBuildings?.length as any) === 0) {
             navigation.reset({

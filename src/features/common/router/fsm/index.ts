@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useSetRecoilState } from "recoil";
 import { loginDataState } from "../../hooks/states/atoms/login";
 import VillifeStorage from "../../../../libs/storage";
@@ -9,11 +9,23 @@ import { RouteFiniteStateMachine, VillifeAppState, VillifeLoginState } from "./t
 import { objectToCamel } from "ts-case-convert";
 import { Linking } from "react-native";
 
+function parseBuildingId(id: any) {
+    const parsedId: number = parseInt(id);
+    if (Number.isNaN(parsedId)) return -1;
+    return parsedId;
+}
+
+enum BuildingIdInDeepLinkUrl {
+    NaN = -1,
+    Renter,
+}
+
 export default function useRouteFSMEngine(): void {
     const setLoginData = useSetRecoilState<LoginDataType | null>(loginDataState);
     const userinfo = useUserInformation();
     const storage = VillifeStorage.getInstance();
     const fsm: RouteFiniteStateMachine = useRouteFSM();
+    const [isAdminDeepLinking, setIsAdminDeepLinking] = useState<boolean>(false);
     //const navigation = useNavigation<VillifeNavigation>();
 
     const getInitURL = async () => {
@@ -30,6 +42,33 @@ export default function useRouteFSMEngine(): void {
 
         return null;
     };
+
+    useEffect(() => {
+        if (!userinfo?.adminInfomation || isAdminDeepLinking) return;
+        getInitURL().then((r) => {
+            setIsAdminDeepLinking(true);
+            if (r === null) return;
+
+            const array = r.split("/");
+
+            // Building ID는 2번째 패스에 옴.
+            if (array.length > 0) {
+                const buildingId = parseBuildingId(array[0]);
+
+                switch (buildingId) {
+                    case BuildingIdInDeepLinkUrl.NaN:
+                        return;
+                    case BuildingIdInDeepLinkUrl.Renter:
+                        return;
+                    default:
+                        userinfo.changeAdminSelectedBuilding(buildingId);
+                        return;
+                }
+            }
+
+            return;
+        });
+    }, [userinfo?.adminInfomation, isAdminDeepLinking]);
 
     // Listening on change login value
     useEffect(() => {

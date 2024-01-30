@@ -1,11 +1,10 @@
-import { FlatList, ScrollView, Text, View } from "react-native";
+import { ScrollView, Text, View } from "react-native";
 import NavigationView from "../../../../common/blocks/navigation";
 import useNotificationBoxScreenStyles from "./styles";
 import NotificationBoxScreenProps from "./types";
 import { useEffect, useMemo, useState } from "react";
 import useNotificationBoxViewModel from "./viewmodel";
 import Notification from "./blocks/noti";
-import StardustDateParser from "../../../../../libs/date_parser";
 
 export function NotificationBoxScreen({ navigation, route }: NotificationBoxScreenProps) {
     const styles = useNotificationBoxScreenStyles();
@@ -26,6 +25,12 @@ export function NotificationBoxScreen({ navigation, route }: NotificationBoxScre
         viewModel.processByReading();
     }, [viewModel.data]);
 
+    useEffect(() => {
+        if (route.path) {
+            viewModel?.update();
+        }
+    }, [route.path]);
+
     return (
         <NavigationView
             headerOptions={{
@@ -42,27 +47,29 @@ export function NotificationBoxScreen({ navigation, route }: NotificationBoxScre
             <View style={styles.container}>
                 <ScrollView>
                     <Text style={styles.period}>오늘</Text>
-                    {viewModel.data
-                        .filter((noti) => isSameDate(today, noti.createdAt))
-                        .sort((a, b) => b.id - a.id)
-                        .map((noti, i) => (
-                            <Notification
-                                key={i}
-                                {...noti}
-                                isNewer={newNotiIds.find((v) => v === noti.id) ? true : false}
-                            />
-                        ))}
+                    {viewModel.data?.length > 0 &&
+                        viewModel.data
+                            .filter((noti) => isSameDate(today, noti.createdAt))
+                            .sort((a, b) => b.id - a.id)
+                            .map((noti, i) => (
+                                <Notification
+                                    key={i}
+                                    {...noti}
+                                    isNewer={newNotiIds.find((v) => v === noti.id) ? true : false}
+                                />
+                            ))}
                     <Text style={styles.period}>이전</Text>
-                    {viewModel.data
-                        .filter((noti) => !isSameDate(today, noti.createdAt))
-                        .sort((a, b) => b.id - a.id)
-                        .map((noti, i) => (
-                            <Notification
-                                key={i}
-                                {...noti}
-                                isNewer={newNotiIds.find((v) => v === noti.id) ? true : false}
-                            />
-                        ))}
+                    {viewModel.data?.length > 0 &&
+                        viewModel.data
+                            .filter((noti) => !isSameDate(today, noti.createdAt))
+                            .sort((a, b) => b.id - a.id)
+                            .map((noti, i) => (
+                                <Notification
+                                    key={i}
+                                    {...noti}
+                                    isNewer={newNotiIds.find((v) => v === noti.id) ? true : false}
+                                />
+                            ))}
                 </ScrollView>
             </View>
         </NavigationView>

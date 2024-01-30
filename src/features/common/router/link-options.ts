@@ -1,7 +1,7 @@
 import { LinkingOptions } from "@react-navigation/native";
 import { VillifeStackParamList } from "./types";
 import messaging, { FirebaseMessagingTypes } from "@react-native-firebase/messaging";
-import { Linking, PushNotification } from "react-native";
+import { Linking } from "react-native";
 
 function buildDeepLinkFromNotificationData(data: FirebaseMessagingTypes.RemoteMessage["data"]): string | null {
     if (data?.link) {
@@ -79,19 +79,19 @@ const linking: LinkingOptions<VillifeStackParamList> = {
                 path: "login",
             },
             home: {
-                path: "home",
+                path: ":building_id/home",
             },
             parking: {
-                path: "parking",
+                path: ":building_id/parking",
             },
             register_vehicle: {
                 path: "register_vehicle",
             },
             lease_contract: {
-                path: "lease_contract",
+                path: ":building_id/lease_contract",
             },
             noti_home: {
-                path: "noti_home",
+                path: ":building_id/noti_home",
             },
             notification_box: {
                 path: "notification_box",

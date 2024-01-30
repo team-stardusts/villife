@@ -77,8 +77,18 @@ export default function useUserInformation(): UserInfo | null {
 
         public setResidence(buildingID: number, roomID: number) {}
 
-        public changeAdminSelectedBuilding(building: Villife.User.SimpleBuildingInfo): void {
-            return adminService.changeSelectedBulding(building);
+        public changeAdminSelectedBuilding(buildingId: number): void {
+            try {
+                adminService.changeSelectedBulding(buildingId);
+            } catch (e) {
+                if (e instanceof Error) {
+                    console.error(e.name, e.message);
+                } else {
+                    console.error(
+                        "Unexcepted error occurrence while 'changeAdminSelectedBuilding'.\nIt is presumed that the building ID is wrong."
+                    );
+                }
+            }
         }
     }
 

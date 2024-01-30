@@ -18,7 +18,7 @@ export default function BuildingSelector({}: BuildingSelectorType) {
     const changeSelectedBulding = (buildingInfo: Villife.User.SimpleBuildingInfo) => {
         //const isSuccess = user.changeSelectedBuildingOfAdmin(buildingInfo);
         //if (admininfo !== null) admininfo.selectedBuilding = buildingInfo;
-        userinfo?.changeAdminSelectedBuilding(buildingInfo);
+        userinfo?.changeAdminSelectedBuilding(buildingInfo.id);
 
         console.log("Change to:", buildingInfo.name);
         //console.log(isSuccess ? "Success" : "Fail", "to change.");

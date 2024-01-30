@@ -22,7 +22,7 @@ export default function ParkingSrcreen({ navigation, route }: ParkingScreenProps
 
     useEffect(() => {
         viewModel?.update();
-    }, [viewModel?.user?.buildingID, viewModel?.user?.adminInfomation?.selectedBuilding]);
+    }, [viewModel?.user?.isRenter, viewModel?.user?.adminInfomation]);
 
     return (
         <NavigationView

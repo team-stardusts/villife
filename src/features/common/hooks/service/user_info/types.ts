@@ -19,7 +19,7 @@ interface IUserInfoProvidable {
 
 interface IAdminInfoProvidable {
     adminInfomation: AdminInformation | null;
-    changeAdminSelectedBuilding(building: Villife.User.SimpleBuildingInfo): void;
+    changeAdminSelectedBuilding(buildingId: number): void;
 }
 
 export interface UserInfo extends IInfoProvidable<LoginDataType>, IUserInfoProvidable, IAdminInfoProvidable {

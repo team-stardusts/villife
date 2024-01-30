@@ -42,10 +42,16 @@ export default function useAdminInfoService() {
             }
         }
 
-        public static changeSelectedBulding(building: Villife.User.SimpleBuildingInfo) {
+        public static changeSelectedBulding(buildingId: number) {
             if (adminInfo !== null) {
-                setAdminInfo({ ...adminInfo, selectedBuilding: building });
-                this.storage.setItem(this.storageKey, building.id);
+                const selectedBuilding = adminInfo.managedBuildings.find((b) => b.id === buildingId);
+
+                if (selectedBuilding === undefined) {
+                    throw new Error(`The selected building ID ${buildingId} is not subject to administration.`);
+                }
+
+                setAdminInfo({ ...adminInfo, selectedBuilding: selectedBuilding });
+                this.storage.setItem(this.storageKey, selectedBuilding.id);
             }
         }
 

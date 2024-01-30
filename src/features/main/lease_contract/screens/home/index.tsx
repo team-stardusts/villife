@@ -6,8 +6,6 @@ import useBuildingManagementScreenStyles from "./styles";
 import BuildingTentantMessage from "../../blocks/message";
 import { useEffect, useState } from "react";
 import TentantLayout from "../../blocks/tenant_layout";
-import { BuildingRoomInfo } from "../../services/building_rooms/provider/types";
-import useUserInformation from "../../../../common/hooks/service/user_info";
 import ScreenTopFilter from "../../../../common/blocks/top_filter";
 import leaseFilter from "./filter";
 import { Filter } from "../../../../common/blocks/top_filter/types";
@@ -19,7 +17,6 @@ import { Villife } from "@team-stardusts/villife-client";
 export default function LeaseContractHomeScreen({ navigation, route }: LeaseContractHomeScreenProps) {
     const messages = useScreenMessage().messages;
     const styles = useBuildingManagementScreenStyles();
-    const user = useUserInformation();
     const [layout, setLayout] = useState<LayoutType>("list");
     const [filters, setFilters] = useState<Filter<Villife.Contract.Room>[]>([...leaseFilter]);
     const [filteredRoomInfos, setFilteredRoomInfo] = useState<Villife.Contract.Room[]>([]);
@@ -30,10 +27,12 @@ export default function LeaseContractHomeScreen({ navigation, route }: LeaseCont
         /* if (!user?.adminInfomation?.selectedBuilding) return;
         //viewmodel?.update()
         */
+        if (!viewmodel?.user?.adminInfomation?.selectedBuilding) return;
         viewmodel?.update();
-    }, [user?.adminInfomation?.selectedBuilding]);
+    }, [viewmodel?.user?.adminInfomation]);
 
     useEffect(() => {
+        if (!viewmodel?.user) return;
         setFilterFloors();
     }, [viewmodel?.data]);
 
