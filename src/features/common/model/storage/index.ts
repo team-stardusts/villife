@@ -16,7 +16,7 @@ class ViewModelStorage<T> implements Storage<T> {
         try {
             const value = await EncryptedStorage.getItem(key);
             if (value === undefined) {
-                console.log("asdfasdf", key, await EncryptedStorage.getItem(key));
+                console.log(key, await EncryptedStorage.getItem(key));
             }
 
             if (value !== null) {

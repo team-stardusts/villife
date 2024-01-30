@@ -78,7 +78,7 @@ export default function useParkingViewmodel() {
                                     return _v;
                                 })
                             );
-                        }
+                        } else this.save([]);
                     })
                     .catch((err) => {
                         console.error("[PARKING_VIEWMODEL]", "[GET_ITEMS]", err);

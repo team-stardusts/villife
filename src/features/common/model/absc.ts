@@ -59,7 +59,10 @@ abstract class ViewModelCommmon<ViewData = any, StoredViewData = ViewData> imple
             return "UnknownUser_UnexceptedCase";
         }
 
-        const keyArr = [user.roomID ? user.roomID.toString() : "UnknownRoomId_UnexceptedCase", user.name];
+        const keyArr = [
+            typeof user.roomID === "number" ? user.roomID.toString() : "UnknownRoomId_UnexceptedCase",
+            user.name,
+        ];
 
         if (user.isAdmin) {
             if (user.isAdmin) {
