@@ -6,7 +6,7 @@ import Icon from "../../../../../../../../common/atoms/icon";
 import { MFDaySetterProps } from "./types";
 
 export default function MFDaySetter(props: MFDaySetterProps) {
-    const dayRange = Array.from({ length: 28 }, (_, k) => k + 1);
+    const dayRange = Array.from({ length: 31 }, (_, k) => k + 1);
     const [visible, setVisible] = useState<boolean>(false);
     const [selectedDay, setSelectedDay] = useState<number | null>(null);
 

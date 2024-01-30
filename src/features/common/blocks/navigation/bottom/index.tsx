@@ -21,7 +21,11 @@ export default function NavigationViewBottom() {
     }, [navigation.getState().routes]);
 
     const activatedNavs = useMemo<Array<RootLink["screen"]["name"]> | null>(() => {
-        if (user?.isAdmin && (user.adminInfomation?.managedBuildings?.length as any) === 0) {
+        if (!user?.isAdmin) return null;
+
+        const managedBuilding = user.adminInfomation?.managedBuildings;
+
+        if (managedBuilding === undefined || managedBuilding.length === 0) {
             return ["home", "my_page"];
         }
 

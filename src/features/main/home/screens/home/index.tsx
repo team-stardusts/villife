@@ -31,13 +31,17 @@ export default function HomeScreen({ navigation, route }: HomeScreenProps) {
 
     //const contents = [HomeContentFromComplaint, HomeContentFromNoti, HomeContentFromParking];
     useEffect(() => {
-        if (user?.isAdmin && (user.adminInfomation?.managedBuildings?.length as any) === 0) {
+        if (!user?.isAdmin) return;
+
+        const managedBuilding = user.adminInfomation?.managedBuildings;
+
+        if (managedBuilding === undefined || managedBuilding.length === 0) {
             navigation.reset({
                 index: 0,
                 routes: [{ name: "building_addition_guide" }],
             });
         }
-    }, [user?.adminInfomation?.managedBuildings]);
+    }, [user?.isAdmin, user?.adminInfomation]);
 
     return (
         <NavigationView

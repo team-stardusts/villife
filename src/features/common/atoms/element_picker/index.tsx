@@ -85,8 +85,8 @@ export default function ElementPicker(props: ElementPickerProps) {
                 y: 0,
             }}
             onScroll={handleScroll}
-            onScrollEndDrag={handleScrollEndDrag}
-            scrollEventThrottle={10}
+            onMomentumScrollEnd={handleScrollEndDrag}
+            scrollEventThrottle={16}
             horizontal
             showsVerticalScrollIndicator={false}
             showsHorizontalScrollIndicator={false}>
@@ -113,21 +113,27 @@ export default function ElementPicker(props: ElementPickerProps) {
 }
 
 function ElementNode(props: NodeProps) {
-    const FOCUSED_FONT_SCALE = 2;
-    const UNFOCUSED_FONT_SCALE = 0.8;
+    const FOCUSED_FONT_SCALE = 1.8;
 
     const viewWidth = props.width * 0.85;
     const viewMarginHorizontal = (props.width * 0.15) / 2;
     const fontSizeValue = useRef(new Animated.Value(1)).current;
 
     useEffect(() => {
-        const toValue = props.isFocused ? FOCUSED_FONT_SCALE : UNFOCUSED_FONT_SCALE;
+        if (!props.isFocused) {
+            fontSizeValue.setValue(1);
+            return;
+        }
 
-        Animated.timing(fontSizeValue, {
-            toValue,
+        const animation = Animated.timing(fontSizeValue, {
+            toValue: FOCUSED_FONT_SCALE,
             duration: ANIMATION_DURATION_FAST_LV2,
             useNativeDriver: true,
-        }).start();
+        });
+
+        animation.start();
+
+        return () => animation.reset();
     }, [props.isFocused]);
 
     return (
