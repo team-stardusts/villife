@@ -54,7 +54,7 @@ export default function BuildingAdditionGuideScreen({ navigation, route }: Build
     }, [iconLocationY, textOpacity, textLocationY]);
 
     useEffect(() => {
-        if (user?.isAdmin && (user.adminInfomation?.managedBuildings?.length as any) > 0) {
+        if (user?.isAdmin && user.adminInfomation !== undefined) {
             navigation.reset({
                 index: 0,
                 routes: [{ name: "home" }],

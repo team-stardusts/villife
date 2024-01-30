@@ -8,6 +8,7 @@ import { VillifeRouterParams } from "../../../router/types";
 import { RootLink } from "../types";
 import useUserInformation from "../../../hooks/service/user_info";
 import { ANIMATION_DURATION_FAST_LV3 } from "../../../constants";
+import routes from "../../../../../libs/rest_apis/villife/routes";
 
 export default function NavigationViewBottom() {
     const navigation = useNavigation<VillifeRouterParams["navigation"]>();
@@ -21,16 +22,19 @@ export default function NavigationViewBottom() {
     }, [navigation.getState().routes]);
 
     const activatedNavs = useMemo<Array<RootLink["screen"]["name"]> | null>(() => {
-        if (!user?.isAdmin) return null;
+        const state = navigation.getState();
 
-        const managedBuilding = user.adminInfomation?.managedBuildings;
-
-        if (managedBuilding === undefined || managedBuilding.length === 0) {
-            return ["home", "my_page"];
+        if (state.routes.length > 0) {
+            switch (state.routes[state.routes.length - 1].name) {
+                case "building_addition_guide":
+                    return ["home", "my_page"];
+                default:
+                    return null;
+            }
         }
 
         return null;
-    }, [user?.adminInfomation?.managedBuildings]);
+    }, [navigation]);
 
     const handleLinkPress = (link: RootLink) => {
         // 현재 스크린의 버튼 클릭 시 routing 되지 않도록 함.

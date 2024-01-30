@@ -12,7 +12,7 @@ import { Villife } from "@team-stardusts/villife-client";
 export default function useUserInformation(): UserInfo | null {
     const adminService = useAdminInfoService();
     const loginData = useRecoilValue<LoginDataType | null>(loginDataState);
-    const adminInfo = useRecoilValue<AdminInformation | null>(adminInfoState);
+    const adminInfo = useRecoilValue<AdminInformation | null | undefined>(adminInfoState);
 
     //
     if (loginData === null || loginData === undefined) return null;
@@ -20,9 +20,9 @@ export default function useUserInformation(): UserInfo | null {
 
     class UserInfoProvider implements UserInfo {
         public readonly rawdata: LoginDataType;
-        private readonly adminInfo: AdminInformation | null;
+        private readonly adminInfo: AdminInformation | null | undefined;
 
-        public constructor(loginData: LoginDataType, adminInfo: AdminInformation | null) {
+        public constructor(loginData: LoginDataType, adminInfo: AdminInformation | null | undefined) {
             this.rawdata = loginData;
             this.adminInfo = adminInfo;
         }
@@ -71,7 +71,7 @@ export default function useUserInformation(): UserInfo | null {
             return this.authority === VILLIFE_AUTHORITY.SITE_ADMIN;
         }
 
-        get adminInfomation(): AdminInformation | null {
+        get adminInfomation(): AdminInformation | null | undefined {
             return this.adminInfo;
         }
 

@@ -18,7 +18,7 @@ interface IUserInfoProvidable {
 }
 
 interface IAdminInfoProvidable {
-    adminInfomation: AdminInformation | null;
+    adminInfomation: AdminInformation | null | undefined;
     changeAdminSelectedBuilding(buildingId: number): void;
 }
 

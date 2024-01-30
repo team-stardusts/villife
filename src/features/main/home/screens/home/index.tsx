@@ -23,7 +23,7 @@ export default function HomeScreen({ navigation, route }: HomeScreenProps) {
             return [HomeContentApproval, HomeContentFromNoti, HomeContentFromComplaint, HomeContentFromParking];
 
         return [HomeContentFromManagementFee, HomeContentFromNoti, HomeContentFromParking, HomeContentFromComplaint];
-    }, [user?.authority, user?.adminInfomation?.selectedBuilding]);
+    }, [user?.authority, user?.adminInfomation]);
 
     //HomeContentFromManagementFee
 
@@ -31,11 +31,11 @@ export default function HomeScreen({ navigation, route }: HomeScreenProps) {
 
     //const contents = [HomeContentFromComplaint, HomeContentFromNoti, HomeContentFromParking];
     useEffect(() => {
-        if (!user?.isAdmin) return;
+        if (!user?.isAdmin || user.adminInfomation === null) return;
 
         const managedBuilding = user.adminInfomation?.managedBuildings;
 
-        if (managedBuilding === undefined || managedBuilding.length === 0) {
+        if (managedBuilding === undefined) {
             navigation.reset({
                 index: 0,
                 routes: [{ name: "building_addition_guide" }],

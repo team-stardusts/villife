@@ -25,7 +25,12 @@ export default function useAdminInfoService() {
             const selectedBuildingId = await this.storage.getItem(this.storageKey);
             let selectedBuilding = null;
 
-            if (_admininfo !== null && _admininfo.length > 0) {
+            if (_admininfo !== null) {
+                if (_admininfo.length === 0) {
+                    // 첫 로그인 한 관리자를 식별하기 위해 undefined 추가
+                    setAdminInfo(undefined);
+                }
+
                 if (selectedBuildingId !== null) {
                     selectedBuilding = _admininfo.find((d) => d.id === selectedBuildingId);
                 }
@@ -43,7 +48,7 @@ export default function useAdminInfoService() {
         }
 
         public static changeSelectedBulding(buildingId: number) {
-            if (adminInfo !== null) {
+            if (adminInfo) {
                 const selectedBuilding = adminInfo.managedBuildings.find((b) => b.id === buildingId);
 
                 if (selectedBuilding === undefined) {
