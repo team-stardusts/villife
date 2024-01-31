@@ -19,11 +19,13 @@ export default function useScreenTtitleViewStyles(disabledPaddingTop?: boolean) 
         title: {
             color: theme.color.specified.blue,
             marginBottom: deviceUI.moderateScale(3),
-            ...theme.font.researved.h2,
+            fontFamily: theme.font.fontFamily.pretendard.semiBold,
+            fontSize: deviceUI.moderateScale(23),
         },
         subtitle: {
             color: theme.color.specified.black,
-            ...theme.font.researved.h5,
+            fontFamily: theme.font.fontFamily.pretendard.regular,
+            fontSize: deviceUI.moderateScale(14),
         },
         children: {
             flex: 9.2,

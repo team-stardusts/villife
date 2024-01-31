@@ -6,6 +6,8 @@ import ScreenBottonButton from "./bottom_button";
 export default function ScreenTitleView(props: ScreenTitleViewProps): JSX.Element {
     const styles = useScreenTtitleViewStyles(props.disablePaddingTop);
 
+    if (props.titleColor) styles.title.color = props.titleColor;
+
     return (
         <View style={[styles.container]}>
             <View style={styles.titleBox}>
