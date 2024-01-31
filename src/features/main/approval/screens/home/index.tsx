@@ -16,6 +16,7 @@ export default function ApprovalHomeScreen(props: ApprovaleHomeScreenProps) {
                 style: {
                     backgroundColor: styles.nav.backgroundColor,
                 },
+                hideBuidingSelector: true,
             }}
             bodyOptions={{
                 backgroundColor: styles.nav.backgroundColor,
