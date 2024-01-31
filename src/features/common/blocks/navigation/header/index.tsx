@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Animated, Text, TouchableOpacity, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { VillifeNavigation } from "../../../router/types";
@@ -15,7 +15,7 @@ export default function NavigationViewHeader(props: NavigationViewHeaderProps) {
     const { deviceUI } = useStyler();
     const TRANSLATE_X_STD_VALUE = deviceUI.moderateScale(40);
 
-    const crrNavIndex = useMemo<number>(() => {
+    const [crrNavIndex, setCrrNavIndex] = useState<number>(0); /* useMemo<number>(() => {
         const state = navigation.getState();
 
         if (state.index === 0) {
@@ -25,18 +25,43 @@ export default function NavigationViewHeader(props: NavigationViewHeaderProps) {
         }
 
         return state.index;
-    }, [navigation]);
+    }, [navigation]); */
 
     const styles = useNavigationViewHeaderStyles(crrNavIndex);
     const backgroundColor = props?.style?.backgroundColor ?? styles.container.backgroundColor;
     const borderBottomColor = props?.style?.borderBottomColor ?? styles.container.borderBottomColor;
 
     useEffect(() => {
-        Animated.timing(translateXValue, {
+        /* const animation = Animated.timing(translateXValue, {
             toValue: 0,
             duration: ANIMATION_DURATION_FAST_LV3,
             useNativeDriver: true,
-        }).start();
+        });
+
+        animation.start();
+        return () => {
+            animation.stop();
+            animation.reset();
+        }; */
+    }, []);
+
+    useEffect(() => {
+        navigation.addListener("state", (e) => {
+            const {
+                data: { state },
+            } = e;
+
+            console.log(state.index);
+            /* if (state.index === 0) {
+                translateXValue.setValue(-TRANSLATE_X_STD_VALUE);
+            } else {
+                translateXValue.setValue(TRANSLATE_X_STD_VALUE);
+            } */
+
+            setCrrNavIndex(state.index);
+        });
+
+        return () => navigation.removeListener("state", () => {});
     }, []);
 
     return (
@@ -46,14 +71,14 @@ export default function NavigationViewHeader(props: NavigationViewHeaderProps) {
                 {
                     backgroundColor: backgroundColor,
                     borderBottomColor: borderBottomColor,
-                    transform: [{ translateX: translateXValue }],
+                    //transform: [{ translateX: translateXValue }],
                 },
             ]}>
             <View style={styles.box}>
                 <TouchableOpacity
                     style={styles.wrapper}
                     disabled={crrNavIndex === 0}
-                    onPress={() => navigation.canGoBack() && navigation.goBack()}>
+                    onPress={() => navigation.canGoBack() && navigation.popToTop()}>
                     {crrNavIndex > 0 && (
                         <View style={styles.iconBox}>
                             <Icon name="arrow-left" size={styles.icon.width} color={styles.icon.color} />

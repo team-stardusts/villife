@@ -1,5 +1,4 @@
 import { Text, TouchableOpacity, View } from "react-native";
-import ContentBox from "../../../../blocks/content_box";
 import { BuildingInfoViewProps } from "./tyles";
 import useBuildingInfoViewStyles from "./styles";
 import BankInfoBox from "./blocks/account";
@@ -7,10 +6,6 @@ import { makeChunk } from "../../../../global_function";
 import { useNavigation } from "@react-navigation/native";
 import { VillifeNavigation } from "../../../../router/types";
 import TitleCard from "../../../../blocks/title_card";
-import ListBottomSlidableModal from "../../../../blocks/modal/bottom_list";
-import { useMemo, useState } from "react";
-import { ModalFeature } from "../../../../blocks/modal/bottom_list/types";
-import { StardustAlertContent } from "../../../../blocks/universial/stardust_alert/types";
 
 export default function BuildingInfoView(props: BuildingInfoViewProps) {
     const navigation = useNavigation<VillifeNavigation>();
