@@ -27,14 +27,20 @@ export default function NavigationViewBottom() {
         if (state.routes.length > 0) {
             switch (state.routes[state.routes.length - 1].name) {
                 case "building_addition_guide":
-                    return ["home", "my_page"];
+                    return ["my_page"];
+                case "my_page":
+                    if (user?.adminInfomation === undefined) {
+                        return ["home", "my_page"];
+                    }
+
+                    return null;
                 default:
                     return null;
             }
         }
 
         return null;
-    }, [navigation]);
+    }, [navigation, user?.adminInfomation]);
 
     const handleLinkPress = (link: RootLink) => {
         // 현재 스크린의 버튼 클릭 시 routing 되지 않도록 함.
