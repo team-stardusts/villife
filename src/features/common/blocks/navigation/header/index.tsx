@@ -51,7 +51,6 @@ export default function NavigationViewHeader(props: NavigationViewHeaderProps) {
                 data: { state },
             } = e;
 
-            console.log(state.index);
             /* if (state.index === 0) {
                 translateXValue.setValue(-TRANSLATE_X_STD_VALUE);
             } else {

@@ -29,6 +29,7 @@ export default function useAdminInfoService() {
                 if (_admininfo.length === 0) {
                     // 첫 로그인 한 관리자를 식별하기 위해 undefined 추가
                     setAdminInfo(undefined);
+                    return;
                 }
 
                 if (selectedBuildingId !== null) {

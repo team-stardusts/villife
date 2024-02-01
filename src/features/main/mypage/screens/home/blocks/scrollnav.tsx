@@ -52,11 +52,21 @@ export default function ScrollNav(props: ScrollNavProps) {
                             });
                     }}
                 /> */}
-                <NavButton
-                    styles={props.styles}
-                    text={"건물 정보"}
-                    onPress={() => navigation.navigate("building_info")}
-                />
+                {user?.isAdmin ? (
+                    user.adminInfomation && (
+                        <NavButton
+                            styles={props.styles}
+                            text={"건물 정보"}
+                            onPress={() => navigation.navigate("building_info")}
+                        />
+                    )
+                ) : (
+                    <NavButton
+                        styles={props.styles}
+                        text={"건물 정보"}
+                        onPress={() => navigation.navigate("building_info")}
+                    />
+                )}
                 {user?.isRenter && (
                     <NavButton
                         styles={props.styles}

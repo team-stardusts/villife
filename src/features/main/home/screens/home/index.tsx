@@ -33,9 +33,7 @@ export default function HomeScreen({ navigation, route }: HomeScreenProps) {
     useEffect(() => {
         if (!user?.isAdmin || user.adminInfomation === null) return;
 
-        const managedBuilding = user.adminInfomation?.managedBuildings;
-
-        if (managedBuilding === undefined) {
+        if (user.adminInfomation === undefined) {
             navigation.reset({
                 index: 0,
                 routes: [{ name: "building_addition_guide" }],
