@@ -37,7 +37,7 @@ export default function useBuildingManagementScreenStyles() {
         },
         title: {
             color: theme.color.specified.black,
-            fontFamily: theme.font.fontFamily.pretendard.bold,
+            fontFamily: theme.font.fontFamily.pretendard.medium,
             fontSize: deviceUI.moderateScale(17),
         },
         inputBox: {
@@ -98,7 +98,7 @@ export default function useBuildingManagementScreenStyles() {
         },
         title: {
             color: theme.color.specified.black,
-            fontFamily: theme.font.fontFamily.pretendard.bold,
+            fontFamily: theme.font.fontFamily.pretendard.semiBold,
             fontSize: deviceUI.moderateScale(20),
         },
         contentContainer: {
@@ -132,12 +132,12 @@ export default function useBuildingManagementScreenStyles() {
         },
         header: {
             color: theme.color.specified.blue,
-            fontFamily: theme.font.fontFamily.pretendard.bold,
+            fontFamily: theme.font.fontFamily.pretendard.medium,
             fontSize: deviceUI.moderateScale(15),
         },
         rowText: {
             color: theme.color.specified.black,
-            fontFamily: theme.font.fontFamily.pretendard.bold,
+            fontFamily: theme.font.fontFamily.pretendard.medium,
             fontSize: deviceUI.moderateScale(15),
         },
         undergroundSettingBtn: {

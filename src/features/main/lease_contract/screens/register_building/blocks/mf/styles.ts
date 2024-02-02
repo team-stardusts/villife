@@ -19,7 +19,7 @@ export default function useMFDataSetterStyles() {
         },
         rowTitle: {
             color: theme.color.specified.black,
-            fontFamily: theme.font.fontFamily.pretendard.bold,
+            fontFamily: theme.font.fontFamily.pretendard.medium,
             fontSize: deviceUI.moderateScale(17),
         },
         rowContentBox: {
@@ -30,7 +30,7 @@ export default function useMFDataSetterStyles() {
         },
         rowContentExplanationText: {
             color: theme.color.specified.grey,
-            fontFamily: theme.font.fontFamily.pretendard.semiBold,
+            fontFamily: theme.font.fontFamily.pretendard.medium,
             fontSize: deviceUI.moderateScale(12),
         },
     });
@@ -54,7 +54,7 @@ export default function useMFDataSetterStyles() {
         },
         setterText: {
             color: theme.color.specified.black,
-            fontFamily: theme.font.fontFamily.pretendard.bold,
+            fontFamily: theme.font.fontFamily.pretendard.semiBold,
             fontSize: deviceUI.moderateScale(15),
         },
         setterIconWrapper: {
