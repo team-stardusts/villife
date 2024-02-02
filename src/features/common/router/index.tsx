@@ -179,11 +179,7 @@ export default function ScreenRouter() {
                 <Stack.Screen name={"splash"} component={SplashScreen} />
             </Stack.Group>
             <Stack.Group screenOptions={{ presentation: "card" }}>
-                <Stack.Screen
-                    options={{ presentation: "fullScreenModal" }}
-                    name={"building_info"}
-                    component={BuildingInfoScreen}
-                />
+                <Stack.Screen name={"building_info"} component={BuildingInfoScreen} />
                 <Stack.Screen name={"search_address"} component={SearchAddressScreen} />
                 <Stack.Screen name={"image_detail_view"} component={ImageDetailView} />
             </Stack.Group>
