@@ -104,6 +104,16 @@ export default function useRoomViewModel() {
             });
         }
 
+        public async modifyBuilding(params: Villife.Contract.BuildingModifyForm): Promise<boolean> {
+            return this._api
+                .modifyBuilding(params)
+                .then(() => true)
+                .catch((err) => {
+                    console.error("[ROOM_CONTRACT_VM]", "occured while modify building.", err);
+                    return false;
+                });
+        }
+
         public async createContract(params: Villife.Contract.CreateForm): Promise<boolean> {
             return await this._api
                 .createContract(params)

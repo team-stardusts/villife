@@ -15,12 +15,13 @@ export default function BuildingInfoScreen({ navigation, route }: BuildingInfoSc
     const [rooms, setRooms] = useState<(number | null)[]>([]);
 
     useEffect(() => {
-        viewModel?.update(viewModel?.user.isAdmin ? undefined : viewModel?.user.buildingID);
+        if (viewModel?.user?.isAdmin) viewModel?.update();
+
         viewModel?.getBuildingInfo().then(setBuilding);
     }, [viewModel?.user?.isAdmin, viewModel?.user?.adminInfomation]);
 
     useEffect(() => {
-        if (!viewModel?.data) return;
+        if (!viewModel?.user?.isAdmin || !viewModel?.data) return;
 
         const _rooms: Array<number | null> = [];
 

@@ -33,13 +33,50 @@ export default function BuildingSettingScreen({ navigation, route }: RegisterBui
     const isProperlyPrepared = (): boolean => {
         const isValidFloorValue = floors.filter((floor) => floor !== 0 && floor !== null).length !== 0;
 
-        return (
-            buildingInfo !== null &&
+        return buildingInfo !== null &&
             mfdata.dueDay !== null &&
             mfdata.notiDay !== null &&
             mfdata.bankAccounts.length > 0 &&
-            isValidFloorValue
-        );
+            route.params
+            ? true
+            : isValidFloorValue;
+    };
+
+    const modifyBuilding = async () => {
+        if (viewModel?.user?.name === undefined) {
+            console.error("[RegisterBuildingScreen]", "User 이름이 undifined라니...이럴리가 없는데?!");
+            return;
+        }
+
+        // 확인 버튼 활성 조건에 "buildingInfo가 null이 아닐 것"이 있기 때문에
+        // 그냥 Type narrowing임.
+        if (!route.params) return;
+        if (buildingInfo === null) return;
+        if (mfdata.dueDay === null || mfdata.notiDay === null) return;
+        if (viewModel === null) {
+            VillifeToastMessage.showBottomToast("error", "예기치 않은 오류가 발생했습니다.");
+            return;
+        }
+
+        const result = await viewModel.modifyBuilding({
+            buildingId: route.params.buildingId,
+            buildingName: buildingInfo.name,
+            deletedAccounts: [],
+            mfDueDate: mfdata.dueDay,
+            mfNotiDate: mfdata.notiDay,
+            newAccounts: mfdata.bankAccounts,
+            ownerName: viewModel.user.name,
+        });
+
+        if (result === null) {
+            VillifeToastMessage.showBottomToast("error", "수정하지 못했습니다. 잠시 후 다시 시도해주세요.");
+        } else {
+            await adminInfoService.initializeAdminInformation();
+
+            VillifeToastMessage.showBottomToast("success", `\"${buildingInfo.name}\" 빌라의 정보를 변경했어요!`);
+        }
+
+        navigation.canGoBack() && navigation.goBack();
     };
 
     const registerBuilding = async () => {
@@ -104,7 +141,7 @@ export default function BuildingSettingScreen({ navigation, route }: RegisterBui
                 bottomButton={{
                     title: messages.words.okay,
                     disabled: !isProperlyPrepared(),
-                    onPress: () => registerBuilding(),
+                    onPress: () => (route.params ? modifyBuilding() : registerBuilding()),
                 }}
                 disablePaddingTop>
                 <KeyboardAwareScrollView
