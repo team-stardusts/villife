@@ -11,28 +11,32 @@ import useStyler from "../../../hooks/styler/hooks";
 
 export default function NavigationViewHeader(props: NavigationViewHeaderProps) {
     const navigation = useNavigation<VillifeNavigation>();
-    const translateXValue = useRef(new Animated.Value(0)).current;
     const { deviceUI } = useStyler();
-    const TRANSLATE_X_STD_VALUE = deviceUI.moderateScale(40);
+    const TRANSLATE_X_STD_VAL = deviceUI.moderateScale(40);
 
-    const [crrNavIndex, setCrrNavIndex] = useState<number>(0); /* useMemo<number>(() => {
-        const state = navigation.getState();
-
-        if (state.index === 0) {
-            translateXValue.setValue(-TRANSLATE_X_STD_VALUE);
-        } else {
-            translateXValue.setValue(TRANSLATE_X_STD_VALUE);
-        }
-
-        return state.index;
-    }, [navigation]); */
+    const [crrNavIndex, setCrrNavIndex] = useState<number>(0);
+    const translateXValue = useRef(
+        new Animated.Value(navigation.canGoBack() ? TRANSLATE_X_STD_VAL : TRANSLATE_X_STD_VAL * -1)
+    ).current;
 
     const styles = useNavigationViewHeaderStyles(crrNavIndex);
     const backgroundColor = props?.style?.backgroundColor ?? styles.container.backgroundColor;
     const borderBottomColor = props?.style?.borderBottomColor ?? styles.container.borderBottomColor;
 
     useEffect(() => {
-        /* const animation = Animated.timing(translateXValue, {
+        navigation.addListener("state", (e) => {
+            const {
+                data: { state },
+            } = e;
+
+            setCrrNavIndex(state.index);
+        });
+
+        return () => navigation.removeListener("state", () => {});
+    }, []);
+
+    useEffect(() => {
+        const animation = Animated.timing(translateXValue, {
             toValue: 0,
             duration: ANIMATION_DURATION_FAST_LV3,
             useNativeDriver: true,
@@ -42,26 +46,8 @@ export default function NavigationViewHeader(props: NavigationViewHeaderProps) {
         return () => {
             animation.stop();
             animation.reset();
-        }; */
-    }, []);
-
-    useEffect(() => {
-        navigation.addListener("state", (e) => {
-            const {
-                data: { state },
-            } = e;
-
-            /* if (state.index === 0) {
-                translateXValue.setValue(-TRANSLATE_X_STD_VALUE);
-            } else {
-                translateXValue.setValue(TRANSLATE_X_STD_VALUE);
-            } */
-
-            setCrrNavIndex(state.index);
-        });
-
-        return () => navigation.removeListener("state", () => {});
-    }, []);
+        };
+    }, [translateXValue]);
 
     return (
         <Animated.View
@@ -70,7 +56,7 @@ export default function NavigationViewHeader(props: NavigationViewHeaderProps) {
                 {
                     backgroundColor: backgroundColor,
                     borderBottomColor: borderBottomColor,
-                    //transform: [{ translateX: translateXValue }],
+                    transform: [{ translateX: translateXValue }],
                 },
             ]}>
             <View style={styles.box}>
