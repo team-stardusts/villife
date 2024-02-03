@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Animated, Text, TouchableOpacity, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { VillifeNavigation } from "../../../router/types";
@@ -63,7 +63,7 @@ export default function NavigationViewHeader(props: NavigationViewHeaderProps) {
                 <TouchableOpacity
                     style={styles.wrapper}
                     disabled={crrNavIndex === 0}
-                    onPress={() => navigation.canGoBack() && navigation.popToTop()}>
+                    onPress={() => navigation.canGoBack() && navigation.pop(1)}>
                     {crrNavIndex > 0 && (
                         <View style={styles.iconBox}>
                             <Icon name="arrow-left" size={styles.icon.width} color={styles.icon.color} />

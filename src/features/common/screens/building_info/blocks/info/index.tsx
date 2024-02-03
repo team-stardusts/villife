@@ -70,11 +70,11 @@ export default function BuildingInfoView(props: BuildingInfoViewProps) {
             <TitleCard
                 title="건물 정보"
                 headerButton={
-                    props.buildingInfo.isAdmin
+                    props.isAdmin
                         ? {
                               title: "수정하기",
                               onPress: () => {
-                                  navigation.navigate("register_building");
+                                  navigation.navigate("building_setting", props.buildingInfo);
                               },
                           }
                         : undefined
@@ -88,13 +88,13 @@ export default function BuildingInfoView(props: BuildingInfoViewProps) {
                             style={[styles.sectionRowValue, { width: "80%", textAlign: "right" }]}
                             adjustsFontSizeToFit
                             numberOfLines={1}>
-                            {props.buildingInfo.address}
+                            {props.buildingInfo.roadAddr}
                         </Text>
                     </View>
                     <View style={styles.sectionRow}>
                         <Text style={styles.sectionRowKey}>이름</Text>
                         <Text style={styles.sectionRowValue} adjustsFontSizeToFit numberOfLines={1}>
-                            {props.buildingInfo.name}
+                            {props.buildingInfo.buildingName}
                         </Text>
                     </View>
                 </View>
@@ -114,7 +114,7 @@ export default function BuildingInfoView(props: BuildingInfoViewProps) {
                 <View
                     style={[
                         styles.section,
-                        !props.buildingInfo.isAdmin && {
+                        !props.isAdmin && {
                             borderBottomWidth: 0,
                             marginBottom: 0,
                         },
@@ -125,14 +125,14 @@ export default function BuildingInfoView(props: BuildingInfoViewProps) {
                     {props.buildingInfo.bankAccounts.map((account, index) => (
                         <View key={index} style={[styles.sectionRow]}>
                             <BankInfoBox
-                                bankName={account.bank_name}
-                                accountNumber={account.account_number}
-                                accountHolder={account.owner_name}
+                                bankName={account.bankName}
+                                accountNumber={account.accountNumber}
+                                accountHolder={account.ownerName}
                             />
                         </View>
                     ))}
                 </View>
-                {props.buildingInfo.isAdmin && (
+                {props.isAdmin && (
                     <View
                         style={[
                             styles.section,
@@ -144,7 +144,7 @@ export default function BuildingInfoView(props: BuildingInfoViewProps) {
                         <View style={styles.sectionTitleBox}>
                             <Text style={styles.sectionTitle}>호수 정보</Text>
                         </View>
-                        {makeChunk(props.buildingInfo.rooms, 2).map((chunk, index) => (
+                        {makeChunk(props.rooms, 2).map((chunk, index) => (
                             <View key={index} style={[styles.sectionRow, { justifyContent: "space-around" }]}>
                                 <View style={[styles.sectionRow, { width: "30%" }]}>
                                     <Text style={styles.sectionRowValue}>{index === 0 ? "지하" : index * 2}층 </Text>

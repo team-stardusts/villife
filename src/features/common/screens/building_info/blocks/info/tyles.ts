@@ -1,5 +1,7 @@
-import { BuildingInfoBase } from "../../service/types";
+import { Villife } from "@team-stardusts/villife-client";
 
 export type BuildingInfoViewProps = {
-    buildingInfo: BuildingInfoBase;
+    isAdmin: boolean | undefined;
+    buildingInfo: Villife.Contract.Building;
+    rooms: Array<number | null>;
 };

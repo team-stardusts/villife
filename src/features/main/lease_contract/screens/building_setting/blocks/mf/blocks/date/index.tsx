@@ -11,8 +11,12 @@ export default function MFDaySetter(props: MFDaySetterProps) {
     const [selectedDay, setSelectedDay] = useState<number | null>(null);
 
     useEffect(() => {
-        if (selectedDay === null) return;
+        setSelectedDay(props.initialDay);
+    }, [props.initialDay]);
 
+    useEffect(() => {
+        if (selectedDay === null) return;
+        if (selectedDay === props.initialDay) return;
         props.onChangeMFDay(selectedDay);
     }, [selectedDay]);
 

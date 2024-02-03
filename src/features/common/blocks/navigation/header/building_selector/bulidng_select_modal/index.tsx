@@ -29,7 +29,7 @@ export default function BuildingSelectModal(props: BuildingSelectModalProps) {
                     height={styles.buildingComponent.height}
                     onPress={() => {
                         props.setVisible(false);
-                        navigation.navigate("register_building");
+                        navigation.navigate("building_setting");
                     }}
                 />
                 {props.managedBuildings &&

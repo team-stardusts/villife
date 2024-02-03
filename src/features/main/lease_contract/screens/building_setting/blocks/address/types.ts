@@ -3,10 +3,11 @@ import type useRegisterBuildingScreenStyles from "../../styles";
 
 export type AddressSetterProps = {
     styles: ReturnType<typeof useRegisterBuildingScreenStyles>["search"];
+    initialValue?: BuildingInfo | undefined;
     onChangeBuildingInfo(buildingInfo: BuildingInfo | null): void;
 };
 
 export type BuildingInfo = {
-    address: SelectedAddressType;
+    roadAddress: string;
     name: string;
 };

@@ -55,11 +55,13 @@ export default function useRoomViewModel() {
             return rooms;
         }
 
-        public override async update(): Promise<void> {
-            if (this._user.adminInfomation?.selectedBuilding === undefined) return;
+        public override async update(buildingId?: number): Promise<void> {
+            let _buildingId = buildingId ?? this._user?.adminInfomation?.selectedBuilding.id;
+
+            if (!_buildingId) return;
 
             this._api
-                .getRoomsInBuilding(this._user.adminInfomation.selectedBuilding.id)
+                .getRoomsInBuilding(_buildingId)
                 .then((res) => {
                     this.save(this.deserializeStoredData(res));
                     return true;
@@ -74,6 +76,32 @@ export default function useRoomViewModel() {
                         r && this._setData(r);
                     });
                 });
+        }
+
+        public async getBuildingInfo(): Promise<Villife.Contract.Building | null> {
+            let buildingId = undefined;
+
+            if (this.user?.isAdmin && this.user.adminInfomation?.selectedBuilding.id) {
+                buildingId = this.user.adminInfomation.selectedBuilding.id;
+            } else {
+                buildingId = this.user?.buildingID;
+            }
+
+            if (!buildingId) return null;
+
+            return this._api.getBuilding(buildingId).catch((err) => {
+                console.error("[ROOM_CONTRACT_VM]", "occured while get building.", err);
+                return null;
+            });
+        }
+
+        public async registerBuilding(
+            params: Villife.Contract.BuildingRegisterForm
+        ): Promise<Villife.Contract.BuildingBreifInfo | null> {
+            return this._api.registerBuilding(params).catch((err) => {
+                console.error("[ROOM_CONTRACT_VM]", "occured while register building.", err);
+                return null;
+            });
         }
 
         public async createContract(params: Villife.Contract.CreateForm): Promise<boolean> {

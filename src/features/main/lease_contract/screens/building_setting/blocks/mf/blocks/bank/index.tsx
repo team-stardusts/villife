@@ -10,6 +10,12 @@ export default function BankAccountSetter(props: BankAccountSetterProps) {
     const [bankAccounts, setBankAccounts] = useState<BankAccountType[]>([]);
 
     useEffect(() => {
+        if (props.initialValue) {
+            setBankAccounts([...props.initialValue]);
+        }
+    }, [props.initialValue]);
+
+    useEffect(() => {
         props.onEnterBankAccounts(bankAccounts);
     }, [bankAccounts]);
 
@@ -43,12 +49,12 @@ export default function BankAccountSetter(props: BankAccountSetterProps) {
                 {bankAccounts.map((account, index) => (
                     <BankInfoBox
                         key={index}
-                        bankName={account.bank_name}
-                        accountNumber={account.account_number}
-                        accountHolder={account.owner_name}
+                        bankName={account.bankName}
+                        accountNumber={account.accountNumber}
+                        accountHolder={account.ownerName}
                         onPressDelete={(accountNumber) => {
                             setBankAccounts([
-                                ...bankAccounts.filter((account) => account.account_number !== accountNumber),
+                                ...bankAccounts.filter((account) => account.accountNumber !== accountNumber),
                             ]);
                         }}
                     />

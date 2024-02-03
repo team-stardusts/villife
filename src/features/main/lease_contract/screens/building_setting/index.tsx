@@ -1,4 +1,4 @@
-import { ScrollView, View } from "react-native";
+import { View } from "react-native";
 import NavigationView from "../../../../common/blocks/navigation";
 import RegisterBuildingScreenProps from "./types";
 import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
@@ -9,21 +9,18 @@ import AddressSetter from "./blocks/address";
 import { BuildingFloors } from "./blocks/room/types";
 import { useRef, useState } from "react";
 import { BuildingInfo } from "./blocks/address/types";
-import BuildingManagementServiceProvider from "../../services/building_rooms/provider";
-import useUserInformation from "../../../../common/hooks/service/user_info";
 import VillifeToastMessage from "../../../../common/atoms/toast";
 import useAdminInfoService from "../../../../common/hooks/service/user_info/service";
-import { IBuildingRegisterable } from "../../services/building_rooms/provider/types";
 import MFDataSetter from "./blocks/mf";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { MFData } from "./blocks/mf/types";
+import useRoomViewModel from "../../viewmodel/room";
 
-export default function RegisterBuildingScreen({ navigation, route }: RegisterBuildingScreenProps) {
+export default function BuildingSettingScreen({ navigation, route }: RegisterBuildingScreenProps) {
     const messages = useScreenMessage().messages;
     const styles = useRegisterBuildingScreenStyles();
-    const user = useUserInformation();
     const adminInfoService = useAdminInfoService();
-    const registerer: IBuildingRegisterable = new BuildingManagementServiceProvider();
+    const viewModel = useRoomViewModel();
     const scrollVewRef = useRef<KeyboardAwareScrollView | null>(null);
     const [floors, setFloors] = useState<BuildingFloors>([]);
     const [buildingInfo, setBuildingInfo] = useState<BuildingInfo | null>(null);
@@ -46,7 +43,7 @@ export default function RegisterBuildingScreen({ navigation, route }: RegisterBu
     };
 
     const registerBuilding = async () => {
-        if (user?.name === undefined) {
+        if (viewModel?.user?.name === undefined) {
             console.error("[RegisterBuildingScreen]", "User 이름이 undifined라니...이럴리가 없는데?!");
             return;
         }
@@ -55,18 +52,22 @@ export default function RegisterBuildingScreen({ navigation, route }: RegisterBu
         // 그냥 Type narrowing임.
         if (buildingInfo === null) return;
         if (mfdata.dueDay === null || mfdata.notiDay === null) return;
+        if (viewModel === null) {
+            VillifeToastMessage.showBottomToast("error", "예기치 않은 오류가 발생했습니다.");
+            return;
+        }
 
         const _floors = floors;
 
-        const result = await registerer.registerBuilding({
-            basementInfo: _floors.shift() as number | null,
+        const result = await viewModel.registerBuilding({
+            basementInfo: _floors.shift() as number | 0,
             buildingName: buildingInfo.name,
             accountRegiReqForms: mfdata.bankAccounts,
             mfDueDate: mfdata.dueDay,
             mfNotiDate: mfdata.notiDay,
-            ownerName: user.name,
-            roadAddress: buildingInfo.address.roadAddress,
-            roomsInfo: floors as number[],
+            ownerName: viewModel.user.name,
+            roadAddr: buildingInfo.roadAddress,
+            roomInfo: floors as number[],
         });
 
         if (result === null) {
@@ -83,7 +84,7 @@ export default function RegisterBuildingScreen({ navigation, route }: RegisterBu
     return (
         <NavigationView
             headerOptions={{
-                title: "건물 추가하기",
+                title: route.params ? "건물 수정하기" : "건물 추가하기",
                 style: {
                     backgroundColor: styles.main.nav.backgroundColor,
                 },
@@ -98,7 +99,7 @@ export default function RegisterBuildingScreen({ navigation, route }: RegisterBu
                 shown: false,
             }}>
             <ScreenTitleView
-                titles={["건물 정보 추가하기"]}
+                titles={[route.params ? "건물 정보 수정하기" : "건물 정보 추가하기"]}
                 //subtitles={["설정을 마치고 빌라이프 운영진의 승인을 기다려주세요."]}
                 bottomButton={{
                     title: messages.words.okay,
@@ -112,14 +113,38 @@ export default function RegisterBuildingScreen({ navigation, route }: RegisterBu
                     ref={scrollVewRef}
                     onContentSizeChange={() => scrollVewRef.current?.scrollToEnd()}>
                     <View style={styles.main.searchingContainer}>
-                        <AddressSetter styles={styles.search} onChangeBuildingInfo={setBuildingInfo} />
+                        <AddressSetter
+                            styles={styles.search}
+                            initialValue={
+                                route.params
+                                    ? {
+                                          roadAddress: route.params.roadAddr,
+                                          name: route.params.buildingName,
+                                      }
+                                    : undefined
+                            }
+                            onChangeBuildingInfo={setBuildingInfo}
+                        />
                     </View>
                     <View style={styles.main.dateSettingContainer}>
-                        <MFDataSetter onChangeMFData={setMFData} />
+                        <MFDataSetter
+                            initialValue={
+                                route.params
+                                    ? {
+                                          bankAccounts: route.params.bankAccounts,
+                                          dueDay: route.params.mfDueDate,
+                                          notiDay: route.params.mfNotiDate,
+                                      }
+                                    : undefined
+                            }
+                            onChangeMFData={setMFData}
+                        />
                     </View>
-                    <View style={styles.main.roomSettingContainer}>
-                        <RoomCountSetter styles={styles.room} onChangeRoomCount={setFloors} />
-                    </View>
+                    {!route.params && (
+                        <View style={styles.main.roomSettingContainer}>
+                            <RoomCountSetter styles={styles.room} onChangeRoomCount={setFloors} />
+                        </View>
+                    )}
                 </KeyboardAwareScrollView>
             </ScreenTitleView>
         </NavigationView>

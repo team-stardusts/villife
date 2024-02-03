@@ -20,6 +20,7 @@ export default function AddressSetter(props: AddressSetterProps) {
     const navigation = useNavigation<VillifeRouterParams["navigation"]>();
     const validator = new StringValidator();
     const [address, setAddress] = useRecoilState<SelectedAddressStateType | null>(selectedAddressState);
+    const [buildingRoadAddr, setBuildingRoadAddr] = useState<string | null>(null);
     const [buildingName, setBuildingName] = useState<string | null>(null);
     const [isBuildingNameOkay, setIsBuildingNameOkay] = useState<boolean>(false);
     const [alert, setAlert] = useState<StardustAlertContent>({
@@ -30,6 +31,11 @@ export default function AddressSetter(props: AddressSetterProps) {
     });
 
     useEffect(() => {
+        if (props.initialValue) {
+            setBuildingName(props.initialValue.name);
+            setBuildingRoadAddr(props.initialValue.roadAddress);
+            setIsBuildingNameOkay(true);
+        }
         setAddress(null);
 
         return () => {
@@ -38,23 +44,26 @@ export default function AddressSetter(props: AddressSetterProps) {
     }, []);
 
     useEffect(() => {
-        if (address === null || buildingName === null || !isBuildingNameOkay) {
+        if (buildingRoadAddr === null || buildingName === null || !isBuildingNameOkay) {
             props.onChangeBuildingInfo(null);
             return;
         }
 
         props.onChangeBuildingInfo({
-            address,
+            roadAddress: buildingRoadAddr,
             name: buildingName,
         });
-    }, [address, buildingName, isBuildingNameOkay]);
+    }, [buildingRoadAddr, buildingName, isBuildingNameOkay]);
 
     useEffect(() => {
         if (address === null) {
+            return;
             setBuildingName(null);
             setIsBuildingNameOkay(false);
             return;
         }
+
+        setBuildingRoadAddr(address.roadAddress);
 
         buildingVerifier.verifyBuildingAddress(address).then((result) => {
             if (result === null) return;
@@ -118,7 +127,7 @@ export default function AddressSetter(props: AddressSetterProps) {
                 <View style={props.styles.inputWrapper}>
                     <UniversalTextInput
                         placeholder="빌라의 주소를 입력해주세요."
-                        value={address?.roadAddress ? address.roadAddress : ""}
+                        value={buildingRoadAddr ?? ""}
                         onPressIn={() => navigation.navigate("search_address")}
                     />
                     <View style={props.styles.magnifierBox}>
@@ -153,17 +162,17 @@ export default function AddressSetter(props: AddressSetterProps) {
                 <View style={props.styles.inputWrapper}>
                     <UniversalTextInput
                         placeholder="주소 검색 후 빌라 이름을 세 글자 이상 입력해주세요."
-                        value={address ? (buildingName ? buildingName : "") : ""}
+                        value={buildingRoadAddr ? (buildingName ? buildingName : "") : ""}
                         onChangeText={(text) => handleChangeBuidingName(text)}
                         onEndEditing={() => handleEndEditingBuildingName()}
-                        editable={address !== null}
+                        editable={buildingRoadAddr !== null}
                         lowlightColor={
-                            address === null || isBuildingNameOkay
+                            buildingRoadAddr === null || isBuildingNameOkay
                                 ? undefined
                                 : props.styles.villaNameInputInvalid.color
                         }
                         highlightColor={
-                            address === null || isBuildingNameOkay
+                            buildingRoadAddr === null || isBuildingNameOkay
                                 ? undefined
                                 : props.styles.villaNameInputInvalid.color
                         }

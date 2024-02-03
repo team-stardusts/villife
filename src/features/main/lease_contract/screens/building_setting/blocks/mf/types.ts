@@ -1,6 +1,7 @@
 import { BankAccountType } from "./blocks/bank/types";
 
 export type MFDataSetterProps = {
+    initialValue?: MFData | undefined;
     onChangeMFData(mfdata: MFData): void;
 };
 

@@ -34,10 +34,10 @@ export default function BankAccountSetModal(props: BankAccountSetModalProps) {
     const isDone = (): boolean => {
         if (account === null) return false;
 
-        if (account.account_number.length < 10) return false;
-        if (account.account_number.length > 25) return false;
-        if (account.owner_name.length < 2) return false;
-        if (account.owner_name.length > 7) return false;
+        if (account.accountNumber.length < 10) return false;
+        if (account.accountNumber.length > 25) return false;
+        if (account.ownerName.length < 2) return false;
+        if (account.ownerName.length > 7) return false;
         return true;
     };
 
@@ -55,10 +55,10 @@ export default function BankAccountSetModal(props: BankAccountSetModalProps) {
                                 activeOpacity={0.6}
                                 onPress={() =>
                                     setAccount({
-                                        bank_name: bankChunk[0],
-                                        account_number: "",
-                                        account_type: "관리비",
-                                        owner_name: "",
+                                        bankName: bankChunk[0],
+                                        accountNumber: "",
+                                        accountType: "관리비",
+                                        ownerName: "",
                                     })
                                 }>
                                 <Text style={styles.rowText}>{bankChunk[0]}</Text>
@@ -69,10 +69,10 @@ export default function BankAccountSetModal(props: BankAccountSetModalProps) {
                                     activeOpacity={0.6}
                                     onPress={() =>
                                         setAccount({
-                                            bank_name: bankChunk[1],
-                                            account_number: "",
-                                            account_type: "관리비",
-                                            owner_name: "",
+                                            bankName: bankChunk[1],
+                                            accountNumber: "",
+                                            accountType: "관리비",
+                                            ownerName: "",
                                         })
                                     }>
                                     <Text style={styles.rowText}>{bankChunk[1]}</Text>
@@ -111,7 +111,7 @@ export default function BankAccountSetModal(props: BankAccountSetModalProps) {
                     <Text style={styles.elementTitle}>은행명</Text>
                 </View>
                 <View style={styles.elementWrapper}>
-                    <Text style={styles.bankName}>{account?.bank_name}</Text>
+                    <Text style={styles.bankName}>{account?.bankName}</Text>
                 </View>
                 <View style={[styles.elementWrapper, styles.elementTitleWrapper]}>
                     <Text style={styles.elementTitle}>계좌번호</Text>
@@ -121,7 +121,7 @@ export default function BankAccountSetModal(props: BankAccountSetModalProps) {
                         name="account_number"
                         placeholder="계좌번호를 10글자 이상 입력해주세요. ('-' 포함)"
                         placeholderTextColor={styles.inputPlaceholder.color}
-                        value={account?.account_number}
+                        value={account?.accountNumber}
                         onChangeText={(text, name) => {
                             let _text = text.replace(/-/g, "");
 
@@ -142,7 +142,7 @@ export default function BankAccountSetModal(props: BankAccountSetModalProps) {
                         name="owner_name"
                         placeholder="입금자명을 2 ~ 7글자로 입력해주세요."
                         placeholderTextColor={styles.inputPlaceholder.color}
-                        value={account?.owner_name}
+                        value={account?.ownerName}
                         onChangeText={(text, name) => {
                             if (account !== null && !validator.hasSpecialChar(text) && !validator.hasAlpha(text)) {
                                 setAccount({

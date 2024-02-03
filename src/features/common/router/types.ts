@@ -8,6 +8,7 @@ import {
     BuildingRoomInfo,
 } from "../../main/lease_contract/services/building_rooms/provider/types";
 import { PaymentBill } from "../../expense/management_fee/viewmodel/renter/types";
+import { Villife } from "@team-stardusts/villife-client";
 
 export type VillifeRootStackParamList = {
     login?: {};
@@ -36,6 +37,7 @@ export type VillifeStackParamList = VillifeRootStackParamList & {
     approval_home: {};
     building_addition_guide?: {};
     building_info?: {};
+    building_setting?: Villife.Contract.Building;
     building_mf_history?: {};
     confirm_payment_cost: VillifeStackParamList["payment_window"] & {
         bill?: {
@@ -123,7 +125,6 @@ export type VillifeStackParamList = VillifeRootStackParamList & {
     };
     register_vehicle?: {};
     register_guest_vehicle?: {};
-    register_building?: {};
     request_payment_confirmation: {
         accountID: number;
         amountWon: number;

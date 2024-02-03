@@ -26,7 +26,7 @@ import ManagementFeeHomeScreen from "../../expense/management_fee/screens/home";
 import PermissionRequestScreen from "../../auth/screens/permission_request";
 import RegisterVehicleScreen from "../../main/parking/screens/register_vehicle";
 import RegisterGuestVehicleScreen from "../../main/parking/screens/register_guest_vehicle";
-import RegisterBuildingScreen from "../../main/lease_contract/screens/register_building";
+import BuildingSettingScreen from "../../main/lease_contract/screens/building_setting";
 import SendParkPushNotiScreen from "../../main/parking/screens/send_park_push_noti";
 import SplashScreen from "../../splash/screens";
 import SetBuildingScreen from "../../auth/screens/set_building";
@@ -124,7 +124,7 @@ export default function ScreenRouter() {
             </Stack.Group>
             <Stack.Group>
                 <Stack.Screen name={"lease_contract"} component={LeaseContractHomeScreen} />
-                <Stack.Screen name={"register_building"} component={RegisterBuildingScreen} />
+                <Stack.Screen name={"building_setting"} component={BuildingSettingScreen} />
                 <Stack.Screen name={"tenant_detail"} component={TenantDetailScreen} />
                 <Stack.Screen name={"tenant_setting"} component={TenantSettingScreen} />
 
