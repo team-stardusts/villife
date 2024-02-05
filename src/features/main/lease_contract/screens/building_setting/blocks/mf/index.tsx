@@ -9,14 +9,14 @@ import { BankAccountType } from "./blocks/bank/types";
 export default function MFDataSetter(props: MFDataSetterProps) {
     const styles = useMFDataSetterStyles();
     const [mfdays, setMFDays] = useState<SelectedMFDay>({
-        dueDay: {
-            name: "마감일",
-            explanation: "고지일로부터",
-            day: null,
-        },
         notiDay: {
             name: "고지일",
             explanation: "매월",
+            day: null,
+        },
+        dueDay: {
+            name: "마감일",
+            explanation: "고지일로부터",
             day: null,
         },
     });
@@ -27,13 +27,13 @@ export default function MFDataSetter(props: MFDataSetterProps) {
             //setBankAccounts([...props.initialValue.bankAccounts]);
             setMFDays({
                 ...mfdays,
-                dueDay: {
-                    ...mfdays.dueDay,
-                    day: props.initialValue.dueDay,
-                },
                 notiDay: {
                     ...mfdays.notiDay,
                     day: props.initialValue.notiDay,
+                },
+                dueDay: {
+                    ...mfdays.dueDay,
+                    day: props.initialValue.dueDay,
                 },
             });
         }
@@ -74,11 +74,13 @@ export default function MFDataSetter(props: MFDataSetterProps) {
                         />
                     );
                 })}
-                <BankAccountSetter
-                    styles={styles}
-                    initialValue={props.initialValue ? props.initialValue.bankAccounts : undefined}
-                    onEnterBankAccounts={setBankAccounts}
-                />
+                {!props.initialValue && (
+                    <BankAccountSetter
+                        styles={styles}
+                        //initialValue={props.initialValue ? props.initialValue.bankAccounts : undefined}
+                        onEnterBankAccounts={setBankAccounts}
+                    />
+                )}
             </View>
         </View>
     );

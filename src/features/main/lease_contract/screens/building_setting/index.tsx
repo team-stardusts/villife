@@ -33,11 +33,9 @@ export default function BuildingSettingScreen({ navigation, route }: RegisterBui
     const isProperlyPrepared = (): boolean => {
         const isValidFloorValue = floors.filter((floor) => floor !== 0 && floor !== null).length !== 0;
 
-        return buildingInfo !== null &&
-            mfdata.dueDay !== null &&
-            mfdata.notiDay !== null &&
-            mfdata.bankAccounts.length > 0 &&
-            route.params
+        return buildingInfo !== null && mfdata.dueDay !== null && mfdata.notiDay !== null && route.params
+            ? true
+            : mfdata.bankAccounts.length > 0 && route.params
             ? true
             : isValidFloorValue;
     };

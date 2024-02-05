@@ -111,27 +111,6 @@ export default function BuildingInfoView(props: BuildingInfoViewProps) {
                         <Text style={styles.sectionRowValue}>+ {props.buildingInfo.mfDueDate}일</Text>
                     </View>
                 </View>
-                <View
-                    style={[
-                        styles.section,
-                        !props.isAdmin && {
-                            borderBottomWidth: 0,
-                            marginBottom: 0,
-                        },
-                    ]}>
-                    <View style={[styles.sectionTitleBox, { marginBottom: styles.sectionTitleBox.marginBottom * 1.5 }]}>
-                        <Text style={styles.sectionTitle}>관리비 계좌</Text>
-                    </View>
-                    {props.buildingInfo.bankAccounts.map((account, index) => (
-                        <View key={index} style={[styles.sectionRow]}>
-                            <BankInfoBox
-                                bankName={account.bankName}
-                                accountNumber={account.accountNumber}
-                                accountHolder={account.ownerName}
-                            />
-                        </View>
-                    ))}
-                </View>
                 {props.isAdmin && (
                     <View
                         style={[
@@ -164,6 +143,47 @@ export default function BuildingInfoView(props: BuildingInfoViewProps) {
                         ))}
                     </View>
                 )}
+            </TitleCard>
+            <View style={styles.paddingBox} />
+            <TitleCard
+                title="계좌 정보"
+                headerButton={
+                    props.isAdmin && props.buildingInfo.bankAccounts.length !== 0
+                        ? {
+                              title: "수정하기",
+                              onPress: () => {
+                                  navigation.navigate("building_setting", props.buildingInfo);
+                              },
+                          }
+                        : undefined
+                }>
+                <View
+                    style={[
+                        styles.section,
+                        !props.isAdmin && {
+                            borderBottomWidth: 0,
+                            marginBottom: 0,
+                        },
+                    ]}>
+                    <View style={[styles.sectionTitleBox, { marginBottom: styles.sectionTitleBox.marginBottom * 1.5 }]}>
+                        <Text style={styles.sectionTitle}>관리비 계좌</Text>
+                    </View>
+                    {props.buildingInfo.bankAccounts.length === 0 ? (
+                        <View style={styles.emptySection}>
+                            <Text style={styles.sectionRowValue}>등록된 계좌가 없어요.</Text>
+                        </View>
+                    ) : (
+                        props.buildingInfo.bankAccounts.map((account, index) => (
+                            <View key={index} style={[styles.sectionRow]}>
+                                <BankInfoBox
+                                    bankName={account.bankName}
+                                    accountNumber={account.accountNumber}
+                                    accountHolder={account.ownerName}
+                                />
+                            </View>
+                        ))
+                    )}
+                </View>
             </TitleCard>
         </View>
     );

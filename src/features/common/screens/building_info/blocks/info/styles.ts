@@ -11,6 +11,9 @@ export default function useBuildingInfoViewStyles() {
         container: {
             marginTop: deviceUI.moderateScale(10),
         },
+        paddingBox: {
+            marginVertical: deviceUI.moderateScale(10),
+        },
         editBtn: {
             justifyContent: "center",
             alignItems: "center",
@@ -29,6 +32,9 @@ export default function useBuildingInfoViewStyles() {
             paddingVertical: deviceUI.moderateScale(8),
             borderBottomWidth: deviceUI.moderateScale(2),
             borderBottomColor: theme.color.series.grey.level1,
+        },
+        emptySection: {
+            paddingVertical: deviceUI.moderateScale(30),
         },
         sectionTitleBox: {
             paddingLeft: deviceUI.moderateScale(5),
