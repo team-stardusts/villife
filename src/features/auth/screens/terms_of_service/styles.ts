@@ -25,20 +25,26 @@ export default function useTermsOfServiceScreenStyles() {
             marginBottom: deviceUI.moderateScale(16),
         },
         lefrBox: {
-            flexDirection: "row",
-            alignItems: "center",
-        },
-        barSort: {
-            paddingHorizontal: deviceUI.moderateScale(8),
+            flex: 1,
             flexDirection: "row",
             alignItems: "center",
             justifyContent: "space-between",
+        },
+        barSort: {
+            width: "100%",
+            flexDirection: "row",
+            alignItems: "center",
+            paddingHorizontal: deviceUI.moderateScale(8),
             marginBottom: deviceUI.moderateScale(16),
         },
         descriptionMessage: {
             fontWeight: "bold",
             fontSize: deviceUI.moderateScale(16),
             marginLeft: deviceUI.moderateScale(16),
+        },
+        icon: {
+            color: theme.color.series.grey.level5,
+            width: deviceUI.moderateScale(45),
         },
     });
 

@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
-import { SafeAreaView, View, Text, ScrollView, TouchableOpacity, Linking, LayoutAnimation } from "react-native";
+import { SafeAreaView, View, Text, ScrollView, TouchableOpacity, LayoutAnimation } from "react-native";
 import useScreenMessage from "../../../common/hooks/multilingual/hooks";
 import ScreenTitleView from "../../../common/blocks/title_view";
 import useTermsOfServiceScreenStyles from "./styles";
 import TermsOfServiceScreenProps from "./types";
 import AuthScreenSwitchButton from "../../blocks/switch_button";
-import PressableVectorIcon from "../../../common/blocks/icon/vector";
 import useSystemInfo from "../../../common/hooks/systeminfo/hooks";
+import Icon from "../../../common/atoms/icon";
 
 export default function TermsOfServiceScreen({ navigation, route }: TermsOfServiceScreenProps) {
     const iconDiameter: number = useSystemInfo().window.width * 0.065;
@@ -55,19 +55,19 @@ export default function TermsOfServiceScreen({ navigation, route }: TermsOfServi
                 }}>
                 <ScrollView style={Styles.input.container}>
                     <View style={Styles.input.barSort}>
+                        <AuthScreenSwitchButton
+                            onPress={() => {
+                                LayoutAnimation.configureNext({
+                                    duration: 50,
+                                    update: {
+                                        type: LayoutAnimation.Types.linear,
+                                    },
+                                });
+                                setIsAllGranted(!isAllGranted);
+                            }}
+                            disabled={isAllGranted}
+                        />
                         <View style={Styles.input.lefrBox}>
-                            <AuthScreenSwitchButton
-                                onPress={() => {
-                                    LayoutAnimation.configureNext({
-                                        duration: 50,
-                                        update: {
-                                            type: LayoutAnimation.Types.linear,
-                                        },
-                                    });
-                                    setIsAllGranted(!isAllGranted);
-                                }}
-                                disabled={isAllGranted}
-                            />
                             <Text style={Styles.input.descriptionMessage}>
                                 {messages.messages.auth.terms_of_service.terms_of_service_all}
                             </Text>
@@ -75,62 +75,58 @@ export default function TermsOfServiceScreen({ navigation, route }: TermsOfServi
                     </View>
                     <View style={Styles.input.horizontalLine} />
                     <View style={Styles.input.barSort}>
-                        <View style={Styles.input.lefrBox}>
-                            <AuthScreenSwitchButton
-                                onPress={() => {
-                                    LayoutAnimation.configureNext({
-                                        duration: 50,
-                                        update: {
-                                            type: LayoutAnimation.Types.linear,
-                                        },
-                                    });
-                                    setIsPrivacyGranted(!isPrivacyGranted);
-                                }}
-                                disabled={isPrivacyGranted}
-                            />
-                            <Text style={Styles.input.descriptionMessage}>
-                                {messages.messages.auth.terms_of_service.terms_of_service_Privacy}
-                            </Text>
-                        </View>
-                        <PressableVectorIcon
-                            providerName="right"
-                            diameter={iconDiameter}
-                            onPress={() =>
-                                navigation.navigate("mypage_webview", {
-                                    title: "서비스 이용 약관",
-                                    url: "https://villife.notion.site/d60bebc9a0c5400883375d8257ad4bfc",
-                                })
-                            }
+                        <AuthScreenSwitchButton
+                            onPress={() => {
+                                LayoutAnimation.configureNext({
+                                    duration: 50,
+                                    update: {
+                                        type: LayoutAnimation.Types.linear,
+                                    },
+                                });
+                                setIsPrivacyGranted(!isPrivacyGranted);
+                            }}
+                            disabled={isPrivacyGranted}
                         />
-                    </View>
-                    <View style={Styles.input.barSort}>
-                        <View style={Styles.input.lefrBox}>
-                            <AuthScreenSwitchButton
-                                onPress={() => {
-                                    LayoutAnimation.configureNext({
-                                        duration: 50,
-                                        update: {
-                                            type: LayoutAnimation.Types.linear,
-                                        },
-                                    });
-                                    setIsServiceGranted(!isServiceGranted);
-                                }}
-                                disabled={isServiceGranted}
-                            />
-                            <Text style={Styles.input.descriptionMessage}>
-                                {messages.messages.auth.terms_of_service.terms_of_service_service}
-                            </Text>
-                        </View>
-                        <PressableVectorIcon
-                            providerName="right"
-                            diameter={iconDiameter}
+                        <TouchableOpacity
+                            style={Styles.input.lefrBox}
                             onPress={() =>
                                 navigation.navigate("mypage_webview", {
                                     title: "개인정보 처리 방침",
-                                    url: "https://villife.notion.site/4aa060ac489b44e7b8bdfaae6b4cab54",
+                                    url: "https://villife.notion.site/4aa060ac489b44e7b8bdfaae6b4cab54?pvs=4",
                                 })
-                            }
+                            }>
+                            <Text style={Styles.input.descriptionMessage}>
+                                {messages.messages.auth.terms_of_service.terms_of_service_Privacy}
+                            </Text>
+                            <Icon name="arrow-right" size={Styles.input.icon.width} color={Styles.input.icon.color} />
+                        </TouchableOpacity>
+                    </View>
+                    <View style={Styles.input.barSort}>
+                        <AuthScreenSwitchButton
+                            onPress={() => {
+                                LayoutAnimation.configureNext({
+                                    duration: 50,
+                                    update: {
+                                        type: LayoutAnimation.Types.linear,
+                                    },
+                                });
+                                setIsServiceGranted(!isServiceGranted);
+                            }}
+                            disabled={isServiceGranted}
                         />
+                        <TouchableOpacity
+                            style={Styles.input.lefrBox}
+                            onPress={() =>
+                                navigation.navigate("mypage_webview", {
+                                    title: "서비스 이용 약관",
+                                    url: "https://myvillife.notion.site/myvillife/09d362c9e0a849838db45163ec9c5372",
+                                })
+                            }>
+                            <Text style={Styles.input.descriptionMessage}>
+                                {messages.messages.auth.terms_of_service.terms_of_service_service}
+                            </Text>
+                            <Icon name="arrow-right" size={Styles.input.icon.width} color={Styles.input.icon.color} />
+                        </TouchableOpacity>
                     </View>
                 </ScrollView>
             </ScreenTitleView>
