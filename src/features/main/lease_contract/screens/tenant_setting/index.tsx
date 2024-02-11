@@ -67,15 +67,15 @@ export default function TenantSettingScreen({ navigation, route }: TenantSetting
     const title = useMemo<ScreenTitle>(() => {
         if (previousRoomInfo) {
             return {
-                nav: "세입자 정보 수정",
-                main: "세입자 정보 수정하기",
-                sub: "세입자 정보를 수정하고 확인을 눌러주세요.",
+                nav: "계약 정보 수정",
+                main: "계약 정보 수정하기",
+                sub: "계약 정보를 수정하고 확인을 눌러주세요.",
             };
         }
         return {
-            nav: "세입자 정보 추가",
-            main: "세입자 정보 추가하기",
-            sub: "세입자 정보를 설정하고 확인을 눌러주세요.",
+            nav: "계약 정보 추가",
+            main: "계약 정보 추가하기",
+            sub: "계약 정보를 설정하고 확인을 눌러주세요.",
         };
     }, [previousRoomInfo]);
 
