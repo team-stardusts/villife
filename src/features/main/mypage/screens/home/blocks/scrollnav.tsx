@@ -86,7 +86,7 @@ export default function ScrollNav(props: ScrollNavProps) {
                     onPress={() =>
                         navigation.navigate("mypage_webview", {
                             title: "서비스 이용 약관",
-                            url: "https://villife.notion.site/d60bebc9a0c5400883375d8257ad4bfc?pvs=4",
+                            url: "https://myvillife.notion.site/myvillife/09d362c9e0a849838db45163ec9c5372",
                         })
                     }
                 />

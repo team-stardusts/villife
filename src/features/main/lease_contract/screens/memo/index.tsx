@@ -42,7 +42,8 @@ export default function ContractMemoEditScreen({ navigation, route }: ContractMe
                 VillifeToastMessage.showBottomToast("error", "메모 등록을 실패했어요...");
             }
         } else {
-            const isSuccessful = await viewModel.updateMemo(route.params.updateInfo.memoId, memo);
+            console.log(route.params);
+            const isSuccessful = await viewModel.updateMemo(route.params.updateInfo.memoId, memoColor.name, memo);
 
             if (isSuccessful) {
                 //VillifeToastMessage.showBottomToast("success", "메모 내용을 변경했어요!");

@@ -80,7 +80,7 @@ export default function StardustAlert(props: StardustAlertProps) {
                         <StardustAlertBody message={props.message ?? props.title} styles={styles.body} />
                     </View>
                     <View style={styles.main.bottom}>
-                        <StardustAlertBottom setAlert={props.setAlert} buttons={props.buttons} styles={styles.bottom} />
+                        <StardustAlertBottom {...props} styles={styles.bottom} />
                     </View>
                 </Animated.View>
             </View>

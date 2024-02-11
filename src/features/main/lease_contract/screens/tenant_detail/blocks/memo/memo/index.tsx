@@ -28,6 +28,7 @@ export default function ContractMemo(props: ContractMemoProps) {
         outputRange: ["0deg", "0.6deg"],
     });
     const memoColor = useMemo<MemoColor>(() => {
+        if (props.memoType === undefined) return pallet.blue;
         try {
             return pallet[props.memoType as ColorAvailable];
         } catch {
@@ -40,6 +41,10 @@ export default function ContractMemo(props: ContractMemoProps) {
         title: "메모를 삭제하실건가요?",
         message: "삭제한 메모는 복구할 수 없습니다.",
     });
+
+    useEffect(() => {
+        console.log("MEMO", memoColor);
+    }, [memoColor]);
 
     useEffect(() => {
         if (props.isEditMode) {
@@ -155,7 +160,11 @@ export default function ContractMemo(props: ContractMemoProps) {
                 )}
                 <ContentBox
                     backgroundColor={
-                        props.isEditMode ? hexToRGB(memoColor.background as string, 0.7) : memoColor.background
+                        memoColor
+                            ? props.isEditMode
+                                ? hexToRGB(memoColor.background as string, 0.7)
+                                : memoColor.background
+                            : ""
                     }>
                     <TouchableOpacity
                         style={styles.wrapper}
@@ -179,7 +188,7 @@ export default function ContractMemo(props: ContractMemoProps) {
                             <Text
                                 style={[
                                     styles.memo,
-                                    {
+                                    memoColor && {
                                         color: props.isEditMode
                                             ? hexToRGB(memoColor.font as string, 0.7)
                                             : memoColor.font,

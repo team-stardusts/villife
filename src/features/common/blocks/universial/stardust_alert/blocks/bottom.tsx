@@ -1,10 +1,9 @@
 import { Text, TouchableHighlight, TouchableOpacity, View } from "react-native";
 import useStardustAlertStyles from "../styles";
 import { useEffect } from "react";
-import { AlertButton, StardustAlertProps } from "../types";
+import { AlertButton, StardustAlertContent, StardustAlertProps } from "../types";
 
-type StardustAlertBottomProps = {
-    buttons?: StardustAlertProps["buttons"];
+type StardustAlertBottomProps = StardustAlertContent & {
     setAlert: StardustAlertProps["setAlert"];
     styles: ReturnType<typeof useStardustAlertStyles>["bottom"];
 };
@@ -36,8 +35,8 @@ export default function StardustAlertBottom(props: StardustAlertBottomProps) {
                     text="OK"
                     onPress={() =>
                         props.setAlert({
+                            ...props,
                             visible: false,
-                            title: "",
                         })
                     }
                 />

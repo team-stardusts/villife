@@ -118,8 +118,8 @@ export default function BankAccountSetModal(props: BankAccountSetModalProps) {
                 </View>
                 <View style={[styles.elementWrapper, styles.inputWrapper]}>
                     <UniversalTextInput
-                        name="account_number"
-                        placeholder="계좌번호를 10글자 이상 입력해주세요. ('-' 포함)"
+                        name="accountNumber"
+                        placeholder="'-' 제외 계좌번호 10글자 이상"
                         placeholderTextColor={styles.inputPlaceholder.color}
                         value={account?.accountNumber}
                         onChangeText={(text, name) => {
@@ -139,11 +139,12 @@ export default function BankAccountSetModal(props: BankAccountSetModalProps) {
                 </View>
                 <View style={[styles.elementWrapper, styles.inputWrapper]}>
                     <UniversalTextInput
-                        name="owner_name"
-                        placeholder="입금자명을 2 ~ 7글자로 입력해주세요."
+                        name="ownerName"
+                        placeholder="예금주 2 ~ 7글자 이내"
                         placeholderTextColor={styles.inputPlaceholder.color}
                         value={account?.ownerName}
                         onChangeText={(text, name) => {
+                            console.log(validator.hasAlpha(text));
                             if (account !== null && !validator.hasSpecialChar(text) && !validator.hasAlpha(text)) {
                                 setAccount({
                                     ...account,
@@ -182,7 +183,7 @@ function useBankSelectModalStyles() {
         },
         rowText: {
             color: theme.color.specified.black,
-            fontFamily: theme.font.fontFamily.pretendard.semiBold,
+            fontFamily: theme.font.fontFamily.pretendard.medium,
             fontSize: deviceUI.moderateScale(16),
         },
         accountModalCancelBtn: {
@@ -201,7 +202,7 @@ function useBankSelectModalStyles() {
         },
         elementTitle: {
             color: theme.color.specified.blue,
-            fontFamily: theme.font.fontFamily.pretendard.bold,
+            fontFamily: theme.font.fontFamily.pretendard.medium,
             fontSize: deviceUI.moderateScale(15),
         },
         elementWrapper: {
@@ -210,11 +211,12 @@ function useBankSelectModalStyles() {
         },
         bankName: {
             color: theme.color.specified.black,
-            fontFamily: theme.font.fontFamily.pretendard.bold,
+            fontFamily: theme.font.fontFamily.pretendard.medium,
             fontSize: deviceUI.moderateScale(14),
             marginBottom: deviceUI.moderateScale(10),
         },
         inputWrapper: {
+            marginBottom: deviceUI.moderateScale(10),
             height: deviceUI.getScreenSize().height * 0.035,
         },
         inputPlaceholder: {

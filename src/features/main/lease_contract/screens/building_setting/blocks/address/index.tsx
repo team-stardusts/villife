@@ -56,10 +56,12 @@ export default function AddressSetter(props: AddressSetterProps) {
     }, [buildingRoadAddr, buildingName, isBuildingNameOkay]);
 
     useEffect(() => {
+        console.log(address?.roadAddress);
         if (address === null) {
-            return;
-            setBuildingName(null);
-            setIsBuildingNameOkay(false);
+            if (!props.initialValue) {
+                setBuildingName(null);
+                setIsBuildingNameOkay(false);
+            }
             return;
         }
 
@@ -70,6 +72,7 @@ export default function AddressSetter(props: AddressSetterProps) {
 
             setAddress(null);
             setBuildingName(null);
+            setBuildingRoadAddr(null);
             setAlert({ ...alert, visible: true });
         });
     }, [address]);

@@ -33,16 +33,18 @@ export default function BankAccountSetter(props: BankAccountSetterProps) {
                     <Text style={props.styles.main.rowTitle}>관리비 계좌</Text>
                 </View>
                 <View style={props.styles.main.rowContentBox}>
-                    <TouchableOpacity
-                        style={props.styles.bank.additionBtn}
-                        activeOpacity={0.6}
-                        onPress={() => setBankModalVisible(true)}>
-                        <Icon
-                            name="plus"
-                            size={props.styles.bank.additionIcon.width}
-                            color={props.styles.bank.additionIcon.color}
-                        />
-                    </TouchableOpacity>
+                    {bankAccounts.length === 0 && (
+                        <TouchableOpacity
+                            style={props.styles.bank.additionBtn}
+                            activeOpacity={0.6}
+                            onPress={() => setBankModalVisible(true)}>
+                            <Icon
+                                name="plus"
+                                size={props.styles.bank.additionIcon.width}
+                                color={props.styles.bank.additionIcon.color}
+                            />
+                        </TouchableOpacity>
+                    )}
                 </View>
             </View>
             <View style={props.styles.main.row}>

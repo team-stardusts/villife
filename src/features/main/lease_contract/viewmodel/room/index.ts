@@ -206,7 +206,7 @@ export default function useRoomViewModel() {
                 });
         }
 
-        public async updateMemo(memoId: number, content: string): Promise<boolean> {
+        public async updateMemo(memoId: number, memoType: string, content: string): Promise<boolean> {
             if (user?.adminInfomation?.selectedBuilding === undefined) {
                 return false;
             }
@@ -216,6 +216,7 @@ export default function useRoomViewModel() {
                     buildingId: user.adminInfomation.selectedBuilding.id,
                     content,
                     memoId,
+                    memoType,
                 })
                 .then(async () => {
                     await this.update();
