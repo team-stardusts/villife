@@ -13,7 +13,7 @@ export default function useRootLinks(): RootLink[] {
             },
         },
         {
-            icon: "building",
+            icon: "document_contract",
             caption: message.messages.main.lease_contract.home.screen_title,
             screen: {
                 name: "lease_contract",

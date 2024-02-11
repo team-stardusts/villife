@@ -1,4 +1,4 @@
-import { Text, TouchableOpacity, View } from "react-native";
+import { Alert, Text, TouchableOpacity, View } from "react-native";
 import { BuildingInfoViewProps } from "./tyles";
 import useBuildingInfoViewStyles from "./styles";
 import BankInfoBox from "./blocks/account";
@@ -152,7 +152,8 @@ export default function BuildingInfoView(props: BuildingInfoViewProps) {
                         ? {
                               title: "수정하기",
                               onPress: () => {
-                                  navigation.navigate("building_setting", props.buildingInfo);
+                                  Alert.alert("아직 준비되지 않았어요!");
+                                  //navigation.navigate("building_setting", props.buildingInfo);
                               },
                           }
                         : undefined
