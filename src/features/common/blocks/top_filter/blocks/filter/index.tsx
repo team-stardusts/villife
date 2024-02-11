@@ -9,7 +9,7 @@ export default function Filter(props: FilterProps) {
     const [selectedItems, setSelectedItems] = useState<string[] | null>(null);
 
     useEffect(() => {
-        if (selectedItems === null) return;
+        if (selectedItems === null || props.data.length === 0) return;
 
         props.onFilterData(props.data.filter((datum) => props.filter(datum, selectedItems)));
     }, [selectedItems, props.data]);

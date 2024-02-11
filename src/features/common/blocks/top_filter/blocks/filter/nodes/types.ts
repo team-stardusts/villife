@@ -4,6 +4,8 @@ import useFilterStyles from "../styles";
 export type HorizontalFilterProps = {
     headers: string[];
     postfix?: string;
+    //selectedItems: string[] | null;
+    //setSelectedItems: React.Dispatch<React.SetStateAction<string[] | null>>;
     enableSelectAll?: boolean;
     disableMultipleSelection: boolean;
     onChangeSelectedItems(headers: string[]): void;

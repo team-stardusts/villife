@@ -24,12 +24,9 @@ export default function LeaseContractHomeScreen({ navigation, route }: LeaseCont
     console.log("[BUILDING_MANAGEMENT_SCREEN]", "On Create");
 
     useEffect(() => {
-        /* if (!user?.adminInfomation?.selectedBuilding) return;
-        //viewmodel?.update()
-        */
         if (!viewmodel?.user?.adminInfomation?.selectedBuilding) return;
         viewmodel?.update();
-    }, [viewmodel?.user?.adminInfomation]);
+    }, [viewmodel?.user?.isAdmin, viewmodel?.user?.adminInfomation]);
 
     useEffect(() => {
         if (!viewmodel?.user) return;

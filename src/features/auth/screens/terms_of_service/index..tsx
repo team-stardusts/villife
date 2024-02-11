@@ -5,11 +5,9 @@ import ScreenTitleView from "../../../common/blocks/title_view";
 import useTermsOfServiceScreenStyles from "./styles";
 import TermsOfServiceScreenProps from "./types";
 import AuthScreenSwitchButton from "../../blocks/switch_button";
-import useSystemInfo from "../../../common/hooks/systeminfo/hooks";
 import Icon from "../../../common/atoms/icon";
 
 export default function TermsOfServiceScreen({ navigation, route }: TermsOfServiceScreenProps) {
-    const iconDiameter: number = useSystemInfo().window.width * 0.065;
     const messages = useScreenMessage();
     const Styles = useTermsOfServiceScreenStyles();
 
