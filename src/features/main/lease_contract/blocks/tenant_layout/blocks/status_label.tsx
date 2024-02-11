@@ -73,7 +73,7 @@ function useTenantRoomStateLabelStyles() {
             fontSize: deviceUI.moderateScale(13),
         },
         unsigned: {
-            backgroundColor: theme.color.status.danger,
+            backgroundColor: theme.color.series.red.level4,
             color: theme.color.specified.white,
             fontFamily: theme.font.fontFamily.pretendard.semiBold,
             fontSize: deviceUI.moderateScale(13),
