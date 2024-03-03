@@ -23,6 +23,7 @@ export default function HomeContentFromParking() {
         if (userVehicles.length > 0) {
             return userVehicles[0];
         }
+
         return null;
     }, [viewModel?.data]);
 
@@ -46,8 +47,8 @@ export default function HomeContentFromParking() {
                         </View>
                         <View style={styles.main.dateWrapper}>
                             <Text style={styles.main.text}>
-                                {favoritVehicle.etd.getHours()}
-                                {messages.words.hour} {favoritVehicle.etd.getMinutes()}
+                                {favoritVehicle.etd.getUTCHours()}
+                                {messages.words.hour} {favoritVehicle.etd.getUTCMinutes()}
                                 {messages.words.minute}
                             </Text>
                         </View>
