@@ -144,7 +144,7 @@ export default function BankAccountSetModal(props: BankAccountSetModalProps) {
                         placeholderTextColor={styles.inputPlaceholder.color}
                         value={account?.ownerName}
                         onChangeText={(text, name) => {
-                            console.log(validator.hasAlpha(text));
+                            //console.log(validator.hasAlpha(text));
                             if (account !== null && !validator.hasSpecialChar(text) && !validator.hasAlpha(text)) {
                                 setAccount({
                                     ...account,

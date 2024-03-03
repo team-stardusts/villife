@@ -59,10 +59,8 @@ export default function BuildingSettingScreen({ navigation, route }: RegisterBui
         const result = await viewModel.modifyBuilding({
             buildingId: route.params.buildingId,
             buildingName: buildingInfo.name,
-            deletedAccounts: [],
             mfDueDate: mfdata.dueDay,
             mfNotiDate: mfdata.notiDay,
-            newAccounts: mfdata.bankAccounts,
             ownerName: viewModel.user.name,
         });
 

@@ -65,7 +65,12 @@ export default function BuildingInfoScreen({ navigation, route }: BuildingInfoSc
             }}>
             <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
                 {building !== null && (
-                    <BuildingInfoView isAdmin={viewModel?.user?.isAdmin} buildingInfo={building} rooms={rooms} />
+                    <BuildingInfoView
+                        viewModel={viewModel}
+                        isAdmin={viewModel?.user?.isAdmin}
+                        buildingInfo={building}
+                        rooms={rooms}
+                    />
                 )}
                 <View style={styles.dummy}></View>
             </ScrollView>

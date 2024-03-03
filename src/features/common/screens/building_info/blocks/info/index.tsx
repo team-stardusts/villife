@@ -1,4 +1,4 @@
-import { Alert, Text, TouchableOpacity, View } from "react-native";
+import { Text, View } from "react-native";
 import { BuildingInfoViewProps } from "./tyles";
 import useBuildingInfoViewStyles from "./styles";
 import BankInfoBox from "./blocks/account";
@@ -6,10 +6,14 @@ import { makeChunk } from "../../../../global_function";
 import { useNavigation } from "@react-navigation/native";
 import { VillifeNavigation } from "../../../../router/types";
 import TitleCard from "../../../../blocks/title_card";
+import BankAccountSetModal from "../../../../../main/lease_contract/screens/building_setting/blocks/mf/blocks/bank/blocks/account_setter";
+import { useState } from "react";
+import VillifeToastMessage from "../../../../atoms/toast";
 
 export default function BuildingInfoView(props: BuildingInfoViewProps) {
     const navigation = useNavigation<VillifeNavigation>();
     const styles = useBuildingInfoViewStyles();
+    const [isVisible, setIsVisible] = useState<boolean>(false);
 
     // 삭제하기 기능 나올 시 사용
     /*  const [modalVisible, setModalVisible] = useState<boolean>(false);
@@ -67,6 +71,31 @@ export default function BuildingInfoView(props: BuildingInfoViewProps) {
                 setModalVisible={setModalVisible}
                 features={features}
             /> */}
+            {props.buildingInfo.bankAccounts.length > 0 && (
+                <BankAccountSetModal
+                    visible={isVisible}
+                    setVisible={setIsVisible}
+                    // 지금은 건물 당 하나의 계좌만 등록하는 것이 정책이므로 Array의 첫번째 계좌만 핸들링함
+                    onEnterBankAccountInfo={(newAccount) => {
+                        if (props.viewModel !== null) {
+                            props.viewModel
+                                .modifyBankAccount({
+                                    accountId: props.buildingInfo.bankAccounts[0].accountId,
+                                    buildingId: props.buildingInfo.buildingId,
+                                    ...newAccount,
+                                })
+                                .then(() => {
+                                    VillifeToastMessage.showBottomToast("success", "계좌 정보를 변경했어요!");
+                                    navigation.canGoBack() && navigation.goBack();
+                                    navigation.navigate("building_info");
+                                })
+                                .catch(() => {
+                                    VillifeToastMessage.showBottomToast("error", "계좌 정보를 변경하지 못했어요...");
+                                });
+                        }
+                    }}
+                />
+            )}
             <TitleCard
                 title="건물 정보"
                 headerButton={
@@ -148,12 +177,11 @@ export default function BuildingInfoView(props: BuildingInfoViewProps) {
             <TitleCard
                 title="계좌 정보"
                 headerButton={
-                    props.isAdmin && props.buildingInfo.bankAccounts.length !== 0
+                    props.isAdmin && props.buildingInfo.bankAccounts.length > 0
                         ? {
-                              title: "수정하기",
+                              title: "변경하기",
                               onPress: () => {
-                                  Alert.alert("아직 준비되지 않았어요!");
-                                  //navigation.navigate("building_setting", props.buildingInfo);
+                                  setIsVisible(true);
                               },
                           }
                         : undefined

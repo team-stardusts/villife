@@ -114,6 +114,16 @@ export default function useRoomViewModel() {
                 });
         }
 
+        public async modifyBankAccount(params: Villife.Contract.BankAccountModifyForm): Promise<boolean> {
+            return this._api
+                .modifyBankAccount(params)
+                .then(() => true)
+                .catch((err) => {
+                    console.error("[ROOM_CONTRACT_VM]", "occured while modify building registed bank account.", err);
+                    return false;
+                });
+        }
+
         public async createContract(params: Villife.Contract.CreateForm): Promise<boolean> {
             return await this._api
                 .createContract(params)
