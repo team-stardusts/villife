@@ -20,7 +20,7 @@ function OutlinedBox(props: OutlinedBoxProps) {
 
     const [editModalVisible, setEditModalVisible] = useState(false);
     const url = useMemo(() => {
-        return addSearchParamsToPathname("http://192.168.0.27:3000/mobile-view/notice", {
+        return addSearchParamsToPathname("https://myvillife.com/mobile-view/notice", {
             content: props.content,
             createdAt: props.wroteAt,
             title: props.title,
