@@ -1,10 +1,10 @@
 import { View } from "react-native";
-import NavigationView from "../../../../common/blocks/navigation";
+import NavigationView from "../../blocks/navigation";
 import useManualScreenStyles from "./styles";
 import WebView from "react-native-webview";
 import { useState } from "react";
 import MyPageWebViewScreenProps from "./types";
-import VillifeSpinner from "../../../../common/atoms/spinner/villife";
+import VillifeSpinner from "../../atoms/spinner/villife";
 
 export default function MyPageWebViewScreen({ navigation, route }: MyPageWebViewScreenProps) {
     const styles = useManualScreenStyles();
@@ -46,6 +46,11 @@ export default function MyPageWebViewScreen({ navigation, route }: MyPageWebView
                     viewportContent={"width=device-width, user-scalable=yes"}
                     onLoadEnd={() => setIsLoading(false)}
                     cacheEnabled={false}
+                    injectedJavaScript={`
+                        if (!Object.hasOwn) {
+                            Object.hasOwn = (obj, prop) => Object.prototype.hasOwnProperty.call(obj, prop);
+                        }
+                    `}
                     //onNavigationStateChange={setWebviewNavState}
                 />
             </View>

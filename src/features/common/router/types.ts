@@ -75,7 +75,7 @@ export type VillifeStackParamList = VillifeRootStackParamList & {
     image_detail_view: {
         uri: string;
     };
-    mypage_webview: {
+    general_webview: {
         title: string;
         url: string;
     };

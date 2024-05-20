@@ -8,6 +8,7 @@ import { LoginDataType } from "../../../../libs/storage/tables/login/types";
 import VillifeNativeClient from "../../../../libs/villife-native-client";
 import SignerFactory from "../auth/host";
 import { Villife } from "@team-stardusts/villife-client";
+import { AxiosError } from "axios";
 
 /* export class LoginManagerProvider {
     static getLoginManager(host: HostType): ILoginManager {
@@ -24,6 +25,12 @@ import { Villife } from "@team-stardusts/villife-client";
 
 export const LOGIN_BUILDING_ID_TEMP: number = 999999999;
 
+export enum LoginFailedReason {
+    Unknowned,
+    IdNotFound,
+    WrongPassword,
+}
+
 export default function useAuthService(): IAuthServiceProvider {
     const storage: IVillifeStorage = VillifeStorage.getInstance();
     const userApi: Villife.User.Client = new VillifeNativeClient().user;
@@ -31,13 +38,27 @@ export default function useAuthService(): IAuthServiceProvider {
     class AuthServiceProvider implements IAuthServiceProvider {
         public async login(host: HostType, params?: LoginServiceParams | undefined): Promise<LoginResult> {
             const signer = SignerFactory.getSigner(host);
-            const loginInfo = await signer.signIn(params).catch(() => null);
+            let failedReason = undefined;
+
+            const loginInfo = await signer.signIn(params).catch((err) => {
+                if (err instanceof AxiosError) {
+                    if (err.response?.data === "id not found") {
+                        failedReason = LoginFailedReason.IdNotFound;
+                    } else if (err.response?.data === "wrong password") {
+                        failedReason = LoginFailedReason.WrongPassword;
+                    }
+                } else {
+                    failedReason = LoginFailedReason.Unknowned;
+                }
+                return null;
+            });
 
             if (loginInfo === null) {
                 console.log("[AUTH_SERVICE]", "Failed to login.", "host:", host);
                 await storage.login.set(null);
                 return {
                     loginData: null,
+                    failedReason,
                 };
             }
 
@@ -61,6 +82,7 @@ export default function useAuthService(): IAuthServiceProvider {
                 return {
                     loginData: null,
                     socialAccessToken: loginInfo.socialAccessToken,
+                    failedReason,
                 };
             }
 
@@ -73,6 +95,7 @@ export default function useAuthService(): IAuthServiceProvider {
                 return {
                     loginData: null,
                     socialAccessToken: loginInfo.socialAccessToken,
+                    failedReason,
                 };
             }
 
@@ -89,6 +112,7 @@ export default function useAuthService(): IAuthServiceProvider {
             return {
                 loginData: _loginData,
                 socialAccessToken: loginInfo.socialAccessToken,
+                failedReason,
             };
         }
 

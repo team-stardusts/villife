@@ -61,7 +61,7 @@ import BuildingAdditionGuideScreen from "../../main/home/screens/building-additi
 import ContractMemoEditScreen from "../../main/lease_contract/screens/memo";
 import { NotificationBoxScreen } from "../../main/home/screens/notification-box";
 import WithdrawalScreen from "../../main/mypage/screens/withdrawal";
-import MyPageWebViewScreen from "../../main/mypage/screens/webview";
+import MyPageWebViewScreen from "../screens/webview";
 import { useRecoilState } from "recoil";
 import { isConnetedToNetworkState } from "../hooks/states/atoms/network";
 import { useEffect } from "react";
@@ -167,7 +167,7 @@ export default function ScreenRouter() {
                 <Stack.Screen name={"my_page"} component={MyPageHomeScreen} />
                 <Stack.Screen name={"mypage"} component={MyPageScreen} />
                 <Stack.Screen name={"withdrawal"} component={WithdrawalScreen} />
-                <Stack.Screen name={"mypage_webview"} component={MyPageWebViewScreen} />
+                <Stack.Screen name={"general_webview"} component={MyPageWebViewScreen} />
             </Stack.Group>
             <Stack.Group>
                 <Stack.Screen name={"complaint"} component={ComplaintHomeScreen} />

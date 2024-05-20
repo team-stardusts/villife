@@ -4,8 +4,6 @@ import OutlinedBox from "../outlined_box";
 import useNotiViewModel from "./useNotiViewModel";
 import { Notice } from "../../../../../libs/rest_apis/villife/notice/types";
 import useNotiOutLinedBoxListStyles from "./style";
-import { useNavigation } from "@react-navigation/native";
-import { VillifeNavigation } from "../../../../common/router/types";
 import useScreenMessage from "../../../../common/hooks/multilingual/hooks";
 import useUserInformation from "../../../../common/hooks/service/user_info";
 import useStyler from "../../../../common/hooks/styler/hooks";
@@ -14,7 +12,6 @@ import Icon from "../../../../common/atoms/icon";
 function FlatListOutlinedContentsBox() {
     const styles = useNotiOutLinedBoxListStyles();
     const viewModel = useNotiViewModel();
-    const navigation = useNavigation<VillifeNavigation>();
     const messages = useScreenMessage();
     const user = useUserInformation();
     const flatListRef = useRef<FlatList<Notice>>(null);
@@ -39,12 +36,13 @@ function FlatListOutlinedContentsBox() {
             ref={flatListRef}
             contentContainerStyle={styles.contentContainer}
             data={viewModel}
+            nestedScrollEnabled
             keyExtractor={(item, index) => `${index}${item}`}
             renderItem={OutlinedBoxRenderItem}
             showsVerticalScrollIndicator={false}
             ListEmptyComponent={() => {
                 return viewModel === undefined ? (
-                    <View style={{ justifyContent: "center", marginBottom: 50 }}>
+                    <View style={styles.whenLoading}>
                         <ActivityIndicator size="large" color={theme.color.specified.grey} />
                     </View>
                 ) : (

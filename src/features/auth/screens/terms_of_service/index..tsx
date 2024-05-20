@@ -88,7 +88,7 @@ export default function TermsOfServiceScreen({ navigation, route }: TermsOfServi
                         <TouchableOpacity
                             style={Styles.input.lefrBox}
                             onPress={() =>
-                                navigation.navigate("mypage_webview", {
+                                navigation.navigate("general_webview", {
                                     title: "개인정보 처리 방침",
                                     url: "https://villife.notion.site/4aa060ac489b44e7b8bdfaae6b4cab54?pvs=4",
                                 })
@@ -115,7 +115,7 @@ export default function TermsOfServiceScreen({ navigation, route }: TermsOfServi
                         <TouchableOpacity
                             style={Styles.input.lefrBox}
                             onPress={() =>
-                                navigation.navigate("mypage_webview", {
+                                navigation.navigate("general_webview", {
                                     title: "서비스 이용 약관",
                                     url: "https://myvillife.notion.site/myvillife/09d362c9e0a849838db45163ec9c5372",
                                 })

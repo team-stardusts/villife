@@ -89,33 +89,30 @@ export default function useLoginScreenStyles() {
         },
     });
 
-    const joinLink = StyleSheet.create({
+    const link = StyleSheet.create({
         container: {
-            flex: 3.5,
+            width: "100%",
+            alignItems: "center",
         },
-        textWrapper: {
+        wrapper: {
+            width: "100%",
+            maxWidth: 400,
             paddingTop: deviceUI.moderateScale(20),
             flexDirection: "row",
-            alignItems: "flex-start",
             justifyContent: "center",
+        },
+        spacer: {
+            marginHorizontal: 10,
         },
         text: {
-            ...theme.font.researved.h5,
-        },
-        joinText: {
-            marginLeft: deviceUI.moderateScale(10),
-            color: theme.color.specified.blue,
-        },
-        joinWrapper: {
-            flexDirection: "row",
-            alignItems: "flex-start",
-            justifyContent: "center",
+            color: theme.color.specified.black,
+            fontSize: deviceUI.moderateScale(12),
         },
     });
 
     return {
         main,
         input,
-        joinLink,
+        link,
     } as const;
 }

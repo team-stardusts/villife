@@ -1,3 +1,4 @@
+import { LoginFailedReason } from ".";
 import { Responsable, Response } from "../../../../libs/rest_apis/types";
 import { HostType } from "../../../../libs/rest_apis/villife/auth/types";
 import { SocialJoinResultType } from "../../../../libs/rest_apis/villife/auth/types";
@@ -44,6 +45,7 @@ export type JoinServiceParams = {
 export type LoginResult = {
     loginData: LoginDataType | null;
     socialAccessToken?: string;
+    failedReason?: LoginFailedReason;
 };
 
 /* export type AuthServicesReturn = {

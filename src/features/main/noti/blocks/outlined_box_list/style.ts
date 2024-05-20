@@ -1,14 +1,18 @@
 import { StyleSheet } from "react-native";
-import { UseNotiOutLinedBoxListStylesType } from "./type";
 import useStyler from "../../../../common/hooks/styler/hooks";
 
-export default function useNotiOutLinedBoxListStyles(): UseNotiOutLinedBoxListStylesType {
+export default function useNotiOutLinedBoxListStyles() {
     const { deviceUI, theme } = useStyler();
     return StyleSheet.create({
         contentContainer: {
             alignItems: "center",
             width: "100%",
             paddingVertical: deviceUI.moderateScale(10),
+        },
+        whenLoading: {
+            justifyContent: "center",
+            height: deviceUI.getScreenSize().height * 0.7,
+            //marginBottom: 50
         },
         whenEmptyCard: {
             minHeight: deviceUI.moderateScale(400),

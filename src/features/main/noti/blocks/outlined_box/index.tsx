@@ -1,17 +1,12 @@
-import { ActivityIndicator, Pressable, TouchableOpacity, View } from "react-native";
+import { TouchableOpacity, View } from "react-native";
 import { Text } from "react-native";
-import React, { useEffect, useState } from "react";
-import { LayoutAnimation } from "react-native";
+import React, { useMemo, useState } from "react";
 import { OutlinedBoxProps } from "./type";
 import NotiLable from "../noti_label.tsx";
 import NotiBottomEditModal from "../bottom_edit_modal";
 import useNotiOutlinedBoxStyles from "./style";
-import AutoHeightWebView from "react-native-autoheight-webview";
-import RemoteCSS from "../../../../../libs/themes/remote_css";
-import useStyler from "../../../../common/hooks/styler/hooks";
 import { useNavigation } from "@react-navigation/native";
 import { VillifeNavigation } from "../../../../common/router/types";
-import useUserInformation from "../../../../common/hooks/service/user_info";
 import { Shadow } from "react-native-shadow-2";
 import Icon from "../../../../common/atoms/icon";
 
@@ -21,22 +16,19 @@ import Icon from "../../../../common/atoms/icon";
  */
 function OutlinedBox(props: OutlinedBoxProps) {
     const styles = useNotiOutlinedBoxStyles();
-    const user = useUserInformation();
-    const { theme } = useStyler();
     const navigation = useNavigation<VillifeNavigation>();
 
-    const [unfold, setUnfold] = useState(false);
     const [editModalVisible, setEditModalVisible] = useState(false);
-    const [loading, setLoading] = useState(false);
-    const [showActivityIndicator, setShowActivityIndicator] = useState(false);
+    const url = useMemo(() => {
+        return addSearchParamsToPathname("http://192.168.0.27:3000/mobile-view/notice", {
+            content: props.content,
+            createdAt: props.wroteAt,
+            title: props.title,
+            priority: props.priority.toString(),
+        });
+    }, [props]);
 
-    useEffect(() => {
-        return () => {
-            setEditModalVisible(false);
-        };
-    }, []);
-
-    const onPress = async (position: number) => {
+    /* const onPress = async (position: number) => {
         if (!loading) {
             setLoading(true);
             if (!unfold) {
@@ -51,113 +43,58 @@ function OutlinedBox(props: OutlinedBoxProps) {
             setUnfold(!unfold);
             setLoading(false);
         }
-    };
+    }; */
 
     return (
         <>
             <NotiBottomEditModal visible={editModalVisible} setVisible={setEditModalVisible} noticeInfo={props} />
-
-            <Shadow style={styles.container} distance={4}>
-                <View style={styles.innerBox}>
-                    <Pressable
-                        onPress={() => onPress(props.position)}
-                        style={[styles.innerTitleSection, { borderBottomWidth: unfold ? 2 : 0 }]}>
-                        <View style={styles.contentBox}>
-                            <NotiLable priority={props.priority} />
-                            <View style={styles.titleTextBox}>
-                                <Text style={styles.titleText} numberOfLines={3}>
-                                    {unfold || props.title.length < 14 ? props.title : props.title.slice(0, 14) + "..."}
-                                </Text>
-                                <Text style={styles.subTitleText}>{props.wroteAt}</Text>
-                            </View>
-                            <View style={styles.absoluteWrapper}>
-                                <View style={styles.iconBox}>
-                                    {unfold && user?.isAdmin && (
-                                        <TouchableOpacity
-                                            style={styles.editButton}
-                                            onPress={() => {
-                                                setEditModalVisible(true);
-                                            }}>
-                                            <Icon
-                                                name={"pencil"}
-                                                size={styles.editIcon.width}
-                                                color={styles.editIcon.color}
-                                            />
-                                        </TouchableOpacity>
-                                    )}
-                                    {showActivityIndicator ? (
-                                        <ActivityIndicator
-                                            size={styles.indicator.size}
-                                            color={styles.indicator.color}
-                                        />
-                                    ) : (
-                                        <TouchableOpacity onPress={() => onPress(props.position)}>
-                                            <Icon
-                                                name={unfold ? "arrow-up" : "arrow-down"}
-                                                size={styles.vectorIcon.width}
-                                                color={styles.vectorIcon.color}
-                                            />
-                                        </TouchableOpacity>
-                                    )}
-                                </View>
+            <Shadow style={[styles.container, styles.innerBox]} distance={4}>
+                <TouchableOpacity
+                    style={styles.innerTitleSection}
+                    activeOpacity={0.6}
+                    onPress={() =>
+                        navigation.navigate("general_webview", {
+                            title: "공지사항",
+                            url: url,
+                        })
+                    }>
+                    <View style={styles.contentBox}>
+                        <NotiLable priority={props.priority} />
+                        <View style={styles.titleTextBox}>
+                            <Text style={styles.titleText} numberOfLines={3}>
+                                {props.title.length < 14 ? props.title : props.title.slice(0, 14) + "..."}
+                            </Text>
+                            <Text style={styles.subTitleText}>{props.wroteAt}</Text>
+                        </View>
+                        <View style={styles.absoluteWrapper}>
+                            <View style={styles.iconBox}>
+                                <Icon
+                                    name={"arrow-right"}
+                                    size={styles.vectorIcon.width}
+                                    color={styles.vectorIcon.color}
+                                />
                             </View>
                         </View>
-                    </Pressable>
-
-                    {unfold && (
-                        <AutoHeightWebView
-                            style={styles.foldedContainer}
-                            customStyle={`
-                                ${RemoteCSS.getPretendardRegular()}
-                                body {
-                                    font-size: 14px;
-                                    font-family:"Pretendard-Regular";
-                                }
-                                div {
-                                    color: ${theme.color.specified.black.toString()};
-                                }
-                                img {
-                                    width: 80vw !important;
-                                    min-height: 80vw !important;
-                                    object-fit: cover;
-                                    display:block;
-                                    border-radius: 15px;
-                                }`}
-                            source={{ html: props.content }}
-                            cacheEnabled={false}
-                            onLoadEnd={() => {
-                                setShowActivityIndicator(false);
-                                props.flatListRef.current?.scrollToIndex({
-                                    animated: false,
-                                    index: props.position,
-                                });
-                            }}
-                            customScript={`
-                                try {
-                                    const images = document.getElementsByTagName('img'); 
-                                    for (const image of images) {
-                                        image.addEventListener('click', () => {
-                                            const src = image.src
-                                            window.ReactNativeWebView.postMessage(JSON.stringify(src));
-                                        });
-                                    }
-                                } catch(e){
-                                    window.ReactNativeWebView.postMessage(JSON.stringify("error"));
-                                }`}
-                            javaScriptEnabled={true}
-                            onMessage={(event) => {
-                                const imageUri = JSON.parse(event.nativeEvent.data);
-                                navigation.navigate("image_detail_view", {
-                                    uri: imageUri,
-                                });
-                            }}
-                            scalesPageToFit={false}
-                            viewportContent={"width=device-width, user-scalable=no"}></AutoHeightWebView>
-                    )}
-                </View>
+                    </View>
+                </TouchableOpacity>
             </Shadow>
         </>
     );
 }
 
 export default OutlinedBox;
+
+function addSearchParamsToPathname(pathname: string, params: Record<string, string>): string {
+    const searchParams = new URLSearchParams();
+
+    // params 객체에서 키와 값을 추출하여 searchParams에 추가
+    for (const [key, value] of Object.entries(params)) {
+        searchParams.append(key, value);
+    }
+
+    // searchParams가 비어있지 않다면 문자열로 변환
+    const queryString = searchParams.toString();
+
+    // 새로운 경로 생성 (query string이 비어있지 않은 경우만 추가)
+    return queryString ? `${pathname}?${queryString}` : pathname;
+}

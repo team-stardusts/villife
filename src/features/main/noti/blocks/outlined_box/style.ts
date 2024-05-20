@@ -44,6 +44,8 @@ export default function useNotiOutlinedBoxStyles() {
         foldedContainer: {
             marginVertical: deviceUI.moderateScale(25),
             width: deviceUI.getScreenSize().width * 0.8,
+            //width: "100%",
+            minHeight: 80,
             zIndex: 6,
         },
         titleText: {

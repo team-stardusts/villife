@@ -1,5 +1,5 @@
+import { Villife } from "@team-stardusts/villife-client";
 import { HostType as VillifeHostType } from "../../../rest_apis/villife/auth/types";
-import Villife from "../../../villife-client/types";
 
 export type HostType = VillifeHostType;
 

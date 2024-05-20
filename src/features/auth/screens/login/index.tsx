@@ -6,7 +6,7 @@ import UniversalTextInput from "../../../common/blocks/universial/textinput";
 import { useEffect, useState } from "react";
 import ScreenTitleView from "../../../common/blocks/title_view";
 import { HostType } from "../../../../libs/storage/tables/login/types";
-import useAuthService from "../../services/authentication";
+import useAuthService, { LoginFailedReason } from "../../services/authentication";
 import { LoginServiceParams } from "../../services/authentication/types";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import LoginButton from "./blocks/button";
@@ -28,7 +28,7 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
     }, []);
 
     const loginTo = async (host: HostType, params?: LoginServiceParams | undefined) => {
-        const { loginData, socialAccessToken } = await auth.login(host, params);
+        const { loginData, socialAccessToken, failedReason } = await auth.login(host, params);
 
         switch (host) {
             case "apple":
@@ -47,11 +47,22 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
                 }
                 break;
             default: // "villife"
-                if (loginData === null) {
-                    Alert.alert(
-                        messages.messages.auth.login.invalid_login_data.id,
-                        messages.messages.auth.login.invalid_login_data.password
-                    );
+                if (failedReason !== undefined) {
+                    let title = "오류가 발생하여 로그인을 하지 못했습니다.";
+                    let message: string | undefined = "지속적으로 발생할 경우 빌라이프 팀에 문의 바랍니다.";
+
+                    switch (failedReason) {
+                        case LoginFailedReason.IdNotFound:
+                            title = "등록되지 않은 계정입니다.";
+                            message = undefined;
+                            break;
+                        case LoginFailedReason.WrongPassword:
+                            title = "잘못된 비밀번호 입니다.";
+                            message = undefined;
+                            break;
+                    }
+
+                    Alert.alert(title, message);
                 }
         }
     };
@@ -119,27 +130,45 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
                             </View>
                         );
                     })}
-                    <View style={styles.joinLink.textWrapper}>
-                        <TouchableOpacity
-                            activeOpacity={0.4}
-                            onPress={() => {
-                                console.log("회원가입 클릭");
-                                navigation.navigate("terms_of_service", {
-                                    host: "villife",
-                                    access_token: undefined,
-                                });
-                            }}>
-                            <View style={styles.joinLink.textWrapper}>
-                                <Text style={styles.joinLink.text}>{messages.messages.auth.login.join_intro}</Text>
-                                <Text style={[styles.joinLink.text, styles.joinLink.joinText]}>
-                                    {messages.messages.auth.login.join}
-                                </Text>
+                    <View style={styles.link.container}>
+                        <View style={styles.link.wrapper}>
+                            <TouchableOpacity
+                                activeOpacity={0.4}
+                                onPress={() => {
+                                    navigation.navigate("terms_of_service", {
+                                        host: "villife",
+                                        access_token: undefined,
+                                    });
+                                }}>
+                                <Text style={styles.link.text}>{messages.messages.auth.login.join}</Text>
+                            </TouchableOpacity>
+                            <View style={styles.link.spacer}>
+                                <Text style={styles.link.text}>|</Text>
                             </View>
-                        </TouchableOpacity>
-                        {/*  <Text style={[{ marginHorizontal: deviceUI.moderateScale(8) }, styles.joinLink.text]}>|</Text> */}
-                        {/* <TouchableOpacity activeOpacity={0.4} onPress={showToast}>
-                            <Text style={styles.joinLink.text}>{messages.messages.auth.login.reset_password}</Text>
-                        </TouchableOpacity> */}
+                            <TouchableOpacity
+                                activeOpacity={0.4}
+                                onPress={() => {
+                                    navigation.navigate("general_webview", {
+                                        title: "아이디 찾기",
+                                        url: "http://myvillife.com/auth/finding-account?target=id&isMobile=true",
+                                    });
+                                }}>
+                                <Text style={styles.link.text}>아이디 찾기</Text>
+                            </TouchableOpacity>
+                            <View style={styles.link.spacer}>
+                                <Text style={styles.link.text}>|</Text>
+                            </View>
+                            <TouchableOpacity
+                                activeOpacity={0.4}
+                                onPress={() => {
+                                    navigation.navigate("general_webview", {
+                                        title: "비밀번호 재설정",
+                                        url: "http://myvillife.com/auth/finding-account?target=password&isMobile=true",
+                                    });
+                                }}>
+                                <Text style={styles.link.text}>비밀번호 재설정</Text>
+                            </TouchableOpacity>
+                        </View>
                     </View>
                 </KeyboardAwareScrollView>
             </ScreenTitleView>
