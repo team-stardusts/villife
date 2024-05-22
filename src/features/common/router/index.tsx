@@ -94,8 +94,10 @@ export default function ScreenRouter() {
 
         checkVersionIsLatest();
 
-        const appStateListener = AppState.addEventListener("focus", () => {
-            checkVersionIsLatest();
+        const appStateListener = AppState.addEventListener("change", (state) => {
+            if (state === "active") {
+                checkVersionIsLatest();
+            }
         });
 
         return () => {
