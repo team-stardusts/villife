@@ -91,6 +91,6 @@ export default function useUserInformation(): UserInfo | null {
             }
         }
     }
-
+    
     return new UserInfoProvider(loginData, adminInfo);
 }

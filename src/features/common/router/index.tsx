@@ -41,7 +41,7 @@ import ComposeMessageScreen from "../../main/lease_contract/screens/compose_mess
 import CommonPaymentWindowScreen from "../../expense/payment/screens/payment_window_common";
 import ConfirmPaymentCostScreen from "../../expense/payment/screens/confirm_payment_cost";
 import ManagementFeeDetailScreen from "../../expense/management_fee/screens/detail";
-import { Platform } from "react-native";
+import { Alert, AppState, Linking, Platform } from "react-native";
 import useFirebaseMessagingEmitter from "../hooks/firebase/messaging/emission";
 import CompanyIntroductionScreen from "../../main/mypage/screens/company_introduction";
 import ExpenseApprovalScreen from "../../expense/management_fee/screens/approval/screens/home";
@@ -70,6 +70,7 @@ import { NetInfoEvents } from "../../../libs/netinfo/types";
 import { NetInfoState } from "@react-native-community/netinfo";
 import NetInfoEventHandler from "../../../libs/netinfo";
 import useFirebaseMessagingListener from "../hooks/firebase/messaging/listening";
+import villifeVersion from "../../../libs/villife-version";
 
 enableScreens(true);
 
@@ -91,8 +92,15 @@ export default function ScreenRouter() {
             setIsConnectedToNetwork(state.isConnected === null ? false : state.isConnected);
         });
 
+        checkVersionIsLatest();
+
+        const appStateListener = AppState.addEventListener("focus", () => {
+            checkVersionIsLatest();
+        });
+
         return () => {
             netinfo.removeAllListeners();
+            appStateListener.remove();
         };
     }, []);
 
@@ -208,3 +216,27 @@ export default function ScreenRouter() {
         </Stack.Navigator>
     );
 }
+
+const checkVersionIsLatest = () =>
+    villifeVersion.needToUpdate().then((r) => {
+        if (r.isNeeded) {
+            villifeVersion.getStoreUrl().then((storeUrl) => {
+                Linking.canOpenURL(storeUrl).then((canOpenUrl) => {
+                    if (canOpenUrl) {
+                        Alert.alert(
+                            "새로운 버전이 출시 되었습니다!",
+                            `${Platform.OS === "ios" ? "앱스토어" : "플레이스토어"}에서 최신 버전(${
+                                r.latestVersion
+                            })으로 업그레이드 해주세요.`,
+                            [
+                                {
+                                    text: "스토어로 이동",
+                                    onPress: () => Linking.openURL(storeUrl),
+                                },
+                            ]
+                        );
+                    }
+                });
+            });
+        }
+    });

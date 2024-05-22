@@ -1,6 +1,5 @@
 import { useNavigation } from "@react-navigation/native";
-import messaging from "@react-native-firebase/messaging";
-import { VillifeNavigation, VillifeRouterParams, VillifeStackParamList } from "../types";
+import { VillifeNavigation } from "../types";
 import { VillifeAppState, RouteFiniteStateMachine, VillifeLoginState } from "./types";
 import VillifeStorage from "../../../../libs/storage";
 import { useRecoilState, useSetRecoilState } from "recoil";

@@ -27,12 +27,10 @@ class VillifeVersionChecker {
     }
 
     public static async needToUpdate(): Promise<any> {
-        return (
-            await VersionCheck.needUpdate({
-                depth: 2, // 1.0.0 => 1.0
-                latestVersion: await this.getUpstreamVersion(),
-            })
-        ).isNeeded;
+        return VersionCheck.needUpdate({
+            depth: 2, // 1.0.0 => 1.0
+            latestVersion: await this.getUpstreamVersion(),
+        });
     }
 }
 

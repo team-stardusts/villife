@@ -131,44 +131,45 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
                         );
                     })}
                     <View style={styles.link.container}>
-                        <View style={styles.link.wrapper}>
-                            <TouchableOpacity
-                                activeOpacity={0.4}
-                                onPress={() => {
-                                    navigation.navigate("terms_of_service", {
-                                        host: "villife",
-                                        access_token: undefined,
-                                    });
-                                }}>
-                                <Text style={styles.link.text}>{messages.messages.auth.login.join}</Text>
-                            </TouchableOpacity>
-                            <View style={styles.link.spacer}>
-                                <Text style={styles.link.text}>|</Text>
-                            </View>
-                            <TouchableOpacity
-                                activeOpacity={0.4}
-                                onPress={() => {
-                                    navigation.navigate("general_webview", {
-                                        title: "아이디 찾기",
-                                        url: "http://myvillife.com/auth/finding-account?target=id&isMobile=true",
-                                    });
-                                }}>
-                                <Text style={styles.link.text}>아이디 찾기</Text>
-                            </TouchableOpacity>
-                            <View style={styles.link.spacer}>
-                                <Text style={styles.link.text}>|</Text>
-                            </View>
-                            <TouchableOpacity
-                                activeOpacity={0.4}
-                                onPress={() => {
-                                    navigation.navigate("general_webview", {
-                                        title: "비밀번호 재설정",
-                                        url: "http://myvillife.com/auth/finding-account?target=password&isMobile=true",
-                                    });
-                                }}>
-                                <Text style={styles.link.text}>비밀번호 재설정</Text>
-                            </TouchableOpacity>
+                        <TouchableOpacity
+                            style={styles.link.wrapper}
+                            activeOpacity={0.4}
+                            onPress={() => {
+                                navigation.navigate("terms_of_service", {
+                                    host: "villife",
+                                    access_token: undefined,
+                                });
+                            }}>
+                            <Text style={styles.link.text}>{messages.messages.auth.login.join}</Text>
+                        </TouchableOpacity>
+                        <View style={styles.link.spacer}>
+                            <Text style={styles.link.text}>|</Text>
                         </View>
+                        <TouchableOpacity
+                            style={styles.link.wrapper}
+                            activeOpacity={0.4}
+                            onPress={() => {
+                                navigation.navigate("general_webview", {
+                                    title: "아이디 찾기",
+                                    url: "http://myvillife.com/auth/finding-account?target=id&isMobile=true",
+                                });
+                            }}>
+                            <Text style={styles.link.text}>아이디 찾기</Text>
+                        </TouchableOpacity>
+                        <View style={styles.link.spacer}>
+                            <Text style={styles.link.text}>|</Text>
+                        </View>
+                        <TouchableOpacity
+                            style={styles.link.wrapper}
+                            activeOpacity={0.4}
+                            onPress={() => {
+                                navigation.navigate("general_webview", {
+                                    title: "비밀번호 재설정",
+                                    url: "http://myvillife.com/auth/finding-account?target=password&isMobile=true",
+                                });
+                            }}>
+                            <Text style={styles.link.text}>비밀번호 재설정</Text>
+                        </TouchableOpacity>
                     </View>
                 </KeyboardAwareScrollView>
             </ScreenTitleView>

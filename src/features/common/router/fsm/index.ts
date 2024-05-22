@@ -4,10 +4,10 @@ import { loginDataState } from "../../hooks/states/atoms/login";
 import VillifeStorage from "../../../../libs/storage";
 import { LoginDataType } from "../../../../libs/storage/tables/login/types";
 import useUserInformation from "../../hooks/service/user_info";
-import useRouteFSM from "./machine";
 import { RouteFiniteStateMachine, VillifeAppState, VillifeLoginState } from "./types";
 import { objectToCamel } from "ts-case-convert";
 import { Linking } from "react-native";
+import useRouteFSM from "./machine";
 
 function parseBuildingId(id: any) {
     const parsedId: number = parseInt(id);

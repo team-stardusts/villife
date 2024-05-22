@@ -92,14 +92,16 @@ export default function useLoginScreenStyles() {
     const link = StyleSheet.create({
         container: {
             width: "100%",
+            flexDirection: "row",
             alignItems: "center",
+            justifyContent: "center",
+            paddingTop: deviceUI.moderateScale(20),
         },
         wrapper: {
-            width: "100%",
-            maxWidth: 400,
-            paddingTop: deviceUI.moderateScale(20),
-            flexDirection: "row",
-            justifyContent: "center",
+            maxWidth: 100,
+            paddingVertical: 4,
+            paddingHorizontal: 6,
+            borderRadius: 8,
         },
         spacer: {
             marginHorizontal: 10,
