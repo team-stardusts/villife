@@ -16,12 +16,14 @@ export default function useVehicleDetailModalStyles() {
             marginBottom: deviceUI.moderateScale(10),
         },
         key: {
-            fontFamily: theme.font.fontFamily.pretendard.bold,
+            fontFamily: theme.font.fontFamily.pretendard.medium,
             fontSize: deviceUI.moderateScale(14),
+            color: theme.color.specified.black,
         },
         value: {
             fontFamily: theme.font.fontFamily.pretendard.regular,
             fontSize: deviceUI.moderateScale(12),
+            color: theme.color.specified.black,
         },
     });
 }

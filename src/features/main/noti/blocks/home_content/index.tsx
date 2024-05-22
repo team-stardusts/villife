@@ -9,6 +9,7 @@ import useHomeContentCardStyle from "./styles";
 import useNotiViewModel from "../outlined_box_list/useNotiViewModel";
 import useUserInformation from "../../../../common/hooks/service/user_info";
 import Icon from "../../../../common/atoms/icon";
+import { addSearchParamsToPathname } from "../../../../common/global_function";
 
 export default function HomeContentFromNoti() {
     const messages = useScreenMessage();
@@ -71,7 +72,18 @@ export default function HomeContentFromNoti() {
                                 return (
                                     <TouchableOpacity
                                         onPress={() => {
-                                            navigation.navigate("noti_home", noti);
+                                            navigation.navigate("general_webview", {
+                                                title: "공지사항",
+                                                url: addSearchParamsToPathname(
+                                                    "https://myvillife.com/mobile-view/notice",
+                                                    {
+                                                        content: noti.Content,
+                                                        createdAt: noti.UpdatedAt,
+                                                        title: noti.Title,
+                                                        priority: noti.Priority.toString(),
+                                                    }
+                                                ),
+                                            });
                                         }}
                                         key={noti.ID}
                                         style={style.itemContainer}>

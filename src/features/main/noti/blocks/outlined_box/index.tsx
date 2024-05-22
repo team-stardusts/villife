@@ -9,6 +9,7 @@ import { useNavigation } from "@react-navigation/native";
 import { VillifeNavigation } from "../../../../common/router/types";
 import { Shadow } from "react-native-shadow-2";
 import Icon from "../../../../common/atoms/icon";
+import { addSearchParamsToPathname } from "../../../../common/global_function";
 
 /**
  * @param OutlinedBoxProp
@@ -83,18 +84,3 @@ function OutlinedBox(props: OutlinedBoxProps) {
 }
 
 export default OutlinedBox;
-
-function addSearchParamsToPathname(pathname: string, params: Record<string, string>): string {
-    const searchParams = new URLSearchParams();
-
-    // params 객체에서 키와 값을 추출하여 searchParams에 추가
-    for (const [key, value] of Object.entries(params)) {
-        searchParams.append(key, value);
-    }
-
-    // searchParams가 비어있지 않다면 문자열로 변환
-    const queryString = searchParams.toString();
-
-    // 새로운 경로 생성 (query string이 비어있지 않은 경우만 추가)
-    return queryString ? `${pathname}?${queryString}` : pathname;
-}
